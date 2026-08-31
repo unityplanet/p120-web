@@ -52,9 +52,9 @@ function renderCompatibilityReading(section){
   const title=body[0]||'';
   const cards=body.slice(1,5);
   const outro=body.slice(5,7);
-  return `<section class="compatibility-reading" aria-label="Различия в переживании близости">
+  return `<section class="compatibility-reading" aria-label="${esc(title)}">
     <aside class="compatibility-reading-rail">
-      <div class="compatibility-reading-eyebrow">РАЗЛИЧИЯ НЕ ВСЕГДА ОЗНАЧАЮТ ОШИБКУ</div>
+      <div class="compatibility-reading-eyebrow">${esc(section.flash||'')}</div>
       <div class="compatibility-reading-orbit" aria-hidden="true"><span></span><i></i><b></b></div>
     </aside>
     <div class="compatibility-reading-main">
