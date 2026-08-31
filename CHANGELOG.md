@@ -1,5 +1,25 @@
 # P-120 Web — Changelog
 
+## Extended Research Set Section v1.0 — 2026-08-31
+
+### Additive editorial chapter
+- Added standalone chapter `А хотите ещё глубже?` / `P-120 Extended Research Set`.
+- Presents COM-12, MOT-12, SELF-12 and LIFE-12/18 as optional future research directions around an unchanged P-120 core profile.
+- Added a central `Core → optional lenses` research-atlas composition rather than an equal four-card features grid.
+- Added cross-layer research examples, explicit post-pilot scientific boundary, two-systems future-research bridge and transparent development-state CTA.
+- Added future-ready independent module metadata without introducing any extended total or production scoring namespace.
+- Preserved Ivory, Graphite and Museum theme semantics and responsive editorial language.
+
+### Governance lock
+- Measurement changes: NONE.
+- Scoring changes: NONE.
+- Questionnaire changes: NONE.
+- Current report changes: NONE.
+- No new compatibility score, global total, archetype or validated-module claim.
+
+Specification: `EXTENDED_RESEARCH_SET_SECTION_SPEC.md`.
+QA: `QA_REPORT.md`.
+
 ## [1.6.1] — 2026-08-31
 
 ### Contrast Architecture Restoration
