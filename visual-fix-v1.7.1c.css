@@ -1,0 +1,232 @@
+/* P-120 Web Editorial v1.7.1c — Screenshot Composition Corrections
+   Target: five confirmed desktop visual regressions from 2048px captures.
+   Scope is presentation/rendering only; frozen content and measurement logic remain unchanged. */
+
+/* --------------------------------------------------------------------------
+   1. Manifestations: give the 3x3 typographic objects enough real width.
+   -------------------------------------------------------------------------- */
+@media (min-width:1121px){
+  .semantic-life-energy{
+    grid-template-columns:minmax(560px,1.08fr) minmax(0,.92fr)!important;
+    column-gap:clamp(54px,5vw,94px)!important;
+    row-gap:30px!important;
+  }
+  .semantic-life-energy>.grammar-kicker{grid-column:1;grid-row:1}
+  .semantic-life-energy>.semantic-flow-intro{grid-column:2;grid-row:1;margin:0;align-self:end;max-width:38ch}
+  .semantic-life-energy>.semantic-flow-grid{grid-column:1;grid-row:2;margin:0}
+  .semantic-life-energy>.editorial-prose{grid-column:2;grid-row:2;margin:0;max-width:760px}
+  .semantic-flow-card{
+    min-width:0;
+    min-height:150px;
+    padding:19px 20px 18px;
+  }
+  .semantic-flow-card p{
+    font-size:clamp(18px,1.22vw,23px);
+    line-height:1.32;
+    overflow-wrap:normal;
+    hyphens:auto;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Two systems: widen the encounter and align explanation as its counterpart.
+   -------------------------------------------------------------------------- */
+@media (min-width:1121px){
+  .semantic-two-systems{
+    grid-template-columns:minmax(610px,1.06fr) minmax(0,.94fr)!important;
+    column-gap:clamp(58px,5vw,100px)!important;
+    row-gap:34px!important;
+  }
+  .semantic-two-systems>.grammar-kicker{grid-column:1;grid-row:1}
+  .semantic-two-systems>.semantic-sequence{grid-column:2;grid-row:1}
+  .semantic-two-systems>.systems-encounter{
+    grid-column:1;
+    grid-row:2;
+    margin:0!important;
+    padding:28px!important;
+  }
+  .semantic-two-systems>.systems-closing{
+    grid-column:2;
+    grid-row:2;
+    margin:2px 0 0!important;
+    max-width:64ch!important;
+    align-self:start;
+  }
+  .systems-encounter-head{
+    grid-template-columns:minmax(0,1.25fr) minmax(180px,.75fr)!important;
+    gap:24px!important;
+    margin-bottom:22px!important;
+    align-items:start!important;
+  }
+  .systems-encounter-head h3{
+    font-size:clamp(29px,2vw,39px)!important;
+    line-height:1.04;
+  }
+  .systems-encounter-head p{
+    justify-self:end;
+    font-size:12.5px;
+    line-height:1.55;
+  }
+  .systems-encounter-grid{
+    grid-template-columns:minmax(0,1fr) 72px minmax(0,1fr)!important;
+    gap:14px!important;
+  }
+  .system-panel{padding:20px!important}
+  .system-panel-head strong{font-size:21px!important}
+  .system-dimensions{gap:7px 6px!important}
+  .system-dimensions span{font-size:9.5px!important;padding:7px 9px!important}
+  .system-meet strong{width:52px!important;height:52px!important}
+  .systems-closing p{font-size:16.5px!important;line-height:1.67!important}
+  .systems-closing p:first-child{font-size:clamp(24px,1.7vw,31px)!important;line-height:1.42!important}
+}
+
+/* --------------------------------------------------------------------------
+   3. A != B: convert the huge dead left field into a deliberate editorial rail.
+   -------------------------------------------------------------------------- */
+@media (min-width:1121px){
+  .semantic-precision{
+    grid-template-columns:minmax(190px,.28fr) minmax(0,1.72fr)!important;
+    column-gap:clamp(46px,4.5vw,82px)!important;
+    row-gap:24px!important;
+  }
+  .semantic-precision>.grammar-kicker{
+    grid-column:1;
+    grid-row:1;
+    margin-top:7px;
+    align-self:start;
+  }
+  .semantic-precision>.semantic-distinction-list{
+    grid-column:2;
+    grid-row:1;
+    width:100%;
+    max-width:none;
+  }
+  .semantic-precision>.semantic-distinction-closing{
+    grid-column:2;
+    grid-row:2;
+    margin-top:4px;
+    max-width:48ch;
+  }
+  .semantic-distinction-card{
+    grid-template-columns:minmax(0,1fr) 94px minmax(0,1fr)!important;
+  }
+  .semantic-distinction-side{min-height:112px!important;padding:22px 24px!important}
+  .semantic-distinction-side p{font-size:clamp(20px,1.38vw,27px)!important;line-height:1.3!important}
+}
+
+/* --------------------------------------------------------------------------
+   4. Central P-120 architecture: use the stage, reduce detached whitespace.
+   -------------------------------------------------------------------------- */
+@media (min-width:1121px){
+  .semantic-orbital-map{
+    grid-template-columns:minmax(190px,.25fr) minmax(0,1.75fr)!important;
+    column-gap:clamp(46px,4.5vw,82px)!important;
+    align-items:start!important;
+  }
+  .semantic-orbital-map>.grammar-kicker{
+    grid-column:1;
+    grid-row:1;
+    margin-top:7px;
+    align-self:start;
+  }
+  .semantic-orbital-map>.orbital-map-shell{
+    grid-column:2;
+    grid-row:1;
+    width:100%;
+    margin:0!important;
+    padding:30px 30px 28px!important;
+  }
+  .semantic-orbital-map .orbital-map-core{
+    width:210px!important;
+    height:210px!important;
+    margin:0 auto 26px!important;
+  }
+  .semantic-orbital-map .orbital-map-core strong{font-size:38px!important}
+  .semantic-orbital-map .orbital-cluster-grid{gap:14px!important}
+  .semantic-orbital-map .orbital-cluster{padding:20px 20px 19px 58px!important}
+  .semantic-orbital-map .orbital-cluster h4{font-size:clamp(21px,1.35vw,27px)!important}
+  .semantic-orbital-map .orbital-cluster li{font-size:12px!important;line-height:1.52!important}
+
+  /* The action belongs to this composition, not to an unrelated empty left corner. */
+  .editorial-chapter:has(.semantic-orbital-map)>.chapter-cta{
+    margin-left:calc(12.5% + clamp(23px,2.25vw,41px));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Science: 11 labels stay labels; prose begins where prose actually begins.
+      CSS below reconnects the previously separated left and right compositions.
+   -------------------------------------------------------------------------- */
+@media (min-width:1121px){
+  .science-body{
+    display:grid!important;
+    grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr)!important;
+    column-gap:clamp(64px,6vw,116px)!important;
+    row-gap:26px!important;
+    align-items:start!important;
+  }
+  .science-body>.science-body-intro{
+    grid-column:1;
+    grid-row:1;
+    margin:0;
+    max-width:31ch;
+    font-size:clamp(25px,1.8vw,34px)!important;
+    line-height:1.42!important;
+  }
+  .science-body>.science-topic-grid{
+    grid-column:1;
+    grid-row:2;
+    margin:4px 0 0!important;
+    align-content:start;
+  }
+  .science-body>.editorial-prose{
+    grid-column:2;
+    grid-row:1 / span 2;
+    margin:0!important;
+    max-width:780px!important;
+    padding-top:2px;
+  }
+  .science-body>.editorial-prose p:first-child{
+    margin-top:0!important;
+  }
+  .science-topic-grid span{
+    padding:9px 13px!important;
+    font-size:12.5px!important;
+  }
+  .editorial-chapter:has(.science-body)>.chapter-cta{
+    margin-left:calc(44% + clamp(32px,3vw,58px));
+    margin-top:34px!important;
+  }
+}
+
+/* Museum receives slightly more material distinction without adding card noise. */
+body[data-theme="museum"] .semantic-flow-card,
+body[data-theme="museum"] .semantic-distinction-card,
+body[data-theme="museum"] .system-panel,
+body[data-theme="museum"] .orbital-cluster{
+  border-color:rgba(47,125,120,.22);
+}
+body[data-theme="museum"] .systems-encounter,
+body[data-theme="museum"] .orbital-map-shell{
+  border-color:rgba(31,92,91,.34);
+}
+body[data-theme="museum"] .science-topic-grid span{
+  background:rgba(251,248,239,.78);
+  border-color:rgba(47,125,120,.22);
+}
+
+/* Preserve the already-good tablet/mobile architecture. */
+@media (max-width:1120px){
+  .semantic-life-energy,
+  .semantic-two-systems,
+  .semantic-precision,
+  .semantic-orbital-map,
+  .science-body{grid-template-columns:1fr!important}
+  .semantic-life-energy>*,
+  .semantic-two-systems>*,
+  .semantic-precision>*,
+  .semantic-orbital-map>*,
+  .science-body>*{grid-column:1!important;grid-row:auto!important}
+  .editorial-chapter:has(.semantic-orbital-map)>.chapter-cta,
+  .editorial-chapter:has(.science-body)>.chapter-cta{margin-left:0!important}
+}
