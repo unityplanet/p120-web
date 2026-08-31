@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - visual-fix-v1.7.1g.css
+      - visual-fix-v1.7.1h.css
       - .github/workflows/apply-v171g-compatibility-reading.yml
   workflow_dispatch:
 
@@ -29,11 +30,15 @@ jobs:
           p = Path('index.html')
           text = p.read_text(encoding='utf-8')
 
-          tag = '<link rel="stylesheet" href="visual-fix-v1.7.1g.css?v=171g" data-p120-visual-fix="v1.7.1g" />'
-          text = re.sub(r'\s*<link[^>]+data-p120-visual-fix="v1\.7\.1g"[^>]*>\s*', '\n', text, count=1, flags=re.I)
+          tags = [
+              '<link rel="stylesheet" href="visual-fix-v1.7.1g.css?v=171g" data-p120-visual-fix="v1.7.1g" />',
+              '<link rel="stylesheet" href="visual-fix-v1.7.1h.css?v=171h" data-p120-visual-fix="v1.7.1h" />',
+          ]
+          for version in ('v1.7.1g','v1.7.1h'):
+              text = re.sub(r'\s*<link[^>]+data-p120-visual-fix="' + re.escape(version) + r'"[^>]*>\s*', '\n', text, count=1, flags=re.I)
           if '</head>' not in text:
               raise SystemExit('index.html: </head> not found')
-          text = text.replace('</head>', '  ' + tag + '\n</head>', 1)
+          text = text.replace('</head>', '  ' + '\n  '.join(tags) + '\n</head>', 1)
 
           start = '/* P120 v1.7.1g COMPATIBILITY READING START */'
           end = '/* P120 v1.7.1g COMPATIBILITY READING END */'
@@ -85,7 +90,7 @@ jobs:
               text = text.replace(old_route, new_route, 1)
 
           p.write_text(text, encoding='utf-8')
-          print('v1.7.1g patch applied')
+          print('v1.7.1g/h patch applied')
           PY
 
       - name: Commit patched index
@@ -98,5 +103,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git commit -m "Apply v1.7.1g framed compatibility reading design"
+          git commit -m "Apply v1.7.1h life-energy layout refinement"
           git push
