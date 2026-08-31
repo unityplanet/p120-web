@@ -30,7 +30,6 @@ jobs:
           path = Path('index.html')
           text = path.read_text(encoding='utf-8')
 
-          # 1) Link the final visual layer after previous corrective layers.
           tag = '<link rel="stylesheet" href="visual-fix-v1.7.1d.css?v=171d" data-p120-visual-fix="v1.7.1d" />'
           link_re = re.compile(r'\s*<link[^>]+data-p120-visual-fix="v1\.7\.1d"[^>]*>\s*', re.I)
           if link_re.search(text):
@@ -40,19 +39,18 @@ jobs:
                   raise SystemExit('index.html has no </head>')
               text = text.replace('</head>', '  ' + tag + '\n</head>', 1)
 
-          # 2) Add a dedicated renderer for section 01 using the existing copy verbatim.
-          helper = r'''function renderWhyImportantManifesto(section){
-  const b=section.body;
-  return `<div class="editorial-body why-important-manifesto"><div class="manifesto-stage"><p class="manifesto-lead">${esc(b[0])}</p><div class="manifesto-lines">${b.slice(1,7).map(x=>`<p>${esc(x)}</p>`).join('')}</div><div class="manifesto-closing"><div class="manifesto-closing-copy">${b.slice(7,9).map(x=>`<p>${esc(x)}</p>`).join('')}</div><p class="manifesto-final">${esc(b[9])}</p></div></div></div>`;
-}
-'''
+          helper = (
+              "function renderWhyImportantManifesto(section){\n"
+              "  const b=section.body;\n"
+              "  return `<div class=\"editorial-body why-important-manifesto\"><div class=\"manifesto-stage\"><p class=\"manifesto-lead\">${esc(b[0])}</p><div class=\"manifesto-lines\">${b.slice(1,7).map(x=>`<p>${esc(x)}</p>`).join('')}</div><div class=\"manifesto-closing\"><div class=\"manifesto-closing-copy\">${b.slice(7,9).map(x=>`<p>${esc(x)}</p>`).join('')}</div><p class=\"manifesto-final\">${esc(b[9])}</p></div></div></div>`;\n"
+              "}\n"
+          )
           if 'function renderWhyImportantManifesto(section)' not in text:
               marker = 'function renderEditorialBody(section){'
               if marker not in text:
                   raise SystemExit('renderEditorialBody marker not found')
               text = text.replace(marker, helper + marker, 1)
 
-          # 3) Route only why-important through the new renderer.
           body_marker = "function renderEditorialBody(section){\n  const b=section.body;"
           route = "function renderEditorialBody(section){\n  const b=section.body;\n  if(section.id==='why-important') return renderWhyImportantManifesto(section);"
           if "if(section.id==='why-important') return renderWhyImportantManifesto(section);" not in text:
@@ -80,7 +78,6 @@ jobs:
           missing = [x for x in required if x not in text]
           if missing:
               raise SystemExit('Missing v1.7.1d markers: ' + ', '.join(missing))
-          # Guard the exact existing copy remained present.
           copy_guard = [
               'Сексуальность начинается намного раньше секса.',
               'С того, кого мы замечаем.',
@@ -93,8 +90,7 @@ jobs:
               'Мы чувствуем их — но редко можем точно назвать.',
               'P-120 создан, чтобы сделать эту внутреннюю систему видимой.'
           ]
-          missing_copy = [x for x in copy_guard if x not in text]
-          if missing_copy:
+          if any(x not in text for x in copy_guard):
               raise SystemExit('Frozen copy guard failed')
           print('v1.7.1d static guard PASS')
           PY
