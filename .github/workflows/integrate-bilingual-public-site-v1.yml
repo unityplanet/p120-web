@@ -40,7 +40,10 @@ jobs:
 
           en=ru
           en=re.sub(r'<html([^>]*?)lang=["\']ru["\']',r'<html\1lang="en"',en,count=1,flags=re.I)
-          en=en.replace('<head>','<head>\n  <base href="../">',1)
+          # No <base>: fragment links (#science-..., #extended-...) must stay inside /en/.
+          # Prefix only actual shared local assets with ../ so they resolve from /en/.
+          asset_re=re.compile(r'(?P<a>\b(?:href|src)=["\'])(?P<p>(?!https?:|//|/|#|data:|mailto:|tel:|\.\./)[^"\']+\.(?:css|js|svg|webmanifest|png|jpe?g|webp)(?:\?[^"\']*)?)(?P<q>["\'])',re.I)
+          en=asset_re.sub(lambda m:m.group('a')+'../'+m.group('p')+m.group('q'),en)
           en=re.sub(r'<title>.*?</title>','<title>P-120 — architecture of attraction and intimacy</title>',en,count=1,flags=re.S|re.I)
           en=re.sub(r'<meta name="description" content="[^"]*"\s*/?>','<meta name="description" content="P-120 is a multilayer research architecture exploring attraction, intimacy, bodily response, touch, attachment regulation and desire durability. Research Candidate · 18+." />',en,count=1,flags=re.I)
           en=re.sub(r'<meta property="og:title" content="[^"]*"\s*/?>','<meta property="og:title" content="P-120 — architecture of attraction and intimacy" />',en,count=1,flags=re.I)
@@ -48,14 +51,16 @@ jobs:
           en=re.sub(r'<meta name="twitter:title" content="[^"]*"\s*/?>','<meta name="twitter:title" content="P-120 — architecture of attraction and intimacy" />',en,count=1,flags=re.I)
           en=re.sub(r'<meta name="twitter:description" content="[^"]*"\s*/?>','<meta name="twitter:description" content="Research Candidate · 18+ · multilayer research architecture." />',en,count=1,flags=re.I)
           en=en.replace('</head>','  <link rel="alternate" hreflang="ru" href="../" />\n  <link rel="alternate" hreflang="en" href="./" />\n</head>',1)
-          scripts='<script src="public-en-home-dictionary-v1.0.js?v=en10"></script>\n<script src="public-en-science-dictionary-v1.0.js?v=en10"></script>\n<script src="public-en-runtime-v1.0.js?v=en10"></script>'
+          scripts='<script src="../public-en-home-dictionary-v1.0.js?v=en10"></script>\n<script src="../public-en-science-dictionary-v1.0.js?v=en10"></script>\n<script src="../public-en-runtime-v1.0.js?v=en10"></script>'
           en=en.replace('</body>',scripts+'\n</body>',1)
+          assert '<base ' not in en.lower()
+          assert 'href="#science-' in en or "href='#science-" in en
           assert h(cut(en,'window.P120_INSTRUMENT =','window.P120_SCIENCE='))==instrument
           assert h(cut(en,'function renderPreflight(){','function render(){'))==assessment
           Path('en').mkdir(exist_ok=True)
           Path('en/index.html').write_text(en,encoding='utf-8')
           Path('BILINGUAL_RELEASE_QA.txt').write_text(
-            'P-120 Web Editorial — Bilingual Public RU/EN v1.0\nRU: /\nEN: /en/\nEnglish scope: public home, Extended Set, Scientific Base and navigation.\nQuestionnaire: Russian only.\nMeasurement changes: NONE\nScoring changes: NONE\nQuestion wording changes: NONE\nInstrument SHA256: '+instrument+'\nAssessment SHA256: '+assessment+'\nMobile bottom nav SHA256: '+mobile+'\nRU/EN instrument byte-equivalence: PASS\nRU/EN assessment byte-equivalence: PASS\n',encoding='utf-8')
+            'P-120 Web Editorial — Bilingual Public RU/EN v1.0\nRU: /\nEN: /en/\nEnglish scope: public home, Extended Set, Scientific Base and navigation.\nQuestionnaire: Russian only.\nMeasurement changes: NONE\nScoring changes: NONE\nQuestion wording changes: NONE\nInstrument SHA256: '+instrument+'\nAssessment SHA256: '+assessment+'\nMobile bottom nav SHA256: '+mobile+'\nRU/EN instrument byte-equivalence: PASS\nRU/EN assessment byte-equivalence: PASS\nEN internal fragment routing: PASS (no base tag)\n',encoding='utf-8')
           print('Bilingual integration PASS')
           PY
       - name: Check localization scripts
