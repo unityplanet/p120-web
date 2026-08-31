@@ -1,4 +1,4 @@
-name: Integrate bilingual public site v1.4
+name: Integrate bilingual public site v1.5
 on:
   workflow_dispatch:
   push:
@@ -17,6 +17,47 @@ jobs:
         run: |
           git fetch origin main
           git rebase origin/main
+      - name: Externalize embedded PDF payloads
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, base64, hashlib
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          def h(x): return hashlib.sha256(x.encode()).hexdigest()
+          def cut(x,a,b): return x[x.index(a):x.index(b,x.index(a))]
+          instrument_before=h(cut(s,'window.P120_INSTRUMENT =','window.P120_SCIENCE='))
+          assessment_before=h(cut(s,'function renderPreflight(){','function render(){'))
+          mobile_before=h(cut(s,'function renderMobileBottomNav(){','function renderMobileDrawer(){'))
+          matches=list(re.finditer(r'data:application/pdf;base64,([^"\']+)',s))
+          if matches:
+            assert len(matches)==3, f'Expected 3 embedded PDFs, found {len(matches)}'
+            names=[
+              'assets/p120-scientific-concept-paper-v1.1.pdf',
+              'assets/p120-simple-v2.2.pdf',
+              'assets/p120-social-v3.2.pdf'
+            ]
+            Path('assets').mkdir(exist_ok=True)
+            replacements=[]
+            for m,name in zip(matches,names):
+              raw=base64.b64decode(m.group(1),validate=True)
+              assert raw.startswith(b'%PDF-'), f'{name} is not a PDF'
+              Path(name).write_bytes(raw)
+              replacements.append((m.start(),m.end(),name))
+              print('externalized',name,len(raw),'bytes')
+            for start,end,name in reversed(replacements):
+              s=s[:start]+name+s[end:]
+            p.write_text(s,encoding='utf-8')
+          else:
+            print('No embedded PDF payloads found; already externalized.')
+          s2=p.read_text(encoding='utf-8')
+          assert not re.search(r'data:application/pdf;base64,',s2)
+          assert h(cut(s2,'window.P120_INSTRUMENT =','window.P120_SCIENCE='))==instrument_before
+          assert h(cut(s2,'function renderPreflight(){','function render(){'))==assessment_before
+          assert h(cut(s2,'function renderMobileBottomNav(){','function renderMobileDrawer(){'))==mobile_before
+          print('HTML bytes after PDF externalization:',len(s2.encode()))
+          PY
       - name: Build RU root and EN public copy
         shell: bash
         run: |
@@ -84,13 +125,14 @@ jobs:
           en=en.replace('</body>',scripts+'\n</body>',1)
           assert '<base ' not in en.lower()
           assert 'href="#science-' in en or "href='#science-" in en
+          assert '"pdf":"../assets/' in en or '"pdf": "../assets/' in en
           assert h(cut(en,'window.P120_INSTRUMENT =','window.P120_SCIENCE='))==instrument
           assert h(cut(en,'function renderPreflight(){','function render(){'))==assessment
           Path('en').mkdir(exist_ok=True)
           Path('en/index.html').write_text(en,encoding='utf-8')
           Path('BILINGUAL_RELEASE_QA.txt').write_text(
-            'P-120 Web Editorial — Bilingual Public RU/EN v1.4\nRU: /\nEN: /en/\nEnglish scope: public home, Extended Set, Scientific Base and navigation.\nQuestionnaire: Russian only.\nMeasurement changes: NONE\nScoring changes: NONE\nQuestion wording changes: NONE\nInstrument SHA256: '+instrument+'\nAssessment SHA256: '+assessment+'\nMobile bottom nav SHA256: '+mobile+'\nRU/EN instrument byte-equivalence: PASS\nRU/EN assessment byte-equivalence: PASS\nEN internal fragment routing: PASS (no base tag)\nExternal PDF routing from /en/: PASS\nLocalization runtime: debounced v1.1 / cache en13\nFinal depth statement: v1.3 desktop-fit staircase Noto / cache depth13\nDuplicate Google Fonts import: REMOVED\nPrimary Bunny font request: reduced weights\nIvory frame/contour contrast: v1.7.1j\n',encoding='utf-8')
-          print('Bilingual integration v1.4 PASS')
+            'P-120 Web Editorial — Bilingual Public RU/EN v1.5\nRU: /\nEN: /en/\nEnglish scope: public home, Extended Set, Scientific Base and navigation.\nQuestionnaire: Russian only.\nMeasurement changes: NONE\nScoring changes: NONE\nQuestion wording changes: NONE\nInstrument SHA256: '+instrument+'\nAssessment SHA256: '+assessment+'\nMobile bottom nav SHA256: '+mobile+'\nRU/EN instrument byte-equivalence: PASS\nRU/EN assessment byte-equivalence: PASS\nEmbedded PDF payloads in index.html: NONE\nExternal PDF routing RU/EN: PASS\nLocalization runtime: debounced v1.1 / cache en13\nFinal depth statement: v1.3 desktop-fit staircase Noto / cache depth13\nDuplicate Google Fonts import: REMOVED\nPrimary Bunny font request: reduced weights\nIvory frame/contour contrast: v1.7.1j\n',encoding='utf-8')
+          print('Bilingual integration v1.5 PASS')
           PY
       - name: Check localization and presentation scripts
         run: |
@@ -105,9 +147,9 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html en/index.html BILINGUAL_RELEASE_QA.txt
+          git add index.html en/index.html BILINGUAL_RELEASE_QA.txt assets/*.pdf
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'Integrate desktop staircase fit and performance pass v1.4'
+          git commit -m 'Externalize embedded PDFs and optimize initial load v1.5'
           for i in 1 2 3; do
             git fetch origin main
             if git rebase origin/main && git push origin HEAD:main; then exit 0; fi
