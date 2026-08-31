@@ -1,10 +1,10 @@
-# P-120 Web Editorial v1.6 — Desktop HD / UHD Master Pass
+# P-120 Web Editorial v1.6.1 — Contrast Architecture Restoration
 
-Production-ready static hosting package, собранный **поверх P-120 Web Editorial v1.5 — Unified Editorial Grammar / Hosting Package**.
+Hosting-ready corrective package, собранный **поверх P-120 Web Editorial v1.6 — Desktop HD / UHD Master Pass**.
 
 ## Release intent
 
-v1.6 — это **desktop/hosting master**, а не новый дизайн с нуля. В нём сохранены mobile UX и editorial grammar линии v1.2–v1.5, а поверх них добавлена отдельная система для HD / QHD / Ultra HD.
+v1.6.1 — это **узкий corrective pass**. Он сохраняет desktop/UHD master v1.6 и возвращает контрастную архитектуру рамок, которая стала слишком слабой после selective de-cardification. Mobile UX и editorial grammar v1.2–v1.5 остаются сохранёнными.
 
 Целевые режимы:
 
@@ -15,17 +15,15 @@ v1.6 — это **desktop/hosting master**, а не новый дизайн с �
 - 3440×1440 — ultrawide stage с ограничением вертикального overscale;
 - 3840×2160 — полноценный UHD scaling/layout regime.
 
-## Что изменено относительно v1.5
+## Что сохраняется из v1.6
 
-1. HD opening reconstruction: opening hero, subtitle, flash-line и CTA формируют законченный первый viewport; основной editorial body начинается ниже.
-2. Large Desktop Stage System: отдельные режимы `1920–2559`, `2560–3199`, `≥3200 px`.
-3. UHD typography: второй масштабный режим для display и functional typography.
-4. Test / science / report layouts используют дополнительную ширину на QHD/UHD.
-5. Production identity cleanup: публичные `P-120 Web`, `Interaction Polish`, `Mobile UX`, preview marker и пустой `0%` удалены.
-6. Font delivery lock: Inter + Noto Serif + Noto Serif Display доставляются через Bunny Fonts; системные fallback остаются только как отказоустойчивость.
-7. Selective de-cardification: scientific/structural UI стал более editorial; report/examples остаются самостоятельными визуальными объектами.
-8. Accessibility/metadata: один H1 на главной, skip-link, `focus-visible`, OG/Twitter metadata, dynamic `theme-color`.
-9. Hosting/security configs обновлены для Vercel и Netlify.
+- HD opening reconstruction и Large Desktop Stage System — без изменений.
+- UHD typography и QHD/UHD test/science/report layouts — без изменений.
+- Production identity, font delivery, accessibility/metadata и hosting configs — без изменений.
+- Mobile UX v1.2–v1.5 — без изменений.
+- Исправлено только визуальное ослабление structural frames: введены отдельные theme-aware frame tokens и возвращена глубина ключевым semantic/science/test/report объектам.
+- Большие editorial chapters не превращены обратно в карточки: de-cardification сохранена там, где она работает.
+
 
 ## Measurement lock
 
@@ -52,8 +50,10 @@ P-120 остаётся **Research Candidate · 18+**. Эта статическ�
 - `robots.txt` — staging/noindex policy по умолчанию;
 - `robots-public.txt` — готовая public-indexing политика для момента официального запуска;
 - `DEPLOYMENT_RU.md` — GitHub / Vercel / Netlify / обычный хостинг;
-- `CHANGELOG_v1.6.md` — release changes;
-- `QA_REPORT_v1.6.md` — release gate и ограничения visual capture runtime.
+- `CHANGELOG_v1.6.md` — исходный HD/UHD master pass;
+- `QA_REPORT_v1.6.md` — исходный v1.6 release gate;
+- `CHANGELOG_v1.6.1.md` — contrast restoration changes;
+- `QA_REPORT_v1.6.1.md` — corrective release gate.
 
 ## Важное ограничение текущей сборки
 

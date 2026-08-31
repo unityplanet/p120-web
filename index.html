@@ -2117,7 +2117,7 @@ body[data-theme='museum'] .system-meet strong{background:#2d6c67}
 
 
 /* ==========================================================================
-   P-120 Web Editorial v1.6 — Desktop HD / UHD Master Pass
+   P-120 Web Editorial v1.6.1 — Contrast Architecture Restoration
    Source baseline: v1.5 Unified Editorial Grammar / Hosting Package
    Measurement/content logic unchanged.
    ========================================================================== */
@@ -2324,6 +2324,151 @@ body[data-theme='museum']{--focus-ring:#236c67}
 }
 @media (max-width:520px){
   .chapter-hero h1{font-size:clamp(42px,12.1vw,61px);line-height:.99}
+}
+
+
+
+/* ==========================================================================
+   P-120 Web Editorial v1.6.1 — Contrast Architecture Restoration
+   Narrow corrective pass over v1.6.
+   Restores structural frames/depth without reverting HD/UHD or mobile UX.
+   ========================================================================== */
+:root{
+  --frame-line:#bbb6aa;
+  --frame-line-strong:#989184;
+  --frame-line-soft:color-mix(in srgb,var(--frame-line) 58%,transparent);
+  --frame-shadow:0 12px 30px rgba(31,29,25,.055);
+  --frame-shadow-strong:0 18px 46px rgba(31,29,25,.075);
+}
+body[data-theme='ivory']{
+  --frame-line:#bdb7a9;
+  --frame-line-strong:#948c7d;
+  --frame-shadow:0 12px 30px rgba(48,39,29,.06);
+  --frame-shadow-strong:0 19px 48px rgba(48,39,29,.085);
+}
+body[data-theme='graphite']{
+  --frame-line:#6d655b;
+  --frame-line-strong:#94897c;
+  --frame-shadow:0 13px 32px rgba(0,0,0,.16);
+  --frame-shadow-strong:0 20px 50px rgba(0,0,0,.23);
+}
+body[data-theme='museum']{
+  --frame-line:#8fb3ac;
+  --frame-line-strong:#5f8f87;
+  --frame-shadow:0 12px 32px rgba(35,91,84,.075);
+  --frame-shadow-strong:0 20px 50px rgba(35,91,84,.11);
+}
+
+/* Editorial rules: visible architecture without turning chapters into cards. */
+.act-marker:after{background:var(--frame-line)}
+.editorial-chapter{border-top-color:var(--frame-line-soft)}
+.chapter-index span{border-color:var(--frame-line-strong)}
+.chapter-flash{border-top-color:var(--frame-line);border-bottom-color:var(--frame-line)}
+.editorial-resume-rail{border-color:var(--frame-line);box-shadow:var(--frame-shadow)}
+
+/* Structural objects: these are separate semantic entities and need a legible contour. */
+:is(
+  .layer-card,
+  .science-mini-stat,
+  .science-doc-card,
+  .science-layer-card,
+  .construct-card,
+  .durability-card,
+  .boundary-pair,
+  .validation-step,
+  .science-callout,
+  .semantic-flow-card,
+  .systems-encounter,
+  .system-panel,
+  .semantic-distinction-card,
+  .orbital-map-shell,
+  .orbital-cluster,
+  .science-ledger-grid>div,
+  .life-word-grid span,
+  .preflight-panel,
+  .preflight-side-card,
+  .luxury-ritual-card,
+  .preflight-ceremony,
+  .luxury-consent,
+  .results-side-stat,
+  .results-side-note,
+  .result-showcase-text,
+  .luxury-signal,
+  .luxury-coverage-card,
+  .module-progress-block,
+  .mobile-modulebar
+){
+  border-color:var(--frame-line);
+}
+
+:is(
+  .semantic-flow-card,
+  .systems-encounter,
+  .semantic-distinction-card,
+  .orbital-map-shell,
+  .science-layer-card,
+  .construct-card,
+  .validation-step
+){box-shadow:var(--frame-shadow)}
+
+:is(.systems-encounter,.orbital-map-shell){border-color:var(--frame-line-strong);box-shadow:var(--frame-shadow-strong)}
+
+/* Grid-like systems use the contour itself as the separator. */
+:is(.questions-body .question-lines,.research-map-list,.final-map-grid,.evidence-table,.editorial-endnote){
+  border-color:var(--frame-line);
+}
+:is(.questions-body .question-lines,.research-map-list,.final-map-grid,.editorial-endnote){background:var(--frame-line)}
+
+/* Science remains de-cardified, but its boundaries must still read on HD/UHD. */
+.science-section,.compact-science{
+  border-color:var(--frame-line);
+  box-shadow:0 1px 0 color-mix(in srgb,var(--frame-line-strong) 18%,transparent), inset 0 1px 0 rgba(255,255,255,.16);
+}
+body[data-theme='graphite'] :is(.science-section,.compact-science){box-shadow:0 1px 0 rgba(255,255,255,.035),inset 0 1px 0 rgba(255,255,255,.025)}
+body[data-theme='museum'] :is(.science-section,.compact-science){box-shadow:0 1px 0 rgba(47,125,120,.06),inset 0 1px 0 rgba(255,255,255,.32)}
+
+/* Important editorial inserts regain a restrained frame and stage depth. */
+.support-insert.layer-insert,
+.support-insert.science-confidence-insert{
+  border-color:var(--frame-line-strong);
+  box-shadow:var(--frame-shadow);
+}
+.support-insert.report-insert,
+.support-insert.examples-insert{
+  border-color:var(--frame-line);
+}
+
+/* Deliberately card-like report/examples keep their premium object quality. */
+:is(.showcase-cover,.showcase-summary,.example-profile,.result-showcase-cover,.result-showcase-text){
+  border-color:var(--frame-line);
+}
+:is(.showcase-cover,.showcase-summary,.example-profile){box-shadow:var(--frame-shadow)}
+body[data-theme='museum'] :is(.dark-statement,.showcase-cover){border-color:var(--frame-line-strong)}
+
+/* Questionnaire/result containers: one clear outer frame, not dashboard chrome. */
+.question-card,.result-card,.luxury-results-hero{
+  border-color:var(--frame-line);
+}
+.question-card{box-shadow:var(--frame-shadow-strong)}
+
+/* Functional controls remain lighter than content frames. */
+:is(.science-subnav,.science-subnav a,.badge,.header-theme-menu summary,.header-theme-popover,.theme-swatch){
+  border-color:color-mix(in srgb,var(--frame-line) 72%,var(--line));
+}
+
+/* On large stages, prevent 1px contours from visually disappearing inside vast canvases. */
+@media (min-width:1920px){
+  :is(
+    .systems-encounter,.orbital-map-shell,.support-insert.layer-insert,
+    .support-insert.science-confidence-insert,.question-card
+  ){box-shadow:var(--frame-shadow-strong)}
+  .chapter-flash{border-top-color:var(--frame-line-strong);border-bottom-color:var(--frame-line-strong)}
+}
+
+/* Mobile keeps v1.2–v1.5 geometry; only contrast is restored, not heavier depth. */
+@media (max-width:1023px){
+  :is(.semantic-flow-card,.systems-encounter,.semantic-distinction-card,.orbital-map-shell,.question-card){box-shadow:var(--frame-shadow)}
+  .science-section,.compact-science{box-shadow:none}
 }
 
 </style>

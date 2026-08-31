@@ -1,6 +1,6 @@
-P-120 Web Editorial v1.6
-Desktop HD / UHD Master Pass
-Baseline: v1.5 Unified Editorial Grammar / Hosting Package
-Status: hosting-ready frontend master / live correction stage
+P-120 Web Editorial v1.6.1
+Contrast Architecture Restoration
+Baseline: v1.6.0 Desktop HD / UHD Master Pass
+Status: hosting-ready frontend corrective release / live correction stage
 Measurement changes: NONE
 Scoring changes: NONE

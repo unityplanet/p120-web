@@ -1,4 +1,4 @@
-# Развёртывание P-120 Web Editorial v1.6
+# Развёртывание P-120 Web Editorial v1.6.1
 
 ## 1. GitHub — рекомендуемый source repository
 
