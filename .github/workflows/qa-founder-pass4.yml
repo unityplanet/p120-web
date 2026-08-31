@@ -1,0 +1,60 @@
+name: Founder Web PASS 4 QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/qa-founder-pass4.yml'
+      - 'creator/**'
+      - 'founder-route-v1.1.js'
+      - 'founder-editorial-story-v1.0.js'
+      - 'founder-editorial-story-v1.0.css'
+      - 'qa/check_founder_separate_page.py'
+      - 'qa/founder_pass4_browser.mjs'
+      - 'index.html'
+
+permissions:
+  contents: read
+
+jobs:
+  founder-pass4:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Static contract and privacy audit
+        run: |
+          set -euo pipefail
+          python qa/check_founder_separate_page.py
+          node --check founder-route-v1.1.js
+          node --check founder-editorial-story-v1.0.js
+          if [ -f qa/check_build.py ]; then python qa/check_build.py; fi
+
+      - name: Install browser QA runtime
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Run local production server
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/p120-founder-pass4-server.log 2>&1 &
+          echo $! > /tmp/p120-founder-pass4-server.pid
+          sleep 2
+          curl --fail --silent http://127.0.0.1:8765/ >/dev/null
+          curl --fail --silent http://127.0.0.1:8765/creator/ >/dev/null
+
+      - name: Browser visual regression / privacy / responsive matrix
+        env:
+          P120_QA_BASE: http://127.0.0.1:8765/
+        run: node qa/founder_pass4_browser.mjs
+
+      - name: Upload PASS 4 visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120-FOUNDER-WEB-PASS4-visual-evidence
+          path: qa-artifacts/founder-pass4/
+          if-no-files-found: warn
+          retention-days: 30
