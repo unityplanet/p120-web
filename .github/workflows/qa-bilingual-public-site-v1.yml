@@ -1,4 +1,4 @@
-name: QA bilingual public site v1.0
+name: QA bilingual public site v1.1
 on:
   workflow_dispatch:
   push:
@@ -24,7 +24,7 @@ jobs:
       - name: Run bilingual render QA
         shell: bash
         run: |
-          cat > /tmp/qa.mjs <<'JS'
+          cat > qa.mjs <<'JS'
           import { chromium } from 'playwright';
           import fs from 'fs';
           const browser=await chromium.launch({headless:true});
@@ -39,7 +39,7 @@ jobs:
             const bad=[];
             page.on('response',r=>{ if(r.status()>=400 && r.url().startsWith('http://127.0.0.1:4173')) bad.push(`${r.status()} ${r.url()}`); });
             await page.goto('http://127.0.0.1:4173/en/',{waitUntil:'networkidle'});
-            await page.waitForTimeout(700);
+            await page.waitForTimeout(900);
             const lang=await page.getAttribute('html','lang');
             const home=await page.locator('.editorial-home').count();
             const body=await page.locator('body').innerText();
@@ -50,7 +50,15 @@ jobs:
             if(bad.length){report.push(`${label} HTTP: `+bad.join(' | '));failures.push(`${label}: local asset errors`);}
             await page.screenshot({path:`qa_${label}_home.png`,fullPage:true});
 
-            // Fragment routing must remain under /en/.
+            const depth=page.getByText('But to see yourself in greater depth.',{exact:true});
+            if(await depth.count()){
+              const size=parseFloat(await depth.evaluate(el=>getComputedStyle(el).fontSize));
+              const family=await depth.evaluate(el=>getComputedStyle(el).fontFamily);
+              report.push(`${label} DEPTH fontSize=${size} fontFamily=${family}`);
+              if(width>=1000 && size<54) failures.push(`${label}: depth statement is not visually dominant enough (${size}px)`);
+              if(!/Noto Serif/i.test(family)) failures.push(`${label}: depth statement is not using Noto Serif`);
+            } else failures.push(`${label}: depth statement missing`);
+
             const hashTarget=page.locator('a[href^="#"]').first();
             if(await hashTarget.count()){
               const href=await hashTarget.getAttribute('href');
@@ -59,34 +67,36 @@ jobs:
               report.push(`${label} fragment route: ${href} -> ${page.url()}`);
             }
 
-            // Science render.
-            await page.goto('http://127.0.0.1:4173/en/',{waitUntil:'networkidle'}); await page.waitForTimeout(450);
+            await page.goto('http://127.0.0.1:4173/en/',{waitUntil:'networkidle'}); await page.waitForTimeout(500);
             const scienceBtn=page.locator('[data-science]').first();
             if(await scienceBtn.count()) await scienceBtn.click(); else failures.push(`${label}: Science button missing`);
-            await page.waitForTimeout(650);
+            await page.waitForTimeout(800);
             const scienceText=await page.locator('body').innerText();
             const scienceCyr=cyrLines(scienceText);
             report.push(`${label} SCIENCE cyrillic=${scienceCyr.length}`);
             if(scienceCyr.length){ report.push(`${label} SCIENCE CYR: `+scienceCyr.join(' | ')); failures.push(`${label}: visible Cyrillic remains in EN Science`); }
             await page.screenshot({path:`qa_${label}_science.png`,fullPage:true});
 
-            // Mobile drawer language/chapters check.
             if(width<700){
-              await page.goto('http://127.0.0.1:4173/en/',{waitUntil:'networkidle'}); await page.waitForTimeout(350);
+              await page.goto('http://127.0.0.1:4173/en/',{waitUntil:'networkidle'}); await page.waitForTimeout(400);
               const menu=page.locator('[data-mobile-menu]').first();
-              if(await menu.count()){ await menu.click(); await page.waitForTimeout(200); const mt=await page.locator('.mobile-menu').innerText(); report.push(`${label} menu Language=${/Language/.test(mt)} Chapters=${/Chapters/.test(mt)}`); if(!/Language/.test(mt)||!/Chapters/.test(mt)) failures.push(`${label}: mobile menu bilingual groups missing`); }
+              if(await menu.count()){
+                await menu.click(); await page.waitForTimeout(220);
+                const mt=await page.locator('.mobile-menu').innerText();
+                report.push(`${label} menu Language=${/Language/.test(mt)} Chapters=${/Chapters/.test(mt)}`);
+                if(!/Language/.test(mt)||!/Chapters/.test(mt)) failures.push(`${label}: mobile menu bilingual groups missing`);
+              }
             }
             await page.close();
           }
           await publicCheck(1440,1000,'desktop');
           await publicCheck(390,844,'mobile');
 
-          // Explicit EN CTA boundary -> Russian root/preflight.
           const page=await browser.newPage({viewport:{width:1440,height:900}});
-          await page.goto('http://127.0.0.1:4173/en/',{waitUntil:'networkidle'}); await page.waitForTimeout(500);
+          await page.goto('http://127.0.0.1:4173/en/',{waitUntil:'networkidle'}); await page.waitForTimeout(600);
           const cta=page.getByText('Take P-120 · Russian questionnaire',{exact:false}).first();
           if(await cta.count()){
-            await cta.click(); await page.waitForTimeout(800);
+            await cta.click(); await page.waitForTimeout(900);
             report.push(`CTA route URL=${page.url()}`);
             if(page.url().includes('/en/')) failures.push('EN assessment CTA did not return to RU root');
             const txt=await page.locator('body').innerText();
@@ -98,11 +108,11 @@ jobs:
           console.log(report.join('\n'));
           if(failures.length){ console.error(failures.join('\n')); process.exit(1); }
           JS
-          node /tmp/qa.mjs
+          node qa.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: P120_BILINGUAL_RENDER_QA_v1.0
+          name: P120_BILINGUAL_RENDER_QA_v1.1
           path: |
             BILINGUAL_RENDER_QA.txt
             qa_*.png
