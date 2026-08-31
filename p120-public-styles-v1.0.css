@@ -1,4 +1,4 @@
-/* P-120 production public styles v1.0 — generated, source order preserved */
+/* P-120 production public styles v1.1 — generated, source order preserved */
 
 /* === visual-fix-v1.7.1b.css === */
 /* P-120 Web Editorial v1.7.1b — Live Visual Corrective Layer
@@ -2879,6 +2879,95 @@ body[data-theme='graphite'] .science-page :is(
 .p120-language-mobile-options a{min-height:48px;border:1px solid var(--frame-secondary,var(--line-soft));border-radius:16px;display:flex;align-items:center;justify-content:center;text-decoration:none;font:700 13px/1.2 Inter,system-ui,sans-serif;color:var(--ink-secondary,var(--ink-2));background:var(--surface,var(--card))}
 .p120-language-mobile-options a[aria-current="page"]{color:var(--ink-primary,var(--ink));border-color:var(--frame-primary,var(--line));background:var(--surface-soft,var(--soft-2))}
 @media(max-width:900px){.p120-language-switch-desktop{display:none!important}}
+
+
+/* === navigation-architecture-v2.css === */
+/* P-120 Navigation Architecture v2
+   Ecosystem navigation only. Does not alter assessment, scoring, or mobile bottom navigation. */
+
+:root{
+  --ecosystem-panel-bg:color-mix(in srgb,var(--paper,#f6f4ed) 94%,transparent);
+  --ecosystem-border:color-mix(in srgb,var(--ink,#171715) 18%,transparent);
+  --ecosystem-soft:color-mix(in srgb,var(--ink,#171715) 4%,transparent);
+  --ecosystem-accent:#5f8f8a;
+}
+
+/* Desktop ecosystem entry lives inside the existing top navigation. */
+.ecosystem-nav-v2{position:relative;display:inline-flex;align-items:center}
+.ecosystem-nav-v2 .ecosystem-trigger{display:inline-flex;align-items:center;gap:6px}
+.ecosystem-nav-v2 .ecosystem-trigger:after{content:"";width:5px;height:5px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg) translateY(-1px);opacity:.62;transition:transform .18s ease}
+.ecosystem-nav-v2.is-open .ecosystem-trigger:after{transform:rotate(225deg) translate(-1px,-1px)}
+
+.ecosystem-panel-v2{
+  position:absolute;z-index:120;top:calc(100% + 13px);right:-18px;
+  width:min(560px,calc(100vw - 40px));padding:14px;
+  border:1px solid var(--ecosystem-border);border-radius:22px;
+  background:var(--ecosystem-panel-bg);box-shadow:0 28px 70px rgba(20,22,20,.18);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  opacity:0;visibility:hidden;transform:translateY(-7px) scale(.985);transform-origin:90% 0;
+  transition:opacity .18s ease,transform .2s ease,visibility .18s;
+}
+.ecosystem-nav-v2.is-open .ecosystem-panel-v2{opacity:1;visibility:visible;transform:none}
+.ecosystem-panel-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:3px 5px 11px;border-bottom:1px solid var(--ecosystem-border)}
+.ecosystem-panel-head strong{font-family:"Noto Serif",Georgia,serif;font-size:18px;font-weight:600;letter-spacing:-.015em}
+.ecosystem-panel-head span{font-size:9px;text-transform:uppercase;letter-spacing:.13em;font-weight:800;color:var(--muted)}
+.ecosystem-grid-v2{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:10px}
+.ecosystem-column-v2{display:grid;gap:7px;align-content:start}
+.ecosystem-column-label{padding:4px 7px 2px;font-size:9px;line-height:1.2;text-transform:uppercase;letter-spacing:.15em;font-weight:850;color:var(--muted)}
+.ecosystem-item-v2{appearance:none;width:100%;border:1px solid transparent;background:transparent;color:var(--ink);border-radius:15px;padding:12px 12px;text-align:left;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;cursor:pointer;transition:background .16s ease,border-color .16s ease,transform .16s ease}
+.ecosystem-item-v2:hover:not([aria-disabled="true"]){background:var(--ecosystem-soft);border-color:var(--ecosystem-border);transform:translateY(-1px)}
+.ecosystem-item-copy{min-width:0}
+.ecosystem-item-title{display:block;font-size:13px;font-weight:760;line-height:1.25}
+.ecosystem-item-note{display:block;margin-top:4px;color:var(--muted);font-size:10px;font-weight:580;line-height:1.35}
+.ecosystem-item-status{flex:0 0 auto;margin-top:1px;border:1px solid var(--ecosystem-border);border-radius:999px;padding:4px 6px;font-size:8px;text-transform:uppercase;letter-spacing:.09em;font-weight:850;color:var(--muted);white-space:nowrap}
+.ecosystem-item-v2[aria-disabled="true"]{cursor:default;opacity:.62}
+.ecosystem-item-v2[aria-disabled="true"] .ecosystem-item-title:after{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;margin-left:7px;vertical-align:middle;background:var(--ecosystem-accent);opacity:.75}
+
+/* Extended Research Set gets a home in Explore, so the old extra desktop/mobile entries are suppressed. */
+html.nav-architecture-v2-ready .topnav > .extended-navlink{display:none!important}
+html.nav-architecture-v2-ready .mobile-menu-body .extended-mobile-menu-link{display:none!important}
+
+/* Mobile information architecture. Existing drawer remains the shell. */
+.ecosystem-mobile-group-v2{display:grid;gap:8px}
+.ecosystem-mobile-group-v2 .ecosystem-mobile-section-label{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:2px}
+.ecosystem-mobile-group-v2 .ecosystem-mobile-section-label > span:first-child{font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:850;color:var(--muted)}
+.ecosystem-mobile-section-count{font-size:9px;color:var(--muted);opacity:.72}
+.ecosystem-mobile-link-v2{position:relative}
+.ecosystem-mobile-link-v2 .ecosystem-mobile-status{border:1px solid var(--ecosystem-border);border-radius:999px;padding:4px 7px;font-size:8px;line-height:1;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:850;white-space:nowrap}
+.ecosystem-mobile-link-v2[aria-disabled="true"]{opacity:.66;cursor:default}
+.ecosystem-mobile-link-v2[aria-disabled="true"]:active{transform:none}
+
+/* Give the drawer groups a clearer editorial rhythm without changing its mechanics. */
+html.nav-architecture-v2-ready .mobile-menu-body{gap:20px}
+html.nav-architecture-v2-ready .mobile-menu-group > .eyebrow{font-size:10px;letter-spacing:.145em}
+html.nav-architecture-v2-ready .chapter-mobile-group{margin-top:0}
+html.nav-architecture-v2-ready .p120-language-mobile-group{margin-top:0}
+
+body[data-theme='graphite']{
+  --ecosystem-panel-bg:rgba(29,27,24,.96);
+  --ecosystem-border:rgba(242,238,229,.16);
+  --ecosystem-soft:rgba(255,255,255,.055);
+}
+body[data-theme='museum']{
+  --ecosystem-panel-bg:rgba(244,241,229,.96);
+  --ecosystem-border:rgba(47,125,120,.23);
+  --ecosystem-soft:rgba(47,125,120,.065);
+  --ecosystem-accent:#2f7d78;
+}
+body[data-theme='ivory']{
+  --ecosystem-panel-bg:rgba(247,242,230,.97);
+  --ecosystem-border:rgba(56,72,67,.24);
+  --ecosystem-soft:rgba(56,72,67,.055);
+}
+
+@media(max-width:1080px){.ecosystem-nav-v2{display:none!important}}
+@media(max-width:620px){
+  .ecosystem-mobile-group-v2 .mobile-menu-link{padding:13px 13px}
+  .ecosystem-mobile-group-v2 .mobile-menu-link small{max-width:245px}
+}
+@media(prefers-reduced-motion:reduce){
+  .ecosystem-panel-v2,.ecosystem-nav-v2 .ecosystem-trigger:after,.ecosystem-item-v2{transition:none!important}
+}
 
 
 /* === depth-statement-v1.2.css === */

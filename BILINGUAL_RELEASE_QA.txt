@@ -1,4 +1,4 @@
-P-120 Web Editorial — Bilingual Public RU/EN v1.6
+P-120 Web Editorial — Bilingual Public RU/EN v1.7
 RU: /
 EN: /en/
 English scope: public home, Extended Set, Scientific Base and navigation.
@@ -15,6 +15,9 @@ Embedded PDF payloads in index.html: NONE
 External PDF routing RU/EN: PASS
 Public CSS production requests: 1 bundle
 Public presentation JS requests: 1 bundle
+Navigation Architecture: v2
+Reserved ecosystem routes: creator, together
+Mobile bottom navigation changes: NONE
 Web font stylesheet: non-render-blocking preload
 Localization runtime: debounced v1.1
 Final depth statement: v1.3 desktop-fit staircase Noto
