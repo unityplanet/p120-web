@@ -2478,6 +2478,7 @@ body[data-theme='museum'] :is(.dark-statement,.showcase-cover){border-color:var(
   <link rel="stylesheet" href="visual-fix-v1.7.1c.css?v=171c" data-p120-visual-fix="v1.7.1c" />
   <link rel="stylesheet" href="visual-fix-v1.7.1d.css?v=171d" data-p120-visual-fix="v1.7.1d" />
   <link rel="stylesheet" href="visual-fix-v1.7.1f.css?v=171f" data-p120-visual-fix="v1.7.1f" />
+  <link rel="stylesheet" href="visual-fix-v1.7.1g.css?v=171g" data-p120-visual-fix="v1.7.1g" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Перейти к основному содержанию</a>
@@ -3613,6 +3614,35 @@ function renderEditorialBody(section){
   }
   return `<div class="editorial-body"><div class="editorial-prose">${b.map(x=>`<p>${esc(x)}</p>`).join('')}</div></div>`;
 }
+/* P120 v1.7.1g COMPATIBILITY READING START */
+function isCompatibilityReadingSection(section){
+  const body=section?.body||[];
+  return body[0]==='Можно очень любить человека и при этом по-разному переживать близость.';
+}
+function renderCompatibilityReading(section){
+  const body=section.body||[];
+  const title=body[0]||'';
+  const cards=body.slice(1,5);
+  const outro=body.slice(5,7);
+  return `<section class="compatibility-reading" aria-label="${esc(title)}">
+    <aside class="compatibility-reading-rail">
+      <div class="compatibility-reading-eyebrow">${esc(section.flash||'')}</div>
+      <div class="compatibility-reading-orbit" aria-hidden="true"><span></span><i></i><b></b></div>
+    </aside>
+    <div class="compatibility-reading-main">
+      <h2 class="compatibility-reading-title">${esc(title)}</h2>
+      <div class="compatibility-reading-grid">
+        ${cards.map((p,i)=>`<article class="compatibility-reading-card"><span class="compatibility-reading-index">0${i+1}</span><p>${esc(p)}</p></article>`).join('')}
+      </div>
+      <div class="compatibility-reading-outro">
+        <p class="compatibility-reading-outro-lead">${esc(outro[0]||'')}</p>
+        <p class="compatibility-reading-outro-note">${esc(outro[1]||'')}</p>
+      </div>
+    </div>
+  </section>`;
+}
+/* P120 v1.7.1g COMPATIBILITY READING END */
+
 function renderEditorialSection(section){
   const subtitle=esc(section.subtitle).replace(/\n/g,'<br>');
   const hero=esc(section.hero).replace(/\n/g,'<br>');
@@ -3624,7 +3654,7 @@ function renderEditorialSection(section){
       <div class="chapter-subtitle">${subtitle}</div>
     </div>
     <div class="chapter-flash"><p>${esc(section.flash)}</p></div>
-    ${renderEditorialBody(section)}
+    ${isCompatibilityReadingSection(section)?renderCompatibilityReading(section):renderEditorialBody(section)}
     <div class="chapter-cta"><button class="btn large editorial-cta" data-editorial-action="${esc(section.action)}">${esc(section.cta)}</button>${section.ctaSub?`<span>${esc(section.ctaSub)}</span>`:''}</div>
   </section>`;
 }
