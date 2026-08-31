@@ -1,0 +1,88 @@
+/* P-120 Web Editorial — final depth statement v1.2
+   Staircase composition + unified Noto typography. Public presentation only. */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@500;600&family=Noto+Serif:wght@400;500;600&display=swap');
+
+.p120-depth-frame{
+  position:relative;
+  overflow:hidden;
+  min-height:clamp(330px,28vw,520px)!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)!important;
+  align-items:center!important;
+  gap:clamp(42px,6vw,110px)!important;
+  padding:clamp(48px,6vw,104px)!important;
+}
+.p120-depth-frame::after{
+  content:"";
+  position:absolute;
+  width:clamp(200px,27vw,460px);
+  aspect-ratio:1;
+  right:clamp(-160px,-8vw,-72px);
+  top:50%;
+  transform:translateY(-50%);
+  border:1px solid color-mix(in srgb,var(--accent,#719e91) 38%,transparent);
+  border-radius:50%;
+  opacity:.72;
+  pointer-events:none;
+}
+.p120-depth-frame>*{position:relative;z-index:1}
+
+.p120-depth-lead,
+.p120-depth-statement{
+  font-family:"Noto Serif Display","Noto Serif",Georgia,"Times New Roman",serif!important;
+  font-weight:500!important;
+  font-style:normal!important;
+  text-align:left!important;
+  text-wrap:balance;
+  margin:0!important;
+}
+.p120-depth-lead{
+  font-size:clamp(2.35rem,3.55vw,4.9rem)!important;
+  line-height:.98!important;
+  letter-spacing:-.038em!important;
+  max-width:15ch!important;
+}
+.p120-depth-statement{
+  font-size:clamp(3.65rem,6.25vw,8.3rem)!important;
+  line-height:.88!important;
+  letter-spacing:-.052em!important;
+  max-width:14ch!important;
+}
+
+.p120-stair-lines{display:block;width:100%}
+.p120-stair-line{
+  display:block;
+  width:max-content;
+  max-width:calc(100% - (var(--step,0) * .72em));
+  margin-inline-start:calc(var(--step,0) * .72em);
+  white-space:nowrap;
+}
+.p120-depth-lead .p120-stair-line{
+  margin-inline-start:calc(var(--step,0) * .48em);
+  max-width:calc(100% - (var(--step,0) * .48em));
+}
+
+body[data-theme="graphite"] .p120-depth-statement,
+body[data-theme="graphite"] .p120-depth-lead,
+body[data-theme="museum"] .p120-depth-statement,
+body[data-theme="museum"] .p120-depth-lead{
+  text-shadow:0 14px 52px rgba(0,0,0,.16);
+}
+
+@media(max-width:900px){
+  .p120-depth-frame{
+    grid-template-columns:1fr!important;
+    min-height:0!important;
+    gap:42px!important;
+    padding:48px 28px 58px!important;
+  }
+  .p120-depth-lead{font-size:clamp(2.25rem,8vw,3.7rem)!important;max-width:14ch!important}
+  .p120-depth-statement{font-size:clamp(3rem,11.5vw,5.4rem)!important;max-width:12ch!important}
+  .p120-stair-line{margin-inline-start:calc(var(--step,0) * .44em);max-width:calc(100% - (var(--step,0) * .44em))}
+  .p120-depth-lead .p120-stair-line{margin-inline-start:calc(var(--step,0) * .3em);max-width:calc(100% - (var(--step,0) * .3em))}
+  .p120-depth-frame::after{right:-135px;top:73%}
+}
+
+@media(max-width:430px){
+  .p120-stair-line{white-space:normal;width:auto}
+}
