@@ -1,4 +1,4 @@
-P-120 Web Editorial — Bilingual Public RU/EN v1.2
+P-120 Web Editorial — Bilingual Public RU/EN v1.3
 RU: /
 EN: /en/
 English scope: public home, Extended Set, Scientific Base and navigation.
@@ -13,4 +13,5 @@ RU/EN instrument byte-equivalence: PASS
 RU/EN assessment byte-equivalence: PASS
 EN internal fragment routing: PASS (no base tag)
 Localization patch: v1.1 / cache en12
-Final depth statement art pass: v1.1
+Final depth statement art pass: v1.2 staircase Noto
+Ivory frame/contour contrast: v1.7.1j
