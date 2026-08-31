@@ -23,7 +23,7 @@
   };
 
   const routes = {
-    why:{status:'active',target:'why-p120'},
+    why:{status:'active',href:isEn?'../why-p120/':'why-p120/'},
     creator:{status:'reserved',route:'creator'},
     deeper:{status:'active',target:'extended-research-set'},
     together:{status:'reserved',route:'together'}
@@ -65,6 +65,11 @@
   function activate(key){
     const route=routes[key];
     if(!route || route.status!=='active') return;
+    if(route.href){
+      closeDrawer(); closeDesktop();
+      window.location.assign(route.href);
+      return;
+    }
     openHomeTarget(route.target);
   }
 
