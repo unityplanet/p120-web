@@ -1,0 +1,68 @@
+/* P-120 Web Editorial v1.7.1j — Ivory global frame / contour contrast pass
+   Presentation only. Graphite, Museum, questionnaire, scoring and content logic untouched. */
+
+body[data-theme="ivory"],
+body[data-theme="light"]{
+  --line-soft:rgba(52,58,53,.17)!important;
+  --line:rgba(52,58,53,.29)!important;
+  --line-strong:rgba(42,48,43,.44)!important;
+  --frame-primary:rgba(49,70,65,.38)!important;
+  --frame-secondary:rgba(56,72,67,.27)!important;
+  --frame-soft:rgba(56,72,67,.17)!important;
+  --frame-accent:rgba(47,125,120,.46)!important;
+  --frame-scientific:rgba(63,79,74,.34)!important;
+  --frame-interactive:rgba(47,125,120,.48)!important;
+  --orbit-line:rgba(47,125,120,.29)!important;
+  --ink-muted:#626760!important;
+  --muted:#626760!important;
+  --muted-2:#72766f!important;
+}
+
+/* Strengthen existing borders everywhere without inventing borders on elements that had none. */
+body[data-theme="ivory"] :is(
+  [class*="-card"],[class*="-panel"],[class*="-frame"],[class*="-tile"],[class*="-box"],
+  [class*="-nav"],[class*="-tab"],[class*="-chip"],[class*="-badge"],[class*="-pill"],
+  details,summary,button,input,select,textarea
+),
+body[data-theme="light"] :is(
+  [class*="-card"],[class*="-panel"],[class*="-frame"],[class*="-tile"],[class*="-box"],
+  [class*="-nav"],[class*="-tab"],[class*="-chip"],[class*="-badge"],[class*="-pill"],
+  details,summary,button,input,select,textarea
+){
+  border-color:var(--frame-secondary)!important;
+}
+
+/* Core public editorial framed systems. */
+body[data-theme="ivory"] :is(
+  .semantic-flow-card,.semantic-sequence-row,.semantic-distinction-card,.semantic-distinction-side,
+  .system-panel,.systems-encounter,.systems-closing,.life-word-grid>span,.editorial-interlude,
+  .showcase-card,.profile-example,.science-card,.science-panel,.science-section,
+  .extended-module,.ers-module,.ers-boundary,.ers-cross-card,.p120-depth-frame
+),
+body[data-theme="light"] :is(
+  .semantic-flow-card,.semantic-sequence-row,.semantic-distinction-card,.semantic-distinction-side,
+  .system-panel,.systems-encounter,.systems-closing,.life-word-grid>span,.editorial-interlude,
+  .showcase-card,.profile-example,.science-card,.science-panel,.science-section,
+  .extended-module,.ers-module,.ers-boundary,.ers-cross-card,.p120-depth-frame
+){
+  border-color:var(--frame-secondary)!important;
+  box-shadow:inset 0 0 0 1px rgba(47,74,67,.025),0 10px 28px rgba(44,55,50,.035)!important;
+}
+
+/* Navigation / separators / progress rails need a readable structural line on pale canvas. */
+body[data-theme="ivory"] :is(.topbar,.topnav,.p120-chapter-navigation,.chapter-nav,.mobile-menu,.mobile-bottom-nav),
+body[data-theme="light"] :is(.topbar,.topnav,.p120-chapter-navigation,.chapter-nav,.mobile-menu,.mobile-bottom-nav){
+  border-color:var(--frame-secondary)!important;
+}
+body[data-theme="ivory"] :is(hr,[class*="divider"],[class*="separator"]),
+body[data-theme="light"] :is(hr,[class*="divider"],[class*="separator"]){
+  border-color:var(--line)!important;
+  background-color:var(--line)!important;
+}
+
+/* The light theme should still feel refined: stronger geometry, not darker slabs. */
+body[data-theme="ivory"] .p120-depth-frame::after,
+body[data-theme="light"] .p120-depth-frame::after{
+  border-color:rgba(47,125,120,.34)!important;
+  opacity:.85!important;
+}
