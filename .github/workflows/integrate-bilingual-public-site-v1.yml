@@ -1,4 +1,4 @@
-name: Integrate bilingual public site v1.0
+name: Integrate bilingual public site v1.3
 on:
   workflow_dispatch:
   push:
@@ -30,17 +30,24 @@ jobs:
           assessment=h(cut(ru,'function renderPreflight(){','function render(){'))
           mobile=h(cut(ru,'function renderMobileBottomNav(){','function renderMobileDrawer(){'))
 
-          for marker in ['data-p120-language-switch="v1.0"','data-p120-depth-statement="v1.1"']:
+          markers=[
+            'data-p120-language-switch="v1.0"',
+            'data-p120-depth-statement="v1.1"',
+            'data-p120-depth-statement="v1.2"',
+            'data-p120-ivory-contrast="v1.7.1j"'
+          ]
+          for marker in markers:
             ru=re.sub(r'\s*<link[^>]+'+re.escape(marker)+r'[^>]*>\s*','\n',ru,flags=re.I)
             ru=re.sub(r'\s*<script[^>]+'+re.escape(marker)+r'[^>]*></script>\s*','\n',ru,flags=re.I)
 
           ru=ru.replace('</head>',
             '  <link rel="stylesheet" href="language-switch-v1.0.css?v=lang10" data-p120-language-switch="v1.0" />\n'
-            '  <link rel="stylesheet" href="depth-statement-v1.1.css?v=depth11" data-p120-depth-statement="v1.1" />\n'
+            '  <link rel="stylesheet" href="depth-statement-v1.2.css?v=depth12" data-p120-depth-statement="v1.2" />\n'
+            '  <link rel="stylesheet" href="visual-fix-v1.7.1j.css?v=171j" data-p120-ivory-contrast="v1.7.1j" />\n'
             '</head>',1)
           ru=ru.replace('</body>',
             '<script src="language-switch-v1.0.js?v=lang10" data-p120-language-switch="v1.0"></script>\n'
-            '<script src="depth-statement-v1.1.js?v=depth11" data-p120-depth-statement="v1.1"></script>\n'
+            '<script src="depth-statement-v1.2.js?v=depth12" data-p120-depth-statement="v1.2"></script>\n'
             '</body>',1)
 
           assert h(cut(ru,'window.P120_INSTRUMENT =','window.P120_SCIENCE='))==instrument
@@ -73,24 +80,24 @@ jobs:
           Path('en').mkdir(exist_ok=True)
           Path('en/index.html').write_text(en,encoding='utf-8')
           Path('BILINGUAL_RELEASE_QA.txt').write_text(
-            'P-120 Web Editorial — Bilingual Public RU/EN v1.2\nRU: /\nEN: /en/\nEnglish scope: public home, Extended Set, Scientific Base and navigation.\nQuestionnaire: Russian only.\nMeasurement changes: NONE\nScoring changes: NONE\nQuestion wording changes: NONE\nInstrument SHA256: '+instrument+'\nAssessment SHA256: '+assessment+'\nMobile bottom nav SHA256: '+mobile+'\nRU/EN instrument byte-equivalence: PASS\nRU/EN assessment byte-equivalence: PASS\nEN internal fragment routing: PASS (no base tag)\nLocalization patch: v1.1 / cache en12\nFinal depth statement art pass: v1.1\n',encoding='utf-8')
-          print('Bilingual integration v1.2 PASS')
+            'P-120 Web Editorial — Bilingual Public RU/EN v1.3\nRU: /\nEN: /en/\nEnglish scope: public home, Extended Set, Scientific Base and navigation.\nQuestionnaire: Russian only.\nMeasurement changes: NONE\nScoring changes: NONE\nQuestion wording changes: NONE\nInstrument SHA256: '+instrument+'\nAssessment SHA256: '+assessment+'\nMobile bottom nav SHA256: '+mobile+'\nRU/EN instrument byte-equivalence: PASS\nRU/EN assessment byte-equivalence: PASS\nEN internal fragment routing: PASS (no base tag)\nLocalization patch: v1.1 / cache en12\nFinal depth statement art pass: v1.2 staircase Noto\nIvory frame/contour contrast: v1.7.1j\n',encoding='utf-8')
+          print('Bilingual integration v1.3 PASS')
           PY
-      - name: Check localization scripts
+      - name: Check localization and presentation scripts
         run: |
           node --check language-switch-v1.0.js
           node --check public-en-home-dictionary-v1.0.js
           node --check public-en-science-dictionary-v1.0.js
           node --check public-en-localization-patch-v1.1.js
           node --check public-en-runtime-v1.0.js
-          node --check depth-statement-v1.1.js
+          node --check depth-statement-v1.2.js
       - name: Commit and push safely
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html en/index.html BILINGUAL_RELEASE_QA.txt
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'Integrate bilingual public localization v1.2'
+          git commit -m 'Integrate staircase Noto statement and Ivory contrast v1.3'
           for i in 1 2 3; do
             git fetch origin main
             if git rebase origin/main && git push origin HEAD:main; then exit 0; fi
