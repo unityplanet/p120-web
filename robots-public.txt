@@ -1,0 +1,3 @@
+# Replace robots.txt with this file only after the public launch is approved.
+User-agent: *
+Allow: /
