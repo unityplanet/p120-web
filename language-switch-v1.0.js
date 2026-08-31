@@ -1,4 +1,4 @@
-/* P-120 Web Editorial — RU/EN language switch v1.0 */
+/* P-120 Web Editorial — RU/EN language switch v1.1 */
 (() => {
   'use strict';
   const path = location.pathname;
@@ -9,7 +9,7 @@
   const normalizedRoot = rootPath.endsWith('/') ? rootPath : rootPath + '/';
   const rootHref = normalizedRoot;
   const enHref = normalizedRoot + 'en/';
-  let scheduled=false;
+  let timer=0;
 
   function desktopSwitch(){
     document.querySelectorAll('.topbar-tools').forEach(host=>{
@@ -57,11 +57,15 @@
     setTimeout(tick,80);
   }
 
-  function run(){scheduled=false;desktopSwitch();mobileSwitch()}
-  function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(run)}
+  function run(){timer=0;desktopSwitch();mobileSwitch()}
+  function schedule(){
+    if(timer) clearTimeout(timer);
+    timer=setTimeout(run,60);
+  }
   const start=()=>{
     document.documentElement.lang=isEn?'en':'ru';
-    new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});
+    const watch=document.getElementById('app')||document.body;
+    new MutationObserver(schedule).observe(watch,{childList:true,subtree:true});
     run();
     launchRussianAssessment();
   };
