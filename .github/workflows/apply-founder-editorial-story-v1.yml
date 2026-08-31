@@ -24,8 +24,10 @@ jobs:
           set -euo pipefail
           test -f index.html
           test -f navigation-architecture-v2.js
+          test -f p120-public-runtime-v1.0.js
           grep -q "creator:{status:'reserved',route:'creator'}" navigation-architecture-v2.js
-          grep -q 'navigation-architecture-v2.js' index.html
+          grep -q 'navigation-architecture-v2.js' p120-public-runtime-v1.0.js
+          grep -q 'p120-public-runtime-v1.0.js' index.html
           python qa/check_founder_story.py
           node --check founder-editorial-story-v1.0.js
 
