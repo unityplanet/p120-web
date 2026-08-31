@@ -1,0 +1,71 @@
+name: Materialize Why P-120 Preview
+
+on:
+  push:
+    paths:
+      - '.github/workflows/materialize-why-p120-preview.yml'
+      - 'why-p120/payload-v14.b64'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  materialize-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Materialize native Why P-120 HTML
+        shell: bash
+        run: |
+          set -euo pipefail
+          base64 --decode why-p120/payload-v14.b64 | gunzip > why-p120/index.html
+          grep -q '<section class="wp-act wp-act4' why-p120/index.html
+          if grep -q 'DecompressionStream\|payload-v14.b64\|Preview load error' why-p120/index.html; then
+            echo 'Loader markers still present in materialized HTML' >&2
+            exit 1
+          fi
+
+      - name: Persist native index to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add why-p120/index.html
+          if ! git diff --cached --quiet; then
+            git commit -m 'Materialize Why P-120 v1.4 native preview HTML'
+            git push origin HEAD:main
+          fi
+
+      - name: Prepare Pages artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
