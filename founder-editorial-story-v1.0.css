@@ -95,10 +95,10 @@ body[data-theme='museum'] .founder-story__scene--north{background:color-mix(in s
   .founder-story{margin-top:64px}
   .founder-story__scene{padding:64px 19px}
   .founder-story__scene--statement,.founder-story__scene--question{min-height:auto;padding-top:88px;padding-bottom:88px}
-  .founder-story__display{font-size:clamp(44px,15.7vw,76px);line-height:.94}
+  .founder-story__display{font-size:clamp(44px,15.7vw,76px);line-height:.94;overflow-wrap:anywhere}
   .founder-story__display--question{font-size:clamp(38px,12.8vw,62px);line-height:1}
   .founder-story__display--insight,.founder-story__display--turn{font-size:clamp(38px,12vw,60px);line-height:1.01}
-  .founder-story__display--north{font-size:clamp(52px,16.4vw,82px);line-height:.9;overflow-wrap:anywhere}
+  .founder-story__display--north{font-size:clamp(52px,16.4vw,82px);line-height:.9}
   .founder-story__reading,.founder-story__boundary-copy{max-width:none;font-size:18px;line-height:1.66}
   .founder-story__question-row{grid-template-columns:1fr;gap:10px;padding:30px 0}
   .founder-story__marker{padding-top:0}
