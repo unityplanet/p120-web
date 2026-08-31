@@ -29,10 +29,20 @@ jobs:
           instrument=h(cut(ru,'window.P120_INSTRUMENT =','window.P120_SCIENCE='))
           assessment=h(cut(ru,'function renderPreflight(){','function render(){'))
           mobile=h(cut(ru,'function renderMobileBottomNav(){','function renderMobileDrawer(){'))
-          ru=re.sub(r'\s*<link[^>]+data-p120-language-switch="v1\.0"[^>]*>\s*','\n',ru,flags=re.I)
-          ru=re.sub(r'\s*<script[^>]+data-p120-language-switch="v1\.0"[^>]*></script>\s*','\n',ru,flags=re.I)
-          ru=ru.replace('</head>','  <link rel="stylesheet" href="language-switch-v1.0.css?v=lang10" data-p120-language-switch="v1.0" />\n</head>',1)
-          ru=ru.replace('</body>','<script src="language-switch-v1.0.js?v=lang10" data-p120-language-switch="v1.0"></script>\n</body>',1)
+
+          # Public presentation integrations only; strip previous copies to keep build idempotent.
+          for marker in ['data-p120-language-switch="v1.0"','data-p120-depth-statement="v1.1"']:
+            ru=re.sub(r'\s*<link[^>]+'+re.escape(marker)+r'[^>]*>\s*','\n',ru,flags=re.I)
+            ru=re.sub(r'\s*<script[^>]+'+re.escape(marker)+r'[^>]*></script>\s*','\n',ru,flags=re.I)
+
+          ru=ru.replace('</head>',
+            '  <link rel="stylesheet" href="language-switch-v1.0.css?v=lang10" data-p120-language-switch="v1.0" />\n'
+            '  <link rel="stylesheet" href="depth-statement-v1.1.css?v=depth11" data-p120-depth-statement="v1.1" />\n'</n            '</head>',1)
+          ru=ru.replace('</body>',
+            '<script src="language-switch-v1.0.js?v=lang10" data-p120-language-switch="v1.0"></script>\n'
+            '<script src="depth-statement-v1.1.js?v=depth11" data-p120-depth-statement="v1.1"></script>\n'
+            '</body>',1)
+
           assert h(cut(ru,'window.P120_INSTRUMENT =','window.P120_SCIENCE='))==instrument
           assert h(cut(ru,'function renderPreflight(){','function render(){'))==assessment
           assert h(cut(ru,'function renderMobileBottomNav(){','function renderMobileDrawer(){'))==mobile
@@ -51,7 +61,12 @@ jobs:
           en=re.sub(r'<meta name="twitter:title" content="[^"]*"\s*/?>','<meta name="twitter:title" content="P-120 — architecture of attraction and intimacy" />',en,count=1,flags=re.I)
           en=re.sub(r'<meta name="twitter:description" content="[^"]*"\s*/?>','<meta name="twitter:description" content="Research Candidate · 18+ · multilayer research architecture." />',en,count=1,flags=re.I)
           en=en.replace('</head>','  <link rel="alternate" hreflang="ru" href="../" />\n  <link rel="alternate" hreflang="en" href="./" />\n</head>',1)
-          scripts='<script src="../public-en-home-dictionary-v1.0.js?v=en10"></script>\n<script src="../public-en-science-dictionary-v1.0.js?v=en10"></script>\n<script src="../public-en-runtime-v1.0.js?v=en10"></script>'
+          scripts=(
+            '<script src="../public-en-home-dictionary-v1.0.js?v=en10"></script>\n'
+            '<script src="../public-en-science-dictionary-v1.0.js?v=en10"></script>\n'
+            '<script src="../public-en-localization-patch-v1.1.js?v=en11"></script>\n'
+            '<script src="../public-en-runtime-v1.0.js?v=en11"></script>'
+          )
           en=en.replace('</body>',scripts+'\n</body>',1)
           assert '<base ' not in en.lower()
           assert 'href="#science-' in en or "href='#science-" in en
@@ -60,22 +75,24 @@ jobs:
           Path('en').mkdir(exist_ok=True)
           Path('en/index.html').write_text(en,encoding='utf-8')
           Path('BILINGUAL_RELEASE_QA.txt').write_text(
-            'P-120 Web Editorial — Bilingual Public RU/EN v1.0\nRU: /\nEN: /en/\nEnglish scope: public home, Extended Set, Scientific Base and navigation.\nQuestionnaire: Russian only.\nMeasurement changes: NONE\nScoring changes: NONE\nQuestion wording changes: NONE\nInstrument SHA256: '+instrument+'\nAssessment SHA256: '+assessment+'\nMobile bottom nav SHA256: '+mobile+'\nRU/EN instrument byte-equivalence: PASS\nRU/EN assessment byte-equivalence: PASS\nEN internal fragment routing: PASS (no base tag)\n',encoding='utf-8')
-          print('Bilingual integration PASS')
+            'P-120 Web Editorial — Bilingual Public RU/EN v1.1\nRU: /\nEN: /en/\nEnglish scope: public home, Extended Set, Scientific Base and navigation.\nQuestionnaire: Russian only.\nMeasurement changes: NONE\nScoring changes: NONE\nQuestion wording changes: NONE\nInstrument SHA256: '+instrument+'\nAssessment SHA256: '+assessment+'\nMobile bottom nav SHA256: '+mobile+'\nRU/EN instrument byte-equivalence: PASS\nRU/EN assessment byte-equivalence: PASS\nEN internal fragment routing: PASS (no base tag)\nLocalization patch: v1.1\nFinal depth statement art pass: v1.1\n',encoding='utf-8')
+          print('Bilingual integration v1.1 PASS')
           PY
       - name: Check localization scripts
         run: |
           node --check language-switch-v1.0.js
           node --check public-en-home-dictionary-v1.0.js
           node --check public-en-science-dictionary-v1.0.js
+          node --check public-en-localization-patch-v1.1.js
           node --check public-en-runtime-v1.0.js
+          node --check depth-statement-v1.1.js
       - name: Commit and push safely
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html en/index.html BILINGUAL_RELEASE_QA.txt
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'Integrate bilingual RU EN public site v1.0'
+          git commit -m 'Integrate bilingual public localization v1.1'
           for i in 1 2 3; do
             git fetch origin main
             if git rebase origin/main && git push origin HEAD:main; then exit 0; fi
