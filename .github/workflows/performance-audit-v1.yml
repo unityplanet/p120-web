@@ -30,8 +30,14 @@ jobs:
           if science:
             funcs=re.findall(r'function\s+([A-Za-z_$][\w$]*)\s*\(',science)
             print('SCIENCE_FUNCTIONS',','.join(funcs))
-            print('SCIENCE_DATA_URIS',len(re.findall(r'data:[^;]+;base64,',science)))
-            for m in re.finditer(r'data:[^;]+;base64,([^"\']+)',science): print(' SCIENCE_DATA_URI_B64_CHARS',len(m.group(1)))
+            payloads=list(re.finditer(r'data:([^;]+);base64,([^"\']+)',science))
+            print('SCIENCE_DATA_URIS',len(payloads))
+            for i,m in enumerate(payloads,1):
+              print(' PAYLOAD',i,'MIME',m.group(1),'B64_CHARS',len(m.group(2)))
+              before=science[max(0,m.start()-260):m.start()]
+              after=science[m.end():m.end()+120]
+              print('  BEFORE',repr(before))
+              print('  AFTER',repr(after))
           css=re.findall(r'<link[^>]+href=["\']([^"\']+\.css[^"\']*)',s,re.I)
           js=re.findall(r'<script[^>]+src=["\']([^"\']+\.js[^"\']*)',s,re.I)
           print('CSS_REQUESTS',len(css)); print('\n'.join(' CSS '+x for x in css))
