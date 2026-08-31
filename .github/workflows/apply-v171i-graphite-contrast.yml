@@ -1,0 +1,70 @@
+name: Apply P-120 v1.7.1i Graphite Contrast
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'visual-fix-v1.7.1i.css'
+      - '.github/workflows/apply-v171i-graphite-contrast.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Integrate contrast layer
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, hashlib
+
+          path=Path('index.html')
+          text=path.read_text(encoding='utf-8')
+          before=text
+
+          marker='data-p120-visual-fix="v1.7.1i"'
+          link='<link rel="stylesheet" href="visual-fix-v1.7.1i.css?v=171i" data-p120-visual-fix="v1.7.1i" />'
+
+          text=re.sub(r'\s*<link[^>]+data-p120-visual-fix="v1\.7\.1i"[^>]*>\s*','\n',text,flags=re.I)
+          if '</head>' not in text:
+              raise SystemExit('Missing </head>')
+          text=text.replace('</head>','  '+link+'\n</head>',1)
+
+          checks={
+              'contrast-css-present': Path('visual-fix-v1.7.1i.css').exists(),
+              'contrast-link-once': text.count('visual-fix-v1.7.1i.css') == 1,
+              'extended-set-preserved': 'id="extended-research-set"' in text,
+              'extended-navigation-preserved': 'extended-research-navigation-v1.0.js' in text,
+              'science-render-preserved': 'function renderScience()' in text,
+              'questions-preserved': 'P120_TOTAL_EXTENDED' not in text,
+          }
+          failed=[k for k,v in checks.items() if not v]
+          if failed:
+              raise SystemExit('v1.7.1i integration assertions failed: '+', '.join(failed))
+
+          path.write_text(text,encoding='utf-8')
+          print('Graphite contrast integration: PASS')
+          print('index sha256:',hashlib.sha256(text.encode()).hexdigest())
+          PY
+
+      - name: Commit integrated index
+        shell: bash
+        run: |
+          if git diff --quiet -- index.html; then
+            echo 'index.html already integrated.'
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add index.html
+            git commit -m 'Apply v1.7.1i Graphite typography contrast pass'
+            git push
+          fi
