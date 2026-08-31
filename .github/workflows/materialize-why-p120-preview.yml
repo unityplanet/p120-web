@@ -33,13 +33,34 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat why-p120/payload-v14.part1 why-p120/payload-v14.part2 | tr -d '\r\n\t ' > /tmp/payload-v14.b64
-          echo "normalized_length=$(wc -c < /tmp/payload-v14.b64)"
-          echo "normalized_sha=$(sha256sum /tmp/payload-v14.b64 | awk '{print $1}')"
-          echo "part1_bytes=$(wc -c < why-p120/payload-v14.part1)"
-          echo "part2_bytes=$(wc -c < why-p120/payload-v14.part2)"
-          test "$(wc -c < /tmp/payload-v14.b64)" -eq 9136
-          echo '8f8b1bf2d8ba288d4c233a6e3392663dcf81d42df8124844ada0fb07d0a0f584  /tmp/payload-v14.b64' | sha256sum -c -
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+
+          target='8f8b1bf2d8ba288d4c233a6e3392663dcf81d42df8124844ada0fb07d0a0f584'
+          p1=''.join(Path('why-p120/payload-v14.part1').read_text().split())
+          p2=''.join(Path('why-p120/payload-v14.part2').read_text().split())
+          raw=p1+p2
+          print('input_lengths', len(p1), len(p2), len(raw))
+
+          candidates=[]
+          if len(raw)==9136 and hashlib.sha256(raw.encode()).hexdigest()==target:
+              candidates=[raw]
+          elif len(p1)==5001 and len(p2)==4136:
+              for i in range(len(p1)):
+                  candidate=p1[:i]+p1[i+1:]+p2
+                  if hashlib.sha256(candidate.encode()).hexdigest()==target:
+                      print('removed_extra_character_at_part1_index', i)
+                      candidates.append(candidate)
+                      break
+
+          if len(candidates)!=1:
+              raise SystemExit('Could not reconstruct exact expected payload')
+          Path('/tmp/payload-v14.b64').write_text(candidates[0])
+          print('recovered_length', len(candidates[0]))
+          print('recovered_sha', hashlib.sha256(candidates[0].encode()).hexdigest())
+          PY
+
           base64 --decode /tmp/payload-v14.b64 | gunzip > why-p120/index.html
           echo '176976ed565cee294bbfef91c9e66e3be4d0cedb1af35ef40fcba412260e97bf  why-p120/index.html' | sha256sum -c -
           grep -q '<section class="wp-act wp-act4' why-p120/index.html
