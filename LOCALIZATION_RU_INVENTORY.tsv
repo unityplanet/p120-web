@@ -1,0 +1,662 @@
+index.html	L8	GLOBAL	<meta name="description" content="P-120 — исследовательская архитектура притяжения, близости, телесного отклика и устойчивости желания. Research Candidate · 18+." />
+index.html	L14	GLOBAL	<meta property="og:title" content="P-120 — архитектура притяжения и близости" />
+index.html	L15	GLOBAL	<meta property="og:description" content="Многослойная исследовательская система о притяжении, близости, телесном отклике и устойчивости желания." />
+index.html	L17	GLOBAL	<meta name="twitter:title" content="P-120 — архитектура притяжения и близости" />
+index.html	L18	GLOBAL	<meta name="twitter:description" content="Research Candidate · 18+ · многослойная исследовательская архитектура." />
+index.html	L21	GLOBAL	<title>P-120 — архитектура притяжения и близости</title>
+index.html	L438	GLOBAL	.example-profile[open] .example-open{font-size:0}.example-profile[open] .example-open:after{content:"Свернуть";font-size:10px}
+index.html	L2489	GLOBAL	<a class="skip-link" href="#main-content">Перейти к основному содержанию</a>
+index.html	L2493	GLOBAL	window.P120_INSTRUMENT = {"instrument":"P-120 vNext","formVersion":"1.3","prototypeVersion":"0.7","status":"Исследовательская версия | 18+","disclaimer":"Не является валидированным, стандартизованным, нормативным, клиническим или диагностическим инструментом. N/A не означает низкий показатель. Результат не является диагнозом, не определяет сексуальную ориентацию и не устанавливает психологическую травму.","modules":[{"id":"SAT24","name":"SAT-24","title":"Архитектура социально-аффективного прикосновения","subtitle":"Социально-аффективное прикосновение","intro":"Следующие вопросы касаются прикосновений других людей в ситуациях, которые вы сами не воспринимаете как сексуальные. Отвечайте о своём обычном реальном опыте. Если подходящего опыта недостаточно, выбирайте N/A.","count":24},{"id":"P72","name":"P-72 v4.0","title":"Профиль эротико-эстетического восприятия","subtitle":"Архитектура активации · Core-72","intro":"Вопросы 1–48: ориентируйтесь на последние 6–12 месяцев и на реальные эпизоды. Если опыта действительно недостаточно, отмечайте Н/Д. Вопросы 49–72 — сравнительные выборы: выберите механизм, который труднее заменить.","count":72},{"id":"P72D","name":"P-72D","title":"Профиль устойчивости эротического желания и совместимости в паре","subtitle":"Устойчивость желания и совместимость в паре","intro":"Перед D01–D48 выберите режим прохождения. Он задаёт контекст ответов и не ме …
+index.html	L2532	buildPrototypeResult	window.P120_SCIENCE={"document":{"title":"P-120 vNext — Scientific Concept Paper","subtitle":"Интегрированная многослойная исследовательская архитектура эротико-эстетической активации, устойчивости желания, регуляции привязанности, социально-аффективного прикосновения и телесного эротического ответа","version":"Академическая редакционная версия A4 · v1.1","date":"29 августа 2026","status":"Исследовательская версия · 18+","pages":21,"pdf":"data:application/pdf;base64,JVBERi0xLjcKJeLjz9MKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMiAwIFIKL1BhZ2VNb2RlIC9Vc2VPdXRsaW5lcwovT3BlbkFjdGlvbiBbIDIxIDAgUiAvWFlaIG51bGwgbnVsbCAwIF0KL1ZpZXdlclByZWZlcmVuY2VzIDw8Ci9EaXNwbGF5RG9jVGl0bGUgdHJ1ZQo+PgovT3V0bGluZXMgMTQ5IDAgUgovU3RydWN0VHJlZVJvb3QgMTkxIDAgUgovTGFuZyAoZW5cMDU1VVMpCi9NYXJrSW5mbyA8PAovTWFya2VkIHRydWUKPj4KPj4KZW5kb2JqCjIgMCBvYmoKPDwKL1R5cGUgL1BhZ2VzCi9SZXNvdXJjZXMgMyAwIFIKL0tpZHMgWyAyMSAwIFIgMjMgMCBSIDU0IDAgUiAxMDggMCBSIDI1IDAgUiA1MCAwIFIgNDYgMCBSIDQzIDAgUiAxMTQgMCBSIDM1IDAgUiAxMDEgMCBSIDI4IDAgUiAxMTYgMCBSIDk1IDAgUiAxMTggMCBSIDkyIDAgUiA4OSAwIFIgODUgMCBSIDgwIDAgUiA1NyAwIFIgMTIwIDAgUiBdCi9Db3VudCAyMQo+PgplbmRvYmoKMyAwIG9iago8PAovRm9udCA0IDAgUgovUHJvY1NldCBbIC9QREYgL1RleHQgXQo+PgplbmRvYmoKNCAwIG9iago8PAovRjEgNSAwIFIKL0YyIDkgMCBSCi9GMyAxMyAwIFIKL0Y0IDE3IDAgUgo+PgplbmRvYmoKNSAwIG9iago8PAovVHlwZSAvRm9udAovU3VidHlwZSAvVHJ1ZVR5cGUKL0Jhc2VGb250IC9CQUFBQUErTm90b1NhbnMtUmVndWxhcgovRmlyc3RDaGFyIDAKL …
+index.html	L2541	buildPrototypeResult	"title": "P-120 простыми словами",
+index.html	L2542	buildPrototypeResult	"subtitle": "Короткое введение для участника исследования",
+index.html	L2548	buildPrototypeResult	"title": "P-120: человек, близость и притяжение",
+index.html	L2549	buildPrototypeResult	"subtitle": "Простое объяснение того, что исследует модель и зачем она нужна",
+index.html	L2554	buildPrototypeResult	"headline": "Не насколько вы «сексуальны». А как устроено ваше притяжение.",
+index.html	L2555	buildPrototypeResult	"socialHeadline": "Близость — это система, а не один ответ.",
+index.html	L2556	buildPrototypeResult	"intro": "P-120 исследует не один общий уровень желания, а сочетание процессов: что захватывает внимание, как ощущаются прикосновения и дистанция, как включается телесный отклик, что поддерживает желание во времени и где оно становится зависимым от контекста.",
+index.html	L2560	buildPrototypeResult	"title": "Внимание и восприятие",
+index.html	L2561	buildPrototypeResult	"text": "Что вы прежде всего замечаете: форму, движение, детали, общую сцену, выразительность или сочетание нескольких ощущений."
+index.html	L2565	buildPrototypeResult	"title": "Прикосновение и социальный комфорт",
+index.html	L2566	buildPrototypeResult	"text": "Как обычные объятия и прикосновения переживаются в зависимости от человека, доверия, контекста и личной границы."
+index.html	L2570	buildPrototypeResult	"title": "Близость и дистанция",
+index.html	L2571	buildPrototypeResult	"text": "Как вы реагируете на сближение, неопределённость, поддержку, автономность и необходимость опираться на другого."
+index.html	L2575	buildPrototypeResult	"title": "Сигналы собственного тела",
+index.html	L2576	buildPrototypeResult	"text": "Насколько легко вы замечаете телесные изменения и различаете их смысл в эротически значимом контексте."
+index.html	L2580	buildPrototypeResult	"title": "Притяжение и устойчивость интереса",
+index.html	L2581	buildPrototypeResult	"text": "Что запускает желание, что помогает ему сохраняться и как на него влияют привычность, новизна, взаимность и инициатива."
+index.html	L2586	buildPrototypeResult	"title": "Понять собственные реакции",
+index.html	L2587	buildPrototypeResult	"text": "Почему с одним человеком легко и спокойно, с другим возникает напряжение, а с третьим — сильное притяжение."
+index.html	L2590	buildPrototypeResult	"title": "Увидеть условия близости",
+index.html	L2591	buildPrototypeResult	"text": "Что помогает доверять, принимать прикосновения, сохранять самостоятельность и чувствовать себя естественно в контакте."
+index.html	L2594	buildPrototypeResult	"title": "Отделить «химию» от устойчивости",
+index.html	L2595	buildPrototypeResult	"text": "Сильное первое впечатление и способность сохранять интерес со временем — разные процессы."
+index.html	L2598	buildPrototypeResult	"title": "Точнее говорить о потребностях",
+index.html	L2599	buildPrototypeResult	"text": "Вместо общего ярлыка — конкретный язык: взаимность, пространство, доверие, новизна, инициатива, контекст или определённый вид контакта."
+index.html	L2604	buildPrototypeResult	"title": "Красота есть, а возбуждение возникает не всегда",
+index.html	L2605	buildPrototypeResult	"text": "Эстетическое восхищение может быть сильным само по себе, а эротический отклик появляться только при движении, атмосфере или взаимном интересе."
+index.html	L2608	buildPrototypeResult	"title": "Новизна важна, но новый партнёр не обязателен",
+index.html	L2609	buildPrototypeResult	"text": "Новый импульс может возникать внутри знакомой связи через вариативность, инициативу, игру, обстановку или неожиданную сторону того же человека."
+index.html	L2612	buildPrototypeResult	"title": "Прикосновения приятны только после доверия",
+index.html	L2613	buildPrototypeResult	"text": "Похожее внешнее поведение может отражать разные процессы: общую селективность к прикосновению, контекст отношений или реакцию на эмоциональную неопределённость."
+index.html	L2616	buildPrototypeResult	"title": "Желание усиливается, когда вы чувствуете ответ",
+index.html	L2617	buildPrototypeResult	"text": "Для некоторых людей взаимность — не просто приятное подтверждение, а один из механизмов собственного эротического вовлечения."
+index.html	L2621	buildPrototypeResult	"что включает желание",
+index.html	L2622	buildPrototypeResult	"что помогает ему сохраняться",
+index.html	L2623	buildPrototypeResult	"что может ослаблять",
+index.html	L2624	buildPrototypeResult	"какие условия близости и контакта особенно важны"
+index.html	L2627	buildPrototypeResult	"не ставит медицинских или психологических диагнозов",
+index.html	L2628	buildPrototypeResult	"не определяет сексуальную ориентацию и не доказывает травму",
+index.html	L2629	buildPrototypeResult	"не превращает телесную реакцию или возбуждение в согласие",
+index.html	L2630	buildPrototypeResult	"не устанавливает реальную совместимость пары по одному человеку",
+index.html	L2631	buildPrototypeResult	"не предсказывает длительность отношений"
+index.html	L2641	buildPrototypeResult	"name": "Эстетический созерцатель",
+index.html	L2642	buildPrototypeResult	"strap": "Красота важна сама по себе, но не всегда автоматически становится возбуждением.",
+index.html	L2643	buildPrototypeResult	"summary": "Этот профиль быстро замечает гармонию формы, композицию и визуальную сцену. Эротический отклик становится глубже, когда к эстетике добавляются живой контекст, взаимность или сенсорная насыщенность.",
+index.html	L2648	buildPrototypeResult	"эстетическая восприимчивость"
+index.html	L2653	buildPrototypeResult	"целостная форма"
+index.html	L2658	buildPrototypeResult	"сценографический контекст"
+index.html	L2663	buildPrototypeResult	"эротическая активация красотой"
+index.html	L2668	buildPrototypeResult	"устойчивость при знакомстве"
+index.html	L2672	buildPrototypeResult	"хорошая визуальная среда",
+index.html	L2673	buildPrototypeResult	"выразительная форма без давления",
+index.html	L2674	buildPrototypeResult	"живой ответ партнёра"
+index.html	L2676	buildPrototypeResult	"watch": "Высокая эстетическая чувствительность не означает автоматически высокий уровень сексуального желания."
+index.html	L2680	buildPrototypeResult	"name": "Взаимный соавтор",
+index.html	L2681	buildPrototypeResult	"strap": "Желание усиливается, когда эротический момент создаётся вдвоём.",
+index.html	L2682	buildPrototypeResult	"summary": "Здесь особенно заметны взаимный отклик, совместное создание атмосферы и самостоятельная эротическая инициатива партнёра. Односторонняя режиссура может быстро обеднять вовлечение, даже при физической привлекательности.",
+index.html	L2687	buildPrototypeResult	"эротическая взаимность"
+index.html	L2692	buildPrototypeResult	"соавторство"
+index.html	L2697	buildPrototypeResult	"потребность в инициативе партнёра"
+index.html	L2702	buildPrototypeResult	"восстановление контакта"
+index.html	L2707	buildPrototypeResult	"активация красотой"
+index.html	L2711	buildPrototypeResult	"явное встречное желание",
+index.html	L2712	buildPrototypeResult	"инициатива с обеих сторон",
+index.html	L2713	buildPrototypeResult	"совместная игра с атмосферой"
+index.html	L2715	buildPrototypeResult	"watch": "Потребность во взаимности не равна тревожной зависимости от подтверждения отношений."
+index.html	L2719	buildPrototypeResult	"name": "Динамический исследователь",
+index.html	L2720	buildPrototypeResult	"strap": "Движение и вариативность оживляют интерес сильнее, чем статическая идеальность.",
+index.html	L2721	buildPrototypeResult	"summary": "Профиль высоко реагирует на движение, смену ракурса и новизну, но способен находить новое внутри знакомой связи. Поэтому чувствительность к новизне здесь не превращается автоматически в зависимость от нового партнёра.",
+index.html	L2726	buildPrototypeResult	"динамическая пластика"
+index.html	L2731	buildPrototypeResult	"чувствительность к новизне"
+index.html	L2736	buildPrototypeResult	"новизна внутри связи"
+index.html	L2741	buildPrototypeResult	"зависимость от внешней новизны"
+index.html	L2746	buildPrototypeResult	"выразительная интенсивность"
+index.html	L2750	buildPrototypeResult	"вариативность",
+index.html	L2751	buildPrototypeResult	"движение и живой жест",
+index.html	L2752	buildPrototypeResult	"новые стороны знакомого человека"
+index.html	L2754	buildPrototypeResult	"watch": "Высокая NR при высокой NRW и низкой END — принципиально другой рисунок, чем постоянная потребность в новом объекте."
+index.html	L2758	buildPrototypeResult	"name": "Мультисенсорный реалист",
+index.html	L2759	buildPrototypeResult	"strap": "Одного красивого образа мало — важна физически присутствующая сенсорная реальность.",
+index.html	L2760	buildPrototypeResult	"summary": "Визуальное впечатление становится полноценным при добавлении реального прикосновения, голоса, запаха, температуры и близости тела. В воображении образ может быть привлекательным, но решающая глубина появляется в непосредственном контакте.",
+index.html	L2765	buildPrototypeResult	"мультисенсорное погружение"
+index.html	L2770	buildPrototypeResult	"визуально-тактильная симуляция"
+index.html	L2775	buildPrototypeResult	"эротическая активация"
+index.html	L2780	buildPrototypeResult	"замечание телесного ответа"
+index.html	L2785	buildPrototypeResult	"соматическое препятствие"
+index.html	L2789	buildPrototypeResult	"реальный сенсорный контакт",
+index.html	L2790	buildPrototypeResult	"комфортная температура/запах/голос",
+index.html	L2791	buildPrototypeResult	"физическое присутствие"
+index.html	L2793	buildPrototypeResult	"watch": "Высокая потребность в реальных сенсорных сигналах не означает слабого воображения."
+index.html	L2797	buildPrototypeResult	"name": "Визуально-тактильный симулятор",
+index.html	L2798	buildPrototypeResult	"strap": "Взгляд сам по себе почти создаёт ощущение фактуры, объёма и прикосновения.",
+index.html	L2799	buildPrototypeResult	"summary": "Этот пример показывает противоположную конфигурацию: зрительный образ способен вызывать почти осязательное переживание без физического контакта. Локальные анатомические детали и поверхность могут иметь самостоятельную значимость.",
+index.html	L2804	buildPrototypeResult	"визуально-тактильная симуляция"
+index.html	L2809	buildPrototypeResult	"анатомическая детализация"
+index.html	L2814	buildPrototypeResult	"целостная форма"
+index.html	L2819	buildPrototypeResult	"реальный мультисенсорный вход"
+index.html	L2824	buildPrototypeResult	"эротическая активация"
+index.html	L2828	buildPrototypeResult	"чёткая видимость",
+index.html	L2829	buildPrototypeResult	"детали поверхности и рельефа",
+index.html	L2830	buildPrototypeResult	"визуальная близость"
+index.html	L2832	buildPrototypeResult	"watch": "HV и MS выглядят похожими в описании телесности, но измеряют разные механизмы."
+index.html	L2836	buildPrototypeResult	"name": "Автономный эротизм",
+index.html	L2837	buildPrototypeResult	"strap": "Близость комфортна, но желание лучше живёт, когда у каждого остаётся психологическое пространство.",
+index.html	L2838	buildPrototypeResult	"summary": "Здесь эротическая автономность высока при низкой избегающей регуляции привязанности. Человек может доверять, принимать поддержку и сохранять эмоциональную связь, но чрезмерное слияние и фиксированные роли снижают эротическое напряжение.",
+index.html	L2843	buildPrototypeResult	"эротическая автономность"
+index.html	L2848	buildPrototypeResult	"избегающая регуляция"
+index.html	L2853	buildPrototypeResult	"устойчивость при знакомстве"
+index.html	L2858	buildPrototypeResult	"риск фамилиаризации"
+index.html	L2863	buildPrototypeResult	"взаимность"
+index.html	L2867	buildPrototypeResult	"пространство внутри близости",
+index.html	L2868	buildPrototypeResult	"самостоятельность обоих",
+index.html	L2869	buildPrototypeResult	"отсутствие полного бытового слияния"
+index.html	L2871	buildPrototypeResult	"watch": "AUT нельзя автоматически трактовать как attachment avoidance."
+index.html	L2875	buildPrototypeResult	"name": "Близость усиливает желание",
+index.html	L2876	buildPrototypeResult	"strap": "Безопасность и знание человека не гасят эротизм, а могут делать его глубже.",
+index.html	L2877	buildPrototypeResult	"summary": "Эмоциональная близость, надёжность и знакомство в этом профиле становятся ресурсом желания. Привычность сама по себе мало снижает эротическое значение партнёра, а восстановление после временных спадов остаётся доступным.",
+index.html	L2882	buildPrototypeResult	"близость усиливает эротизм"
+index.html	L2887	buildPrototypeResult	"устойчивость при знакомстве"
+index.html	L2892	buildPrototypeResult	"уязвимость к привыканию"
+index.html	L2897	buildPrototypeResult	"эротическое восстановление"
+index.html	L2902	buildPrototypeResult	"аффективная ценность прикосновения"
+index.html	L2906	buildPrototypeResult	"доверие",
+index.html	L2907	buildPrototypeResult	"надёжная близость",
+index.html	L2908	buildPrototypeResult	"возможность восстанавливать контакт после напряжения"
+index.html	L2910	buildPrototypeResult	"watch": "Высокая безопасность не означает низкую интенсивность или отсутствие потребности в новизне."
+index.html	L2914	buildPrototypeResult	"name": "Сильная химия, хрупкая привычность",
+index.html	L2915	buildPrototypeResult	"strap": "Начальный импульс очень яркий, но повторяемость быстро снижает напряжение.",
+index.html	L2916	buildPrototypeResult	"summary": "Этот пример демонстрирует разрыв между активацией и устойчивостью: интенсивность и новизна легко запускают сильное желание, однако знакомство и предсказуемость заметно ослабляют его, а внутреннее обновление связи даётся труднее.",
+index.html	L2921	buildPrototypeResult	"выразительная интенсивность"
+index.html	L2926	buildPrototypeResult	"чувствительность к новизне"
+index.html	L2931	buildPrototypeResult	"уязвимость к привыканию"
+index.html	L2936	buildPrototypeResult	"внешняя новизна"
+index.html	L2941	buildPrototypeResult	"обновление внутри связи"
+index.html	L2945	buildPrototypeResult	"сильный первый импульс",
+index.html	L2946	buildPrototypeResult	"непредсказуемость",
+index.html	L2947	buildPrototypeResult	"сознательное обновление сценариев"
+index.html	L2949	buildPrototypeResult	"watch": "Это не прогноз длительности отношений и не характеристика способности любить или привязываться."
+index.html	L2953	buildPrototypeResult	"name": "Селективный телесный контакт",
+index.html	L2954	buildPrototypeResult	"strap": "Прикосновение может быть тёплым и значимым — но сильно зависит от человека, контекста и границы.",
+index.html	L2955	buildPrototypeResult	"summary": "Профиль не избегает близости в целом, однако несексуальное прикосновение переживается очень контекстно. Незнакомое или неожиданное касание быстро вызывает телесное желание увеличить дистанцию, тогда как контакт с близким человеком может быть ресурсом поддержки.",
+index.html	L2960	buildPrototypeResult	"контекст и человек"
+index.html	L2965	buildPrototypeResult	"телесная граница"
+index.html	L2970	buildPrototypeResult	"аффективная ценность"
+index.html	L2975	buildPrototypeResult	"избегающая регуляция"
+index.html	L2980	buildPrototypeResult	"телесный резонанс"
+index.html	L2984	buildPrototypeResult	"предсказуемость прикосновения",
+index.html	L2985	buildPrototypeResult	"доверие",
+index.html	L2986	buildPrototypeResult	"уважение к телесным границам"
+index.html	L2988	buildPrototypeResult	"watch": "Высокий TBR не является диагнозом тревоги, травмы или избегающей привязанности."
+index.html	L2992	buildPrototypeResult	"name": "Телесно осознающий профиль",
+index.html	L2993	buildPrototypeResult	"strap": "Собственные телесные сигналы хорошо замечаются и помогают понимать изменение возбуждения.",
+index.html	L2994	buildPrototypeResult	"summary": "Этот пример отличается высокой субъективной заметностью и дифференциацией телесного ответа. Дыхание, движение, внимание и мышечный тонус переживаются как значимые для состояния, при этом внешняя визуальная активация может быть вполне умеренной.",
+index.html	L2999	buildPrototypeResult	"замечание телесного ответа"
+index.html	L3004	buildPrototypeResult	"понимание его смысла"
+index.html	L3009	buildPrototypeResult	"телесная модуляция"
+index.html	L3014	buildPrototypeResult	"соматическое препятствие"
+index.html	L3019	buildPrototypeResult	"визуально-эротическая активация"
+index.html	L3023	buildPrototypeResult	"внимание к телу",
+index.html	L3024	buildPrototypeResult	"свободное дыхание и движение",
+index.html	L3025	buildPrototypeResult	"низкий сенсорный дискомфорт"
+index.html	L3027	buildPrototypeResult	"watch": "Самоотчётная телесная осознанность не равна объективной физиологической точности."
+index.html	L3037	buildPrototypeResult	{ id: "act-i", label: "Акт I", title: "Увидеть внутреннюю систему", sections: ["why-important","life-energy","understand-desire"] },
+index.html	L3038	buildPrototypeResult	{ id: "act-ii", label: "Акт II", title: "Понять различия и отношения", sections: ["two-systems","why-p120","what-p120-shows"] },
+index.html	L3039	buildPrototypeResult	{ id: "act-iii", label: "Акт III", title: "Опора на науку и реальную жизнь", sections: ["science-foundation","life-importance","understand-earlier"] },
+index.html	L3040	buildPrototypeResult	{ id: "act-iv", label: "Акт IV", title: "Открыть свою карту", sections: ["final"] }
+index.html	L3043	buildPrototypeResult	{ after: "understand-desire", line: "Сильная искра и долгий огонь — не одно и то же." },
+index.html	L3044	buildPrototypeResult	{ after: "what-p120-shows", line: "Встречаются две жизненные системы." },
+index.html	L3045	buildPrototypeResult	{ after: "understand-earlier", line: "Некоторые части себя мы всю жизнь только чувствуем." }
+index.html	L3051	buildPrototypeResult	act: "Акт I · Вовлечение",
+index.html	L3052	buildPrototypeResult	hero: "Некоторые части себя мы всю жизнь только чувствуем.",
+index.html	L3053	buildPrototypeResult	subtitle: "P-120 помогает увидеть, как именно вы переживаете притяжение, желание, тело, прикосновение, близость, свободу и отношения с другим человеком.\n\nНе через один ярлык.\nЧерез вашу собственную внутреннюю архитектуру.",
+index.html	L3054	buildPrototypeResult	flash: "Понять свою сексуальность — значит понять один из способов, которыми жизнь проявляется через вас.",
+index.html	L3056	buildPrototypeResult	"Сексуальность начинается намного раньше секса.",
+index.html	L3057	buildPrototypeResult	"С того, кого мы замечаем.",
+index.html	L3058	buildPrototypeResult	"Как на нас действует красота.",
+index.html	L3059	buildPrototypeResult	"Как тело отвечает на взгляд, движение, голос или прикосновение.",
+index.html	L3060	buildPrototypeResult	"Как близко мы готовы подпустить другого человека.",
+index.html	L3061	buildPrototypeResult	"Что происходит с нашим желанием, когда отношения становятся знакомыми.",
+index.html	L3062	buildPrototypeResult	"Почему с одним человеком хочется приблизиться, а рядом с другим — сохранить пространство.",
+index.html	L3063	buildPrototypeResult	"Многие из этих процессов происходят почти автоматически.",
+index.html	L3064	buildPrototypeResult	"Мы чувствуем их — но редко можем точно назвать.",
+index.html	L3065	buildPrototypeResult	"P-120 создан, чтобы сделать эту внутреннюю систему видимой."
+index.html	L3067	buildPrototypeResult	cta: "Увидеть свою карту",
+index.html	L3074	buildPrototypeResult	act: "Акт I · Жизненность",
+index.html	L3075	buildPrototypeResult	hero: "Сексуальность начинается не с секса.",
+index.html	L3076	buildPrototypeResult	subtitle: "Она начинается с импульса к жизни.\n\nК притяжению.\nК соединению.\nК красоте.\nК продолжению себя.\nК созданию того, чего раньше не существовало.",
+index.html	L3077	buildPrototypeResult	flash: "Желание рождает движение. Осознанность задаёт ему направление.",
+index.html	L3079	buildPrototypeResult	"Человек способен не только испытывать желание.",
+index.html	L3080	buildPrototypeResult	"Он способен придавать ему направление.",
+index.html	L3081	buildPrototypeResult	"Желание может стать близостью.",
+index.html	L3082	buildPrototypeResult	"Нежностью.",
+index.html	L3083	buildPrototypeResult	"Любовью.",
+index.html	L3084	buildPrototypeResult	"Рождением ребёнка.",
+index.html	L3085	buildPrototypeResult	"Созданием семьи.",
+index.html	L3086	buildPrototypeResult	"Творчеством.",
+index.html	L3087	buildPrototypeResult	"Амбицией.",
+index.html	L3088	buildPrototypeResult	"Проектом.",
+index.html	L3089	buildPrototypeResult	"Стремлением создавать красивое, новое и живое.",
+index.html	L3090	buildPrototypeResult	"Мы не утверждаем, что существует измеримая «мистическая сексуальная энергия».",
+index.html	L3091	buildPrototypeResult	"Но стремление к соединению, продолжению, удовольствию и созданию действительно является одной из фундаментальных частей человеческого опыта.",
+index.html	L3092	buildPrototypeResult	"Понимать эту часть себя — значит не подавлять её и не становиться её заложником.",
+index.html	L3093	buildPrototypeResult	"А научиться видеть, что именно происходит внутри вас."
+index.html	L3095	buildPrototypeResult	cta: "Понять себя глубже",
+index.html	L3102	buildPrototypeResult	act: "Акт I · Осознанность",
+index.html	L3103	buildPrototypeResult	hero: "Что на самом деле означает ваше желание?",
+index.html	L3104	buildPrototypeResult	subtitle: "Не только кого вы хотите.\n\nНо почему.\nКогда.\nКаким образом.\n\nИ что происходит с вами после того, как первоначальное притяжение уже возникло.",
+index.html	L3105	buildPrototypeResult	flash: "Зрелость — не отсутствие желания. Это способность понимать, что с вами происходит.",
+index.html	L3107	buildPrototypeResult	"Почему вам сейчас хочется прикосновения?",
+index.html	L3108	buildPrototypeResult	"Почему иногда оно раздражает?",
+index.html	L3109	buildPrototypeResult	"Почему с одним человеком вы легко расслабляетесь, а рядом с другим всё тело остаётся напряжённым?",
+index.html	L3110	buildPrototypeResult	"Почему кому-то необходима глубокая эмоциональная близость для появления желания, а другому требуется пространство и ощущение отдельности?",
+index.html	L3111	buildPrototypeResult	"Почему после конфликта один человек ищет физического сближения, а другой не способен его переносить?",
+index.html	L3112	buildPrototypeResult	"Почему знакомство укрепляет желание у одних людей — и постепенно снижает его у других?",
+index.html	L3113	buildPrototypeResult	"Чем лучше человек понимает собственную систему, тем меньше партнёру приходится её угадывать."
+index.html	L3115	buildPrototypeResult	cta: "Исследовать свою систему",
+index.html	L3122	buildPrototypeResult	act: "Акт II · Отношения",
+index.html	L3123	buildPrototypeResult	hero: "В отношениях встречаются не два набора предпочтений.",
+index.html	L3124	buildPrototypeResult	subtitle: "Встречаются два способа чувствовать жизнь.",
+index.html	L3125	buildPrototypeResult	flash: "Как двум людям жить рядом, не уменьшая жизненность друг друга?",
+index.html	L3127	buildPrototypeResult	"Две интенсивности желания.",
+index.html	L3128	buildPrototypeResult	"Два отношения к телу.",
+index.html	L3129	buildPrototypeResult	"Две потребности в прикосновении.",
+index.html	L3130	buildPrototypeResult	"Два способа приближаться и отдаляться.",
+index.html	L3131	buildPrototypeResult	"Два отношения к новизне.",
+index.html	L3132	buildPrototypeResult	"Две потребности в свободе.",
+index.html	L3133	buildPrototypeResult	"Два способа переживать безопасность.",
+index.html	L3134	buildPrototypeResult	"Две системы привязанности.",
+index.html	L3135	buildPrototypeResult	"Два способа восстанавливать близость после напряжения.",
+index.html	L3136	buildPrototypeResult	"Совместимость не означает, что эти системы должны быть одинаковыми.",
+index.html	L3137	buildPrototypeResult	"Иногда различия создают притяжение.",
+index.html	L3138	buildPrototypeResult	"Иногда требуют диалога.",
+index.html	L3139	buildPrototypeResult	"Иногда хорошо поддаются адаптации.",
+index.html	L3140	buildPrototypeResult	"А некоторые начинают годами создавать напряжение, которое люди долго не умеют даже назвать."
+index.html	L3142	buildPrototypeResult	cta: "Увидеть свою сторону отношений",
+index.html	L3149	buildPrototypeResult	act: "Акт II · Уникальность",
+index.html	L3150	buildPrototypeResult	hero: "Не один балл.\nНе один тип.\nНе один ответ.",
+index.html	L3151	buildPrototypeResult	subtitle: "P-120 не пытается решить сложность человеческой близости одной цифрой.\n\nОн рассматривает её как систему независимых, но взаимодействующих процессов.",
+index.html	L3152	buildPrototypeResult	flash: "То, что обычно смешивают, P-120 старается разделить и увидеть.",
+index.html	L3154	buildPrototypeResult	"Красота и сексуальное возбуждение — не одно и то же.",
+index.html	L3155	buildPrototypeResult	"Потребность в новизне и потребность в новом партнёре — не одно и то же.",
+index.html	L3156	buildPrototypeResult	"Любовь к прикосновению и зависимость желания от прикосновения — не одно и то же.",
+index.html	L3157	buildPrototypeResult	"Эмоциональная близость и эротическое желание — не одно и то же.",
+index.html	L3158	buildPrototypeResult	"Автономность и избегание близости — не одно и то же.",
+index.html	L3159	buildPrototypeResult	"Сильная первоначальная химия и способность сохранять желание годами — не одно и то же.",
+index.html	L3160	buildPrototypeResult	"Умение замечать реакцию собственного тела и способность понимать её смысл — тоже разные процессы.",
+index.html	L3161	buildPrototypeResult	"Именно в этих различиях начинает проявляться индивидуальная архитектура человека."
+index.html	L3163	buildPrototypeResult	cta: "Узнать свою архитектуру",
+index.html	L3170	buildPrototypeResult	act: "Акт II · Карта",
+index.html	L3171	buildPrototypeResult	hero: "Не «насколько вы сексуальны».\n\nА как именно устроена ваша близость.",
+index.html	L3172	buildPrototypeResult	subtitle: "P-120 исследует несколько уровней человеческого опыта — от первого импульса притяжения до динамики длительных отношений.",
+index.html	L3173	buildPrototypeResult	flash: "Сильная искра и долгий огонь — не одно и то же.",
+index.html	L3175	buildPrototypeResult	"что именно захватывает ваше внимание;",
+index.html	L3176	buildPrototypeResult	"как красота превращается — или не превращается — в желание;",
+index.html	L3177	buildPrototypeResult	"какую роль играют движение, форма, детали, свет и мультисенсорность;",
+index.html	L3178	buildPrototypeResult	"насколько важен живой ответ партнёра;",
+index.html	L3179	buildPrototypeResult	"нужно ли вам эротическое соавторство;",
+index.html	L3180	buildPrototypeResult	"как вы относитесь к новизне;",
+index.html	L3181	buildPrototypeResult	"способно ли желание обновляться внутри знакомой связи;",
+index.html	L3182	buildPrototypeResult	"что происходит с ним при повторяемости и рутине;",
+index.html	L3183	buildPrototypeResult	"как эмоциональная близость влияет на эротизм;",
+index.html	L3184	buildPrototypeResult	"насколько важна автономность;",
+index.html	L3185	buildPrototypeResult	"как вы переживаете прикосновение;",
+index.html	L3186	buildPrototypeResult	"как регулируете значимую близость;",
+index.html	L3187	buildPrototypeResult	"как замечаете и различаете реакции собственного тела;",
+index.html	L3188	buildPrototypeResult	"и как потенциально восстанавливается ваша эротическая система после охлаждения."
+index.html	L3190	buildPrototypeResult	cta: "Посмотреть, что исследует P-120",
+index.html	L3197	buildPrototypeResult	act: "Акт III · Научная уверенность",
+index.html	L3198	buildPrototypeResult	hero: "Научная база — не украшение.\n\nЭто фундамент.",
+index.html	L3199	buildPrototypeResult	subtitle: "P-120 создаётся на пересечении современной сексологии, психологии отношений, исследований привязанности, прикосновения, телесной осознанности, эстетического восприятия и динамики желания.",
+index.html	L3200	buildPrototypeResult	flash: "Наука даёт отдельные части картины. P-120 пытается увидеть их вместе.",
+index.html	L3202	buildPrototypeResult	"Большинство существующих исследований и психологических инструментов подробно рассматривают отдельные области:",
+index.html	L3203	buildPrototypeResult	"сексуальное возбуждение и торможение;",
+index.html	L3204	buildPrototypeResult	"желание;",
+index.html	L3205	buildPrototypeResult	"привязанность;",
+index.html	L3206	buildPrototypeResult	"сексуальную коммуникацию;",
+index.html	L3207	buildPrototypeResult	"прикосновение;",
+index.html	L3208	buildPrototypeResult	"интероцепцию;",
+index.html	L3209	buildPrototypeResult	"сексуальную инициативность;",
+index.html	L3210	buildPrototypeResult	"новизну и скуку;",
+index.html	L3211	buildPrototypeResult	"отношения в длительной паре;",
+index.html	L3212	buildPrototypeResult	"сексуальную автономность;",
+index.html	L3213	buildPrototypeResult	"отзывчивость партнёра.",
+index.html	L3214	buildPrototypeResult	"P-120 использует эту научную традицию как фундамент, но не утверждает, что существующие исследования уже доказали валидность всей интегрированной модели.",
+index.html	L3215	buildPrototypeResult	"Именно поэтому P-120 развивается как Research Candidate: каждое новое соединение между слоями должно подтверждаться эмпирически, а не приниматься на веру.",
+index.html	L3216	buildPrototypeResult	"Текущий верифицированный scientific ledger включает 33 peer-reviewed источника, проверенных по DOI, PubMed и издательским данным; доказательная база продолжает расширяться."
+index.html	L3218	buildPrototypeResult	cta: "Посмотреть научную основу",
+index.html	L3225	buildPrototypeResult	act: "Акт III · Жизненный контекст",
+index.html	L3226	buildPrototypeResult	hero: "Мы не становимся другим человеком, когда выходим из спальни.",
+index.html	L3227	buildPrototypeResult	subtitle: "То, как мы переживаем близость, принятие, желание и телесный контакт, существует внутри той же психики, с которой мы работаем, учимся, создаём, строим отношения и проживаем свою жизнь.",
+index.html	L3228	buildPrototypeResult	flash: "Хорошие отношения не должны постоянно поглощать энергию. В лучших случаях они становятся одним из её источников.",
+index.html	L3230	buildPrototypeResult	"P-120 не утверждает, что сексуальная жизнь определяет успех, здоровье или счастье человека.",
+index.html	L3231	buildPrototypeResult	"Но интимные отношения могут занимать огромную часть нашего эмоционального пространства.",
+index.html	L3232	buildPrototypeResult	"Принятие.",
+index.html	L3233	buildPrototypeResult	"Отвержение.",
+index.html	L3234	buildPrototypeResult	"Желанность.",
+index.html	L3235	buildPrototypeResult	"Ревность.",
+index.html	L3236	buildPrototypeResult	"Безопасность.",
+index.html	L3237	buildPrototypeResult	"Дистанция.",
+index.html	L3238	buildPrototypeResult	"Непонятость.",
+index.html	L3239	buildPrototypeResult	"Телесная близость.",
+index.html	L3240	buildPrototypeResult	"Хроническое напряжение.",
+index.html	L3241	buildPrototypeResult	"Всё это способно становиться частью общего психологического фона.",
+index.html	L3242	buildPrototypeResult	"Когда человеку не приходится постоянно защищаться, угадывать, притворяться или подавлять значимую часть себя, больше внутреннего пространства остаётся для остальной жизни."
+index.html	L3244	buildPrototypeResult	cta: "Увидеть свои паттерны",
+index.html	L3251	buildPrototypeResult	act: "Акт III · Раньше",
+index.html	L3252	buildPrototypeResult	hero: "Самые важные вопросы отношений часто задаются слишком поздно.",
+index.html	L3253	buildPrototypeResult	subtitle: "Когда уже есть чувства.\n\nОбещания.\n\nОбщая история.\n\nПривязанность.\n\nИ цена ответа стала значительно выше.",
+index.html	L3254	buildPrototypeResult	flash: "Некоторые вещи лучше увидеть до того, как их приходится исправлять.",
+index.html	L3256	buildPrototypeResult	"Можно очень любить человека и при этом по-разному переживать близость.",
+index.html	L3257	buildPrototypeResult	"Можно иметь сильнейшую сексуальную химию и совершенно разные механизмы сохранения желания.",
+index.html	L3258	buildPrototypeResult	"Можно отлично понимать друг друга интеллектуально — и говорить на разных телесных языках.",
+index.html	L3259	buildPrototypeResult	"Можно хотеть свободы и принимать потребность партнёра в близости за давление.",
+index.html	L3260	buildPrototypeResult	"Можно нуждаться в прикосновении и воспринимать дистанцию другого как отсутствие любви.",
+index.html	L3261	buildPrototypeResult	"P-120 не решает за человека, с кем ему быть.",
+index.html	L3262	buildPrototypeResult	"Он помогает увидеть больше информации до того, как важные решения приходится принимать почти вслепую."
+index.html	L3264	buildPrototypeResult	cta: "Понять себя раньше",
+index.html	L3271	buildPrototypeResult	act: "Акт IV · Финал",
+index.html	L3272	buildPrototypeResult	hero: "Возможно, многое из этого вы уже знали о себе.",
+index.html	L3273	buildPrototypeResult	subtitle: "Просто никогда не видели всё вместе.",
+index.html	L3274	buildPrototypeResult	flash: "Некоторые части себя мы всю жизнь только чувствуем.",
+index.html	L3276	buildPrototypeResult	"P-120 помогает собрать эти ощущения в карту.",
+index.html	L3277	buildPrototypeResult	"Что меня включает.",
+index.html	L3278	buildPrototypeResult	"Что удерживает моё желание.",
+index.html	L3279	buildPrototypeResult	"Что его разрушает.",
+index.html	L3280	buildPrototypeResult	"Как я переживаю тело и прикосновение.",
+index.html	L3281	buildPrototypeResult	"Что происходит со мной, когда человек становится близким.",
+index.html	L3282	buildPrototypeResult	"Сколько свободы мне необходимо.",
+index.html	L3283	buildPrototypeResult	"Что помогает мне восстанавливаться.",
+index.html	L3284	buildPrototypeResult	"Какие различия между мной и партнёром могут быть естественными.",
+index.html	L3285	buildPrototypeResult	"А какие требуют внимания.",
+index.html	L3286	buildPrototypeResult	"Не для того, чтобы поместить себя в коробку.",
+index.html	L3287	buildPrototypeResult	"А чтобы увидеть себя объёмнее."
+index.html	L3289	buildPrototypeResult	cta: "Пройти P-120",
+index.html	L3290	buildPrototypeResult	ctaSub: "Открыть свою карту близости.",
+index.html	L3332	moduleBlurb	SAT24:'Обычные прикосновения, границы и телесный комфорт.',
+index.html	L3333	moduleBlurb	P72:'Что именно захватывает внимание и включает притяжение.',
+index.html	L3334	moduleBlurb	P72D:'Как желание меняется со временем, близостью и повторяемостью.',
+index.html	L3335	moduleBlurb	AO12:'Как переживаются доверие, дистанция и значимая близость.',
+index.html	L3336	moduleBlurb	SOMA24:'Как тело замечает, удерживает и теряет эротический отклик.'
+index.html	L3340	adminModeRu	return ({'General Pattern':'Общая повторяющаяся тенденция','Index Relationship':'Одна конкретная связь','Limited Experience':'Ограниченный опыт'})[value] || value;
+index.html	L3343	adminModeHint	return ({'General Pattern':'Повторяющаяся общая тенденция.','Index Relationship':'Все ответы относятся к одной выбранной связи.','Limited Experience':'Только реально пережитый опыт; Н/Д ожидаемы.'})[value] || '';
+index.html	L3360	themeLabel	function themeLabel(next){return ({ivory:'Светлая',graphite:'Графит',museum:'Музейная'})[next] || next}
+index.html	L3362	renderThemeSwitch	return `<div class="theme-switch ${extra}" aria-label="Темы оформления"><span class="theme-switch-label">Тема</span>${['ivory','graphite','museum'].map(t=>`<button class="theme-chip ${theme===t?'active':''}" data-set-theme="${t}" aria-pressed="${theme===t}">${themeLabel(t)}</button>`).join('')}</div>`;
+index.html	L3370	renderMobileBottomNav	const startLabel=hasProgress()?'Продолжить':'Пройти';
+index.html	L3374	renderMobileBottomNav	return `<nav class="mobile-bottom-nav" aria-label="Быстрая мобильная навигация"><span class="mobile-reading-rail" aria-hidden="true"><i></i></span>
+index.html	L3375	renderMobileBottomNav	<button class="${activeHome}" data-home><span class="mobile-nav-icon">⌂</span><small>Главная</small></button>
+index.html	L3376	renderMobileBottomNav	<button class="${state.screen==='home'?'active':''}" data-mobile-jump-home="why-important"><span class="mobile-nav-icon">◌</span><small>О тесте</small></button>
+index.html	L3377	renderMobileBottomNav	<button class="${activeScience}" data-science><span class="mobile-nav-icon">◎</span><small>Наука</small></button>
+index.html	L3383	renderMobileDrawer	['Верх научной базы','science-top','science'],['5 слоёв','science-layers','science'],['Конструкты','science-constructs','science'],['Карта доказательности','science-evidence','science'],['Литература','science-refs','science']
+index.html	L3385	renderMobileDrawer	['Почему P-120 важен','why-important','home'],['Почему именно P-120','why-p120','home'],['Что P-120 может показать','what-p120-shows','home'],['Пример отчёта','showcase','home'],['Примеры результатов','examples','home']
+index.html	L3387	renderMobileDrawer	const startLabel=hasProgress()?'Продолжить тест':'Пройти P-120';
+index.html	L3388	renderMobileDrawer	const progressCard=hasProgress()?`<div class="mobile-menu-progress"><div class="mobile-menu-progress-top"><div><span>Текущая сессия</span><strong>${pct()}%</strong></div><span>${totalAnswered()} из ${I.items.length}</span></div><div class="mini-track"><div class="mini-fill" style="width:${pct()}%"></div></div></div>`:'';
+index.html	L3389	renderMobileDrawer	const current=isAssessmentScreen()?`<div class="mobile-menu-meta">Текущий экран: <strong>${state.screen==='test'?'тест':state.screen==='preflight'?'подготовка':state.screen==='transition'?'переход между модулями':state.screen==='results'?'результат':'главная'}</strong>${hasProgress()?` · общий прогресс ${pct()}%`:''}</div>`:'';
+index.html	L3393	renderMobileDrawer	<div class="mobile-menu-title"><span class="mobile-menu-orb" aria-hidden="true"><span class="mobile-menu-node-a"></span><span class="mobile-menu-node-b"></span></span><div class="mobile-menu-copy"><strong>P-120</strong><span>исследовательская архитектура · 18+</span></div></div>
+index.html	L3394	renderMobileDrawer	<button class="mobile-menu-close" data-drawer-close aria-label="Закрыть меню">×</button>
+index.html	L3399	renderMobileDrawer	<span class="eyebrow">Навигация</span>
+index.html	L3400	renderMobileDrawer	<button class="mobile-menu-action primary" data-mobile-start><div><div>${startLabel}</div><small>Перейти к опроснику и сохранить ритм прохождения</small></div></button>
+index.html	L3401	renderMobileDrawer	${hasProgress()?`<button class="mobile-menu-action" data-mobile-resume><div><div>Продолжить текущую сессию</div><small>${pct()}% общего прогресса</small></div></button>`:''}
+index.html	L3402	renderMobileDrawer	<button class="mobile-menu-action" data-home><div><div>Главная страница</div><small>Вернуться к editorial-структуре</small></div></button>
+index.html	L3403	renderMobileDrawer	<button class="mobile-menu-action" data-science><div><div>Научная база</div><small>Открыть отдельный научный раздел</small></div></button>
+index.html	L3406	renderMobileDrawer	<span class="eyebrow">Разделы</span>
+index.html	L3407	renderMobileDrawer	${links.map(([label,id,kind])=>`<button class="mobile-menu-link" ${kind==='science'?`data-mobile-jump-science="${id}"`:`data-mobile-jump-home="${id}"`}><div><div>${label}</div><small>${kind==='science'?'перейти в научную базу':'перейти на главной странице'}</small></div></button>`).join('')}
+index.html	L3410	renderMobileDrawer	<span class="eyebrow">Тема оформления</span>
+index.html	L3439	shell	<button class="brand-button" data-home aria-label="P-120 — главное меню">
+index.html	L3441	shell	<span class="brand-lockup"><span class="brand">P-120</span><span class="brand-sub">исследовательская архитектура</span></span>
+index.html	L3444	shell	<nav class="topnav" aria-label="Главная навигация">
+index.html	L3445	shell	<button class="navlink" data-nav="why-important">О P-120</button>
+index.html	L3446	shell	<button class="navlink" data-nav="why-p120">Уникальность</button>
+index.html	L3447	shell	<button class="navlink" data-nav="what-p120-shows">Что покажет</button>
+index.html	L3448	shell	<button class="navlink" data-nav="showcase">Отчёт</button>
+index.html	L3449	shell	<button class="navlink science-navlink" data-science>Научная база</button>
+index.html	L3453	shell	<span class="badge desktop-only">Исследовательская версия · 18+</span>
+index.html	L3454	shell	${showSave?`<span class="badge desktop-only"><span class="save-dot"></span><span id="save-status">автосохранение</span></span>`:''}
+index.html	L3455	shell	${showProgress?`<span class="badge progress-badge" aria-label="Общий прогресс теста ${p}%">${p}%</span>`:''}
+index.html	L3456	shell	${home?'':`<button class="menu-btn desktop-home-btn" data-home>Главная</button>`}
+index.html	L3457	shell	<button class="mobile-menu-toggle" data-mobile-menu aria-label="Открыть меню" aria-expanded="false"><span></span><span></span><span></span></button>
+index.html	L3530	updateTopbar	function updateTopbar(){const e=$('#save-status');if(e)e.textContent='сохранено '+new Date(state.lastSavedAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
+index.html	L3535	renderSidebar	<div class="eyebrow participant-label">Участник ${esc(state.participantId)}</div>
+index.html	L3537	renderSidebar	<div class="sidebar-summary"><div class="small">Сессия сохраняется автоматически в этом браузере. Возврат в главное меню не удаляет ответы.</div></div>
+index.html	L3546	renderModuleProgress	return `<div class="module-progress-block" aria-label="Прогресс модуля ${esc(m.name)}: ${pos} из ${total}"><div class="module-progress-meta"><span>${esc(m.name)} · прогресс модуля</span><strong>${pos} / ${total} · ${mp}%</strong></div><div class="module-progress-track"><div class="module-progress-fill" style="width:${mp}%"></div></div></div>`;
+index.html	L3549	renderExampleCard	return `<details class="example-profile"><summary><div class="example-index">${esc(x.id)}</div><div class="example-title"><span class="eyebrow">Пример профиля</span><strong>${esc(x.name)}</strong><p>${esc(x.strap)}</p></div><span class="example-open">Подробнее</span></summary><div class="example-body"><p class="example-summary">${esc(x.summary)}</p><div class="signal-list">${x.signals.map(s=>`<div class="signal-row"><div class="signal-label"><strong>${esc(s[0])}</strong><span>${esc(s[2])}</span></div><div class="signal-track"><div style="width:${Number(s[1])}%"></div></div><span class="signal-value">${Number(s[1])}</span></div>`).join('')}</div><div class="example-bottom"><div><span class="eyebrow">Что обычно поддерживает такой профиль</span><div class="condition-tags">${x.conditions.map(c=>`<span>${esc(c)}</span>`).join('')}</div></div><div class="example-watch"><strong>Важно не перепутать</strong><p>${esc(x.watch)}</p></div></div></div></details>`;
+index.html	L3554	splitContrastThesis	let m=clean.match(/^(.*?) и (.*?) — не одно и то же$/i);
+index.html	L3556	splitContrastThesis	m=clean.match(/^(Умение .*?) и (способность .*?) — тоже разные процессы$/i);
+index.html	L3563	renderLifeEnergyGrammar	return `<div class="editorial-body semantic-life-energy"><div class="grammar-kicker">Желание как направление движения</div><div class="semantic-flow-intro">${b.slice(0,2).map(x=>`<p>${esc(x)}</p>`).join('')}</div><div class="semantic-flow-grid">${manifestations.map((x,i)=>`<article class="semantic-flow-card"><span>${String(i+1).padStart(2,'0')} · ФОРМА ПРОЯВЛЕНИЯ</span><p>${esc(x)}</p></article>`).join('')}</div><div class="editorial-prose">${b.slice(11).map(x=>`<p>${esc(x)}</p>`).join('')}</div></div>`;
+index.html	L3567	renderTwoSystemsGrammar	const dimensions=['желание','тело','прикосновение','приближение / дистанция','новизна','свобода','безопасность','привязанность','восстановление близости'];
+index.html	L3568	renderTwoSystemsGrammar	return `<div class="editorial-body semantic-two-systems"><div class="grammar-kicker">Девять измерений, которые есть у обоих</div><div class="semantic-sequence">${b.slice(0,9).map((x,i)=>`<div class="semantic-sequence-row"><span>${String(i+1).padStart(2,'0')}</span><p>${esc(x)}</p></div>`).join('')}</div><section class="systems-encounter"><div class="systems-encounter-head"><h3>Встречаются две системы — не два противоположных полюса.</h3><p>У каждого человека есть свой рисунок по этим измерениям. Сходство не обязательно, а различие не означает несовместимость само по себе.</p></div><div class="systems-encounter-grid"><article class="system-panel"><div class="system-panel-head"><span>A</span><strong>Ваша система</strong></div><div class="system-dimensions">${dimensions.map(x=>`<span>${esc(x)}</span>`).join('')}</div></article><div class="system-meet"><strong>+</strong><span>встречаются</span></div><article class="system-panel"><div class="system-panel-head"><span>B</span><strong>Система другого</strong></div><div class="system-dimensions">${dimensions.map(x=>`<span>${esc(x)}</span>`).join('')}</div></article></div></section><div class="systems-closing">${b.slice(9).map(x=>`<p>${esc(x)}</p>`).join('')}</div></div>`;
+index.html	L3572	renderWhyP120Grammar	return `<div class="editorial-body semantic-precision"><div class="grammar-kicker">Процессы, которые важно не смешивать</div><div class="semantic-distinction-list">${b.slice(0,7).map((x,i)=>{const pair=splitContrastThesis(x);return pair?`<article class="semantic-distinction-card"><div class="semantic-distinction-side"><p>${esc(pair[0])}</p></div><div class="semantic-distinction-op"><strong>≠</strong><small>не одно и то же</small></div><div class="semantic-distinction-side"><p>${esc(pair[1])}</p></div></article>`:`<article class="semantic-distinction-card"><div class="semantic-distinction-side" style="grid-column:1/-1"><p>${esc(x)}</p></div></article>`}).join('')}</div><p class="semantic-distinction-closing">${esc(b[7])}</p></div>`;
+index.html	L3577	renderWhatP120ShowsGrammar	['Внимание и эстетика',b.slice(0,3)],
+index.html	L3578	renderWhatP120ShowsGrammar	['Ответ партнёра',b.slice(3,5)],
+index.html	L3579	renderWhatP120ShowsGrammar	['Новизна и устойчивость',b.slice(5,8)],
+index.html	L3580	renderWhatP120ShowsGrammar	['Близость и регуляция',b.slice(8,12)],
+index.html	L3581	renderWhatP120ShowsGrammar	['Тело и восстановление',b.slice(12,14)]
+index.html	L3583	renderWhatP120ShowsGrammar	return `<div class="editorial-body semantic-orbital-map"><div class="grammar-kicker">Карта независимых, но взаимодействующих сигналов</div><div class="orbital-map-shell"><div class="orbital-map-core"><div><strong>P-120</strong><span>не один показатель</span></div></div><div class="orbital-cluster-grid">${groups.map((g,i)=>`<article class="orbital-cluster"><span class="orbital-cluster-node" aria-hidden="true"></span><h4>${esc(g[0])}</h4><ul>${g[1].map(x=>`<li>${esc(x.replace(/;$/,''))}</li>`).join('')}</ul></article>`).join('')}</div></div></div>`;
+index.html	L3625	isCompatibilityReadingSection	return body[0]==='Можно очень любить человека и при этом по-разному переживать близость.';
+index.html	L3667	renderEditorialInterlude	return `<section class="editorial-interlude interlude-${index}" data-reveal aria-label="Редакционная пауза"><div class="interlude-mark" aria-hidden="true"><span></span><i></i><b></b></div><p>${esc(line)}</p></section>`;
+index.html	L3671	renderLayerInsert	<div class="support-head"><div><span class="eyebrow">Карта инструмента</span><h2>Пять слоёв. Пять разных вопросов к одному человеку.</h2></div><p>Каждый слой остаётся самостоятельным. Смысл появляется не из одного общего числа, а из того, как эти части сочетаются — или расходятся — именно у вас.</p></div>
+index.html	L3673	renderLayerInsert	<div class="layer-card"><span class="num">01 · SAT-24</span><strong>Социальное прикосновение</strong><p>Как несексуальное прикосновение приобретает эмоциональное и телесное значение.</p></div>
+index.html	L3674	renderLayerInsert	<div class="layer-card"><span class="num">02 · P-72</span><strong>Активация</strong><p>Что захватывает внимание и организует эротико-эстетическое вовлечение.</p></div>
+index.html	L3675	renderLayerInsert	<div class="layer-card"><span class="num">03 · P-72D</span><strong>Устойчивость желания</strong><p>Что происходит с желанием при знакомстве, повторяемости, близости и восстановлении контакта.</p></div>
+index.html	L3676	renderLayerInsert	<div class="layer-card"><span class="num">04 · AO-12</span><strong>Регуляция близости</strong><p>Как переживаются доверие, дистанция, неопределённость и опора на другого.</p></div>
+index.html	L3677	renderLayerInsert	<div class="layer-card"><span class="num">05 · SOMA-24</span><strong>Телесный отклик</strong><p>Как собственное тело замечает, различает и модулирует эротически значимый отклик.</p></div>
+index.html	L3683	renderShowcaseInsert	['Активация через форму и красоту','AE / EA / SG',86],
+index.html	L3684	renderShowcaseInsert	['Устойчивость при близости','FCS / BENH',78],
+index.html	L3685	renderShowcaseInsert	['Телесная доступность','SOMA / SAT',74],
+index.html	L3686	renderShowcaseInsert	['Нежелательные триггеры','HAV / AV',58]
+index.html	L3689	renderShowcaseInsert	<div class="support-head"><div><span class="eyebrow">Пример будущего отчёта</span><h2>Результат должен ощущаться как портрет, а не как таблица баллов.</h2></div><p>Это демонстрационная визуализация. Реальный отчёт будет строиться из рассчитанных профилей, качества покрытия и разрешённых интерпретаций — и описывать человека значительно глубже.</p></div>
+index.html	L3691	renderShowcaseInsert	<article class="showcase-cover"><div class="showcase-cover-top"><span class="eyebrow">Профиль участника</span><span class="showcase-chip">пример</span></div><h3>«Эстетически-резонансный партнёрный профиль»</h3><p>Сильное вовлечение через форму, красоту и целостность образа становится устойчивее в условиях эмоциональной ответности и живого контакта.</p><div class="showcase-conditions"><span>эстетическая выразительность</span><span>живая ответность</span><span>эмоциональная безопасность</span><span>телесная доступность</span></div></article>
+index.html	L3692	renderShowcaseInsert	<article class="showcase-summary"><div class="showcase-note">В итоговом отчёте здесь будут несколько независимых профилей и подробный текст с объяснением межмодульных связей.</div><div class="showcase-bars">${signals.map(row=>`<div class="showcase-bar"><div class="showcase-bar-head"><strong>${row[0]}</strong><span>${row[1]}</span></div><div class="showcase-track"><div style="width:${row[2]}%"></div></div></div>`).join('')}</div><div class="showcase-narrative-card inline-narrative"><span class="eyebrow">Как это может звучать</span><p>«Ваше притяжение чаще начинается как эстетическое узнавание формы, усиливается ощущением взаимного присутствия и закрепляется тогда, когда в контакте появляется живая ответность, а не просто доступность другого человека.»</p></div></article>
+index.html	L3697	renderExamplesInsert	return `<section class="support-insert examples-insert" id="examples" data-reveal><div class="support-head"><div><span class="eyebrow">Возможные конфигурации</span><h2>Одинаковая внешняя реакция может иметь совершенно разное внутреннее устройство.</h2></div><p>Эти 10 примеров не являются официальной типологией. Они показывают, насколько по-разному может складываться карта человека — и почему реальный отчёт должен быть многослойным.</p></div><div class="examples-grid">${E.map(renderExampleCard).join('')}</div></section>`;
+index.html	L3701	renderScienceInsert	<div class="science-confidence-copy"><span class="eyebrow">Прозрачность доказательной базы</span><h2>Не скрывать границы знания — часть научного дизайна P-120.</h2><p>Верифицированный ledger и более широкая методологическая библиотека — разные уровни. Сайт показывает оба: проверенные peer-reviewed источники отдельно от более широкого массива научно-методологических материалов.</p><div class="hero-actions"><button class="btn large" data-science>Открыть научную базу</button><a class="btn secondary large button-link" href="${esc(D.document.pdf)}" target="_blank" rel="noopener">Scientific Concept Paper · PDF</a></div></div>
+index.html	L3702	renderScienceInsert	<div class="science-ledger-grid"><div><strong>33</strong><span>верифицированных peer-reviewed источника в scientific ledger</span></div><div><strong>45</strong><span>источников в более широкой научно-методологической базе сайта</span></div><div><strong>16</strong><span>фальсифицируемых межслойных гипотез</span></div><div><strong>13</strong><span>этапов программы валидации</span></div></div>
+index.html	L3732	renderHome	${progress?`<div class="editorial-resume-rail"><span>У вас сохранена незавершённая сессия · ${pct()}%</span><button id="editorialResume" class="btn">Продолжить с ${esc(I.items[Math.min(state.itemIndex,I.items.length-1)]?.id || 'теста')}</button><button id="homeRestart" class="btn ghost">Новая сессия</button></div>`:''}
+index.html	L3733	renderHome	<div class="act-marker"><span>Акт I</span><strong>Увидеть внутреннюю систему</strong></div>
+index.html	L3736	renderHome	<div class="act-marker"><span>Акт II</span><strong>Понять различия и отношения</strong></div>
+index.html	L3742	renderHome	<div class="act-marker"><span>Акт III</span><strong>Опора на науку и реальную жизнь</strong></div>
+index.html	L3745	renderHome	<div class="act-marker"><span>Акт IV</span><strong>Открыть свою карту</strong></div>
+index.html	L3747	renderHome	<section class="editorial-endnote" data-reveal><div><span class="eyebrow">Research Candidate · 18+</span><p>P-120 не является диагнозом и не сводит человека к одному баллу. N/A означает недостаток релевантного опыта, а индивидуальная форма не устанавливает фактическую совместимость конкретной пары.</p></div><div><span class="eyebrow">Конфиденциальность текущей версии</span><p>Для прохождения не нужны имя, e-mail или телефон. Пока backend не подключён, ответы сохраняются только локально в этом браузере.</p></div></section>
+index.html	L3748	renderHome	<footer class="home-footer"><span>P-120 · Research Candidate · 18+</span><span>10 глав · 4 акта · многослойная исследовательская архитектура</span></footer>
+index.html	L3766	renderScience	<h1>Научная база P-120.</h1>
+index.html	L3769	renderScience	<div class="science-status-label">Статус доказательной базы</div>
+index.html	L3773	renderScience	<a class="btn large button-link" href="${esc(D.document.pdf)}" target="_blank" rel="noopener">Открыть полный документ · PDF</a>
+index.html	L3774	renderScience	<button class="btn secondary large" id="scienceHome">Главное меню</button>
+index.html	L3778	renderScience	<span class="eyebrow">Основной академический документ</span>
+index.html	L3780	renderScience	<p>${esc(D.document.version)}<br>${esc(D.document.date)} · ${D.document.pages} стр.</p>
+index.html	L3781	renderScience	<div class="formula-card"><span>Корректная формула оригинальности</span><strong>${esc(D.positioning.formula)}</strong></div>
+index.html	L3786	renderScience	<nav class="science-subnav" aria-label="Навигация по научной базе">
+index.html	L3787	renderScience	<a href="#science-layers">5 слоёв</a>
+index.html	L3788	renderScience	<a href="#science-constructs">Конструкты</a>
+index.html	L3789	renderScience	<a href="#science-evidence">Карта доказательности</a>
+index.html	L3790	renderScience	<a href="#science-hypotheses">Гипотезы</a>
+index.html	L3791	renderScience	<a href="#science-validation">Валидация</a>
+index.html	L3792	renderScience	<a href="#science-ethics">Этика</a>
+index.html	L3793	renderScience	<a href="#science-refs">Литература</a>
+index.html	L3797	renderScience	<div class="eyebrow">Модель</div>
+index.html	L3798	renderScience	<h2>Пять слоёв остаются самостоятельными.</h2>
+index.html	L3799	renderScience	<p class="lead">Согласующиеся и расходящиеся сигналы между слоями одинаково допустимы. Межслойный синтез не должен переписывать исходные показатели или создавать единый общий показатель сексуальности.</p>
+index.html	L3800	renderScience	<div class="science-layer-grid">${D.layers.map(x=>`<article class="science-layer-card"><div class="science-code">${esc(x.code)}</div><h3>${esc(x.name)}</h3><p>${esc(x.focus)}</p><div class="boundary-note"><strong>Граница</strong>${esc(x.boundary)}</div></article>`).join('')}</div>
+index.html	L3804	renderScience	<div class="section-split-head"><div><div class="eyebrow">Методологическая архитектура</div><h2>Кандидатные конструкты.</h2></div><p>P-72 разделяет начальную активацию на 12 компонентов; P-72D отдельно исследует судьбу уже возникшего желания во времени.</p></div>
+index.html	L3806	renderScience	<summary><span>P-72 · 12 компонентов активации</span><span class="detail-meta">AE → GC</span></summary>
+index.html	L3807	renderScience	<div class="construct-grid">${D.p72.map(x=>`<article class="construct-card"><div class="construct-head"><span class="science-code">${esc(x.code)}</span><span>${esc(x.name)}</span></div><strong>${esc(x.ru)}</strong><p>${esc(x.definition)}</p><div class="construct-boundary">Граница: ${esc(x.boundary)}</div></article>`).join('')}</div>
+index.html	L3810	renderScience	<summary><span>P-72D · устойчивость желания</span><span class="detail-meta">NRW · END · ERC · Bond-Eros…</span></summary>
+index.html	L3811	renderScience	<div class="durability-grid">${D.p72d.map(x=>`<article class="durability-card"><div><span class="science-code">${esc(x.code)}</span><strong>${esc(x.ru)}</strong><small>${esc(x.name)}</small></div><span class="evidence-pill ${x.status.includes('исслед')?'research':x.status.includes('сильн')?'moderate-strong':'mixed'}">${esc(x.status)}</span></article>`).join('')}</div>
+index.html	L3814	renderScience	<summary><span>Критические дискриминантные границы</span><span class="detail-meta">${D.discriminantBoundaries.length} различий</span></summary>
+index.html	L3820	renderScience	<div class="section-split-head"><div><div class="eyebrow">Карта доказательности</div><h2>Карта научной базы.</h2></div><p>Статус относится к поддержке родственного механизма или методологического прецедента — не к прямой валидации точной шкалы P-120.</p></div>
+index.html	L3822	renderScience	<span class="evidence-pill strong">сильный прецедент</span>
+index.html	L3823	renderScience	<span class="evidence-pill moderate-strong">умеренно сильная</span>
+index.html	L3824	renderScience	<span class="evidence-pill moderate">умеренная</span>
+index.html	L3825	renderScience	<span class="evidence-pill research">исследовательская</span>
+index.html	L3826	renderScience	<span class="evidence-pill method">методологический прецедент</span>
+index.html	L3829	renderScience	<div class="evidence-row evidence-head"><span>Научная традиция</span><span>Ближайший прецедент</span><span>P-120</span><span>Текущая оценка</span></div>
+index.html	L3830	renderScience	${D.evidenceMap.map(x=>`<div class="evidence-row"><span data-label="Традиция">${esc(x.tradition)}</span><span data-label="Прецедент">${esc(x.precedent)}</span><span data-label="P-120"><strong>${esc(x.construct)}</strong></span><span data-label="Оценка"><span class="evidence-pill ${supportClass(x.level)}">${esc(x.support)}</span></span></div>`).join('')}
+index.html	L3836	renderScience	<div class="eyebrow">Проверяемость гипотез</div>
+index.html	L3837	renderScience	<h2>16 гипотез, которые система обязана уметь проиграть.</h2>
+index.html	L3838	renderScience	<p>Научная ценность здесь не в том, чтобы подтвердить любую исходную идею, а в том, чтобы данные могли разделить, объединить или отвергнуть кандидатные различия.</p>
+index.html	L3842	renderScience	<div class="eyebrow">Условие выживания модели</div>
+index.html	L3843	renderScience	<h3>Модель должна иметь право стать проще.</h3>
+index.html	L3845	renderScience	<div class="science-callout"><strong>Критически допустимые исходы</strong><p>Меньше 12 факторов P-72, объединение соседних компонентов, отсутствие incremental validity ERC/EDP, сильный DIF или отсутствие ожидаемых межслойных связей — научно допустимые результаты, а не «провал теста».</p></div>
+index.html	L3851	renderScience	<div class="section-split-head"><div><div class="eyebrow">Программа валидации</div><h2>Программа валидации 0–12.</h2></div><p>От контроля версий и процесса ответа — к структуре, независимой выборке, лонгитюдным данным, DIF, диадической валидации и независимой репликации.</p></div>
+index.html	L3852	renderScience	<div class="validation-timeline">${D.validation.map(x=>`<article class="validation-step"><div class="validation-index">${esc(x.stage)}</div><div class="validation-copy"><strong>${esc(x.name)}</strong><p>${esc(x.work)}</p><div class="validation-criterion">Критерий · ${esc(x.criterion)}</div></div></article>`).join('')}</div>
+index.html	L3857	renderScience	<div class="eyebrow">Этика и конфиденциальность</div><h2>Инварианты интерпретации.</h2>
+index.html	L3861	renderScience	<div class="eyebrow">Ограничения</div><h3>Что может исказить результат.</h3>
+index.html	L3863	renderScience	<div class="notice"><strong>Особенно важно для слоя автоматического отчёта.</strong><br>Убедительный по стилю текст не должен звучать точнее, чем позволяют рассчитанные данные и уровень доказательности. Поэтому движок повествовательного отчёта в рабочая версия получает только разрешённые интерпретации после детерминированного расчёта.</div>
+index.html	L3868	renderScience	<div class="section-split-head"><div><div class="eyebrow">Научная и методологическая литература</div><h2>${D.references.length} источников.</h2></div><p>Список перенесён из Scientific Concept Paper v1.1. DOI открываются во внешнем окне.</p></div>
+index.html	L3870	renderScience	<label class="reference-search"><span>Поиск по автору, теме или DOI</span><input id="refSearch" type="search" placeholder="например: привязанность, touch, Chivers, 10.1037…" /></label>
+index.html	L3871	renderScience	<div class="ref-count"><strong id="refCount">${D.references.length}</strong><span>показано</span></div>
+index.html	L3875	renderScience	<summary><span>Внутренние контролируемые источники</span><span class="detail-meta">${D.internalSources.length}</span></summary>
+index.html	L3880	renderScience	<footer class="home-footer"><span>P-120 · Research Candidate · Научная база</span><button class="navlink" data-home>Вернуться в главное меню</button></footer>
+index.html	L3898	resetSession	if(confirm('Удалить локальные ответы текущей сессии и создать новый идентификатор участника?')){state=fresh();save();renderHome()}
+index.html	L3907	renderPreflight	<div class="eyebrow">Перед прохождением · 18+</div>
+index.html	L3908	renderPreflight	<h2>Тихое пространство для внимательного и честного ответа.</h2>
+index.html	L3909	renderPreflight	<p class="lead">Эта короткая подготовка нужна не для формальности, а для точности. Чем спокойнее и ближе к реальному опыту вы отвечаете, тем глубже и человечнее потом будет чтение результата.</p>
+index.html	L3911	renderPreflight	<article class="luxury-ritual-card"><span>01</span><strong>Опирайтесь на реальный опыт</strong><p>Не на желаемый образ себя и не на то, как «должно быть». Для P-120 важнее живая достоверность, чем социально правильный ответ.</p></article>
+index.html	L3912	renderPreflight	<article class="luxury-ritual-card"><span>02</span><strong>Используйте Н/Д честно</strong><p>Если релевантного опыта не было, такой ответ полезнее случайной оценки и не трактуется как низкий показатель.</p></article>
+index.html	L3913	renderPreflight	<article class="luxury-ritual-card"><span>03</span><strong>Делайте паузу, если нужно</strong><p>Автосохранение позволяет спокойно прерваться и вернуться к текущей сессии в этом же браузере без потери ответов.</p></article>
+index.html	L3918	renderPreflight	<strong>Рекомендуемый ритм прохождения</strong>
+index.html	L3919	renderPreflight	<p>Лучше идти без спешки, отвечая по первому внутренне точному ощущению. Важно не «выиграть тест», а позволить ему бережно собрать карту вашей внутренней динамики.</p>
+index.html	L3922	renderPreflight	<label class="consent luxury-consent"><input id="consent" type="checkbox"><span>Мне 18 лет или больше; я понимаю исследовательский статус формы и хочу начать самостоятельное прохождение.</span></label>
+index.html	L3923	renderPreflight	<div class="actions"><button id="start" class="btn large" disabled>Начать P-120</button><button id="preflightHome" class="btn secondary">Вернуться в главное меню</button></div>
+index.html	L3927	renderPreflight	<div class="eyebrow">Текущая сессия</div>
+index.html	L3929	renderPreflight	<p class="small">Идентификатор создаётся автоматически. Для прохождения имя, e-mail и телефон не требуются.</p>
+index.html	L3932	renderPreflight	<strong>Граница применения</strong>
+index.html	L3936	renderPreflight	<strong>Конфиденциальность текущей версии</strong>
+index.html	L3937	renderPreflight	<p class="small">В текущей автономной сборке ответы сохраняются локально в памяти браузера. Серверная передача должна включаться только после подключения защищённого backend.</p>
+index.html	L3951	renderTransition	const content=`${renderMobileModulebar(moduleItems(module.id)[0])}<section class="card transition"><div class="eyebrow">Следующий модуль · ${module.name}</div><h2>${esc(module.title)}</h2><p>${esc(module.intro)}</p>${modes}<div class="actions"><button class="btn" id="enter" ${module.adminModes&&!state.adminModes.P72D?'disabled':''}>Перейти к ${module.name}</button><button class="btn secondary" id="backFromTransition">Назад</button><button class="btn ghost" id="transitionHome">Главное меню</button></div></section>`;
+index.html	L3973	renderQuestion	const scale=item.type==='comparative'?'Выберите более незаменимый механизм и силу предпочтения.':'1 — минимально / совсем не характерно · 5 — максимально / очень характерно · N/A — недостаточно опыта';
+index.html	L3974	renderQuestion	const content=`${renderMobileModulebar(item)}<section class="card question-card"><div class="question-head"><div><div class="eyebrow">${m.name} · ${esc(m.title)}</div><div class="qid">${item.id}</div></div><div class="qcount">${mi} / ${moduleItems(item.module).length}</div></div>${renderModuleProgress(item)}<div class="qtext">${esc(item.text)}</div>${compare}<div class="scale-note">${scale}</div><div class="choices ${item.type==='comparative'?'comparative':''}">${item.choices.map(c=>`<button class="choice ${existing===c.value?'selected':''}" data-value="${c.value}" aria-pressed="${existing===c.value}">${esc(c.label)}</button>`).join('')}</div><div class="navrow"><button id="prev" class="btn secondary" ${state.itemIndex===0?'disabled':''}>← Назад</button><button id="next" class="btn" ${existing==null?'disabled':''}>Далее →</button></div></section>`;
+index.html	L3992	tryAI	out.textContent='Это автономная статическая сборка. Серверный OpenAI endpoint, база данных и e-mail должны подключаться только в защищённом hosting/backend окружении.';
+index.html	L3995	tryAI	btn.disabled=true;btn.textContent='Проверяю…';out.textContent='Проверяю сервер…';
+index.html	L3996	tryAI	try{const r=await fetch('/api/generate-report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({result,format:'participant'})});const data=await r.json();if(!r.ok)throw new Error(data.error||'Сервер недоступен');$('#ai-output').textContent=data.report||JSON.stringify(data,null,2)}catch(e){$('#ai-output').textContent='Слой автоматического отчёта сейчас ожидаемо заблокирован: '+e.message+'\n\nСначала нужно подключить авторитетную конфигурацию расчёта и интерпретации.'}finally{btn.disabled=false;btn.textContent='Проверить AI endpoint'}
+index.html	L4004	renderResults	<div class="eyebrow">Завершение сессии</div>
+index.html	L4005	renderResults	<h2>Интерфейс завершил сбор профиля и подготовил основу для будущего отчёта.</h2>
+index.html	L4006	renderResults	<p class="lead">Эта версия уже умеет красиво собирать ответы, фиксировать покрытие модулей и готовить структурированный пакет данных. На следующем уровне к нему подключается отдельный серверный расчёт и генерация итогового текста по утверждённой логике.</p>
+index.html	L4007	renderResults	<div class="result-chip-row"><span class="result-chip">Участник: ${esc(state.participantId)}</span><span class="result-chip">Старт: ${startedAt}</span><span class="result-chip">Завершение: ${completedAt}</span></div>
+index.html	L4010	renderResults	<div class="results-side-stat"><strong>${cov.pct}%</strong><span>заполнено</span></div>
+index.html	L4011	renderResults	<div class="results-side-stat"><strong>${cov.answered}</strong><span>ответов из ${cov.total}</span></div>
+index.html	L4012	renderResults	<div class="results-side-note">Реальный отчёт будет намного богаче этого экрана: с интерпретацией межмодульных сочетаний, условий устойчивости и ключевых паттернов профиля.</div>
+index.html	L4018	renderResults	<div><div class="eyebrow">Демонстрация будущего результата</div><h3>Так может ощущаться персональный отчёт в полной версии.</h3></div>
+index.html	L4019	renderResults	<p>Ниже — не реальная интерпретация этой конкретной сессии, а художественный макет будущей подачи результата: спокойный, редакционный и легко читаемый.</p>
+index.html	L4023	renderResults	<span class="eyebrow">Фрагмент профиля</span>
+index.html	L4024	renderResults	<h3>«Эстетически чувствительный и партнёрно-устойчивый рисунок»</h3>
+index.html	L4025	renderResults	<p>Обычно такой профиль быстрее включается через форму, красоту и живую сцену взаимодействия, а устойчивость желания сильнее раскрывается там, где присутствуют эмоциональная ответность, безопасность и ощущение телесного контакта без внутренней перегрузки.</p>
+index.html	L4028	renderResults	<div class="luxury-quote">«Ваше притяжение чаще не вспыхивает из пустоты, а складывается как узнавание: сначала — форма и эстетическая выразительность, затем — чувство присутствия другого человека, и только после этого — более устойчивое внутреннее включение.»</div>
+index.html	L4030	renderResults	<div class="luxury-signal"><span>Эстетическая активация</span><strong>высокая</strong></div>
+index.html	L4031	renderResults	<div class="luxury-signal"><span>Телесная доступность</span><strong>умеренно высокая</strong></div>
+index.html	L4032	renderResults	<div class="luxury-signal"><span>Устойчивость при близости</span><strong>хорошая</strong></div>
+index.html	L4033	renderResults	<div class="luxury-signal"><span>Риск угасания</span><strong>контекст-зависимый</strong></div>
+index.html	L4042	renderResults	<div><div class="eyebrow">Заполнение модулей</div><h3>Структура прохождения</h3></div>
+index.html	L4043	renderResults	<p>Каждый модуль остаётся самостоятельным слоем и в будущем участвует в общем профиле без сведения всего результата к одной цифре.</p>
+index.html	L4045	renderResults	<div class="luxury-coverage-grid">${I.modules.map(m=>{const c=cov.byModule[m.id];return `<article class="luxury-coverage-card"><div class="luxury-coverage-head"><strong>${m.name}</strong><span>${c.pct}%</span></div><div class="small">${esc(moduleBlurb(m.id))}</div><div class="mini-track"><div class="mini-fill" style="width:${c.pct}%"></div></div><div class="small">${c.answered} из ${c.total} вопросов</div></article>`}).join('')}</div>
+index.html	L4046	renderResults	<div class="actions"><button class="btn" id="export">Скачать JSON</button><button class="btn secondary" id="return">Вернуться к тесту</button><button class="btn ghost" id="resultsHome">Главное меню</button></div>
+index.html	L4050	renderResults	<div class="eyebrow">Статус движка</div>
+index.html	L4051	renderResults	<h3>Что уже работает в текущей сборке, а что подключается отдельно.</h3>
+index.html	L4052	renderResults	<div class="status-box warn luxury-status-box"><strong>РАСЧЁТ ПО КЛЮЧАМ: ЕЩЁ НЕ ПОДКЛЮЧЁН</strong><br>Публичный интерфейс знает ответы и покрытие, но не содержит замороженные scoring-keys и не должен интерпретировать их напрямую в браузере.</div>
+index.html	L4053	renderResults	<div class="arch luxury-arch"><div class="arch-step">① Интерфейс участника · ответы и метаданные прохождения</div><div class="arch-arrow">↓ HTTPS</div><div class="arch-step">② Серверный расчёт · детерминированные ключи и формулы</div><div class="arch-arrow">↓</div><div class="arch-step">③ Слой автоматического отчёта · текст, summary, PDF / e-mail</div><div class="arch-arrow">↓</div><div class="arch-step">④ Финальный результат для участника или специалиста</div></div>
+index.html	L4054	renderResults	<div class="actions"><button class="btn secondary" id="ai">Проверить AI endpoint</button></div>
+index.html	L4055	renderResults	<pre id="ai-output">Нажми кнопку, чтобы увидеть поведение подготовленного endpoint.</pre>
+index.html	L4061	renderResults	<div><div class="eyebrow">Предпросмотр данных</div><h3>Структурированный объект результата</h3></div>
+index.html	L4062	renderResults	<p>Этот блок нужен для разработки и интеграции. На production-сайте его можно скрыть и отдавать только специалисту или администратору.</p>
+index.html	L4095	render	<h2 id="extended-research-title">А хотите ещё глубже?</h2>
+index.html	L4099	render	<p>P-120 уже исследует то, как возникает желание, что происходит с ним со временем, как человек переживает близость, прикосновение и собственный телесный ответ. Но некоторые стороны опыта можно рассмотреть ещё глубже.</p>
+index.html	L4100	render	<p>Для этого развивается отдельный набор дополнительных исследовательских модулей. Их можно будет проходить после основного P-120 — по одному или в любой комбинации.</p>
+index.html	L4101	render	<div class="extended-flash" aria-label="Ключевой принцип Extended Research Set">
+index.html	L4102	render	<strong>Основной профиль остаётся неизменным.</strong>
+index.html	L4103	render	<span>Дополнительные модули добавляют новые слои понимания.</span>
+index.html	L4111	render	<h3>P-120 уже даёт самостоятельный многослойный профиль.</h3>
+index.html	L4112	render	<p>Extended Research Set позволяет посмотреть ещё глубже — не заменяя и не пересчитывая основной результат.</p>
+index.html	L4115	render	<div class="extended-atlas" aria-label="Атлас дополнительных исследовательских направлений">
+index.html	L4116	render	<div class="extended-core-node" aria-label="Основной профиль P-120 остаётся неизменным">
+index.html	L4119	render	<span>Ваш основной профиль</span>
+index.html	L4129	render	<h4 class="extended-module-title">Как вы говорите о желании</h4>
+index.html	L4135	render	<p>Как легко вы можете понять и сформулировать собственные желания?</p>
+index.html	L4136	render	<p>Насколько свободно можете говорить о них с партнёром?</p>
+index.html	L4137	render	<p>Что происходит, когда желания не совпадают?</p>
+index.html	L4138	render	<p>Можно ли вернуться к разговору после неловкости, отказа или напряжения?</p>
+index.html	L4139	render	<p class="extended-module-micro">желание → раскрытие → слышание другого → несовпадение → переговоры → repair</p>
+index.html	L4149	render	<h4 class="extended-module-title">Почему вы вступаете в близость</h4>
+index.html	L4155	render	<p>Два человека могут делать одно и то же по совершенно разным внутренним причинам.</p>
+index.html	L4156	render	<p>Близость может быть связана с удовольствием, исследованием, соединением и желанием — или с необходимостью получить подтверждение связи, избежать напряжения, соответствовать ожиданиям или не потерять партнёра.</p>
+index.html	L4157	render	<p class="extended-module-micro">не «что меня возбуждает?» — а «зачем я иду в этот контакт?»</p>
+index.html	L4167	render	<h4 class="extended-module-title">Как вы воспринимаете себя в собственной сексуальности</h4>
+index.html	L4173	render	<p>Насколько легко признавать собственное желание?</p>
+index.html	L4174	render	<p>Насколько уверенно человек ощущает себя сексуальным субъектом?</p>
+index.html	L4175	render	<p>Что происходит с self-consciousness, уверенностью, чувством желанности, принятием тела и собственных реакций?</p>
+index.html	L4176	render	<p class="extended-module-micro">желание направлено не только на другого — человек одновременно переживает и самого себя.</p>
+index.html	L4186	render	<h4 class="extended-module-title">Что происходит за пределами спальни</h4>
+index.html	L4192	render	<p>Качество близости существует не в вакууме.</p>
+index.html	L4193	render	<p>Будущий outcome-layer позволит исследовать, как состояние отношений и интимной жизни сосуществует с эмоциональным фоном, субъективной энергией, rumination, сном, социальной открытостью, концентрацией и общей вовлечённостью в жизнь.</p>
+index.html	L4194	render	<p class="extended-module-micro">не «сексуальность определяет жизнь», а «как состояние близости связано с остальной жизнью?»</p>
+index.html	L4205	render	<h3 id="extended-cross-title">Самое интересное начинается между слоями</h3>
+index.html	L4208	render	<p>Сам по себе каждый дополнительный модуль может дать отдельный профиль.</p>
+index.html	L4209	render	<p>Но основная исследовательская ценность появляется, когда его результат рассматривается рядом с уже существующей архитектурой P-120.</p>
+index.html	L4212	render	<div class="extended-cross-ledger" aria-label="Примеры будущих cross-layer исследовательских вопросов">
+index.html	L4213	render	<div class="extended-cross-row"><span class="extended-cross-code">P-72 × MOT</span><p>Что меня активирует — и зачем я вхожу в близость?</p></div>
+index.html	L4214	render	<div class="extended-cross-row"><span class="extended-cross-code">P-72D × COM</span><p>Что происходит с желанием со временем — и умею ли я говорить о необходимости изменений?</p></div>
+index.html	L4215	render	<div class="extended-cross-row"><span class="extended-cross-code">AO × MOT</span><p>Регуляция близости — и мотивы сексуального контакта.</p></div>
+index.html	L4216	render	<div class="extended-cross-row"><span class="extended-cross-code">SOMA × SELF</span><p>Что замечает тело — и как человек относится к собственному телесному ответу.</p></div>
+index.html	L4217	render	<div class="extended-cross-row"><span class="extended-cross-code">AUT × COM</span><p>Нужна ли автономность — и способен ли человек объяснить эту потребность партнёру.</p></div>
+index.html	L4218	render	<div class="extended-cross-row"><span class="extended-cross-code">P-120 × LIFE</span><p>Как состояние близости сосуществует с состоянием остальной жизни.</p></div>
+index.html	L4225	render	<h3 id="extended-boundary-title">Что это означает — и чего пока не означает</h3>
+index.html	L4228	render	<p>Extended Research Set развивается как отдельная Post-Pilot Research architecture. Эти модули не входят в текущий frozen measurement model P-120 и пока не используются для изменения его результатов.</p>
+index.html	L4229	render	<p>Будущие cross-layer relationships сначала рассматриваются как исследовательские гипотезы. Они не превращаются автоматически в новые индексы, типы или compatibility percentages до эмпирической проверки.</p>
+index.html	L4236	render	<h3 id="extended-dyad-title">И ещё один уровень глубже — двое</h3>
+index.html	L4237	render	<p>Индивидуальный профиль показывает, как организована одна система. Когда доступны данные двух людей, исследовательский вопрос меняется: что происходит, когда встречаются две разные архитектуры?</p>
+index.html	L4239	render	<div class="extended-dyad-visual" aria-label="Будущие вопросы исследования встречи двух систем">
+index.html	L4244	render	<li>умеет ли A сообщить B о своей потребности;</li>
+index.html	L4245	render	<li>способен ли B эту потребность реализовать;</li>
+index.html	L4246	render	<li>насколько mismatch действительно важен;</li>
+index.html	L4247	render	<li>возникает ли distress;</li>
+index.html	L4248	render	<li>существует ли возможность адаптации;</li>
+index.html	L4249	render	<li>как работают negotiation и repair.</li>
+index.html	L4257	render	<h3>P-120 уже даёт самостоятельный профиль. Extended Set позволяет посмотреть ещё глубже.</h3>
+index.html	L4258	render	<p>P-120 Extended Research Set — программа optional supplemental modules, предназначенная для исследования дополнительных аспектов интимной, реляционной и жизненной организации рядом с основным профилем P-120.</p>
+index.html	L4260	render	<a class="extended-cta-link primary" href="#extended-research-status">Следить за развитием Extended Set</a>
+index.html	L4261	render	<a class="extended-cta-link secondary" href="#extended-research-program">Как устроена исследовательская программа</a>
+index.html	L4265	render	<strong>В разработке</strong>
+index.html	L4266	render	<p>Модули представлены как будущая исследовательская архитектура. Текущий основной профиль P-120 и его результаты остаются неизменными.</p>
+extended-research-set-v1.0.html	L7	GLOBAL	<h2 id="extended-research-title">А хотите ещё глубже?</h2>
+extended-research-set-v1.0.html	L11	GLOBAL	<p>P-120 уже исследует то, как возникает желание, что происходит с ним со временем, как человек переживает близость, прикосновение и собственный телесный ответ. Но некоторые стороны опыта можно рассмотреть ещё глубже.</p>
+extended-research-set-v1.0.html	L12	GLOBAL	<p>Для этого развивается отдельный набор дополнительных исследовательских модулей. Их можно будет проходить после основного P-120 — по одному или в любой комбинации.</p>
+extended-research-set-v1.0.html	L13	GLOBAL	<div class="extended-flash" aria-label="Ключевой принцип Extended Research Set">
+extended-research-set-v1.0.html	L14	GLOBAL	<strong>Основной профиль остаётся неизменным.</strong>
+extended-research-set-v1.0.html	L15	GLOBAL	<span>Дополнительные модули добавляют новые слои понимания.</span>
+extended-research-set-v1.0.html	L23	GLOBAL	<h3>P-120 уже даёт самостоятельный многослойный профиль.</h3>
+extended-research-set-v1.0.html	L24	GLOBAL	<p>Extended Research Set позволяет посмотреть ещё глубже — не заменяя и не пересчитывая основной результат.</p>
+extended-research-set-v1.0.html	L27	GLOBAL	<div class="extended-atlas" aria-label="Атлас дополнительных исследовательских направлений">
+extended-research-set-v1.0.html	L28	GLOBAL	<div class="extended-core-node" aria-label="Основной профиль P-120 остаётся неизменным">
+extended-research-set-v1.0.html	L31	GLOBAL	<span>Ваш основной профиль</span>
+extended-research-set-v1.0.html	L41	GLOBAL	<h4 class="extended-module-title">Как вы говорите о желании</h4>
+extended-research-set-v1.0.html	L47	GLOBAL	<p>Как легко вы можете понять и сформулировать собственные желания?</p>
+extended-research-set-v1.0.html	L48	GLOBAL	<p>Насколько свободно можете говорить о них с партнёром?</p>
+extended-research-set-v1.0.html	L49	GLOBAL	<p>Что происходит, когда желания не совпадают?</p>
+extended-research-set-v1.0.html	L50	GLOBAL	<p>Можно ли вернуться к разговору после неловкости, отказа или напряжения?</p>
+extended-research-set-v1.0.html	L51	GLOBAL	<p class="extended-module-micro">желание → раскрытие → слышание другого → несовпадение → переговоры → repair</p>
+extended-research-set-v1.0.html	L61	GLOBAL	<h4 class="extended-module-title">Почему вы вступаете в близость</h4>
+extended-research-set-v1.0.html	L67	GLOBAL	<p>Два человека могут делать одно и то же по совершенно разным внутренним причинам.</p>
+extended-research-set-v1.0.html	L68	GLOBAL	<p>Близость может быть связана с удовольствием, исследованием, соединением и желанием — или с необходимостью получить подтверждение связи, избежать напряжения, соответствовать ожиданиям или не потерять партнёра.</p>
+extended-research-set-v1.0.html	L69	GLOBAL	<p class="extended-module-micro">не «что меня возбуждает?» — а «зачем я иду в этот контакт?»</p>
+extended-research-set-v1.0.html	L79	GLOBAL	<h4 class="extended-module-title">Как вы воспринимаете себя в собственной сексуальности</h4>
+extended-research-set-v1.0.html	L85	GLOBAL	<p>Насколько легко признавать собственное желание?</p>
+extended-research-set-v1.0.html	L86	GLOBAL	<p>Насколько уверенно человек ощущает себя сексуальным субъектом?</p>
+extended-research-set-v1.0.html	L87	GLOBAL	<p>Что происходит с self-consciousness, уверенностью, чувством желанности, принятием тела и собственных реакций?</p>
+extended-research-set-v1.0.html	L88	GLOBAL	<p class="extended-module-micro">желание направлено не только на другого — человек одновременно переживает и самого себя.</p>
+extended-research-set-v1.0.html	L98	GLOBAL	<h4 class="extended-module-title">Что происходит за пределами спальни</h4>
+extended-research-set-v1.0.html	L104	GLOBAL	<p>Качество близости существует не в вакууме.</p>
+extended-research-set-v1.0.html	L105	GLOBAL	<p>Будущий outcome-layer позволит исследовать, как состояние отношений и интимной жизни сосуществует с эмоциональным фоном, субъективной энергией, rumination, сном, социальной открытостью, концентрацией и общей вовлечённостью в жизнь.</p>
+extended-research-set-v1.0.html	L106	GLOBAL	<p class="extended-module-micro">не «сексуальность определяет жизнь», а «как состояние близости связано с остальной жизнью?»</p>
+extended-research-set-v1.0.html	L117	GLOBAL	<h3 id="extended-cross-title">Самое интересное начинается между слоями</h3>
+extended-research-set-v1.0.html	L120	GLOBAL	<p>Сам по себе каждый дополнительный модуль может дать отдельный профиль.</p>
+extended-research-set-v1.0.html	L121	GLOBAL	<p>Но основная исследовательская ценность появляется, когда его результат рассматривается рядом с уже существующей архитектурой P-120.</p>
+extended-research-set-v1.0.html	L124	GLOBAL	<div class="extended-cross-ledger" aria-label="Примеры будущих cross-layer исследовательских вопросов">
+extended-research-set-v1.0.html	L125	GLOBAL	<div class="extended-cross-row"><span class="extended-cross-code">P-72 × MOT</span><p>Что меня активирует — и зачем я вхожу в близость?</p></div>
+extended-research-set-v1.0.html	L126	GLOBAL	<div class="extended-cross-row"><span class="extended-cross-code">P-72D × COM</span><p>Что происходит с желанием со временем — и умею ли я говорить о необходимости изменений?</p></div>
+extended-research-set-v1.0.html	L127	GLOBAL	<div class="extended-cross-row"><span class="extended-cross-code">AO × MOT</span><p>Регуляция близости — и мотивы сексуального контакта.</p></div>
+extended-research-set-v1.0.html	L128	GLOBAL	<div class="extended-cross-row"><span class="extended-cross-code">SOMA × SELF</span><p>Что замечает тело — и как человек относится к собственному телесному ответу.</p></div>
+extended-research-set-v1.0.html	L129	GLOBAL	<div class="extended-cross-row"><span class="extended-cross-code">AUT × COM</span><p>Нужна ли автономность — и способен ли человек объяснить эту потребность партнёру.</p></div>
+extended-research-set-v1.0.html	L130	GLOBAL	<div class="extended-cross-row"><span class="extended-cross-code">P-120 × LIFE</span><p>Как состояние близости сосуществует с состоянием остальной жизни.</p></div>
+extended-research-set-v1.0.html	L137	GLOBAL	<h3 id="extended-boundary-title">Что это означает — и чего пока не означает</h3>
+extended-research-set-v1.0.html	L140	GLOBAL	<p>Extended Research Set развивается как отдельная Post-Pilot Research architecture. Эти модули не входят в текущий frozen measurement model P-120 и пока не используются для изменения его результатов.</p>
+extended-research-set-v1.0.html	L141	GLOBAL	<p>Будущие cross-layer relationships сначала рассматриваются как исследовательские гипотезы. Они не превращаются автоматически в новые индексы, типы или compatibility percentages до эмпирической проверки.</p>
+extended-research-set-v1.0.html	L148	GLOBAL	<h3 id="extended-dyad-title">И ещё один уровень глубже — двое</h3>
+extended-research-set-v1.0.html	L149	GLOBAL	<p>Индивидуальный профиль показывает, как организована одна система. Когда доступны данные двух людей, исследовательский вопрос меняется: что происходит, когда встречаются две разные архитектуры?</p>
+extended-research-set-v1.0.html	L151	GLOBAL	<div class="extended-dyad-visual" aria-label="Будущие вопросы исследования встречи двух систем">
+extended-research-set-v1.0.html	L156	GLOBAL	<li>умеет ли A сообщить B о своей потребности;</li>
+extended-research-set-v1.0.html	L157	GLOBAL	<li>способен ли B эту потребность реализовать;</li>
+extended-research-set-v1.0.html	L158	GLOBAL	<li>насколько mismatch действительно важен;</li>
+extended-research-set-v1.0.html	L159	GLOBAL	<li>возникает ли distress;</li>
+extended-research-set-v1.0.html	L160	GLOBAL	<li>существует ли возможность адаптации;</li>
+extended-research-set-v1.0.html	L161	GLOBAL	<li>как работают negotiation и repair.</li>
+extended-research-set-v1.0.html	L169	GLOBAL	<h3>P-120 уже даёт самостоятельный профиль. Extended Set позволяет посмотреть ещё глубже.</h3>
+extended-research-set-v1.0.html	L170	GLOBAL	<p>P-120 Extended Research Set — программа optional supplemental modules, предназначенная для исследования дополнительных аспектов интимной, реляционной и жизненной организации рядом с основным профилем P-120.</p>
+extended-research-set-v1.0.html	L172	GLOBAL	<a class="extended-cta-link primary" href="#extended-research-status">Следить за развитием Extended Set</a>
+extended-research-set-v1.0.html	L173	GLOBAL	<a class="extended-cta-link secondary" href="#extended-research-program">Как устроена исследовательская программа</a>
+extended-research-set-v1.0.html	L177	GLOBAL	<strong>В разработке</strong>
+extended-research-set-v1.0.html	L178	GLOBAL	<p>Модули представлены как будущая исследовательская архитектура. Текущий основной профиль P-120 и его результаты остаются неизменными.</p>
+extended-research-navigation-v1.0.js	L36	makeTeaser	<h2 id="extended-entry-title">А хотите ещё глубже?</h2>
+extended-research-navigation-v1.0.js	L39	makeTeaser	<p>P-120 уже даёт самостоятельный многослойный профиль. Extended Research Set позволяет исследовать отдельные стороны опыта глубже — не изменяя основной результат.</p>
+extended-research-navigation-v1.0.js	L40	makeTeaser	<div class="extended-entry-meta" aria-label="Будущие дополнительные исследовательские модули">
+extended-research-navigation-v1.0.js	L43	makeTeaser	<button type="button" class="extended-entry-button" data-open-extended>Посмотреть Extended Set</button>
+extended-research-navigation-v1.0.js	L54	findScienceAnchor	if (node.matches?.('.act-marker') && /Акт\s*III/i.test(node.textContent || '')) return node;
+extended-research-navigation-v1.0.js	L147	ensureDesktopNav	btn.textContent = 'Ещё глубже';
+extended-research-navigation-v1.0.js	L167	ensureMobileDrawerEntry	btn.innerHTML = '<div><div>А хотите ещё глубже?</div><small>Extended Research Set · дополнительные модули</small></div>';
+chapter-navigation-v1.0.js	L10	GLOBAL	{id:'architecture',index:'01',label:'Архитектура',target:'why-important',note:'Акт I · внутренняя система'},
+chapter-navigation-v1.0.js	L11	GLOBAL	{id:'two-systems',index:'02',label:'Две системы',target:'two-systems',note:'Акт II · встреча архитектур'},
+chapter-navigation-v1.0.js	L12	GLOBAL	{id:'result',index:'03',label:'Результат',target:'showcase',note:'что покажет P-120'},
+chapter-navigation-v1.0.js	L13	GLOBAL	{id:'extended',index:'04',label:'Ещё глубже',target:'extended-research-set',note:'optional Extended Research Set'},
+chapter-navigation-v1.0.js	L14	GLOBAL	{id:'science',index:'05',label:'Наука',target:'science-foundation',note:'Акт III · научная опора'}
+chapter-navigation-v1.0.js	L79	makeDesktopNav	nav.setAttribute('aria-label','Навигация по главам P-120');
+chapter-navigation-v1.0.js	L82	makeDesktopNav	<div class="chapter-jump-prefix">По главам</div>
+chapter-navigation-v1.0.js	L115	makeMobileGroup	group.innerHTML = `<span class="eyebrow">По главам</span>${chapters.map(ch => `
+chapter-navigation-v1.0.js	L130	ensureMobileGroup	const sectionsGroup = groups.find(g => /Разделы/i.test(g.querySelector('.eyebrow')?.textContent || ''));
+chapter-navigation-v1.0.js	L131	ensureMobileGroup	const themeGroup = groups.find(g => /Тема оформления/i.test(g.querySelector('.eyebrow')?.textContent || ''));
