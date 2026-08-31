@@ -62,8 +62,14 @@
     document.title='P-120 — architecture of attraction and intimacy';
   }
 
+  function repoRootPath(){
+    const p=location.pathname;
+    const root=p.replace(/\/en\/(?:index\.html)?$/i,'/');
+    return root.endsWith('/')?root:root+'/';
+  }
+
   function russianQuestionnaireRedirect(mode='start'){
-    const href = mode==='resume' ? '../?resume=1' : '../?start=1';
+    const href = repoRootPath() + (mode==='resume' ? '?resume=1' : '?start=1');
     location.href=href;
   }
 
