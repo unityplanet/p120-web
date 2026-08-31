@@ -420,7 +420,7 @@
 (() => {
   'use strict';
 
-  const isEn = /\/en\/(?:index\.html)?$/i.test(location.pathname);
+  const isEn = /\/en(?:\/|$)/i.test(location.pathname);
   const copy = isEn ? {
     trigger:'Explore', panel:'Explore P-120', map:'Project map',
     story:'Story', next:'Next', core:'Core', page:'On this page',
@@ -439,9 +439,11 @@
     coming:'Готовится', language:'Language'
   };
 
+  /* Dedicated Story routes are language-relative:
+     /why-p120/ + /creator/ in RU, /en/why-p120/ + /en/creator/ in EN. */
   const routes = {
-    why:{status:'active',href:isEn?'../why-p120/':'why-p120/'},
-    creator:{status:'reserved',route:'creator'},
+    why:{status:'active',href:'why-p120/'},
+    creator:{status:'active',href:'creator/'},
     deeper:{status:'active',target:'extended-research-set'},
     together:{status:'reserved',route:'together'}
   };
@@ -592,6 +594,23 @@
     });
   }
 
+  /* Some English public components created before the dedicated EN Story routes
+     still carry ../why-p120/. Keep those clicks inside /en/ without touching the
+     large generated English index.html. */
+  function interceptLegacyEnglishStoryLinks(event){
+    if(!isEn) return;
+    const a=event.target.closest?.('a[href]');
+    if(!a) return;
+    const raw=a.getAttribute('href')||'';
+    if(raw==='../why-p120/'){
+      event.preventDefault();
+      window.location.assign(new URL('why-p120/',document.baseURI).href);
+    } else if(raw==='../creator/'){
+      event.preventDefault();
+      window.location.assign(new URL('creator/',document.baseURI).href);
+    }
+  }
+
   function run(){
     timer=0;
     ensureDesktop();
@@ -603,6 +622,7 @@
     const root=document.getElementById('app')||document.body;
     new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
     document.addEventListener('click',e=>{if(!e.target.closest('.ecosystem-nav-v2'))closeDesktop();});
+    document.addEventListener('click',interceptLegacyEnglishStoryLinks,true);
     document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDesktop();});
     run();
     window.P120_NAV_V2_ROUTES=routes;
