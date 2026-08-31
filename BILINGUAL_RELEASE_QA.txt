@@ -1,4 +1,4 @@
-P-120 Web Editorial — Bilingual Public RU/EN v1.3
+P-120 Web Editorial — Bilingual Public RU/EN v1.4
 RU: /
 EN: /en/
 English scope: public home, Extended Set, Scientific Base and navigation.
@@ -12,6 +12,8 @@ Mobile bottom nav SHA256: 9ea43411cd88e1f40647ed45ed50392c92145d20e0b0b0d1ec8ed2
 RU/EN instrument byte-equivalence: PASS
 RU/EN assessment byte-equivalence: PASS
 EN internal fragment routing: PASS (no base tag)
-Localization patch: v1.1 / cache en12
-Final depth statement art pass: v1.2 staircase Noto
+Localization runtime: debounced v1.1 / cache en13
+Final depth statement: v1.3 desktop-fit staircase Noto / cache depth13
+Duplicate Google Fonts import: REMOVED
+Primary Bunny font request: reduced weights
 Ivory frame/contour contrast: v1.7.1j
