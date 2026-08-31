@@ -35,6 +35,21 @@
     ['Телесная близость','Physical closeness'],
     ['Хроническое напряжение','Chronic tension'],
 
+    /* What P-120 shows — orbital/list items rendered as fragments */
+    ['что именно захватывает ваше внимание','what specifically captures your attention'],
+    ['как красота превращается — или не превращается — в желание','how beauty does — or does not — become desire'],
+    ['какую роль играют движение, форма, детали, свет и мультисенсорность','the role of movement, form, detail, light, and multisensory experience'],
+    ['насколько важен живой ответ партнёра','how important a partner’s live response is'],
+    ['нужно ли вам эротическое соавторство','whether you need erotic co-creation'],
+    ['как вы относитесь к новизне','how you relate to novelty'],
+    ['способно ли желание обновляться внутри знакомой связи','whether desire can renew itself within a familiar bond'],
+    ['что происходит с ним при повторяемости и рутине','what happens to desire under repetition and routine'],
+    ['как эмоциональная близость влияет на эротизм','how emotional closeness affects eroticism'],
+    ['насколько важна автономность','how important autonomy is'],
+    ['как вы переживаете прикосновение','how you experience touch'],
+    ['как регулируете значимую близость','how you regulate meaningful closeness'],
+    ['как замечаете и различаете реакции собственного тела','how you notice and differentiate your own bodily responses'],
+
     /* Science-foundation tag cloud */
     ['сексуальное возбуждение и торможение','sexual excitation and inhibition'],
     ['желание','desire'],
@@ -75,7 +90,16 @@
     ['Не для того, чтобы поместить себя в коробку.','Not to put yourself in a box.'],
     ['А чтобы увидеть себя объёмнее.','But to see yourself in greater depth.'],
 
+    /* Science residual runtime strings */
+    ['29 августа 2026 · 21 стр.','29 August 2026 · 21 pp.'],
+    ['Гипотезы','Hypotheses'],
+    ['Валидация','Validation'],
+    ['Этика','Ethics'],
+    ['AReA, TEAQ, ECR-RS, MAIA-2, SADI, SIS/SES, SBI, PSSLW, SAQ-9, SexFlex и реляционные переменные.','AReA, TEAQ, ECR-RS, MAIA-2, SADI, SIS/SES, SBI, PSSLW, SAQ-9, SexFlex, and relational variables.'],
+    ['P-120 · Research Candidate · Научная база','P-120 · Research Candidate · Scientific Base'],
+
     /* Misc public runtime labels */
+    ['Перейти к основному содержанию','Skip to main content'],
     ['Карта независимых, но взаимодействующих сигналов','A map of independent but interacting signals'],
     ['не один показатель','not a single score'],
     ['Процессы, которые важно не смешивать','Processes that should not be collapsed together'],
