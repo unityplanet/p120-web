@@ -1,9 +1,11 @@
-name: Integrate bilingual public site v1.6
+name: Integrate bilingual public site v1.7
 on:
   workflow_dispatch:
   push:
     paths:
       - '.github/workflows/integrate-bilingual-public-site-v1.yml'
+      - 'navigation-architecture-v2.css'
+      - 'navigation-architecture-v2.js'
 permissions:
   contents: write
 jobs:
@@ -52,7 +54,7 @@ jobs:
           assert h(cut(s2,'function renderMobileBottomNav(){','function renderMobileDrawer(){'))==mobile_before
           print('HTML bytes after PDF externalization:',len(s2.encode()))
           PY
-      - name: Build RU root and EN public copy with optimized bundles
+      - name: Build RU root and EN public copy with Navigation Architecture v2
         shell: bash
         run: |
           python - <<'PY'
@@ -70,36 +72,39 @@ jobs:
             ru=re.sub(r'\s*<link[^>]+'+re.escape(marker)+r'[^>]*>\s*','\n',ru,flags=re.I)
             ru=re.sub(r'\s*<script[^>]+'+re.escape(marker)+r'[^>]*></script>\s*','\n',ru,flags=re.I)
 
-          # One reduced font family request, loaded without blocking first paint.
           font_url='https://fonts.bunny.net/css?family=inter:400,500,600,700,800|noto-serif:400,500,600,700|noto-serif-display:500,600,700&display=swap'
           ru=re.sub(r'<link\s+href=["\']https://fonts\.bunny\.net/css\?family=[^"\']+["\']\s+rel=["\']stylesheet["\']\s*/?>',
             f'<link rel="preload" as="style" href="{font_url}" onload="this.onload=null;this.rel=\'stylesheet\'" />\n  <noscript><link rel="stylesheet" href="{font_url}" /></noscript>',ru,flags=re.I)
-          # If already optimized from a previous build, normalize URL and retain nonblocking form.
           ru=re.sub(r'<link\s+rel=["\']preload["\']\s+as=["\']style["\']\s+href=["\']https://fonts\.bunny\.net/css\?family=[^"\']+["\'][^>]*>',
             f'<link rel="preload" as="style" href="{font_url}" onload="this.onload=null;this.rel=\'stylesheet\'" />',ru,flags=re.I)
 
           css_sources=[
             'visual-fix-v1.7.1b.css','visual-fix-v1.7.1c.css','visual-fix-v1.7.1d.css','visual-fix-v1.7.1f.css','visual-fix-v1.7.1g.css','visual-fix-v1.7.1h.css',
-            'extended-research-set-v1.0.css','extended-research-navigation-v1.0.css','visual-fix-v1.7.1i.css','chapter-navigation-v1.0.css','language-switch-v1.0.css','depth-statement-v1.2.css','visual-fix-v1.7.1j.css'
+            'extended-research-set-v1.0.css','extended-research-navigation-v1.0.css','visual-fix-v1.7.1i.css','chapter-navigation-v1.0.css','language-switch-v1.0.css',
+            'navigation-architecture-v2.css','depth-statement-v1.2.css','visual-fix-v1.7.1j.css'
           ]
-          js_sources=['extended-research-navigation-v1.0.js','chapter-navigation-v1.0.js','language-switch-v1.0.js','depth-statement-v1.2.js']
+          js_sources=['extended-research-navigation-v1.0.js','chapter-navigation-v1.0.js','language-switch-v1.0.js','navigation-architecture-v2.js','depth-statement-v1.2.js']
           for f in css_sources+js_sources: assert Path(f).exists(), f'Missing bundle source: {f}'
-          css_bundle='/* P-120 production public styles v1.0 — generated, source order preserved */\n'+''.join(f'\n/* === {f} === */\n'+Path(f).read_text(encoding='utf-8')+'\n' for f in css_sources)
-          js_bundle='/* P-120 production public runtime v1.0 — generated, source order preserved */\n'+''.join(f'\n/* === {f} === */\n'+Path(f).read_text(encoding='utf-8')+'\n' for f in js_sources)
+          css_bundle='/* P-120 production public styles v1.1 — generated, source order preserved */\n'+''.join(f'\n/* === {f} === */\n'+Path(f).read_text(encoding='utf-8')+'\n' for f in css_sources)
+          js_bundle='/* P-120 production public runtime v1.1 — generated, source order preserved */\n'+''.join(f'\n/* === {f} === */\n'+Path(f).read_text(encoding='utf-8')+'\n' for f in js_sources)
           Path('p120-public-styles-v1.0.css').write_text(css_bundle,encoding='utf-8')
           Path('p120-public-runtime-v1.0.js').write_text(js_bundle,encoding='utf-8')
 
-          # Remove individual presentation links/scripts. Original source files remain in repository.
           for f in css_sources:
             ru=re.sub(r'\s*<link[^>]+href=["\']'+re.escape(f)+r'(?:\?[^"\']*)?["\'][^>]*>\s*','\n',ru,flags=re.I)
           for f in js_sources:
             ru=re.sub(r'\s*<script[^>]+src=["\']'+re.escape(f)+r'(?:\?[^"\']*)?["\'][^>]*></script>\s*','\n',ru,flags=re.I)
-          ru=ru.replace('</head>','  <link rel="stylesheet" href="p120-public-styles-v1.0.css?v=pub16" data-p120-production-bundle="styles-v1.0" />\n</head>',1)
-          ru=ru.replace('</body>','<script src="p120-public-runtime-v1.0.js?v=pub16" data-p120-production-bundle="runtime-v1.0"></script>\n</body>',1)
+          # Idempotence: remove any previous production bundle references before inserting one current pair.
+          ru=re.sub(r'\s*<link[^>]+href=["\']p120-public-styles-v1\.0\.css(?:\?[^"\']*)?["\'][^>]*>\s*','\n',ru,flags=re.I)
+          ru=re.sub(r'\s*<script[^>]+src=["\']p120-public-runtime-v1\.0\.js(?:\?[^"\']*)?["\'][^>]*></script>\s*','\n',ru,flags=re.I)
+          ru=ru.replace('</head>','  <link rel="stylesheet" href="p120-public-styles-v1.0.css?v=pub17" data-p120-production-bundle="styles-v1.1" />\n</head>',1)
+          ru=ru.replace('</body>','<script src="p120-public-runtime-v1.0.js?v=pub17" data-p120-production-bundle="runtime-v1.1"></script>\n</body>',1)
 
           assert h(cut(ru,'window.P120_INSTRUMENT =','window.P120_SCIENCE='))==instrument
           assert h(cut(ru,'function renderPreflight(){','function render(){'))==assessment
           assert h(cut(ru,'function renderMobileBottomNav(){','function renderMobileDrawer(){'))==mobile
+          assert ru.count('p120-public-styles-v1.0.css?v=pub17')==1
+          assert ru.count('p120-public-runtime-v1.0.js?v=pub17')==1
           p.write_text(ru,encoding='utf-8')
 
           en=ru
@@ -129,11 +134,12 @@ jobs:
           Path('en').mkdir(exist_ok=True)
           Path('en/index.html').write_text(en,encoding='utf-8')
           Path('BILINGUAL_RELEASE_QA.txt').write_text(
-            'P-120 Web Editorial — Bilingual Public RU/EN v1.6\nRU: /\nEN: /en/\nEnglish scope: public home, Extended Set, Scientific Base and navigation.\nQuestionnaire: Russian only.\nMeasurement changes: NONE\nScoring changes: NONE\nQuestion wording changes: NONE\nInstrument SHA256: '+instrument+'\nAssessment SHA256: '+assessment+'\nMobile bottom nav SHA256: '+mobile+'\nRU/EN instrument byte-equivalence: PASS\nRU/EN assessment byte-equivalence: PASS\nEmbedded PDF payloads in index.html: NONE\nExternal PDF routing RU/EN: PASS\nPublic CSS production requests: 1 bundle\nPublic presentation JS requests: 1 bundle\nWeb font stylesheet: non-render-blocking preload\nLocalization runtime: debounced v1.1\nFinal depth statement: v1.3 desktop-fit staircase Noto\nIvory frame/contour contrast: v1.7.1j\n',encoding='utf-8')
-          print('Bilingual integration v1.6 PASS')
+            'P-120 Web Editorial — Bilingual Public RU/EN v1.7\nRU: /\nEN: /en/\nEnglish scope: public home, Extended Set, Scientific Base and navigation.\nQuestionnaire: Russian only.\nMeasurement changes: NONE\nScoring changes: NONE\nQuestion wording changes: NONE\nInstrument SHA256: '+instrument+'\nAssessment SHA256: '+assessment+'\nMobile bottom nav SHA256: '+mobile+'\nRU/EN instrument byte-equivalence: PASS\nRU/EN assessment byte-equivalence: PASS\nEmbedded PDF payloads in index.html: NONE\nExternal PDF routing RU/EN: PASS\nPublic CSS production requests: 1 bundle\nPublic presentation JS requests: 1 bundle\nNavigation Architecture: v2\nReserved ecosystem routes: creator, together\nMobile bottom navigation changes: NONE\nWeb font stylesheet: non-render-blocking preload\nLocalization runtime: debounced v1.1\nFinal depth statement: v1.3 desktop-fit staircase Noto\nIvory frame/contour contrast: v1.7.1j\n',encoding='utf-8')
+          print('Bilingual integration v1.7 + Navigation Architecture v2 PASS')
           PY
       - name: Check generated runtime and localization scripts
         run: |
+          node --check navigation-architecture-v2.js
           node --check p120-public-runtime-v1.0.js
           node --check public-en-home-dictionary-v1.0.js
           node --check public-en-science-dictionary-v1.0.js
@@ -145,7 +151,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html en/index.html BILINGUAL_RELEASE_QA.txt assets/*.pdf p120-public-styles-v1.0.css p120-public-runtime-v1.0.js
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'Bundle public assets and optimize first paint v1.6'
+          git commit -m 'Integrate Navigation Architecture v2 and rebuild public bundle'
           for i in 1 2 3; do
             git fetch origin main
             if git rebase origin/main && git push origin HEAD:main; then exit 0; fi
