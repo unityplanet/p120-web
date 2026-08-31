@@ -2475,6 +2475,7 @@ body[data-theme='museum'] :is(.dark-statement,.showcase-cover){border-color:var(
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="visual-fix-v1.7.1b.css?v=171b" data-p120-visual-fix="v1.7.1b" />
+  <link rel="stylesheet" href="visual-fix-v1.7.1c.css?v=171c" data-p120-visual-fix="v1.7.1c" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Перейти к основному содержанию</a>
@@ -3595,7 +3596,7 @@ function renderEditorialBody(section){
     return `<div class="editorial-body map-body"><div class="research-map-list">${b.map((x,i)=>`<div class="research-map-row"><span>${String(i+1).padStart(2,'0')}</span><p>${esc(x)}</p></div>`).join('')}</div></div>`;
   }
   if(section.style==='science'){
-    return `<div class="editorial-body science-body"><p class="science-body-intro">${esc(b[0])}</p><div class="science-topic-grid">${b.slice(1,11).map(x=>`<span>${esc(x.replace(/;$/,''))}</span>`).join('')}</div><div class="editorial-prose">${b.slice(11).map(x=>`<p>${esc(x)}</p>`).join('')}</div></div>`;
+    return `<div class="editorial-body science-body"><p class="science-body-intro">${esc(b[0])}</p><div class="science-topic-grid">${b.slice(1,12).map(x=>`<span>${esc(x.replace(/;$/,''))}</span>`).join('')}</div><div class="editorial-prose">${b.slice(12).map(x=>`<p>${esc(x)}</p>`).join('')}</div></div>`;
   }
   if(section.style==='life'){
     return `<div class="editorial-body life-body"><div class="editorial-prose">${b.slice(0,2).map(x=>`<p>${esc(x)}</p>`).join('')}</div><div class="life-word-grid">${b.slice(2,11).map(x=>`<span>${esc(x.replace(/\.$/,''))}</span>`).join('')}</div><div class="editorial-prose">${b.slice(11).map(x=>`<p>${esc(x)}</p>`).join('')}</div></div>`;
