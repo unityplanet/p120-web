@@ -1,8 +1,9 @@
-name: P-120 v1.6.1 release intake
+name: P-120 v1.7.1 full-binary staging build
 
 on:
   push:
-    branches: [main]
+    branches:
+      - staging/v1.7.1
     paths:
       - '*.zip'
       - '*.ZIP'
@@ -11,182 +12,229 @@ permissions:
   contents: write
 
 jobs:
-  release-v161:
+  build-v171:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout staging branch
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Locate and verify exact v1.6.1 package
-        id: package
+      - name: Locate exact patch bundle and v1.7 source package
+        id: inputs
         shell: bash
         run: |
           set -euo pipefail
-          EXPECTED='5eea415384e0a05077e634d95bfffca4552d77314613caef2ca624a01e2e4880'
-          MATCH=''
+          PATCH_SHA='b8ca91623a5b788a15ae61bc5c68c19f042df79a1c61b748cc76f1dd5cb2aac5'
+          PATCH=''
+          BASE=''
+
           for z in ./*.zip ./*.ZIP; do
             [ -f "$z" ] || continue
             SHA="$(sha256sum "$z" | awk '{print $1}')"
-            if [ "$SHA" = "$EXPECTED" ]; then
-              MATCH="$z"
-              break
+            if [ "$SHA" = "$PATCH_SHA" ]; then
+              PATCH="$z"
+              continue
             fi
-          done
-          if [ -z "$MATCH" ]; then
-            echo 'Exact v1.6.1 package is not present; nothing to deploy.'
-            echo 'skip=true' >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          cp "$MATCH" /tmp/P120_Web_Editorial_v1.6.1_HOSTING_PACKAGE.zip
-          echo "zip=$MATCH" >> "$GITHUB_OUTPUT"
-          echo 'skip=false' >> "$GITHUB_OUTPUT"
 
-      - name: Deploy v1.6.1 over v1.6.0
-        if: steps.package.outputs.skip != 'true'
+            TMP="$(mktemp -d)"
+            if unzip -q "$z" -d "$TMP" 2>/dev/null; then
+              IDX="$(find "$TMP" -type f -name index.html | head -n 1 || true)"
+              if [ -n "$IDX" ] && grep -q 'P-120 Web Editorial v1.7' "$IDX" && grep -q 'Render-Led Visual System' "$IDX"; then
+                BASE="$z"
+              fi
+            fi
+            rm -rf "$TMP"
+          done
+
+          test -n "$PATCH" || { echo 'Exact v1.7.1 patch bundle not found.' >&2; exit 1; }
+          test -n "$BASE" || { echo 'v1.7 Render-Led hosting package not found.' >&2; exit 1; }
+
+          echo "patch=$PATCH" >> "$GITHUB_OUTPUT"
+          echo "base=$BASE" >> "$GITHUB_OUTPUT"
+          echo "base_sha=$(sha256sum "$BASE" | awk '{print $1}')" >> "$GITHUB_OUTPUT"
+          echo "patch_sha=$PATCH_SHA" >> "$GITHUB_OUTPUT"
+
+      - name: Extract source and patch bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p120-base /tmp/p120-patch /tmp/p120-build
+          mkdir -p /tmp/p120-base /tmp/p120-patch /tmp/p120-build
+          unzip -q "${{ steps.inputs.outputs.base }}" -d /tmp/p120-base
+          unzip -q "${{ steps.inputs.outputs.patch }}" -d /tmp/p120-patch
+
+          INDEX="$(find /tmp/p120-base -type f -name index.html | head -n 1)"
+          PATCHER="$(find /tmp/p120-patch -type f -name apply_v1.7.1_patch.py | head -n 1)"
+          CSS="$(find /tmp/p120-patch -type f -name MUSEUM_TEAL_PRODUCTION_OVERRIDE_v1.7.1.css | head -n 1)"
+          test -n "$INDEX" && test -n "$PATCHER" && test -n "$CSS"
+
+          BASEDIR="$(dirname "$INDEX")"
+          rsync -a --exclude='.github/' "$BASEDIR"/ /tmp/p120-build/
+
+          mkdir -p /tmp/p120-tools
+          cp "$PATCHER" /tmp/p120-tools/apply_v1.7.1_patch.py
+          cp "$CSS" /tmp/p120-tools/MUSEUM_TEAL_PRODUCTION_OVERRIDE_v1.7.1.css
+
+      - name: Apply deterministic v1.7.1 patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp /tmp/p120-build/index.html /tmp/index-v17-original.html
+          python /tmp/p120-tools/apply_v1.7.1_patch.py /tmp/p120-build/index.html | tee /tmp/patcher-output.txt
+          test -f /tmp/p120-build/index_v1.7.1.html
+          mv /tmp/p120-build/index_v1.7.1.html /tmp/p120-build/index.html
+
+      - name: Verify exact allowed source delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+
+          original = Path('/tmp/index-v17-original.html').read_text(encoding='utf-8')
+          final = Path('/tmp/p120-build/index.html').read_text(encoding='utf-8')
+          css = Path('/tmp/p120-tools/MUSEUM_TEAL_PRODUCTION_OVERRIDE_v1.7.1.css').read_text(encoding='utf-8').strip()
+          marker = 'P-120 Web Editorial v1.7.1 — Museum Teal Restoration'
+
+          expected = original.replace('</style>', '\n\n/* ' + marker + ' */\n' + css + '\n</style>', 1)
+          expected = expected.replace("museum:'#171411'", "museum:'#F2EEE2'", 1)
+          expected = expected.replace("museum:'Тёмный музей'", "museum:'Музейная'", 1)
+
+          if final != expected:
+              raise SystemExit('Patched index differs from the independently reconstructed allowed delta')
+          if final.count(marker) != 1:
+              raise SystemExit('v1.7.1 marker count is not exactly one')
+          if "museum:'#171411'" in final or "museum:'Тёмный музей'" in final:
+              raise SystemExit('Old Dark Museum runtime literals remain')
+          if "museum:'#F2EEE2'" not in final or "museum:'Музейная'" not in final:
+              raise SystemExit('Museum Teal runtime literals missing')
+
+          def sha(text):
+              return hashlib.sha256(text.encode('utf-8')).hexdigest()
+          Path('/tmp/index-input.sha256').write_text(sha(original) + '\n')
+          Path('/tmp/index-output.sha256').write_text(sha(final) + '\n')
+          print('Allowed source delta: PASS')
+          print('Input index SHA-256 :', sha(original))
+          print('Output index SHA-256:', sha(final))
+          PY
+
+      - name: JavaScript syntax and presentation lock QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import re, subprocess, tempfile
+
+          src = Path('/tmp/p120-build/index.html').read_text(encoding='utf-8')
+          scripts = re.findall(r'<script([^>]*)>(.*?)</script>', src, flags=re.I|re.S)
+          checked = 0
+          for attrs, body in scripts:
+              m = re.search(r'type=["\']([^"\']+)', attrs, flags=re.I)
+              typ = (m.group(1).lower() if m else '')
+              if typ and typ not in ('text/javascript','application/javascript','module'):
+                  continue
+              with tempfile.NamedTemporaryFile('w', suffix='.js', encoding='utf-8', delete=False) as f:
+                  f.write(body)
+                  name = f.name
+              subprocess.run(['node','--check',name], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+              checked += 1
+          if checked == 0:
+              raise SystemExit('No executable JavaScript blocks found')
+          print(f'JavaScript syntax: PASS ({checked} executable blocks)')
+
+          styles = re.findall(r'<style[^>]*>(.*?)</style>', src, flags=re.I|re.S)
+          if not styles:
+              raise SystemExit('No style block found')
+          css = '\n'.join(styles)
+          if css.count('{') != css.count('}'):
+              raise SystemExit('CSS brace balance failed')
+          print(f'CSS structural balance: PASS ({css.count("{")} / {css.count("}")})')
+          PY
+
+      - name: Add full-binary QA and release metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          INPUT_SHA="$(cat /tmp/index-input.sha256 | tr -d '\n')"
+          OUTPUT_SHA="$(cat /tmp/index-output.sha256 | tr -d '\n')"
+          BASE_SHA='${{ steps.inputs.outputs.base_sha }}'
+          PATCH_SHA='${{ steps.inputs.outputs.patch_sha }}'
+
+          cat > /tmp/p120-build/VERSION.txt <<EOF
+          P-120 Web Editorial v1.7.1
+          Museum Teal Restoration & Visual Regression Correction
+          Baseline: v1.7 Render-Led Visual System
+          Status: full-binary staging candidate
+          Measurement changes: NONE
+          Scoring changes: NONE
+          EOF
+
+          cat > /tmp/p120-build/QA_REPORT_v1.7.1_FULL_BINARY.md <<EOF
+          # P-120 Web Editorial v1.7.1 — Full-Binary Staging Gate
+
+          ## Input integrity
+          - v1.7 source ZIP SHA-256: \`$BASE_SHA\`
+          - v1.7.1 patch ZIP SHA-256: \`$PATCH_SHA\`
+          - source index SHA-256: \`$INPUT_SHA\`
+          - patched index SHA-256: \`$OUTPUT_SHA\`
+
+          ## Integration gate
+          - exact v1.7 Render-Led signatures: PASS
+          - exact v1.7.1 patch bundle hash: PASS
+          - deterministic patch application: PASS
+          - independently reconstructed allowed source delta: PASS
+          - theme key \`museum\`: PRESERVED
+          - Museum runtime theme-color: \`#F2EEE2\`
+          - Russian theme label: \`Музейная\`
+          - JavaScript syntax: PASS
+          - CSS structural balance: PASS
+
+          ## Frozen logic boundary
+          The integration algorithm permits only the verified Museum Teal CSS cascade plus the two presentation/theme-registry literal substitutions. Measurement, scoring, questions, scientific claims, archetypes, compatibility and result-calculation logic are outside the allowed delta.
+
+          ## Remaining gate
+          Browser visual regression QA is still required before production promotion. This candidate must not replace v1.6.1 live until the hosted preview is visually approved.
+          EOF
+
+          for f in CHANGELOG_v1.7.1.md QA_REPORT_v1.7.1_SOURCE_RECONCILED.md VALIDATION_LOG_v1.7.1.txt; do
+            FOUND="$(find /tmp/p120-patch -type f -name "$f" | head -n 1 || true)"
+            [ -n "$FOUND" ] && cp "$FOUND" "/tmp/p120-build/$f"
+          done
+
+      - name: Package final v1.7.1 hosting candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /tmp/p120-build
+          zip -qr /tmp/P120_Web_Editorial_v1.7.1_HOSTING_PACKAGE.zip .
+          unzip -t /tmp/P120_Web_Editorial_v1.7.1_HOSTING_PACKAGE.zip
+          sha256sum /tmp/P120_Web_Editorial_v1.7.1_HOSTING_PACKAGE.zip | tee /tmp/final-package.sha256
+
+      - name: Store candidate on staging branch
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -rf candidate-v1.7.1
+          mkdir candidate-v1.7.1
+          rsync -a /tmp/p120-build/ candidate-v1.7.1/
+          cp /tmp/final-package.sha256 candidate-v1.7.1/PACKAGE_SHA256.txt
+          git add candidate-v1.7.1
+          if git diff --cached --quiet; then
+            echo 'Candidate tree already current.'
+          else
+            git commit -m 'Build P-120 v1.7.1 full-binary staging candidate'
+            git push origin HEAD:staging/v1.7.1
+          fi
 
-          rm -rf /tmp/p120-v161
-          mkdir -p /tmp/p120-v161
-          unzip -q /tmp/P120_Web_Editorial_v1.6.1_HOSTING_PACKAGE.zip -d /tmp/p120-v161
-
-          INDEX="$(find /tmp/p120-v161 -type f -name index.html | head -n 1)"
-          test -n "$INDEX" || { echo 'index.html not found in v1.6.1 package' >&2; exit 1; }
-          SRC="$(dirname "$INDEX")"
-
-          # Preserve this release-intake workflow. Optional CI workflows from the
-          # source ZIP remain preserved in the immutable Release asset but are
-          # not written into the Pages tree because GITHUB_TOKEN lacks workflow scope.
-          rsync -a --exclude='.github/workflows/' "$SRC"/ ./
-
-          # Keep the exact source package out of the live branch; it will be
-          # attached to the immutable GitHub Release instead.
-          git rm -- "${{ steps.package.outputs.zip }}"
-
-          cat > README.md <<'EOF'
-          # P-120 Web
-
-          Public website repository for the P-120 research project.
-
-          ## Current public release
-
-          **P-120 Web Editorial v1.6.1 — Contrast Architecture Restoration**
-
-          GitHub Pages staging URL: `https://unityplanet.github.io/p120-web/`
-
-          v1.6.1 is a narrow corrective pass over v1.6.0. It restores stronger contrast architecture for semantic/scientific blocks while preserving the v1.6 HD/UHD stage system, mobile UX, typography, header and frozen measurement/scoring logic.
-
-          Historical release tags: `v1.5.0`, `v1.6.0`, `v1.6.1`.
-
-          ## Deployment
-
-          GitHub Pages publishes from the `main` branch and repository root. The live staging website is represented by the current state of `main`.
-
-          ## Public-repository boundary
-
-          This repository contains public website code and public-facing assets only. Do not commit authoritative scoring keys, technical keys, controlled research documentation, respondent or personal data, credentials, API keys, `.env` files, or other non-public P-120 materials.
-
-          Measurement changes in v1.6.1: **NONE**. Scoring changes: **NONE**.
-          EOF
-
-          cat > VERSION.txt <<'EOF'
-          P-120 Web Editorial v1.6.1
-          Contrast Architecture Restoration
-          Baseline: v1.6.0 Desktop HD / UHD Master Pass
-          Status: hosting-ready frontend corrective release / live correction stage
-          Measurement changes: NONE
-          Scoring changes: NONE
-          EOF
-
-          cat > CHANGELOG.md <<'EOF'
-          # P-120 Web — Changelog
-
-          ## [1.6.1] — 2026-08-31
-
-          ### Contrast Architecture Restoration
-          - Restored more visible contrast frames for semantic and scientific blocks.
-          - Re-established `two systems`, distinction cards, orbital map and module/layer blocks as distinct architectural objects.
-          - Clarified the questionnaire outer contour.
-          - Preserved scientific de-cardification while restoring separation from the background.
-          - Increased depth in report/examples surfaces.
-          - Strengthened editorial dividing lines and chapter flash rules.
-          - Added theme-specific frame tokens for Ivory, Graphite and Museum.
-          - Museum framing uses teal/grey-green accents aligned with its cream/teal/sand palette.
-          - Slightly strengthened frame/depth treatment at ≥1920px for large canvases.
-
-          ### Preserved from v1.6.0
-          - HD/UHD stage system unchanged.
-          - 1366 / 1440 / 1920 / 2560 / 3440 / 3840 regimes preserved.
-          - Mobile UX v1.2–v1.5 preserved.
-          - Typography and header preserved.
-          - Measurement/content/scoring logic unchanged.
-
-          Full corrective release notes: `CHANGELOG_v1.6.1.md`.
-
-          ### QA reported by release package
-          - 7 JavaScript blocks byte-identical to v1.6.
-          - JavaScript syntax: PASS.
-          - CSS parser errors: 0.
-          - Static build checker: PASS.
-          - Source ZIP SHA-256: `5eea415384e0a05077e634d95bfffca4552d77314613caef2ca624a01e2e4880`.
-
-          ## [1.6.0] — 2026-08-31
-
-          ### Visual / layout
-          - Desktop HD / UHD Master Pass over the v1.5 Unified Editorial Grammar baseline.
-          - Dedicated HD, QHD, ultrawide and UHD stage systems.
-          - Expanded questionnaire, science and report layouts for large displays.
-          - Selective de-cardification and production-facing identity cleanup.
-
-          ### Measurement governance
-          - Measurement changes: NONE.
-          - Scoring changes: NONE.
-          - New thresholds: NONE.
-          - Global total: NONE.
-
-          ## [1.5.0] — 2026-08-31
-
-          ### Release
-          - P-120 Web Editorial v1.5 — Unified Editorial Grammar.
-          - Updated editorial/block design baseline supplied as the final v1.5 autonomous HTML build.
-          - Direct baseline for v1.6.
-
-          ### Measurement governance
-          - Measurement changes: NONE.
-          - Scoring changes: NONE.
-          EOF
-
-          git add -A
-          git commit -m 'Release P-120 Web Editorial v1.6.1 — Contrast Architecture Restoration'
-          git tag -a v1.6.1 -m 'P-120 Web Editorial v1.6.1 — Contrast Architecture Restoration'
-
-      - name: Publish v1.6.1 commit and tag
-        if: steps.package.outputs.skip != 'true'
-        shell: bash
-        run: |
-          set -euo pipefail
-          git push origin main
-          git push origin v1.6.1
-
-      - name: Create v1.6.1 GitHub Release
-        if: steps.package.outputs.skip != 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          cat > /tmp/v161-notes.md <<'EOF'
-          P-120 Web Editorial v1.6.1 — Contrast Architecture Restoration.
-
-          Narrow corrective pass over v1.6.0 restoring stronger contrast architecture for semantic/scientific blocks while preserving the HD/UHD stage system, mobile UX, typography, header and frozen measurement/scoring logic.
-
-          Package QA: 7 JavaScript blocks byte-identical to v1.6; JS syntax PASS; CSS parser errors 0; static build checker PASS.
-
-          Measurement changes: NONE. Scoring changes: NONE.
-          EOF
-          gh release view v1.6.1 >/dev/null 2>&1 || gh release create v1.6.1 /tmp/P120_Web_Editorial_v1.6.1_HOSTING_PACKAGE.zip --title 'P-120 Web Editorial v1.6.1 — Contrast Architecture Restoration' --notes-file /tmp/v161-notes.md
+      - name: Upload final hosting package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_Web_Editorial_v1.7.1_HOSTING_PACKAGE
+          path: /tmp/P120_Web_Editorial_v1.7.1_HOSTING_PACKAGE.zip
+          if-no-files-found: error
+          retention-days: 30
