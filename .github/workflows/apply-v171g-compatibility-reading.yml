@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - visual-fix-v1.7.1g.css
+      - .github/workflows/apply-v171g-compatibility-reading.yml
   workflow_dispatch:
 
 permissions:
