@@ -1,0 +1,194 @@
+# Legacy theme selector groups removed during v1.7 final cleanup
+# mechanically derived from index.prefinal_backup.html → index.html
+# unique removed theme-scoped selector groups: 190
+
+001. /* v0.6 — premium pass, themes and result showcase */ body[data-theme='ivory']
+002. body[data-theme='graphite']
+003. body[data-theme='museum']
+004. body[data-theme='graphite'], body[data-theme='museum']
+005. body[data-theme='graphite'] .lead, body[data-theme='graphite'] .flow-step p, body[data-theme='graphite'] .boundary-item, body[data-theme='graphite'] .section-split-head p, body[data-theme='museum'] .lead, body[data-theme='museum'] .flow-step p, body[data-theme='museum'] .boundary-item, body[data-theme='museum'] .section-split-head p
+006. body[data-theme='graphite'] .topbar, body[data-theme='museum'] .topbar
+007. body[data-theme='graphite'] .progress-track, body[data-theme='museum'] .progress-track
+008. body[data-theme='graphite'] .progress-fill, body[data-theme='museum'] .progress-fill, body[data-theme='graphite'] .module-mini-fill, body[data-theme='museum'] .module-mini-fill, body[data-theme='graphite'] .module-progress-fill, body[data-theme='museum'] .module-progress-fill, body[data-theme='graphite'] .mobile-module-progress>div, body[data-theme='museum'] .mobile-module-progress>div, body[data-theme='graphite'] .mini-fill, body[data-theme='museum'] .mini-fill, body[data-theme='graphite'] .showcase-track div, body[data-theme='museum'] .showcase-track div
+009. body[data-theme='graphite'] .btn, body[data-theme='museum'] .btn
+010. body[data-theme='graphite'] .btn.secondary, body[data-theme='museum'] .btn.secondary
+011. body[data-theme='graphite'] .choice.selected, body[data-theme='museum'] .choice.selected
+012. body[data-theme='graphite'] .dark-statement, body[data-theme='museum'] .dark-statement
+013. body[data-theme='graphite'] .dark-statement p, body[data-theme='graphite'] .dark-statement strong, body[data-theme='museum'] .dark-statement p, body[data-theme='museum'] .dark-statement strong
+014. body[data-theme='graphite'] .example-disclaimer, body[data-theme='museum'] .example-disclaimer, body[data-theme='graphite'] .status-box, body[data-theme='museum'] .status-box, body[data-theme='graphite'] .status-box.warn, body[data-theme='museum'] .status-box.warn, body[data-theme='graphite'] .compare-box, body[data-theme='museum'] .compare-box, body[data-theme='graphite'] pre, body[data-theme='museum'] pre
+015. body[data-theme='graphite'] .theme-chip.active, body[data-theme='museum'] .theme-chip.active
+016. body[data-theme='graphite'] .showcase-cover, body[data-theme='museum'] .showcase-cover
+017. body[data-theme='graphite'] .showcase-cover p, body[data-theme='museum'] .showcase-cover p, body[data-theme='graphite'] .showcase-chip, body[data-theme='museum'] .showcase-chip, body[data-theme='graphite'] .showcase-conditions span, body[data-theme='museum'] .showcase-conditions span
+018. body[data-theme='graphite'] .hero:before, body[data-theme='graphite'] .card:before, body[data-theme='museum'] .hero:before, body[data-theme='museum'] .card:before
+019. body[data-theme='graphite'] .home-card, body[data-theme='graphite'] .question-card, body[data-theme='graphite'] .preflight, body[data-theme='graphite'] .result-card, body[data-theme='museum'] .home-card, body[data-theme='museum'] .question-card, body[data-theme='museum'] .preflight, body[data-theme='museum'] .result-card
+020. body[data-theme='graphite'] .question-card, body[data-theme='museum'] .question-card
+021. body[data-theme='graphite'] .question-card:after, body[data-theme='museum'] .question-card:after
+022. body[data-theme='graphite'] .choice, body[data-theme='museum'] .choice
+023. body[data-theme='graphite'] .module-progress-block, body[data-theme='museum'] .module-progress-block
+024. body[data-theme='graphite'] .module-progress-track, body[data-theme='museum'] .module-progress-track
+025. body[data-theme='graphite'] .mobile-modulebar, body[data-theme='museum'] .mobile-modulebar
+026. body[data-theme='graphite'] .preflight-side-card, body[data-theme='museum'] .preflight-side-card
+027. body[data-theme='graphite'] .identity-card, body[data-theme='museum'] .identity-card
+028. body[data-theme='graphite'] .luxury-ritual-card, body[data-theme='museum'] .luxury-ritual-card
+029. body[data-theme='graphite'] .preflight-ceremony, body[data-theme='museum'] .preflight-ceremony
+030. body[data-theme='graphite'] .luxury-consent, body[data-theme='museum'] .luxury-consent
+031. body[data-theme='graphite'] .result-chip, body[data-theme='museum'] .result-chip
+032. body[data-theme='graphite'] .results-side-stat, body[data-theme='graphite'] .results-side-note, body[data-theme='museum'] .results-side-stat, body[data-theme='museum'] .results-side-note
+033. body[data-theme='graphite'] .result-showcase-cover, body[data-theme='museum'] .result-showcase-cover
+034. body[data-theme='graphite'] .result-showcase-cover p, body[data-theme='museum'] .result-showcase-cover p
+035. body[data-theme='graphite'] .result-showcase-text, body[data-theme='museum'] .result-showcase-text
+036. body[data-theme='graphite'] .luxury-quote, body[data-theme='museum'] .luxury-quote
+037. body[data-theme='graphite'] .luxury-signal, body[data-theme='museum'] .luxury-signal
+038. body[data-theme='graphite'] .luxury-coverage-card, body[data-theme='museum'] .luxury-coverage-card
+039. body[data-theme='graphite'] .luxury-arch .arch-step, body[data-theme='museum'] .luxury-arch .arch-step
+040. body[data-theme='graphite'] .module-mini-track, body[data-theme='museum'] .module-mini-track
+041. /* v0.7.1 — dark theme contrast repair */ body[data-theme='graphite']
+042. body[data-theme='graphite'] .hero, body[data-theme='graphite'] .card
+043. body[data-theme='museum'] .hero, body[data-theme='museum'] .card
+044. body[data-theme='graphite'] .product-hero, body[data-theme='graphite'] .science-hero
+045. body[data-theme='museum'] .product-hero, body[data-theme='museum'] .science-hero
+046. body[data-theme='graphite'] .topbar
+047. body[data-theme='museum'] .topbar
+048. body[data-theme='graphite'] .topbar .brand, body[data-theme='graphite'] .topbar .brand-sub, body[data-theme='graphite'] .topbar .navlink, body[data-theme='museum'] .topbar .brand, body[data-theme='museum'] .topbar .brand-sub, body[data-theme='museum'] .topbar .navlink
+049. body[data-theme='graphite'] .topbar .brand-sub, body[data-theme='graphite'] .topbar .navlink, body[data-theme='museum'] .topbar .brand-sub, body[data-theme='museum'] .topbar .navlink
+050. body[data-theme='graphite'] .topbar .navlink:hover, body[data-theme='museum'] .topbar .navlink:hover
+051. body[data-theme='graphite'] .badge, body[data-theme='graphite'] .menu-btn, body[data-theme='museum'] .badge, body[data-theme='museum'] .menu-btn
+052. body[data-theme='graphite'] .theme-chip, body[data-theme='museum'] .theme-chip
+053. body[data-theme='graphite'] :is(.layer-card,.practical-card,.science-mini-stat,.science-doc-card,.example-profile,.editorial-statement,.boundary-pair,.construct-card,.durability-card,.validation-step,.insight-card,.science-layer-card,.preflight-panel,.mode,.compare-box,.status-box,.arch-step,.science-subnav,.science-details,.science-callout,.science-status,.evidence-table,.evidence-head,.evidence-row,.science-doc-card,.atmosphere-card,.premium-quote,.premium-hero-panel), body[data-theme='museum'] :is(.layer-card,.practical-card,.science-mini-stat,.science-doc-card,.example-profile,.editorial-statement,.boundary-pair,.construct-card,.durability-card,.validation-step,.insight-card,.science-layer-card,.preflight-panel,.mode,.compare-box,.status-box,.arch-step,.science-subnav,.science-details,.science-callout,.science-status,.evidence-table,.evidence-head,.evidence-row,.science-doc-card,.atmosphere-card,.premium-quote,.premium-hero-panel)
+054. body[data-theme='graphite'] .science-subnav, body[data-theme='museum'] .science-subnav
+055. body[data-theme='graphite'] .science-subnav
+056. body[data-theme='museum'] .science-subnav
+057. body[data-theme='graphite'] .science-subnav a, body[data-theme='museum'] .science-subnav a
+058. body[data-theme='graphite'] .science-subnav a:hover, body[data-theme='museum'] .science-subnav a:hover
+059. body[data-theme='graphite'] :is(.lead,.boundary-item,.transition p,.science-status p,.science-section>p,.hypothesis p,.construct-boundary,.science-callout p,.showcase-bar p,.showcase-narrative-card p,.premium-quote p,.science-doc-card p), body[data-theme='museum'] :is(.lead,.boundary-item,.transition p,.science-status p,.science-section>p,.hypothesis p,.construct-boundary,.science-callout p,.showcase-bar p,.showcase-narrative-card p,.premium-quote p,.science-doc-card p)
+060. body[data-theme='graphite'] :is(.small,.eyebrow,.layer-card p,.science-mini-stat span,.plain-layer p,.practical-card p,.life-card p,.construct-card p,.science-layer-card p,.detail-meta,.section-split-head p,.science-metric span,.science-doc-card p,.formula-card span,.science-status-label,.showcase-score span,.showcase-bar-head span,.signal-label span,.module-desc,.module-meta,.qcount,.scale-note,.footer-note), body[data-theme='museum'] :is(.small,.eyebrow,.layer-card p,.science-mini-stat span,.plain-layer p,.practical-card p,.life-card p,.construct-card p,.science-layer-card p,.detail-meta,.section-split-head p,.science-metric span,.science-doc-card p,.formula-card span,.science-status-label,.showcase-score span,.showcase-bar-head span,.signal-label span,.module-desc,.module-meta,.qcount,.scale-note,.footer-note)
+061. body[data-theme='graphite'] .dark-statement :is(.eyebrow,p,strong), body[data-theme='museum'] .dark-statement :is(.eyebrow,p,strong)
+062. body[data-theme='graphite'] .showcase-cover :is(p,.showcase-chip,.showcase-conditions span), body[data-theme='museum'] .showcase-cover :is(p,.showcase-chip,.showcase-conditions span)
+063. body[data-theme='graphite'] .science-doc-card, body[data-theme='museum'] .science-doc-card
+064. body[data-theme='graphite'] .science-status, body[data-theme='museum'] .science-status
+065. body[data-theme='graphite'] .formula-card, body[data-theme='museum'] .formula-card
+066. body[data-theme='graphite'] .science-code, body[data-theme='museum'] .science-code
+067. body[data-theme='graphite'] .evidence-pill, body[data-theme='museum'] .evidence-pill
+068. body[data-theme='graphite'] .evidence-pill.strong, body[data-theme='museum'] .evidence-pill.strong
+069. body[data-theme='graphite'] .evidence-pill.research, body[data-theme='museum'] .evidence-pill.research
+070. body[data-theme='graphite'] .btn.ghost, body[data-theme='museum'] .btn.ghost
+071. body[data-theme='graphite'] .button-link.btn, body[data-theme='museum'] .button-link.btn
+072. body[data-theme='graphite'] .button-link.btn.secondary, body[data-theme='museum'] .button-link.btn.secondary
+073. body[data-theme='graphite'] .choice:hover, body[data-theme='museum'] .choice:hover
+074. body[data-theme='graphite'] .module-pill.active, body[data-theme='museum'] .module-pill.active
+075. body[data-theme='graphite'] .module-pill, body[data-theme='museum'] .module-pill
+076. body[data-theme='graphite'] .module-pill.active .module-desc, body[data-theme='museum'] .module-pill.active .module-desc
+077. body[data-theme='graphite'] .sidebar-summary, body[data-theme='museum'] .sidebar-summary
+078. body[data-theme='graphite'] pre, body[data-theme='museum'] pre
+079. body[data-theme='graphite'] .doi-link, body[data-theme='museum'] .doi-link
+080. /* v0.8 — refined museum theme + harmonic header */ body[data-theme='ivory']
+081. body[data-theme='museum'] .premium-quote, body[data-theme='museum'] .premium-hero-panel, body[data-theme='museum'] .showcase-cover, body[data-theme='museum'] .showcase-summary, body[data-theme='museum'] .showcase-narrative-card, body[data-theme='museum'] .atmosphere-card, body[data-theme='museum'] .preflight-side-card, body[data-theme='museum'] .luxury-ritual-card, body[data-theme='museum'] .results-side-stat, body[data-theme='museum'] .results-side-note, body[data-theme='museum'] .result-showcase-text, body[data-theme='museum'] .luxury-coverage-card, body[data-theme='museum'] .luxury-signal, body[data-theme='museum'] .module-progress-block, body[data-theme='museum'] .mobile-modulebar, body[data-theme='museum'] .question-card, body[data-theme='museum'] .theme-chip, body[data-theme='museum'] .badge, body[data-theme='museum'] .module-pill.active, body[data-theme='museum'] .status-box, body[data-theme='museum'] .status-box.warn, body[data-theme='museum'] .compare-box
+082. body[data-theme='museum'] .showcase-cover, body[data-theme='museum'] .result-showcase-cover
+083. body[data-theme='museum'] .theme-chip.active, body[data-theme='museum'] .btn, body[data-theme='museum'] .choice.selected
+084. body[data-theme='museum'] .btn.secondary, body[data-theme='museum'] .theme-chip, body[data-theme='museum'] .navlink:hover, body[data-theme='museum'] .science-navlink
+085. body[data-theme='museum'] .progress-fill, body[data-theme='museum'] .module-mini-fill, body[data-theme='museum'] .module-progress-fill, body[data-theme='museum'] .mobile-module-progress>div, body[data-theme='museum'] .mini-fill, body[data-theme='museum'] .showcase-track div
+086. body[data-theme='museum'] .preflight-ceremony-mark, body[data-theme='museum'] .theme-chip.active, body[data-theme='museum'] .progress-badge
+087. body[data-theme='museum'] .result-chip, body[data-theme='museum'] .showcase-note, body[data-theme='museum'] .luxury-quote
+088. body[data-theme='graphite'] .brand-mark
+089. body[data-theme='graphite'] .brand-orbit
+090. body[data-theme='graphite'] .brand-orbit:after
+091. body[data-theme='graphite'] .brand-node-a
+092. body[data-theme='graphite'] .brand-node-b
+093. body[data-theme='museum'] .brand-mark
+094. body[data-theme='museum'] .brand-orbit
+095. body[data-theme='museum'] .brand-orbit:after
+096. body[data-theme='museum'] .brand-node-a
+097. body[data-theme='museum'] .brand-node-b
+098. body[data-theme='graphite'] .topbar .badge
+099. body[data-theme='museum'] .topbar .badge
+100. /* v0.9 — final visual refinement */ /* Museum theme becomes a distinct light editorial palette */ body[data-theme='museum']
+101. body[data-theme='museum'] .hero, body[data-theme='museum'] .card, body[data-theme='museum'] .question-card
+102. body[data-theme='museum'] .lead, body[data-theme='museum'] .flow-step p, body[data-theme='museum'] .boundary-item, body[data-theme='museum'] .section-split-head p, body[data-theme='museum'] .small, body[data-theme='museum'] .footer-note, body[data-theme='museum'] .layer-card p, body[data-theme='museum'] .plain-layer p, body[data-theme='museum'] .practical-card p, body[data-theme='museum'] .life-card p, body[data-theme='museum'] .module-desc, body[data-theme='museum'] .scale-note, body[data-theme='museum'] .qcount
+103. body[data-theme='museum'] .eyebrow, body[data-theme='museum'] .brand-sub
+104. body[data-theme='museum'] .badge, body[data-theme='museum'] .module-progress-block, body[data-theme='museum'] .mobile-modulebar, body[data-theme='museum'] .premium-quote, body[data-theme='museum'] .premium-hero-panel, body[data-theme='museum'] .showcase-summary, body[data-theme='museum'] .showcase-narrative-card, body[data-theme='museum'] .atmosphere-card, body[data-theme='museum'] .preflight-side-card, body[data-theme='museum'] .luxury-ritual-card, body[data-theme='museum'] .preflight-ceremony, body[data-theme='museum'] .luxury-consent, body[data-theme='museum'] .results-side-stat, body[data-theme='museum'] .results-side-note, body[data-theme='museum'] .result-showcase-text, body[data-theme='museum'] .luxury-coverage-card, body[data-theme='museum'] .luxury-signal, body[data-theme='museum'] .module-pill.active, body[data-theme='museum'] .compare-box, body[data-theme='museum'] .science-mini-stat, body[data-theme='museum'] .science-layer-card, body[data-theme='museum'] .construct-card, body[data-theme='museum'] .validation-step, body[data-theme='museum'] .boundary-pair, body[data-theme='museum'] .durability-card
+105. body[data-theme='museum'] .layer-card, body[data-theme='museum'] .plain-layer, body[data-theme='museum'] .practical-card, body[data-theme='museum'] .life-card, body[data-theme='museum'] .insight-card, body[data-theme='museum'] .example-profile
+106. body[data-theme='museum'] .dark-statement, body[data-theme='museum'] .showcase-cover, body[data-theme='museum'] .result-showcase-cover
+107. body[data-theme='museum'] .dark-statement p, body[data-theme='museum'] .dark-statement strong, body[data-theme='museum'] .showcase-cover p, body[data-theme='museum'] .showcase-chip, body[data-theme='museum'] .showcase-conditions span, body[data-theme='museum'] .result-showcase-cover p
+108. body[data-theme='museum'] .showcase-chip, body[data-theme='museum'] .showcase-conditions span
+109. body[data-theme='museum'] .btn
+110. body[data-theme='museum'] .btn.secondary, body[data-theme='museum'] .menu-btn
+111. body[data-theme='museum'] .choice
+112. body[data-theme='museum'] .choice.selected
+113. body[data-theme='museum'] .progress-track, body[data-theme='museum'] .module-mini-track, body[data-theme='museum'] .module-progress-track, body[data-theme='museum'] .mobile-module-progress, body[data-theme='museum'] .mini-track, body[data-theme='museum'] .showcase-track
+114. body[data-theme='museum'] .status-box, body[data-theme='museum'] .status-box.warn, body[data-theme='museum'] .example-disclaimer, body[data-theme='museum'] .showcase-note, body[data-theme='museum'] .luxury-quote
+115. body[data-theme='museum'] pre
+116. body[data-theme='museum'] .theme-chip.active
+117. body[data-theme='museum'] .theme-chip
+118. body[data-theme='graphite'] .topnav
+119. body[data-theme='museum'] .topnav
+120. body[data-theme='graphite'] .header-theme-menu summary
+121. body[data-theme='museum'] .header-theme-menu summary
+122. /* v0.9.1 — Museum theme contrast / inheritance repair */ body[data-theme='museum']
+123. /* Light museum surfaces: explicit readable hierarchy */ body[data-theme='museum'] :is( .layer-card, .plain-layer, .practical-card, .life-card, .editorial-statement:not(.dark-statement), .example-profile, .insight-card, .science-mini-stat, .science-layer-card, .construct-card, .validation-step, .boundary-pair, .durability-card, .premium-quote, .premium-hero-panel, .atmosphere-card, .showcase-summary, .showcase-narrative-card, .preflight-side-card, .luxury-ritual-card, .results-side-stat, .results-side-note, .result-showcase-text, .luxury-coverage-card, .luxury-signal )
+124. body[data-theme='museum'] :is( .layer-card strong, .plain-layer strong, .practical-card strong, .life-card strong, .editorial-statement:not(.dark-statement)>strong, .example-title strong, .insight-card strong, .science-mini-stat strong, .science-layer-card strong, .construct-card strong, .validation-step strong, .boundary-pair strong, .durability-card strong, .premium-quote strong, .premium-hero-panel h3, .atmosphere-card strong, .showcase-summary strong, .showcase-narrative-card strong )
+125. body[data-theme='museum'] :is( .lead, .section-split-head p, .layer-card p, .plain-layer p, .practical-card p, .life-card p, .example-title p, .example-watch p, .insight-row p, .science-mini-stat span, .science-layer-card p, .construct-card p, .boundary-pair p, .validation-copy p, .premium-quote p, .premium-hero-panel p, .atmosphere-card p, .showcase-summary p, .showcase-bar p, .showcase-narrative-card p, .small, .footer-note, .module-desc, .module-meta, .qcount, .scale-note )
+126. /* Tiny labels need more contrast than the previous museum muted token */ body[data-theme='museum'] :is( .practical-card>span, .plain-layer>span, .life-card>span, .layer-card .num, .example-open, .signal-label span, .signal-value, .construct-head, .boundary-note, .science-status-label, .formula-card span, .detail-meta, .science-metric span, .ref-num, .ref-count span, .internal-list span )
+127. /* Teal editorial surfaces: reverse hierarchy explicitly */ body[data-theme='museum'] :is(.dark-statement,.showcase-cover,.result-showcase-cover)
+128. body[data-theme='museum'] :is( .dark-statement .eyebrow, .showcase-cover .eyebrow, .result-showcase-cover .eyebrow )
+129. body[data-theme='museum'] :is( .dark-statement strong, .showcase-cover h3, .result-showcase-cover h3 )
+130. body[data-theme='museum'] :is( .dark-statement p, .showcase-cover p, .result-showcase-cover p )
+131. body[data-theme='museum'] :is(.showcase-chip,.showcase-conditions span)
+132. /* Header / controls */ body[data-theme='museum'] .topbar .navlink
+133. body[data-theme='museum'] .topbar .navlink:hover, body[data-theme='museum'] .topbar .science-navlink
+134. body[data-theme='museum'] .topbar .badge, body[data-theme='museum'] .header-theme-menu summary
+135. body[data-theme='museum'] .eyebrow
+136. /* Slightly more distinct card borders on cream backgrounds */ body[data-theme='museum'] :is(.practical-card,.layer-card,.example-profile,.science-mini-stat,.atmosphere-card)
+137. /* Theme-specific editorial contrast */ body[data-theme='graphite'] .question-lines p, body[data-theme='graphite'] .research-map-row, body[data-theme='graphite'] .final-map-grid p, body[data-theme='graphite'] .editorial-endnote>div, body[data-theme='graphite'] .science-ledger-grid>div
+138. body[data-theme='museum'] .question-lines p, body[data-theme='museum'] .research-map-row, body[data-theme='museum'] .final-map-grid p, body[data-theme='museum'] .editorial-endnote>div, body[data-theme='museum'] .science-ledger-grid>div
+139. body[data-theme='museum'] .editorial-interlude
+140. body[data-theme='museum'] .editorial-interlude p
+141. body[data-theme='museum'] .support-insert
+142. body[data-theme='museum'] .poetic-lines
+143. body[data-theme='museum'] .chapter-flash p, body[data-theme='museum'] .chapter-hero :is(h1,h2), body[data-theme='museum'] .support-head h2, body[data-theme='museum'] .science-confidence-copy h2
+144. body[data-theme='graphite'] .mobile-menu-toggle
+145. body[data-theme='museum'] .mobile-menu-toggle
+146. body[data-theme='graphite'] .mobile-menu-toggle span, body[data-theme='museum'] .mobile-menu-toggle span
+147. body[data-theme='graphite'] .mobile-bottom-nav
+148. body[data-theme='museum'] .mobile-bottom-nav
+149. body[data-theme='graphite'] .mobile-bottom-nav button, body[data-theme='museum'] .mobile-bottom-nav button
+150. body[data-theme='graphite'] .mobile-bottom-nav .mobile-nav-icon
+151. body[data-theme='museum'] .mobile-bottom-nav .mobile-nav-icon
+152. body[data-theme='graphite'] .mobile-bottom-nav button.active
+153. body[data-theme='graphite'] .mobile-bottom-nav button.active .mobile-nav-icon
+154. body[data-theme='museum'] .mobile-bottom-nav button.active
+155. body[data-theme='museum'] .mobile-bottom-nav button.active .mobile-nav-icon
+156. body[data-theme='graphite'] .mobile-bottom-nav button.cta
+157. body[data-theme='graphite'] .mobile-bottom-nav button.cta .mobile-nav-icon
+158. body[data-theme='museum'] .mobile-bottom-nav button.cta
+159. body[data-theme='museum'] .mobile-bottom-nav button.cta .mobile-nav-icon
+160. body[data-theme='graphite'] .mobile-menu, body[data-theme='graphite'] .mobile-menu-head
+161. body[data-theme='museum'] .mobile-menu, body[data-theme='museum'] .mobile-menu-head
+162. body[data-theme='graphite'] .mobile-menu-link, body[data-theme='graphite'] .mobile-menu-action
+163. body[data-theme='museum'] .mobile-menu-link, body[data-theme='museum'] .mobile-menu-action
+164. body[data-theme='graphite'] .mobile-menu-progress
+165. body[data-theme='museum'] .mobile-menu-progress
+166. body[data-theme='graphite'] .mobile-menu-action.primary
+167. body[data-theme='graphite'] .mobile-menu-action.primary small
+168. body[data-theme='museum'] .mobile-menu-action.primary
+169. body[data-theme='museum'] .mobile-menu-action.primary small
+170. body[data-theme='graphite'] .mobile-menu-orb
+171. body[data-theme='graphite'] .mobile-menu-orb:before
+172. body[data-theme='graphite'] .mobile-menu-orb:after
+173. body[data-theme='graphite'] .mobile-menu-node-a
+174. body[data-theme='graphite'] .mobile-menu-node-b
+175. body[data-theme='museum'] .mobile-menu-orb
+176. body[data-theme='museum'] .mobile-menu-orb:before
+177. body[data-theme='museum'] .mobile-menu-orb:after
+178. body[data-theme='museum'] .mobile-menu-node-a
+179. body[data-theme='museum'] .mobile-menu-node-b
+180. body[data-theme='graphite'] :is(.semantic-flow-card,.systems-encounter,.system-panel,.semantic-distinction-card,.orbital-map-shell,.orbital-cluster)
+181. body[data-theme='museum'] :is(.semantic-flow-card,.systems-encounter,.system-panel,.semantic-distinction-card,.orbital-map-shell,.orbital-cluster)
+182. body[data-theme='graphite'] .orbital-cluster-node
+183. body[data-theme='museum'] .orbital-cluster-node
+184. body[data-theme='museum'] .semantic-distinction-op
+185. body[data-theme='museum'] .system-meet strong
+186. body[data-theme='ivory']
+187. body[data-theme='graphite'] :is(.science-section,.compact-science)
+188. body[data-theme='museum'] :is(.science-section,.compact-science)
+189. body[data-theme='museum'] :is(.dark-statement,.showcase-cover)
+190. body[data-theme='museum'] :is(.hero,.card,.support-insert,.render-thesis-panel,.render-manifestations-panel,.render-editorial-proposition,.dimension-atlas,.systems-encounter,.semantic-distinction-list,.orbital-map-shell,.science-hero,.science-section,.compact-science,.question-card,.preflight,.transition-card,.result-card)

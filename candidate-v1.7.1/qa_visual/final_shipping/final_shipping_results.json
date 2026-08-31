@@ -1,0 +1,11 @@
+{
+  "release": "P-120 Web Editorial v1.7 — Render-Led Visual System",
+  "release_gate": "PASS",
+  "blockers": [],
+  "visual_qa": "completed before packaging-only resume",
+  "packaging_resume_policy": "no visual QA re-run; existing final reference set preserved",
+  "theme_parity": "PASS",
+  "horizontal_overflow_required_matrix": "PASS",
+  "console_errors": 0,
+  "page_errors": 0
+}

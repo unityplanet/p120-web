@@ -1,0 +1,50 @@
+{
+  "baseline": "P-120 Web Editorial v1.6.1",
+  "release": "P-120 Web Editorial v1.7",
+  "locked_block_count": 6,
+  "all_byte_identical": true,
+  "blocks": [
+    {
+      "block_index": 0,
+      "v1.6.1_sha256": "ac5bd0072f204de7932627b7cd12b358c569c0453673e590b99f2ceed5e566e4",
+      "v1.7_sha256": "ac5bd0072f204de7932627b7cd12b358c569c0453673e590b99f2ceed5e566e4",
+      "byte_identical": true,
+      "bytes": 91386
+    },
+    {
+      "block_index": 1,
+      "v1.6.1_sha256": "c8cb0ced76a148f1a20b5ca08ce75734807d7da21e30536b6fcbe869feb16411",
+      "v1.7_sha256": "c8cb0ced76a148f1a20b5ca08ce75734807d7da21e30536b6fcbe869feb16411",
+      "byte_identical": true,
+      "bytes": 1548
+    },
+    {
+      "block_index": 2,
+      "v1.6.1_sha256": "753e3ee7327da5e31be6aa6414f4eec32d7035bdec9bf92edd893828adcad909",
+      "v1.7_sha256": "753e3ee7327da5e31be6aa6414f4eec32d7035bdec9bf92edd893828adcad909",
+      "byte_identical": true,
+      "bytes": 573963
+    },
+    {
+      "block_index": 3,
+      "v1.6.1_sha256": "36caa35d9834e7d3e022ef6df48f9b8ecddf084c096fd242061565198d4ffbf6",
+      "v1.7_sha256": "36caa35d9834e7d3e022ef6df48f9b8ecddf084c096fd242061565198d4ffbf6",
+      "byte_identical": true,
+      "bytes": 257974
+    },
+    {
+      "block_index": 4,
+      "v1.6.1_sha256": "257fd50560f196f36fb634975282b69cf39cf1edc8a60bc8633abdfcfadb87a7",
+      "v1.7_sha256": "257fd50560f196f36fb634975282b69cf39cf1edc8a60bc8633abdfcfadb87a7",
+      "byte_identical": true,
+      "bytes": 15976
+    },
+    {
+      "block_index": 5,
+      "v1.6.1_sha256": "cd6d43abccda96dcefbd1c9eca27f2f2f97d067b2e918597efd10d3956814c55",
+      "v1.7_sha256": "cd6d43abccda96dcefbd1c9eca27f2f2f97d067b2e918597efd10d3956814c55",
+      "byte_identical": true,
+      "bytes": 20716
+    }
+  ]
+}

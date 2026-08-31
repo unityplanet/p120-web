@@ -1,0 +1,19 @@
+{
+  "name": "P-120 — исследовательская архитектура",
+  "short_name": "P-120",
+  "description": "P-120 — исследовательская архитектура притяжения, близости, телесного отклика и устойчивости желания.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f4ed",
+  "theme_color": "#2f7d78",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

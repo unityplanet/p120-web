@@ -1,0 +1,27 @@
+P-120 Web Editorial v1.7.1 — Source-Reconciled Patch Validation
+
+Production override CSS
+- tinycss2 parse errors: 0
+- braces: 82 opening / 82 closing
+- legacy Dark Museum literals in override (#171411/#1d1a17/#211e1a/#12100e): 0
+
+Patcher
+- Python bytecode compile: PASS
+- synthetic v1.7 signature fixture: PASS
+- input retained original Dark Museum runtime literal: PASS
+- output Museum theme-color #F2EEE2: PASS
+- output Museum label Музейная: PASS
+- theme key museum preserved: PASS
+- v1.7.1 marker inserted once: PASS
+- production override inserted: PASS
+- combined patched fixture CSS parse errors: 0
+
+Data files
+- museum-teal.tokens.v1.7.1.json: JSON PASS
+- PATCH_MANIFEST_v1.7.1.json: JSON PASS (pre-final regeneration)
+
+Runtime boundary
+- exact uploaded v1.7 is readable by source extraction/file search and was used for selector reconciliation.
+- declared /mnt/data/index.html remains absent in executable filesystem.
+- therefore exact uploaded bytes cannot be mutated/hashed/executed in this session.
+- full application browser QA remains HOLD, not falsely certified.

@@ -1,0 +1,3 @@
+# P-120 v1.6 staging/live-correction policy
+User-agent: *
+Disallow: /
