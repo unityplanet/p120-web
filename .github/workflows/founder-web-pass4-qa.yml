@@ -66,4 +66,4 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
-# PASS 4 rerun after mobile intrinsic-sizing correction.
+# PASS 4 rerun after mobile display-wrap correction.
