@@ -206,16 +206,21 @@
       btn.dataset.founderBound='1';
       btn.addEventListener('click',()=>{
         const route=btn.dataset.founderRoute;
+        const dedicated=/\/creator\/(?:index\.html)?$/i.test(location.pathname);
+        if(dedicated){
+          const destination=route==='science'?'../#science-foundation':route==='why'?'../why-p120/':'../?start=1';
+          location.href=new URL(destination,location.href).href;
+          return;
+        }
         if(route==='science'){
           if(activateExistingHook('[data-science]'))return;
-          location.hash='science-top';
+          location.hash='science-foundation';
         } else if(route==='why'){
           if(activateExistingHook('[data-why-origin]'))return;
           location.href='why-p120/';
         } else if(route==='self'){
           if(activateExistingHook('[data-mobile-start]'))return;
-          const preflight=document.querySelector('.preflight');
-          preflight?.scrollIntoView({block:'start'});
+          location.search='?start=1';
         }
       });
     });
