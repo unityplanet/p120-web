@@ -1,4 +1,4 @@
-/* P-120 Web Editorial — Extended Research Set Navigation Integration v1.0
+/* P-120 Web Editorial — Extended Research Set Navigation Integration v1.1
    Presentation/navigation only. Does not touch measurement, scoring or questionnaire logic. */
 (() => {
   'use strict';
@@ -7,7 +7,7 @@
   const TEASER_ID = 'extended-research-entry';
   const MOBILE_MAX = 680;
   let sectionTemplate = '';
-  let scheduled = false;
+  let timer = 0;
 
   const source = document.getElementById(SECTION_ID);
   if (source) {
@@ -154,19 +154,16 @@
   function ensureMobileDrawerEntry(){
     document.querySelectorAll('.mobile-menu-body').forEach(body => {
       if (body.querySelector('[data-mobile-jump-extended]')) return;
-
       const examples = body.querySelector('[data-mobile-jump-home="examples"]');
       const scienceLink = body.querySelector('[data-mobile-jump-science]');
       const scienceAction = body.querySelector('[data-science]');
       const homeAction = body.querySelector('[data-home]');
-
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = examples ? 'mobile-menu-link extended-mobile-menu-link' : 'mobile-menu-action extended-mobile-menu-link';
       btn.dataset.mobileJumpExtended = 'true';
       btn.innerHTML = '<div><div>А хотите ещё глубже?</div><small>Extended Research Set · дополнительные модули</small></div>';
       btn.addEventListener('click', openExtended);
-
       if (examples?.parentNode) examples.insertAdjacentElement('afterend',btn);
       else if (scienceLink?.parentNode) scienceLink.parentNode.insertBefore(btn,scienceLink);
       else if (scienceAction?.parentNode) scienceAction.parentNode.insertBefore(btn,scienceAction);
@@ -184,28 +181,24 @@
   }
 
   function run(){
-    scheduled = false;
+    timer = 0;
     ensureDesktopNav();
     ensureMobileDrawerEntry();
     integrateIntoHome();
     bindExtendedControls(document);
   }
 
-  function schedule(){
-    if (scheduled) return;
-    scheduled = true;
-    window.requestAnimationFrame(run);
+  function schedule(delay=70){
+    if (timer) clearTimeout(timer);
+    timer = window.setTimeout(run,delay);
   }
 
-  const observer = new MutationObserver(schedule);
   const start = () => {
-    observer.observe(document.body,{childList:true,subtree:true});
+    const watch = document.getElementById('app') || document.body;
+    new MutationObserver(() => schedule()).observe(watch,{childList:true,subtree:true});
     run();
     const mq = window.matchMedia(`(max-width:${MOBILE_MAX}px)`);
-    const onViewport = () => {
-      const current = document.getElementById(SECTION_ID);
-      syncModuleDetails(current);
-    };
+    const onViewport = () => syncModuleDetails(document.getElementById(SECTION_ID));
     if (typeof mq.addEventListener === 'function') mq.addEventListener('change',onViewport);
     else if (typeof mq.addListener === 'function') mq.addListener(onViewport);
     document.documentElement.classList.add('ers-navigation-ready');
