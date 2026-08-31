@@ -1,0 +1,64 @@
+name: P-120 production performance audit v1
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/performance-audit-v1.yml'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Static build audit
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text(encoding='utf-8')
+          print('INDEX_BYTES',len(s.encode()))
+          for a,b,name in [
+            ('window.P120_INSTRUMENT =','window.P120_SCIENCE=','INSTRUMENT_SEGMENT'),
+            ('window.P120_SCIENCE=','function renderPreflight(){','SCIENCE_TO_PREFLIGHT_SEGMENT')]:
+            try: print(name,len(s[s.index(a):s.index(b,s.index(a))].encode()))
+            except ValueError: print(name,'NA')
+          css=re.findall(r'<link[^>]+href=["\']([^"\']+\.css[^"\']*)',s,re.I)
+          js=re.findall(r'<script[^>]+src=["\']([^"\']+\.js[^"\']*)',s,re.I)
+          print('CSS_REQUESTS',len(css)); print('\n'.join(' CSS '+x for x in css))
+          print('JS_REQUESTS',len(js)); print('\n'.join(' JS '+x for x in js))
+          local=[]
+          for x in css+js:
+            p=x.split('?')[0]
+            if not re.match(r'https?://',p) and Path(p).exists(): local.append((p,Path(p).stat().st_size))
+          print('LOCAL_ASSET_BYTES',sum(n for _,n in local))
+          for p,n in sorted(local,key=lambda x:-x[1]): print(' ASSET',n,p)
+          print('DATA_URI_COUNT',len(re.findall(r'data:[^;]+;base64,',s)))
+          PY
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Cold render timings
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/http.log 2>&1 &
+          sleep 2
+          cat > perf.mjs <<'JS'
+          import {chromium} from 'playwright';
+          const browser=await chromium.launch({headless:true});
+          for(const path of ['/', '/en/']){
+            const page=await browser.newPage({viewport:{width:1440,height:900}});
+            let requests=0, bytes=0;
+            page.on('response',async r=>{requests++; try{const b=await r.body();bytes+=b.length}catch{}});
+            const t=Date.now();
+            await page.goto('http://127.0.0.1:4173'+path,{waitUntil:'load'});
+            const load=Date.now()-t;
+            const nav=await page.evaluate(()=>{const n=performance.getEntriesByType('navigation')[0];return {dcl:n.domContentLoadedEventEnd,start:n.startTime,load:n.loadEventEnd,domInteractive:n.domInteractive,transfer:n.transferSize,decoded:n.decodedBodySize}});
+            const nodes=await page.locator('*').count();
+            console.log('PAGE',path,'WALL_LOAD_MS',load,'REQ',requests,'BODY_BYTES',bytes,'DOM_NODES',nodes,'NAV',JSON.stringify(nav));
+            await page.close();
+          }
+          await browser.close();
+          JS
+          node perf.mjs
