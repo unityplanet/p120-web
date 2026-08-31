@@ -278,7 +278,7 @@ body[data-theme="ivory"] .compatibility-reading-card:nth-child(3){background:col
   .semantic-life-energy>.editorial-prose{
     grid-area:prose!important;
     margin:0!important;
-    max-width:42ch!important;
+    max-width:44ch!important;
     align-self:start!important;
   }
   .semantic-life-energy>.semantic-flow-intro p{
@@ -287,20 +287,119 @@ body[data-theme="ivory"] .compatibility-reading-card:nth-child(3){background:col
     line-height:1.28!important;
     letter-spacing:-.025em!important;
   }
-  .semantic-life-energy>.editorial-prose p:first-child{
-    font-family:"Noto Serif Display","Noto Serif",Georgia,serif!important;
-    font-size:clamp(25px,1.8vw,34px)!important;
-    line-height:1.28!important;
-    letter-spacing:-.022em!important;
-  }
   .editorial-chapter:has(.semantic-life-energy)>.chapter-cta{
     margin-top:clamp(28px,2.8vw,44px)!important;
   }
 }
+
+/* Optical card centering: the label is independent; the statement owns the full card center. */
+.semantic-life-energy .semantic-flow-card{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:38px 20px 22px!important;
+}
+.semantic-life-energy .semantic-flow-card>span{
+  position:absolute!important;
+  left:20px!important;
+  top:17px!important;
+  margin:0!important;
+  align-self:auto!important;
+  justify-self:auto!important;
+  z-index:2;
+}
+.semantic-life-energy .semantic-flow-card>p{
+  display:block!important;
+  width:100%!important;
+  max-width:15.5ch!important;
+  margin:0 auto!important;
+  padding:0!important;
+  align-self:auto!important;
+  justify-self:auto!important;
+  text-align:center!important;
+  text-wrap:balance;
+  font-family:"Noto Serif Display","Noto Serif",Georgia,serif!important;
+  font-size:clamp(20px,1.32vw,26px)!important;
+  line-height:1.16!important;
+  letter-spacing:-.026em!important;
+  font-weight:500!important;
+}
+
+/* Supporting prose becomes a quiet museum editorial note rather than a loose body-text column. */
+.semantic-life-energy>.editorial-prose{
+  position:relative!important;
+  display:grid!important;
+  gap:0!important;
+  padding:clamp(24px,2.3vw,34px) clamp(24px,2.5vw,38px)!important;
+  border:1px solid var(--frame-secondary)!important;
+  border-radius:22px!important;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--surface) 92%,transparent),color-mix(in srgb,var(--surface-soft) 70%,transparent))!important;
+  overflow:hidden;
+  box-shadow:0 12px 34px rgba(38,53,51,.04);
+}
+.semantic-life-energy>.editorial-prose:after{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  right:-86px;
+  top:-92px;
+  border-radius:50%;
+  border:1px solid var(--orbit-line);
+  box-shadow:0 0 0 26px color-mix(in srgb,var(--glow-node) 10%,transparent);
+  pointer-events:none;
+}
+.semantic-life-energy>.editorial-prose p{
+  position:relative;
+  z-index:1;
+  max-width:34ch!important;
+  margin:0!important;
+  padding:clamp(16px,1.6vw,22px) 0!important;
+  font-family:"Noto Serif","Noto Serif Display",Georgia,serif!important;
+  font-size:clamp(18px,1.18vw,22px)!important;
+  line-height:1.48!important;
+  letter-spacing:-.015em!important;
+  color:var(--ink-secondary)!important;
+  text-wrap:pretty;
+}
+.semantic-life-energy>.editorial-prose p+p{
+  border-top:1px solid var(--frame-soft)!important;
+}
+.semantic-life-energy>.editorial-prose p:first-child{
+  padding-top:0!important;
+  font-family:"Noto Serif Display","Noto Serif",Georgia,serif!important;
+  font-size:clamp(22px,1.55vw,29px)!important;
+  line-height:1.33!important;
+  letter-spacing:-.022em!important;
+  color:var(--ink-primary)!important;
+}
+.semantic-life-energy>.editorial-prose p:last-child{padding-bottom:0!important}
+body[data-theme="museum"] .semantic-life-energy>.editorial-prose{
+  background:radial-gradient(300px 220px at 100% 0,rgba(47,125,120,.08),transparent 68%),linear-gradient(145deg,#FBF8EF,#EEF0E7)!important;
+  border-color:rgba(47,125,120,.22)!important;
+}
+body[data-theme="graphite"] .semantic-life-energy>.editorial-prose{
+  background:radial-gradient(300px 220px at 100% 0,rgba(130,155,152,.08),transparent 68%),linear-gradient(145deg,#403C36,#37342F)!important;
+  border-color:rgba(205,220,214,.14)!important;
+  box-shadow:none;
+}
+body[data-theme="graphite"] .semantic-life-energy>.editorial-prose p{color:#C8D0CB!important}
+body[data-theme="graphite"] .semantic-life-energy>.editorial-prose p:first-child{color:#F0EADF!important}
 
 @media (max-width:1120px){
   .semantic-life-energy{display:block!important}
   .semantic-life-energy>.grammar-kicker{margin-bottom:22px!important}
   .semantic-life-energy>.semantic-flow-intro{margin-bottom:24px!important}
   .semantic-life-energy>.semantic-flow-grid{margin-bottom:28px!important}
+  .semantic-life-energy>.editorial-prose{margin-top:8px!important;max-width:none!important}
+}
+
+@media (max-width:760px){
+  .semantic-life-energy .semantic-flow-card{padding:36px 18px 20px!important}
+  .semantic-life-energy .semantic-flow-card>span{left:18px!important;top:15px!important}
+  .semantic-life-energy .semantic-flow-card>p{max-width:18ch!important}
+  .semantic-life-energy>.editorial-prose{padding:22px 20px!important;border-radius:18px!important}
+  .semantic-life-energy>.editorial-prose p{max-width:none!important;font-size:18px!important}
+  .semantic-life-energy>.editorial-prose p:first-child{font-size:clamp(22px,6vw,28px)!important}
 }
