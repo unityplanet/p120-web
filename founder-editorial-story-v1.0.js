@@ -193,6 +193,13 @@
     });
   }
 
+  function activateExistingHook(selector){
+    const hook=[...document.querySelectorAll(selector)].find(el=>!el.closest('#founder-story'));
+    if(!hook)return false;
+    hook.click();
+    return true;
+  }
+
   function bindRoutes(root){
     root.querySelectorAll('[data-founder-route]').forEach(btn=>{
       if(btn.dataset.founderBound==='1')return;
@@ -200,14 +207,15 @@
       btn.addEventListener('click',()=>{
         const route=btn.dataset.founderRoute;
         if(route==='science'){
-          if(typeof window.goScience==='function')window.goScience('science-top');
-          else location.hash='science-top';
+          if(activateExistingHook('[data-science]'))return;
+          location.hash='science-top';
         } else if(route==='why'){
-          if(typeof window.goHome==='function')window.goHome('why-p120');
-          else location.hash='why-p120';
+          if(activateExistingHook('[data-why-origin]'))return;
+          location.href='why-p120/';
         } else if(route==='self'){
-          if(typeof window.startOrResume==='function')window.startOrResume();
-          else if(typeof window.openPreflight==='function')window.openPreflight();
+          if(activateExistingHook('[data-mobile-start]'))return;
+          const preflight=document.querySelector('.preflight');
+          preflight?.scrollIntoView({block:'start'});
         }
       });
     });
