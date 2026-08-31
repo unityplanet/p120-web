@@ -18,11 +18,20 @@ jobs:
           import re
           s=Path('index.html').read_text(encoding='utf-8')
           print('INDEX_BYTES',len(s.encode()))
+          science=''
           for a,b,name in [
             ('window.P120_INSTRUMENT =','window.P120_SCIENCE=','INSTRUMENT_SEGMENT'),
             ('window.P120_SCIENCE=','function renderPreflight(){','SCIENCE_TO_PREFLIGHT_SEGMENT')]:
-            try: print(name,len(s[s.index(a):s.index(b,s.index(a))].encode()))
+            try:
+              seg=s[s.index(a):s.index(b,s.index(a))]
+              print(name,len(seg.encode()))
+              if name.startswith('SCIENCE_'): science=seg
             except ValueError: print(name,'NA')
+          if science:
+            funcs=re.findall(r'function\s+([A-Za-z_$][\w$]*)\s*\(',science)
+            print('SCIENCE_FUNCTIONS',','.join(funcs))
+            print('SCIENCE_DATA_URIS',len(re.findall(r'data:[^;]+;base64,',science)))
+            for m in re.finditer(r'data:[^;]+;base64,([^"\']+)',science): print(' SCIENCE_DATA_URI_B64_CHARS',len(m.group(1)))
           css=re.findall(r'<link[^>]+href=["\']([^"\']+\.css[^"\']*)',s,re.I)
           js=re.findall(r'<script[^>]+src=["\']([^"\']+\.js[^"\']*)',s,re.I)
           print('CSS_REQUESTS',len(css)); print('\n'.join(' CSS '+x for x in css))
