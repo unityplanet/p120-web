@@ -1,0 +1,222 @@
+/* P-120 Web Editorial v1.7.1f — Framed-content centering + density pass
+   Scope: presentation only. Frozen content, questionnaire wording, scoring and logic untouched. */
+
+/* 1) Reframe the nine-dimensions sequence so it uses the page instead of leaving a dead half-screen. */
+@media (min-width:1121px){
+  .semantic-two-systems{
+    grid-template-columns:1fr!important;
+    row-gap:26px!important;
+  }
+  .semantic-two-systems>.grammar-kicker{
+    grid-column:1!important;
+    grid-row:auto!important;
+    max-width:760px;
+    margin-bottom:2px;
+  }
+  .semantic-two-systems>.semantic-sequence{
+    grid-column:1!important;
+    grid-row:auto!important;
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:12px!important;
+    width:100%;
+    max-width:none!important;
+    margin:0!important;
+  }
+  .semantic-sequence-row{
+    min-height:118px!important;
+    display:grid!important;
+    grid-template-columns:34px minmax(0,1fr)!important;
+    align-items:center!important;
+    gap:14px!important;
+    padding:22px 24px!important;
+    border:1px solid var(--frame-secondary,var(--line))!important;
+    border-radius:18px!important;
+    background:color-mix(in srgb,var(--surface,var(--card)) 82%,transparent)!important;
+  }
+  .semantic-sequence-row>span{
+    align-self:center!important;
+    justify-self:start!important;
+    font-size:9px!important;
+    letter-spacing:.14em!important;
+    color:var(--ink-muted,var(--muted))!important;
+  }
+  .semantic-sequence-row>p{
+    margin:0!important;
+    align-self:center!important;
+    font-family:"Noto Serif",Georgia,serif!important;
+    font-size:clamp(21px,1.45vw,28px)!important;
+    line-height:1.22!important;
+    letter-spacing:-.02em!important;
+    color:var(--ink-primary,var(--ink))!important;
+  }
+  .semantic-two-systems>.systems-encounter,
+  .semantic-two-systems>.systems-closing{
+    grid-column:1!important;
+    grid-row:auto!important;
+  }
+  .semantic-two-systems>.systems-encounter{
+    width:100%;
+    margin-top:10px!important;
+  }
+  .semantic-two-systems>.systems-closing{
+    display:grid!important;
+    grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)!important;
+    gap:26px 54px!important;
+    align-items:start!important;
+    max-width:none!important;
+    margin-top:4px!important;
+  }
+  .semantic-two-systems>.systems-closing p:first-child{
+    grid-column:1/-1;
+    max-width:28ch;
+  }
+}
+
+/* 2) Center single-statement framed tiles optically, not at the top/bottom edge. */
+.life-word-grid{
+  align-items:stretch!important;
+}
+.life-word-grid>span{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:122px!important;
+  padding:24px 30px!important;
+  text-align:center!important;
+  font-family:"Noto Serif",Georgia,serif!important;
+  line-height:1.16!important;
+  letter-spacing:-.022em!important;
+}
+.life-word-grid>span::after{
+  top:-42px!important;
+  right:-42px!important;
+}
+
+/* 3) Manifestation cards: label stays functional; the actual phrase sits in the optical center. */
+.semantic-flow-card{
+  display:grid!important;
+  grid-template-rows:auto 1fr!important;
+  align-items:stretch!important;
+}
+.semantic-flow-card>span{
+  align-self:start!important;
+}
+.semantic-flow-card>p{
+  align-self:center!important;
+  justify-self:center!important;
+  width:100%;
+  margin:10px auto 0!important;
+  text-align:center!important;
+  max-width:17ch;
+}
+
+/* 4) A != B framed sides: keep long-form readability but center the statement within each frame. */
+.semantic-distinction-side{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+}
+.semantic-distinction-side>p{
+  margin:0 auto!important;
+  max-width:19ch!important;
+  text-align:center!important;
+  text-wrap:balance;
+}
+.semantic-distinction-op{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+}
+
+/* 5) Two-system framed cards: center heading and chips inside their material plane. */
+.system-panel{
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+}
+.system-panel-head{
+  justify-content:center!important;
+  text-align:center!important;
+}
+.system-dimensions{
+  justify-content:center!important;
+}
+.system-dimensions span{
+  text-align:center!important;
+}
+.system-meet{
+  align-self:center!important;
+  justify-self:center!important;
+}
+
+/* 6) Reduce dead vertical fields between the encounter and the next act without flattening the editorial rhythm. */
+@media (min-width:1121px){
+  .editorial-chapter:has(.semantic-two-systems){
+    padding-bottom:clamp(52px,4.6vw,78px)!important;
+  }
+  .editorial-chapter:has(.semantic-two-systems)>.chapter-cta{
+    margin-top:clamp(24px,2.4vw,38px)!important;
+  }
+  .editorial-chapter:has(.semantic-two-systems)+.render-act-marker{
+    margin-top:clamp(18px,2vw,34px)!important;
+  }
+}
+
+/* 7) Museum materials for the newly framed nine-dimension grid. */
+body[data-theme="museum"] .semantic-sequence-row{
+  background:linear-gradient(145deg,rgba(255,249,236,.82),rgba(238,240,231,.88))!important;
+  border-color:rgba(47,125,120,.22)!important;
+  box-shadow:0 10px 28px rgba(38,53,51,.045),inset 0 1px rgba(255,255,255,.56);
+}
+body[data-theme="museum"] .semantic-sequence-row:nth-child(3n+2){
+  background:#E7ECE4!important;
+}
+body[data-theme="museum"] .life-word-grid>span{
+  border-color:rgba(47,125,120,.18)!important;
+}
+
+/* 8) Graphite parity. */
+body[data-theme="graphite"] .semantic-sequence-row{
+  background:#403C36!important;
+  border-color:rgba(210,220,214,.13)!important;
+}
+body[data-theme="graphite"] .semantic-sequence-row:nth-child(3n+2){
+  background:#383531!important;
+}
+
+/* 9) Tablet/mobile: one clean column, centered tiles remain comfortable. */
+@media (max-width:1120px){
+  .semantic-two-systems>.semantic-sequence{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:9px!important;
+  }
+  .semantic-sequence-row{
+    min-height:88px!important;
+    display:grid!important;
+    grid-template-columns:32px 1fr!important;
+    align-items:center!important;
+    padding:18px 18px!important;
+    border:1px solid var(--frame-secondary,var(--line))!important;
+    border-radius:16px!important;
+  }
+  .semantic-sequence-row>p{
+    margin:0!important;
+    font-family:"Noto Serif",Georgia,serif!important;
+    font-size:21px!important;
+    line-height:1.25!important;
+  }
+  .life-word-grid>span{
+    min-height:92px!important;
+    padding:20px 18px!important;
+    text-align:center!important;
+  }
+  .semantic-two-systems>.systems-closing{
+    display:block!important;
+  }
+}
