@@ -171,4 +171,56 @@ body[data-theme="graphite"] .semantic-sequence-row:nth-child(3n+2){background:#3
   .semantic-two-systems>.systems-closing{display:block!important}
 }
 
+/* 10) Life-energy manifestations — remove legacy stagger and align all 9 cards as a precise 3×3 field. */
+.semantic-life-energy .semantic-flow-grid{
+  align-items:stretch!important;
+  grid-auto-rows:minmax(146px,1fr)!important;
+  gap:14px!important;
+}
+.semantic-life-energy .semantic-flow-card:nth-child(n){
+  transform:none!important;
+}
+.semantic-life-energy .semantic-flow-card{
+  min-height:146px!important;
+  height:100%!important;
+  grid-template-rows:auto minmax(0,1fr)!important;
+  padding:18px 20px 20px!important;
+}
+.semantic-life-energy .semantic-flow-card>span{
+  align-self:start!important;
+  justify-self:start!important;
+  margin:0!important;
+}
+.semantic-life-energy .semantic-flow-card>p{
+  align-self:center!important;
+  justify-self:center!important;
+  width:100%!important;
+  max-width:16ch!important;
+  margin:8px auto 0!important;
+  text-align:center!important;
+  text-wrap:balance;
+  font-family:"Noto Serif Display","Noto Serif",Georgia,serif!important;
+  font-size:clamp(20px,1.32vw,26px)!important;
+  line-height:1.16!important;
+  letter-spacing:-.026em!important;
+  font-weight:500!important;
+}
+
+@media (min-width:1600px){
+  .semantic-life-energy .semantic-flow-card{min-height:154px!important}
+  .semantic-life-energy .semantic-flow-grid{grid-auto-rows:minmax(154px,1fr)!important}
+}
+
+@media (max-width:820px){
+  .semantic-life-energy .semantic-flow-grid{grid-auto-rows:minmax(118px,1fr)!important;gap:10px!important}
+  .semantic-life-energy .semantic-flow-card{min-height:118px!important;padding:15px 16px 16px!important}
+  .semantic-life-energy .semantic-flow-card>p{font-size:clamp(18px,5vw,23px)!important;max-width:17ch!important}
+}
+
+@media (max-width:520px){
+  .semantic-life-energy .semantic-flow-grid{grid-template-columns:1fr!important;grid-auto-rows:minmax(108px,auto)!important}
+  .semantic-life-energy .semantic-flow-card{min-height:108px!important}
+  .semantic-life-energy .semantic-flow-card>p{font-size:clamp(20px,6vw,25px)!important;max-width:20ch!important}
+}
+
 /* package trigger: 2026-08-31 */
