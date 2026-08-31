@@ -4,7 +4,8 @@ on:
   push:
     paths:
       - '.github/workflows/materialize-why-p120-preview.yml'
-      - 'why-p120/payload-v14.b64'
+      - 'why-p120/payload-v14.part1'
+      - 'why-p120/payload-v14.part2'
   workflow_dispatch:
 
 permissions:
@@ -32,9 +33,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          base64 --decode why-p120/payload-v14.b64 | gunzip > why-p120/index.html
+          cat why-p120/payload-v14.part1 why-p120/payload-v14.part2 > /tmp/payload-v14.b64
+          test "$(wc -c < /tmp/payload-v14.b64)" -eq 9136
+          base64 --decode /tmp/payload-v14.b64 | gunzip > why-p120/index.html
+          echo '176976ed565cee294bbfef91c9e66e3be4d0cedb1af35ef40fcba412260e97bf  why-p120/index.html' | sha256sum -c -
           grep -q '<section class="wp-act wp-act4' why-p120/index.html
-          if grep -q 'DecompressionStream\|payload-v14.b64\|Preview load error' why-p120/index.html; then
+          if grep -q 'DecompressionStream\|payload-v14\|Preview load error' why-p120/index.html; then
             echo 'Loader markers still present in materialized HTML' >&2
             exit 1
           fi
