@@ -97,14 +97,14 @@ jobs:
           # Idempotence: remove any previous production bundle references before inserting one current pair.
           ru=re.sub(r'\s*<link[^>]+href=["\']p120-public-styles-v1\.0\.css(?:\?[^"\']*)?["\'][^>]*>\s*','\n',ru,flags=re.I)
           ru=re.sub(r'\s*<script[^>]+src=["\']p120-public-runtime-v1\.0\.js(?:\?[^"\']*)?["\'][^>]*></script>\s*','\n',ru,flags=re.I)
-          ru=ru.replace('</head>','  <link rel="stylesheet" href="p120-public-styles-v1.0.css?v=pub17" data-p120-production-bundle="styles-v1.1" />\n</head>',1)
-          ru=ru.replace('</body>','<script src="p120-public-runtime-v1.0.js?v=pub17" data-p120-production-bundle="runtime-v1.1"></script>\n</body>',1)
+          ru=ru.replace('</head>','  <link rel="stylesheet" href="p120-public-styles-v1.0.css?v=pub18" data-p120-production-bundle="styles-v1.1" />\n</head>',1)
+          ru=ru.replace('</body>','<script src="p120-public-runtime-v1.0.js?v=pub18" data-p120-production-bundle="runtime-v1.1"></script>\n</body>',1)
 
           assert h(cut(ru,'window.P120_INSTRUMENT =','window.P120_SCIENCE='))==instrument
           assert h(cut(ru,'function renderPreflight(){','function render(){'))==assessment
           assert h(cut(ru,'function renderMobileBottomNav(){','function renderMobileDrawer(){'))==mobile
-          assert ru.count('p120-public-styles-v1.0.css?v=pub17')==1
-          assert ru.count('p120-public-runtime-v1.0.js?v=pub17')==1
+          assert ru.count('p120-public-styles-v1.0.css?v=pub18')==1
+          assert ru.count('p120-public-runtime-v1.0.js?v=pub18')==1
           p.write_text(ru,encoding='utf-8')
 
           en=ru
