@@ -1,0 +1,61 @@
+/* P-120 Web Editorial — final depth statement v1.1
+   Public editorial presentation only. */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600&display=swap');
+
+.p120-depth-frame{
+  position:relative;
+  overflow:hidden;
+  min-height:clamp(250px,22vw,390px) !important;
+  display:grid !important;
+  grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr) !important;
+  align-items:center !important;
+  gap:clamp(28px,5vw,92px) !important;
+  padding:clamp(36px,5vw,86px) !important;
+}
+.p120-depth-frame::after{
+  content:"";
+  position:absolute;
+  width:clamp(180px,26vw,440px);
+  aspect-ratio:1;
+  right:clamp(-150px,-8vw,-70px);
+  top:50%;
+  transform:translateY(-50%);
+  border:1px solid color-mix(in srgb,var(--accent, #719e91) 28%, transparent);
+  border-radius:50%;
+  opacity:.5;
+  pointer-events:none;
+}
+.p120-depth-frame > *{position:relative;z-index:1;}
+.p120-depth-statement{
+  font-family:"Noto Serif",Georgia,"Times New Roman",serif !important;
+  font-size:clamp(3rem,5.6vw,7.2rem) !important;
+  font-weight:500 !important;
+  line-height:.94 !important;
+  letter-spacing:-.045em !important;
+  text-wrap:balance;
+  max-width:12ch;
+  margin:0 !important;
+}
+.p120-depth-lead{
+  font-family:"Noto Serif",Georgia,"Times New Roman",serif !important;
+  font-size:clamp(2rem,3.15vw,4.15rem) !important;
+  line-height:1.02 !important;
+  letter-spacing:-.035em !important;
+  text-wrap:balance;
+  max-width:13ch;
+}
+html[data-theme="graphite"] .p120-depth-statement,
+html[data-theme="museum"] .p120-depth-statement{
+  text-shadow:0 12px 48px rgba(0,0,0,.18);
+}
+@media(max-width:900px){
+  .p120-depth-frame{
+    grid-template-columns:1fr !important;
+    min-height:0 !important;
+    gap:26px !important;
+    padding:36px 26px 42px !important;
+  }
+  .p120-depth-statement{font-size:clamp(2.85rem,10vw,5.1rem) !important;max-width:11ch;}
+  .p120-depth-lead{font-size:clamp(1.8rem,7vw,3rem) !important;}
+  .p120-depth-frame::after{right:-120px;top:72%;}
+}
