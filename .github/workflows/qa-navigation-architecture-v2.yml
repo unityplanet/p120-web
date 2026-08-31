@@ -1,0 +1,92 @@
+name: QA Navigation Architecture v2
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/qa-navigation-architecture-v2.yml'
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-nav-v2-http.log 2>&1 &
+          sleep 2
+      - name: Run Navigation Architecture v2 acceptance
+        run: |
+          cat > nav-v2-qa.mjs <<'JS'
+          import {chromium} from 'playwright';
+          import fs from 'fs';
+          const browser=await chromium.launch({headless:true});
+          const failures=[]; const report=[];
+          const check=(ok,msg)=>{report.push(`${ok?'PASS':'FAIL'} ${msg}`);if(!ok)failures.push(msg)};
+
+          async function desktop(path,lang){
+            const page=await browser.newPage({viewport:{width:1440,height:1000}});
+            await page.goto('http://127.0.0.1:4173'+path,{waitUntil:'networkidle'});await page.waitForTimeout(600);
+            const trigger=page.locator('.ecosystem-nav-v2 .ecosystem-trigger').first();
+            check(await trigger.count()===1,`${lang} desktop ecosystem trigger exists`);
+            if(await trigger.count()){
+              check((await trigger.innerText()).trim()===(lang==='RU'?'Исследовать':'Explore'),`${lang} desktop trigger label`);
+              check(await trigger.isVisible(),`${lang} desktop trigger visible`);
+              await trigger.click();await page.waitForTimeout(80);
+              check(await page.locator('.ecosystem-nav-v2.is-open .ecosystem-panel-v2').count()===1,`${lang} desktop panel opens`);
+              check(await page.locator('.ecosystem-grid-v2 .ecosystem-column-v2').count()===2,`${lang} desktop panel has STORY/NEXT columns`);
+              check(await page.locator('[data-ecosystem-route="why"]:not([aria-disabled="true"])').count()===1,`${lang} Why P-120 active`);
+              check(await page.locator('[data-ecosystem-route="deeper"]:not([aria-disabled="true"])').count()===1,`${lang} Go deeper active`);
+              check(await page.locator('[data-ecosystem-route="creator"][aria-disabled="true"]').count()===1,`${lang} Creator reserved`);
+              check(await page.locator('[data-ecosystem-route="together"][aria-disabled="true"]').count()===1,`${lang} Together reserved`);
+            }
+            const oldExtended=page.locator('.topnav > .extended-navlink');
+            if(await oldExtended.count()) check(!(await oldExtended.isVisible()),`${lang} old standalone Extended desktop link suppressed`);
+            const routes=await page.evaluate(()=>window.P120_NAV_V2_ROUTES||null);
+            check(!!routes && routes.creator?.status==='reserved' && routes.together?.status==='reserved',`${lang} reserved route registry exposed`);
+            await page.close();
+          }
+
+          async function mobile(path,lang){
+            const page=await browser.newPage({viewport:{width:390,height:844}});
+            await page.goto('http://127.0.0.1:4173'+path,{waitUntil:'networkidle'});await page.waitForTimeout(600);
+            check(await page.locator('.ecosystem-nav-v2 .ecosystem-trigger').count()===0 || !(await page.locator('.ecosystem-nav-v2 .ecosystem-trigger').first().isVisible()),`${lang} desktop ecosystem trigger hidden on mobile`);
+            const toggle=page.locator('[data-mobile-menu]').first();
+            check(await toggle.count()===1,`${lang} hamburger exists`);
+            if(await toggle.count()){await toggle.click();await page.waitForTimeout(120);}
+            check(await page.locator('[data-ecosystem-mobile-group="story"]').count()===1,`${lang} mobile Story group`);
+            check(await page.locator('[data-ecosystem-mobile-group="next"]').count()===1,`${lang} mobile Next group`);
+            check(await page.locator('[data-p120-chapter-mobile]').count()===1,`${lang} mobile Chapters group preserved`);
+            check(await page.locator('.p120-language-mobile-group').count()===1,`${lang} mobile Language group preserved`);
+            check(await page.locator('[data-ecosystem-mobile="creator"][aria-disabled="true"]').count()===1,`${lang} mobile Creator reserved`);
+            check(await page.locator('[data-ecosystem-mobile="together"][aria-disabled="true"]').count()===1,`${lang} mobile Together reserved`);
+            const labels=await page.locator('.mobile-menu-body > .mobile-menu-group, .mobile-menu-body > .p120-language-mobile-group').evaluateAll(nodes=>nodes.map(n=>({story:n.dataset.ecosystemMobileGroup||'',chapter:n.hasAttribute('data-p120-chapter-mobile'),language:n.classList.contains('p120-language-mobile-group'),label:(n.querySelector('.eyebrow,.ecosystem-mobile-section-label span,.p120-language-mobile-label')?.textContent||'').trim()})));
+            report.push(`${lang} mobile order ${JSON.stringify(labels)}`);
+            const bottom=page.locator('.mobile-bottom-nav > button');
+            check(await bottom.count()===4,`${lang} mobile bottom navigation remains exactly four buttons`);
+            const oldExtended=page.locator('.extended-mobile-menu-link');
+            if(await oldExtended.count()) check(!(await oldExtended.first().isVisible()),`${lang} old standalone Extended mobile entry suppressed`);
+            await page.close();
+          }
+
+          await desktop('/','RU');
+          await desktop('/en/','EN');
+          await mobile('/','RU');
+          await mobile('/en/','EN');
+          await browser.close();
+          fs.writeFileSync('NAVIGATION_ARCHITECTURE_v2_QA.txt',report.join('\n')+'\n'+(failures.length?`FAIL ${failures.length}\n${failures.join('\n')}`:'PASS')+'\n');
+          console.log(report.join('\n'));
+          if(failures.length){console.error(failures.join('\n'));process.exit(1)}
+          JS
+          node nav-v2-qa.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P120_NAVIGATION_ARCHITECTURE_v2_QA
+          path: NAVIGATION_ARCHITECTURE_v2_QA.txt
+          retention-days: 30
