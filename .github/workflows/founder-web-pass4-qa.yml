@@ -65,3 +65,5 @@ jobs:
             pass4-mobile-debug.png
           if-no-files-found: warn
           retention-days: 30
+
+# PASS 4 rerun after mobile intrinsic-sizing correction.
