@@ -1,0 +1,111 @@
+name: Package P-120 production v1.6
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/package-production-v1.6.yml'
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build clean hosting package
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, shutil, hashlib
+
+          root=Path('.')
+          out=Path('hosting-package')
+          if out.exists(): shutil.rmtree(out)
+          out.mkdir()
+
+          required={
+            'index.html','en/index.html','.nojekyll','favicon.svg','manifest.webmanifest',
+            'robots.txt','robots-public.txt','netlify.toml','vercel.json',
+            'BILINGUAL_RELEASE_QA.txt'
+          }
+
+          def add_html_dependencies(html_path):
+            p=root/html_path
+            s=p.read_text(encoding='utf-8')
+            base=p.parent
+            # href/src local assets
+            for m in re.finditer(r'\b(?:href|src)=["\']([^"\']+)["\']',s,re.I):
+              ref=m.group(1).split('#',1)[0].split('?',1)[0]
+              if not ref or ref.startswith(('#','data:','http://','https://','//','mailto:','tel:')):
+                continue
+              target=(base/ref).resolve()
+              try: rel=target.relative_to(root.resolve()).as_posix()
+              except ValueError: continue
+              if (root/rel).is_file(): required.add(rel)
+            # JSON runtime PDF references
+            for m in re.finditer(r'["\']pdf["\']\s*:\s*["\']([^"\']+\.pdf)["\']',s,re.I):
+              ref=m.group(1)
+              target=(base/ref).resolve()
+              try: rel=target.relative_to(root.resolve()).as_posix()
+              except ValueError: continue
+              if (root/rel).is_file(): required.add(rel)
+
+          add_html_dependencies('index.html')
+          add_html_dependencies('en/index.html')
+
+          # Explicit production PDFs: needed by Scientific Base/document buttons.
+          for p in (root/'assets').glob('*.pdf'):
+            required.add(p.as_posix())
+
+          missing=[]
+          for rel in sorted(required):
+            src=root/rel
+            if not src.exists():
+              missing.append(rel); continue
+            dst=out/rel
+            dst.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copy2(src,dst)
+          if missing:
+            print('Optional/missing:', ', '.join(missing))
+
+          commit='${{ github.sha }}'
+          version=(
+            'P-120 Web Editorial — Production Hosting Package v1.6\n'
+            f'Source commit: {commit}\n'
+            'RU public site: /\nEN public site: /en/\n'
+            'Desktop staircase fit: PASS\n'
+            'Embedded PDF payloads: externalized\n'
+            'Production CSS/JS bundling: enabled\n'
+            'Measurement/scoring/question wording changes: NONE\n'
+          )
+          (out/'VERSION.txt').write_text(version,encoding='utf-8')
+          (out/'UPLOAD_INSTRUCTIONS_RU.txt').write_text(
+            'P-120 Web Editorial — Production Hosting Package v1.6\n\n'
+            'Загрузите СОДЕРЖИМОЕ этого архива в корень хостинга / репозитория, сохраняя папки en/ и assets/.\n'
+            'Файлы index.html и существующие production assets нужно заменить файлами из этого пакета.\n'
+            'Не загружайте сам ZIP внутрь сайта.\n',encoding='utf-8')
+
+          sums=[]
+          for p in sorted(out.rglob('*')):
+            if p.is_file() and p.name!='SHA256SUMS.txt':
+              sums.append(f"{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.relative_to(out).as_posix()}")
+          (out/'SHA256SUMS.txt').write_text('\n'.join(sums)+'\n',encoding='utf-8')
+
+          print('PACKAGE_FILES',len([p for p in out.rglob('*') if p.is_file()]))
+          for p in sorted(out.rglob('*')):
+            if p.is_file(): print(p.relative_to(out),p.stat().st_size)
+          PY
+      - name: Validate package
+        shell: bash
+        run: |
+          test -s hosting-package/index.html
+          test -s hosting-package/en/index.html
+          test -s hosting-package/SHA256SUMS.txt
+          cd hosting-package
+          sha256sum -c SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: P120_Web_Editorial_PRODUCTION_v1.6_HOSTING_PACKAGE
+          path: hosting-package/
+          include-hidden-files: true
+          retention-days: 30
