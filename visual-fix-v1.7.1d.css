@@ -172,3 +172,5 @@ body[data-theme="graphite"] #why-important .manifesto-final{
   #why-important .manifesto-lines p{font-size:21px;line-height:1.34;padding-left:34px}
   #why-important .manifesto-final{padding:22px 18px!important;font-size:clamp(25px,7vw,34px)!important}
 }
+
+/* deployment trigger: v1.7.1d */
