@@ -2475,6 +2475,14 @@ body[data-theme='museum'] :is(.dark-statement,.showcase-cover){border-color:var(
 </style>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="../manifest.webmanifest" />
+<style id="why-p120-production-integration">
+.topnav .navlink-origin{white-space:nowrap}
+.brand-origin-teaser{position:relative;overflow:hidden;margin:clamp(18px,2vw,28px) 0 clamp(48px,7vw,100px);min-height:clamp(420px,48vw,660px);border-radius:clamp(28px,3.2vw,52px);background:radial-gradient(760px 420px at 78% 42%,rgba(86,116,137,.13),transparent 64%),linear-gradient(135deg,#07090a 0%,#0a0d0f 60%,#101316 100%);color:#f3eee5;border:1px solid rgba(255,255,255,.09);display:grid;grid-template-columns:minmax(0,.8fr) minmax(420px,1.2fr);align-items:center;gap:clamp(34px,6vw,92px);padding:clamp(38px,6vw,88px);box-shadow:0 34px 110px rgba(0,0,0,.18);isolation:isolate}.brand-origin-teaser:before{content:"";position:absolute;right:-8%;top:-34%;width:min(720px,64vw);aspect-ratio:1;border-radius:50%;border:1px solid rgba(129,153,176,.15);box-shadow:0 0 0 72px rgba(129,153,176,.035),0 0 0 144px rgba(129,153,176,.022);pointer-events:none}.brand-origin-copy{position:relative;z-index:2;max-width:590px}.brand-origin-kicker{font:800 10px/1.2 Inter,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.15em;color:#c7a05b}.brand-origin-copy h2{font-family:"Noto Serif Display","Noto Serif",Georgia,serif;font-size:clamp(50px,5.4vw,96px);font-weight:500;letter-spacing:-.05em;line-height:.98;margin:18px 0 24px;color:#f6f0e7}.brand-origin-copy p{font-size:clamp(17px,1.4vw,22px);line-height:1.65;color:rgba(241,236,226,.74);max-width:34ch;margin:0}.brand-origin-link{display:inline-flex;align-items:center;gap:10px;margin-top:34px;border:1px solid rgba(255,255,255,.30);border-radius:999px;padding:13px 22px;text-decoration:none;color:#f6f1e8;font-size:12px;font-weight:800;letter-spacing:.04em;transition:transform .2s ease,background .2s ease,color .2s ease}.brand-origin-link:hover{transform:translateY(-1px);background:#f3eee5;color:#121212}.brand-origin-visual{position:relative;z-index:1;min-height:330px;display:grid;place-items:center;text-align:center}.brand-origin-visual strong{font-family:"Noto Serif Display","Noto Serif",Georgia,serif;font-size:clamp(92px,10vw,190px);font-weight:500;line-height:.8;letter-spacing:-.075em;color:#f5f0e7;white-space:nowrap}.brand-origin-visual span{font-family:"Noto Serif",Georgia,serif;font-size:clamp(28px,3vw,52px);letter-spacing:.02em;color:#d8c29e;margin-top:24px}.brand-origin-ghost{position:absolute;font-family:"Noto Serif Display","Noto Serif",Georgia,serif;font-size:min(34vw,480px);line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.045);right:-4%;bottom:-14%;z-index:-1;user-select:none}.brand-origin-caption{position:absolute;right:0;bottom:0;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.34)}
+@media(max-width:980px){.brand-origin-teaser{grid-template-columns:1fr;min-height:auto}.brand-origin-copy{max-width:720px}.brand-origin-visual{min-height:300px}.brand-origin-caption{position:static;margin-top:18px;text-align:right}}
+@media(max-width:620px){.brand-origin-teaser{margin-inline:-2px;padding:34px 22px;border-radius:28px;gap:20px}.brand-origin-copy h2{font-size:clamp(46px,13vw,68px)}.brand-origin-copy p{font-size:17px}.brand-origin-visual{min-height:250px}.brand-origin-visual strong{font-size:clamp(82px,25vw,130px)}.brand-origin-visual span{font-size:clamp(27px,8vw,40px)}.brand-origin-link{min-height:52px;width:100%;justify-content:center}.brand-origin-ghost{font-size:70vw}}
+@media(prefers-reduced-motion:reduce){.brand-origin-link{transition:none}}
+</style>
+  <link rel="stylesheet" href="../founder-editorial-story-v1.0.css" data-p120-founder-story="v1.0">
   <link rel="stylesheet" href="../p120-public-styles-v1.0.css?v=pub17" data-p120-production-bundle="styles-v1.1" />
   <link rel="alternate" hreflang="ru" href="../" />
   <link rel="alternate" hreflang="en" href="./" />
@@ -3394,6 +3402,7 @@ function renderMobileDrawer(){
           <button class="mobile-menu-action primary" data-mobile-start><div><div>${startLabel}</div><small>Перейти к опроснику и сохранить ритм прохождения</small></div></button>
           ${hasProgress()?`<button class="mobile-menu-action" data-mobile-resume><div><div>Продолжить текущую сессию</div><small>${pct()}% общего прогресса</small></div></button>`:''}
           <button class="mobile-menu-action" data-home><div><div>Главная страница</div><small>Вернуться к editorial-структуре</small></div></button>
+          <button class="mobile-menu-action" data-why-origin><div><div>Почему P-120?</div><small>История названия · 72 + 48 · символический слой бренда</small></div></button>
           <button class="mobile-menu-action" data-science><div><div>Научная база</div><small>Открыть отдельный научный раздел</small></div></button>
         </div>
         <div class="mobile-menu-group">
@@ -3437,6 +3446,7 @@ function shell(content,{sidebar=true,home=false}={}){
         </div>
         <nav class="topnav" aria-label="Главная навигация">
           <button class="navlink" data-nav="why-important">О P-120</button>
+          <button class="navlink navlink-origin" data-why-origin>Почему P-120?</button>
           <button class="navlink" data-nav="why-p120">Уникальность</button>
           <button class="navlink" data-nav="what-p120-shows">Что покажет</button>
           <button class="navlink" data-nav="showcase">Отчёт</button>
@@ -3466,6 +3476,7 @@ function bindShell(){
   document.querySelectorAll('[data-home]').forEach(b=>b.onclick=()=>{closeMobileMenu();goHome()});
   document.querySelectorAll('[data-nav]').forEach(b=>b.onclick=()=>{closeMobileMenu();goHome(b.dataset.nav)});
   document.querySelectorAll('[data-science]').forEach(b=>b.onclick=()=>{closeMobileMenu();goScience()});
+  document.querySelectorAll('[data-why-origin]').forEach(b=>b.onclick=()=>{closeMobileMenu();location.href='why-p120/'});
   document.querySelectorAll('[data-mobile-jump-home]').forEach(b=>b.onclick=()=>{closeMobileMenu();goHome(b.dataset.mobileJumpHome)});
   document.querySelectorAll('[data-mobile-jump-science]').forEach(b=>b.onclick=()=>{closeMobileMenu();goScience(b.dataset.mobileJumpScience)});
   document.querySelectorAll('[data-mobile-start]').forEach(b=>b.onclick=()=>{closeMobileMenu();startOrResume()});
@@ -3696,6 +3707,9 @@ function renderScienceInsert(){
     <div class="science-ledger-grid"><div><strong>33</strong><span>верифицированных peer-reviewed источника в scientific ledger</span></div><div><strong>45</strong><span>источников в более широкой научно-методологической базе сайта</span></div><div><strong>16</strong><span>фальсифицируемых межслойных гипотез</span></div><div><strong>13</strong><span>этапов программы валидации</span></div></div>
   </section>`;
 }
+function renderBrandOriginTeaser(){
+  return `<section class="brand-origin-teaser" id="brand-origin" data-reveal aria-labelledby="brand-origin-title"><div class="brand-origin-copy"><span class="brand-origin-kicker">THE NAME · BRAND ORIGIN</span><h2 id="brand-origin-title">Почему P-120?</h2><p>72 + 48 объясняют число. Но не весь смысл названия.</p><a class="brand-origin-link" href="why-p120/">Узнать историю <span aria-hidden="true">→</span></a></div><div class="brand-origin-visual" aria-hidden="true"><strong>P-120</strong><span>72 + 48 = 120</span><i class="brand-origin-ghost">P</i><small class="brand-origin-caption">FACT → MEANING → SYMBOL → HUMAN</small></div></section>`;
+}
 function bindEditorialExperience(progress){
   const start=()=>progress?resumeTest():openPreflight();
   document.querySelectorAll('[data-editorial-action="test"]').forEach(b=>b.onclick=start);
@@ -3728,7 +3742,7 @@ function renderHome(){
     ${s1}${s2}${s3}
     ${renderEditorialInterlude(interludeAfter('understand-desire').line,1)}
     <div class="act-marker"><span>Акт II</span><strong>Понять различия и отношения</strong></div>
-    ${s4}${s5}${s6}
+    ${s4}${s5}${renderBrandOriginTeaser()}${s6}
     ${renderLayerInsert()}
     ${renderShowcaseInsert()}
     ${renderExamplesInsert()}
@@ -4075,7 +4089,13 @@ function render(){
 window.addEventListener('beforeunload',save);
 window.addEventListener('scroll',handleMobileScroll,{passive:true});
 window.addEventListener('resize',updateReadingProgress,{passive:true});
+const entryParams=new URLSearchParams(location.search);
+const initialRouteHash=(location.hash||'').replace(/^#/,'');
+const homeRouteAnchors=['why-important','life-energy','understand-desire','two-systems','why-p120','what-p120-shows','showcase','examples','science-foundation','life-importance','understand-earlier','final','brand-origin'];
+if(initialRouteHash&&homeRouteAnchors.includes(initialRouteHash)){state.screen='home';save()}
+if(entryParams.get('start')==='1'){state.screen=hasProgress()?'test':'preflight';save()}
 render();
+if(initialRouteHash)setTimeout(()=>{if(document.getElementById(initialRouteHash))elegantScrollTo(initialRouteHash)},120);
 updateReadingProgress();
 })();
 
@@ -4266,6 +4286,7 @@ updateReadingProgress();
 <script src="../manual-report-handoff-v1.0.js?v=mrh11" data-p120-manual-report-handoff="v1.0"></script>
   <script src="../p120-submission-config-v1.0.js?v=psi11" data-p120-submission-config="v1.0"></script>
   <script src="../p120-submission-intake-v1.0.js?v=psi11" data-p120-submission-intake="v1.0"></script>
+<script src="../founder-editorial-story-v1.0.js" defer data-p120-founder-story="v1.0"></script>
 <script src="../p120-public-runtime-v1.0.js?v=pub17" data-p120-production-bundle="runtime-v1.1"></script>
 <script src="../public-en-home-dictionary-v1.0.js?v=en10"></script>
 <script src="../public-en-science-dictionary-v1.0.js?v=en10"></script>
