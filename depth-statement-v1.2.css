@@ -1,31 +1,31 @@
-/* P-120 Web Editorial — final depth statement v1.2
-   Staircase composition + unified Noto typography. Public presentation only. */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@500;600&family=Noto+Serif:wght@400;500;600&display=swap');
+/* P-120 Web Editorial — final depth statement v1.3
+   Staircase composition + unified Noto typography.
+   Public presentation only. Fonts are supplied by the primary Bunny Fonts request in index.html. */
 
 .p120-depth-frame{
   position:relative;
   overflow:hidden;
-  min-height:clamp(330px,28vw,520px)!important;
+  min-height:clamp(300px,24vw,460px)!important;
   display:grid!important;
-  grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)!important;
+  grid-template-columns:minmax(0,.80fr) minmax(0,1.20fr)!important;
   align-items:center!important;
-  gap:clamp(42px,6vw,110px)!important;
-  padding:clamp(48px,6vw,104px)!important;
+  gap:clamp(34px,4vw,72px)!important;
+  padding:clamp(40px,4.6vw,76px)!important;
 }
 .p120-depth-frame::after{
   content:"";
   position:absolute;
-  width:clamp(200px,27vw,460px);
+  width:clamp(190px,25vw,420px);
   aspect-ratio:1;
-  right:clamp(-160px,-8vw,-72px);
+  right:clamp(-145px,-7vw,-68px);
   top:50%;
   transform:translateY(-50%);
   border:1px solid color-mix(in srgb,var(--accent,#719e91) 38%,transparent);
   border-radius:50%;
-  opacity:.72;
+  opacity:.68;
   pointer-events:none;
 }
-.p120-depth-frame>*{position:relative;z-index:1}
+.p120-depth-frame>*{position:relative;z-index:1;min-width:0;max-width:100%}
 
 .p120-depth-lead,
 .p120-depth-statement{
@@ -33,33 +33,37 @@
   font-weight:500!important;
   font-style:normal!important;
   text-align:left!important;
-  text-wrap:balance;
   margin:0!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
 }
 .p120-depth-lead{
-  font-size:clamp(2.35rem,3.55vw,4.9rem)!important;
+  font-size:clamp(2.25rem,3vw,3.6rem)!important;
   line-height:.98!important;
-  letter-spacing:-.038em!important;
-  max-width:15ch!important;
+  letter-spacing:-.036em!important;
 }
 .p120-depth-statement{
-  font-size:clamp(3.65rem,6.25vw,8.3rem)!important;
-  line-height:.88!important;
-  letter-spacing:-.052em!important;
-  max-width:14ch!important;
+  font-size:clamp(3.25rem,4.6vw,5.4rem)!important;
+  line-height:.90!important;
+  letter-spacing:-.048em!important;
+}
+html[lang="en"] .p120-depth-statement{
+  font-size:clamp(3.1rem,4.2vw,5rem)!important;
+  letter-spacing:-.044em!important;
 }
 
-.p120-stair-lines{display:block;width:100%}
+.p120-stair-lines{display:block;width:100%;max-width:100%;overflow:visible}
 .p120-stair-line{
   display:block;
   width:max-content;
-  max-width:calc(100% - (var(--step,0) * .72em));
-  margin-inline-start:calc(var(--step,0) * .72em);
+  max-width:calc(100% - (var(--step,0) * .34em));
+  margin-inline-start:calc(var(--step,0) * .34em);
   white-space:nowrap;
 }
 .p120-depth-lead .p120-stair-line{
-  margin-inline-start:calc(var(--step,0) * .48em);
-  max-width:calc(100% - (var(--step,0) * .48em));
+  margin-inline-start:calc(var(--step,0) * .28em);
+  max-width:calc(100% - (var(--step,0) * .28em));
 }
 
 body[data-theme="graphite"] .p120-depth-statement,
@@ -69,20 +73,34 @@ body[data-theme="museum"] .p120-depth-lead{
   text-shadow:0 14px 52px rgba(0,0,0,.16);
 }
 
+@media (min-width:901px) and (max-width:1450px){
+  .p120-depth-frame{
+    grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr)!important;
+    gap:clamp(28px,3vw,46px)!important;
+    padding:clamp(34px,3.8vw,56px)!important;
+  }
+  .p120-depth-lead{font-size:clamp(2.1rem,2.8vw,2.9rem)!important}
+  .p120-depth-statement{font-size:clamp(3rem,4.15vw,4.25rem)!important}
+  html[lang="en"] .p120-depth-statement{font-size:clamp(2.9rem,3.85vw,4rem)!important}
+}
+
 @media(max-width:900px){
   .p120-depth-frame{
     grid-template-columns:1fr!important;
     min-height:0!important;
-    gap:42px!important;
-    padding:48px 28px 58px!important;
+    gap:38px!important;
+    padding:44px 26px 52px!important;
   }
-  .p120-depth-lead{font-size:clamp(2.25rem,8vw,3.7rem)!important;max-width:14ch!important}
-  .p120-depth-statement{font-size:clamp(3rem,11.5vw,5.4rem)!important;max-width:12ch!important}
-  .p120-stair-line{margin-inline-start:calc(var(--step,0) * .44em);max-width:calc(100% - (var(--step,0) * .44em))}
-  .p120-depth-lead .p120-stair-line{margin-inline-start:calc(var(--step,0) * .3em);max-width:calc(100% - (var(--step,0) * .3em))}
-  .p120-depth-frame::after{right:-135px;top:73%}
+  .p120-depth-lead{font-size:clamp(2.15rem,8vw,3.45rem)!important}
+  .p120-depth-statement,
+  html[lang="en"] .p120-depth-statement{font-size:clamp(2.8rem,10.8vw,4.9rem)!important}
+  .p120-stair-line{margin-inline-start:calc(var(--step,0) * .30em);max-width:calc(100% - (var(--step,0) * .30em))}
+  .p120-depth-lead .p120-stair-line{margin-inline-start:calc(var(--step,0) * .24em);max-width:calc(100% - (var(--step,0) * .24em))}
+  .p120-depth-frame::after{right:-125px;top:73%}
 }
 
-@media(max-width:430px){
-  .p120-stair-line{white-space:normal;width:auto}
+@media(max-width:520px){
+  .p120-depth-frame{padding-inline:22px!important}
+  .p120-stair-line{white-space:normal;width:auto;max-width:calc(100% - (var(--step,0) * .22em));margin-inline-start:calc(var(--step,0) * .22em)}
+  .p120-depth-lead .p120-stair-line{margin-inline-start:calc(var(--step,0) * .18em);max-width:calc(100% - (var(--step,0) * .18em))}
 }
