@@ -51,20 +51,10 @@ jobs:
               text = text.replace(needle, replacement, 1)
           handoff.write_text(text, encoding='utf-8')
 
-          # Bump browser cache keys on both entry pages.
           for path in [Path('index.html'), Path('en/index.html')]:
               text = path.read_text(encoding='utf-8')
               text = text.replace('psi10', 'psi11').replace('mrh10', 'mrh11')
               path.write_text(text, encoding='utf-8')
-
-          # Keep the reusable wiring workflows aligned with the new cache keys.
-          wf = Path('.github/workflows/apply-submission-intake-v1.yml')
-          text = wf.read_text(encoding='utf-8').replace('psi10', 'psi11')
-          wf.write_text(text, encoding='utf-8')
-
-          wf = Path('.github/workflows/apply-manual-report-handoff-v1.yml')
-          text = wf.read_text(encoding='utf-8').replace('mrh10', 'mrh11')
-          wf.write_text(text, encoding='utf-8')
           PY
 
       - name: Acceptance checks
@@ -92,12 +82,12 @@ jobs:
       - name: Commit locale instrumentation
         shell: bash
         run: |
-          if git diff --quiet; then
+          if git diff --quiet -- p120-submission-intake-v1.0.js manual-report-handoff-v1.0.js index.html en/index.html; then
             echo 'No changes to commit.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add p120-submission-intake-v1.0.js manual-report-handoff-v1.0.js index.html en/index.html .github/workflows/apply-submission-intake-v1.yml .github/workflows/apply-manual-report-handoff-v1.yml
+          git add p120-submission-intake-v1.0.js manual-report-handoff-v1.0.js index.html en/index.html
           git commit -m 'feat: record RU EN locale in P-120 submissions [skip ci]'
           git push origin HEAD:main
