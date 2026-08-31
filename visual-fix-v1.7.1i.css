@@ -1,0 +1,158 @@
+/* P-120 Web Editorial v1.7.1i — Graphite Typography Contrast Pass
+   Scope: presentation/accessibility only. No measurement, scoring, content or logic changes. */
+
+/* --------------------------------------------------------------------------
+   1. Graphite theme typography authority
+   Raise secondary and muted text above AA-readable contrast on graphite surfaces.
+   -------------------------------------------------------------------------- */
+body[data-theme='graphite']{
+  --ink:#F4F1EB;
+  --ink-2:#DDD7CE;
+  --muted:#BEB7AE;
+  --muted-2:#AFA79D;
+  --ink-primary:#F4F1EB;
+  --ink-secondary:#DDD7CE;
+  --ink-muted:#BEB7AE;
+}
+
+/* Persistent UI: preserve hierarchy without letting navigation disappear. */
+body[data-theme='graphite'] :is(
+  .brand-sub,.navlink,.badge,.theme-chip,.mobile-menu-meta,
+  .mobile-menu-copy>span,.mobile-menu-link small,.mobile-menu-action small,
+  .mobile-bottom-nav button:not(.cta),.module-desc,.module-meta,.qcount,
+  .scale-note,.footer-note,.eyebrow,.small
+){color:var(--muted)!important}
+
+body[data-theme='graphite'] :is(
+  h1,h2,h3,h4,.brand,.lead strong,.chapter-title,.editorial-statement strong,
+  .mobile-menu-copy>strong,.mobile-bottom-nav button.active
+){color:var(--ink)!important}
+
+/* --------------------------------------------------------------------------
+   2. Scientific base — eliminate legacy light-theme color leakage
+   -------------------------------------------------------------------------- */
+body[data-theme='graphite'] .science-page{
+  color:var(--ink);
+}
+
+body[data-theme='graphite'] .science-page :is(
+  h1,h2,h3,h4,strong,summary,
+  .science-doc-card>strong,.formula-card strong,.science-metric strong,
+  .construct-card>strong,.validation-copy>strong,.ref-count strong
+){color:var(--ink)!important}
+
+/* Default scientific prose. This intentionally overrides old hard-coded
+   #44443f / #45453f / #55554f values that were designed for light surfaces. */
+body[data-theme='graphite'] .science-page :is(
+  p,.science-status p,.science-section>p,.hypothesis p,
+  .construct-boundary,.validation-criterion,.ethics-item p,
+  .ref-item,.internal-list p
+){color:var(--ink-2)!important}
+
+/* Quiet metadata stays visually secondary but remains clearly readable. */
+body[data-theme='graphite'] .science-page :is(
+  .eyebrow,.science-status-label,.science-doc-card p,.formula-card span,
+  .science-metric span,.section-split-head p,.science-layer-card p,
+  .boundary-note,.construct-head,.construct-card p,.detail-meta,
+  .validation-copy p,.ethics-item>span,.reference-search span,
+  .ref-count span,.ref-num,.internal-list span,
+  .evidence-head>span,.evidence-row>span:before
+){color:var(--muted)!important}
+
+/* Scientific navigation needs stronger contrast than ordinary metadata,
+   especially on small screens where it becomes a primary orientation aid. */
+body[data-theme='graphite'] .science-subnav a{
+  color:#D8D2C9!important;
+  border-color:rgba(216,210,201,.22)!important;
+  background:rgba(255,255,255,.055)!important;
+}
+body[data-theme='graphite'] .science-subnav a:hover,
+body[data-theme='graphite'] .science-subnav a:focus-visible{
+  color:#F4F1EB!important;
+  border-color:rgba(244,241,235,.42)!important;
+  background:rgba(255,255,255,.09)!important;
+}
+
+/* Search field and placeholder. Browser-default placeholder gray was too dim. */
+body[data-theme='graphite'] .reference-search input{
+  color:var(--ink)!important;
+  background:#302C28!important;
+  border-color:rgba(216,210,201,.24)!important;
+}
+body[data-theme='graphite'] .reference-search input::placeholder{
+  color:#AFA79D!important;
+  opacity:1!important;
+}
+body[data-theme='graphite'] .reference-search input:focus{
+  border-color:#BEB7AE!important;
+  box-shadow:0 0 0 2px rgba(190,183,174,.14)!important;
+}
+
+/* References: this is the defect visible in the supplied mobile screenshot. */
+body[data-theme='graphite'] .ref-item{
+  color:#DDD7CE!important;
+  border-bottom-color:rgba(216,210,201,.18)!important;
+}
+body[data-theme='graphite'] .ref-num{
+  color:#BEB7AE!important;
+}
+body[data-theme='graphite'] .doi-link{
+  color:#E8CDB0!important;
+  border-color:rgba(232,205,176,.30)!important;
+  background:rgba(232,205,176,.035)!important;
+}
+body[data-theme='graphite'] .doi-link:hover,
+body[data-theme='graphite'] .doi-link:focus-visible{
+  color:#211E1B!important;
+  background:#E8CDB0!important;
+  border-color:#E8CDB0!important;
+}
+
+/* Evidence pills keep semantic distinctions while remaining legible. */
+body[data-theme='graphite'] .evidence-pill{
+  color:#DDD7CE!important;
+  background:rgba(255,255,255,.055)!important;
+  border-color:rgba(216,210,201,.24)!important;
+}
+body[data-theme='graphite'] .evidence-pill.strong,
+body[data-theme='graphite'] .evidence-pill.strong-candidate{
+  color:#D4E8DA!important;
+}
+body[data-theme='graphite'] .evidence-pill.moderate-strong,
+body[data-theme='graphite'] .evidence-pill.moderate{
+  color:#E1DECA!important;
+}
+body[data-theme='graphite'] .evidence-pill.research{
+  color:#F0C6B2!important;
+}
+body[data-theme='graphite'] .evidence-pill.partial,
+body[data-theme='graphite'] .evidence-pill.mixed{
+  color:#E8D2AF!important;
+}
+body[data-theme='graphite'] .evidence-pill.method{
+  color:#D5DCE7!important;
+}
+
+/* Internal controlled sources and ethics/validation rows. */
+body[data-theme='graphite'] .science-page :is(
+  .internal-list>div,.ethics-item,.validation-criterion,.construct-boundary,
+  .ref-list,.science-details,.boundary-note
+){border-color:rgba(216,210,201,.18)!important}
+
+/* --------------------------------------------------------------------------
+   3. Mobile-specific optical reinforcement
+   -------------------------------------------------------------------------- */
+@media(max-width:820px){
+  body[data-theme='graphite'] .science-page :is(.ref-item,.ethics-item p,.validation-criterion){
+    color:#E1DBD2!important;
+  }
+  body[data-theme='graphite'] .science-subnav a{
+    color:#DDD7CE!important;
+  }
+  body[data-theme='graphite'] .science-page :is(
+    .ref-num,.reference-search span,.ref-count span,.internal-list span,
+    .ethics-item>span,.detail-meta
+  ){
+    color:#C2BBB2!important;
+  }
+}
