@@ -1,4 +1,4 @@
-P-120 Web Editorial — Bilingual Public RU/EN v1.4
+P-120 Web Editorial — Bilingual Public RU/EN v1.5
 RU: /
 EN: /en/
 English scope: public home, Extended Set, Scientific Base and navigation.
@@ -11,8 +11,8 @@ Assessment SHA256: 9c44995a9e564c04c5e4b9f276bc1bd2543602edf0037176bcccf457c008b
 Mobile bottom nav SHA256: 9ea43411cd88e1f40647ed45ed50392c92145d20e0b0b0d1ec8ed2f79ac566e6
 RU/EN instrument byte-equivalence: PASS
 RU/EN assessment byte-equivalence: PASS
-EN internal fragment routing: PASS (no base tag)
-External PDF routing from /en/: PASS
+Embedded PDF payloads in index.html: NONE
+External PDF routing RU/EN: PASS
 Localization runtime: debounced v1.1 / cache en13
 Final depth statement: v1.3 desktop-fit staircase Noto / cache depth13
 Duplicate Google Fonts import: REMOVED
