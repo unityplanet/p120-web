@@ -1,4 +1,4 @@
-name: Apply Founder Editorial Story v1.0
+name: Apply Founder Editorial Story v1.1 Dedicated Page
 
 on:
   workflow_dispatch:
@@ -18,42 +18,42 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Verify source-reconciliation anchors
+      - name: Verify dedicated-page source contract
         shell: bash
         run: |
           set -euo pipefail
           test -f index.html
-          test -f navigation-architecture-v2.js
           test -f p120-public-runtime-v1.0.js
-          grep -q "creator:{status:'reserved',route:'creator'}" navigation-architecture-v2.js
-          grep -q 'navigation-architecture-v2.js' p120-public-runtime-v1.0.js
-          grep -q 'p120-public-runtime-v1.0.js' index.html
-          python qa/check_founder_story.py
+          test -f founder-route-v1.1.js
+          test -f founder-editorial-story-v1.0.js
+          test -f founder-editorial-story-v1.0.css
+          test -f creator/index.html
+          test -f qa/check_founder_separate_page.py
+          grep -q "creator:{status:'reserved',route:'creator'}" p120-public-runtime-v1.0.js
+          node --check founder-route-v1.1.js
           node --check founder-editorial-story-v1.0.js
 
-      - name: Wire Founder assets into RU production shell
+      - name: Remove long Founder Story from main and wire dedicated route
         shell: python
         run: |
           from pathlib import Path
+          import re
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
-          css='<link rel="stylesheet" href="founder-editorial-story-v1.0.css" data-p120-founder-story="v1.0">'
-          js='<script src="founder-editorial-story-v1.0.js" defer data-p120-founder-story="v1.0"></script>'
-          if css not in s:
-              if '</head>' not in s: raise SystemExit('Missing </head>')
-              s=s.replace('</head>',f'  {css}\n</head>',1)
-          if js not in s:
+          s=re.sub(r'\s*<link[^>]+href="founder-editorial-story-v1\.0\.css(?:\?[^\"]*)?"[^>]*>\s*','\n',s,count=1)
+          s=re.sub(r'\s*<script[^>]+src="founder-editorial-story-v1\.0\.js(?:\?[^\"]*)?"[^>]*></script>\s*','\n',s,count=1)
+          route='<script src="founder-route-v1.1.js?v=fnd11" defer data-p120-founder-route="v1.1"></script>'
+          if route not in s:
               if '</body>' not in s: raise SystemExit('Missing </body>')
-              s=s.replace('</body>',f'  {js}\n</body>',1)
+              s=s.replace('</body>',f'  {route}\n</body>',1)
           p.write_text(s,encoding='utf-8')
 
-      - name: Post-patch gate
+      - name: Dedicated-page static and privacy gate
         shell: bash
         run: |
           set -euo pipefail
-          grep -q 'founder-editorial-story-v1.0.css' index.html
-          grep -q 'founder-editorial-story-v1.0.js' index.html
-          python qa/check_founder_story.py
+          python qa/check_founder_separate_page.py
+          node --check founder-route-v1.1.js
           node --check founder-editorial-story-v1.0.js
           if [ -f qa/check_build.py ]; then python qa/check_build.py; fi
 
@@ -67,6 +67,6 @@ jobs:
           fi
           git config user.name 'P-120 Release Bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add index.html founder-editorial-story-v1.0.css founder-editorial-story-v1.0.js qa/check_founder_story.py .github/workflows/apply-founder-editorial-story-v1.yml
-          git commit -m 'feat: integrate Founder Editorial Story v1.0'
+          git add index.html founder-route-v1.1.js founder-editorial-story-v1.0.css founder-editorial-story-v1.0.js creator/index.html qa/check_founder_separate_page.py .github/workflows/apply-founder-editorial-story-v1.yml
+          git commit -m 'feat: move Founder Editorial Story to dedicated page'
           git push
