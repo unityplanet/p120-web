@@ -1,0 +1,90 @@
+name: Apply P-120 manual report handoff v1
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-manual-report-handoff-v1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch RU and EN entry pages
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          targets = {
+              Path('index.html'): '<script src="manual-report-handoff-v1.0.js?v=mrh10" data-p120-manual-report-handoff="v1.0"></script>',
+              Path('en/index.html'): '<script src="../manual-report-handoff-v1.0.js?v=mrh10" data-p120-manual-report-handoff="v1.0"></script>',
+          }
+
+          js = Path('manual-report-handoff-v1.0.js')
+          if not js.exists():
+              raise SystemExit('manual-report-handoff-v1.0.js missing')
+
+          for path, tag in targets.items():
+              text = path.read_text(encoding='utf-8')
+              if 'data-p120-manual-report-handoff="v1.0"' in text:
+                  print(f'{path}: already wired')
+                  continue
+              if '</body>' not in text:
+                  raise SystemExit(f'{path}: </body> not found')
+              text = text.replace('</body>', f'  {tag}\n</body>', 1)
+              path.write_text(text, encoding='utf-8')
+              print(f'{path}: patched')
+          PY
+
+      - name: Static acceptance checks
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          checks = [
+              ('index.html', 'src="manual-report-handoff-v1.0.js?v=mrh10"'),
+              ('en/index.html', 'src="../manual-report-handoff-v1.0.js?v=mrh10"'),
+          ]
+          for file, needle in checks:
+              text = Path(file).read_text(encoding='utf-8')
+              if text.count('data-p120-manual-report-handoff="v1.0"') != 1:
+                  raise SystemExit(f'{file}: handoff marker count != 1')
+              if needle not in text:
+                  raise SystemExit(f'{file}: expected script src missing')
+          js = Path('manual-report-handoff-v1.0.js').read_text(encoding='utf-8')
+          required = [
+              "p120_web_prototype_v01",
+              "p120.web.raw-response-package.v1.0",
+              "participant_id",
+              "response_records",
+              "navigator.share",
+              "telemetry_included: false",
+          ]
+          for token in required:
+              if token not in js:
+                  raise SystemExit(f'JS acceptance token missing: {token}')
+          print('manual report handoff static gate: PASS')
+          PY
+
+      - name: Commit generated wiring
+        shell: bash
+        run: |
+          if git diff --quiet -- index.html en/index.html; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html en/index.html
+          git commit -m 'feat: expose manual experimental report handoff [skip ci]'
+          git push origin HEAD:main
