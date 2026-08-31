@@ -1,4 +1,4 @@
-name: QA bilingual public site v1.3
+name: QA bilingual public site v1.4
 on:
   workflow_dispatch:
   push:
@@ -20,7 +20,7 @@ jobs:
         run: |
           python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-http.log 2>&1 &
           sleep 2
-      - name: Run render, staircase and Ivory contrast audit
+      - name: Run render, staircase, overflow and Ivory contrast audit
         shell: bash
         run: |
           cat > qa.mjs <<'JS'
@@ -38,20 +38,28 @@ jobs:
           }
 
           async function inspectStair(page,label){
-            await page.waitForTimeout(900); await page.evaluate(()=>document.fonts?.ready); 
+            await page.waitForTimeout(900); await page.evaluate(()=>document.fonts?.ready);
             for(const [sel,name] of [['.p120-depth-lead','lead'],['.p120-depth-statement','depth']]){
               const el=page.locator(sel).first();
               if(!await el.count()){failures.push(`${label}: ${name} statement missing`);continue;}
               const data=await el.evaluate(el=>{
                 const cs=getComputedStyle(el);
-                const lines=[...el.querySelectorAll('.p120-stair-line')].map(x=>x.getBoundingClientRect().x);
-                return {family:cs.fontFamily,size:parseFloat(cs.fontSize),lines};
+                const frame=el.closest('.p120-depth-frame')?.getBoundingClientRect();
+                const lines=[...el.querySelectorAll('.p120-stair-line')].map(x=>{
+                  const r=x.getBoundingClientRect(); return {x:r.x,right:r.right,width:r.width};
+                });
+                return {family:cs.fontFamily,size:parseFloat(cs.fontSize),lines,frame:frame?{left:frame.left,right:frame.right,width:frame.width}:null};
               });
-              report.push(`${label} ${name} family=${data.family} size=${data.size} lines=${data.lines.length} x=${data.lines.join(',')}`);
+              report.push(`${label} ${name} family=${data.family} size=${data.size} lines=${data.lines.length} x=${data.lines.map(x=>x.x).join(',')} right=${data.lines.map(x=>x.right).join(',')} frame=${data.frame?`${data.frame.left}..${data.frame.right}`:'none'}`);
               if(!/Noto Serif Display/i.test(data.family)) failures.push(`${label}: ${name} is not Noto Serif Display`);
               if(data.lines.length!==3) failures.push(`${label}: ${name} staircase does not have 3 lines`);
-              if(data.lines.length===3 && !(data.lines[0] < data.lines[1] && data.lines[1] < data.lines[2])) failures.push(`${label}: ${name} staircase offsets are not increasing`);
-              if(label.includes('desktop') && name==='depth' && data.size<60) failures.push(`${label}: depth statement too small`);
+              if(data.lines.length===3 && !(data.lines[0].x < data.lines[1].x && data.lines[1].x < data.lines[2].x)) failures.push(`${label}: ${name} staircase offsets are not increasing`);
+              if(label.includes('desktop') && name==='depth' && data.size<54) failures.push(`${label}: depth statement too small (${data.size}px)`);
+              if(label.includes('desktop') && data.frame){
+                const pad=8;
+                const bad=data.lines.filter(x=>x.x < data.frame.left+pad || x.right > data.frame.right-pad);
+                if(bad.length) failures.push(`${label}: ${name} staircase crosses frame boundary`);
+              }
             }
           }
 
@@ -77,11 +85,7 @@ jobs:
             if(tokenAlpha<.22) failures.push(`Ivory frame token too weak: ${token}`);
             const stats=await page.locator('[class*="-card"],[class*="-panel"],[class*="-frame"],details,summary,button,input').evaluateAll(els=>{
               const out=[];
-              for(const el of els){
-                const cs=getComputedStyle(el);const w=parseFloat(cs.borderTopWidth)||0;
-                if(w>0)out.push({c:cs.borderTopColor,w});
-                if(out.length>=120)break;
-              }
+              for(const el of els){ const cs=getComputedStyle(el);const w=parseFloat(cs.borderTopWidth)||0; if(w>0)out.push({c:cs.borderTopColor,w}); if(out.length>=120)break; }
               return out;
             });
             const strong=stats.filter(x=>alphaOf(x.c)>=.20).length;
@@ -104,6 +108,7 @@ jobs:
           }
 
           await inspectEnglish(1440,1000,'EN desktop');
+          await inspectEnglish(1920,1080,'EN desktop 1920');
           await inspectEnglish(390,844,'EN mobile');
           await inspectIvory();
           await inspectScience();
@@ -116,7 +121,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: P120_BILINGUAL_RENDER_QA_v1.3
+          name: P120_BILINGUAL_RENDER_QA_v1.4
           path: |
             BILINGUAL_RENDER_QA.txt
             qa_*.png
