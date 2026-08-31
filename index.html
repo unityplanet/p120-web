@@ -2481,6 +2481,7 @@ body[data-theme='museum'] :is(.dark-statement,.showcase-cover){border-color:var(
   <link rel="stylesheet" href="visual-fix-v1.7.1g.css?v=171g" data-p120-visual-fix="v1.7.1g" />
   <link rel="stylesheet" href="visual-fix-v1.7.1h.css?v=171h" data-p120-visual-fix="v1.7.1h" />
   <link rel="stylesheet" href="extended-research-set-v1.0.css?v=ers10" data-p120-extended-research="v1.0" />
+  <link rel="stylesheet" href="extended-research-navigation-v1.0.css?v=ersnav10" data-p120-extended-navigation="v1.0" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Перейти к основному содержанию</a>
@@ -4083,8 +4084,6 @@ updateReadingProgress();
 })();
 
   </script>
-<script src="extended-research-set-v1.0.js?v=ers10" data-p120-extended-ui="v1.0"></script>
-
 <!-- P120 EXTENDED RESEARCH SET:START -->
 <section id="extended-research-set" class="extended-research-set" data-placement="pending" data-extended-release="section-v1.0" data-core-profile-version="current" aria-labelledby="extended-research-title">
   <div class="extended-shell">
@@ -4268,79 +4267,6 @@ updateReadingProgress();
   </div>
 </section>
 <!-- P120 EXTENDED RESEARCH SET:END -->
-<!-- P120 EXTENDED PLACEMENT:START -->
-<script data-p120-extended-placement="v1.0">
-(() => {
-  const section = document.getElementById('extended-research-set');
-  if (!section) return;
-
-  const normalize = value => (value || '').replace(/\s+/g, ' ').trim();
-  const directSelectors = [
-    '#science', '#scientific', '#scientific-base', '#science-base',
-    '[data-section-id="science"]', '[data-section="science"]',
-    '.science-section', '.scientific-section', '.editorial-science'
-  ];
-
-  function findScienceTarget(){
-    for (const selector of directSelectors){
-      const el = document.querySelector(selector);
-      if (el && el !== section && !section.contains(el)) return el;
-    }
-
-    const patterns = [
-      /Большинство существующих исследований и психологических инструментов/i,
-      /Посмотреть научную основу/i,
-      /Научная база/i
-    ];
-    const nodes = [...document.querySelectorAll('main section, main article, main .editorial-chapter, #app section, #app article, #app .editorial-chapter')]
-      .filter(el => el !== section && !section.contains(el));
-    const matches = nodes.filter(el => {
-      const content = normalize(el.textContent);
-      return content.length > 40 && content.length < 14000 && patterns.some(rx => rx.test(content));
-    });
-    if (!matches.length) return null;
-    matches.sort((a,b) => normalize(a.textContent).length - normalize(b.textContent).length);
-    let target = matches[0];
-    const chapter = target.closest('.editorial-chapter');
-    if (chapter && chapter !== section && !section.contains(chapter)) target = chapter;
-    return target;
-  }
-
-  function placeBeforeScience(){
-    const target = findScienceTarget();
-    if (!target || !target.parentNode) return false;
-    target.parentNode.insertBefore(section, target);
-    section.dataset.placement = 'before-science';
-    return true;
-  }
-
-  function fallbackPlace(){
-    const footer = [...document.querySelectorAll('footer')].find(el => !section.contains(el));
-    if (footer && footer.parentNode){
-      footer.parentNode.insertBefore(section, footer);
-      section.dataset.placement = 'before-footer';
-      return;
-    }
-    const main = document.querySelector('main') || document.getElementById('app');
-    if (main){
-      main.appendChild(section);
-      section.dataset.placement = 'end-of-main';
-    } else {
-      section.dataset.placement = 'fallback';
-    }
-  }
-
-  if (placeBeforeScience()) return;
-  const observer = new MutationObserver(() => {
-    if (placeBeforeScience()) observer.disconnect();
-  });
-  observer.observe(document.body, {childList:true, subtree:true});
-  window.setTimeout(() => {
-    if (section.dataset.placement === 'pending') fallbackPlace();
-    observer.disconnect();
-  }, 3500);
-})();
-</script>
-<!-- P120 EXTENDED PLACEMENT:END -->
+<script src="extended-research-navigation-v1.0.js?v=ersnav10" data-p120-extended-navigation="v1.0"></script>
 </body>
 </html>
