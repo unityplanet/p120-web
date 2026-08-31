@@ -1,0 +1,64 @@
+/* P-120 Web Editorial v1.7.1h — Life-energy conclusion below both columns */
+
+@media (min-width:1121px){
+  .semantic-life-energy{
+    grid-template-areas:
+      "kicker kicker"
+      "cards intro"
+      "prose prose"!important;
+    row-gap:clamp(20px,2vw,30px)!important;
+  }
+
+  .semantic-life-energy>.semantic-flow-intro{
+    align-self:center!important;
+    padding:clamp(8px,1vw,16px) 0!important;
+  }
+
+  .semantic-life-energy>.editorial-prose{
+    grid-area:prose!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:clamp(8px,1.2vw,18px) 0 0!important;
+    padding:clamp(28px,2.6vw,40px) clamp(30px,3.2vw,48px)!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1.2fr) minmax(0,.9fr) minmax(0,.9fr)!important;
+    gap:0!important;
+    align-items:start!important;
+  }
+
+  .semantic-life-energy>.editorial-prose p{
+    max-width:none!important;
+    margin:0!important;
+    padding:0 clamp(24px,2.5vw,38px)!important;
+    border-top:0!important;
+    font-family:"Noto Serif","Noto Serif Display",Georgia,serif!important;
+    font-size:clamp(18px,1.18vw,22px)!important;
+    line-height:1.5!important;
+    color:var(--ink-secondary)!important;
+  }
+
+  .semantic-life-energy>.editorial-prose p:first-child{
+    padding-left:0!important;
+    font-family:"Noto Serif Display","Noto Serif",Georgia,serif!important;
+    font-size:clamp(24px,1.7vw,32px)!important;
+    line-height:1.3!important;
+    letter-spacing:-.022em!important;
+    color:var(--ink-primary)!important;
+  }
+
+  .semantic-life-energy>.editorial-prose p:nth-child(2),
+  .semantic-life-energy>.editorial-prose p:nth-child(3){
+    border-left:1px solid var(--frame-soft)!important;
+  }
+
+  .semantic-life-energy>.editorial-prose p:last-child{
+    padding-right:0!important;
+  }
+}
+
+@media (max-width:1120px){
+  .semantic-life-energy>.editorial-prose{
+    display:block!important;
+    max-width:none!important;
+  }
+}
