@@ -1,0 +1,70 @@
+name: Apply Founder Editorial Story v1.0
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-founder-editorial-story-v1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify source-reconciliation anchors
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f index.html
+          test -f navigation-architecture-v2.js
+          grep -q "creator:{status:'reserved',route:'creator'}" navigation-architecture-v2.js
+          grep -q 'navigation-architecture-v2.js' index.html
+          python qa/check_founder_story.py
+          node --check founder-editorial-story-v1.0.js
+
+      - name: Wire Founder assets into RU production shell
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          css='<link rel="stylesheet" href="founder-editorial-story-v1.0.css" data-p120-founder-story="v1.0">'
+          js='<script src="founder-editorial-story-v1.0.js" defer data-p120-founder-story="v1.0"></script>'
+          if css not in s:
+              if '</head>' not in s: raise SystemExit('Missing </head>')
+              s=s.replace('</head>',f'  {css}\n</head>',1)
+          if js not in s:
+              if '</body>' not in s: raise SystemExit('Missing </body>')
+              s=s.replace('</body>',f'  {js}\n</body>',1)
+          p.write_text(s,encoding='utf-8')
+
+      - name: Post-patch gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'founder-editorial-story-v1.0.css' index.html
+          grep -q 'founder-editorial-story-v1.0.js' index.html
+          python qa/check_founder_story.py
+          node --check founder-editorial-story-v1.0.js
+          if [ -f qa/check_build.py ]; then python qa/check_build.py; fi
+
+      - name: Commit controlled integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git config user.name 'P-120 Release Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add index.html founder-editorial-story-v1.0.css founder-editorial-story-v1.0.js qa/check_founder_story.py .github/workflows/apply-founder-editorial-story-v1.yml
+          git commit -m 'feat: integrate Founder Editorial Story v1.0'
+          git push
