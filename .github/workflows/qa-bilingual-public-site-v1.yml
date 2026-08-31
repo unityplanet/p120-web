@@ -1,0 +1,109 @@
+name: QA bilingual public site v1.0
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/qa-bilingual-public-site-v1.yml'
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/p120-http.log 2>&1 &
+          echo $! > /tmp/p120-http.pid
+          sleep 2
+      - name: Run bilingual render QA
+        shell: bash
+        run: |
+          cat > /tmp/qa.mjs <<'JS'
+          import { chromium } from 'playwright';
+          import fs from 'fs';
+          const browser=await chromium.launch({headless:true});
+          const report=[];
+          const failures=[];
+          const allowedCyr=[/^Русский$/,/^RU$/];
+          function cyrLines(text){
+            return [...new Set(text.split(/\n+/).map(x=>x.trim()).filter(Boolean).filter(x=>/[А-Яа-яЁё]/.test(x)).filter(x=>!allowedCyr.some(r=>r.test(x))))];
+          }
+          async function publicCheck(width,height,label){
+            const page=await browser.newPage({viewport:{width,height}});
+            const bad=[];
+            page.on('response',r=>{ if(r.status()>=400 && r.url().startsWith('http://127.0.0.1:4173')) bad.push(`${r.status()} ${r.url()}`); });
+            await page.goto('http://127.0.0.1:4173/en/',{waitUntil:'networkidle'});
+            await page.waitForTimeout(700);
+            const lang=await page.getAttribute('html','lang');
+            const home=await page.locator('.editorial-home').count();
+            const body=await page.locator('body').innerText();
+            const cyr=cyrLines(body);
+            report.push(`${label} HOME lang=${lang} home=${home} cyrillic=${cyr.length} httpErrors=${bad.length}`);
+            if(lang!=='en'||!home) failures.push(`${label}: EN home did not initialize`);
+            if(cyr.length){ report.push(`${label} HOME CYR: `+cyr.join(' | ')); failures.push(`${label}: visible Cyrillic remains on EN home`); }
+            if(bad.length){report.push(`${label} HTTP: `+bad.join(' | '));failures.push(`${label}: local asset errors`);}
+            await page.screenshot({path:`qa_${label}_home.png`,fullPage:true});
+
+            // Fragment routing must remain under /en/.
+            const hashTarget=page.locator('a[href^="#"]').first();
+            if(await hashTarget.count()){
+              const href=await hashTarget.getAttribute('href');
+              await hashTarget.click(); await page.waitForTimeout(150);
+              if(!page.url().includes('/en/')) failures.push(`${label}: fragment link escaped /en/: ${href} -> ${page.url()}`);
+              report.push(`${label} fragment route: ${href} -> ${page.url()}`);
+            }
+
+            // Science render.
+            await page.goto('http://127.0.0.1:4173/en/',{waitUntil:'networkidle'}); await page.waitForTimeout(450);
+            const scienceBtn=page.locator('[data-science]').first();
+            if(await scienceBtn.count()) await scienceBtn.click(); else failures.push(`${label}: Science button missing`);
+            await page.waitForTimeout(650);
+            const scienceText=await page.locator('body').innerText();
+            const scienceCyr=cyrLines(scienceText);
+            report.push(`${label} SCIENCE cyrillic=${scienceCyr.length}`);
+            if(scienceCyr.length){ report.push(`${label} SCIENCE CYR: `+scienceCyr.join(' | ')); failures.push(`${label}: visible Cyrillic remains in EN Science`); }
+            await page.screenshot({path:`qa_${label}_science.png`,fullPage:true});
+
+            // Mobile drawer language/chapters check.
+            if(width<700){
+              await page.goto('http://127.0.0.1:4173/en/',{waitUntil:'networkidle'}); await page.waitForTimeout(350);
+              const menu=page.locator('[data-mobile-menu]').first();
+              if(await menu.count()){ await menu.click(); await page.waitForTimeout(200); const mt=await page.locator('.mobile-menu').innerText(); report.push(`${label} menu Language=${/Language/.test(mt)} Chapters=${/Chapters/.test(mt)}`); if(!/Language/.test(mt)||!/Chapters/.test(mt)) failures.push(`${label}: mobile menu bilingual groups missing`); }
+            }
+            await page.close();
+          }
+          await publicCheck(1440,1000,'desktop');
+          await publicCheck(390,844,'mobile');
+
+          // Explicit EN CTA boundary -> Russian root/preflight.
+          const page=await browser.newPage({viewport:{width:1440,height:900}});
+          await page.goto('http://127.0.0.1:4173/en/',{waitUntil:'networkidle'}); await page.waitForTimeout(500);
+          const cta=page.getByText('Take P-120 · Russian questionnaire',{exact:false}).first();
+          if(await cta.count()){
+            await cta.click(); await page.waitForTimeout(800);
+            report.push(`CTA route URL=${page.url()}`);
+            if(page.url().includes('/en/')) failures.push('EN assessment CTA did not return to RU root');
+            const txt=await page.locator('body').innerText();
+            if(!/Тихое пространство|ПЕРЕД ПРОХОЖДЕНИЕМ/.test(txt)) failures.push('Russian preflight was not reached from EN CTA');
+          } else failures.push('EN assessment CTA not found');
+          await page.close();
+          await browser.close();
+          fs.writeFileSync('BILINGUAL_RENDER_QA.txt',report.join('\n')+'\n'+(failures.length?'FAIL\n'+failures.join('\n'):'PASS')+'\n');
+          console.log(report.join('\n'));
+          if(failures.length){ console.error(failures.join('\n')); process.exit(1); }
+          JS
+          node /tmp/qa.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P120_BILINGUAL_RENDER_QA_v1.0
+          path: |
+            BILINGUAL_RENDER_QA.txt
+            qa_*.png
+          retention-days: 30
