@@ -1,4 +1,4 @@
-name: P-120 sequential release intake
+name: P-120 v1.6.1 release intake
 
 on:
   push:
@@ -6,13 +6,12 @@ on:
     paths:
       - '*.zip'
       - '*.ZIP'
-      - '.github/workflows/unpack-p120-hosting.yml'
 
 permissions:
   contents: write
 
 jobs:
-  release-sequence:
+  release-v161:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,97 +19,54 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Detect and verify v1.5 and v1.6 packages
+      - name: Locate and verify exact v1.6.1 package
+        id: package
         shell: bash
         run: |
           set -euo pipefail
-          V15=''
-          V16=''
+          EXPECTED='5eea415384e0a05077e634d95bfffca4552d77314613caef2ca624a01e2e4880'
+          MATCH=''
           for z in ./*.zip ./*.ZIP; do
             [ -f "$z" ] || continue
-            if unzip -l "$z" | grep -q 'P120_Web_Editorial_v1.5_UNIFIED_EDITORIAL_GRAMMAR.html'; then
-              V15="$z"
-            fi
-            if unzip -l "$z" | grep -q 'P120_Web_Editorial_v1.6_HOSTING_PACKAGE/index.html'; then
-              V16="$z"
+            SHA="$(sha256sum "$z" | awk '{print $1}')"
+            if [ "$SHA" = "$EXPECTED" ]; then
+              MATCH="$z"
+              break
             fi
           done
-          test -n "$V15" || { echo 'v1.5 package not found' >&2; exit 1; }
-          test -n "$V16" || { echo 'v1.6 package not found' >&2; exit 1; }
+          if [ -z "$MATCH" ]; then
+            echo 'Exact v1.6.1 package is not present; nothing to deploy.'
+            echo 'skip=true' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          cp "$MATCH" /tmp/P120_Web_Editorial_v1.6.1_HOSTING_PACKAGE.zip
+          echo "zip=$MATCH" >> "$GITHUB_OUTPUT"
+          echo 'skip=false' >> "$GITHUB_OUTPUT"
 
-          cp "$V15" /tmp/P120_Web_Editorial_v1.5_UNIFIED_EDITORIAL_GRAMMAR.zip
-          cp "$V16" /tmp/P120_Web_Editorial_v1.6_HOSTING_PACKAGE.zip
-
-          test "$(sha256sum /tmp/P120_Web_Editorial_v1.5_UNIFIED_EDITORIAL_GRAMMAR.zip | awk '{print $1}')" = 'f74e4a57f45da57a37b4aa14e078cc82036a182e58b5b7fa05b78ffae0739174'
-          test "$(sha256sum /tmp/P120_Web_Editorial_v1.6_HOSTING_PACKAGE.zip | awk '{print $1}')" = '3bac76298fa998040e220bfa1e973f25ed19e80e0eb6564abef93d70e25d1605'
-
+      - name: Deploy v1.6.1 over v1.6.0
+        if: steps.package.outputs.skip != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          rm -f ./*.zip ./*.ZIP
 
-      - name: Commit v1.5.0 baseline
-        shell: bash
-        run: |
-          set -euo pipefail
+          rm -rf /tmp/p120-v161
+          mkdir -p /tmp/p120-v161
+          unzip -q /tmp/P120_Web_Editorial_v1.6.1_HOSTING_PACKAGE.zip -d /tmp/p120-v161
 
-          rm -f index.html favicon.svg robots.txt robots-public.txt SHA256SUMS.txt QA_REPORT_v1.6.md netlify.toml DEPLOYMENT_RU.md VERSION.txt README_RU.md CHANGELOG_v1.6.md manifest.webmanifest vercel.json .nojekyll
-          rm -rf qa
-          rm -f .github/workflows/static-qa.yml
+          INDEX="$(find /tmp/p120-v161 -type f -name index.html | head -n 1)"
+          test -n "$INDEX" || { echo 'index.html not found in v1.6.1 package' >&2; exit 1; }
+          SRC="$(dirname "$INDEX")"
 
-          rm -rf /tmp/p120-v15
-          mkdir -p /tmp/p120-v15
-          unzip -q /tmp/P120_Web_Editorial_v1.5_UNIFIED_EDITORIAL_GRAMMAR.zip -d /tmp/p120-v15
-          test "$(sha256sum /tmp/p120-v15/P120_Web_Editorial_v1.5_UNIFIED_EDITORIAL_GRAMMAR.html | awk '{print $1}')" = 'e9f729c341e4e429479b70cbc2ff5906820d688f1cdff5cc28c1146733027d0a'
-          cp /tmp/p120-v15/P120_Web_Editorial_v1.5_UNIFIED_EDITORIAL_GRAMMAR.html index.html
-          touch .nojekyll
-          cat > VERSION.txt <<'EOF'
-          P-120 Web Editorial v1.5.0
-          Unified Editorial Grammar — updated block design baseline
-          Status: historical public frontend release
-          Measurement changes: NONE
-          Scoring changes: NONE
-          EOF
-          cat > robots.txt <<'EOF'
-          # P-120 staging policy
-          User-agent: *
-          Disallow: /
-          EOF
-          cat > CHANGELOG.md <<'EOF'
-          # P-120 Web — Changelog
+          # Preserve this release-intake workflow. Optional CI workflows from the
+          # source ZIP remain preserved in the immutable Release asset but are
+          # not written into the Pages tree because GITHUB_TOKEN lacks workflow scope.
+          rsync -a --exclude='.github/workflows/' "$SRC"/ ./
 
-          ## [1.5.0] — 2026-08-31
-
-          ### Release
-          - P-120 Web Editorial v1.5 — Unified Editorial Grammar.
-          - Updated editorial/block design baseline supplied as the final v1.5 autonomous HTML build.
-          - Responsive public frontend retained as the direct baseline for v1.6.
-
-          ### Measurement governance
-          - Measurement changes: NONE.
-          - Scoring changes: NONE.
-          - Authoritative scoring keys and private respondent data are not stored in this public repository.
-          EOF
-
-          git add -A
-          git commit -m 'Release P-120 Web Editorial v1.5.0 — Unified Editorial Grammar'
-          git tag -a v1.5.0 -m 'P-120 Web Editorial v1.5.0 — Unified Editorial Grammar'
-
-      - name: Commit v1.6.0 current release
-        shell: bash
-        run: |
-          set -euo pipefail
-          rm -rf /tmp/p120-v16
-          mkdir -p /tmp/p120-v16
-          unzip -q /tmp/P120_Web_Editorial_v1.6_HOSTING_PACKAGE.zip -d /tmp/p120-v16
-          SRC='/tmp/p120-v16/P120_Web_Editorial_v1.6_HOSTING_PACKAGE'
-          test -f "$SRC/index.html"
-          test "$(sha256sum "$SRC/index.html" | awk '{print $1}')" = '85abde624b1a4e3c04d254dfc4d689f31bedfa6751c5920147f2dff902ac23db'
-          cp -a "$SRC"/. ./
-
-          # The source package contains an optional CI workflow. GitHub's
-          # GITHUB_TOKEN may not add new workflow files without workflows scope,
-          # so keep it in the immutable Release ZIP but not in the Pages tree.
-          rm -f .github/workflows/static-qa.yml
+          # Keep the exact source package out of the live branch; it will be
+          # attached to the immutable GitHub Release instead.
+          git rm -- "${{ steps.package.outputs.zip }}"
 
           cat > README.md <<'EOF'
           # P-120 Web
@@ -119,11 +75,13 @@ jobs:
 
           ## Current public release
 
-          **P-120 Web Editorial v1.6.0 — Desktop HD / UHD Master Pass**
+          **P-120 Web Editorial v1.6.1 — Contrast Architecture Restoration**
 
           GitHub Pages staging URL: `https://unityplanet.github.io/p120-web/`
 
-          v1.6 is built directly over the final v1.5 Unified Editorial Grammar baseline. Release history is maintained in `CHANGELOG.md`; the frozen v1.5 state is available through tag `v1.5.0`.
+          v1.6.1 is a narrow corrective pass over v1.6.0. It restores stronger contrast architecture for semantic/scientific blocks while preserving the v1.6 HD/UHD stage system, mobile UX, typography, header and frozen measurement/scoring logic.
+
+          Historical release tags: `v1.5.0`, `v1.6.0`, `v1.6.1`.
 
           ## Deployment
 
@@ -133,11 +91,49 @@ jobs:
 
           This repository contains public website code and public-facing assets only. Do not commit authoritative scoring keys, technical keys, controlled research documentation, respondent or personal data, credentials, API keys, `.env` files, or other non-public P-120 materials.
 
-          Measurement changes in v1.6: **NONE**. Scoring changes: **NONE**.
+          Measurement changes in v1.6.1: **NONE**. Scoring changes: **NONE**.
+          EOF
+
+          cat > VERSION.txt <<'EOF'
+          P-120 Web Editorial v1.6.1
+          Contrast Architecture Restoration
+          Baseline: v1.6.0 Desktop HD / UHD Master Pass
+          Status: hosting-ready frontend corrective release / live correction stage
+          Measurement changes: NONE
+          Scoring changes: NONE
           EOF
 
           cat > CHANGELOG.md <<'EOF'
           # P-120 Web — Changelog
+
+          ## [1.6.1] — 2026-08-31
+
+          ### Contrast Architecture Restoration
+          - Restored more visible contrast frames for semantic and scientific blocks.
+          - Re-established `two systems`, distinction cards, orbital map and module/layer blocks as distinct architectural objects.
+          - Clarified the questionnaire outer contour.
+          - Preserved scientific de-cardification while restoring separation from the background.
+          - Increased depth in report/examples surfaces.
+          - Strengthened editorial dividing lines and chapter flash rules.
+          - Added theme-specific frame tokens for Ivory, Graphite and Museum.
+          - Museum framing uses teal/grey-green accents aligned with its cream/teal/sand palette.
+          - Slightly strengthened frame/depth treatment at ≥1920px for large canvases.
+
+          ### Preserved from v1.6.0
+          - HD/UHD stage system unchanged.
+          - 1366 / 1440 / 1920 / 2560 / 3440 / 3840 regimes preserved.
+          - Mobile UX v1.2–v1.5 preserved.
+          - Typography and header preserved.
+          - Measurement/content/scoring logic unchanged.
+
+          Full corrective release notes: `CHANGELOG_v1.6.1.md`.
+
+          ### QA reported by release package
+          - 7 JavaScript blocks byte-identical to v1.6.
+          - JavaScript syntax: PASS.
+          - CSS parser errors: 0.
+          - Static build checker: PASS.
+          - Source ZIP SHA-256: `5eea415384e0a05077e634d95bfffca4552d77314613caef2ca624a01e2e4880`.
 
           ## [1.6.0] — 2026-08-31
 
@@ -147,18 +143,11 @@ jobs:
           - Expanded questionnaire, science and report layouts for large displays.
           - Selective de-cardification and production-facing identity cleanup.
 
-          ### Typography / accessibility / hosting
-          - Noto Serif Display, Noto Serif and Inter web delivery with fallbacks.
-          - One semantic opening H1, skip-link, focus-visible treatment and richer metadata.
-          - GitHub Pages hosting support retained; staging remains noindex until public launch approval.
-
           ### Measurement governance
           - Measurement changes: NONE.
           - Scoring changes: NONE.
           - New thresholds: NONE.
           - Global total: NONE.
-
-          Full v1.6 release notes: `CHANGELOG_v1.6.md`.
 
           ## [1.5.0] — 2026-08-31
 
@@ -173,36 +162,31 @@ jobs:
           EOF
 
           git add -A
-          git commit -m 'Release P-120 Web Editorial v1.6.0 — Desktop HD UHD Master Pass'
-          git tag -a v1.6.0 -m 'P-120 Web Editorial v1.6.0 — Desktop HD / UHD Master Pass'
+          git commit -m 'Release P-120 Web Editorial v1.6.1 — Contrast Architecture Restoration'
+          git tag -a v1.6.1 -m 'P-120 Web Editorial v1.6.1 — Contrast Architecture Restoration'
 
-      - name: Publish commits and tags
+      - name: Publish v1.6.1 commit and tag
+        if: steps.package.outputs.skip != 'true'
         shell: bash
         run: |
           set -euo pipefail
           git push origin main
-          git push origin v1.5.0 v1.6.0
+          git push origin v1.6.1
 
-      - name: Create GitHub Releases with original source packages
+      - name: Create v1.6.1 GitHub Release
+        if: steps.package.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
-          cat > /tmp/v15-notes.md <<'EOF'
-          P-120 Web Editorial v1.5.0 — Unified Editorial Grammar.
+          cat > /tmp/v161-notes.md <<'EOF'
+          P-120 Web Editorial v1.6.1 — Contrast Architecture Restoration.
 
-          Historical baseline immediately preceding v1.6. The attached ZIP is the exact uploaded v1.5 source package.
+          Narrow corrective pass over v1.6.0 restoring stronger contrast architecture for semantic/scientific blocks while preserving the HD/UHD stage system, mobile UX, typography, header and frozen measurement/scoring logic.
 
-          Measurement changes: NONE. Scoring changes: NONE.
-          EOF
-          cat > /tmp/v16-notes.md <<'EOF'
-          P-120 Web Editorial v1.6.0 — Desktop HD / UHD Master Pass.
-
-          Built directly over v1.5 Unified Editorial Grammar. Adds desktop HD/QHD/UHD composition, typography, accessibility and hosting polish.
+          Package QA: 7 JavaScript blocks byte-identical to v1.6; JS syntax PASS; CSS parser errors 0; static build checker PASS.
 
           Measurement changes: NONE. Scoring changes: NONE.
           EOF
-
-          gh release view v1.5.0 >/dev/null 2>&1 || gh release create v1.5.0 /tmp/P120_Web_Editorial_v1.5_UNIFIED_EDITORIAL_GRAMMAR.zip --title 'P-120 Web Editorial v1.5.0' --notes-file /tmp/v15-notes.md
-          gh release view v1.6.0 >/dev/null 2>&1 || gh release create v1.6.0 /tmp/P120_Web_Editorial_v1.6_HOSTING_PACKAGE.zip --title 'P-120 Web Editorial v1.6.0' --notes-file /tmp/v16-notes.md
+          gh release view v1.6.1 >/dev/null 2>&1 || gh release create v1.6.1 /tmp/P120_Web_Editorial_v1.6.1_HOSTING_PACKAGE.zip --title 'P-120 Web Editorial v1.6.1 — Contrast Architecture Restoration' --notes-file /tmp/v161-notes.md
