@@ -6,6 +6,7 @@ on:
     paths:
       - '*.zip'
       - '*.ZIP'
+      - '.github/workflows/unpack-p120-hosting.yml'
 
 permissions:
   contents: write
@@ -105,6 +106,35 @@ jobs:
           test -f "$SRC/index.html"
           test "$(sha256sum "$SRC/index.html" | awk '{print $1}')" = '85abde624b1a4e3c04d254dfc4d689f31bedfa6751c5920147f2dff902ac23db'
           cp -a "$SRC"/. ./
+
+          # The source package contains an optional CI workflow. GitHub's
+          # GITHUB_TOKEN may not add new workflow files without workflows scope,
+          # so keep it in the immutable Release ZIP but not in the Pages tree.
+          rm -f .github/workflows/static-qa.yml
+
+          cat > README.md <<'EOF'
+          # P-120 Web
+
+          Public website repository for the P-120 research project.
+
+          ## Current public release
+
+          **P-120 Web Editorial v1.6.0 — Desktop HD / UHD Master Pass**
+
+          GitHub Pages staging URL: `https://unityplanet.github.io/p120-web/`
+
+          v1.6 is built directly over the final v1.5 Unified Editorial Grammar baseline. Release history is maintained in `CHANGELOG.md`; the frozen v1.5 state is available through tag `v1.5.0`.
+
+          ## Deployment
+
+          GitHub Pages publishes from the `main` branch and repository root. The live staging website is represented by the current state of `main`.
+
+          ## Public-repository boundary
+
+          This repository contains public website code and public-facing assets only. Do not commit authoritative scoring keys, technical keys, controlled research documentation, respondent or personal data, credentials, API keys, `.env` files, or other non-public P-120 materials.
+
+          Measurement changes in v1.6: **NONE**. Scoring changes: **NONE**.
+          EOF
 
           cat > CHANGELOG.md <<'EOF'
           # P-120 Web — Changelog
