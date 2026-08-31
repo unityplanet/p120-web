@@ -93,6 +93,7 @@
       status: 'RESEARCH_CANDIDATE_MANUAL_HANDOFF',
       authority_note: 'Transport package only. Authoritative calculations remain governed by the frozen P-120 Export Schema, Technical Keys, scoring manuals and controlled interpretation rules.',
       participant_id: state.participantId,
+      locale: isEn ? 'en' : 'ru',
       instrument: {
         name: instrument.instrument || 'P-120 vNext',
         form_version: instrument.formVersion || null,

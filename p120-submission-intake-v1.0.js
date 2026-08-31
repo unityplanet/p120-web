@@ -89,6 +89,7 @@
       status: 'RESEARCH_CANDIDATE_AUTOMATIC_INTAKE',
       authority_note: 'Transport package only. Authoritative calculations remain governed by the frozen P-120 Export Schema, Technical Keys, scoring manuals and controlled interpretation rules.',
       participant_id: state.participantId,
+      locale: isEn ? 'en' : 'ru',
       instrument: {
         name: instrument.instrument || 'P-120 vNext',
         form_version: instrument.formVersion || null,
@@ -211,6 +212,7 @@
 
       const fingerprintInput = stableStringify({
         participant_id:pkg.participant_id,
+        locale:pkg.locale,
         form_version:pkg.instrument.form_version,
         prototype_version:pkg.instrument.prototype_version,
         administration_modes:pkg.administration_modes,
