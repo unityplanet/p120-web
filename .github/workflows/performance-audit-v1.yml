@@ -1,4 +1,4 @@
-name: P-120 production performance audit v2
+name: P-120 production performance audit v3 bundled
 on:
   workflow_dispatch:
   push:
@@ -18,33 +18,17 @@ jobs:
           import re
           s=Path('index.html').read_text(encoding='utf-8')
           print('INDEX_BYTES',len(s.encode()))
-          science=''
-          for a,b,name in [
-            ('window.P120_INSTRUMENT =','window.P120_SCIENCE=','INSTRUMENT_SEGMENT'),
-            ('window.P120_SCIENCE=','function renderPreflight(){','SCIENCE_TO_PREFLIGHT_SEGMENT')]:
-            try:
-              seg=s[s.index(a):s.index(b,s.index(a))]
-              print(name,len(seg.encode()))
-              if name.startswith('SCIENCE_'): science=seg
+          for a,b,name in [('window.P120_INSTRUMENT =','window.P120_SCIENCE=','INSTRUMENT_SEGMENT'),('window.P120_SCIENCE=','function renderPreflight(){','SCIENCE_TO_PREFLIGHT_SEGMENT')]:
+            try: print(name,len(s[s.index(a):s.index(b,s.index(a))].encode()))
             except ValueError: print(name,'NA')
-          if science:
-            funcs=re.findall(r'function\s+([A-Za-z_$][\w$]*)\s*\(',science)
-            print('SCIENCE_FUNCTIONS',','.join(funcs))
-            payloads=list(re.finditer(r'data:([^;]+);base64,([^"\']+)',science))
-            print('SCIENCE_DATA_URIS',len(payloads))
-            for i,m in enumerate(payloads,1):
-              print(' PAYLOAD',i,'MIME',m.group(1),'B64_CHARS',len(m.group(2)))
           css=re.findall(r'<link[^>]+href=["\']([^"\']+\.css[^"\']*)',s,re.I)
           js=re.findall(r'<script[^>]+src=["\']([^"\']+\.js[^"\']*)',s,re.I)
-          print('CSS_REQUESTS',len(css)); print('\n'.join(' CSS '+x for x in css))
-          print('JS_REQUESTS',len(js)); print('\n'.join(' JS '+x for x in js))
-          local=[]
-          for x in css+js:
-            p=x.split('?')[0]
-            if not re.match(r'https?://',p) and Path(p).exists(): local.append((p,Path(p).stat().st_size))
-          print('LOCAL_ASSET_BYTES',sum(n for _,n in local))
-          for p,n in sorted(local,key=lambda x:-x[1]): print(' ASSET',n,p)
+          print('CSS_REQUESTS',len(css));print('\n'.join(' CSS '+x for x in css))
+          print('JS_REQUESTS',len(js));print('\n'.join(' JS '+x for x in js))
           print('DATA_URI_COUNT',len(re.findall(r'data:[^;]+;base64,',s)))
+          print('PRODUCTION_STYLE_BUNDLE',Path('p120-public-styles-v1.0.css').stat().st_size if Path('p120-public-styles-v1.0.css').exists() else 'MISSING')
+          print('PRODUCTION_RUNTIME_BUNDLE',Path('p120-public-runtime-v1.0.js').stat().st_size if Path('p120-public-runtime-v1.0.js').exists() else 'MISSING')
+          print('FONT_PRELOAD',bool(re.search(r'rel=["\']preload["\'][^>]+fonts\.bunny\.net',s,re.I)))
           PY
       - name: Install Playwright
         run: |
@@ -61,13 +45,14 @@ jobs:
           for(const path of ['/', '/en/']){
             const page=await browser.newPage({viewport:{width:1440,height:900}});
             let requests=0, bytes=0;
-            page.on('response',async r=>{requests++; try{const b=await r.body();bytes+=b.length}catch{}});
+            page.on('response',async r=>{requests++;try{const b=await r.body();bytes+=b.length}catch{}});
             const t=Date.now();
             await page.goto('http://127.0.0.1:4173'+path,{waitUntil:'load'});
-            const load=Date.now()-t;
-            const nav=await page.evaluate(()=>{const n=performance.getEntriesByType('navigation')[0];return {dcl:n.domContentLoadedEventEnd,start:n.startTime,load:n.loadEventEnd,domInteractive:n.domInteractive,transfer:n.transferSize,decoded:n.decodedBodySize}});
+            const wall=Date.now()-t;
+            await page.waitForTimeout(50);
+            const nav=await page.evaluate(()=>{const n=performance.getEntriesByType('navigation')[0];const p=performance.getEntriesByType('paint').reduce((o,e)=>(o[e.name]=e.startTime,o),{});return{dcl:n.domContentLoadedEventEnd,load:n.loadEventEnd,interactive:n.domInteractive,transfer:n.transferSize,decoded:n.decodedBodySize,fp:p['first-paint']||null,fcp:p['first-contentful-paint']||null}});
             const nodes=await page.locator('*').count();
-            console.log('PAGE',path,'WALL_LOAD_MS',load,'REQ',requests,'BODY_BYTES',bytes,'DOM_NODES',nodes,'NAV',JSON.stringify(nav));
+            console.log('PAGE',path,'WALL_LOAD_MS',wall,'REQ',requests,'BODY_BYTES',bytes,'DOM_NODES',nodes,'NAV',JSON.stringify(nav));
             await page.close();
           }
           await browser.close();
