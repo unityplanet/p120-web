@@ -1,0 +1,133 @@
+name: Build P-120 v1.7.1f hosting package
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - visual-fix-v1.7.1f.css
+      - .github/workflows/build-v171f-hosting-package.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PACKAGE_NAME: P120_Web_Editorial_v1.7.1f_VISUAL_CORRECTION_HOSTING_PACKAGE
+
+jobs:
+  build-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Link v1.7.1f stylesheet in index
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          text=p.read_text(encoding='utf-8')
+          tag='<link rel="stylesheet" href="visual-fix-v1.7.1f.css?v=171f" data-p120-visual-fix="v1.7.1f" />'
+          rx=re.compile(r'\s*<link[^>]+data-p120-visual-fix="v1\.7\.1f"[^>]*>\s*', re.I)
+          if rx.search(text):
+              text=rx.sub('\n  '+tag+'\n',text,count=1)
+          else:
+              if '</head>' not in text:
+                  raise SystemExit('No </head> in index.html')
+              text=text.replace('</head>','  '+tag+'\n</head>',1)
+          p.write_text(text,encoding='utf-8')
+          PY
+
+      - name: Static validation
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text=Path('index.html').read_text(encoding='utf-8')
+          required=[
+            'visual-fix-v1.7.1b.css?v=171b',
+            'visual-fix-v1.7.1c.css?v=171c',
+            'visual-fix-v1.7.1d.css?v=171d',
+            'visual-fix-v1.7.1f.css?v=171f',
+            "if(section.id==='why-important') return renderWhyImportantManifesto(section);",
+            'Сексуальность начинается намного раньше секса.',
+            'Принятие',
+            'Хроническое напряжение',
+            'Девять измерений, которые есть у обоих'
+          ]
+          missing=[x for x in required if x not in text]
+          if missing:
+              raise SystemExit('Missing markers: '+', '.join(missing))
+          css=Path('visual-fix-v1.7.1f.css').read_text(encoding='utf-8')
+          if css.count('{') != css.count('}'):
+              raise SystemExit('v1.7.1f CSS brace mismatch')
+          print('v1.7.1f static validation PASS')
+          PY
+
+      - name: Commit linked index
+        shell: bash
+        run: |
+          if ! git diff --quiet -- index.html; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Apply v1.7.1f framed-content and density corrections"
+            git push
+          else
+            echo "v1.7.1f link already present"
+          fi
+
+      - name: Assemble clean hosting directory
+        shell: bash
+        run: |
+          rm -rf dist
+          mkdir -p dist
+          for f in \
+            index.html \
+            favicon.svg \
+            manifest.webmanifest \
+            .nojekyll \
+            robots.txt \
+            robots-public.txt \
+            netlify.toml \
+            vercel.json \
+            visual-fix-v1.7.1b.css \
+            visual-fix-v1.7.1c.css \
+            visual-fix-v1.7.1d.css \
+            visual-fix-v1.7.1f.css; do
+            [ -f "$f" ] && cp "$f" dist/
+          done
+          cat > dist/VERSION.txt <<'EOF'
+          P-120 Web Editorial v1.7.1f
+          Museum Teal Restoration + Visual Regression Correction
+          Includes v1.7.1b / v1.7.1c / v1.7.1d / v1.7.1f corrective layers.
+          Frozen measurement/scoring/content logic unchanged.
+          EOF
+          cat > dist/UPLOAD_INSTRUCTIONS_RU.txt <<'EOF'
+          P-120 v1.7.1f — КАК ЗАГРУЗИТЬ НА GITHUB
+
+          1. Распакуйте ZIP.
+          2. Откройте репозиторий unityplanet/p120-web, ветка main.
+          3. Add file -> Upload files.
+          4. Перетащите ВСЕ файлы из распакованной папки в корень репозитория.
+          5. Разрешите замену существующих файлов и нажмите Commit changes.
+          6. Дождитесь завершения GitHub Pages deployment.
+          7. Откройте сайт и сделайте Ctrl+F5.
+
+          ВАЖНО: загружать нужно содержимое ZIP в корень репозитория, а не внешний каталог целиком.
+          EOF
+          sha256sum dist/* > dist/SHA256SUMS.txt
+          ls -la dist
+
+      - name: Upload complete hosting package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PACKAGE_NAME }}
+          path: dist/
+          if-no-files-found: error
+          compression-level: 9
+          retention-days: 30
