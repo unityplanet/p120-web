@@ -1,0 +1,266 @@
+/* P-120 Web Editorial v1.7.1g
+   Framed compatibility reading composition.
+   Visual-only corrective pass; frozen source copy is preserved by renderer.
+*/
+
+.compatibility-reading{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(230px,.46fr) minmax(680px,1.54fr);
+  gap:clamp(42px,5vw,92px);
+  align-items:start;
+  width:100%;
+  margin:0;
+  padding:clamp(28px,3vw,46px) 0 clamp(26px,3vw,44px);
+}
+
+.compatibility-reading-rail{
+  position:relative;
+  min-height:100%;
+  padding:8px 0 0;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:38px;
+}
+
+.compatibility-reading-eyebrow{
+  max-width:30ch;
+  padding-top:14px;
+  border-top:1px solid var(--frame-secondary);
+  font:700 10px/1.55 Inter,system-ui,sans-serif;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--ink-muted);
+}
+
+.compatibility-reading-orbit{
+  position:relative;
+  width:clamp(170px,14vw,240px);
+  height:clamp(170px,14vw,240px);
+  margin:clamp(26px,4vw,58px) 0 0 clamp(12px,2vw,34px);
+  opacity:.58;
+  transform:rotate(-12deg);
+}
+.compatibility-reading-orbit:before,
+.compatibility-reading-orbit:after,
+.compatibility-reading-orbit span{
+  content:"";
+  position:absolute;
+  inset:50% auto auto 50%;
+  border-radius:50%;
+  border:1px solid var(--orbit-line);
+  transform:translate(-50%,-50%) rotate(-16deg);
+}
+.compatibility-reading-orbit:before{width:100%;height:46%}
+.compatibility-reading-orbit:after{width:76%;height:28%;transform:translate(-50%,-50%) rotate(18deg)}
+.compatibility-reading-orbit span{width:50%;height:16%;transform:translate(-50%,-50%) rotate(-4deg)}
+.compatibility-reading-orbit i,
+.compatibility-reading-orbit b{
+  position:absolute;
+  display:block;
+  border-radius:50%;
+  pointer-events:none;
+}
+.compatibility-reading-orbit i{
+  width:11px;height:11px;
+  left:22%;top:43%;
+  background:var(--orbit-node);
+  box-shadow:0 0 0 8px var(--glow-node);
+}
+.compatibility-reading-orbit b{
+  width:30px;height:30px;
+  right:13%;bottom:25%;
+  background:var(--accent-warm);
+  box-shadow:0 0 26px color-mix(in srgb,var(--accent-warm) 20%,transparent);
+}
+
+.compatibility-reading-main{
+  position:relative;
+  display:grid;
+  gap:18px;
+  min-width:0;
+}
+
+.compatibility-reading-title{
+  max-width:19ch;
+  margin:0 0 clamp(16px,2vw,28px);
+  font-family:"Noto Serif Display","Noto Serif",Georgia,serif;
+  font-size:clamp(40px,3.15vw,59px);
+  line-height:1.08;
+  letter-spacing:-.034em;
+  font-weight:560;
+  color:var(--ink-primary);
+  text-wrap:balance;
+}
+
+.compatibility-reading-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.compatibility-reading-card{
+  position:relative;
+  min-height:168px;
+  padding:42px 30px 28px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  border:1px solid var(--frame-secondary);
+  border-radius:22px;
+  background:color-mix(in srgb,var(--surface) 88%,var(--surface-soft));
+  box-shadow:0 1px 0 rgba(255,255,255,.38) inset;
+  overflow:hidden;
+}
+.compatibility-reading-card:after{
+  content:"";
+  position:absolute;
+  width:112px;height:112px;
+  right:-60px;top:-62px;
+  border-radius:50%;
+  border:1px solid var(--orbit-line);
+  box-shadow:0 0 0 22px color-mix(in srgb,var(--glow-node) 14%,transparent);
+  opacity:.72;
+  pointer-events:none;
+}
+.compatibility-reading-index{
+  position:absolute;
+  left:30px;top:21px;
+  font:800 9px/1 Inter,system-ui,sans-serif;
+  letter-spacing:.14em;
+  color:var(--accent-primary);
+}
+.compatibility-reading-card p{
+  max-width:29ch;
+  margin:0;
+  font-family:"Noto Serif",Georgia,serif;
+  font-size:clamp(20px,1.55vw,28px);
+  line-height:1.36;
+  letter-spacing:-.018em;
+  color:var(--ink-primary);
+  text-wrap:pretty;
+}
+.compatibility-reading-card:nth-child(2),
+.compatibility-reading-card:nth-child(3){
+  background:color-mix(in srgb,var(--surface-soft) 82%,var(--surface));
+}
+
+.compatibility-reading-outro{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(260px,.72fr);
+  gap:clamp(30px,4vw,64px);
+  align-items:end;
+  margin-top:6px;
+  padding:clamp(30px,3vw,44px);
+  border:1px solid var(--frame-primary);
+  border-radius:24px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--accent-primary) 12%,var(--surface-soft)),var(--surface));
+  overflow:hidden;
+}
+.compatibility-reading-outro:after{
+  content:"";
+  position:absolute;
+  width:260px;height:260px;
+  right:-155px;bottom:-168px;
+  border-radius:50%;
+  border:1px solid var(--orbit-line);
+  box-shadow:0 0 0 42px color-mix(in srgb,var(--glow-node) 12%,transparent);
+  pointer-events:none;
+}
+.compatibility-reading-outro p{position:relative;z-index:1;margin:0}
+.compatibility-reading-outro-lead{
+  max-width:20ch;
+  font-family:"Noto Serif Display","Noto Serif",Georgia,serif;
+  font-size:clamp(29px,2.25vw,42px);
+  line-height:1.13;
+  letter-spacing:-.026em;
+  color:var(--ink-primary);
+}
+.compatibility-reading-outro-note{
+  max-width:36ch;
+  padding-bottom:4px;
+  font:400 clamp(15px,1.05vw,18px)/1.65 Inter,system-ui,sans-serif;
+  color:var(--ink-secondary);
+}
+
+/* Bring the existing CTA into the composition instead of leaving it isolated. */
+.compatibility-reading + .chapter-cta{
+  margin-top:16px!important;
+  padding-top:22px!important;
+  border-top:1px solid var(--frame-secondary);
+}
+.compatibility-reading + .chapter-cta .editorial-cta{
+  min-width:230px;
+}
+
+/* Museum Teal */
+body[data-theme="museum"] .compatibility-reading-card{
+  background:#FBF8EF;
+  border-color:rgba(47,125,120,.19);
+  box-shadow:0 10px 28px rgba(38,53,51,.035),inset 0 1px rgba(255,255,255,.64);
+}
+body[data-theme="museum"] .compatibility-reading-card:nth-child(2),
+body[data-theme="museum"] .compatibility-reading-card:nth-child(3){background:#E9EEE7}
+body[data-theme="museum"] .compatibility-reading-outro{
+  background:radial-gradient(360px 240px at 92% 0,rgba(113,158,145,.17),transparent 70%),linear-gradient(135deg,#E1EAE3,#F7F4EA);
+  border-color:rgba(47,125,120,.32);
+}
+
+/* Graphite */
+body[data-theme="graphite"] .compatibility-reading-card{
+  background:#423E38;
+  border-color:rgba(205,220,214,.14);
+  box-shadow:none;
+}
+body[data-theme="graphite"] .compatibility-reading-card:nth-child(2),
+body[data-theme="graphite"] .compatibility-reading-card:nth-child(3){background:#393631}
+body[data-theme="graphite"] .compatibility-reading-outro{
+  background:radial-gradient(360px 240px at 92% 0,rgba(130,155,152,.10),transparent 70%),linear-gradient(135deg,#40514D,#34332F);
+  border-color:rgba(130,155,152,.25);
+}
+body[data-theme="graphite"] .compatibility-reading-outro-lead{color:#F0EADF}
+body[data-theme="graphite"] .compatibility-reading-outro-note{color:#CBD3CE}
+
+/* Ivory */
+body[data-theme="ivory"] .compatibility-reading-card:nth-child(2),
+body[data-theme="ivory"] .compatibility-reading-card:nth-child(3){background:color-mix(in srgb,var(--surface-soft) 70%,var(--surface))}
+
+@media (min-width:1440px){
+  .editorial-chapter:has(.compatibility-reading){padding-bottom:clamp(54px,4.4vw,76px)}
+  .editorial-chapter:has(.compatibility-reading) .editorial-chapter-inner{max-width:1560px}
+}
+
+@media (max-width:1199px){
+  .compatibility-reading{
+    grid-template-columns:1fr;
+    gap:24px;
+    padding-top:22px;
+  }
+  .compatibility-reading-rail{min-height:0;gap:18px}
+  .compatibility-reading-orbit{display:none}
+  .compatibility-reading-eyebrow{max-width:42ch}
+  .compatibility-reading-title{font-size:clamp(35px,6vw,52px);max-width:20ch}
+}
+
+@media (max-width:760px){
+  .compatibility-reading-grid{grid-template-columns:1fr;gap:9px}
+  .compatibility-reading-card{
+    min-height:auto;
+    padding:40px 20px 20px;
+    border-radius:18px;
+  }
+  .compatibility-reading-index{left:20px;top:17px}
+  .compatibility-reading-card p{max-width:none;font-size:clamp(19px,5.2vw,25px)}
+  .compatibility-reading-outro{
+    grid-template-columns:1fr;
+    gap:16px;
+    padding:24px 20px;
+    border-radius:20px;
+  }
+  .compatibility-reading-outro-lead{font-size:clamp(28px,7.4vw,38px)}
+  .compatibility-reading + .chapter-cta{margin-top:12px!important}
+  .compatibility-reading + .chapter-cta .editorial-cta{width:100%;min-width:0}
+}
