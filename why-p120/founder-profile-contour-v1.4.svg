@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-labelledby="t d">
+<title id="t">P-120 founder-derived profile contour v1.4</title><desc id="d">Continuous facial profile based on the selected founder side-profile photograph, with swept-back long-hair contour dissolving toward the posterior.</desc>
+<defs>
+<linearGradient id="hair" x1="520" y1="460" x2="805" y2="170" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f9fbfd" stop-opacity=".08"/><stop offset=".28" stop-color="#dce8f6" stop-opacity=".45"/><stop offset=".72" stop-color="#90acd1" stop-opacity=".68"/><stop offset="1" stop-color="#6889b9" stop-opacity=".78"/></linearGradient>
+<linearGradient id="post" x1="505" y1="360" x2="585" y2="465" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d9e6f5" stop-opacity=".40"/><stop offset=".55" stop-color="#eef4fa" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs>
+<path d="M584 463 C556 454 535 438 522 416 C511 396 507 373 509 349 C510 326 514 307 519 291" fill="none" stroke="url(#post)" stroke-width="1.05" stroke-linecap="round"/>
+<path d="M519 291 C527 258 540 226 557 198 C575 167 597 139 625 118 C649 99 675 88 700 84 C727 81 752 89 773 104 C790 117 801 140 808 171" fill="none" stroke="url(#hair)" stroke-width="1.18" stroke-linecap="round"/>
+<path d="M808 171 C818 184 821 198 823 212 C824 229 828 247 832 260 C836 273 837 283 833 292 C829 302 829 312 834 324 C839 338 846 351 853 364 C860 375 861 382 855 388 C849 394 839 396 835 402 C832 408 835 414 836 426 C832 432 824 432 822 436 C821 441 829 446 827 452 C824 459 815 462 811 465 C811 474 814 484 813 493 C813 499 812 504 810 508" fill="none" stroke="#5578ad" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" opacity=".72"/>
+</svg>
