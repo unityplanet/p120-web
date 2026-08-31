@@ -1,0 +1,46 @@
+name: Apply P-120 Extended Research Set UI v1.0
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'extended-research-set-v1.0.js'
+      - '.github/workflows/apply-extended-research-ui-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  inject-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Inject responsive UI script
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          s=re.sub(r'\s*<script[^>]+data-p120-extended-ui="v1\.0"[^>]*></script>\s*','\n',s,flags=re.I)
+          tag='<script src="extended-research-set-v1.0.js?v=ers10" data-p120-extended-ui="v1.0"></script>'
+          if '</body>' not in s:
+              raise SystemExit('No </body> in index.html')
+          s=s.replace('</body>',tag+'\n</body>',1)
+          if s.count('data-p120-extended-ui="v1.0"') != 1:
+              raise SystemExit('Extended UI script assertion failed')
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit index
+        shell: bash
+        run: |
+          if git diff --quiet -- index.html; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Enable Extended Research Set mobile details UI'
+          git push
