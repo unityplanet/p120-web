@@ -148,6 +148,8 @@ No `P120_TOTAL_EXTENDED` identifier is introduced.
 ## Interaction and accessibility
 Desktop hover/focus strengthens only the selected optional branch/module frame; the central P-120 node remains unchanged. Mobile uses native `<details>`/`<summary>` interaction and does not depend on hover. Interactive summaries/CTAs meet the current 44–48 px touch-target direction. Reduced-motion styling disables transitions.
 
+Implemented responsive state: module details remain expanded in the desktop/tablet atlas and are collapsed by default at mobile widths (≤680 px), where tap opens the native details panel.
+
 ## Responsive behavior
 - Ultra-wide: one broad atlas composition.
 - 1366–1440: central node + 2+2 asymmetric optional directions.
