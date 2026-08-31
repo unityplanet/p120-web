@@ -52,12 +52,16 @@ jobs:
           SERVER_PID=$!
           trap 'kill $SERVER_PID || true' EXIT
           for i in {1..40}; do if curl -fsS http://127.0.0.1:4173/ >/dev/null; then break; fi; sleep .25; done
+          node qa/founder_mobile_debug.mjs
           node qa/founder_pass4_audit.mjs
 
       - name: Upload PASS 4 evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: P120_FOUNDERWEB_PASS4_EVIDENCE
-          path: pass4-artifacts/
-          if-no-files-found: error
+          path: |
+            pass4-artifacts/
+            pass4-mobile-debug.png
+          if-no-files-found: warn
           retention-days: 30
