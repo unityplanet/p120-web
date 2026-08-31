@@ -2476,6 +2476,7 @@ body[data-theme='museum'] :is(.dark-statement,.showcase-cover){border-color:var(
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="visual-fix-v1.7.1b.css?v=171b" data-p120-visual-fix="v1.7.1b" />
   <link rel="stylesheet" href="visual-fix-v1.7.1c.css?v=171c" data-p120-visual-fix="v1.7.1c" />
+  <link rel="stylesheet" href="visual-fix-v1.7.1d.css?v=171d" data-p120-visual-fix="v1.7.1d" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Перейти к основному содержанию</a>
@@ -3574,8 +3575,13 @@ function renderWhatP120ShowsGrammar(section){
   ];
   return `<div class="editorial-body semantic-orbital-map"><div class="grammar-kicker">Карта независимых, но взаимодействующих сигналов</div><div class="orbital-map-shell"><div class="orbital-map-core"><div><strong>P-120</strong><span>не один показатель</span></div></div><div class="orbital-cluster-grid">${groups.map((g,i)=>`<article class="orbital-cluster"><span class="orbital-cluster-node" aria-hidden="true"></span><h4>${esc(g[0])}</h4><ul>${g[1].map(x=>`<li>${esc(x.replace(/;$/,''))}</li>`).join('')}</ul></article>`).join('')}</div></div></div>`;
 }
+function renderWhyImportantManifesto(section){
+  const b=section.body;
+  return `<div class="editorial-body why-important-manifesto"><div class="manifesto-stage"><p class="manifesto-lead">${esc(b[0])}</p><div class="manifesto-lines">${b.slice(1,7).map(x=>`<p>${esc(x)}</p>`).join('')}</div><div class="manifesto-closing"><div class="manifesto-closing-copy">${b.slice(7,9).map(x=>`<p>${esc(x)}</p>`).join('')}</div><p class="manifesto-final">${esc(b[9])}</p></div></div></div>`;
+}
 function renderEditorialBody(section){
   const b=section.body;
+  if(section.id==='why-important') return renderWhyImportantManifesto(section);
   if(section.id==='life-energy') return renderLifeEnergyGrammar(section);
   if(section.id==='two-systems') return renderTwoSystemsGrammar(section);
   if(section.id==='why-p120') return renderWhyP120Grammar(section);
