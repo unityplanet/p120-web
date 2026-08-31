@@ -1,0 +1,67 @@
+name: Extract public localization inventory
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/extract-public-localization-inventory.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Extract Cyrillic strings with source context
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          files = [
+              Path('index.html'),
+              Path('extended-research-set-v1.0.html'),
+              Path('extended-research-set-v1.0.js'),
+              Path('extended-research-navigation-v1.0.js'),
+              Path('chapter-navigation-v1.0.js'),
+          ]
+          cyr = re.compile(r'[А-Яа-яЁё]')
+          fn_re = re.compile(r'\bfunction\s+([A-Za-z0-9_$]+)\s*\(')
+          const_fn_re = re.compile(r'\b(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(?:async\s*)?\([^)]*\)\s*=>')
+          out=[]
+          for path in files:
+              if not path.exists():
+                  continue
+              text=path.read_text(encoding='utf-8')
+              lines=text.splitlines()
+              current='GLOBAL'
+              for i,line in enumerate(lines,1):
+                  m=fn_re.search(line) or const_fn_re.search(line)
+                  if m:
+                      current=m.group(1)
+                  if cyr.search(line):
+                      # compact whitespace, preserve enough context to identify strings
+                      compact=re.sub(r'\s+',' ',line).strip()
+                      if len(compact)>1400:
+                          compact=compact[:1400]+' …'
+                      out.append(f'{path}\tL{i}\t{current}\t{compact}')
+          Path('LOCALIZATION_RU_INVENTORY.tsv').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          print('inventory lines:',len(out))
+          PY
+      - name: Commit inventory
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add LOCALIZATION_RU_INVENTORY.tsv
+          if git diff --cached --quiet; then
+            echo 'Inventory unchanged.'
+          else
+            git commit -m 'Extract RU localization inventory for public EN release'
+            git push
+          fi
