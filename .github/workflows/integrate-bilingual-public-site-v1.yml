@@ -30,14 +30,14 @@ jobs:
           assessment=h(cut(ru,'function renderPreflight(){','function render(){'))
           mobile=h(cut(ru,'function renderMobileBottomNav(){','function renderMobileDrawer(){'))
 
-          # Public presentation integrations only; strip previous copies to keep build idempotent.
           for marker in ['data-p120-language-switch="v1.0"','data-p120-depth-statement="v1.1"']:
             ru=re.sub(r'\s*<link[^>]+'+re.escape(marker)+r'[^>]*>\s*','\n',ru,flags=re.I)
             ru=re.sub(r'\s*<script[^>]+'+re.escape(marker)+r'[^>]*></script>\s*','\n',ru,flags=re.I)
 
           ru=ru.replace('</head>',
             '  <link rel="stylesheet" href="language-switch-v1.0.css?v=lang10" data-p120-language-switch="v1.0" />\n'
-            '  <link rel="stylesheet" href="depth-statement-v1.1.css?v=depth11" data-p120-depth-statement="v1.1" />\n'</n            '</head>',1)
+            '  <link rel="stylesheet" href="depth-statement-v1.1.css?v=depth11" data-p120-depth-statement="v1.1" />\n'
+            '</head>',1)
           ru=ru.replace('</body>',
             '<script src="language-switch-v1.0.js?v=lang10" data-p120-language-switch="v1.0"></script>\n'
             '<script src="depth-statement-v1.1.js?v=depth11" data-p120-depth-statement="v1.1"></script>\n'
@@ -50,8 +50,6 @@ jobs:
 
           en=ru
           en=re.sub(r'<html([^>]*?)lang=["\']ru["\']',r'<html\1lang="en"',en,count=1,flags=re.I)
-          # No <base>: fragment links (#science-..., #extended-...) must stay inside /en/.
-          # Prefix only actual shared local assets with ../ so they resolve from /en/.
           asset_re=re.compile(r'(?P<a>\b(?:href|src)=["\'])(?P<p>(?!https?:|//|/|#|data:|mailto:|tel:|\.\./)[^"\']+\.(?:css|js|svg|webmanifest|png|jpe?g|webp)(?:\?[^"\']*)?)(?P<q>["\'])',re.I)
           en=asset_re.sub(lambda m:m.group('a')+'../'+m.group('p')+m.group('q'),en)
           en=re.sub(r'<title>.*?</title>','<title>P-120 — architecture of attraction and intimacy</title>',en,count=1,flags=re.S|re.I)
