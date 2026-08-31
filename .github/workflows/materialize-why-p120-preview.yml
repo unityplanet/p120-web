@@ -33,8 +33,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat why-p120/payload-v14.part1 why-p120/payload-v14.part2 > /tmp/payload-v14.b64
+          cat why-p120/payload-v14.part1 why-p120/payload-v14.part2 | tr -d '\r\n\t ' > /tmp/payload-v14.b64
           test "$(wc -c < /tmp/payload-v14.b64)" -eq 9136
+          echo '8f8b1bf2d8ba288d4c233a6e3392663dcf81d42df8124844ada0fb07d0a0f584  /tmp/payload-v14.b64' | sha256sum -c -
           base64 --decode /tmp/payload-v14.b64 | gunzip > why-p120/index.html
           echo '176976ed565cee294bbfef91c9e66e3be4d0cedb1af35ef40fcba412260e97bf  why-p120/index.html' | sha256sum -c -
           grep -q '<section class="wp-act wp-act4' why-p120/index.html
