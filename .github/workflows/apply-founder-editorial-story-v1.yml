@@ -39,40 +39,42 @@ jobs:
           from pathlib import Path
           p=Path('founder-editorial-story-v1.0.js')
           s=p.read_text(encoding='utf-8')
-          old="""        const route=btn.dataset.founderRoute;
-        if(route==='science'){
-          if(activateExistingHook('[data-science]'))return;
-          location.hash='science-top';
-        } else if(route==='why'){
-          if(activateExistingHook('[data-why-origin]'))return;
-          location.href='why-p120/';
-        } else if(route==='self'){
-          if(activateExistingHook('[data-mobile-start]'))return;
-          const preflight=document.querySelector('.preflight');
-          preflight?.scrollIntoView({block:'start'});
-        }
-"""
-          new="""        const route=btn.dataset.founderRoute;
-        const dedicated=/\\/creator\\/(?:index\\.html)?$/i.test(location.pathname);
-        if(dedicated){
-          const destination=route==='science'?'../#science-foundation':route==='why'?'../why-p120/':'../?start=1';
-          location.href=new URL(destination,location.href).href;
-          return;
-        }
-        if(route==='science'){
-          if(activateExistingHook('[data-science]'))return;
-          location.hash='science-foundation';
-        } else if(route==='why'){
-          if(activateExistingHook('[data-why-origin]'))return;
-          location.href='why-p120/';
-        } else if(route==='self'){
-          if(activateExistingHook('[data-mobile-start]'))return;
-          location.search='?start=1';
-        }
-"""
+          old=(
+              "        const route=btn.dataset.founderRoute;\n"
+              "        if(route==='science'){\n"
+              "          if(activateExistingHook('[data-science]'))return;\n"
+              "          location.hash='science-top';\n"
+              "        } else if(route==='why'){\n"
+              "          if(activateExistingHook('[data-why-origin]'))return;\n"
+              "          location.href='why-p120/';\n"
+              "        } else if(route==='self'){\n"
+              "          if(activateExistingHook('[data-mobile-start]'))return;\n"
+              "          const preflight=document.querySelector('.preflight');\n"
+              "          preflight?.scrollIntoView({block:'start'});\n"
+              "        }\n"
+          )
+          new=(
+              "        const route=btn.dataset.founderRoute;\n"
+              "        const dedicated=/\\/creator\\/(?:index\\.html)?$/i.test(location.pathname);\n"
+              "        if(dedicated){\n"
+              "          const destination=route==='science'?'../#science-foundation':route==='why'?'../why-p120/':'../?start=1';\n"
+              "          location.href=new URL(destination,location.href).href;\n"
+              "          return;\n"
+              "        }\n"
+              "        if(route==='science'){\n"
+              "          if(activateExistingHook('[data-science]'))return;\n"
+              "          location.hash='science-foundation';\n"
+              "        } else if(route==='why'){\n"
+              "          if(activateExistingHook('[data-why-origin]'))return;\n"
+              "          location.href='why-p120/';\n"
+              "        } else if(route==='self'){\n"
+              "          if(activateExistingHook('[data-mobile-start]'))return;\n"
+              "          location.search='?start=1';\n"
+              "        }\n"
+          )
           if old in s:
               p.write_text(s.replace(old,new,1),encoding='utf-8')
-          elif "const dedicated=/\\/creator\\/" not in s:
+          elif 'const dedicated=/\\/creator\\/' not in s:
               raise SystemExit('Expected Founder CTA block not found; refusing blind patch')
 
       - name: Remove long Founder Story from main and wire dedicated route
