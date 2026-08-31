@@ -33,6 +33,48 @@ jobs:
           node --check founder-route-v1.1.js
           node --check founder-editorial-story-v1.0.js
 
+      - name: Reconcile dedicated-page CTA destinations
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('founder-editorial-story-v1.0.js')
+          s=p.read_text(encoding='utf-8')
+          old="""        const route=btn.dataset.founderRoute;
+        if(route==='science'){
+          if(activateExistingHook('[data-science]'))return;
+          location.hash='science-top';
+        } else if(route==='why'){
+          if(activateExistingHook('[data-why-origin]'))return;
+          location.href='why-p120/';
+        } else if(route==='self'){
+          if(activateExistingHook('[data-mobile-start]'))return;
+          const preflight=document.querySelector('.preflight');
+          preflight?.scrollIntoView({block:'start'});
+        }
+"""
+          new="""        const route=btn.dataset.founderRoute;
+        const dedicated=/\\/creator\\/(?:index\\.html)?$/i.test(location.pathname);
+        if(dedicated){
+          const destination=route==='science'?'../#science-foundation':route==='why'?'../why-p120/':'../?start=1';
+          location.href=new URL(destination,location.href).href;
+          return;
+        }
+        if(route==='science'){
+          if(activateExistingHook('[data-science]'))return;
+          location.hash='science-foundation';
+        } else if(route==='why'){
+          if(activateExistingHook('[data-why-origin]'))return;
+          location.href='why-p120/';
+        } else if(route==='self'){
+          if(activateExistingHook('[data-mobile-start]'))return;
+          location.search='?start=1';
+        }
+"""
+          if old in s:
+              p.write_text(s.replace(old,new,1),encoding='utf-8')
+          elif "const dedicated=/\\/creator\\/" not in s:
+              raise SystemExit('Expected Founder CTA block not found; refusing blind patch')
+
       - name: Remove long Founder Story from main and wire dedicated route
         shell: python
         run: |
@@ -68,5 +110,5 @@ jobs:
           git config user.name 'P-120 Release Bot'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html founder-route-v1.1.js founder-editorial-story-v1.0.css founder-editorial-story-v1.0.js creator/index.html qa/check_founder_separate_page.py .github/workflows/apply-founder-editorial-story-v1.yml
-          git commit -m 'feat: move Founder Editorial Story to dedicated page'
+          git commit -m 'fix: reconcile Founder dedicated-page CTAs'
           git push
