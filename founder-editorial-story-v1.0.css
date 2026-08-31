@@ -17,17 +17,20 @@
   font-family:var(--fnd-reading);
   margin:clamp(64px,8vw,136px) 0 0;
   border-top:1px solid color-mix(in srgb,var(--fnd-line) 58%,transparent);
+  min-width:0;
+  width:100%;
+  max-width:100%;
 }
-.founder-story *{box-sizing:border-box}
+.founder-story *{box-sizing:border-box;min-width:0}
 .founder-story button{font:inherit}
-.founder-story__scene{position:relative;width:min(100%,1680px);margin:0 auto;padding:clamp(72px,8vw,148px) clamp(18px,2.7vw,46px)}
+.founder-story__scene{position:relative;width:100%;max-width:1680px;min-width:0;margin:0 auto;padding:clamp(72px,8vw,148px) clamp(18px,2.7vw,46px)}
 .founder-story__scene + .founder-story__scene{border-top:1px solid color-mix(in srgb,var(--fnd-line) 36%,transparent)}
 .founder-story__scene--statement{min-height:min(92svh,920px);display:flex;flex-direction:column;justify-content:center}
 .founder-story__scene--question{min-height:min(92svh,920px);display:flex;flex-direction:column;justify-content:center}
-.founder-story__scene--scientific{background:color-mix(in srgb,var(--fnd-soft) 78%,var(--fnd-paper));width:100%;max-width:none}
-.founder-story__scene--scientific > .founder-story__inner,.founder-story__scene--north > .founder-story__inner{width:min(100%,1588px);margin:auto}
-.founder-story__scene--north{background:color-mix(in srgb,var(--fnd-paper) 94%,#ded0b6 6%);width:100%;max-width:none}
-.founder-story__inner{position:relative;z-index:1}
+.founder-story__scene--scientific{background:color-mix(in srgb,var(--fnd-soft) 78%,var(--fnd-paper));width:100%;max-width:100%}
+.founder-story__scene--scientific > .founder-story__inner,.founder-story__scene--north > .founder-story__inner{width:100%;max-width:1588px;margin:auto}
+.founder-story__scene--north{background:color-mix(in srgb,var(--fnd-paper) 94%,#ded0b6 6%);width:100%;max-width:100%}
+.founder-story__inner{position:relative;z-index:1;min-width:0;max-width:100%}
 .founder-story__eyebrow{margin:0 0 24px;font:700 10px/1.2 var(--fnd-sans);letter-spacing:.17em;text-transform:uppercase;color:var(--fnd-muted)}
 .founder-story__display{margin:0;max-width:1280px;font-family:var(--fnd-serif);font-weight:500;font-size:clamp(52px,7.8vw,132px);line-height:.92;letter-spacing:-.055em;text-wrap:balance}
 .founder-story__display + .founder-story__display{margin-top:clamp(22px,3vw,48px)}
@@ -101,9 +104,10 @@ body[data-theme='museum'] .founder-story__scene--north{background:color-mix(in s
   .founder-story__marker{padding-top:0}
   .founder-story__question-text{font-size:clamp(28px,8.7vw,43px);line-height:1.08}
   .founder-story__doctrine-row{grid-template-columns:1fr;gap:8px;padding:25px 0}
-  .founder-story__doctrine-row span:last-child{font-size:clamp(30px,9.5vw,46px);line-height:1.02}
+  .founder-story__doctrine-row span:last-child{font-size:clamp(30px,9.5vw,46px);line-height:1.02;overflow-wrap:anywhere}
   .founder-story__coordinate-field{min-height:310px}
   .founder-story__coordinate-labels{padding:22px;font-size:9px}
+  .founder-story__route{overflow-wrap:anywhere}
 }
 @media(prefers-reduced-motion:reduce){
   .founder-story__reveal{opacity:1!important;transform:none!important;transition:none!important}
