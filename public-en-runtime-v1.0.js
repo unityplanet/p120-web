@@ -7,12 +7,13 @@
   let scheduled=false;
   let initialHomeGuardDone=false;
 
-  const shellSelectors = '.topbar,.mobile-menu,.mobile-bottom-nav,#p120-chapter-navigation';
+  const shellSelectors = '.skip-link,.topbar,.mobile-menu,.mobile-bottom-nav,#p120-chapter-navigation';
   const publicSelectors = '.editorial-home,.science-page,.science-shell,.science-hero,#science-top,[id^="science-"]';
 
   function dynamicTranslate(s){
     if(D.has(s)) return D.get(s);
     let m;
+    if((m=s.match(/^(\d+) · ФОРМА ПРОЯВЛЕНИЯ$/))) return `${m[1]} · EXPRESSION`;
     if((m=s.match(/^(\d+) стр\.$/))) return `${m[1]} pp.`;
     if((m=s.match(/^(\d+) источников\.$/))) return `${m[1]} sources.`;
     if((m=s.match(/^(\d+) различий$/))) return `${m[1]} distinctions`;
@@ -111,7 +112,7 @@
 
   function addMissingRuntimeLabels(){
     const extra=[
-      ['Архитектура','Architecture'],['Две системы','Two systems'],['Результат','Result'],['По главам','Chapters'],
+      ['Архитектура','Architecture'],['Две системы','Two systems'],['Результат','Result'],['По главам','Chapters'],['Язык','Language'],
       ['Акт I · внутренняя система','Act I · inner system'],['Акт II · встреча архитектур','Act II · architectures meet'],['что покажет P-120','what P-120 can show'],['Акт III · научная опора','Act III · scientific grounding'],['Навигация по главам P-120','P-120 chapter navigation'],
       ['А хотите ещё глубже?','Want to go deeper?'],['Extended Research Set · дополнительные модули','Extended Research Set · supplemental modules']
     ];
