@@ -17,7 +17,8 @@
   <meta name="twitter:title" content="P-120 — архитектура притяжения и близости" />
   <meta name="twitter:description" content="Research Candidate · 18+ · многослойная исследовательская архитектура." />
   <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
-  <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800|noto-serif:400,500,600,700|noto-serif-display:500,600,700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800|noto-serif:400,500,600,700|noto-serif-display:500,600,700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800|noto-serif:400,500,600,700|noto-serif-display:500,600,700&display=swap" /></noscript>
   <title>P-120 — архитектура притяжения и близости</title>
   <style>
 :root{
@@ -2474,19 +2475,7 @@ body[data-theme='museum'] :is(.dark-statement,.showcase-cover){border-color:var(
 </style>
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="visual-fix-v1.7.1b.css?v=171b" data-p120-visual-fix="v1.7.1b" />
-  <link rel="stylesheet" href="visual-fix-v1.7.1c.css?v=171c" data-p120-visual-fix="v1.7.1c" />
-  <link rel="stylesheet" href="visual-fix-v1.7.1d.css?v=171d" data-p120-visual-fix="v1.7.1d" />
-  <link rel="stylesheet" href="visual-fix-v1.7.1f.css?v=171f" data-p120-visual-fix="v1.7.1f" />
-  <link rel="stylesheet" href="visual-fix-v1.7.1g.css?v=171g" data-p120-visual-fix="v1.7.1g" />
-  <link rel="stylesheet" href="visual-fix-v1.7.1h.css?v=171h" data-p120-visual-fix="v1.7.1h" />
-  <link rel="stylesheet" href="extended-research-set-v1.0.css?v=ers10" data-p120-extended-research="v1.0" />
-<link rel="stylesheet" href="visual-fix-v1.7.1i.css?v=171i" data-p120-visual-fix="v1.7.1i" />
-<link rel="stylesheet" href="chapter-navigation-v1.0.css?v=chapter11" data-p120-chapter-navigation="v1.0" />
-  <link rel="stylesheet" href="language-switch-v1.0.css?v=lang11" data-p120-language-switch="v1.0" />
-  <link rel="stylesheet" href="depth-statement-v1.2.css?v=depth13" data-p120-depth-statement="v1.2" />
-  <link rel="stylesheet" href="visual-fix-v1.7.1j.css?v=171j" data-p120-ivory-contrast="v1.7.1j" />
-  <link rel="stylesheet" href="extended-research-navigation-v1.0.css?v=ersnav10" data-p120-extended-navigation="v1.0" />
+  <link rel="stylesheet" href="p120-public-styles-v1.0.css?v=pub16" data-p120-production-bundle="styles-v1.0" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Перейти к основному содержанию</a>
@@ -4272,9 +4261,6 @@ updateReadingProgress();
   </div>
 </section>
 <!-- P120 EXTENDED RESEARCH SET:END -->
-<script src="chapter-navigation-v1.0.js?v=chapter11" data-p120-chapter-navigation="v1.0"></script>
-<script src="language-switch-v1.0.js?v=lang11" data-p120-language-switch="v1.0"></script>
-<script src="depth-statement-v1.2.js?v=depth13" data-p120-depth-statement="v1.2"></script>
-<script src="extended-research-navigation-v1.0.js?v=ersnav10" data-p120-extended-navigation="v1.0"></script>
+<script src="p120-public-runtime-v1.0.js?v=pub16" data-p120-production-bundle="runtime-v1.0"></script>
 </body>
 </html>

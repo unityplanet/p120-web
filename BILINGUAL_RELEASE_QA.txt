@@ -1,4 +1,4 @@
-P-120 Web Editorial — Bilingual Public RU/EN v1.5
+P-120 Web Editorial — Bilingual Public RU/EN v1.6
 RU: /
 EN: /en/
 English scope: public home, Extended Set, Scientific Base and navigation.
@@ -13,8 +13,9 @@ RU/EN instrument byte-equivalence: PASS
 RU/EN assessment byte-equivalence: PASS
 Embedded PDF payloads in index.html: NONE
 External PDF routing RU/EN: PASS
-Localization runtime: debounced v1.1 / cache en13
-Final depth statement: v1.3 desktop-fit staircase Noto / cache depth13
-Duplicate Google Fonts import: REMOVED
-Primary Bunny font request: reduced weights
+Public CSS production requests: 1 bundle
+Public presentation JS requests: 1 bundle
+Web font stylesheet: non-render-blocking preload
+Localization runtime: debounced v1.1
+Final depth statement: v1.3 desktop-fit staircase Noto
 Ivory frame/contour contrast: v1.7.1j
