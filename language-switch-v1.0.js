@@ -1,9 +1,14 @@
 /* P-120 Web Editorial — RU/EN language switch v1.0 */
 (() => {
   'use strict';
-  const isEn = /(^|\/)en\/?(?:index\.html)?$/i.test(location.pathname) || /\/en\//i.test(location.pathname);
-  const rootHref = isEn ? '../' : './';
-  const enHref = isEn ? './' : 'en/';
+  const path = location.pathname;
+  const isEn = /\/en\/(?:index\.html)?$/i.test(path);
+  const rootPath = isEn
+    ? path.replace(/\/en\/(?:index\.html)?$/i,'/')
+    : path.replace(/index\.html$/i,'');
+  const normalizedRoot = rootPath.endsWith('/') ? rootPath : rootPath + '/';
+  const rootHref = normalizedRoot;
+  const enHref = normalizedRoot + 'en/';
   let scheduled=false;
 
   function desktopSwitch(){
