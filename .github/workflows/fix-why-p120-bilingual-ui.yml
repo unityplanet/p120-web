@@ -37,8 +37,9 @@ jobs:
         run: python3 .github/scripts/fix_why_p120_bilingual_ui.py
 
       - name: Install durable integration hooks
-        shell: python
+        shell: bash
         run: |
+          python3 - <<'PY'
           from pathlib import Path
 
           # Why P-120 production integration must always finish with the
@@ -82,6 +83,7 @@ jobs:
               s = s.replace(marker, step + marker, 1)
           p.write_text(s, encoding='utf-8')
           print('Durable Why P-120 bilingual hooks: PASS')
+          PY
 
       - name: Static acceptance gates
         shell: bash
