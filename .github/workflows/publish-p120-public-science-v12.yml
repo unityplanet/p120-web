@@ -25,7 +25,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          expected=13
+          expected=15
           found=$(find .github/p120-public-science-v12 -maxdepth 1 -type f -name 'part-*.b64' 2>/dev/null | wc -l | tr -d ' ')
           echo "found=$found" >> "$GITHUB_OUTPUT"
           if [ "$found" -ne "$expected" ]; then
@@ -38,8 +38,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat .github/p120-public-science-v12/part-*.b64 > /tmp/p120-public-science-v12.b64
-          base64 --decode /tmp/p120-public-science-v12.b64 > assets/p120-scientific-concept-paper-v1.2.pdf
+          cat .github/p120-public-science-v12/part-*.b64 > /tmp/p120-public-science-v12.xz.b64
+          base64 --decode /tmp/p120-public-science-v12.xz.b64 > /tmp/p120-public-science-v12.pdf.xz
+          xz --decompress --stdout /tmp/p120-public-science-v12.pdf.xz > assets/p120-scientific-concept-paper-v1.2.pdf
           test "$(head -c 4 assets/p120-scientific-concept-paper-v1.2.pdf)" = '%PDF'
           actual=$(sha256sum assets/p120-scientific-concept-paper-v1.2.pdf | awk '{print $1}')
           expected='488721f4e87aa2e98bfa51039dbbfe1ee0143468b0812dca59498247e62c72eb'
