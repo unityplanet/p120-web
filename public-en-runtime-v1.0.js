@@ -1,6 +1,6 @@
-/* P-120 EN public site runtime v1.1
-   Scope: public editorial home + Scientific Base only.
-   Questionnaire/preflight/items/scoring/results are intentionally not localized. */
+/* P-120 EN public site runtime v1.2
+   Scope: public editorial home + Scientific Base + routing to the controlled EN System runtime.
+   Questionnaire content/scoring remain owned by /en/system/ localization binding. */
 (() => {
   'use strict';
   const D = window.P120_EN_TRANSLATIONS || new Map();
@@ -19,8 +19,8 @@
     if((m=s.match(/^(\d+) различий$/))) return `${m[1]} distinctions`;
     if((m=s.match(/^Критерий · (.+)$/))) return `Criterion · ${D.get(m[1]) || m[1]}`;
     if((m=s.match(/^Граница:\s*(.+)$/))) return `Boundary: ${D.get(m[1]) || m[1]}`;
-    if((m=s.match(/^У вас сохранена незавершённая сессия · (\d+)%$/))) return `You have an unfinished Russian questionnaire session · ${m[1]}%`;
-    if((m=s.match(/^Продолжить с (.+)$/))) return `Continue Russian questionnaire from ${m[1]}`;
+    if((m=s.match(/^У вас сохранена незавершённая сессия · (\d+)%$/))) return `You have an unfinished P-120 questionnaire session · ${m[1]}%`;
+    if((m=s.match(/^Продолжить с (.+)$/))) return `Continue P-120 from ${m[1]}`;
     return s;
   }
 
@@ -59,8 +59,8 @@
     const root=p.replace(/\/en\/(?:index\.html)?$/i,'/');
     return root.endsWith('/')?root:root+'/';
   }
-  function russianQuestionnaireRedirect(mode='start'){
-    location.href = repoRootPath() + (mode==='resume' ? '?resume=1' : '?start=1');
+  function englishQuestionnaireRedirect(mode='start'){
+    location.href = repoRootPath() + 'en/system/' + (mode==='resume' ? '?resume=1' : '?start=1');
   }
   function bindAssessmentBoundary(){
     if(document.documentElement.dataset.enAssessmentBoundary==='true') return;
@@ -68,17 +68,20 @@
     document.addEventListener('click',ev=>{
       const el=ev.target.closest?.('button,a'); if(!el) return;
       const txt=(el.textContent||'').replace(/\s+/g,' ').trim();
-      const isResume=/Continue questionnaire · Russian|Continue Russian questionnaire/.test(txt);
-      const isStart=/Take P-120 · Russian questionnaire/.test(txt);
+      const isResume=/Continue questionnaire · Russian|Continue Russian questionnaire|Continue P-120/.test(txt);
+      const isStart=/Take P-120 · Russian questionnaire|Take P-120/.test(txt);
       if(!isResume && !isStart) return;
       ev.preventDefault();ev.stopPropagation();ev.stopImmediatePropagation();
-      russianQuestionnaireRedirect(isResume?'resume':'start');
+      englishQuestionnaireRedirect(isResume?'resume':'start');
     },true);
   }
   function ensureQuestionnaireBoundaryNote(){
     document.querySelectorAll('.editorial-home button,.editorial-home a,.mobile-menu button').forEach(el=>{
       const txt=(el.textContent||'').replace(/\s+/g,' ').trim();
-      if(/Take P-120 · Russian questionnaire/.test(txt)) el.setAttribute('title','The research questionnaire is currently available in Russian.');
+      if(/Take P-120 · Russian questionnaire/.test(txt)) el.textContent='Take P-120';
+      else if(/Continue questionnaire · Russian|Continue Russian questionnaire/.test(txt)) el.textContent='Continue P-120';
+      const normalized=(el.textContent||'').replace(/\s+/g,' ').trim();
+      if(/Take P-120|Continue P-120/.test(normalized)) el.setAttribute('title','Open the English P-120 research questionnaire.');
     });
   }
   function initialHomeGuard(){
