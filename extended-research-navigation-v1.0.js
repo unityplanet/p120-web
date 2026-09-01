@@ -56,13 +56,26 @@
   function reconcileHome(){
     const home=document.querySelector('.editorial-home');
     if(!home) return;
-    /* PASS 2: full legacy Extended narrative leaves the main-page scroll plane. */
-    home.querySelectorAll(`#${SECTION_ID}`).forEach(n=>n.remove());
+    /* PASS 2: keep the legacy node present so the bundled v1 observer does not recreate it,
+       but retire it from the public scroll plane. */
+    home.querySelectorAll(`#${SECTION_ID}`).forEach(n=>{
+      if(!n.hidden)n.hidden=true;
+      if(n.getAttribute('aria-hidden')!=='true')n.setAttribute('aria-hidden','true');
+      if(n.dataset.webExploreLegacy!=='retired')n.dataset.webExploreLegacy='retired';
+    });
     const anchor=findScienceAnchor(home);
     if(!anchor?.parentNode) return;
     let teaser=home.querySelector(`#${TEASER_ID}`);
     if(!teaser){teaser=makeTeaser();anchor.parentNode.insertBefore(teaser,anchor);}
-    teaser.querySelector('[data-open-extended-page]')?.addEventListener('click',()=>route('extended/'),{once:true});
+    else if(teaser.dataset.webExplorePass2!=='true'){
+      const fresh=makeTeaser();teaser.replaceWith(fresh);teaser=fresh;
+    }
+    teaser.dataset.webExplorePass2='true';
+    const open=teaser.querySelector('[data-open-extended-page]');
+    if(open&&open.dataset.webExploreBound!=='true'){
+      open.dataset.webExploreBound='true';
+      open.addEventListener('click',()=>route('extended/'));
+    }
   }
 
   function reconcileExploreMenu(){
@@ -78,17 +91,23 @@
       const note=btn.querySelector('.ecosystem-item-note,small');
       if(note&&note.textContent!=='Dyadic Research Layer · исследование пары') note.textContent='Dyadic Research Layer · исследование пары';
     });
-    /* Remove pre-v2 duplicate navigation affordance: Explore map is the authority. */
-    document.querySelectorAll('[data-extended-research-nav],[data-mobile-jump-extended]').forEach(n=>n.remove());
+    /* Retire pre-v2 duplicate navigation affordances without removing them: the bundled
+       legacy observer otherwise recreates them. Explore map is the route authority. */
+    document.querySelectorAll('[data-extended-research-nav],[data-mobile-jump-extended]').forEach(n=>{
+      if(!n.hidden)n.hidden=true;
+      if(n.getAttribute('aria-hidden')!=='true')n.setAttribute('aria-hidden','true');
+      if(n.tabIndex!==-1)n.tabIndex=-1;
+    });
   }
 
   function intercept(event){
-    const btn=event.target.closest?.('[data-ecosystem-route],[data-ecosystem-mobile]');
+    const btn=event.target.closest?.('[data-ecosystem-route],[data-ecosystem-mobile],[data-chapter-jump="extended"],[data-chapter-mobile="extended"]');
     if(!btn) return;
     const key=btn.dataset.ecosystemRoute||btn.dataset.ecosystemMobile;
-    if(key!=='deeper'&&key!=='together') return;
+    const extendedChapter=btn.dataset.chapterJump==='extended'||btn.dataset.chapterMobile==='extended';
+    if(!extendedChapter&&key!=='deeper'&&key!=='together') return;
     event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();
-    route(key==='deeper'?'extended/':'together/');
+    route((extendedChapter||key==='deeper')?'extended/':'together/');
   }
 
   function run(){timer=0;reconcileHome();reconcileExploreMenu();document.documentElement.dataset.webExplorePass2='ready';}
