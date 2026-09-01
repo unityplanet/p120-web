@@ -1,5 +1,6 @@
 from pathlib import Path
 
+# Shared header contract: keep /creator/ aligned with the production public navigation.
 p = Path('creator/index.html')
 s = p.read_text(encoding='utf-8')
 
