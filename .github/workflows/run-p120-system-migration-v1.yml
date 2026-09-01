@@ -1,0 +1,60 @@
+name: Run P-120 System Migration v1
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/run-p120-system-migration-v1.yml'
+      - '.github/scripts/p120_system_migrate_v1.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply controlled migration
+        run: python .github/scripts/p120_system_migrate_v1.py
+
+      - name: Static syntax and route QA
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          for page,label in [('index.html','root'),('system/index.html','system')]:
+              text=Path(page).read_text(encoding='utf-8')
+              paths=[]
+              for i,m in enumerate(re.finditer(r'<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>',text,re.S),1):
+                  p=Path('/tmp')/f'{label}_{i}.js'
+                  p.write_text(m.group(1),encoding='utf-8')
+                  paths.append(str(p))
+              Path(f'/tmp/{label}_scripts.txt').write_text('\n'.join(paths),encoding='utf-8')
+          PY
+          while IFS= read -r f; do [ -z "$f" ] || node --check "$f"; done < /tmp/root_scripts.txt
+          while IFS= read -r f; do [ -z "$f" ] || node --check "$f"; done < /tmp/system_scripts.txt
+          grep -q 'href="system/"' index.html
+          grep -q 'data-p120-page="system"' system/index.html
+          grep -q 'p120-system-route-bootstrap-v1' system/index.html
+          ! grep -q 'P120 EXTENDED RESEARCH SET:START' system/index.html
+          echo 'Static migration QA: PASS'
+
+      - name: Commit migration
+        shell: bash
+        run: |
+          if git diff --quiet -- index.html system/index.html P120_WEB_SYSTEM_MIGRATION_v1.0.md CHANGELOG.md; then
+            echo 'Migration already applied.'
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add index.html system/index.html P120_WEB_SYSTEM_MIGRATION_v1.0.md CHANGELOG.md
+            git commit -m 'Migrate frozen P-120 runtime to System page'
+            git push
+          fi
