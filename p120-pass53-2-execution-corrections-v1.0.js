@@ -5,12 +5,14 @@
   'use strict';
 
   const scriptUrl=document.currentScript?.src||document.baseURI;
-  const path=location.pathname.replace(/index\.html$/i,'');
-  const isMain=/^(?:\/|\/en\/)$/.test(path);
+  const scriptPath=new URL(scriptUrl,document.baseURI).pathname;
+  const rootPath=scriptPath.replace(/[^/]*$/,'');
+  const pagePath=location.pathname.replace(/index\.html$/i,'');
+  const isMain=pagePath===rootPath||pagePath===`${rootPath}en/`;
   if(!isMain || window.P120_PASS532?.ready) return;
 
   const html=document.documentElement;
-  const isEn=(html.lang||'').toLowerCase().startsWith('en')||/\/en\//i.test(location.pathname);
+  const isEn=(html.lang||'').toLowerCase().startsWith('en')||pagePath===`${rootPath}en/`;
   const THEME_KEY='p120_web_theme_v16';
   const labels=isEn
     ?{ivory:'Ivory',graphite:'Graphite',museum:'Museum'}
@@ -102,9 +104,7 @@
       }
     });
     document.addEventListener('click',event=>{
-      if(!event.target.closest?.('.header-theme-menu')){
-        html.classList.remove('p120-main-theme-menu-open');
-      }
+      if(!event.target.closest?.('.header-theme-menu')) html.classList.remove('p120-main-theme-menu-open');
     },true);
   }
 
