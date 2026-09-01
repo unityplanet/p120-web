@@ -1,0 +1,71 @@
+name: P-120 System State Reconciliation v1
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p120-system-state-reconciliation-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconcile route state boundary
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          root=Path('index.html').read_text(encoding='utf-8')
+          p=Path('system/index.html')
+          system=p.read_text(encoding='utf-8')
+          guard="if(['preflight','test','transition','results'].includes(state.screen)) state.screen='home';\n"
+
+          if guard not in root:
+              raise SystemExit('Root editorial state guard is missing')
+          count=system.count(guard)
+          if count != 1:
+              raise SystemExit(f'Expected exactly one inherited root state guard in System, found {count}')
+          system=system.replace(guard,'',1)
+          if guard in system:
+              raise SystemExit('System still contains editorial state guard')
+          if "s.screen=finished?'results':answered>0?'test':'preflight';" not in system:
+              raise SystemExit('System route bootstrap is missing')
+          if "const KEY='p120_web_prototype_v01';" not in system:
+              raise SystemExit('System storage continuity key is missing')
+          p.write_text(system,encoding='utf-8')
+          print('System route state reconciliation: PASS')
+          PY
+
+      - name: Verify frozen boundary
+        shell: bash
+        run: |
+          grep -q 'Frozen instrument parity: \*\*PASS\*\*' P120_WEB_SYSTEM_MIGRATION_v1.0.md
+          grep -q 'Assessment runtime parity: \*\*PASS\*\*' P120_WEB_SYSTEM_MIGRATION_v1.0.md
+          grep -q 'Item count / uniqueness: \*\*180 / 180 — PASS\*\*' P120_WEB_SYSTEM_MIGRATION_v1.0.md
+          grep -q 'data-p120-page="system"' system/index.html
+          grep -q "s.screen=finished?'results':answered>0?'test':'preflight';" system/index.html
+          ! grep -Fq "if(['preflight','test','transition','results'].includes(state.screen)) state.screen='home';" system/index.html
+          echo 'System state QA: PASS'
+
+      - name: Commit reconciliation
+        shell: bash
+        run: |
+          if git diff --quiet -- system/index.html; then
+            echo 'State boundary already reconciled.'
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add system/index.html
+            git commit -m 'Fix System runtime route state after migration'
+            git push
+          fi
