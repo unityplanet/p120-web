@@ -32,13 +32,13 @@
     .creator-topbar__inner{width:min(1680px,100%);min-height:74px;margin:auto;padding:11px clamp(18px,2.7vw,46px);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px}
     .creator-brand{display:flex;align-items:center;gap:12px;text-decoration:none}.creator-mark{width:40px;height:40px;border-radius:50%;position:relative;border:1px solid var(--line-strong)}.creator-mark:before{content:"";position:absolute;inset:6px;border:2px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:50%}.creator-mark:after{content:"";position:absolute;width:12px;height:12px;border-radius:50%;right:3px;top:4px;background:var(--accent)}
     .creator-lockup{display:grid;gap:2px}.creator-lockup strong{font-family:"Noto Serif",Georgia,serif;font-size:27px;line-height:1}.creator-lockup span{font-size:9px;font-weight:800;letter-spacing:.17em;text-transform:uppercase;color:var(--muted)}
-    .creator-nav{justify-self:center;display:flex;align-items:center;gap:2px;border:1px solid var(--line);border-radius:999px;padding:3px}.creator-nav a{padding:9px 12px;border-radius:999px;text-decoration:none;font-size:12px;font-weight:700;color:var(--muted)}.creator-nav a:hover,.creator-nav a:focus-visible{background:color-mix(in srgb,var(--card) 78%,transparent);color:var(--ink);outline:none}
+    .creator-nav{justify-self:center;display:flex;align-items:center;gap:4px;max-width:100%;border:1px solid var(--line-strong);border-radius:999px;padding:5px;background:color-mix(in srgb,var(--card) 46%,transparent);box-shadow:inset 0 1px 0 color-mix(in srgb,var(--card) 80%,transparent)}.creator-nav a{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:9px 13px;border-radius:999px;text-decoration:none;white-space:nowrap;font-size:12px;font-weight:720;color:var(--muted);transition:background .16s ease,color .16s ease,box-shadow .16s ease,transform .16s ease}.creator-nav a:hover,.creator-nav a:focus-visible{background:color-mix(in srgb,var(--card) 88%,var(--soft));color:var(--ink);box-shadow:0 4px 14px color-mix(in srgb,var(--ink) 8%,transparent);outline:none}.creator-nav a:active{transform:translateY(1px)}.creator-nav .creator-explore{gap:7px}.creator-nav .creator-explore:after{content:"";width:6px;height:6px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg) translateY(-2px);opacity:.58}
     .creator-tools{display:flex;align-items:center;gap:7px}.creator-theme{appearance:none;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 78%,transparent);color:var(--muted);border-radius:999px;padding:7px 10px;font:700 10px/1 Inter,sans-serif;cursor:pointer}.creator-theme[aria-pressed='true']{color:var(--ink);border-color:var(--line-strong)}
     .creator-context{width:min(1680px,100%);margin:auto;padding:20px clamp(18px,2.7vw,46px) 0;display:flex;justify-content:space-between;gap:20px;align-items:center}.creator-context p{margin:0;font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}.creator-context a{font-size:12px;text-decoration:none;border-bottom:1px solid var(--line-strong);padding-bottom:3px}
     .editorial-home{display:block}.founder-story{margin-top:24px}
     .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
-    @media(max-width:920px){.creator-topbar__inner{grid-template-columns:auto 1fr}.creator-nav{grid-column:1/-1;justify-self:start;max-width:100%;overflow:auto}.creator-tools{justify-self:end}.creator-lockup span{display:none}}
-    @media(max-width:620px){.creator-topbar__inner{gap:10px}.creator-mark{display:none}.creator-lockup strong{font-size:24px}.creator-tools .creator-theme:not([aria-pressed='true']){display:none}.creator-nav{border:0;padding:0}.creator-nav a{font-size:11px;padding:8px}.creator-context{padding-top:14px}.creator-context p{font-size:9px}}
+    @media(max-width:1280px){.creator-topbar__inner{grid-template-columns:auto 1fr}.creator-nav{grid-column:1/-1;justify-self:start;width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none}.creator-nav::-webkit-scrollbar{display:none}.creator-tools{justify-self:end}.creator-lockup span{display:none}}
+    @media(max-width:620px){.creator-topbar__inner{gap:10px}.creator-mark{display:none}.creator-lockup strong{font-size:24px}.creator-tools .creator-theme:not([aria-pressed='true']){display:none}.creator-nav{width:100%;border:1px solid var(--line-strong);padding:4px}.creator-nav a{min-height:36px;font-size:11px;padding:8px 11px}.creator-context{padding-top:14px}.creator-context p{font-size:9px}}
   </style>
 </head>
 <body data-theme="museum">
@@ -50,10 +50,13 @@
         <span class="creator-lockup"><strong>P-120</strong><span>исследовательская архитектура</span></span>
       </a>
       <nav class="creator-nav" aria-label="Основная навигация">
-        <a href="../">О P-120</a>
-        <a href="../#why-p120">Почему P-120?</a>
+        <a href="../#why-important">О P-120</a>
+        <a href="../why-p120/">Почему P-120?</a>
+        <a href="../#why-p120">Уникальность</a>
+        <a href="../#what-p120-shows">Что покажет</a>
+        <a href="../#showcase">Отчёт</a>
         <a href="../#science-foundation">Научная база</a>
-        <a href="../?start=1">Исследовать</a>
+        <a class="creator-explore" href="../?start=1">Исследовать</a>
       </nav>
       <div class="creator-tools" aria-label="Тема оформления">
         <button class="creator-theme" type="button" data-set-theme="ivory" aria-pressed="false">Ivory</button>
@@ -87,7 +90,7 @@
         e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
         const route=b.dataset.founderRoute;
         if(route==='science')location.href='../#science-foundation';
-        else if(route==='why')location.href='../#why-p120';
+        else if(route==='why')location.href='../why-p120/';
         else if(route==='self')location.href='../?start=1';
       },true);
     })();
