@@ -97,12 +97,12 @@
 
   function themeLabel(t){return t==='ivory'?copy.light:t==='graphite'?copy.graphite:copy.museum;}
   function loadTheme(){
-    try{const t=localStorage.getItem(THEME_KEY);return THEMES.includes(t)?t:'museum';}catch(_){return 'museum';}
+    try{const t=localStorage.getItem(THEME_KEY);return THEMES.includes(t)?t:'ivory';}catch(_){return 'ivory';}
   }
   let currentTheme=loadTheme();
 
   function applyTheme(next,{persist=true}={}){
-    currentTheme=THEMES.includes(next)?next:'museum';
+    currentTheme=THEMES.includes(next)?next:'ivory';
     if(document.body) document.body.dataset.theme=currentTheme;
     html.style.colorScheme=currentTheme==='graphite'?'dark':'light';
     if(persist){try{localStorage.setItem(THEME_KEY,currentTheme);}catch(_){}}
@@ -126,7 +126,9 @@
     const tpl=document.createElement('template'); tpl.innerHTML=toolsMarkup();
     const tools=tpl.content.firstElementChild;
     const anchor=inner.querySelector('.explore-menu-btn,.creator-tools,.wp-header-tools');
-    if(anchor) inner.insertBefore(tools,anchor); else inner.appendChild(tools);
+    if(anchor?.classList.contains('wp-header-tools')) anchor.prepend(tools);
+    else if(anchor) inner.insertBefore(tools,anchor);
+    else inner.appendChild(tools);
     tools.querySelectorAll('[data-p120-theme]').forEach(btn=>btn.addEventListener('click',e=>{
       e.preventDefault(); applyTheme(btn.dataset.p120Theme); tools.querySelector('.p120-brand53-theme')?.removeAttribute('open');
     }));
