@@ -1,0 +1,120 @@
+name: Restore Scientific Base Visual Parity v1
+on:
+  push:
+    paths:
+      - '.github/workflows/restore-science-visual-parity-v1.yml'
+permissions:
+  contents: write
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rebuild dedicated pages from current Science renderer
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          STYLE='''<style id="p120-dedicated-science-route-v1">
+          .p120-dedicated-science-lang{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.42);flex:0 0 auto}
+          .p120-dedicated-science-lang a{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:25px;padding:0 7px;border-radius:999px;text-decoration:none;font:800 9px/1 "IBM Plex Sans",system-ui,sans-serif;letter-spacing:.06em;color:var(--muted)}
+          .p120-dedicated-science-lang a[aria-current="page"]{background:var(--ink);color:var(--card)}
+          body[data-theme='graphite'] .p120-dedicated-science-lang,body[data-theme='museum'] .p120-dedicated-science-lang{background:rgba(255,255,255,.04)}
+          @media(max-width:720px){.p120-dedicated-science-lang{margin-left:auto}.p120-dedicated-science-lang a{min-width:28px}.topbar-tools .badge.desktop-only{display:none!important}}
+          </style>'''
+
+          BOOT='''<script id="p120-dedicated-science-bootstrap-v1">
+          (()=>{
+            'use strict';
+            const isEn=(document.documentElement.lang||'').toLowerCase().startsWith('en');
+            const path=location.pathname;
+            const basePath=path.replace(/(?:en\/)?science\/?$/i,'');
+            const home=()=>`${location.origin}${basePath}${isEn?'en/':''}`;
+            const route=(en)=>`${location.origin}${basePath}${en?'en/science/':'science/'}`;
+            function switcher(){
+              const tools=document.querySelector('.topbar-tools');
+              if(!tools||tools.querySelector('.p120-dedicated-science-lang'))return;
+              const nav=document.createElement('nav');nav.className='p120-dedicated-science-lang';nav.setAttribute('aria-label',isEn?'Language':'Язык');
+              nav.innerHTML=`<a href="${route(false)}" lang="ru" ${!isEn?'aria-current="page"':''}>RU</a><a href="${route(true)}" lang="en" ${isEn?'aria-current="page"':''}>EN</a>`;
+              tools.prepend(nav);
+            }
+            function enter(attempt=0){
+              if(document.querySelector('.science-page')){switcher();document.title=isEn?'Scientific Base — P-120':'Научная база — P-120';return;}
+              const trigger=document.querySelector('.topnav [data-science],button[data-science],.science-navlink[data-science]');
+              if(trigger){trigger.click();setTimeout(()=>{switcher();document.title=isEn?'Scientific Base — P-120':'Научная база — P-120';},30);return;}
+              if(attempt<80)setTimeout(()=>enter(attempt+1),40);
+            }
+            document.addEventListener('click',e=>{
+              const homeEl=e.target.closest?.('[data-home],.brand-button');
+              if(homeEl){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();location.href=home();return;}
+              const nav=e.target.closest?.('[data-nav]');
+              if(nav){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();location.href=`${home()}#${nav.dataset.nav}`;return;}
+              const why=e.target.closest?.('[data-why-origin]');
+              if(why){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();location.href=`${home()}why-p120/`;return;}
+              const science=e.target.closest?.('[data-science],[data-mobile-jump-science]');
+              if(science&&document.querySelector('.science-page')){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();document.getElementById('science-top')?.scrollIntoView({behavior:'smooth'});}
+            },true);
+            const mo=new MutationObserver(()=>switcher());
+            if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{mo.observe(document.body,{subtree:true,childList:true});enter();},{once:true});
+            else{mo.observe(document.body,{subtree:true,childList:true});enter();}
+          })();
+          </script>'''
+
+          def build(src,dst):
+            text=Path(src).read_text(encoding='utf-8')
+            # Keep source document and renderer exactly; only change resource base + route owner.
+            if '<base href="../">' not in text:
+              text=text.replace('<head>','<head>\n  <base href="../">',1)
+            text=re.sub(r'<script[^>]+src=["\'][^"\']*science-navigation-reconciliation-v1\.0\.js[^"\']*["\'][^>]*></script>','',text,flags=re.I)
+            text=text.replace('</head>',STYLE+'\n</head>',1)
+            text=text.replace('</body>',BOOT+'\n</body>',1)
+            Path(dst).parent.mkdir(parents=True,exist_ok=True)
+            Path(dst).write_text(text,encoding='utf-8')
+
+          build('index.html','science/index.html')
+          build('en/index.html','en/science/index.html')
+          PY
+      - name: Static parity checks
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          for p,lang in [('science/index.html','ru'),('en/science/index.html','en')]:
+            t=Path(p).read_text(encoding='utf-8')
+            assert f'<html lang="{lang}">' in t
+            assert 'function renderScience()' in t
+            assert 'science-hero' in t and 'science-doc-card' in t and 'science-subnav' in t
+            assert 'p120-dedicated-science-bootstrap-v1' in t
+            assert 'p120-dedicated-science-lang' in t
+            assert 'science-navigation-reconciliation-v1.0.js' not in t
+          print('STATIC PARITY PASS')
+          PY
+      - name: Browser visual-contract QA
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-science-parity-http.log 2>&1 & sleep 2
+          cat > qa-science-parity.mjs <<'JS'
+          import {chromium} from 'playwright';
+          const b=await chromium.launch({headless:true});const bad=[];const ok=(v,m)=>{console.log(`${v?'PASS':'FAIL'} ${m}`);if(!v)bad.push(m)};
+          async function check(path,lang,title,pdfTail){
+            const p=await b.newPage({viewport:{width:1920,height:1080}});await p.goto('http://127.0.0.1:4173'+path,{waitUntil:'networkidle'});await p.waitForSelector('.science-page',{timeout:8000});await p.waitForTimeout(500);
+            ok(new URL(p.url()).pathname===path,`${lang} stays on dedicated URL`);ok((await p.locator('h1').first().innerText()).includes(title),`${lang} original Science H1`);ok(await p.locator('.science-doc-card').count()===1,`${lang} academic document card`);ok(await p.locator('.science-metrics').count()===1,`${lang} metrics row`);ok(await p.locator('.science-subnav').count()===1,`${lang} scientific subnav`);ok(await p.locator('.p120-dedicated-science-lang').isVisible(),`${lang} RU/EN visible`);
+            const pdf=await p.locator('a[href*="scientific-concept-paper"]').first().getAttribute('href');ok(!!pdf&&pdf.includes(pdfTail),`${lang} locale scientific PDF`);
+            await p.close();
+          }
+          await check('/science/','ru','Научная база P-120','p120-scientific-concept-paper-v1.2.pdf');
+          await check('/en/science/','en','Scientific Base','p120-scientific-concept-paper-en-v1.2.pdf');
+          const p=await b.newPage({viewport:{width:1440,height:900}});await p.goto('http://127.0.0.1:4173/science/',{waitUntil:'networkidle'});await p.waitForSelector('.science-page');await p.locator('.p120-dedicated-science-lang a[lang="en"]').click();await p.waitForURL(u=>u.pathname==='/en/science/');ok(new URL(p.url()).pathname==='/en/science/','RU -> EN keeps dedicated Science route');await p.close();
+          await b.close();if(bad.length){console.error(bad.join('\n'));process.exit(1)}
+          JS
+          node qa-science-parity.mjs
+      - name: Commit visual parity restoration
+        run: |
+          git config user.name "p120-release-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add science/index.html en/science/index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "SCIENCE: restore original Scientific Base design on dedicated routes"
+          git push
