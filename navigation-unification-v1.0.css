@@ -1,0 +1,46 @@
+/* P-120 Navigation Unification v1.0 — main-page mega menu stability patch.
+   Presentation only. Keeps Navigation Architecture v2 mechanics intact. */
+
+@media(min-width:1081px){
+  .ecosystem-panel-v2{
+    right:-8px;
+    width:min(680px,calc(100vw - 48px));
+    padding:16px;
+    border-radius:22px;
+    transform-origin:92% 0;
+  }
+  .ecosystem-panel-head{padding:3px 6px 12px;min-height:45px}
+  .ecosystem-panel-head strong{
+    font-family:"Noto Serif Display","Noto Serif",serif;
+    font-size:21px;font-weight:500;line-height:1.05;letter-spacing:-.022em;
+  }
+  .ecosystem-panel-head span{font-size:9px;letter-spacing:.15em}
+  .ecosystem-grid-v2{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding-top:12px}
+  .ecosystem-column-v2{gap:8px;min-width:0}
+  .ecosystem-column-label{padding:3px 8px 1px;margin:0;font-size:9px;min-height:17px}
+  .ecosystem-item-v2{
+    min-height:74px;padding:13px 14px;border-color:var(--ecosystem-border);
+    background:color-mix(in srgb,var(--ecosystem-panel-bg) 78%,var(--ecosystem-soft));
+    border-radius:15px;align-items:center;
+  }
+  .ecosystem-item-title{font-size:13px;line-height:1.22}
+  .ecosystem-item-note{font-size:10px;line-height:1.35;min-height:2.7em;margin-top:5px}
+
+  /* Both new Explore destinations are now live. The legacy runtime still removes
+     its former reserved flags; suppressing that obsolete visual state from the
+     first paint prevents the post-load card shift reported in desktop review. */
+  .ecosystem-item-status{display:none!important}
+  .ecosystem-item-v2[aria-disabled="true"]{opacity:1;cursor:pointer}
+  .ecosystem-item-v2[aria-disabled="true"] .ecosystem-item-title:after{display:none!important}
+}
+
+@media(min-width:3200px){
+  .ecosystem-panel-v2{width:880px;padding:20px;border-radius:28px}
+  .ecosystem-panel-head{min-height:58px;padding:5px 8px 16px}
+  .ecosystem-panel-head strong{font-size:27px}
+  .ecosystem-panel-head span,.ecosystem-column-label{font-size:12px}
+  .ecosystem-grid-v2{gap:16px;padding-top:16px}
+  .ecosystem-column-v2{gap:11px}
+  .ecosystem-item-v2{min-height:98px;padding:17px 18px;border-radius:19px}
+  .ecosystem-item-title{font-size:17px}.ecosystem-item-note{font-size:13px}
+}
