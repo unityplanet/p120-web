@@ -1,0 +1,45 @@
+name: Founder Marginal Voice v1 QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'creator/index.html'
+      - 'founder-marginal-voice-v1.0.css'
+      - 'founder-marginal-voice-v1.0.js'
+      - 'founder-editorial-story-v1.0.css'
+      - 'founder-editorial-story-v1.0.js'
+      - 'founder-visual-objects-v1.0.css'
+      - 'founder-visual-objects-v1.0.js'
+      - 'qa/founder_marginal_voice_v1.mjs'
+      - '.github/workflows/qa-founder-marginal-voice-v1.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  visual-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser QA runtime
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Run local site
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/p120-founder-marginal-voice.log 2>&1 &
+          sleep 2
+          curl --fail --silent http://127.0.0.1:8765/creator/ >/dev/null
+      - name: Run three-role typography regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:8765/
+        run: node qa/founder_marginal_voice_v1.mjs
+      - name: Upload visual evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120-FOUNDER-MARGINAL-VOICE-V1-EVIDENCE
+          path: qa-artifacts/founder-marginal-voice-v1/
+          retention-days: 30
