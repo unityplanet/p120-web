@@ -1,0 +1,40 @@
+name: Founder Distance Field v1.1 QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'founder-distance-field-v1.1.css'
+      - 'creator/index.html'
+      - 'en/creator/index.html'
+      - 'qa/founder_distance_field_v11.mjs'
+      - '.github/workflows/qa-founder-distance-field-v11.yml'
+  workflow_dispatch:
+
+jobs:
+  visual-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser QA runtime
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Run local site
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/p120-founder-distance-v11.log 2>&1 &
+          sleep 2
+          curl --fail --silent http://127.0.0.1:8765/creator/ >/dev/null
+          curl --fail --silent http://127.0.0.1:8765/en/creator/ >/dev/null
+      - name: Run distance-field regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:8765/
+        run: node qa/founder_distance_field_v11.mjs
+      - name: Upload visual evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120-FOUNDER-DISTANCE-FIELD-V11-EVIDENCE
+          path: qa-artifacts/founder-distance-field-v11
+          if-no-files-found: error
+          retention-days: 30
