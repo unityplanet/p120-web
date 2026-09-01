@@ -1,4 +1,4 @@
-/* P-120 Web Editorial — Chapter Navigation v1.3
+/* P-120 Web Editorial — Chapter Navigation v1.4
    Presentation/navigation only. No measurement, scoring, questionnaire or report-engine changes. */
 (() => {
   'use strict';
@@ -28,6 +28,8 @@
   }
   function homeRoot(){ return document.querySelector('.editorial-home'); }
   function targetElement(chapter){ return document.getElementById(chapter.target); }
+  function scrollRoot(){ return document.scrollingElement||document.documentElement; }
+  function setScrollTop(value){ scrollRoot().scrollTop=Math.max(0,value); }
   function topOffset(){
     const topbar=document.querySelector('.topbar');
     const height=Math.max(58,Math.round(topbar?.getBoundingClientRect().height||70));
@@ -44,31 +46,30 @@
   function smoothScroll(target){
     if(!target||!target.isConnected) return;
     if(scrollFrame){cancelAnimationFrame(scrollFrame);scrollFrame=0;}
-    const start=window.scrollY;
+    const root=scrollRoot();
+    const start=root.scrollTop;
     const destination=Math.max(0,start+target.getBoundingClientRect().top-scrollOffset());
     const delta=destination-start;
     if(reducedMotion()||Math.abs(delta)<2){
-      window.scrollTo(0,destination);
+      setScrollTop(destination);
       updateFromScroll();
       return;
     }
-    /* Use the same deterministic RAF model as the canonical main-page anchor
-       system. Native behavior:'smooth' proved unreliable for the long Chapter 04
-       jump after the dynamic Extended teaser is inserted. */
+    /* The root document declares scroll-behavior:smooth. Driving window.scrollTo()
+       from every animation frame can therefore keep re-targeting the browser's own
+       smooth-scroll animation on a long jump. Write scrollingElement.scrollTop
+       directly so our single deterministic RAF animation owns the motion. */
     const duration=Math.min(760,Math.max(360,Math.abs(delta)*.42));
     const t0=performance.now();
     const step=now=>{
       const p=Math.min(1,(now-t0)/duration);
-      window.scrollTo(0,start+delta*easeInOutCubic(p));
+      setScrollTop(start+delta*easeInOutCubic(p));
       if(p<1){scrollFrame=requestAnimationFrame(step);return;}
       scrollFrame=0;
-      /* Re-resolve the target after the animation in case editorial reconciliation
-         changed its exact flow position while scrolling, then apply a small final
-         correction so the chapter lands below both fixed navigation planes. */
       const live=document.getElementById(target.id);
       if(live&&live.isConnected){
         const correction=live.getBoundingClientRect().top-scrollOffset();
-        if(Math.abs(correction)>2) window.scrollBy(0,correction);
+        if(Math.abs(correction)>2)setScrollTop(scrollRoot().scrollTop+correction);
       }
       updateFromScroll();
     };
@@ -129,7 +130,7 @@
   }
   function sectionPositions(){
     const offset=topOffset()+(window.innerWidth>=DESKTOP_MIN?76:20);
-    return chapters.map(ch=>{const el=targetElement(ch);if(!el)return null;return{chapter:ch,top:window.scrollY+el.getBoundingClientRect().top-offset};}).filter(Boolean).sort((a,b)=>a.top-b.top);
+    return chapters.map(ch=>{const el=targetElement(ch);if(!el)return null;return{chapter:ch,top=window.scrollY+el.getBoundingClientRect().top-offset};}).filter(Boolean).sort((a,b)=>a.top-b.top);
   }
   function setActive(id){
     activeId=id||chapters[0].id;
