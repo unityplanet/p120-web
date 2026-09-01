@@ -61,7 +61,7 @@ jobs:
       - name: Commit source package
         shell: bash
         run: |
-          if git diff --quiet -- localization; then
+          if [ -z "$(git status --porcelain -- localization)" ]; then
             echo 'Localization source already current.'
           else
             git config user.name 'github-actions[bot]'
