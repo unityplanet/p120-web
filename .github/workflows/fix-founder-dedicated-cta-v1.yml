@@ -1,81 +1,22 @@
-name: Fix Founder Dedicated CTA v1
+name: Fix Founder Dedicated CTA v1 (Historical)
 
+# Temporary PASS 4 corrective workflow. CTA destinations are now part of the
+# controlled dedicated-page baseline and are regression-tested by PASS 6.
+# Retained as a manual historical utility only; no automatic pushes.
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/fix-founder-dedicated-cta-v1.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  patch:
+  historical-notice:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Patch dedicated-page Founder CTA destinations
-        shell: python
-        run: |
-          from pathlib import Path
-          p=Path('founder-editorial-story-v1.0.js')
-          s=p.read_text(encoding='utf-8')
-          old="""        const route=btn.dataset.founderRoute;
-        if(route==='science'){
-          if(activateExistingHook('[data-science]'))return;
-          location.hash='science-top';
-        } else if(route==='why'){
-          if(activateExistingHook('[data-why-origin]'))return;
-          location.href='why-p120/';
-        } else if(route==='self'){
-          if(activateExistingHook('[data-mobile-start]'))return;
-          const preflight=document.querySelector('.preflight');
-          preflight?.scrollIntoView({block:'start'});
-        }
-"""
-          new="""        const route=btn.dataset.founderRoute;
-        const dedicated=/\\/creator\\/(?:index\\.html)?$/i.test(location.pathname);
-        if(dedicated){
-          const destination=route==='science'?'../#science-foundation':route==='why'?'../why-p120/':'../?start=1';
-          location.href=new URL(destination,location.href).href;
-          return;
-        }
-        if(route==='science'){
-          if(activateExistingHook('[data-science]'))return;
-          location.hash='science-foundation';
-        } else if(route==='why'){
-          if(activateExistingHook('[data-why-origin]'))return;
-          location.href='why-p120/';
-        } else if(route==='self'){
-          if(activateExistingHook('[data-mobile-start]'))return;
-          location.search='?start=1';
-        }
-"""
-          if old not in s:
-              if "const dedicated=/\\/creator\\/" in s:
-                  print('Dedicated CTA patch already present.')
-              else:
-                  raise SystemExit('Expected Founder CTA block not found; refusing blind patch')
-          else:
-              p.write_text(s.replace(old,new,1),encoding='utf-8')
-
-      - name: Syntax/static gates
+      - name: Verify current CTA syntax
         run: |
           set -euo pipefail
           node --check founder-editorial-story-v1.0.js
           python qa/check_founder_separate_page.py
-
-      - name: Commit CTA correction
-        shell: bash
-        run: |
-          set -euo pipefail
-          if git diff --quiet; then exit 0; fi
-          git config user.name 'P-120 Release Bot'
-          git config user.email 'actions@users.noreply.github.com'
-          git add founder-editorial-story-v1.0.js
-          git commit -m 'fix: bind Founder dedicated-page CTAs'
-          git push
+          echo 'Historical CTA correction workflow. Current release gate: FOUNDER-WEB PASS 6.'
