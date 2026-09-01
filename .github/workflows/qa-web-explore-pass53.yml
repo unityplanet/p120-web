@@ -11,6 +11,8 @@ on:
       - 'p120-pass53-2-execution-corrections-v1.0.js'
       - 'chapter-navigation-v1.0.js'
       - 'extended-research-navigation-v1.0.js'
+      - 'extended-chapter-navigation-reconciliation-v1.0.js'
+      - 'science-navigation-reconciliation-v1.0.js'
       - 'founder-route-v1.1.js'
       - 'explore-system-v1.0.js'
       - 'p120-legal-runtime-v1.0.js'
@@ -41,16 +43,23 @@ jobs:
           test -f p120-pass53-2-execution-corrections-v1.0.js
           test -f chapter-navigation-v1.0.js
           test -f extended-research-navigation-v1.0.js
+          test -f extended-chapter-navigation-reconciliation-v1.0.js
+          test -f science-navigation-reconciliation-v1.0.js
           test -f qa/pass53_1_visual_corrections.mjs
           test -f qa/pass53_2_main_execution_corrections.mjs
           node --check chapter-navigation-v1.0.js
           node --check extended-research-navigation-v1.0.js
+          node --check extended-chapter-navigation-reconciliation-v1.0.js
+          node --check science-navigation-reconciliation-v1.0.js
           grep -q "P120_BRAND_SYSTEM" founder-route-v1.1.js
           grep -q "P120_PASS532" founder-route-v1.1.js
           grep -q "p120_web_theme_v16" p120-pass53-2-execution-corrections-v1.0.js
           grep -q "chapter-nav-visible" p120-pass53-2-execution-corrections-v1.0.css
           grep -q "extended-research-entry" chapter-navigation-v1.0.js
           grep -q "Do not intercept chapter-jump controls" extended-research-navigation-v1.0.js
+          grep -q "extended-research-entry" extended-chapter-navigation-reconciliation-v1.0.js
+          grep -q 'data-chapter-jump="extended"' extended-chapter-navigation-reconciliation-v1.0.js
+          grep -q "extended-chapter-navigation-reconciliation-v1.0.js" science-navigation-reconciliation-v1.0.js
           grep -q "P120_BRAND_SYSTEM" explore-system-v1.0.js
           grep -q "P120_BRAND_SYSTEM" p120-legal-runtime-v1.0.js
           grep -q "p120_web_theme_v16" p120-brand-system-v1.0.js
