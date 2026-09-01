@@ -36,6 +36,53 @@ jobs:
       - name: Apply bilingual UI corrections
         run: python3 .github/scripts/fix_why_p120_bilingual_ui.py
 
+      - name: Install durable integration hooks
+        shell: python
+        run: |
+          from pathlib import Path
+
+          # Why P-120 production integration must always finish with the
+          # bilingual alignment pass after rebuilding the semantic object.
+          p = Path('.github/workflows/integrate-why-p120-production.yml')
+          s = p.read_text(encoding='utf-8')
+          trigger = "      - '.github/scripts/apply_why_p120_act2_semantic.py'"
+          extra_trigger = "      - '.github/scripts/fix_why_p120_bilingual_ui.py'"
+          if extra_trigger not in s:
+              if trigger not in s:
+                  raise SystemExit('Why integration trigger anchor not found')
+              s = s.replace(trigger, trigger + '\n' + extra_trigger, 1)
+          step = """      - name: Apply bilingual UI alignment fix
+        run: python3 .github/scripts/fix_why_p120_bilingual_ui.py
+
+"""
+          marker = '      - name: Convert static Brand Origin teaser to scroll interstitial\n'
+          if 'name: Apply bilingual UI alignment fix' not in s:
+              if marker not in s:
+                  raise SystemExit('Why integration step anchor not found')
+              s = s.replace(marker, step + marker, 1)
+          p.write_text(s, encoding='utf-8')
+
+          # The RU→EN public-site rebuild can regenerate en/index.html from the
+          # Russian source. Apply the same alignment pass immediately after that
+          # generation and before JS/static checks.
+          p = Path('.github/workflows/integrate-bilingual-public-site-v1.yml')
+          s = p.read_text(encoding='utf-8')
+          nav_trigger = "      - 'navigation-architecture-v2.js'"
+          if extra_trigger not in s:
+              if nav_trigger not in s:
+                  raise SystemExit('Bilingual build trigger anchor not found')
+              s = s.replace(nav_trigger, nav_trigger + '\n' + extra_trigger, 1)
+          step = """      - name: Apply Why P-120 bilingual UI alignment
+        run: python3 .github/scripts/fix_why_p120_bilingual_ui.py
+"""
+          marker = '      - name: Check generated runtime and localization scripts\n'
+          if 'name: Apply Why P-120 bilingual UI alignment' not in s:
+              if marker not in s:
+                  raise SystemExit('Bilingual build step anchor not found')
+              s = s.replace(marker, step + marker, 1)
+          p.write_text(s, encoding='utf-8')
+          print('Durable Why P-120 bilingual hooks: PASS')
+
       - name: Static acceptance gates
         shell: bash
         run: |
@@ -46,6 +93,8 @@ jobs:
           grep -q 'data-why-origin>Why P-120?</button>' en/index.html
           grep -q 'data-nav="why-p120">What makes it different</button>' en/index.html
           grep -q 'Six directions of meaning.' en/why-p120/index.html
+          grep -q 'Apply bilingual UI alignment fix' .github/workflows/integrate-why-p120-production.yml
+          grep -q 'Apply Why P-120 bilingual UI alignment' .github/workflows/integrate-bilingual-public-site-v1.yml
 
       - name: Commit corrected public UI
         shell: bash
@@ -57,8 +106,8 @@ jobs:
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add why-p120/index.html en/why-p120/index.html en/index.html
-          git commit -m 'Fix Why P-120 bilingual UI alignment'
+          git add why-p120/index.html en/why-p120/index.html en/index.html .github/workflows/integrate-why-p120-production.yml .github/workflows/integrate-bilingual-public-site-v1.yml
+          git commit -m 'Persist Why P-120 bilingual UI alignment'
           for i in 1 2 3; do
             git fetch origin main
             if git rebase origin/main && git push origin HEAD:main; then
