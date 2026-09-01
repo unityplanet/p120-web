@@ -17,7 +17,7 @@
   <meta name="twitter:title" content="P-120 — architecture of attraction and intimacy" />
   <meta name="twitter:description" content="Research Candidate · 18+ · multilayer research architecture." />
   <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.bunny.net/css?family=ibm-plex-mono:300,400,500|ibm-plex-sans:300,400,500,600,700|noto-serif:400,500,600,700|noto-serif-display:500,600,700|prata:400|prata:400&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" as="style" href="https://fonts.bunny.net/css?family=ibm-plex-mono:300,400,500|ibm-plex-sans:300,400,500,600,700|noto-serif:400,500,600,700|noto-serif-display:500,600,700|prata:400&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=ibm-plex-mono:300,400,500|ibm-plex-sans:300,400,500,600,700|noto-serif:400,500,600,700|noto-serif-display:500,600,700|prata:400|prata:400&display=swap" /></noscript>
   <title>P-120 — architecture of attraction and intimacy</title>
   <style>
@@ -2497,10 +2497,9 @@ body[data-theme='museum'] :is(.dark-statement,.showcase-cover){border-color:var(
 @media(max-width:800px){.brand-origin-interstitial{left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));width:auto;border-radius:28px;transform:translateY(calc(100% + 40px))}.brand-origin-interstitial.is-open{transform:translateY(0)}.brand-origin-interstitial-inner{grid-template-columns:1fr;padding:30px 22px 24px;gap:18px}.brand-origin-interstitial h2{font-size:clamp(40px,11vw,60px);padding-right:30px}.brand-origin-interstitial-visual{min-height:105px;display:flex;align-items:baseline;justify-content:flex-start;gap:14px;text-align:left}.brand-origin-interstitial-visual strong{font-size:clamp(64px,19vw,92px)}.brand-origin-interstitial-visual span{font-size:clamp(21px,6vw,30px);margin:0}.brand-origin-interstitial-ghost{display:none}.brand-origin-interstitial-actions{display:grid;grid-template-columns:1fr}.brand-origin-interstitial a,.brand-origin-interstitial button{width:100%;justify-content:center}}
 @media(prefers-reduced-motion:reduce){.brand-origin-interstitial{transition:none}}
 </style>
-  <link rel="stylesheet" href="../p120-public-styles-v1.0.css?v=pub20" data-p120-production-bundle="styles-v1.1" />
+  <link rel="stylesheet" href="../p120-public-styles-v1.0.css?v=pub21" data-p120-production-bundle="styles-v1.1" />
   <link rel="alternate" hreflang="ru" href="../" />
   <link rel="alternate" hreflang="en" href="./" />
-  <link rel="stylesheet" href="../prata-literary-voice-v1.0.css?v=prata10" data-p120-prata-literary="v1.0" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Перейти к основному содержанию</a>
@@ -3417,7 +3416,7 @@ function renderMobileDrawer(){
           <button class="mobile-menu-action primary" data-mobile-start><div><div>${startLabel}</div><small>Перейти к опроснику и сохранить ритм прохождения</small></div></button>
           ${hasProgress()?`<button class="mobile-menu-action" data-mobile-resume><div><div>Продолжить текущую сессию</div><small>${pct()}% общего прогресса</small></div></button>`:''}
           <button class="mobile-menu-action" data-home><div><div>Главная страница</div><small>Вернуться к editorial-структуре</small></div></button>
-          <button class="mobile-menu-action" data-why-origin><div><div>Why P-120?</div><small>The origin of the name · 72 + 48 · symbolic brand layer</small></div></button>
+          <button class="mobile-menu-action" data-why-origin><div><div>Почему P-120?</div><small>История названия · 72 + 48 · символический слой бренда</small></div></button>
           <button class="mobile-menu-action" data-science><div><div>Научная база</div><small>Открыть отдельный научный раздел</small></div></button>
         </div>
         <div class="mobile-menu-group">
@@ -3461,8 +3460,8 @@ function shell(content,{sidebar=true,home=false}={}){
         </div>
         <nav class="topnav" aria-label="Главная навигация">
           <button class="navlink" data-nav="why-important">О P-120</button>
-          <button class="navlink navlink-origin" data-why-origin>Why P-120?</button>
-          <button class="navlink" data-nav="why-p120">What makes it different</button>
+          <button class="navlink navlink-origin" data-why-origin>Почему P-120?</button>
+          <button class="navlink" data-nav="why-p120">Уникальность</button>
           <button class="navlink" data-nav="what-p120-shows">Что покажет</button>
           <button class="navlink" data-nav="showcase">Отчёт</button>
           <button class="navlink science-navlink" data-science>Научная база</button>
@@ -3723,7 +3722,7 @@ function renderScienceInsert(){
   </section>`;
 }
 function renderBrandOriginTeaser(){
-  return `<section class="brand-origin-teaser" id="brand-origin" data-reveal aria-labelledby="brand-origin-title"><div class="brand-origin-copy"><span class="brand-origin-kicker">THE NAME · BRAND ORIGIN</span><h2 id="brand-origin-title">Why P-120?</h2><p>72 + 48 explain the number. But not the whole meaning of the name.</p><a class="brand-origin-link" href="../why-p120/">Discover the story <span aria-hidden="true">→</span></a></div><div class="brand-origin-visual" aria-hidden="true"><strong>P-120</strong><span>72 + 48 = 120</span><i class="brand-origin-ghost">P</i><small class="brand-origin-caption">FACT → MEANING → SYMBOL → HUMAN</small></div></section>`;
+  return `<section class="brand-origin-teaser" id="brand-origin" data-reveal aria-labelledby="brand-origin-title"><div class="brand-origin-copy"><span class="brand-origin-kicker">THE NAME · BRAND ORIGIN</span><h2 id="brand-origin-title">Почему P-120?</h2><p>72 + 48 объясняют число. Но не весь смысл названия.</p><a class="brand-origin-link" href="why-p120/">Узнать историю <span aria-hidden="true">→</span></a></div><div class="brand-origin-visual" aria-hidden="true"><strong>P-120</strong><span>72 + 48 = 120</span><i class="brand-origin-ghost">P</i><small class="brand-origin-caption">FACT → MEANING → SYMBOL → HUMAN</small></div></section>`;
 }
 function bindEditorialExperience(progress){
   const start=()=>progress?resumeTest():openPreflight();
@@ -4360,7 +4359,7 @@ updateReadingProgress();
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
 })();
 </script>
-<script src="../p120-public-runtime-v1.0.js?v=pub20" data-p120-production-bundle="runtime-v1.1"></script>
+<script src="../p120-public-runtime-v1.0.js?v=pub21" data-p120-production-bundle="runtime-v1.1"></script>
 <script src="../public-en-home-dictionary-v1.0.js?v=en10"></script>
 <script src="../public-en-science-dictionary-v1.0.js?v=en10"></script>
 <script src="../public-en-localization-patch-v1.1.js?v=en12"></script>

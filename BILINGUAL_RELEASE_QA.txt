@@ -21,4 +21,5 @@ Mobile bottom navigation changes: NONE
 Web font stylesheet: non-render-blocking preload
 Localization runtime: debounced v1.1
 Final depth statement: v1.3 desktop-fit staircase Noto
+Prata literary voice: v1.0 selective human/reflective narrative only
 Ivory frame/contour contrast: v1.7.1j
