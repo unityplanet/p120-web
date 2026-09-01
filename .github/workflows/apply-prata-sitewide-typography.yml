@@ -39,15 +39,12 @@ jobs:
               assert 'prata:400' in s, f'Prata font source missing in {f}'
           why=Path('why-p120/why-p120.css').read_text(encoding='utf-8')
           assert 'P-120 Why P-120 — Prata literary voice v1.0' in why
-          wf=Path('.github/workflows/integrate-bilingual-public-site-v1.yml').read_text(encoding='utf-8')
-          assert "'prata-literary-voice-v1.0.css'" in wf
-          assert 'pub21' in wf
-          print('Prata static conformance: PASS')
+          print('Prata content conformance: PASS')
           PY
 
             if [ -f qa/check_build.py ]; then python qa/check_build.py; fi
 
-            git add index.html en/index.html why-p120/index.html why-p120/why-p120.css .github/workflows/integrate-bilingual-public-site-v1.yml
+            git add index.html en/index.html why-p120/index.html why-p120/why-p120.css
             if git diff --cached --quiet; then
               echo 'No Prata typography changes required.'
               exit 0
