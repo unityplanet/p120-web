@@ -1,0 +1,160 @@
+/* P-120 WEB-EXPLORE PASS 5.3.1 — screenshot-driven presentation corrections
+   Presentation only. No questionnaire, scoring, persistence, privacy, safety or scientific-authority changes. */
+
+/* --------------------------------------------------------------------------
+   A. MAIN — saved-research information bubble
+   -------------------------------------------------------------------------- */
+html.p120-brand53-ready .editorial-resume-rail.p120-resume53{
+  width:min(1460px,100%);
+  margin:0 auto 22px;
+  padding:12px 14px 12px 18px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px 18px;
+  align-items:center;
+  border:1px solid color-mix(in srgb,var(--p120-brand-line) 60%,transparent);
+  border-radius:22px;
+  background:color-mix(in srgb,var(--p120-brand-surface) 88%,transparent);
+  box-shadow:0 14px 38px color-mix(in srgb,var(--p120-brand-ink) 7%,transparent);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+.p120-resume53__copy{min-width:0;display:grid;gap:6px}
+.p120-resume53__topline{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.p120-resume53__state{
+  font:700 10px/1.2 var(--p120-brand-sans,"IBM Plex Sans",sans-serif);
+  letter-spacing:.10em;text-transform:uppercase;color:var(--p120-brand-ink-2)
+}
+.p120-resume53__progress{
+  min-height:24px;display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;
+  background:color-mix(in srgb,var(--p120-brand-teal) 9%,transparent);
+  color:var(--p120-brand-teal-deep);font:700 10px/1 var(--p120-brand-sans,"IBM Plex Sans",sans-serif)
+}
+.p120-resume53__module{font:600 13px/1.35 var(--p120-brand-sans,"IBM Plex Sans",sans-serif);color:var(--p120-brand-ink)}
+.p120-resume53__meta{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;color:var(--p120-brand-ink-2)}
+.p120-resume53__meta span{margin:0!important;font:550 10.5px/1.35 var(--p120-brand-sans,"IBM Plex Sans",sans-serif)!important;color:inherit!important;white-space:nowrap}
+.p120-resume53__meta strong{font-weight:700;color:var(--p120-brand-ink)}
+.p120-resume53__meta .p120-resume53__session{font-family:"IBM Plex Mono",ui-monospace,monospace!important;font-size:9.5px!important;letter-spacing:.035em}
+.p120-resume53__actions{display:flex;align-items:center;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+html.p120-brand53-ready .p120-resume53__actions .btn{min-height:40px;padding:9px 15px;font-size:11px;white-space:nowrap}
+html.p120-brand53-ready .p120-resume53__actions #homeRestart{background:transparent!important;color:var(--p120-brand-ink)!important;border-color:color-mix(in srgb,var(--p120-brand-line) 75%,transparent)!important}
+
+/* --------------------------------------------------------------------------
+   B. ONE PUBLIC FOOTER — suppress legacy page-local footer rails
+   -------------------------------------------------------------------------- */
+.p120-footer-superseded{display:none!important}
+
+.p120-legal-footer.p120-site-footer{
+  position:relative;z-index:2;
+  border-top:1px solid color-mix(in srgb,var(--p120-brand-line,#9DBCB2) 56%,transparent)!important;
+  background:color-mix(in srgb,var(--p120-brand-canvas,#F2EEE2) 95%,var(--p120-brand-surface,#FBF8EF) 5%)!important;
+  color:var(--p120-brand-ink,#263533)!important;
+}
+.p120-legal-footer.p120-site-footer .p120-legal-footer__inner.p120-site-footer__inner{
+  width:min(var(--p120-brand-stage,1680px),calc(100% - 64px))!important;
+  max-width:var(--p120-brand-stage,1680px)!important;
+  margin:0 auto!important;
+  padding:clamp(42px,4.5vw,72px) clamp(0px,1.5vw,22px) 28px!important;
+  display:grid!important;
+  grid-template-columns:minmax(280px,.72fr) minmax(420px,1.28fr)!important;
+  grid-template-areas:"brand legal" "chapters legal" "sandbox sandbox";
+  column-gap:clamp(54px,7vw,126px)!important;
+  row-gap:24px!important;
+  align-items:start!important;
+}
+.p120-site-footer__brand{grid-area:brand;display:grid;grid-template-columns:38px minmax(0,1fr);gap:14px;align-items:center;max-width:430px}
+.p120-site-footer__mark{width:38px;height:38px;border-radius:50%;position:relative;border:1px solid color-mix(in srgb,var(--p120-brand-teal) 28%,transparent);background:radial-gradient(circle at 35% 35%,color-mix(in srgb,var(--p120-brand-teal) 11%,transparent),transparent 58%)}
+.p120-site-footer__mark:before{content:"";position:absolute;inset:5px;border:1.5px solid color-mix(in srgb,var(--p120-brand-teal) 42%,transparent);border-radius:50%}
+.p120-site-footer__mark:after{content:"";position:absolute;width:10px;height:10px;border-radius:50%;right:4px;top:5px;background:var(--p120-brand-teal);box-shadow:-15px 17px 0 var(--p120-brand-bronze,#B39063)}
+.p120-site-footer__brandcopy{min-width:0;display:grid;gap:6px}
+.p120-footer-brand{margin:0!important;font:500 clamp(20px,1.55vw,28px)/1.08 var(--p120-brand-display,"Noto Serif Display",serif)!important;letter-spacing:-.025em;color:var(--p120-brand-ink)!important}
+.p120-site-footer__brandcopy small{font:700 9px/1.35 var(--p120-brand-sans,"IBM Plex Sans",sans-serif);letter-spacing:.12em;text-transform:uppercase;color:var(--p120-brand-ink-2)}
+.p120-site-footer__chapters{grid-area:chapters;display:flex;flex-wrap:wrap;gap:8px 16px;max-width:520px;padding-top:5px}
+.p120-site-footer__chapters a{font:600 11px/1.4 var(--p120-brand-sans,"IBM Plex Sans",sans-serif);text-decoration:none;color:var(--p120-brand-ink-2);border-bottom:1px solid transparent;padding-bottom:2px}
+.p120-site-footer__chapters a:hover,.p120-site-footer__chapters a:focus-visible{color:var(--p120-brand-ink);border-bottom-color:currentColor;outline:none}
+.p120-site-footer__legal{grid-area:legal;display:grid;gap:18px;max-width:780px;justify-self:end}
+.p120-legal-footer.p120-site-footer .p120-legal-footer__notice{margin:0;max-width:none;font:450 11.5px/1.72 var(--p120-brand-sans,"IBM Plex Sans",sans-serif);color:var(--p120-brand-ink-2)}
+.p120-legal-footer.p120-site-footer .p120-legal-footer__links{display:flex;justify-content:flex-start;flex-wrap:wrap;gap:8px 18px}
+.p120-legal-footer.p120-site-footer .p120-legal-footer__links a{font:650 10.5px/1.35 var(--p120-brand-sans,"IBM Plex Sans",sans-serif);color:var(--p120-brand-ink);border-bottom:1px solid color-mix(in srgb,var(--p120-brand-ink) 22%,transparent)}
+.p120-legal-footer.p120-site-footer .p120-legal-footer__sandbox{grid-area:sandbox;margin:4px 0 0!important;padding-top:16px!important;border-top:1px solid color-mix(in srgb,var(--p120-brand-line) 38%,transparent)!important;font:500 8.5px/1.5 "IBM Plex Mono",ui-monospace,monospace!important;letter-spacing:.08em;color:color-mix(in srgb,var(--p120-brand-ink-2) 80%,transparent)!important;text-transform:uppercase}
+
+/* Why P-120 retains its original black editorial end state, now as the one footer. */
+body.wp-fixed-editorial-theme .p120-legal-footer.p120-site-footer,
+.p120-legal-footer--dark.p120-site-footer{
+  --p120-brand-canvas:#090B0C;
+  --p120-brand-surface:#111416;
+  --p120-brand-ink:#F3EEE5;
+  --p120-brand-ink-2:rgba(243,238,229,.60);
+  --p120-brand-line:rgba(255,255,255,.15);
+  --p120-brand-teal:#7C9A9B;
+  --p120-brand-bronze:#C7A05B;
+  background:#090B0C!important;
+}
+
+/* --------------------------------------------------------------------------
+   C. WHY P-120 — restore the original dark header, keep canonical geometry
+   -------------------------------------------------------------------------- */
+html.p120-brand53-ready body.wp-fixed-editorial-theme{
+  --p120-brand-header-bg:rgba(9,11,12,.94);
+  --p120-brand-ink:#F3EEE5;
+  --p120-brand-ink-2:rgba(243,238,229,.68);
+  --p120-brand-line:rgba(255,255,255,.15);
+  --p120-brand-bubble:rgba(255,255,255,.028);
+  --p120-brand-bubble-line:rgba(255,255,255,.11);
+  --p120-brand-popover:rgba(15,18,20,.988);
+  --p120-brand-hover:rgba(255,255,255,.075);
+  --p120-brand-focus:#9DB7B4;
+  --p120-brand-teal:#7C9A9B;
+}
+html.p120-brand53-ready body.wp-fixed-editorial-theme .wp-header.p120-brand53-header{
+  background:var(--p120-brand-header-bg)!important;
+  color:var(--p120-brand-ink)!important;
+  border-top-color:var(--p120-brand-teal)!important;
+  border-bottom-color:rgba(255,255,255,.09)!important;
+}
+html.p120-brand53-ready body.wp-fixed-editorial-theme .wp-header .brand-mark{border-color:rgba(255,255,255,.14)!important;background:radial-gradient(circle at 35% 35%,rgba(124,154,155,.10),rgba(124,154,155,.03) 55%,transparent 56%)!important}
+html.p120-brand53-ready body.wp-fixed-editorial-theme .wp-header .brand-orbit{border-color:rgba(137,156,157,.36)!important}
+html.p120-brand53-ready body.wp-fixed-editorial-theme .wp-header .brand-orbit:after{background:rgba(199,160,91,.30)!important}
+html.p120-brand53-ready body.wp-fixed-editorial-theme .wp-header .brand-node-a{background:#7C9A9B!important}
+html.p120-brand53-ready body.wp-fixed-editorial-theme .wp-header .brand-node-b{background:#C7A05B!important}
+html.p120-brand53-ready body.wp-fixed-editorial-theme .wp-header :is(.brand,.brand-sub){color:var(--p120-brand-ink)!important}
+html.p120-brand53-ready body.wp-fixed-editorial-theme .wp-header .brand-sub{opacity:.62}
+html.p120-brand53-ready body.wp-fixed-editorial-theme .wp-header .wp-start{border-color:rgba(255,255,255,.22);color:#F3EEE5;background:rgba(255,255,255,.025)}
+html.p120-brand53-ready body.wp-fixed-editorial-theme .wp-header .wp-start:hover{background:#F0ECE4;color:#111}
+
+/* Remove legacy duplicate language/theme controls after canonical controls arrive. */
+html.p120-brand53-ready .wp-header-tools > :is(.wp-lang-switch,.wp-theme){display:none!important}
+html.p120-brand53-ready .creator-topbar__inner > .creator-tools.p120-brand53-legacy-tools{display:none!important}
+
+/* Founder keeps the same light header but without a second control cluster. */
+html.p120-brand53-ready .creator-topbar.p120-brand53-header{box-shadow:0 1px 0 color-mix(in srgb,var(--p120-brand-line) 26%,transparent)}
+html.p120-brand53-ready .creator-context{width:min(var(--p120-brand-stage),100%);padding-inline:clamp(18px,2.3vw,42px);opacity:.78}
+
+/* --------------------------------------------------------------------------
+   D. Responsive
+   -------------------------------------------------------------------------- */
+@media(max-width:1080px){
+  html.p120-brand53-ready .editorial-resume-rail.p120-resume53{grid-template-columns:1fr;padding:14px 16px;top:86px}
+  .p120-resume53__actions{justify-content:flex-start}
+  .p120-legal-footer.p120-site-footer .p120-legal-footer__inner.p120-site-footer__inner{width:min(100% - 36px,var(--p120-brand-stage,1680px))!important;grid-template-columns:1fr!important;grid-template-areas:"brand" "chapters" "legal" "sandbox";row-gap:22px!important;padding:36px 0 26px!important}
+  .p120-site-footer__legal{justify-self:start;max-width:860px}
+  .p120-site-footer__chapters{max-width:100%}
+}
+@media(max-width:620px){
+  html.p120-brand53-ready .editorial-resume-rail.p120-resume53{border-radius:18px;gap:12px}
+  .p120-resume53__module{font-size:12px}
+  .p120-resume53__meta{display:grid;gap:5px}
+  .p120-resume53__meta span{white-space:normal}
+  .p120-resume53__actions{display:grid;grid-template-columns:1fr 1fr;width:100%}
+  html.p120-brand53-ready .p120-resume53__actions .btn{width:100%;padding-inline:10px}
+  .p120-site-footer__brand{grid-template-columns:34px minmax(0,1fr);gap:12px}.p120-site-footer__mark{width:34px;height:34px}
+  .p120-footer-brand{font-size:20px!important}
+  .p120-site-footer__chapters{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
+}
+@media(min-width:3200px){
+  html.p120-brand53-ready .editorial-resume-rail.p120-resume53{width:min(2960px,100%);padding:16px 20px;border-radius:28px}
+  .p120-resume53__state,.p120-resume53__progress{font-size:13px}.p120-resume53__module{font-size:17px}.p120-resume53__meta span{font-size:13px!important}.p120-resume53__meta .p120-resume53__session{font-size:12px!important}
+  html.p120-brand53-ready .p120-resume53__actions .btn{min-height:48px;padding:11px 19px;font-size:14px}
+  .p120-site-footer__brand{grid-template-columns:50px minmax(0,1fr)}.p120-site-footer__mark{width:50px;height:50px}.p120-footer-brand{font-size:34px!important}
+  .p120-site-footer__brandcopy small{font-size:12px}.p120-site-footer__chapters a{font-size:14px}.p120-legal-footer.p120-site-footer .p120-legal-footer__notice{font-size:14px}.p120-legal-footer.p120-site-footer .p120-legal-footer__links a{font-size:13px}.p120-legal-footer.p120-site-footer .p120-legal-footer__sandbox{font-size:10px!important}
+}
