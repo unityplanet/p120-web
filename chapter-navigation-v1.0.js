@@ -1,4 +1,4 @@
-/* P-120 Web Editorial — Chapter Navigation v1.4
+/* P-120 Web Editorial — Chapter Navigation v1.5
    Presentation/navigation only. No measurement, scoring, questionnaire or report-engine changes. */
 (() => {
   'use strict';
@@ -19,6 +19,7 @@
   let timer=0;
   let scrollScheduled=false;
   let scrollFrame=0;
+  let restoreScrollBehavior=null;
   let activeId=chapters[0].id;
 
   function reducedMotion(){ return !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches; }
@@ -30,6 +31,28 @@
   function targetElement(chapter){ return document.getElementById(chapter.target); }
   function scrollRoot(){ return document.scrollingElement||document.documentElement; }
   function setScrollTop(value){ scrollRoot().scrollTop=Math.max(0,value); }
+  function beginOwnedScroll(){
+    if(restoreScrollBehavior){restoreScrollBehavior();restoreScrollBehavior=null;}
+    const html=document.documentElement;
+    const body=document.body;
+    const htmlInline=html.style.scrollBehavior;
+    const bodyInline=body?.style.scrollBehavior||'';
+    html.style.scrollBehavior='auto';
+    if(body)body.style.scrollBehavior='auto';
+    restoreScrollBehavior=()=>{
+      html.style.scrollBehavior=htmlInline;
+      if(body)body.style.scrollBehavior=bodyInline;
+      restoreScrollBehavior=null;
+    };
+    /* Re-assert the current position once under scroll-behavior:auto. This cancels
+       any still-running native smooth scroll before the chapter animation starts. */
+    setScrollTop(scrollRoot().scrollTop);
+  }
+  function endOwnedScroll(){
+    if(!restoreScrollBehavior)return;
+    const restore=restoreScrollBehavior;
+    requestAnimationFrame(()=>restore());
+  }
   function topOffset(){
     const topbar=document.querySelector('.topbar');
     const height=Math.max(58,Math.round(topbar?.getBoundingClientRect().height||70));
@@ -46,6 +69,7 @@
   function smoothScroll(target){
     if(!target||!target.isConnected) return;
     if(scrollFrame){cancelAnimationFrame(scrollFrame);scrollFrame=0;}
+    beginOwnedScroll();
     const root=scrollRoot();
     const start=root.scrollTop;
     const destination=Math.max(0,start+target.getBoundingClientRect().top-scrollOffset());
@@ -53,12 +77,9 @@
     if(reducedMotion()||Math.abs(delta)<2){
       setScrollTop(destination);
       updateFromScroll();
+      endOwnedScroll();
       return;
     }
-    /* The root document declares scroll-behavior:smooth. Driving window.scrollTo()
-       from every animation frame can therefore keep re-targeting the browser's own
-       smooth-scroll animation on a long jump. Write scrollingElement.scrollTop
-       directly so our single deterministic RAF animation owns the motion. */
     const duration=Math.min(760,Math.max(360,Math.abs(delta)*.42));
     const t0=performance.now();
     const step=now=>{
@@ -72,6 +93,7 @@
         if(Math.abs(correction)>2)setScrollTop(scrollRoot().scrollTop+correction);
       }
       updateFromScroll();
+      endOwnedScroll();
     };
     scrollFrame=requestAnimationFrame(step);
   }
