@@ -6,10 +6,12 @@ on:
     paths:
       - 'p120-brand-system-v1.0.css'
       - 'p120-brand-system-v1.0.js'
+      - 'p120-pass53-visual-corrections-v1.0.css'
       - 'founder-route-v1.1.js'
       - 'explore-system-v1.0.js'
       - 'p120-legal-runtime-v1.0.js'
       - 'qa/pass53_brand_unification.mjs'
+      - 'qa/pass53_1_visual_corrections.mjs'
       - '.github/workflows/qa-web-explore-pass53.yml'
       - 'P120_WEB_PASS5.3_BRAND_UNIFICATION_IMPLEMENTATION.md'
 permissions:
@@ -28,12 +30,15 @@ jobs:
           set -euo pipefail
           test -f p120-brand-system-v1.0.css
           test -f p120-brand-system-v1.0.js
+          test -f p120-pass53-visual-corrections-v1.0.css
+          test -f qa/pass53_1_visual_corrections.mjs
           grep -q "P120_BRAND_SYSTEM" founder-route-v1.1.js
           grep -q "P120_BRAND_SYSTEM" explore-system-v1.0.js
           grep -q "P120_BRAND_SYSTEM" p120-legal-runtime-v1.0.js
           grep -q "p120_web_theme_v16" p120-brand-system-v1.0.js
           grep -q "ИССЛЕДОВАТЕЛЬСКАЯ АРХИТЕКТУРА" p120-brand-system-v1.0.js
           grep -q "RESEARCH ARCHITECTURE" p120-brand-system-v1.0.js
+          grep -q "p120_web_prototype_v01" p120-brand-system-v1.0.js
           # Frozen Why P-120 body sources are deliberately outside the mutation set.
           git diff HEAD^ --name-only 2>/dev/null | grep -Eq '^(why-p120/index\.html|why-p120/why-p120\.css|why-p120/why-p120\.js)$' && {
             echo 'PASS 5.3 firewall violation: frozen Why P-120 source changed in this commit' >&2; exit 1;
@@ -55,10 +60,14 @@ jobs:
           sleep 2
       - name: Run PASS 5.3 visual functional accessibility QA
         run: node qa/pass53_brand_unification.mjs
+      - name: Run PASS 5.3.1 screenshot-driven correction QA
+        run: node qa/pass53_1_visual_corrections.mjs
       - name: Upload controlled QA evidence
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: P120_WEB_PASS53_QA_EVIDENCE
-          path: qa-artifacts/pass53
+          path: |
+            qa-artifacts/pass53
+            qa-artifacts/pass53-1
           retention-days: 30
