@@ -97,8 +97,8 @@
   }
 
   /* Explore destinations and chapter navigation are intentionally different controls.
-     Explore → “Хотите глубже?” opens the dedicated Extended page.
-     Chapter navigation → “Ещё глубже” remains on the main page and scrolls to the
+     Explore -> “Хотите глубже?” opens the dedicated Extended page.
+     Chapter navigation -> “Ещё глубже” remains on the main page and scrolls to the
      compact Extended Research teaser. Do not intercept chapter-jump controls here. */
   function intercept(event){
     const btn=event.target.closest?.('[data-ecosystem-route],[data-ecosystem-mobile]');
@@ -124,13 +124,17 @@
     title:'P-120 vNext — Scientific Concept Paper',
     version:'Public Research Edition A4 · v1.2',
     date:'1 September 2026',
+    status:'Research Candidate · 18+',
     formula:'original candidate integration and operationalization',
-    pdf:'../assets/p120-scientific-concept-paper-v1.2.pdf'
+    pages:14,
+    pdf:'../assets/p120-scientific-concept-paper-en-v1.2.pdf'
   }:{
     title:'P-120 vNext — Научный концептуальный документ',
     version:'Публичная исследовательская редакция A4 · v1.2',
     date:'1 сентября 2026',
+    status:'Исследовательская версия · 18+',
     formula:'оригинальная кандидатная интеграция и операционализация',
+    pages:15,
     pdf:'assets/p120-scientific-concept-paper-v1.2.pdf'
   };
 
@@ -140,7 +144,8 @@
     D.document.title=meta.title;
     D.document.version=meta.version;
     D.document.date=meta.date;
-    D.document.pages=15;
+    D.document.status=meta.status;
+    D.document.pages=meta.pages;
     D.document.pdf=meta.pdf;
     if(D.positioning)D.positioning.formula=meta.formula;
   }
@@ -156,23 +161,29 @@
   function applyDom(){
     applyData();
     const root=document;
-    root.querySelectorAll('a[href*="p120-scientific-concept-paper-v1.1.pdf"],a[href*="p120-scientific-concept-paper-v1.2.pdf"]').forEach(a=>a.setAttribute('href',meta.pdf));
+    root.querySelectorAll('a[href*="p120-scientific-concept-paper"]').forEach(a=>a.setAttribute('href',meta.pdf));
     root.querySelectorAll('.science-doc-card').forEach(card=>{
       const title=card.querySelector(':scope > strong');
       const info=card.querySelector(':scope > p');
       const formula=card.querySelector('.formula-card strong');
       if(title)title.textContent=meta.title;
-      if(info)info.innerHTML=`${meta.version}<br>${meta.date} · 15 ${isEn?'pp.':'стр.'}`;
+      if(info)info.innerHTML=`${meta.version}<br>${meta.date} · ${meta.pages} ${isEn?'pp.':'стр.'}`;
       if(formula)formula.textContent=meta.formula;
     });
     replaceLeafText(root,'P-120 vNext — Scientific Concept Paper',meta.title);
     replaceLeafText(root,'original candidate integration and operationalization',meta.formula);
-    root.querySelectorAll('p').forEach(p=>{
-      const t=(p.textContent||'').trim();
-      if(/Академическая редакционная версия A4\s*·\s*v1\.1/i.test(t)&&/29 августа 2026/i.test(t)){
-        p.innerHTML=`${meta.version}<br>${meta.date} · 15 стр.`;
-      }
-    });
+    if(isEn){
+      replaceLeafText(root,'Исследовательская версия · 18+',meta.status);
+      replaceLeafText(root,'Академическая редакционная версия A4 · v1.1',meta.version);
+      replaceLeafText(root,'29 августа 2026',meta.date);
+    }else{
+      root.querySelectorAll('p').forEach(p=>{
+        const t=(p.textContent||'').trim();
+        if(/Академическая редакционная версия A4\s*·\s*v1\.1/i.test(t)&&/29 августа 2026/i.test(t)){
+          p.innerHTML=`${meta.version}<br>${meta.date} · ${meta.pages} стр.`;
+        }
+      });
+    }
     let style=document.getElementById('p120-science-public-v12-style');
     if(!style){
       style=document.createElement('style');
@@ -180,7 +191,7 @@
       style.textContent='.science-hero h1{font-family:"Noto Serif Display","Noto Serif",Georgia,"Times New Roman",serif!important;font-weight:600!important;}';
       document.head.appendChild(style);
     }
-    document.documentElement.dataset.sciencePublicDocument='v1.2';
+    document.documentElement.dataset.sciencePublicDocument=isEn?'v1.2-en':'v1.2-ru';
   }
 
   let timer=0;
