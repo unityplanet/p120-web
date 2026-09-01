@@ -10,6 +10,7 @@
   const html = document.documentElement;
   const isEn = (html.lang || '').toLowerCase().startsWith('en') || /\/en(?:\/|$)/i.test(location.pathname);
   const THEME_KEY = 'p120_web_theme_v16';
+  const SESSION_KEY = 'p120_web_prototype_v01';
   const THEMES = ['ivory','graphite','museum'];
   const copy = isEn ? {
     descriptor:'RESEARCH ARCHITECTURE',
@@ -30,12 +31,20 @@
   };
 
   function ensureCss(){
-    if (document.querySelector('link[data-p120-brand-system]')) return;
-    const link=document.createElement('link');
-    link.rel='stylesheet';
-    link.href=new URL('p120-brand-system-v1.0.css?v=53',rootUrl).href;
-    link.dataset.p120BrandSystem='5.3';
-    document.head.appendChild(link);
+    if (!document.querySelector('link[data-p120-brand-system]')) {
+      const link=document.createElement('link');
+      link.rel='stylesheet';
+      link.href=new URL('p120-brand-system-v1.0.css?v=53',rootUrl).href;
+      link.dataset.p120BrandSystem='5.3';
+      document.head.appendChild(link);
+    }
+    if (!document.querySelector('link[data-p120-pass53-visual-corrections]')) {
+      const correction=document.createElement('link');
+      correction.rel='stylesheet';
+      correction.href=new URL('p120-pass53-visual-corrections-v1.0.css?v=531',rootUrl).href;
+      correction.dataset.p120Pass53VisualCorrections='5.3.1';
+      document.head.appendChild(correction);
+    }
   }
 
   function kind(){
@@ -55,6 +64,7 @@
   }
   function counterpart(en){return routeFor(pageKind,en);}
   function homeAnchor(id){return `${localeRoot(isEn)}#${id}`;}
+  function safeText(value=''){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
   function brandMarkup(){
     return `<span class="brand-mark" aria-hidden="true"><span class="brand-orbit"></span><span class="brand-node brand-node-a"></span><span class="brand-node brand-node-b"></span></span><span class="brand-lockup"><span class="brand">P-120</span><span class="brand-sub">${copy.descriptor}</span></span>`;
@@ -127,7 +137,10 @@
     const tools=tpl.content.firstElementChild;
     const anchor=inner.querySelector('.explore-menu-btn,.creator-tools,.wp-header-tools');
     if(anchor?.classList.contains('wp-header-tools')) anchor.prepend(tools);
-    else if(anchor) inner.insertBefore(tools,anchor);
+    else if(anchor){
+      if(anchor.classList.contains('creator-tools')) anchor.classList.add('p120-brand53-legacy-tools');
+      inner.insertBefore(tools,anchor);
+    }
     else inner.appendChild(tools);
     tools.querySelectorAll('[data-p120-theme]').forEach(btn=>btn.addEventListener('click',e=>{
       e.preventDefault(); applyTheme(btn.dataset.p120Theme); tools.querySelector('.p120-brand53-theme')?.removeAttribute('open');
@@ -159,15 +172,85 @@
     });
   }
 
+  function readSession(){
+    try{
+      const value=JSON.parse(localStorage.getItem(SESSION_KEY)||'null');
+      return value&&typeof value==='object'?value:null;
+    }catch(_){return null;}
+  }
+
+  function patchResumeRail(){
+    if(!isMain) return;
+    const rail=document.querySelector('.editorial-resume-rail');
+    const instrument=window.P120_INSTRUMENT;
+    const session=readSession();
+    if(!rail || !instrument?.items?.length || !instrument?.modules?.length || !session) return;
+
+    const rawIndex=Number(session.itemIndex);
+    const itemIndex=Number.isFinite(rawIndex)?Math.max(0,Math.min(rawIndex,instrument.items.length-1)):0;
+    const item=instrument.items[itemIndex];
+    const module=instrument.modules.find(m=>m.id===item?.module);
+    if(!item || !module) return;
+
+    const moduleItems=instrument.items.filter(x=>x.module===module.id);
+    const moduleItemIndex=Math.max(0,moduleItems.findIndex(x=>x.id===item.id));
+    const moduleIndex=Math.max(0,instrument.modules.findIndex(m=>m.id===module.id));
+    const answered=instrument.items.filter(x=>session.responses?.[x.id]!=null).length;
+    const percent=Math.round(answered/instrument.items.length*100);
+    const sessionId=String(session.participantId||'P120').trim();
+
+    rail.classList.add('p120-resume53');
+    let info=rail.querySelector('.p120-resume53__copy');
+    if(!info){
+      info=document.createElement('div');
+      info.className='p120-resume53__copy';
+      rail.prepend(info);
+    }
+    info.innerHTML=isEn
+      ? `<div class="p120-resume53__topline"><span class="p120-resume53__state">Saved research</span><span class="p120-resume53__progress">${percent}% complete</span></div><div class="p120-resume53__module">Segment ${String(moduleIndex+1).padStart(2,'0')} / ${String(instrument.modules.length).padStart(2,'0')} · ${safeText(module.name)} · ${safeText(module.title)}</div><div class="p120-resume53__meta"><span>Next · <strong>question ${moduleItemIndex+1} of ${moduleItems.length}</strong></span><span>Instrument · <strong>P-120</strong></span><span class="p120-resume53__session">Session · ${safeText(sessionId)}</span></div>`
+      : `<div class="p120-resume53__topline"><span class="p120-resume53__state">Сохранённое исследование</span><span class="p120-resume53__progress">${percent}% пройдено</span></div><div class="p120-resume53__module">Сегмент ${String(moduleIndex+1).padStart(2,'0')} / ${String(instrument.modules.length).padStart(2,'0')} · ${safeText(module.name)} · ${safeText(module.title)}</div><div class="p120-resume53__meta"><span>Следующий · <strong>вопрос ${moduleItemIndex+1} из ${moduleItems.length}</strong></span><span>Инструмент · <strong>P-120</strong></span><span class="p120-resume53__session">Сессия · ${safeText(sessionId)}</span></div>`;
+
+    const resume=rail.querySelector('#editorialResume');
+    const restart=rail.querySelector('#homeRestart');
+    let actions=rail.querySelector('.p120-resume53__actions');
+    if(!actions){actions=document.createElement('div');actions.className='p120-resume53__actions';rail.appendChild(actions);}
+    if(resume){resume.textContent=isEn?`Resume research · question ${moduleItemIndex+1}`:`Продолжить исследование · вопрос ${moduleItemIndex+1}`;if(resume.parentElement!==actions)actions.appendChild(resume);}
+    if(restart){restart.textContent=isEn?'New session':'Новая сессия';if(restart.parentElement!==actions)actions.appendChild(restart);}
+    rail.querySelectorAll(':scope > span').forEach(old=>old.remove());
+  }
+
   function patchFooter(){
-    const exact=copy.brand;
-    document.querySelectorAll('.explore-footer strong').forEach(n=>{if(n.textContent.trim()!==exact)n.textContent=exact;});
-    document.querySelectorAll('.wp-footer-inner>strong').forEach(n=>{if(n.textContent.trim()!==exact)n.textContent=exact;});
-    document.querySelectorAll('.home-footer>span:first-child').forEach(n=>{if(n.textContent.trim()!==exact)n.textContent=exact;});
-    document.querySelectorAll('[data-p120-legal-footer] .p120-legal-footer__inner').forEach(inner=>{
-      let brand=inner.querySelector('.p120-footer-brand');
-      if(!brand){brand=document.createElement('p');brand.className='p120-footer-brand';inner.prepend(brand);}
-      if(brand.textContent!==exact) brand.textContent=exact;
+    document.querySelectorAll('.home-footer,.wp-footer,.explore-footer').forEach(node=>node.classList.add('p120-footer-superseded'));
+    document.querySelectorAll('[data-p120-legal-footer]').forEach(footer=>{
+      footer.classList.add('p120-site-footer');
+      const inner=footer.querySelector('.p120-legal-footer__inner');
+      if(!inner) return;
+      inner.classList.add('p120-site-footer__inner');
+      if(inner.dataset.p120UnifiedFooter==='5.3.1'){
+        const brand=inner.querySelector('.p120-footer-brand');
+        if(brand && brand.textContent!==copy.brand) brand.textContent=copy.brand;
+        return;
+      }
+      const notice=inner.querySelector('.p120-legal-footer__notice');
+      const legalLinks=inner.querySelector('.p120-legal-footer__links');
+      const sandbox=inner.querySelector('.p120-legal-footer__sandbox');
+      if(!notice || !legalLinks || !sandbox) return;
+
+      const brand=document.createElement('section');
+      brand.className='p120-site-footer__brand';
+      brand.innerHTML=`<span class="p120-site-footer__mark" aria-hidden="true"></span><div class="p120-site-footer__brandcopy"><p class="p120-footer-brand">${copy.brand}</p><small>${isEn?'Research Candidate · 18+ · one architecture, multiple research chapters':'Research Candidate · 18+ · одна архитектура, несколько исследовательских глав'}</small></div>`;
+
+      const chapters=document.createElement('nav');
+      chapters.className='p120-site-footer__chapters';
+      chapters.setAttribute('aria-label',isEn?'P-120 chapters':'Разделы P-120');
+      chapters.innerHTML=`<a href="${routeFor('why-p120')}">${copy.why}</a><a href="${routeFor('creator')}">${copy.creator}</a><a href="${routeFor('extended')}">${copy.deeper}</a><a href="${routeFor('together')}">${copy.together}</a><a href="${homeAnchor('science-foundation')}">${copy.science}</a>`;
+
+      const legal=document.createElement('section');
+      legal.className='p120-site-footer__legal';
+      legal.append(notice,legalLinks);
+
+      inner.replaceChildren(brand,chapters,legal,sandbox);
+      inner.dataset.p120UnifiedFooter='5.3.1';
     });
   }
 
@@ -219,10 +302,12 @@
       patchLanguageRoutes();
       ensureTools();
       patchDescriptor();
+      patchResumeRail();
       patchFooter();
       if(document.body && document.body.dataset.theme!==currentTheme) applyTheme(currentTheme,{persist:false});
       html.classList.add('p120-brand53-ready');
       html.dataset.p120BrandSystem='5.3';
+      html.dataset.p120PageKind=pageKind;
     } finally {running=false;}
   }
 
@@ -231,14 +316,13 @@
     bindGlobalInteractions();
     applyTheme(currentTheme,{persist:false});
     reconcile();
-    const root=document.getElementById('app')||document.body;
-    if(root) new MutationObserver(()=>requestAnimationFrame(reconcile)).observe(root,{childList:true,subtree:true});
+    if(document.body) new MutationObserver(()=>requestAnimationFrame(reconcile)).observe(document.body,{childList:true,subtree:true});
     if(document.body) new MutationObserver(()=>{
       const t=document.body.dataset.theme;
       if(THEMES.includes(t)&&t!==currentTheme){currentTheme=t;try{localStorage.setItem(THEME_KEY,t);}catch(_){} reconcile();}
     }).observe(document.body,{attributes:true,attributeFilter:['data-theme']});
   }
 
-  window.P120_BRAND_SYSTEM=Object.freeze({version:'5.3',themeKey:THEME_KEY,descriptor:copy.descriptor,brand:copy.brand,root:rootUrl.href,reconcile});
+  window.P120_BRAND_SYSTEM=Object.freeze({version:'5.3',revision:'5.3.1',themeKey:THEME_KEY,descriptor:copy.descriptor,brand:copy.brand,root:rootUrl.href,reconcile});
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
 })();
