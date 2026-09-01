@@ -7,8 +7,6 @@ FONT_BASE = 'ibm-plex-mono:300,400,500|ibm-plex-sans:300,400,500,600,700|noto-se
 FONT_PRATA = 'ibm-plex-mono:300,400,500|ibm-plex-sans:300,400,500,600,700|noto-serif:400,500,600,700|noto-serif-display:500,600,700|prata:400'
 PATCH = 'prata-literary-voice-v1.0.css'
 WHY_MARKER = '/* P-120 Why P-120 — Prata literary voice v1.0 */'
-ROOT_LINK = '<link rel="stylesheet" href="prata-literary-voice-v1.0.css?v=prata10" data-p120-prata-literary="v1.0" />'
-EN_LINK = '<link rel="stylesheet" href="../prata-literary-voice-v1.0.css?v=prata10" data-p120-prata-literary="v1.0" />'
 
 
 def sha(text):
@@ -33,26 +31,23 @@ def edit(path, fn):
 
 
 def add_prata_font(s):
-    s = s.replace(FONT_LEGACY, FONT_PRATA)
-    s = s.replace(FONT_BASE, FONT_PRATA)
+    # Canonical five-family web source. Safe to run repeatedly.
+    s = s.replace(FONT_LEGACY, FONT_BASE)
+    s = re.sub(r'(?:\|prata:400)+', '|prata:400', s)
+    s = re.sub(re.escape(FONT_BASE) + r'(?!\|prata:400)', FONT_PRATA, s)
     return s
 
 
-def ensure_public_link(s, link):
-    # Idempotently remove an older direct Prata link, then install one canonical current link.
-    s = re.sub(r'\s*<link[^>]+data-p120-prata-literary=["\'][^"\']+["\'][^>]*>\s*', '\n', s, flags=re.I)
-    if '</head>' not in s:
-        raise SystemExit('Missing </head> while installing Prata literary layer')
-    return s.replace('</head>', f'  {link}\n</head>', 1)
-
-
-def main_page(s, link):
+def main_page(s):
     before = {
         'instrument': sha(cut(s, 'window.P120_INSTRUMENT =', 'window.P120_SCIENCE=')),
         'assessment': sha(cut(s, 'function renderPreflight(){', 'function render(){')),
         'mobile': sha(cut(s, 'function renderMobileBottomNav(){', 'function renderMobileDrawer(){')),
     }
-    n = ensure_public_link(add_prata_font(s), link)
+    n = add_prata_font(s)
+    # Production pub21 contains the literary layer in the unified CSS bundle.
+    # Remove any temporary direct link left by the transition migration.
+    n = re.sub(r'\s*<link[^>]+data-p120-prata-literary=["\'][^"\']+["\'][^>]*>\s*', '\n', n, flags=re.I)
     after = {
         'instrument': sha(cut(n, 'window.P120_INSTRUMENT =', 'window.P120_SCIENCE=')),
         'assessment': sha(cut(n, 'function renderPreflight(){', 'function render(){')),
@@ -111,8 +106,8 @@ if __name__ == '__main__':
     if not Path(PATCH).exists():
         raise SystemExit(f'Missing {PATCH}')
 
-    edit('index.html', lambda s: main_page(s, ROOT_LINK))
-    edit('en/index.html', lambda s: main_page(s, EN_LINK))
+    edit('index.html', main_page)
+    edit('en/index.html', main_page)
     edit('why-p120/index.html', add_prata_font)
     edit('why-p120/why-p120.css', why_css)
 
@@ -123,9 +118,11 @@ if __name__ == '__main__':
     if hits:
         raise SystemExit(f'Prata boundary violation in patch selectors: {hits}')
 
-    for f, marker in [('index.html', ROOT_LINK), ('en/index.html', EN_LINK)]:
+    for f in ['index.html', 'en/index.html', 'why-p120/index.html']:
         text = Path(f).read_text(encoding='utf-8')
-        if text.count('data-p120-prata-literary="v1.0"') != 1 or marker not in text:
-            raise SystemExit(f'Prata direct-link conformance failed for {f}')
+        if '|prata:400|prata:400' in text:
+            raise SystemExit(f'Duplicate Prata font source in {f}')
+        if 'prata:400' not in text:
+            raise SystemExit(f'Prata font source missing in {f}')
 
     print('P-120 Prata sitewide typography migration: PASS')
