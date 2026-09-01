@@ -125,3 +125,17 @@
   script.dataset.p120BrandSystemLoader='5.3';
   document.head.appendChild(script);
 })();
+
+/* WEB-EXPLORE PASS 5.3.2 — main saved-plane / chapter-nav / theme-menu correction layer. */
+(() => {
+  'use strict';
+  const pathname=location.pathname.replace(/index\.html$/i,'');
+  if(!/^(?:\/|\/en\/)$/.test(pathname)) return;
+  if(document.querySelector('script[data-p120-pass532-loader]') || window.P120_PASS532) return;
+  const base=document.currentScript?.src||document.baseURI;
+  const script=document.createElement('script');
+  script.src=new URL('p120-pass53-2-execution-corrections-v1.0.js?v=532',base).href;
+  script.async=false;
+  script.dataset.p120Pass532Loader='5.3.2';
+  document.head.appendChild(script);
+})();
