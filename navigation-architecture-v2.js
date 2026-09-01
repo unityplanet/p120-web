@@ -139,40 +139,51 @@
     return [...body.querySelectorAll(':scope > .mobile-menu-group')].find(g=>re.test((g.querySelector('.eyebrow')?.textContent||'').trim()));
   }
 
+  /* MutationObserver-safe placement. The former unconditional re-parenting of
+     already-correct drawer groups continuously restarted mobile entry animations
+     and could cancel touch targets while the drawer was open. */
+  function setTextIfChanged(node,value){
+    if(node && node.textContent!==value) node.textContent=value;
+  }
+
+  function placeAfterIfNeeded(node,anchor,parent){
+    if(!node || !anchor || anchor.parentNode!==parent) return;
+    if(node.parentNode===parent && anchor.nextElementSibling===node) return;
+    anchor.insertAdjacentElement('afterend',node);
+  }
+
   function ensureMobile(){
     document.querySelectorAll('.mobile-menu-body').forEach(body=>{
       if(!publicScreen()){
         body.querySelectorAll('[data-ecosystem-mobile-group]').forEach(x=>x.remove());
         return;
       }
-      const first=groupByLabel(body,/^(Навигация|Navigation)$/i);
-      const sections=groupByLabel(body,/^(Разделы|Sections)$/i);
-      if(first?.querySelector('.eyebrow')) first.querySelector('.eyebrow').textContent='P-120';
-      if(sections?.querySelector('.eyebrow')) sections.querySelector('.eyebrow').textContent=copy.core;
+      const first=groupByLabel(body,/^(Навигация|Navigation|P-120)$/i);
+      const sections=groupByLabel(body,/^(Разделы|Sections|Основное|Core)$/i);
+      setTextIfChanged(first?.querySelector('.eyebrow'),'P-120');
+      setTextIfChanged(sections?.querySelector('.eyebrow'),copy.core);
 
       let story=body.querySelector('[data-ecosystem-mobile-group="story"]');
-      if(!story){story=makeMobileGroup('story',copy.story,[['why',copy.why,copy.whyNote],['creator',copy.creator,copy.creatorNote]]);}
+      if(!story) story=makeMobileGroup('story',copy.story,[['why',copy.why,copy.whyNote],['creator',copy.creator,copy.creatorNote]]);
       let next=body.querySelector('[data-ecosystem-mobile-group="next"]');
-      if(!next){next=makeMobileGroup('next',copy.next,[['deeper',copy.deeper,copy.deeperNote],['together',copy.together,copy.togetherNote]]);}
+      if(!next) next=makeMobileGroup('next',copy.next,[['deeper',copy.deeper,copy.deeperNote],['together',copy.together,copy.togetherNote]]);
 
       const chapter=body.querySelector('[data-p120-chapter-mobile]');
       const language=body.querySelector('.p120-language-mobile-group');
       const theme=groupByLabel(body,/^(Тема оформления|Theme)$/i);
       const anchor=sections || first || body.querySelector('.mobile-menu-progress');
+
       if(anchor?.parentNode===body){
-        anchor.insertAdjacentElement('afterend',story);
-        story.insertAdjacentElement('afterend',next);
+        let cursor=anchor;
+        for(const node of [story,next,chapter,language,theme]){
+          if(!node) continue;
+          placeAfterIfNeeded(node,cursor,body);
+          cursor=node;
+        }
       } else {
-        body.append(story,next);
-      }
-      if(chapter?.parentNode===body) next.insertAdjacentElement('afterend',chapter);
-      if(language?.parentNode===body){
-        const after=chapter?.parentNode===body?chapter:next;
-        after.insertAdjacentElement('afterend',language);
-      }
-      if(theme?.parentNode===body){
-        const after=language?.parentNode===body?language:(chapter?.parentNode===body?chapter:next);
-        after.insertAdjacentElement('afterend',theme);
+        for(const node of [story,next,chapter,language,theme]){
+          if(node && node.parentNode!==body) body.appendChild(node);
+        }
       }
     });
   }
