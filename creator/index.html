@@ -14,92 +14,43 @@
   <link rel="preload" as="style" href="https://fonts.bunny.net/css?family=ibm-plex-mono:300,400,500|ibm-plex-sans:300,300i,400,400i,500,600|noto-serif:400,500,600,700|noto-serif-display:500,600,700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=ibm-plex-mono:300,400,500|ibm-plex-sans:300,300i,400,400i,500,600|noto-serif:400,500,600,700|noto-serif-display:500,600,700&display=swap" /></noscript>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../navigation-architecture-v2.css?v=nav20" />
+  <link rel="stylesheet" href="../founder-shell-v2.css?v=fndshell20" />
   <link rel="stylesheet" href="../founder-editorial-story-v1.0.css?v=fnd10" />
-  <link rel="stylesheet" href="../founder-visual-objects-v1.0.css?v=fnd60" data-p120-founder-visual="v1.0" />
-  <link rel="stylesheet" href="../founder-marginal-voice-v1.0.css?v=fndmv10" data-p120-founder-marginal="v1.0" />
+  <link rel="stylesheet" href="../founder-visual-objects-v1.0.css?v=fnd60" data-p120-founder-visual="v1.1" />
+  <link rel="stylesheet" href="../founder-marginal-voice-v1.1.css?v=fndmv11" data-p120-founder-marginal="v1.1" />
   <style>
-    :root{
-      --ink:#171715;--ink-2:#30302c;--muted:#6c6b64;--line:#deddd4;--line-strong:#c9c7bc;
-      --paper:#f6f4ed;--paper-2:#efede4;--card:#fffefa;--soft:#eae8df;--soft-2:#f3f1e9;
-      --accent:#2f7d78;--accent-soft:#d9ccb4;
-      --creator-tech:"IBM Plex Sans",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
-    body{margin:0;min-width:320px;background:var(--paper);color:var(--ink);font-family:var(--creator-tech);line-height:1.5}
+    :root{--ink:#171715;--ink-2:#30302c;--muted:#6c6b64;--line:#deddd4;--line-strong:#c9c7bc;--paper:#f6f4ed;--paper-2:#efede4;--card:#fffefa;--soft:#eae8df;--soft-2:#f3f1e9;--accent:#2f7d78;--accent-soft:#d9ccb4}
     body[data-theme='graphite']{--ink:#F4F1EB;--ink-2:#DDD7CE;--muted:#BEB7AE;--line:#514b45;--line-strong:#726a61;--paper:#211f1c;--paper-2:#181613;--card:#282521;--soft:#302c28;--soft-2:#2a2723;--accent:#899c9d;--accent-soft:#d6c7af}
-    body[data-theme='museum']{--ink:#193936;--ink-2:#304e4a;--muted:#6f7771;--line:#cfdad6;--line-strong:#b5c9c4;--paper:#f7f4ec;--paper-2:#f0eee5;--card:rgba(255,253,248,.94);--soft:#e7ece4;--soft-2:#eef0e7;--accent:#2f7d78;--accent-soft:#d9ccb4}
-    body[data-theme='museum']{background:radial-gradient(900px 520px at 82% 14%,rgba(47,125,120,.08),transparent 58%),linear-gradient(180deg,var(--paper),var(--paper-2))}
-    a{color:inherit}.skip-link{position:fixed;left:12px;top:-60px;z-index:1000;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:10px}.skip-link:focus{top:12px}
-    .creator-topbar{position:sticky;top:0;z-index:30;border-top:3px solid var(--accent);border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
-    .creator-topbar__inner{width:min(1680px,100%);min-height:74px;margin:auto;padding:11px clamp(18px,2.7vw,46px);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px}
-    .creator-brand{display:flex;align-items:center;gap:12px;text-decoration:none}.creator-mark{width:40px;height:40px;border-radius:50%;position:relative;border:1px solid var(--line-strong)}.creator-mark:before{content:"";position:absolute;inset:6px;border:2px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:50%}.creator-mark:after{content:"";position:absolute;width:12px;height:12px;border-radius:50%;right:3px;top:4px;background:var(--accent)}
-    .creator-lockup{display:grid;gap:2px}.creator-lockup strong{font-family:"Noto Serif",Georgia,serif;font-size:27px;line-height:1}.creator-lockup span{font:500 9px/1.2 var(--creator-tech);letter-spacing:.17em;text-transform:uppercase;color:var(--muted)}
-    .creator-nav{justify-self:center;display:flex;align-items:center;gap:4px;max-width:100%;border:1px solid var(--line-strong);border-radius:999px;padding:5px;background:color-mix(in srgb,var(--card) 46%,transparent);box-shadow:inset 0 1px 0 color-mix(in srgb,var(--card) 80%,transparent)}.creator-nav a{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:9px 13px;border-radius:999px;text-decoration:none;white-space:nowrap;font:500 12px/1.2 var(--creator-tech);color:var(--muted);transition:background .16s ease,color .16s ease,box-shadow .16s ease,transform .16s ease}.creator-nav a:hover,.creator-nav a:focus-visible{background:color-mix(in srgb,var(--card) 88%,var(--soft));color:var(--ink);box-shadow:0 4px 14px color-mix(in srgb,var(--ink) 8%,transparent);outline:none}.creator-nav a:active{transform:translateY(1px)}.creator-nav .creator-explore{gap:7px}.creator-nav .creator-explore:after{content:"";width:6px;height:6px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg) translateY(-2px);opacity:.58}
-    .creator-tools{display:flex;align-items:center;gap:7px}.creator-theme{appearance:none;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 78%,transparent);color:var(--muted);border-radius:999px;padding:7px 10px;font:500 10px/1 var(--creator-tech);cursor:pointer}.creator-theme[aria-pressed='true']{color:var(--ink);border-color:var(--line-strong)}
-    .creator-context{width:min(1680px,100%);margin:auto;padding:20px clamp(18px,2.7vw,46px) 0;display:flex;justify-content:space-between;gap:20px;align-items:center}.creator-context p{margin:0;font:400 10px/1.2 var(--creator-tech);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}.creator-context a{font:400 12px/1.2 var(--creator-tech);text-decoration:none;border-bottom:1px solid var(--line-strong);padding-bottom:3px}
-    .editorial-home{display:block}.founder-story{margin-top:24px}
-    .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
-    @media(max-width:1280px){.creator-topbar__inner{grid-template-columns:auto 1fr}.creator-nav{grid-column:1/-1;justify-self:start;width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none}.creator-nav::-webkit-scrollbar{display:none}.creator-tools{justify-self:end}.creator-lockup span{display:none}}
-    @media(max-width:620px){.creator-topbar__inner{gap:10px}.creator-mark{display:none}.creator-lockup strong{font-size:24px}.creator-tools .creator-theme:not([aria-pressed='true']){display:none}.creator-nav{width:100%;border:1px solid var(--line-strong);padding:4px}.creator-nav a{min-height:36px;font-size:11px;padding:8px 11px}.creator-context{padding-top:14px}.creator-context p{font-size:9px}}
+    body[data-theme='museum']{--ink:#193936;--ink-2:#304e4a;--muted:#6f7771;--line:#cfdad6;--line-strong:#b5c9c4;--paper:#f7f4ec;--paper-2:#f0eee5;--card:rgba(255,253,248,.94);--soft:#e7ece4;--soft-2:#eef0e7;--accent:#2f7d78;--accent-soft:#d9ccb4;background:radial-gradient(900px 520px at 82% 14%,rgba(47,125,120,.08),transparent 58%),linear-gradient(180deg,var(--paper),var(--paper-2))}
   </style>
 </head>
 <body data-theme="museum">
   <a class="skip-link" href="#main-content">Перейти к основному содержанию</a>
   <header class="creator-topbar">
     <div class="creator-topbar__inner">
-      <a class="creator-brand" href="../" aria-label="P-120 — на главную">
-        <span class="creator-mark" aria-hidden="true"></span>
-        <span class="creator-lockup"><strong>P-120</strong><span>исследовательская архитектура</span></span>
-      </a>
-      <nav class="creator-nav" aria-label="Основная навигация">
-        <a href="../#why-important">О P-120</a>
-        <a href="../why-p120/">Почему P-120?</a>
-        <a href="../#why-p120">Уникальность</a>
-        <a href="../#what-p120-shows">Что покажет</a>
-        <a href="../#showcase">Отчёт</a>
-        <a href="../#science-foundation">Научная база</a>
-        <a class="creator-explore" href="../?start=1">Исследовать</a>
+      <a class="creator-brand" href="../" aria-label="P-120 — на главную"><span class="creator-mark" aria-hidden="true"></span><span class="creator-lockup"><strong>P-120</strong><span>исследовательская архитектура</span></span></a>
+      <nav class="creator-nav topnav" aria-label="Основная навигация">
+        <a class="navlink" href="../#why-important">О P-120</a>
+        <a class="navlink" href="../why-p120/">Почему P-120?</a>
+        <a class="navlink" href="../#why-p120">Уникальность</a>
+        <a class="navlink" href="../#what-p120-shows">Что покажет</a>
+        <a class="navlink" href="../#showcase">Отчёт</a>
+        <a class="navlink" href="../#science-foundation">Научная база</a>
+        <span data-founder-explore-slot></span>
       </nav>
-      <div class="creator-tools" aria-label="Тема оформления">
-        <button class="creator-theme" type="button" data-set-theme="ivory" aria-pressed="false">Ivory</button>
-        <button class="creator-theme" type="button" data-set-theme="graphite" aria-pressed="false">Graphite</button>
-        <button class="creator-theme" type="button" data-set-theme="museum" aria-pressed="true">Музейная</button>
+      <div class="creator-tools" aria-label="Настройки страницы">
+        <nav class="creator-language" aria-label="Язык"><a href="./" lang="ru" aria-current="page">RU</a><a href="../en/creator/" lang="en">EN</a></nav>
+        <div data-founder-theme-slot></div>
       </div>
     </div>
   </header>
   <div class="creator-context" aria-label="Контекст страницы"><p>История P-120 · От создателя</p><a href="../">← Вернуться к P-120</a></div>
-  <div id="app">
-    <main id="main-content" class="editorial-home">
-      <h1 class="sr-only">От создателя P-120</h1>
-    </main>
-  </div>
-  <script>
-    (()=>{
-      const KEY='p120_web_theme_v16';
-      const valid=['ivory','graphite','museum'];
-      function apply(t){
-        const theme=valid.includes(t)?t:'museum';
-        document.body.dataset.theme=theme;
-        document.querySelectorAll('[data-set-theme]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.setTheme===theme)));
-        document.getElementById('theme-color-meta')?.setAttribute('content',({ivory:'#f6f4ed',graphite:'#211f1c',museum:'#f7f4ec'})[theme]);
-        try{localStorage.setItem(KEY,theme)}catch(_){ }
-      }
-      try{apply(localStorage.getItem(KEY)||'museum')}catch(_){apply('museum')}
-      document.addEventListener('click',e=>{const b=e.target.closest('[data-set-theme]');if(b)apply(b.dataset.setTheme)});
-      document.addEventListener('click',e=>{
-        const b=e.target.closest('[data-founder-route]');
-        if(!b)return;
-        e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
-        const route=b.dataset.founderRoute;
-        if(route==='science')location.href='../#science-foundation';
-        else if(route==='why')location.href='../why-p120/';
-        else if(route==='self')location.href='../?start=1';
-      },true);
-    })();
-  </script>
+  <div id="app"><main id="main-content" class="editorial-home"><h1 class="sr-only">От создателя P-120</h1></main></div>
+  <script src="../founder-shell-v2.js?v=fndshell20"></script>
   <script src="../founder-editorial-story-v1.0.js?v=fnd10"></script>
-  <script src="../founder-visual-objects-v1.0.js?v=fnd60" data-p120-founder-visual="v1.0"></script>
-  <script src="../founder-marginal-voice-v1.0.js?v=fndmv10" data-p120-founder-marginal="v1.0"></script>
+  <script src="../founder-ru-cleanup-v1.0.js?v=fndru10"></script>
+  <script src="../founder-visual-objects-v1.1.js?v=fndvo11" data-p120-founder-visual="v1.1"></script>
+  <script src="../founder-marginal-voice-v1.0.js?v=fndmv10" data-p120-founder-marginal="v1.1"></script>
 </body>
 </html>
