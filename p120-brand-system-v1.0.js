@@ -49,7 +49,7 @@
 
   function kind(){
     const p=location.pathname.toLowerCase();
-    for(const k of ['intellectual-property','privacy','terms','why-p120','creator','extended','together']){
+    for(const k of ['intellectual-property','privacy','terms','why-p120','creator','extended','together','science']){
       if(p.includes(`/${k}/`)) return k;
     }
     return 'main';
@@ -89,7 +89,7 @@
 
   function staticNavMarkup(){
     const whyCurrent=pageKind==='why-p120'?' aria-current="page"':'';
-    return `<a class="p120-brand53-navitem" href="${homeAnchor('why-important')}">${copy.about}</a><a class="p120-brand53-navitem" href="${routeFor('why-p120')}"${whyCurrent}>${copy.why}</a><a class="p120-brand53-navitem" href="${homeAnchor('why-p120')}">${copy.unique}</a><a class="p120-brand53-navitem" href="${homeAnchor('what-p120-shows')}">${copy.shows}</a><a class="p120-brand53-navitem" href="${homeAnchor('showcase')}">${copy.report}</a><a class="p120-brand53-navitem" href="${localeRoot(isEn)}#scientific-base">${copy.science}</a>${megaMarkup()}`;
+    return `<a class="p120-brand53-navitem" href="${homeAnchor('why-important')}">${copy.about}</a><a class="p120-brand53-navitem" href="${routeFor('why-p120')}"${whyCurrent}>${copy.why}</a><a class="p120-brand53-navitem" href="${homeAnchor('why-p120')}">${copy.unique}</a><a class="p120-brand53-navitem" href="${homeAnchor('what-p120-shows')}">${copy.shows}</a><a class="p120-brand53-navitem" href="${homeAnchor('showcase')}">${copy.report}</a><a class="p120-brand53-navitem" href="${routeFor('science')}">${copy.science}</a>${megaMarkup()}`;
   }
 
   function patchNav(){
@@ -243,7 +243,7 @@
       const chapters=document.createElement('nav');
       chapters.className='p120-site-footer__chapters';
       chapters.setAttribute('aria-label',isEn?'P-120 chapters':'Разделы P-120');
-      chapters.innerHTML=`<a href="${routeFor('why-p120')}">${copy.why}</a><a href="${routeFor('creator')}">${copy.creator}</a><a href="${routeFor('extended')}">${copy.deeper}</a><a href="${routeFor('together')}">${copy.together}</a><a href="${localeRoot(isEn)}#scientific-base">${copy.science}</a>`;
+      chapters.innerHTML=`<a href="${routeFor('why-p120')}">${copy.why}</a><a href="${routeFor('creator')}">${copy.creator}</a><a href="${routeFor('extended')}">${copy.deeper}</a><a href="${routeFor('together')}">${copy.together}</a><a href="${routeFor('science')}">${copy.science}</a>`;
 
       const legal=document.createElement('section');
       legal.className='p120-site-footer__legal';
