@@ -3,7 +3,7 @@
 **Document ID:** P120-WEB-EXP-P3-001  
 **Document class:** Controlled Implementation / QA Record  
 **Version:** 1.0  
-**Status:** IMPLEMENTED · LIVE DEPLOYMENT PENDING FINAL VISUAL ACCEPTANCE  
+**Status:** IMPLEMENTED · LIVE DEPLOYED · FINAL VISUAL ACCEPTANCE OPEN  
 **Date:** 2026-09-01  
 **Scope:** `/extended/`, `/together/`  
 **Content authority:** unchanged from WEB-EXPLORE PASS 2  
@@ -117,7 +117,7 @@ Prata is explicitly secondary and must never replace Noto Serif as the scientifi
 | Responsive rules preserved | IMPLEMENTED |
 | Reduced-motion protection preserved | IMPLEMENTED |
 | Assessment/scoring regression | NOT TOUCHED |
-| Live GitHub Pages build | TO VERIFY AFTER FINAL COMMIT |
+| Live GitHub Pages build | PASS — run 381 · implementation HEAD `b97cb40db1ee2058737bbf024ceb7ab59bd43643` |
 | Screenshot visual acceptance | OPEN — user/live visual review |
 
 ---
