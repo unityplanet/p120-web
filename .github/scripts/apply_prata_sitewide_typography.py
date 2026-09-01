@@ -96,27 +96,6 @@ def why_css(s):
 '''
 
 
-def integration_workflow(s):
-    s = add_prata_font(s)
-    trigger = "      - 'navigation-architecture-v2.js'\n"
-    if "      - 'prata-literary-voice-v1.0.css'\n" not in s:
-        if trigger not in s:
-            raise SystemExit('Integration workflow trigger anchor not found')
-        s = s.replace(trigger, trigger + "      - 'prata-literary-voice-v1.0.css'\n", 1)
-
-    bundle_anchor = "'navigation-architecture-v2.css','depth-statement-v1.2.css','visual-fix-v1.7.1j.css'"
-    bundle_new = "'navigation-architecture-v2.css','depth-statement-v1.2.css','visual-fix-v1.7.1j.css','prata-literary-voice-v1.0.css'"
-    if PATCH not in s[s.find('css_sources=['):s.find('js_sources=[')]:
-        if bundle_anchor not in s:
-            raise SystemExit('Integration workflow CSS bundle anchor not found')
-        s = s.replace(bundle_anchor, bundle_new, 1)
-
-    s = s.replace('pub20', 'pub21')
-    s = s.replace('Final depth statement: v1.3 desktop-fit staircase Noto\\n',
-                  'Final depth statement: v1.3 desktop-fit staircase Noto\\nPrata literary voice: v1.0 selective human/reflective narrative only\\n')
-    return s
-
-
 if __name__ == '__main__':
     if not Path(PATCH).exists():
         raise SystemExit(f'Missing {PATCH}')
@@ -125,7 +104,6 @@ if __name__ == '__main__':
     edit('en/index.html', main_page)
     edit('why-p120/index.html', add_prata_font)
     edit('why-p120/why-p120.css', why_css)
-    edit('.github/workflows/integrate-bilingual-public-site-v1.yml', integration_workflow)
 
     # Static conformance guards: Prata must not enter measurement/science/functional surfaces.
     patch = Path(PATCH).read_text(encoding='utf-8')
