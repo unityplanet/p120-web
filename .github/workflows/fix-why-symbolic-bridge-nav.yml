@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '.github/scripts/fix_why_symbolic_bridge_nav.py'
+      - '.github/scripts/fix_why_creator_nav.py'
       - '.github/workflows/fix-why-symbolic-bridge-nav.yml'
   workflow_dispatch:
 
@@ -25,10 +26,12 @@ jobs:
           git rebase origin/main
       - name: Apply symbolic ACT 1 Venn layer and rounded nav
         run: python3 .github/scripts/fix_why_symbolic_bridge_nav.py
+      - name: Add creator link to Why P-120 navigation
+        run: python3 .github/scripts/fix_why_creator_nav.py
       - name: Static acceptance gates
         run: |
           set -euo pipefail
-          python3 -m py_compile .github/scripts/fix_why_symbolic_bridge_nav.py
+          python3 -m py_compile .github/scripts/fix_why_symbolic_bridge_nav.py .github/scripts/fix_why_creator_nav.py
           grep -q 'id="wp-act1-symbolic-venn-v2"' why-p120/index.html
           grep -q 'class="wp-venn-six"' why-p120/index.html
           grep -q 'Символическое сведение 72 к 9' why-p120/index.html
@@ -36,6 +39,8 @@ jobs:
           grep -q 'Девять минус три равно шесть' why-p120/index.html
           grep -q 'Символический слой бренда · не часть методологии' why-p120/index.html
           grep -q 'class="wp-nav-current"' why-p120/index.html
+          grep -q 'href="../creator/">От создателя</a>' why-p120/index.html
+          grep -q 'From the Creator</a>' en/why-p120/index.html
           grep -q 'Symbolic reduction of 72 to 9' en/why-p120/index.html
           grep -q 'Symbolic reduction of 48 to 3' en/why-p120/index.html
           if grep -q 'class="wp-symbol-bridge"' why-p120/index.html; then
@@ -46,12 +51,12 @@ jobs:
         run: |
           set -euo pipefail
           if git diff --quiet; then
-            echo 'Why P-120 ACT 1 symbolic Venn layer already reconciled.'
+            echo 'Why P-120 navigation and ACT 1 symbolic Venn layer already reconciled.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add why-p120/index.html en/why-p120/index.html
-          git commit -m 'Move symbolic number layer into ACT 1 Venn plane'
+          git commit -m 'Reconcile Why P-120 navigation and symbolic Venn layer'
           git pull --rebase origin main
           git push origin HEAD:main
