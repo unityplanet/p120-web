@@ -1,0 +1,137 @@
+name: Restore Scientific Base Visual Parity v2
+on:
+  push:
+    paths:
+      - '.github/workflows/restore-science-visual-parity-v2.yml'
+permissions:
+  contents: write
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build dedicated pages from the existing Scientific Base renderer
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          STYLE = '''<style id="p120-dedicated-science-route-v2">
+          .p120-dedicated-science-lang{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.42);flex:0 0 auto}
+          .p120-dedicated-science-lang a{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:25px;padding:0 7px;border-radius:999px;text-decoration:none;font:800 9px/1 "IBM Plex Sans",system-ui,sans-serif;letter-spacing:.06em;color:var(--muted)}
+          .p120-dedicated-science-lang a[aria-current="page"]{background:var(--ink);color:var(--card)}
+          body[data-theme='graphite'] .p120-dedicated-science-lang,body[data-theme='museum'] .p120-dedicated-science-lang{background:rgba(255,255,255,.04)}
+          @media(max-width:720px){.p120-dedicated-science-lang{margin-left:auto}.p120-dedicated-science-lang a{min-width:28px}.topbar-tools .badge.desktop-only{display:none!important}}
+          </style>'''
+
+          BOOT = '''<script id="p120-dedicated-science-bootstrap-v2">
+          (()=>{
+            'use strict';
+            const isEn=(document.documentElement.lang||'').toLowerCase().startsWith('en');
+            const basePath=location.pathname.replace(/(?:en\\/)?science\\/?$/i,'');
+            const home=()=>`${location.origin}${basePath}${isEn?'en/':''}`;
+            const route=en=>`${location.origin}${basePath}${en?'en/science/':'science/'}`;
+            function prepareEnglish(){
+              if(!isEn)return;
+              const d=window.P120_SCIENCE;
+              if(d?.positioning){
+                d.positioning.summary='P-120 is proposed as a candidate multilayer research architecture integrating several established and related research traditions without reducing them to a single general “sexuality score”.';
+                d.positioning.evidenceBoundary='Scientific literature supports related psychological mechanisms, methodological decisions and individual component hypotheses. It does not constitute direct empirical validation of the exact P-120 factor structure, thresholds, archetypal or trajectory rules, composite scores, cross-layer interpretation or future dyadic outputs.';
+              }
+              const labels=['independent research layers','falsifiable cross-layer hypotheses','validation stages, 0–12','scientific and methodological sources'];
+              if(Array.isArray(d?.metrics))d.metrics.forEach((m,i)=>{if(labels[i])m.label=labels[i]});
+            }
+            function localizeEnglishSurface(){
+              if(!isEn)return;
+              const h=document.querySelector('.science-page h1');if(h&&h.textContent.trim()!=='Scientific Base P-120.')h.textContent='Scientific Base P-120.';
+              const status=document.querySelector('.science-status-label');if(status&&status.textContent.trim()!=='Evidence status')status.textContent='Evidence status';
+              const replacements=new Map([
+                ['Открыть полный документ · PDF','Open full document · PDF'],['Главное меню','Main menu'],['Вернуться в главное меню','Back to main menu'],
+                ['5 слоёв','5 layers'],['Конструкты','Constructs'],['Карта доказательности','Evidence map'],['Гипотезы','Hypotheses'],['Валидация','Validation'],['Этика','Ethics'],['Литература','Literature'],
+                ['Основной академический документ','Primary academic document'],['КОРРЕКТНАЯ ФОРМУЛА ОРИГИНАЛЬНОСТИ','CORRECT ORIGINALITY FORMULA']
+              ]);
+              const w=document.createTreeWalker(document.querySelector('.science-page')||document.body,NodeFilter.SHOW_TEXT);let n;
+              while(n=w.nextNode()){const s=n.nodeValue.trim();if(replacements.has(s))n.nodeValue=n.nodeValue.replace(s,replacements.get(s));}
+            }
+            function languageSwitch(){
+              const tools=document.querySelector('.topbar-tools');
+              if(!tools||tools.querySelector('.p120-dedicated-science-lang'))return;
+              const nav=document.createElement('nav');nav.className='p120-dedicated-science-lang';nav.setAttribute('aria-label',isEn?'Language':'Язык');
+              nav.innerHTML=`<a href="${route(false)}" lang="ru" ${!isEn?'aria-current="page"':''}>RU</a><a href="${route(true)}" lang="en" ${isEn?'aria-current="page"':''}>EN</a>`;
+              tools.prepend(nav);
+            }
+            function finish(){languageSwitch();localizeEnglishSurface();document.title=isEn?'Scientific Base — P-120':'Научная база — P-120';}
+            function enter(attempt=0){
+              if(document.querySelector('.science-page')){finish();return;}
+              prepareEnglish();
+              const trigger=document.querySelector('.topnav [data-science],button[data-science],.science-navlink[data-science]');
+              if(trigger){trigger.click();setTimeout(finish,80);return;}
+              if(attempt<80)setTimeout(()=>enter(attempt+1),40);
+            }
+            document.addEventListener('click',e=>{
+              if(e.target.closest?.('.p120-dedicated-science-lang a'))return;
+              const homeEl=e.target.closest?.('[data-home],.brand-button');
+              if(homeEl){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();location.href=home();return;}
+              const nav=e.target.closest?.('[data-nav]');
+              if(nav){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();location.href=`${home()}#${nav.dataset.nav}`;return;}
+              const why=e.target.closest?.('[data-why-origin]');
+              if(why){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();location.href=`${home()}why-p120/`;return;}
+              const science=e.target.closest?.('[data-science],[data-mobile-jump-science]');
+              if(science&&document.querySelector('.science-page')){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();document.getElementById('science-top')?.scrollIntoView({behavior:'smooth'});}
+            },true);
+            const mo=new MutationObserver(()=>{languageSwitch();if(isEn&&document.querySelector('.science-page'))localizeEnglishSurface();});
+            const start=()=>{mo.observe(document.body,{subtree:true,childList:true});enter()};
+            if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+          })();
+          </script>'''
+
+          def build(src,dst):
+              text=Path(src).read_text(encoding='utf-8')
+              text=text.replace('<head>','<head>\n  <base href="../">',1)
+              text=re.sub(r'<script[^>]+src=["\'][^"\']*science-navigation-reconciliation-v1\.0\.js[^"\']*["\'][^>]*></script>','',text,flags=re.I)
+              text=text.replace('</head>',STYLE+'\n</head>',1)
+              text=text.replace('</body>',BOOT+'\n</body>',1)
+              Path(dst).parent.mkdir(parents=True,exist_ok=True)
+              Path(dst).write_text(text,encoding='utf-8')
+
+          build('index.html','science/index.html')
+          build('en/index.html','en/science/index.html')
+          PY
+      - name: Static parity contract
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          for p,lang in [('science/index.html','ru'),('en/science/index.html','en')]:
+              t=Path(p).read_text(encoding='utf-8')
+              assert f'<html lang="{lang}">' in t
+              assert 'function renderScience()' in t
+              assert 'science-hero' in t and 'science-doc-card' in t and 'science-metrics' in t and 'science-subnav' in t
+              assert 'p120-dedicated-science-bootstrap-v2' in t
+              assert 'p120-dedicated-science-lang' in t
+              assert 'science-navigation-reconciliation-v1.0.js' not in t
+          print('STATIC VISUAL PARITY PASS')
+          PY
+      - name: Browser route and visual contract
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-science-v2.log 2>&1 & sleep 2
+          cat > qa.mjs <<'JS'
+          import {chromium} from 'playwright';
+          const b=await chromium.launch({headless:true});const bad=[];const ok=(v,m)=>{console.log(`${v?'PASS':'FAIL'} ${m}`);if(!v)bad.push(m)};
+          async function check(path,lang,title,pdf){
+            const p=await b.newPage({viewport:{width:1920,height:1080}});await p.goto('http://127.0.0.1:4173'+path,{waitUntil:'domcontentloaded'});await p.waitForSelector('.science-page',{timeout:10000});await p.waitForTimeout(700);
+            ok(new URL(p.url()).pathname===path,lang+' dedicated URL');ok((await p.locator('.science-page h1').innerText()).includes(title),lang+' original hero');ok(await p.locator('.science-doc-card').count()===1,lang+' document card');ok(await p.locator('.science-metrics').count()===1,lang+' metrics');ok(await p.locator('.science-subnav').count()===1,lang+' scientific subnav');ok(await p.locator('.p120-dedicated-science-lang').isVisible(),lang+' RU/EN visible');const href=await p.locator('a[href*="scientific-concept-paper"]').first().getAttribute('href');ok(href?.includes(pdf),lang+' locale PDF');await p.close();
+          }
+          await check('/science/','ru','Научная база P-120','p120-scientific-concept-paper-v1.2.pdf');await check('/en/science/','en','Scientific Base P-120','p120-scientific-concept-paper-en-v1.2.pdf');
+          const p=await b.newPage();await p.goto('http://127.0.0.1:4173/science/',{waitUntil:'domcontentloaded'});await p.waitForSelector('.science-page');await p.locator('.p120-dedicated-science-lang a[lang="en"]').click();await p.waitForURL(u=>u.pathname==='/en/science/');ok(new URL(p.url()).pathname==='/en/science/','RU -> EN preserves Scientific Base');await p.close();await b.close();if(bad.length)process.exit(1);
+          JS
+          node qa.mjs
+      - name: Commit restored pages
+        run: |
+          git config user.name "p120-release-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add science/index.html en/science/index.html
+          git commit -m "SCIENCE: restore original Scientific Base design on dedicated routes"
+          git push
