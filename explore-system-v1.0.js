@@ -1,4 +1,4 @@
-/* P-120 WEB-EXPLORE PASS 5 — shared Explore shell v1.3.
+/* P-120 WEB-EXPLORE PASS 5 — shared Explore shell v1.3.1.
    Presentation/navigation/theme/localisation shell only.
    No assessment, scoring, persistence, report or scientific-authority logic. */
 (() => {
@@ -19,6 +19,22 @@
     critical.id='p120-explore-critical-v13';
     critical.textContent='.mobile-drawer{display:none!important}@media(max-width:760px){.mobile-drawer{display:block!important}}';
     head.appendChild(critical);
+  }
+
+  /* Peripheral surfaces in the PASS-2 base CSS pre-date theme support. Keep the
+     correction narrow and token-driven so footer, drawer and secondary plot labels
+     remain coherent in all three public themes. */
+  if(!document.getElementById('p120-explore-theme-bridge-v1')){
+    const bridge=document.createElement('style');
+    bridge.id='p120-explore-theme-bridge-v1';
+    bridge.textContent=`
+.explore-footer{background:var(--stone)!important;color:var(--ink-2)!important;border-top-color:color-mix(in srgb,var(--line) 65%,transparent)!important}
+.trajectory.b::before{color:color-mix(in srgb,var(--bronze) 82%,var(--graphite))!important}
+@media(max-width:760px){
+  .mobile-drawer{background:color-mix(in srgb,var(--petrol) 96%,#000)!important;color:var(--explore-reverse-ink,#f5f1e9)!important}
+  .mobile-drawer small{color:color-mix(in srgb,var(--explore-reverse-ink,#f5f1e9) 70%,var(--teal))!important}
+}`;
+    head.appendChild(bridge);
   }
 
   function loadStyle(href,key,version){
@@ -167,6 +183,6 @@
   });
 
   topbar?.classList.toggle('is-scrolled',window.scrollY>8);
-  html.dataset.webExploreShell='v1.3';
+  html.dataset.webExploreShell='v1.3.1';
   html.classList.add('explore-unification-ready');
 })();
