@@ -113,3 +113,5 @@ for token in ['Symbolic brand layer','not part of the methodology','Symbolic red
     if token not in en_now:
         raise SystemExit(f'Missing EN acceptance token: {token}')
 print('Why P-120 symbolic bridge + rounded nav: PASS')
+
+# trigger reconciliation
