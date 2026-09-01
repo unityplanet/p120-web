@@ -1,0 +1,166 @@
+/* P-120 Founder Visual Objects v1.0
+   PASS 6 controlled visual layer for /creator/ only.
+   Copy authority remains founder-editorial-story-v1.0.js.
+   No identity, portrait, scoring, science-model or assessment mutations. */
+
+.founder-story--vo-v1{
+  --fnd-tech:"IBM Plex Sans",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --fnd-mono:"IBM Plex Mono","JetBrains Mono","SFMono-Regular",Consolas,monospace;
+  --vo-line:color-mix(in srgb,var(--fnd-line) 56%,transparent);
+  --vo-line-soft:color-mix(in srgb,var(--fnd-line) 25%,transparent);
+  --vo-signal:color-mix(in srgb,var(--fnd-teal) 78%,var(--fnd-ink) 22%);
+  --vo-wash:color-mix(in srgb,var(--fnd-teal) 7%,transparent);
+  overflow:clip;
+}
+.founder-story--vo-v1 .founder-story__eyebrow,
+.founder-story--vo-v1 .founder-story__marker,
+.founder-story--vo-v1 .founder-story__science-link,
+.founder-story--vo-v1 .founder-story__route,
+.founder-story--vo-v1 .founder-story__signature-role{
+  font-family:var(--fnd-tech);
+  font-weight:400;
+}
+.founder-story--vo-v1 .founder-story__eyebrow{font-size:11px;letter-spacing:.185em}
+.founder-story--vo-v1 .founder-story__marker{font-size:11px;font-weight:400;letter-spacing:.17em}
+.founder-story--vo-v1 .founder-story__coordinate-labels{
+  font-family:var(--fnd-mono);font-weight:300;letter-spacing:.12em;
+}
+
+/* VO-01 — origin thread: an unresolved line progressively becomes measured structure. */
+.founder-vo__thread{
+  position:absolute;z-index:0;pointer-events:none;color:var(--vo-signal);
+  width:clamp(190px,27vw,470px);height:clamp(240px,38vw,610px);
+  right:clamp(18px,5vw,92px);top:50%;transform:translateY(-50%);
+  opacity:.64;
+}
+.founder-vo__thread svg{width:100%;height:100%;display:block;overflow:visible}
+.founder-vo__thread path{fill:none;stroke:currentColor;stroke-width:1.1;vector-effect:non-scaling-stroke;stroke-linecap:round}
+.founder-vo__thread circle{fill:var(--fnd-paper);stroke:currentColor;stroke-width:1;vector-effect:non-scaling-stroke}
+.founder-vo__thread circle[data-solid='1']{fill:currentColor}
+#fnd-00 .founder-vo__thread{opacity:.47}
+#fnd-01 .founder-vo__thread{opacity:.36;transform:translateY(-50%) rotate(4deg)}
+#fnd-05 .founder-vo__thread{opacity:.24;right:4vw}
+#fnd-06 .founder-vo__thread{opacity:.38;right:6vw}
+#fnd-10 .founder-vo__thread{opacity:.22}
+
+/* VO-02 — quiet research index marks. */
+.founder-vo__index{
+  position:absolute;right:clamp(18px,2.7vw,46px);top:clamp(28px,3vw,50px);z-index:2;
+  font:300 10px/1.2 var(--fnd-mono);letter-spacing:.13em;color:var(--fnd-muted);text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;pointer-events:none;
+}
+.founder-vo__index:before{content:"";width:34px;height:1px;background:var(--vo-line)}
+
+/* VO-03 — the distance between feeling and language becomes spatial. */
+#fnd-03{overflow:hidden}
+.founder-vo__distance{
+  margin-top:clamp(58px,8vw,128px);max-width:1180px;display:grid;grid-template-columns:auto minmax(120px,1fr) auto;
+  align-items:center;gap:18px;color:var(--fnd-muted);pointer-events:none;
+}
+.founder-vo__distance span{font:300 11px/1.2 var(--fnd-mono);letter-spacing:.17em;text-transform:uppercase}
+.founder-vo__distance-line{position:relative;height:1px;background:var(--vo-line)}
+.founder-vo__distance-line:before,.founder-vo__distance-line:after{content:"";position:absolute;top:50%;width:7px;height:7px;border-radius:50%;border:1px solid var(--vo-signal);background:var(--fnd-paper);transform:translateY(-50%)}
+.founder-vo__distance-line:before{left:0}.founder-vo__distance-line:after{right:0}
+.founder-vo__distance-line i{position:absolute;left:18%;right:18%;top:-10px;height:20px;background:repeating-linear-gradient(90deg,transparent 0 7.5%,var(--vo-line-soft) 7.5% calc(7.5% + 1px));opacity:.85}
+
+/* VO-04 — specimen catalogue, not UI cards. */
+.founder-story--vo-v1 .founder-story__questions{counter-reset:fnd-specimen}
+.founder-story--vo-v1 .founder-story__question-row{position:relative;counter-increment:fnd-specimen;padding-right:clamp(38px,6vw,94px)}
+.founder-story--vo-v1 .founder-story__question-row:before{
+  content:"0" counter(fnd-specimen);position:absolute;right:0;top:clamp(28px,3.2vw,54px);
+  font:300 10px/1 var(--fnd-mono);letter-spacing:.12em;color:var(--fnd-muted);
+}
+.founder-story--vo-v1 .founder-story__question-row:after{
+  content:"";position:absolute;right:0;bottom:-1px;width:clamp(24px,4vw,62px);height:1px;background:var(--vo-signal);opacity:.62;
+}
+
+/* VO-05 — coordinate atlas: semantic axes with no pseudo-data. */
+.founder-story--vo-v1 .founder-story__coordinate-field{
+  border:1px solid var(--vo-line);min-height:clamp(460px,38vw,620px);
+  background:linear-gradient(90deg,var(--vo-line-soft) 1px,transparent 1px),linear-gradient(0deg,var(--vo-line-soft) 1px,transparent 1px);
+  background-size:20% 20%;
+}
+.founder-story--vo-v1 .founder-story__coordinate-field:before,
+.founder-story--vo-v1 .founder-story__coordinate-field:after{display:none}
+.founder-vo__atlas{position:absolute;inset:8%;z-index:1;pointer-events:none;color:var(--vo-signal)}
+.founder-vo__atlas-ring{position:absolute;left:50%;top:50%;border:1px solid color-mix(in srgb,currentColor 34%,transparent);border-radius:50%;transform:translate(-50%,-50%)}
+.founder-vo__atlas-ring:nth-child(1){width:23%;aspect-ratio:1}.founder-vo__atlas-ring:nth-child(2){width:47%;aspect-ratio:1}.founder-vo__atlas-ring:nth-child(3){width:72%;aspect-ratio:1}.founder-vo__atlas-ring:nth-child(4){width:96%;aspect-ratio:1}
+.founder-vo__atlas-axis{position:absolute;left:50%;top:50%;width:92%;height:1px;background:color-mix(in srgb,currentColor 34%,transparent);transform-origin:center}
+.founder-vo__atlas-axis:nth-of-type(5){transform:translate(-50%,-50%) rotate(0deg)}
+.founder-vo__atlas-axis:nth-of-type(6){transform:translate(-50%,-50%) rotate(30deg)}
+.founder-vo__atlas-axis:nth-of-type(7){transform:translate(-50%,-50%) rotate(60deg)}
+.founder-vo__atlas-axis:nth-of-type(8){transform:translate(-50%,-50%) rotate(90deg)}
+.founder-vo__atlas-axis:nth-of-type(9){transform:translate(-50%,-50%) rotate(120deg)}
+.founder-vo__atlas-axis:nth-of-type(10){transform:translate(-50%,-50%) rotate(150deg)}
+.founder-vo__atlas-center{position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;border:1px solid currentColor;background:var(--fnd-soft);transform:translate(-50%,-50%);box-shadow:0 0 0 9px color-mix(in srgb,currentColor 6%,transparent)}
+.founder-vo__atlas-caption{position:absolute;right:11px;bottom:9px;font:300 9px/1.2 var(--fnd-mono);letter-spacing:.11em;color:var(--fnd-muted);text-transform:uppercase}
+
+/* VO-06 — doctrine axis. */
+.founder-story--vo-v1 .founder-story__doctrine{position:relative}
+.founder-story--vo-v1 .founder-story__doctrine:before{content:"";position:absolute;top:0;bottom:0;left:calc(40% - 1px);width:1px;background:linear-gradient(180deg,transparent,var(--vo-signal) 12%,var(--vo-signal) 88%,transparent);opacity:.38}
+.founder-story--vo-v1 .founder-story__doctrine-row{grid-template-columns:minmax(210px,.62fr) minmax(0,1fr)}
+.founder-story--vo-v1 .founder-story__doctrine-row span:first-child{font-family:var(--fnd-tech);font-weight:300;letter-spacing:.10em}
+.founder-story--vo-v1 .founder-story__doctrine-row span:last-child{padding-left:clamp(8px,1vw,18px)}
+
+/* VO-07 — evidence threshold, the visible boundary where authorship stops. */
+.founder-vo__evidence{
+  grid-column:1/-1;margin-top:clamp(58px,7vw,112px);padding-top:22px;border-top:1px solid var(--vo-line);
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;counter-reset:evidence;
+}
+.founder-vo__evidence-step{counter-increment:evidence;position:relative;padding:18px clamp(8px,1.4vw,20px) 8px 0;border-top:2px solid transparent}
+.founder-vo__evidence-step:before{content:"0" counter(evidence);display:block;margin-bottom:10px;font:300 9px/1 var(--fnd-mono);letter-spacing:.1em;color:var(--fnd-muted)}
+.founder-vo__evidence-step span{font:300 clamp(10px,.8vw,13px)/1.25 var(--fnd-tech);letter-spacing:.12em;text-transform:uppercase;color:var(--fnd-muted)}
+.founder-vo__evidence-step:after{content:"";position:absolute;left:0;right:8%;top:-23px;height:1px;background:var(--vo-line)}
+.founder-vo__evidence-step:last-child{border-top-color:var(--vo-signal)}
+.founder-vo__evidence-step:last-child span{color:var(--fnd-ink)}
+.founder-vo__evidence-step:last-child:after{background:var(--vo-signal)}
+
+/* VO-08 — final north-star mark. */
+.founder-vo__north-mark{position:absolute;right:clamp(24px,7vw,120px);bottom:clamp(46px,8vw,120px);width:clamp(110px,15vw,230px);aspect-ratio:1;border:1px solid var(--vo-line);border-radius:50%;pointer-events:none;opacity:.58}
+.founder-vo__north-mark:before{content:"";position:absolute;inset:27%;border:1px solid var(--vo-line);border-radius:50%}
+.founder-vo__north-mark:after{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;border-radius:50%;background:var(--vo-signal);transform:translate(-50%,-50%);box-shadow:0 0 0 8px color-mix(in srgb,var(--vo-signal) 7%,transparent)}
+
+/* Quiet scene-specific washes, deliberately non-illustrative. */
+#fnd-00:after,#fnd-05:after,#fnd-10:after{content:"";position:absolute;pointer-events:none;z-index:0;width:min(42vw,660px);aspect-ratio:1;border-radius:50%;right:-12%;top:50%;transform:translateY(-50%);background:radial-gradient(circle,var(--vo-wash),transparent 68%)}
+#fnd-06{background-image:linear-gradient(90deg,transparent 0 49.96%,var(--vo-line-soft) 49.96% 50.04%,transparent 50.04%)}
+
+/* Motion: objects behave like punctuation, never scroll-hijack. */
+.founder-vo__thread,.founder-vo__distance,.founder-vo__atlas,.founder-vo__evidence,.founder-vo__north-mark{opacity:0;transition:opacity .6s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.founder-vo__thread{transform:translateY(calc(-50% + 8px))}
+[data-vo-visible='1'] .founder-vo__thread{opacity:.52;transform:translateY(-50%)}
+[data-vo-visible='1'] .founder-vo__distance,[data-vo-visible='1'] .founder-vo__atlas,[data-vo-visible='1'] .founder-vo__evidence,[data-vo-visible='1'] .founder-vo__north-mark{opacity:1}
+#fnd-01[data-vo-visible='1'] .founder-vo__thread{opacity:.34;transform:translateY(-50%) rotate(4deg)}
+#fnd-05[data-vo-visible='1'] .founder-vo__thread{opacity:.24}
+#fnd-06[data-vo-visible='1'] .founder-vo__thread{opacity:.38}
+#fnd-10[data-vo-visible='1'] .founder-vo__thread{opacity:.2}
+
+body[data-theme='graphite'] .founder-vo__atlas-center{background:var(--fnd-soft)}
+body[data-theme='graphite'] .founder-vo__distance-line:before,
+body[data-theme='graphite'] .founder-vo__distance-line:after{background:var(--fnd-paper)}
+
+@media(max-width:980px){
+  .founder-vo__thread{width:clamp(160px,34vw,330px);height:clamp(210px,48vw,430px);right:14px;opacity:.24}
+  .founder-vo__evidence{grid-template-columns:1fr 1fr}.founder-vo__evidence-step:last-child{grid-column:1/-1}
+  .founder-story--vo-v1 .founder-story__doctrine:before{display:none}
+}
+@media(max-width:820px){
+  .founder-vo__index{right:19px;top:22px;font-size:8px}.founder-vo__index:before{width:18px}
+  #fnd-00 .founder-vo__thread,#fnd-01 .founder-vo__thread,#fnd-05 .founder-vo__thread,#fnd-06 .founder-vo__thread{opacity:.15;right:-56px}
+  .founder-vo__distance{grid-template-columns:1fr;gap:12px;margin-top:54px}.founder-vo__distance span:last-child{text-align:right}.founder-vo__distance-line{order:2}.founder-vo__distance span:first-child{order:1}.founder-vo__distance span:last-child{order:3}
+  .founder-story--vo-v1 .founder-story__question-row{padding-right:34px}
+  .founder-story--vo-v1 .founder-story__coordinate-field{min-height:360px;background-size:25% 25%}
+  .founder-vo__atlas{inset:11% 5%}.founder-vo__atlas-caption{font-size:8px}
+  .founder-vo__evidence{grid-template-columns:1fr;gap:0}.founder-vo__evidence-step:last-child{grid-column:auto}.founder-vo__evidence-step{padding:14px 0 18px 34px;border-top:0;border-left:1px solid var(--vo-line)}.founder-vo__evidence-step:before{position:absolute;left:8px;top:17px}.founder-vo__evidence-step:after{left:-4px;right:auto;top:20px;width:7px;height:7px;border:1px solid var(--vo-signal);border-radius:50%;background:var(--fnd-soft)}.founder-vo__evidence-step:last-child{border-left-color:var(--vo-signal)}
+  .founder-vo__north-mark{width:104px;right:18px;bottom:30px;opacity:.34}
+  #fnd-06{background-image:none}
+}
+@media(max-width:520px){
+  .founder-vo__thread{display:none}
+  .founder-story--vo-v1 .founder-story__coordinate-field{min-height:320px}
+  .founder-vo__north-mark{width:82px;opacity:.3}
+  .founder-story--vo-v1 .founder-story__coordinate-labels{font-size:8px;letter-spacing:.08em;padding:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .founder-vo__thread,.founder-vo__distance,.founder-vo__atlas,.founder-vo__evidence,.founder-vo__north-mark{opacity:1!important;transform:none!important;transition:none!important}
+  #fnd-01 .founder-vo__thread{transform:rotate(4deg)!important}
+}
