@@ -1,6 +1,6 @@
-const { chromium } = require('playwright');
-const fs = require('fs');
-const path = require('path');
+import { chromium } from 'playwright';
+import fs from 'fs';
+import path from 'path';
 
 const base = process.env.P120_QA_BASE || 'http://127.0.0.1:8765/';
 const out = path.join(process.cwd(),'qa-artifacts','founder-type-lab');
