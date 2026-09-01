@@ -1,4 +1,4 @@
-/* P-120 Web Editorial — Chapter Navigation v1.1
+/* P-120 Web Editorial — Chapter Navigation v1.2
    Presentation/navigation only. No measurement, scoring, questionnaire or report-engine changes. */
 (() => {
   'use strict';
@@ -10,7 +10,9 @@
     {id:'architecture',index:'01',label:'Архитектура',target:'why-important',note:'Акт I · внутренняя система'},
     {id:'two-systems',index:'02',label:'Две системы',target:'two-systems',note:'Акт II · встреча архитектур'},
     {id:'result',index:'03',label:'Результат',target:'showcase',note:'что покажет P-120'},
-    {id:'extended',index:'04',label:'Ещё глубже',target:'extended-research-set',note:'optional Extended Research Set'},
+    /* Chapter 04 is an intra-home jump. The dedicated /extended/ route remains
+       available from Explore and from the CTA inside the teaser itself. */
+    {id:'extended',index:'04',label:'Ещё глубже',target:'extended-research-entry',note:'optional Extended Research Set'},
     {id:'science',index:'05',label:'Наука',target:'science-foundation',note:'Акт III · научная опора'}
   ];
 
