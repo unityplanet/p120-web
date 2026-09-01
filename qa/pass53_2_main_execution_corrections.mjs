@@ -142,11 +142,43 @@ for(const width of [1366,1920]){
   await context.close();
 }
 
+// Chapter 04 semantics: “Ещё глубже” is a chapter jump on the main page, not the
+// dedicated Extended route. The teaser CTA remains the explicit route transition.
+{
+  const {context,page}=await openMain({locale:'ru',theme:'ivory',width:1440,height:1000});
+  await page.waitForSelector('#extended-research-entry',{timeout:15000});
+  await page.evaluate(()=>window.scrollTo({top:1050,behavior:'auto'}));
+  await page.waitForFunction(()=>document.documentElement.classList.contains('chapter-nav-visible'),null,{timeout:8000});
+  const beforePath=await page.evaluate(()=>location.pathname);
+  await page.locator('[data-chapter-jump="extended"]').click();
+  await page.waitForTimeout(850);
+  const state=await page.evaluate(()=>{
+    const target=document.getElementById('extended-research-entry');
+    const r=target?.getBoundingClientRect();
+    return {
+      path:location.pathname,
+      targetTop:r?.top??null,
+      targetBottom:r?.bottom??null,
+      active:document.querySelector('[data-chapter-jump="extended"]')?.classList.contains('is-active')||false,
+      title:target?.querySelector('h2')?.textContent.trim()||''
+    };
+  });
+  check(state.path===beforePath,'RU chapter 04 stays on the main-page route',JSON.stringify(state));
+  check(state.title==='Хотите глубже?','RU chapter 04 targets the compact main-page deeper teaser',JSON.stringify(state));
+  check(Number.isFinite(state.targetTop)&&state.targetTop>=0&&state.targetTop<320,'RU chapter 04 scrolls the deeper teaser into the reading plane',JSON.stringify(state));
+  check(state.active,'RU chapter 04 becomes the active chapter after jump',JSON.stringify(state));
+  await page.screenshot({path:path.join(OUT,'main-1440-ivory-chapter04-deeper.png'),fullPage:false});
+  await page.locator('#extended-research-entry [data-open-extended-page]').click();
+  await page.waitForURL(/\/extended\/$/,{timeout:10000});
+  check(new URL(page.url()).pathname.endsWith('/extended/'),'RU deeper teaser CTA still opens the dedicated Extended page',page.url());
+  await context.close();
+}
+
 check(consoleErrors.length===0,'PASS 5.3.2 introduces no JavaScript console/page errors',consoleErrors.join(' | '));
 await browser.close();
 
 const report={generated_at:new Date().toISOString(),checks,failures,consoleErrors};
 fs.writeFileSync(path.join(OUT,'summary.json'),JSON.stringify(report,null,2));
 fs.writeFileSync(path.join(OUT,'QA_REPORT.txt'),checks.map(x=>`${x.status} ${x.msg}${x.detail?` :: ${x.detail}`:''}`).join('\n')+`\n\n${failures.length?`FAIL ${failures.length}`:'PASS'}\n`);
-console.log(`PASS 5.3.2 targeted QA checks=${checks.length} failures=${failures.length} screenshots=7`);
+console.log(`PASS 5.3.2 targeted QA checks=${checks.length} failures=${failures.length} screenshots=8`);
 if(failures.length){console.error(failures.join('\n'));process.exit(1);}
