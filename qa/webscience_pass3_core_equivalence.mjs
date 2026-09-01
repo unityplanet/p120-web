@@ -44,8 +44,9 @@ async function openMode(context,s,enabled){
   const page=await context.newPage();
   const url=BASE+s.route+(enabled?'':'?p120_science_adapter=off');
   const errors=[];
-  page.on('pageerror',e=>errors.push(e.message));
-  page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
+  page.on('pageerror',e=>errors.push(`pageerror: ${e.message}`));
+  page.on('response',r=>{if(r.status()>=400)errors.push(`HTTP ${r.status()} ${r.url()}`)});
+  page.on('console',m=>{if(m.type()==='error')errors.push(`console: ${m.text()}`)});
   const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:30000});
   check(!!response&&response.status()<400,`${s.locale} ${s.width} ${s.theme} ${enabled?'ON':'OFF'} HTTP`,String(response?.status()||'none'));
   await stabilize(page);
@@ -107,15 +108,15 @@ function comparePng(aBuf,bBuf,outFile){
 for(const s of scenarios){
   const context=await makeContext(s);
   const off=await openMode(context,s,false);
-  const offPng=await off.page.screenshot({fullPage:false});
+  const offPng=await off.page.locator('.science-page').screenshot();
   const on=await openMode(context,s,true);
-  const onPng=await on.page.screenshot({fullPage:false});
+  const onPng=await on.page.locator('.science-page').screenshot();
   const key=`${s.locale}-${s.width}-${s.theme}`;
   fs.writeFileSync(path.join(OUT,`${key}-off.png`),offPng);
   fs.writeFileSync(path.join(OUT,`${key}-on.png`),onPng);
   const diff=comparePng(offPng,onPng,path.join(OUT,`${key}-diff.png`));
   metrics[key]={pixelDiffRatio:diff.ratio,diffPixels:diff.diffPixels};
-  check(diff.ratio<=0.00001,`${key} visual regression <= 0.001%`,`${(diff.ratio*100).toFixed(6)}% (${diff.diffPixels}px)`);
+  check(diff.ratio<=0.00001,`${key} Scientific Base visual regression <= 0.001%`,`${(diff.ratio*100).toFixed(6)}% (${diff.diffPixels}px)`);
   check(off.structural.html===on.structural.html,`${key} .science-page DOM unchanged`);
   await off.page.close();await on.page.close();await context.close();
 }
