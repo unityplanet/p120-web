@@ -1,0 +1,90 @@
+/* P-120 Founder Shell v2
+   Shared shell for /creator/ and /en/creator/.
+   Aligns Founder pages with the public P-120 navigation grammar without touching
+   assessment/scoring/report logic. */
+
+:root{
+  --creator-tech:"IBM Plex Sans",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;min-width:320px;background:var(--paper);color:var(--ink);font-family:var(--creator-tech);line-height:1.5}
+a{color:inherit}
+.skip-link{position:fixed;left:12px;top:-60px;z-index:1000;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:10px}
+.skip-link:focus{top:12px}
+
+.creator-topbar{position:sticky;top:0;z-index:80;border-top:3px solid var(--accent);border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.creator-topbar__inner{width:min(1680px,100%);min-height:74px;margin:auto;padding:11px clamp(18px,2.7vw,46px);display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:24px}
+.creator-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.creator-mark{width:40px;height:40px;border-radius:50%;position:relative;border:1px solid var(--line-strong)}
+.creator-mark:before{content:"";position:absolute;inset:6px;border:2px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:50%}
+.creator-mark:after{content:"";position:absolute;width:12px;height:12px;border-radius:50%;right:3px;top:4px;background:var(--accent)}
+.creator-lockup{display:grid;gap:2px}
+.creator-lockup strong{font-family:"Noto Serif",Georgia,serif;font-size:27px;line-height:1}
+.creator-lockup span{font:500 9px/1.2 var(--creator-tech);letter-spacing:.17em;text-transform:uppercase;color:var(--muted)}
+
+.creator-nav.topnav{justify-self:center;display:flex;align-items:center;gap:4px;max-width:100%;border:1px solid var(--line-strong);border-radius:999px;padding:5px;background:color-mix(in srgb,var(--card) 46%,transparent);box-shadow:inset 0 1px 0 color-mix(in srgb,var(--card) 80%,transparent);overflow:visible}
+.creator-nav .navlink,.creator-nav>a{appearance:none;border:0;background:transparent;display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:9px 13px;border-radius:999px;text-decoration:none;white-space:nowrap;font:500 12px/1.2 var(--creator-tech);color:var(--muted);cursor:pointer;transition:background .16s ease,color .16s ease,box-shadow .16s ease,transform .16s ease}
+.creator-nav .navlink:hover,.creator-nav .navlink:focus-visible,.creator-nav>a:hover,.creator-nav>a:focus-visible{background:color-mix(in srgb,var(--card) 88%,var(--soft));color:var(--ink);box-shadow:0 4px 14px color-mix(in srgb,var(--ink) 8%,transparent);outline:none}
+.creator-nav .navlink:active,.creator-nav>a:active{transform:translateY(1px)}
+.creator-nav .ecosystem-panel-v2 button{font-family:var(--creator-tech)}
+
+.creator-tools{display:flex;align-items:center;justify-content:flex-end;gap:7px;min-width:0}
+.creator-language{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb,var(--card) 52%,transparent)}
+.creator-language a{min-width:30px;height:25px;padding:0 7px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;text-decoration:none;font:600 9px/1 var(--creator-tech);color:var(--muted)}
+.creator-language a[aria-current='page']{background:var(--soft);color:var(--ink)}
+
+/* Exact compact theme-menu grammar used on the main P-120 header. */
+.header-theme-menu{position:relative;z-index:160}
+.header-theme-menu summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:rgba(255,255,255,.46);color:var(--muted);font:500 11px/1 var(--creator-tech);white-space:nowrap}
+.header-theme-menu summary::-webkit-details-marker{display:none}
+body[data-theme='graphite'] .header-theme-menu summary{background:rgba(255,255,255,.04)}
+body[data-theme='museum'] .header-theme-menu summary{background:rgba(255,253,248,.74)}
+.header-theme-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent)}
+.header-theme-popover{position:absolute;right:0;top:calc(100% + 9px);width:172px;padding:8px;border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:0 20px 50px rgba(28,24,19,.16);display:grid;gap:4px}
+.header-theme-option{appearance:none;border:0;background:transparent;color:var(--ink);padding:9px 10px;border-radius:11px;display:flex;align-items:center;gap:10px;cursor:pointer;text-align:left;font:500 12px/1.2 var(--creator-tech)}
+.header-theme-option:hover,.header-theme-option.active{background:var(--soft-2)}
+.theme-swatch{width:20px;height:20px;border-radius:50%;border:1px solid var(--line);display:inline-block;flex:0 0 auto}
+.theme-swatch-ivory{background:#f6f4ed}
+.theme-swatch-graphite{background:#211f1c}
+.theme-swatch-museum{background:linear-gradient(135deg,#f7f4ec 0 60%,#2f7d78 60% 100%)}
+
+.creator-context{width:min(1680px,100%);margin:auto;padding:20px clamp(18px,2.7vw,46px) 0;display:flex;justify-content:space-between;gap:20px;align-items:center}
+.creator-context p{margin:0;font:400 10px/1.2 var(--creator-tech);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.creator-context a{font:400 12px/1.2 var(--creator-tech);text-decoration:none;border-bottom:1px solid var(--line-strong);padding-bottom:3px}
+.editorial-home{display:block}.founder-story{margin-top:24px}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+
+/* Allow the same mega-menu component on the dedicated Founder page. */
+.creator-topbar .ecosystem-nav-v2{display:inline-flex!important}
+.creator-topbar .ecosystem-panel-v2{font-family:var(--creator-tech)}
+
+@media(max-width:1280px){
+  .creator-topbar__inner{grid-template-columns:auto 1fr;gap:12px 18px}
+  .creator-nav.topnav{grid-column:1/-1;justify-self:start;width:100%;flex-wrap:wrap;border-radius:20px}
+  .creator-tools{justify-self:end}.creator-lockup span{display:none}
+}
+@media(max-width:1080px){
+  .creator-topbar .ecosystem-panel-v2{position:fixed;top:126px;left:12px;right:12px;width:auto;max-height:calc(100svh - 148px);overflow:auto;transform-origin:50% 0}
+}
+@media(max-width:720px){
+  .creator-topbar__inner{gap:9px 10px;padding-inline:12px}
+  .creator-mark{display:none}.creator-lockup strong{font-size:24px}
+  .creator-tools{gap:5px}
+  .creator-language a{min-width:27px;padding-inline:6px}
+  .header-theme-menu summary{padding:7px 9px;font-size:10px}
+  .creator-nav.topnav{padding:4px;gap:2px;flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none}
+  .creator-nav.topnav::-webkit-scrollbar{display:none}
+  .creator-nav .navlink,.creator-nav>a{min-height:36px;font-size:11px;padding:8px 10px}
+  .creator-topbar:has(.ecosystem-nav-v2.is-open) .creator-nav.topnav{overflow:visible}
+  .creator-topbar .ecosystem-panel-v2{top:119px;left:8px;right:8px;max-height:calc(100svh - 132px);padding:10px;border-radius:18px}
+  .ecosystem-grid-v2{grid-template-columns:1fr}
+  .creator-context{padding-top:14px}.creator-context p{font-size:9px}
+}
+@media(max-width:460px){
+  .creator-topbar__inner{grid-template-columns:1fr auto}
+  .creator-brand{min-width:0}.creator-lockup strong{font-size:22px}
+  .creator-context{align-items:flex-start;flex-direction:column;gap:8px}
+  .creator-topbar .ecosystem-panel-v2{top:117px}
+}
+@media(prefers-reduced-motion:reduce){.creator-nav .navlink,.creator-nav>a{transition:none!important}}
