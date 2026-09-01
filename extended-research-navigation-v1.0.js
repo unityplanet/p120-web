@@ -113,8 +113,7 @@
   function run(){timer=0;reconcileHome();reconcileExploreMenu();document.documentElement.dataset.webExplorePass2='ready';}
   function schedule(){if(timer)clearTimeout(timer);timer=setTimeout(run,70);}
   function start(){
-    const root=document.getElementById('app')||document.body;
-    new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
+    new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});
     document.addEventListener('click',intercept,true);
     run();
   }
