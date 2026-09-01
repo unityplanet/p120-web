@@ -3231,27 +3231,42 @@ body[data-theme="light"] .p120-depth-frame::after{
 
 
 /* === prata-literary-voice-v1.0.css === */
-/* P-120 Prata Literary Voice v1.0
+/* P-120 Prata Literary Voice v1.1
    Controlled typography layer.
    Authority: P120 Publication Design Book v2.0 / Unified Web Design Manifesto.
 
    Role boundary:
-   - Prata = secondary human / literary / reflective voice only.
-   - Noto Serif Display / Noto Serif remain authoritative display and scientific reading voices.
+   - Prata = secondary human / literary / reflective public-editorial voice.
+   - Noto Serif Display / Noto Serif remain authoritative display and controlled scientific reading voices.
    - IBM Plex Sans / Mono remain functional and technical voices.
-   - Questionnaire, science, navigation, metadata, controls and scoring surfaces are intentionally excluded.
+   - Questionnaire, Scientific Base/evidence, navigation, metadata, controls and scoring surfaces are intentionally excluded.
 */
 
 :root{
   --p120-font-literary:"Prata","Noto Serif",Georgia,"Times New Roman",serif;
 }
 
-/* Homepage editorial voice changes. */
+/* --------------------------------------------------------------------------
+   Public editorial voice — homepage / respondent-facing narrative
+   -------------------------------------------------------------------------- */
 .editorial-interlude p,
 #why-important .manifesto-closing-copy p,
 .render-systems-copy p,
-.semantic-life-energy>.editorial-prose p:not(:first-child),
-.editorial-final .final-close p:last-child{
+.editorial-final .final-close p:last-child,
+
+/* Public-facing science chapter on the homepage.
+   This is editorial explanatory copy, NOT the controlled Scientific Base. */
+.science-body-intro,
+.science-body .editorial-prose p,
+
+/* Life / psychological-background chapter. */
+.life-body > .editorial-prose p,
+.life-word-grid span,
+
+/* Render-led semantic variant of the same life chapter. */
+.semantic-life-energy .semantic-flow-intro p,
+.semantic-life-energy .semantic-flow-card p,
+.semantic-life-energy > .editorial-prose p{
   font-family:var(--p120-font-literary)!important;
   font-weight:400!important;
   font-style:normal!important;
@@ -3261,6 +3276,20 @@ body[data-theme="light"] .p120-depth-frame::after{
 .editorial-interlude p{
   letter-spacing:-.018em!important;
   line-height:1.055!important;
+}
+
+/* Keep compact public prose calm after the family change. */
+.science-body-intro,
+.science-body .editorial-prose p,
+.life-body > .editorial-prose p,
+.semantic-life-energy .semantic-flow-intro p,
+.semantic-life-energy > .editorial-prose p{
+  letter-spacing:-.004em;
+}
+
+.life-word-grid span,
+.semantic-life-energy .semantic-flow-card p{
+  letter-spacing:-.008em;
 }
 
 /* Respondent-facing / report-preview literary narrative. */
@@ -3277,7 +3306,9 @@ body[data-theme="light"] .p120-depth-frame::after{
   letter-spacing:-.004em;
 }
 
-/* Keep caveats, evidence and functional interpretation labels out of the literary voice. */
+/* --------------------------------------------------------------------------
+   Protected authoritative / functional zones
+   -------------------------------------------------------------------------- */
 .example-watch,
 .example-watch p,
 .results-side-note,
@@ -3301,6 +3332,13 @@ body[data-theme="light"] .p120-depth-frame::after{
 
 @media(max-width:820px){
   .editorial-interlude p{letter-spacing:-.012em!important;line-height:1.07!important}
+  .science-body-intro,
+  .science-body .editorial-prose p,
+  .life-body > .editorial-prose p,
+  .life-word-grid span,
+  .semantic-life-energy .semantic-flow-intro p,
+  .semantic-life-energy .semantic-flow-card p,
+  .semantic-life-energy > .editorial-prose p,
   .premium-quote p,
   .showcase-cover p,
   .showcase-narrative-card p,
