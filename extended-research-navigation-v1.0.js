@@ -1,15 +1,22 @@
-/* P-120 WEB-EXPLORE PASS 2 — Explore route reconciliation adapter v2.0
-   RU public-shell routing + compact home bridge only.
-   EN legacy behavior remains untouched until EN parity pass.
+/* P-120 WEB-EXPLORE PASS 4 — Explore route reconciliation adapter v2.1
+   RU/EN public-shell routing + compact home bridge.
    Presentation/navigation only: no assessment, scoring, questionnaire or report logic. */
 (() => {
   'use strict';
   const isEn=/\/en(?:\/|$)/i.test(location.pathname);
-  if(isEn) return;
-
   const SECTION_ID='extended-research-set';
   const TEASER_ID='extended-research-entry';
   let timer=0;
+
+  const copy=isEn?{
+    kicker:'P-120 · OPTIONAL DEEP DIVE',title:'Want to go deeper?',
+    body:'The core P-120 remains independent. The Extended Research System adds optional research lenses — COM, MOT, SELF, RPE-MOD and LIFE — without recalculating the core profile.',
+    button:'Open Extended Research System',deeperNote:'Extended Research System · optional research layers',togetherNote:'Dyadic Research Layer · relationship research'
+  }:{
+    kicker:'P-120 · ДОПОЛНИТЕЛЬНОЕ УГЛУБЛЕНИЕ',title:'Хотите глубже?',
+    body:'Основной P-120 остаётся самостоятельным. Система углублённых исследований добавляет отдельные исследовательские линзы — COM, MOT, SELF, RPE-MOD и LIFE — без пересчёта основного профиля.',
+    button:'Открыть систему углублённых исследований',deeperNote:'Система углублённых исследований · дополнительные модули',togetherNote:'Исследование пары · диадический слой'
+  };
 
   function projectRoot(){
     const p=location.pathname;
@@ -29,15 +36,15 @@
     section.setAttribute('aria-labelledby','extended-entry-title');
     section.innerHTML=`
       <div>
-        <span class="extended-entry-kicker">P-120 · OPTIONAL DEEP DIVE</span>
-        <h2 id="extended-entry-title">Хотите глубже?</h2>
+        <span class="extended-entry-kicker">${copy.kicker}</span>
+        <h2 id="extended-entry-title">${copy.title}</h2>
       </div>
       <div class="extended-entry-copy">
-        <p>Основной P-120 остаётся самостоятельным. Отдельная Extended Research System показывает дополнительные исследовательские линзы — COM, MOT, SELF, RPE-MOD и LIFE — без пересчёта основного профиля.</p>
-        <div class="extended-entry-meta" aria-label="Дополнительные исследовательские направления">
+        <p>${copy.body}</p>
+        <div class="extended-entry-meta" aria-label="${isEn?'Optional research directions':'Дополнительные исследовательские направления'}">
           <span>COM</span><span>MOT</span><span>SELF</span><span>RPE-MOD</span><span>LIFE</span>
         </div>
-        <button type="button" class="extended-entry-button" data-open-extended-page>Открыть Extended Research System</button>
+        <button type="button" class="extended-entry-button" data-open-extended-page>${copy.button}</button>
       </div>`;
     return section;
   }
@@ -47,7 +54,7 @@
     if(!science) return null;
     let node=science.previousElementSibling;
     while(node){
-      if(node.matches?.('.act-marker')&&/Акт\s*III/i.test(node.textContent||'')) return node;
+      if(node.matches?.('.act-marker')&&/(?:Акт|Act)\s*III/i.test(node.textContent||'')) return node;
       node=node.previousElementSibling;
     }
     return science;
@@ -56,8 +63,6 @@
   function reconcileHome(){
     const home=document.querySelector('.editorial-home');
     if(!home) return;
-    /* PASS 2: keep the legacy node present so the bundled v1 observer does not recreate it,
-       but retire it from the public scroll plane. */
     home.querySelectorAll(`#${SECTION_ID}`).forEach(n=>{
       if(!n.hidden)n.hidden=true;
       if(n.getAttribute('aria-hidden')!=='true')n.setAttribute('aria-hidden','true');
@@ -73,30 +78,21 @@
     teaser.dataset.webExplorePass2='true';
     const open=teaser.querySelector('[data-open-extended-page]');
     if(open&&open.dataset.webExploreBound!=='true'){
-      open.dataset.webExploreBound='true';
-      open.addEventListener('click',()=>route('extended/'));
+      open.dataset.webExploreBound='true';open.addEventListener('click',()=>route('extended/'));
     }
   }
 
   function reconcileExploreMenu(){
     document.querySelectorAll('[data-ecosystem-route="deeper"],[data-ecosystem-mobile="deeper"]').forEach(btn=>{
-      if(btn.hasAttribute('aria-disabled')) btn.removeAttribute('aria-disabled');
-      btn.querySelector('.ecosystem-item-status,.ecosystem-mobile-status')?.remove();
-      const note=btn.querySelector('.ecosystem-item-note,small');
-      if(note&&note.textContent!=='Extended Research System · дополнительные исследования') note.textContent='Extended Research System · дополнительные исследования';
+      btn.removeAttribute('aria-disabled');btn.querySelector('.ecosystem-item-status,.ecosystem-mobile-status')?.remove();
+      const note=btn.querySelector('.ecosystem-item-note,small');if(note)note.textContent=copy.deeperNote;
     });
     document.querySelectorAll('[data-ecosystem-route="together"],[data-ecosystem-mobile="together"]').forEach(btn=>{
-      if(btn.hasAttribute('aria-disabled')) btn.removeAttribute('aria-disabled');
-      btn.querySelector('.ecosystem-item-status,.ecosystem-mobile-status')?.remove();
-      const note=btn.querySelector('.ecosystem-item-note,small');
-      if(note&&note.textContent!=='Dyadic Research Layer · исследование пары') note.textContent='Dyadic Research Layer · исследование пары';
+      btn.removeAttribute('aria-disabled');btn.querySelector('.ecosystem-item-status,.ecosystem-mobile-status')?.remove();
+      const note=btn.querySelector('.ecosystem-item-note,small');if(note)note.textContent=copy.togetherNote;
     });
-    /* Retire pre-v2 duplicate navigation affordances without removing them: the bundled
-       legacy observer otherwise recreates them. Explore map is the route authority. */
     document.querySelectorAll('[data-extended-research-nav],[data-mobile-jump-extended]').forEach(n=>{
-      if(!n.hidden)n.hidden=true;
-      if(n.getAttribute('aria-hidden')!=='true')n.setAttribute('aria-hidden','true');
-      if(n.tabIndex!==-1)n.tabIndex=-1;
+      if(!n.hidden)n.hidden=true;if(n.getAttribute('aria-hidden')!=='true')n.setAttribute('aria-hidden','true');if(n.tabIndex!==-1)n.tabIndex=-1;
     });
   }
 
@@ -112,10 +108,6 @@
 
   function run(){timer=0;reconcileHome();reconcileExploreMenu();document.documentElement.dataset.webExplorePass2='ready';}
   function schedule(){if(timer)clearTimeout(timer);timer=setTimeout(run,70);}
-  function start(){
-    new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});
-    document.addEventListener('click',intercept,true);
-    run();
-  }
+  function start(){new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});document.addEventListener('click',intercept,true);run();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
