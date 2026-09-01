@@ -19,11 +19,7 @@ function seedScript(theme){
     try{localStorage.setItem(themeKey,theme)}catch(_){}
     const responses={};
     for(let i=1;i<=24;i++)responses[`SAT${String(i).padStart(2,'0')}`]='3';
-    try{localStorage.setItem(sessionKey,JSON.stringify({
-      participantId:'P120-QA532',screen:'home',itemIndex:24,responses,adminModes:{},
-      telemetry:[{type:'session_created',at:new Date().toISOString()}],
-      startedAt:new Date().toISOString(),consentAt:null,lastSavedAt:new Date().toISOString()
-    }))}catch(_){}
+    try{localStorage.setItem(sessionKey,JSON.stringify({participantId:'P120-QA532',screen:'home',itemIndex:24,responses,adminModes:{},telemetry:[{type:'session_created',at:new Date().toISOString()}],startedAt:new Date().toISOString(),consentAt:null,lastSavedAt:new Date().toISOString()}))}catch(_){}
   };
 }
 
@@ -80,13 +76,7 @@ async function inspectThemeMenu(page,label,width,theme){
     const options=[...el.querySelectorAll('.header-theme-option')];
     const r=pop?.getBoundingClientRect();
     const rows=options.map(o=>{const x=o.getBoundingClientRect();return {top:x.top,bottom:x.bottom,left:x.left,right:x.right,width:x.width,height:x.height,text:o.textContent.trim()}});
-    return {
-      open:el.open,
-      pop:r?{top:r.top,bottom:r.bottom,left:r.left,right:r.right,width:r.width,height:r.height}:null,
-      rows,
-      popBg:pop?getComputedStyle(pop).backgroundColor:'',
-      viewport:innerWidth
-    };
+    return {open:el.open,pop:r?{top:r.top,bottom:r.bottom,left:r.left,right:r.right,width:r.width,height:r.height}:null,rows,popBg:pop?getComputedStyle(pop).backgroundColor:'',viewport:innerWidth};
   });
   check(state.open&&!!state.pop,`${label} ${width} ${theme} theme popover opens`,JSON.stringify(state));
   if(state.pop){
@@ -133,7 +123,6 @@ for(const width of [1366,1920]){
   await context.close();
 }
 
-// Chapter 04 semantics and scroll execution.
 {
   const {context,page}=await openMain({locale:'ru',theme:'ivory',width:1440,height:1000});
   await page.waitForSelector('#extended-research-entry',{timeout:15000});
@@ -141,18 +130,15 @@ for(const width of [1366,1920]){
   await page.waitForFunction(()=>document.documentElement.classList.contains('chapter-nav-visible'),null,{timeout:8000});
   await page.waitForTimeout(250);
   const before=await page.evaluate(()=>{
-    const root=document.scrollingElement||document.documentElement;
-    const target=document.getElementById('extended-research-entry');
-    return {path:location.pathname,scrollY,rootTop:root.scrollTop,scrollHeight:root.scrollHeight,clientHeight:root.clientHeight,targetTop:target?.getBoundingClientRect().top??null,htmlBehavior:getComputedStyle(document.documentElement).scrollBehavior,bodyBehavior:getComputedStyle(document.body).scrollBehavior,htmlOverflow:getComputedStyle(document.documentElement).overflowY,bodyOverflow:getComputedStyle(document.body).overflowY};
+    const root=document.scrollingElement||document.documentElement,target=document.getElementById('extended-research-entry');
+    return {path:location.pathname,scrollY,rootTop:root.scrollTop,scrollHeight:root.scrollHeight,clientHeight:root.clientHeight,targetTop:target?.getBoundingClientRect().top??null,htmlBehavior:getComputedStyle(document.documentElement).scrollBehavior,bodyBehavior:getComputedStyle(document.body).scrollBehavior,htmlOverflow:getComputedStyle(document.documentElement).overflowY,bodyOverflow:getComputedStyle(document.body).overflowY,trace:{...(window.P120_CHAPTER_SCROLL_TRACE||{})}};
   });
   console.log('CH04 BEFORE',JSON.stringify(before));
   await page.locator('[data-chapter-jump="extended"]').click();
   await page.waitForTimeout(900);
   const state=await page.evaluate(()=>{
-    const root=document.scrollingElement||document.documentElement;
-    const target=document.getElementById('extended-research-entry');
-    const r=target?.getBoundingClientRect();
-    return {path:location.pathname,scrollY,rootTop:root.scrollTop,scrollHeight:root.scrollHeight,clientHeight:root.clientHeight,targetTop:r?.top??null,targetBottom:r?.bottom??null,active:document.querySelector('[data-chapter-jump="extended"]')?.classList.contains('is-active')||false,title:target?.querySelector('h2')?.textContent.trim()||'',htmlBehavior:getComputedStyle(document.documentElement).scrollBehavior,bodyBehavior:getComputedStyle(document.body).scrollBehavior};
+    const root=document.scrollingElement||document.documentElement,target=document.getElementById('extended-research-entry'),r=target?.getBoundingClientRect();
+    return {path:location.pathname,scrollY,rootTop:root.scrollTop,scrollHeight:root.scrollHeight,clientHeight:root.clientHeight,targetTop:r?.top??null,targetBottom:r?.bottom??null,active:document.querySelector('[data-chapter-jump="extended"]')?.classList.contains('is-active')||false,title:target?.querySelector('h2')?.textContent.trim()||'',htmlBehavior:getComputedStyle(document.documentElement).scrollBehavior,bodyBehavior:getComputedStyle(document.body).scrollBehavior,trace:{...(window.P120_CHAPTER_SCROLL_TRACE||{})}};
   });
   console.log('CH04 AFTER',JSON.stringify(state));
   check(state.path===before.path,'RU chapter 04 stays on the main-page route',JSON.stringify(state));
