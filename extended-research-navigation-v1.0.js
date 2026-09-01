@@ -202,3 +202,20 @@
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
+
+/* P-120 WEB-SCIENCE EXT PASS 3 — dedicated Scientific Base adapter loader
+   Invisible CORE-equivalence integration only; Atlas activation remains disabled. */
+(()=>{
+  'use strict';
+  if(!/(?:^|\/)(?:en\/)?science\/?$/i.test(location.pathname)) return;
+  const id='p120-science-atlas-adapter-v0.3';
+  if(document.getElementById(id)) return;
+  const current=document.currentScript;
+  const base=current?.src||new URL('extended-research-navigation-v1.0.js',location.href).href;
+  const script=document.createElement('script');
+  script.id=id;
+  script.src=new URL('p120-science-atlas-adapter-v0.3.js?v=websci30',base).href;
+  script.async=false;
+  script.dataset.p120WebsciencePass3='core-equivalence';
+  document.head.appendChild(script);
+})();
