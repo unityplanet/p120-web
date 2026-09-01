@@ -1,0 +1,49 @@
+name: Founder Shell Bilingual v2 QA
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'creator/**'
+      - 'en/creator/**'
+      - 'founder-shell-v2.css'
+      - 'founder-shell-v2.js'
+      - 'founder-editorial-story-en-v1.0.js'
+      - 'founder-visual-objects-v1.1.js'
+      - 'founder-marginal-voice-v1.1.css'
+      - 'founder-ru-cleanup-v1.0.js'
+      - 'qa/founder_shell_bilingual_v2.mjs'
+      - '.github/workflows/qa-founder-shell-bilingual-v2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  visual-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser QA runtime
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Run local site
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/p120-founder-shell-v2.log 2>&1 &
+          sleep 2
+          curl --fail --silent http://127.0.0.1:8765/creator/ >/dev/null
+          curl --fail --silent http://127.0.0.1:8765/en/creator/ >/dev/null
+      - name: Run Founder bilingual shell regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:8765/
+        run: node qa/founder_shell_bilingual_v2.mjs
+      - name: Upload visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120-FOUNDER-SHELL-BILINGUAL-V2-EVIDENCE
+          path: qa-artifacts/founder-shell-bilingual-v2
+          if-no-files-found: error
+          retention-days: 30
