@@ -1,0 +1,232 @@
+/* P-120 WEB-EXPLORE PASS 5 — Shared Header, Theme & Hero Unification v1.0
+   Applies to /extended/, /together/ and their EN counterparts.
+   Presentation only: no assessment, scoring, scientific authority or persistence mutation. */
+
+/* --------------------------------------------------------------------------
+   01 Theme tokens — same three public themes and same semantic polarity as the
+   main P-120 page. Existing Explore variables are intentionally retained so the
+   section architecture does not need a second styling vocabulary.
+   -------------------------------------------------------------------------- */
+body[data-theme='ivory']{
+  --canvas:#f2eee2;--paper:#fff9ec;--paper-2:#f8f4ea;--graphite:#263533;--ink-2:#4b5d58;
+  --teal:#2f7d78;--teal-deep:#1f5c5b;--petrol:#173e3d;--pale:#eef0e7;--stone:#e8e3d7;
+  --sand:#ded0b6;--line:#9dbcb2;--bronze:#b39063;--white:#fffefa;
+  --explore-bubble:rgba(255,255,255,.18);--explore-bubble-line:rgba(38,53,51,.08);
+  --explore-popover:rgba(255,249,236,.985);--explore-surface:rgba(255,254,250,.66);
+  --explore-soft-surface:rgba(255,249,236,.58);--explore-shadow:0 24px 64px rgba(38,53,51,.11);
+  --explore-reverse-ink:#f7f3eb;--explore-reverse-muted:#c5d2ce;
+}
+body[data-theme='graphite']{
+  --canvas:#23211e;--paper:#2b2825;--paper-2:#24211f;--graphite:#f2eee7;--ink-2:#d8d1c7;
+  --teal:#91aaa7;--teal-deep:#bdd0cd;--petrol:#142321;--pale:#302e2a;--stone:#34302c;
+  --sand:#55493e;--line:#625e57;--bronze:#c2a273;--white:#2b2825;
+  --explore-bubble:rgba(255,255,255,.026);--explore-bubble-line:rgba(255,255,255,.055);
+  --explore-popover:rgba(29,27,24,.982);--explore-surface:rgba(255,255,255,.038);
+  --explore-soft-surface:rgba(255,255,255,.032);--explore-shadow:0 26px 72px rgba(0,0,0,.28);
+  --explore-reverse-ink:#f4efe7;--explore-reverse-muted:#cbd4d1;
+}
+body[data-theme='museum']{
+  --canvas:#f7f4ec;--paper:#fffdf8;--paper-2:#eff3ed;--graphite:#193936;--ink-2:#304e4a;
+  --teal:#2f7d78;--teal-deep:#1f5c5b;--petrol:#1f6f6b;--pale:#e5efec;--stone:#e8ece5;
+  --sand:#ded0b6;--line:#9dbcb2;--bronze:#b39063;--white:#fffefa;
+  --explore-bubble:rgba(47,125,120,.035);--explore-bubble-line:rgba(47,125,120,.085);
+  --explore-popover:rgba(247,244,236,.988);--explore-surface:rgba(246,251,249,.82);
+  --explore-soft-surface:rgba(238,246,243,.82);--explore-shadow:0 24px 68px rgba(34,74,69,.12);
+  --explore-reverse-ink:#f7f4ec;--explore-reverse-muted:#d4e2de;
+}
+
+body{background:var(--canvas);color:var(--graphite);transition:background .22s ease,color .22s ease}
+.section{border-bottom-color:color-mix(in srgb,var(--line) 58%,transparent)}
+.section.ivory{background:var(--paper)}
+.section.pale{background:var(--pale)}
+
+/* Restore semantic surfaces in every theme. Specific reversal blocks are
+   deliberately excluded and receive their own rules below. */
+:is(.module-card:not(.featured),.research-card,.person-panel,.level,.privacy-step,.future-card,
+    .equation,.boundary-list div,.orbit-core,.orbit-node,.dev-status>div){
+  background:var(--explore-surface);border-color:color-mix(in srgb,var(--line) 72%,transparent);color:var(--graphite)
+}
+.orbit-node.rpe{background:var(--explore-soft-surface);border-color:var(--teal)}
+.equations,.boundary-list{background:color-mix(in srgb,var(--line) 55%,transparent);border-color:color-mix(in srgb,var(--line) 55%,transparent)}
+.module-card.featured,.section.graphite{background:var(--petrol);color:var(--explore-reverse-ink)}
+.module-card.featured p,.module-card.featured .module-sci,.section.graphite .section-intro,.section.graphite .meta,.section.graphite .small-note{color:var(--explore-reverse-muted)}
+.section.graphite .eyebrow,.module-card.featured .module-code{color:color-mix(in srgb,var(--explore-reverse-ink) 72%,var(--teal))}
+.section.graphite .section-intro strong{color:var(--explore-reverse-ink)}
+.section.graphite .rule-callout{background:rgba(255,255,255,.055);color:var(--explore-reverse-ink);border-color:color-mix(in srgb,var(--teal) 70%,white)}
+
+body[data-theme='graphite'] .secondary-label,
+body[data-theme='graphite'] .section-intro,
+body[data-theme='graphite'] .module-card p,
+body[data-theme='graphite'] .research-card p,
+body[data-theme='graphite'] .level p,
+body[data-theme='graphite'] .future-card p,
+body[data-theme='graphite'] .person-panel li,
+body[data-theme='graphite'] .boundary-list div{color:var(--ink-2)}
+body[data-theme='graphite'] .module-sci,
+body[data-theme='graphite'] .small-note,
+body[data-theme='graphite'] .candidate{color:color-mix(in srgb,var(--ink-2) 78%,var(--teal))}
+body[data-theme='graphite'] .candidate,
+body[data-theme='graphite'] .pattern-list span,
+body[data-theme='graphite'] .statusline span{background:rgba(255,255,255,.025);border-color:color-mix(in srgb,var(--line) 82%,transparent)}
+
+/* --------------------------------------------------------------------------
+   02 Unified public header — main-page bubble grammar.
+   -------------------------------------------------------------------------- */
+.explore-topbar{
+  min-height:74px;
+  background:color-mix(in srgb,var(--canvas) 94%,transparent);
+  border-top:3px solid var(--graphite);
+  border-bottom:1px solid color-mix(in srgb,var(--line) 54%,transparent);
+  box-shadow:none;
+}
+.explore-topbar.is-scrolled{background:color-mix(in srgb,var(--canvas) 98%,transparent);box-shadow:0 11px 38px rgba(32,45,42,.075)}
+body[data-theme='graphite'] .explore-topbar{border-top-color:var(--teal);box-shadow:none}
+body[data-theme='graphite'] .explore-topbar.is-scrolled{box-shadow:0 14px 42px rgba(0,0,0,.24)}
+body[data-theme='museum'] .explore-topbar{border-top-color:var(--teal)}
+
+.explore-topbar__inner{
+  width:min(1680px,100%);max-width:1680px;margin:auto;min-height:71px;padding:0 var(--gutter);
+  display:grid;grid-template-columns:minmax(225px,auto) minmax(0,1fr) auto auto auto;
+  align-items:center;gap:11px;
+}
+
+/* Brand parity: same optical mass and orbit motif as the main page. */
+.explore-brand{display:flex;align-items:center;gap:12px;min-width:max-content;font-family:var(--sans)!important;color:var(--graphite)}
+.explore-brand__mark{
+  width:40px;height:40px;flex:0 0 40px;position:relative;border-radius:50%;
+  border:1px solid color-mix(in srgb,var(--teal) 48%,transparent);box-shadow:none;
+  background:radial-gradient(circle at 36% 35%,color-mix(in srgb,var(--teal) 11%,transparent),transparent 57%);
+}
+.explore-brand__mark::before{
+  content:'';position:absolute;inset:6px 4px;border:1.6px solid color-mix(in srgb,var(--teal) 70%,transparent);
+  border-radius:50%;transform:rotate(17deg);
+}
+.explore-brand__mark::after{
+  content:'';position:absolute;width:11px;height:11px;border-radius:50%;right:3px;top:5px;background:var(--teal);
+  box-shadow:-22px 20px 0 -1px var(--sand);
+}
+.explore-brand strong{display:block;font-family:var(--display)!important;font-size:25px;font-weight:500;line-height:.98;letter-spacing:-.025em}
+.explore-brand small{display:block;margin-top:4px;font-family:var(--sans)!important;font-size:7.5px;line-height:1;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);font-weight:700}
+
+.explore-mainnav{
+  justify-self:center;margin-left:0;display:flex;align-items:center;gap:1px;padding:4px;
+  border:1px solid var(--explore-bubble-line);border-radius:999px;background:var(--explore-bubble);
+  font-family:var(--sans);font-size:12px;font-weight:650;min-width:0;
+}
+.explore-mainnav>a,.explore-mainnav summary{
+  color:color-mix(in srgb,var(--graphite) 70%,var(--ink-2));padding:9px 12px;border-radius:999px;
+  transition:background .16s ease,color .16s ease,transform .16s ease;
+}
+.explore-mainnav>a:hover,.explore-mainnav>a:focus-visible,.explore-mainnav summary:hover,.explore-mainnav summary:focus-visible,
+.explore-mainnav details[open] summary{
+  color:var(--graphite);background:color-mix(in srgb,var(--paper) 60%,transparent);transform:translateY(-1px);outline:none
+}
+body[data-theme='graphite'] .explore-mainnav>a:hover,
+body[data-theme='graphite'] .explore-mainnav summary:hover,
+body[data-theme='graphite'] .explore-mainnav details[open] summary{background:rgba(255,255,255,.055)}
+
+/* Explore mega menu follows the same stable two-column card geometry as the
+   main navigation system. */
+.explore-map{
+  top:calc(100% + 12px);right:-4px;width:min(680px,calc(100vw - 48px));padding:16px;
+  border:1px solid color-mix(in srgb,var(--line) 74%,transparent);border-radius:22px;
+  background:var(--explore-popover);box-shadow:var(--explore-shadow);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)
+}
+.explore-map__head{padding:3px 6px 12px;border-bottom:1px solid color-mix(in srgb,var(--line) 58%,transparent);font-size:10px}
+.explore-map__head strong{font-family:var(--display);font-size:20px;font-weight:500;letter-spacing:-.018em;text-transform:none;color:var(--graphite)}
+.explore-map__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding-top:12px}
+.explore-map__label{padding:3px 7px 1px;margin-bottom:4px;font-size:9px;color:var(--ink-2)}
+.explore-map a{
+  min-height:74px;padding:13px 14px;border:1px solid color-mix(in srgb,var(--line) 55%,transparent);border-radius:15px;
+  background:color-mix(in srgb,var(--paper) 30%,transparent);font-size:13px;display:flex;flex-direction:column;justify-content:center;
+  transition:background .16s ease,border-color .16s ease,transform .16s ease
+}
+.explore-map a+a{margin-top:8px}
+.explore-map a small{font-size:10px;line-height:1.35;min-height:2.7em;color:var(--ink-2)}
+.explore-map a:hover,.explore-map a:focus-visible{background:var(--explore-soft-surface);border-color:color-mix(in srgb,var(--teal) 44%,var(--line));transform:translateY(-1px);outline:none}
+.explore-map a[aria-current='page']{background:var(--explore-soft-surface);border-color:color-mix(in srgb,var(--teal) 58%,var(--line));color:var(--teal-deep)}
+
+/* --------------------------------------------------------------------------
+   03 Shared theme control + language bubble.
+   -------------------------------------------------------------------------- */
+.explore-theme-menu{position:relative;z-index:150;font-family:var(--sans)}
+.explore-theme-menu summary{
+  list-style:none;cursor:pointer;display:flex;align-items:center;gap:7px;min-height:32px;
+  border:1px solid color-mix(in srgb,var(--line) 72%,transparent);border-radius:999px;padding:7px 10px;
+  background:color-mix(in srgb,var(--paper) 52%,transparent);color:var(--ink-2);font-size:10px;font-weight:700;white-space:nowrap
+}
+.explore-theme-menu summary::-webkit-details-marker{display:none}
+.explore-theme-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 3px color-mix(in srgb,var(--teal) 12%,transparent)}
+.explore-theme-popover{
+  position:absolute;right:0;top:calc(100% + 9px);width:176px;padding:8px;border:1px solid color-mix(in srgb,var(--line) 72%,transparent);
+  border-radius:16px;background:var(--explore-popover);box-shadow:var(--explore-shadow);display:grid;gap:4px
+}
+.explore-theme-option{appearance:none;border:0;background:transparent;color:var(--graphite);padding:9px 10px;border-radius:11px;display:flex;align-items:center;gap:10px;cursor:pointer;text-align:left;font:700 11px/1.2 var(--sans)}
+.explore-theme-option:hover,.explore-theme-option.active{background:var(--explore-soft-surface)}
+.explore-theme-swatch{width:20px;height:20px;border-radius:50%;border:1px solid color-mix(in srgb,var(--line) 70%,transparent);display:inline-block;flex:0 0 auto}
+.explore-theme-swatch-ivory{background:linear-gradient(135deg,#f6f0e5 52%,#24201c 52%)}
+.explore-theme-swatch-graphite{background:linear-gradient(135deg,#282421 52%,#ece5db 52%)}
+.explore-theme-swatch-museum{background:linear-gradient(135deg,#f7f4ec 45%,#dfecea 45% 72%,#2f7d78 72%)}
+
+.explore-lang-switch{
+  justify-self:end;display:flex;align-items:center;gap:1px;margin-left:0;padding:2px;
+  border:1px solid color-mix(in srgb,var(--line) 68%,transparent);border-radius:999px;background:color-mix(in srgb,var(--paper) 40%,transparent)
+}
+.explore-lang-switch a{min-width:33px;height:28px;padding:0 7px;border:0;border-radius:999px;color:var(--ink-2)}
+.explore-lang-switch a:hover,.explore-lang-switch a:focus-visible{border:0;background:var(--explore-soft-surface);color:var(--graphite)}
+.explore-lang-switch a[aria-current='page']{border:0;background:var(--paper);box-shadow:0 2px 10px rgba(33,45,42,.06);color:var(--teal-deep)}
+body[data-theme='graphite'] .explore-lang-switch a[aria-current='page']{background:rgba(255,255,255,.08);color:var(--graphite)}
+
+/* Mobile theme controls live inside the existing drawer instead of crowding the
+   compact top bar. */
+.explore-mobile-theme{display:none}
+
+/* --------------------------------------------------------------------------
+   04 Hero statement scale — closer to the opening scale of the main page while
+   preserving the two-column explanatory composition.
+   -------------------------------------------------------------------------- */
+@media(min-width:1181px){
+  .explore-hero h1{font-size:clamp(78px,7.2vw,136px);line-height:.87;letter-spacing:-.058em;max-width:980px;margin-top:19px;margin-bottom:27px}
+  .hero-grid{grid-template-columns:minmax(0,.98fr) minmax(560px,1.02fr);gap:clamp(70px,6vw,110px)}
+  .hero-copy{max-width:850px}
+}
+@media(min-width:1680px){
+  .explore-hero h1{font-size:136px}
+  .hero-grid{grid-template-columns:minmax(0,.96fr) minmax(610px,1.04fr)}
+}
+
+/* --------------------------------------------------------------------------
+   05 Responsive safeguards.
+   -------------------------------------------------------------------------- */
+@media(max-width:1360px){
+  .explore-topbar__inner{grid-template-columns:minmax(200px,auto) minmax(0,1fr) auto auto;gap:9px}
+  .explore-mainnav{justify-self:end}
+  .explore-theme-menu{grid-column:auto}
+  .explore-mainnav>a,.explore-mainnav summary{padding:8px 9px;font-size:11px}
+  .explore-brand strong{font-size:23px}
+}
+@media(max-width:1180px){
+  .explore-topbar__inner{display:flex;gap:10px}
+  .explore-mainnav{display:none!important}
+  .explore-theme-menu{margin-left:auto}
+  .explore-lang-switch{margin-left:0}
+  .explore-menu-btn{display:inline-flex;margin-left:0}
+}
+@media(max-width:760px){
+  .explore-brand__mark{width:34px;height:34px;flex-basis:34px}
+  .explore-brand strong{font-size:20px}.explore-brand small{font-size:6.5px}
+  .explore-theme-menu{display:none}
+  .explore-lang-switch{margin-left:auto}
+  .explore-mobile-theme{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:16px 18px 6px;padding-top:16px;border-top:1px solid color-mix(in srgb,var(--line) 55%,transparent)}
+  .explore-mobile-theme button{appearance:none;border:1px solid color-mix(in srgb,var(--line) 68%,transparent);border-radius:999px;background:var(--explore-surface);color:var(--ink-2);padding:10px 6px;font:700 10px/1 var(--sans);cursor:pointer}
+  .explore-mobile-theme button.active{background:var(--teal);border-color:var(--teal);color:#fff}
+}
+@media(max-width:480px){
+  .explore-brand small{display:none}
+  .explore-brand{gap:8px}
+  .explore-lang-switch a{min-width:29px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  body,.explore-mainnav>a,.explore-mainnav summary,.explore-map a{transition:none!important}
+}
