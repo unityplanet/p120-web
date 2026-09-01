@@ -1,0 +1,21 @@
+{
+  "status": "PASS - DRAFT REVIEW PACKAGE BUILT",
+  "ru_item_count": 180,
+  "en_item_count": 180,
+  "id_coverage": "180/180",
+  "source_export_anomaly_ids": [
+    "Q51",
+    "Q53",
+    "Q55",
+    "Q61",
+    "Q65",
+    "Q66",
+    "Q67",
+    "Q68",
+    "Q70",
+    "Q71",
+    "Q72"
+  ],
+  "runtime_release_authorized": false,
+  "next_gate": "EN LOCALIZATION PASS 2 - Item-by-Item Semantic Equivalence Audit"
+}
