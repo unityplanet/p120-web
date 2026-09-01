@@ -1,0 +1,212 @@
+/* P-120 WEB-EXPLORE PASS 5.3.2 — Main saved-research / chapter-nav / theme-menu corrections
+   Presentation only. No questionnaire, scoring, persistence, report, privacy, safety,
+   scientific or backend authority changes. */
+
+:root{
+  --p120-pass532-chapter-h:48px;
+  --p120-pass532-stack-gap:10px;
+}
+
+/* --------------------------------------------------------------------------
+   A. MAIN — give the saved-research plane back the stage width it can use.
+   The chapter navigator and saved state are two functional planes, not one overlay.
+   -------------------------------------------------------------------------- */
+@media (min-width:1121px){
+  html.p120-brand53-ready .editorial-home .editorial-resume-rail.p120-resume53{
+    width:min(var(--p120-brand-stage,1680px),calc(100% - 16px));
+    max-width:none;
+    transition:top .18s ease,background-color .18s ease,border-color .18s ease,box-shadow .18s ease;
+  }
+
+  html.chapter-nav-visible.p120-brand53-ready .editorial-home .editorial-resume-rail.p120-resume53{
+    top:calc(var(--chapter-nav-top,74px) + var(--p120-pass532-chapter-h) + var(--p120-pass532-stack-gap));
+  }
+
+  html.p120-brand53-ready .chapter-jump-nav{
+    padding-inline:clamp(28px,3vw,64px);
+  }
+  html.p120-brand53-ready .chapter-jump-nav-inner{
+    width:min(var(--p120-brand-stage,1680px),calc(100vw - clamp(56px,6vw,128px)));
+    min-height:var(--p120-pass532-chapter-h);
+    border-color:color-mix(in srgb,var(--p120-brand-line) 48%,transparent);
+    background:color-mix(in srgb,var(--p120-brand-canvas) 93%,transparent);
+    box-shadow:0 10px 30px color-mix(in srgb,var(--p120-brand-ink) 6%,transparent);
+    backdrop-filter:blur(18px) saturate(108%);
+    -webkit-backdrop-filter:blur(18px) saturate(108%);
+  }
+  html.p120-brand53-ready .chapter-jump-prefix{
+    min-height:var(--p120-pass532-chapter-h);
+    border-right-color:color-mix(in srgb,var(--p120-brand-line) 44%,transparent);
+    color:var(--p120-brand-ink-2);
+  }
+  html.p120-brand53-ready .chapter-jump-button{
+    min-height:calc(var(--p120-pass532-chapter-h) - 1px);
+    border-left-color:color-mix(in srgb,var(--p120-brand-line) 38%,transparent);
+    color:var(--p120-brand-ink-2);
+  }
+  html.p120-brand53-ready .chapter-jump-button:is(:hover,.is-active){
+    color:var(--p120-brand-ink);
+    background:color-mix(in srgb,var(--p120-brand-surface-soft) 42%,transparent);
+  }
+  html.p120-brand53-ready .chapter-jump-progress{
+    background:color-mix(in srgb,var(--p120-brand-line) 48%,transparent);
+  }
+  html.p120-brand53-ready .chapter-jump-progress>i,
+  html.p120-brand53-ready .chapter-jump-button.is-active:after,
+  html.p120-brand53-ready .chapter-jump-prefix:before{
+    background:var(--p120-brand-teal);
+  }
+}
+
+/* Ivory is intentionally quieter than the previous almost-white floating card.
+   Graphite and Museum retain their accepted semantic surface treatment. */
+html.p120-brand53-ready body[data-theme='ivory'] .editorial-resume-rail.p120-resume53{
+  background:color-mix(in srgb,var(--p120-brand-canvas) 82%,var(--p120-brand-surface) 18%);
+  border-color:color-mix(in srgb,var(--p120-brand-line) 42%,transparent);
+  box-shadow:0 12px 32px rgba(32,31,27,.055);
+}
+html.p120-brand53-ready body[data-theme='ivory'] .chapter-jump-nav-inner{
+  background:color-mix(in srgb,var(--p120-brand-canvas) 95%,transparent);
+  border-color:color-mix(in srgb,var(--p120-brand-line) 42%,transparent);
+  box-shadow:0 10px 28px rgba(32,31,27,.05);
+}
+html.p120-brand53-ready body[data-theme='graphite'] .chapter-jump-nav-inner{
+  background:color-mix(in srgb,var(--p120-brand-surface) 96%,transparent);
+  border-color:color-mix(in srgb,var(--p120-brand-line) 52%,transparent);
+  box-shadow:0 14px 38px rgba(0,0,0,.22);
+}
+html.p120-brand53-ready body[data-theme='museum'] .chapter-jump-nav-inner{
+  background:color-mix(in srgb,var(--p120-brand-canvas) 94%,transparent);
+  border-color:color-mix(in srgb,var(--p120-brand-line) 48%,transparent);
+  box-shadow:0 12px 34px rgba(38,53,51,.07);
+}
+
+/* --------------------------------------------------------------------------
+   B. MAIN — harden the existing theme selector instead of creating another one.
+   Opaque semantic popover + deterministic rows prevents background / label bleed.
+   -------------------------------------------------------------------------- */
+html.p120-brand53-ready .header-theme-menu.p120-main-theme532{
+  position:relative;
+  z-index:420!important;
+  isolation:isolate;
+  overflow:visible;
+}
+html.p120-brand53-ready .header-theme-menu.p120-main-theme532>summary{
+  position:relative;
+  z-index:2;
+  min-height:36px;
+  display:grid;
+  grid-template-columns:8px auto;
+  align-items:center;
+  column-gap:8px;
+  border-color:color-mix(in srgb,var(--p120-brand-line) 58%,transparent)!important;
+  background:color-mix(in srgb,var(--p120-brand-surface) 58%,transparent)!important;
+  color:var(--p120-brand-ink-2)!important;
+}
+html.p120-brand53-ready .header-theme-menu.p120-main-theme532[open]>summary{
+  color:var(--p120-brand-ink)!important;
+  border-color:color-mix(in srgb,var(--p120-brand-teal) 42%,var(--p120-brand-line))!important;
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--p120-brand-teal) 8%,transparent);
+}
+html.p120-brand53-ready .p120-main-theme532-label{
+  display:block;
+  min-width:0;
+  white-space:nowrap;
+  line-height:1.1;
+}
+html.p120-brand53-ready .header-theme-menu.p120-main-theme532 .header-theme-popover{
+  position:absolute;
+  z-index:430!important;
+  right:0;
+  top:calc(100% + 10px);
+  width:196px;
+  min-width:196px;
+  padding:8px;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr);
+  grid-auto-rows:minmax(44px,auto);
+  gap:4px;
+  overflow:hidden;
+  border:1px solid color-mix(in srgb,var(--p120-brand-line) 66%,transparent)!important;
+  border-radius:17px;
+  background:var(--p120-brand-popover)!important;
+  color:var(--p120-brand-ink)!important;
+  box-shadow:0 22px 58px color-mix(in srgb,var(--p120-brand-ink) 18%,transparent)!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+html.p120-brand53-ready .header-theme-menu.p120-main-theme532 .header-theme-option{
+  appearance:none;
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  min-width:0;
+  min-height:44px;
+  margin:0!important;
+  padding:9px 11px!important;
+  border:0!important;
+  border-radius:11px;
+  display:grid!important;
+  grid-template-columns:22px minmax(0,1fr);
+  align-items:center;
+  justify-items:start;
+  gap:11px;
+  overflow:hidden;
+  background:transparent!important;
+  color:var(--p120-brand-ink)!important;
+  text-align:left;
+  font:700 12px/1.2 var(--p120-brand-sans,"IBM Plex Sans",sans-serif)!important;
+  white-space:nowrap;
+  cursor:pointer;
+}
+html.p120-brand53-ready .header-theme-menu.p120-main-theme532 .header-theme-option:is(:hover,.active,:focus-visible){
+  background:var(--p120-brand-hover)!important;
+  outline:none;
+}
+html.p120-brand53-ready .header-theme-menu.p120-main-theme532 .header-theme-option:focus-visible{
+  box-shadow:inset 0 0 0 2px var(--p120-brand-focus);
+}
+html.p120-brand53-ready .header-theme-menu.p120-main-theme532 .theme-swatch{
+  width:21px!important;
+  height:21px!important;
+  min-width:21px;
+  margin:0!important;
+  position:relative;
+  z-index:1;
+  display:block!important;
+  border:1px solid color-mix(in srgb,var(--p120-brand-line) 64%,transparent)!important;
+  border-radius:50%;
+  overflow:hidden;
+}
+html.p120-brand53-ready .header-theme-menu.p120-main-theme532 .header-theme-option>span:last-child{
+  min-width:0;
+  max-width:100%;
+  position:relative;
+  z-index:1;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+html.p120-brand53-ready body[data-theme='graphite'] .header-theme-menu.p120-main-theme532>summary{
+  background:rgba(255,255,255,.035)!important;
+}
+html.p120-brand53-ready body[data-theme='graphite'] .header-theme-menu.p120-main-theme532 .header-theme-popover{
+  background:#1D1B18!important;
+  box-shadow:0 24px 64px rgba(0,0,0,.42)!important;
+}
+html.p120-brand53-ready body[data-theme='museum'] .header-theme-menu.p120-main-theme532>summary{
+  background:color-mix(in srgb,var(--p120-brand-surface) 68%,transparent)!important;
+}
+
+@media (min-width:2560px){
+  html.p120-brand53-ready .header-theme-menu.p120-main-theme532 .header-theme-popover{width:216px;min-width:216px}
+  html.p120-brand53-ready .header-theme-menu.p120-main-theme532 .header-theme-option{min-height:48px;font-size:13px!important}
+}
+@media (min-width:3200px){
+  :root{--p120-pass532-chapter-h:56px;--p120-pass532-stack-gap:14px}
+  html.p120-brand53-ready .header-theme-menu.p120-main-theme532 .header-theme-popover{width:238px;min-width:238px;padding:10px}
+  html.p120-brand53-ready .header-theme-menu.p120-main-theme532 .header-theme-option{min-height:54px;font-size:15px!important;padding:11px 13px!important}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html.p120-brand53-ready .editorial-home .editorial-resume-rail.p120-resume53{transition:none!important}
+}
