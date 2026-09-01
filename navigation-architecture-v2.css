@@ -59,6 +59,52 @@ html.nav-architecture-v2-ready .mobile-menu-group > .eyebrow{font-size:10px;lett
 html.nav-architecture-v2-ready .chapter-mobile-group{margin-top:0}
 html.nav-architecture-v2-ready .p120-language-mobile-group{margin-top:0}
 
+/* Android/mobile drawer stability guard.
+   The legacy v1.3 drawer uses entrance animations with opacity:0 as the from-state.
+   Dynamic ecosystem/language/chapter groups can be observed and re-evaluated while
+   the drawer is open, which on some Chromium/Android builds restarts those animations
+   and leaves real, clickable rows visually transparent. The drawer is now content-led:
+   fixed auto rows, no per-row entrance animation, stable touch targets. */
+@media(max-width:1080px){
+  html.nav-architecture-v2-ready .mobile-menu{
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    touch-action:pan-y;
+  }
+  html.nav-architecture-v2-ready .mobile-menu-body{
+    display:grid;
+    grid-auto-rows:max-content;
+    align-content:start;
+    min-height:0;
+  }
+  html.nav-architecture-v2-ready .mobile-menu-group,
+  html.nav-architecture-v2-ready .ecosystem-mobile-group-v2,
+  html.nav-architecture-v2-ready .chapter-mobile-group,
+  html.nav-architecture-v2-ready .p120-language-mobile-group{
+    height:auto!important;
+    min-height:0!important;
+    align-content:start!important;
+  }
+  body.mobile-menu-open html.nav-architecture-v2-ready .mobile-menu-group > *,
+  body.mobile-menu-open .nav-architecture-v2-ready .mobile-menu-group > *,
+  html.nav-architecture-v2-ready body.mobile-menu-open .mobile-menu-group > *,
+  html.nav-architecture-v2-ready body.mobile-menu-open .mobile-menu-progress{
+    animation:none!important;
+    opacity:1!important;
+    transform:none!important;
+  }
+  html.nav-architecture-v2-ready body.mobile-menu-open .mobile-menu-link,
+  html.nav-architecture-v2-ready body.mobile-menu-open .mobile-menu-action,
+  html.nav-architecture-v2-ready body.mobile-menu-open .ecosystem-mobile-link-v2{
+    visibility:visible!important;
+    pointer-events:auto;
+  }
+  html.nav-architecture-v2-ready body.mobile-menu-open [aria-disabled="true"]{
+    pointer-events:none;
+  }
+}
+
 body[data-theme='graphite']{
   --ecosystem-panel-bg:rgba(29,27,24,.96);
   --ecosystem-border:rgba(242,238,229,.16);
