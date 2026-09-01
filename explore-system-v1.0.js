@@ -187,3 +187,15 @@
   html.dataset.webExploreShell='v1.3.2';
   html.classList.add('explore-unification-ready');
 })();
+
+/* WEB-EXPLORE PASS 5.3 — canonical public brand layer. */
+(() => {
+  'use strict';
+  if(document.querySelector('script[data-p120-brand-system-loader]') || window.P120_BRAND_SYSTEM) return;
+  const base=document.currentScript?.src||document.baseURI;
+  const script=document.createElement('script');
+  script.src=new URL('p120-brand-system-v1.0.js?v=53',base).href;
+  script.async=false;
+  script.dataset.p120BrandSystemLoader='5.3';
+  document.head.appendChild(script);
+})();
