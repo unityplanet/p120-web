@@ -76,12 +76,12 @@ jobs:
         run: |
           python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-pass53-http.log 2>&1 &
           sleep 2
+      - name: Run PASS 5.3.2 main execution correction QA
+        run: node qa/pass53_2_main_execution_corrections.mjs
       - name: Run PASS 5.3 visual functional accessibility QA
         run: node qa/pass53_brand_unification.mjs
       - name: Run PASS 5.3.1 screenshot-driven correction QA
         run: node qa/pass53_1_visual_corrections.mjs
-      - name: Run PASS 5.3.2 main execution correction QA
-        run: node qa/pass53_2_main_execution_corrections.mjs
       - name: Upload controlled QA evidence
         uses: actions/upload-artifact@v4
         if: always()
