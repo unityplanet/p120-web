@@ -25,6 +25,7 @@
       ['aria-label="P-120 — главная"','aria-label="P-120 — home"'],
       ['<small>исследовательская архитектура</small>','<small>research architecture</small>'],
       ['aria-label="Главная навигация"','aria-label="Main navigation"'],
+      ['<nav class="wp-lang-switch" aria-label="Язык"><a href="./" lang="ru" aria-current="page">RU</a><a href="../en/why-p120/" lang="en">EN</a></nav>','<nav class="wp-lang-switch" aria-label="Language"><a href="./" lang="ru">RU</a><a href="../en/why-p120/" lang="en" aria-current="page">EN</a></nav>'],
       ['href="../#why-important">О P-120</a>','href="../en/#why-important">About P-120</a>'],
       ['href="../#why-p120">Уникальность</a>','href="../en/#why-p120">What makes it different</a>'],
       ['href="../#what-p120-shows">Что покажет</a>','href="../en/#what-p120-shows">What it can show</a>'],
@@ -71,7 +72,7 @@
     fetch(sourceUrl,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(src=>{
       src=src.replace('<head>','<head><base href="../../why-p120/">'+langCss);
       for(const [a,b] of pairs)src=src.split(a).join(b);
-      src=src.replace('<div class="wp-header-tools">','<div class="wp-header-tools"><nav class="wp-lang-switch" aria-label="Language"><a href="./" lang="ru">RU</a><a href="../en/why-p120/" lang="en" aria-current="page">EN</a></nav>');
+      if(!src.includes('class="wp-lang-switch"')) src=src.replace('<div class="wp-header-tools">','<div class="wp-header-tools"><nav class="wp-lang-switch" aria-label="Language"><a href="./" lang="ru">RU</a><a href="../en/why-p120/" lang="en" aria-current="page">EN</a></nav>');
       src=src.replace('</body>','<script>document.documentElement.lang="en";<\/script></body>');
       document.open();document.write(src);document.close();
     }).catch(err=>{

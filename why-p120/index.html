@@ -95,6 +95,39 @@
 @media(max-width:1100px){.wp-semantic{padding-left:36px;max-width:330px}.wp-semantic-item{grid-template-columns:48px minmax(0,1fr);padding:9px 0 10px}.wp-semantic-item::before{left:-25px}.wp-semantic::before{left:12px}}
 @media(max-width:720px){.wp-semantic{padding-left:34px;max-width:100%;margin-top:30px}.wp-semantic::before{left:11px;top:12px;bottom:12px}.wp-semantic-item{grid-template-columns:46px minmax(0,1fr);gap:8px;padding:10px 0 11px}.wp-semantic-item::before{left:-25px;top:17px}.wp-semantic-term{font-size:13px}.wp-semantic-detail{font-size:11px}.wp-act2-note{position:static!important;margin:26px 0 0 auto;max-width:210px;text-align:right}}
 </style>
+<style id="wp-bilingual-ui-fix-v1">
+/* Why P-120 — bilingual UI / ACT 2 composition correction */
+.wp-semantic>.wp-act2-note{
+  position:static!important;
+  display:grid!important;
+  gap:3px!important;
+  justify-self:end;
+  align-self:start;
+  width:min(220px,100%);
+  max-width:220px!important;
+  margin:18px 0 0 auto!important;
+  padding:14px 0 0;
+  border-top:1px solid rgba(31,30,28,.10);
+  text-align:right!important;
+}
+.wp-semantic>.wp-act2-note span,
+.wp-semantic>.wp-act2-note strong{display:block}
+.wp-semantic::before{bottom:82px!important}
+.wp-lang-switch{display:inline-flex;gap:2px;padding:3px;border:1px solid rgba(255,255,255,.2);border-radius:999px;flex:0 0 auto}
+.wp-lang-switch a{min-width:30px;height:25px;padding:0 7px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;text-decoration:none;font:700 9px/1 Inter,system-ui,sans-serif;letter-spacing:.06em;color:rgba(247,243,234,.68)}
+.wp-lang-switch a[aria-current="page"]{background:rgba(255,255,255,.12);color:#fff}
+@media(max-width:1100px){
+  .wp-semantic>.wp-act2-note{margin-top:16px!important}
+  .wp-semantic::before{bottom:80px!important}
+}
+@media(max-width:720px){
+  .wp-lang-switch{margin-left:auto}
+  .wp-lang-switch a{min-width:28px}
+  .wp-mobile-menu{margin-left:0}
+  .wp-semantic>.wp-act2-note{margin:18px 0 0 auto!important;max-width:220px!important}
+  .wp-semantic::before{bottom:80px!important}
+}
+</style>
 </head>
 <body class="wp-fixed-editorial-theme">
 <a class="wp-skip" href="#main">К содержанию</a>
@@ -109,7 +142,7 @@
         <a href="../#showcase">Отчёт</a>
         <a href="../#science-foundation">Научная база</a>
       </nav>
-      <div class="wp-header-tools">
+      <div class="wp-header-tools"><nav class="wp-lang-switch" aria-label="Язык"><a href="./" lang="ru" aria-current="page">RU</a><a href="../en/why-p120/" lang="en">EN</a></nav>
         <a class="wp-start" href="../?start=1">Начать</a>
         <a class="wp-mobile-menu" href="../">На главную</a>
       </div>
@@ -150,8 +183,8 @@
           <div class="wp-semantic-item" data-reveal data-delay="3"><span class="wp-semantic-index">P.04</span><span class="wp-semantic-copy"><span class="wp-semantic-term">Perception</span><span class="wp-semantic-detail">восприятие</span></span></div>
           <div class="wp-semantic-item" data-reveal data-delay="4"><span class="wp-semantic-index">P.05</span><span class="wp-semantic-copy"><span class="wp-semantic-term">Presence</span><span class="wp-semantic-detail">присутствие</span></span></div>
           <div class="wp-semantic-item" data-reveal data-delay="5"><span class="wp-semantic-index">P.06</span><span class="wp-semantic-copy"><span class="wp-semantic-term">Partnership</span><span class="wp-semantic-detail">партнёрство</span></span></div>
+          <p class="wp-act2-note"><span>Одна буква.</span><strong>Шесть направлений смысла.</strong></p>
         </div>
-        <p class="wp-act2-note"><span>Одна буква.</span><strong>Шесть направлений смысла.</strong></p>
       </div>
     </section>
 
