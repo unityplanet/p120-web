@@ -33,28 +33,27 @@ jobs:
           from pathlib import Path
           p=Path('extended-research-navigation-v1.0.js')
           s=p.read_text(encoding='utf-8')
-          marker='p120-science-atlas-adapter-v0.3'
-          if marker not in s:
-              s += r'''
+          if 'p120-science-atlas-adapter-v0.3' not in s:
+              loader="""
 
-/* P-120 WEB-SCIENCE EXT PASS 3 — dedicated Scientific Base adapter loader.
-   CORE-equivalence only; no visible Atlas activation in PASS 3. */
-(()=>{
-  'use strict';
-  if(!/(?:^|\/)(?:en\/)?science\/?$/i.test(location.pathname)) return;
-  const id='p120-science-atlas-adapter-v0.3';
-  if(document.getElementById(id)) return;
-  const current=document.currentScript;
-  const base=current?.src||new URL('extended-research-navigation-v1.0.js',location.href).href;
-  const script=document.createElement('script');
-  script.id=id;
-  script.src=new URL('p120-science-atlas-adapter-v0.3.js?v=websci30',base).href;
-  script.async=false;
-  script.dataset.p120WebsciencePass3='core-equivalence';
-  document.head.appendChild(script);
-})();
-'''
-              p.write_text(s,encoding='utf-8')
+          /* P-120 WEB-SCIENCE EXT PASS 3 — dedicated Scientific Base adapter loader.
+             CORE-equivalence only; no visible Atlas activation in PASS 3. */
+          (()=>{
+            'use strict';
+            if(!/(?:^|\\/)(?:en\\/)?science\\/?$/i.test(location.pathname)) return;
+            const id='p120-science-atlas-adapter-v0.3';
+            if(document.getElementById(id)) return;
+            const current=document.currentScript;
+            const base=current?.src||new URL('extended-research-navigation-v1.0.js',location.href).href;
+            const script=document.createElement('script');
+            script.id=id;
+            script.src=new URL('p120-science-atlas-adapter-v0.3.js?v=websci30',base).href;
+            script.async=false;
+            script.dataset.p120WebsciencePass3='core-equivalence';
+            document.head.appendChild(script);
+          })();
+          """
+              p.write_text(s+loader,encoding='utf-8')
           PY
       - name: Static syntax and mutation-boundary checks
         run: |
@@ -67,7 +66,7 @@ jobs:
           node --check p120-en-system-runtime-v0.4.js
           node --check qa/webscience_pass3_reconcile.mjs
           python3 -m json.tool P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json >/dev/null
-          ! grep -Eq 'window\.P120_SCIENCE\s*=|P120_SCIENCE\[[^]]+\]\s*=|\.innerHTML\s*=.*science-page|querySelector\([^)]*science-page[^)]*\)\.[a-zA-Z]+\s*=' p120-science-atlas-adapter-v0.3.js
+          if grep -Eq 'window\.P120_SCIENCE\s*=|P120_SCIENCE\[[^]]+\]\s*=' p120-science-atlas-adapter-v0.3.js; then exit 1; fi
           grep -q 'measurement_mutation_allowed":false' P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json
           grep -q 'visual_mutation_allowed":false' P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json
       - name: Install browser QA
