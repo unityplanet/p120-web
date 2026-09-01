@@ -1,5 +1,6 @@
-/* P-120 Science Navigation Reconciliation v1.1
-   Dedicated-page ownership for Scientific Base; Home chapter Science remains in-page. */
+/* P-120 Science Navigation Reconciliation v1.2
+   Dedicated-page ownership for Scientific Base; Home chapter Science remains in-page.
+   Root Home routes are authoritative and must never auto-migrate from transient DOM state. */
 (()=>{
   'use strict';
   const HASHES=new Set(['#scientific-base','#science-base']);
@@ -32,11 +33,10 @@
     if(base){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();goDedicated();}
   }
   function legacyHash(){if(HASHES.has(location.hash))goDedicated();}
-  function migrateLegacyScreen(){if(document.querySelector('.science-page')&&!document.querySelector('.editorial-home'))goDedicated();}
   document.addEventListener('click',capture,true);
   addEventListener('hashchange',legacyHash);
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{legacyHash();setTimeout(migrateLegacyScreen,0)},{once:true});else{legacyHash();setTimeout(migrateLegacyScreen,0);}
-  document.documentElement.dataset.p120ScienceNavigation='dedicated-v1.1';
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',legacyHash,{once:true});else legacyHash();
+  document.documentElement.dataset.p120ScienceNavigation='dedicated-v1.2';
 })();
 
 /* Production bundle bridge: Chapter 04 has its own reconciliation owner.
