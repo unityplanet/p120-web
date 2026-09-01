@@ -1,0 +1,62 @@
+name: Publish P-120 public science PDF v1.2
+
+on:
+  push:
+    paths:
+      - '.github/p120-public-science-v12/**'
+      - '.github/workflows/publish-p120-public-science-v12.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: p120-public-science-v12
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check source parts
+        id: parts
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected=7
+          found=$(find .github/p120-public-science-v12 -maxdepth 1 -type f -name 'part-*.b64' 2>/dev/null | wc -l | tr -d ' ')
+          echo "found=$found" >> "$GITHUB_OUTPUT"
+          if [ "$found" -ne "$expected" ]; then
+            echo "Waiting for all $expected controlled source parts; found $found."
+            exit 0
+          fi
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Materialize verified PDF
+        if: steps.parts.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .github/p120-public-science-v12/part-*.b64 > /tmp/p120-public-science-v12.b64
+          base64 --decode /tmp/p120-public-science-v12.b64 > assets/p120-scientific-concept-paper-v1.2.pdf
+          test "$(head -c 4 assets/p120-scientific-concept-paper-v1.2.pdf)" = '%PDF'
+          actual=$(sha256sum assets/p120-scientific-concept-paper-v1.2.pdf | awk '{print $1}')
+          expected='488721f4e87aa2e98bfa51039dbbfe1ee0143468b0812dca59498247e62c72eb'
+          test "$actual" = "$expected"
+          echo "Verified SHA-256: $actual"
+      - name: Commit public PDF and remove transport parts
+        if: steps.parts.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -rf .github/p120-public-science-v12
+          git add -A assets/p120-scientific-concept-paper-v1.2.pdf .github/p120-public-science-v12
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Publish P-120 public scientific concept paper v1.2'
+          git push
