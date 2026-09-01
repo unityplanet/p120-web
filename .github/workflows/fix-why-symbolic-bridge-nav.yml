@@ -23,26 +23,35 @@ jobs:
           set -euo pipefail
           git fetch origin main
           git rebase origin/main
-      - name: Apply symbolic bridge and rounded nav
+      - name: Apply symbolic ACT 1 Venn layer and rounded nav
         run: python3 .github/scripts/fix_why_symbolic_bridge_nav.py
       - name: Static acceptance gates
         run: |
           set -euo pipefail
           python3 -m py_compile .github/scripts/fix_why_symbolic_bridge_nav.py
-          grep -q 'id="symbolic-bridge"' why-p120/index.html
+          grep -q 'id="wp-act1-symbolic-venn-v2"' why-p120/index.html
+          grep -q 'class="wp-venn-six"' why-p120/index.html
+          grep -q 'Символическое сведение 72 к 9' why-p120/index.html
+          grep -q 'Символическое сведение 48 к 3' why-p120/index.html
+          grep -q 'Девять минус три равно шесть' why-p120/index.html
+          grep -q 'Символический слой бренда · не часть методологии' why-p120/index.html
           grep -q 'class="wp-nav-current"' why-p120/index.html
-          grep -q 'Символический слой бренда' why-p120/index.html
-          grep -q 'Symbolic reduction of 72 and 48' en/why-p120/index.html
+          grep -q 'Symbolic reduction of 72 to 9' en/why-p120/index.html
+          grep -q 'Symbolic reduction of 48 to 3' en/why-p120/index.html
+          if grep -q 'class="wp-symbol-bridge"' why-p120/index.html; then
+            echo 'Standalone symbolic bridge must be absent.'
+            exit 1
+          fi
       - name: Commit controlled patch
         run: |
           set -euo pipefail
           if git diff --quiet; then
-            echo 'Why P-120 symbolic bridge already reconciled.'
+            echo 'Why P-120 ACT 1 symbolic Venn layer already reconciled.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add why-p120/index.html en/why-p120/index.html
-          git commit -m 'Add symbolic ACT1-to-ACT2 bridge and rounded nav'
+          git commit -m 'Move symbolic number layer into ACT 1 Venn plane'
           git pull --rebase origin main
           git push origin HEAD:main
