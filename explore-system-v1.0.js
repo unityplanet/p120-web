@@ -1,5 +1,6 @@
-/* P-120 WEB-EXPLORE PASS 4 — shared public Explore shell v1.2.
-   Presentation/navigation/localisation only. No assessment, scoring, persistence or report logic. */
+/* P-120 WEB-EXPLORE PASS 5 — shared Explore shell v1.3.
+   Presentation/navigation/theme/localisation shell only.
+   No assessment, scoring, persistence, report or scientific-authority logic. */
 (() => {
   'use strict';
 
@@ -9,26 +10,94 @@
   const pathname=location.pathname;
   const pageKind=/\/extended\/(?:index\.html)?$/i.test(pathname)?'extended':(/\/together\/(?:index\.html)?$/i.test(pathname)?'together':'');
   const isEn=html.lang.toLowerCase().startsWith('en')||/\/en\//i.test(pathname);
+  const THEME_KEY='p120_web_theme_v16';
+  const THEMES=['ivory','graphite','museum'];
+  let theme='ivory';
 
-  if(!document.getElementById('p120-explore-critical-v12')){
+  if(!document.getElementById('p120-explore-critical-v13')){
     const critical=document.createElement('style');
-    critical.id='p120-explore-critical-v12';
+    critical.id='p120-explore-critical-v13';
     critical.textContent='.mobile-drawer{display:none!important}@media(max-width:760px){.mobile-drawer{display:block!important}}';
     head.appendChild(critical);
   }
 
-  if(!document.querySelector('link[data-p120-explore-refinement]')){
+  function loadStyle(href,key,version){
+    if(document.querySelector(`link[data-${key}]`))return;
     const link=document.createElement('link');
     link.rel='stylesheet';
-    link.href=new URL('explore-refinement-v1.1.css?v=exp41',scriptUrl).href;
-    link.dataset.p120ExploreRefinement='v1.1';
-    link.addEventListener('load',()=>html.classList.add('explore-refinement-ready'),{once:true});
+    link.href=new URL(href,scriptUrl).href;
+    link.dataset[key]=version;
     head.appendChild(link);
   }
+  loadStyle('explore-refinement-v1.1.css?v=exp41','p120ExploreRefinement','v1.1');
+  loadStyle('explore-unification-v1.0.css?v=exp50','p120ExploreUnification','v1.0');
 
   function projectRoot(){
     const path=pathname.replace(/(?:en\/)?(?:extended|together)\/(?:index\.html)?$/i,'');
     return path.endsWith('/')?path:`${path}/`;
+  }
+
+  function loadTheme(){
+    try{
+      const stored=localStorage.getItem(THEME_KEY);
+      return THEMES.includes(stored)?stored:'ivory';
+    }catch(_){return 'ivory'}
+  }
+
+  function themeLabel(next){
+    const ru={ivory:'Светлая',graphite:'Графит',museum:'Музейная'};
+    const en={ivory:'Light',graphite:'Graphite',museum:'Museum'};
+    return (isEn?en:ru)[next]||next;
+  }
+
+  function applyTheme(next,{persist=true}={}){
+    theme=THEMES.includes(next)?next:'ivory';
+    if(document.body)document.body.dataset.theme=theme;
+    html.style.colorScheme=theme==='graphite'?'dark':'light';
+    const meta=document.querySelector('meta[name="theme-color"]');
+    if(meta)meta.setAttribute('content',({ivory:'#f2eee2',graphite:'#23211e',museum:'#f7f4ec'})[theme]);
+    if(persist){try{localStorage.setItem(THEME_KEY,theme)}catch(_){}}
+    syncThemeControls();
+  }
+
+  function themeOptionMarkup(t){
+    return `<button type="button" class="explore-theme-option" data-explore-theme="${t}" aria-pressed="false"><span class="explore-theme-swatch explore-theme-swatch-${t}" aria-hidden="true"></span><span>${themeLabel(t)}</span></button>`;
+  }
+
+  function addThemeControl(){
+    if(!pageKind)return;
+    const inner=document.querySelector('.explore-topbar__inner');
+    if(!inner||inner.querySelector('.explore-theme-menu'))return;
+    const details=document.createElement('details');
+    details.className='explore-theme-menu';
+    details.innerHTML=`<summary aria-label="${isEn?'Colour theme':'Цветовая тема'}"><span class="explore-theme-dot" aria-hidden="true"></span><span data-explore-theme-label>${themeLabel(theme)}</span></summary><div class="explore-theme-popover">${THEMES.map(themeOptionMarkup).join('')}</div>`;
+    const menu=inner.querySelector('.explore-menu-btn');
+    inner.insertBefore(details,menu||null);
+    details.querySelectorAll('[data-explore-theme]').forEach(btn=>btn.addEventListener('click',e=>{
+      e.preventDefault();
+      applyTheme(btn.dataset.exploreTheme);
+      details.removeAttribute('open');
+    }));
+  }
+
+  function addMobileThemeControl(){
+    const drawer=document.querySelector('[data-explore-drawer]');
+    if(!drawer||drawer.querySelector('.explore-mobile-theme'))return;
+    const group=document.createElement('div');
+    group.className='explore-mobile-theme';
+    group.setAttribute('aria-label',isEn?'Colour theme':'Цветовая тема');
+    group.innerHTML=THEMES.map(t=>`<button type="button" data-explore-theme="${t}" aria-pressed="false">${themeLabel(t)}</button>`).join('');
+    drawer.appendChild(group);
+    group.querySelectorAll('[data-explore-theme]').forEach(btn=>btn.addEventListener('click',()=>applyTheme(btn.dataset.exploreTheme)));
+  }
+
+  function syncThemeControls(){
+    document.querySelectorAll('[data-explore-theme]').forEach(btn=>{
+      const active=btn.dataset.exploreTheme===theme;
+      btn.classList.toggle('active',active);
+      btn.setAttribute('aria-pressed',String(active));
+    });
+    document.querySelectorAll('[data-explore-theme-label]').forEach(node=>node.textContent=themeLabel(theme));
   }
 
   function addLanguageSwitch(){
@@ -46,121 +115,58 @@
     inner.insertBefore(nav,menu||null);
   }
 
-  const ruReplacements=[
-    ['P-120 · EXTENDED RESEARCH SYSTEM','P-120 · СИСТЕМА УГЛУБЛЁННЫХ ИССЛЕДОВАНИЙ'],
-    ['P-120 · DYADIC RESEARCH LAYER','P-120 · ДИАДИЧЕСКИЙ ИССЛЕДОВАТЕЛЬСКИЙ СЛОЙ'],
-    ['Optional Deep-Dive Research Layers','Дополнительные углублённые исследовательские слои'],
-    ['Dyadic Research Architecture','Архитектура исследования пары'],
-    ['Research system in development','Исследовательская система в разработке'],
-    ['Research preview','Исследовательский предпросмотр'],
-    ['TWO INDEPENDENT SYSTEMS','ДВЕ НЕЗАВИСИМЫЕ СИСТЕМЫ'],
-    ['FOUR-LEVEL COMPATIBILITY DOCTRINE','ЧЕТЫРЁХУРОВНЕВАЯ МОДЕЛЬ СОВМЕСТИМОСТИ'],
-    ['DYNAMIC RESEARCH ENGINES','ДИНАМИЧЕСКИЕ ИССЛЕДОВАТЕЛЬСКИЕ МОДУЛИ'],
-    ['PRIVACY BY DESIGN','КОНФИДЕНЦИАЛЬНОСТЬ ПО УМОЛЧАНИЮ'],
-    ['FUTURE RESULT ARCHITECTURE','БУДУЩАЯ АРХИТЕКТУРА РЕЗУЛЬТАТА'],
-    ['SCIENTIFIC BOUNDARY','НАУЧНАЯ ГРАНИЦА'],
-    ['DYADIC PROCESS','ДИАДИЧЕСКИЙ ПРОЦЕСС'],
-    ['ONE LEVEL DEEPER','ЕЩЁ ОДИН УРОВЕНЬ ГЛУБЖЕ'],
-    ['CROSS-LAYER RESEARCH','МЕЖСЛОЙНОЕ ИССЛЕДОВАНИЕ'],
-    ['OPTIONAL RESEARCH LENSES','ДОПОЛНИТЕЛЬНЫЕ ИССЛЕДОВАТЕЛЬСКИЕ ЛИНЗЫ'],
-    ['CORE ↔ OPTIONAL','ОСНОВА ↔ ДОПОЛНИТЕЛЬНЫЕ СЛОИ'],
-    ['CORE → OPTIONAL LENSES','ОСНОВА → ДОПОЛНИТЕЛЬНЫЕ ЛИНЗЫ'],
-    ['Core profile → optional research lenses','Основной профиль → дополнительные исследовательские линзы'],
-    ['Structural Fit','Структурное соответствие'],
-    ['Negotiated Fit','Переговорная адаптация'],
-    ['Experienced Dynamic Fit','Переживаемая динамика'],
-    ['Temporal Stability','Временная устойчивость'],
-    ['HARD LOCK.','КЛЮЧЕВОЕ ПРАВИЛО.'],
-    ['Structural similarity','Структурное сходство'],
-    ['structural similarity','структурное сходство'],
-    ['Structural mismatch','Структурное несовпадение'],
-    ['structural mismatch','структурное несовпадение'],
-    ['good adaptation','хорошей адаптацией'],
-    ['poor repair','плохим восстановлением контакта'],
-    ['co-dysregulation','совместной дисрегуляцией'],
-    ['NEED','ПОТРЕБНОСТЬ'],['PERCEPTION','ВОСПРИЯТИЕ'],['PROVISION','ДЕЙСТВИЕ'],['EXPERIENCE','ПЕРЕЖИВАНИЕ'],['EFFECT','ЭФФЕКТ'],
-    ['Sexual Co-Regulation & Recovery','Сексуальная ко-регуляция и восстановление'],
-    ['Dyadic Desire & Erotic Coordination','Диадическое желание и эротическая координация'],
-    ['mutual recovery','взаимное восстановление'],['asymmetric recovery','асимметричное восстановление'],
-    ['unilateral benefit','односторонняя польза'],['repeated event pattern','повторяющийся паттерн взаимодействия'],
-    ['Synchrony ≠ co-regulation ≠ compatibility','Синхронность ≠ ко-регуляция ≠ совместимость'],
-    ['No libido compatibility score · No desire compatibility percentage · No Couple Total','Нет балла совместимости либидо · Нет процента совместимости желания · Нет общего балла пары'],
-    ['Research Candidate · controlled pre-pilot architecture','Исследовательский кандидат · контролируемая предпилотная архитектура'],
-    ['Candidate measurement architecture · в разработке','Кандидатная измерительная архитектура · в разработке'],
-    ['Individual participation','Индивидуальное участие'],['Pseudonymous pairing','Псевдонимное объединение пары'],
-    ['Share-safe report consent','Согласие на безопасный совместный отчёт'],['Optional event study','Дополнительное исследование эпизодов'],
-    ['event-level','уровня отдельных эпизодов'],['assessment','исследование'],['Raw answers','Исходные ответы'],
-    ['Shared report','Совместный отчёт'],['sensitive safety data','чувствительные данные безопасности'],
-    ['sensitive flow','чувствительный сценарий'],['Shared-report consent','Согласие на совместный отчёт'],['sensitive','чувствительных'],
-    ['01 / INDIVIDUAL','01 / ИНДИВИДУАЛЬНО'],['02 / PARTNER-CONTEXT','02 / КОНТЕКСТ ПАРТНЁРА'],['03 / DYADIC','03 / ПАРА'],
-    ['raw answers','исходных ответов'],['consent','согласие'],
-    ['Будущая report architecture.','Будущая архитектура отчёта.'],['Production interpretation not yet authorised.','Интерпретация для production пока не авторизована.'],
-    ['Нет Couple Total.','Нет общего балла пары.'],['Нет Compatibility %.','Нет процента совместимости.'],
-    ['Один event','Один эпизод'],['Synchrony','Синхронность'],['co-regulation','ко-регуляции'],
-    ['Research preview не равен валидированному production product.','Исследовательский предпросмотр не равен валидированному готовому продукту.'],
-    ['Controlled candidate/pre-pilot architecture; production score/report authority не заявлена.','Контролируемая кандидатная предпилотная архитектура; право на production-оценку и отчёт не заявлено.'],
-    ['Candidate dyadic desire measurement architecture; единый libido/compatibility score запрещён.','Кандидатная архитектура измерения диадического желания; единый балл либидо/совместимости запрещён.'],
-    ['Dyadic privacy','Конфиденциальность пары'],['Independent participation, pseudonymous pairing и share-safe disclosure остаются обязательными границами.','Независимое участие, псевдонимное объединение пары и безопасное раскрытие остаются обязательными границами.'],
-    ['research layers','исследовательские слои'],['individual score','индивидуальный показатель'],['individual coordinates','индивидуальные координаты'],
-    ['optional research layers','дополнительные исследовательские слои'],['PERSON A','УЧАСТНИК A'],['PERSON B','УЧАСТНИК B'],
-    ['Dyadic Research Layer','Диадический исследовательский слой'],['research architecture','исследовательская архитектура'],
-    ['Extended Research System','Система углублённых исследований'],
-    ['Erotic Communication Architecture','Архитектура эротической коммуникации'],['Sexual Motivation Architecture','Архитектура сексуальной мотивации'],
-    ['Sexual Self-Relation Architecture','Архитектура отношения к собственной сексуальности'],['Intimacy-Life Integration / Spillover','Интеграция близости и жизни / перенос эффектов'],
-    ['Receptive / Sensory / Power / Fantasy-Enactment Architecture','Архитектура рецептивности / сенсорики / распределения контроля / воплощения фантазии'],
-    ['preference ≠ tolerance ≠ capacity · fantasy ≠ experience','предпочтение ≠ переносимость ≠ способность · фантазия ≠ опыт'],
-    ['Adaptive research architecture · в разработке','Адаптивная исследовательская архитектура · в разработке'],
-    ['regulation patterns','паттерны регуляции'],['fit/mismatch','соответствие/несовпадение'],['downstream состояниями','последующими состояниями'],
-    ['composite scores','составными показателями'],['empirical authority','эмпирического подтверждения'],
-    ['Extended modules','Дополнительные модули'],['current P-120 scores','текущие показатели P-120'],['P-120 Extended Total','общего показателя Extended P-120'],
-    ['compatibility score','показателя совместимости'],['Development completeness','Завершённость разработки'],['psychometric validation','психометрической валидации'],
-    ['Research Candidate.','Исследовательский кандидат.'],['Candidate measurement workstreams; participant-facing production scoring не заявлен.','Кандидатные измерительные направления; пользовательский production-scoring не заявлен.'],
-    ['Candidate dimensional/outcome architectures; final factor and total-score authority отсутствует.','Кандидатные размерностные и outcome-архитектуры; право на финальные факторы и общий показатель отсутствует.'],
-    ['Adaptive candidate routing architecture; final scoring, norms и public profile labels не заморожены.','Адаптивная кандидатная архитектура маршрутизации; финальный scoring, нормы и публичные названия профилей не заморожены.'],
-    ['P-120 Research System','Исследовательская система P-120'],['WEB-EXPLORE · DYADIC RESEARCH PREVIEW · 18+','ВЕБ-РАЗДЕЛ · ИССЛЕДОВАНИЕ ПАРЫ · ПРЕДПРОСМОТР · 18+'],
-    ['WEB-EXPLORE · RESEARCH PREVIEW · 18+','ВЕБ-РАЗДЕЛ · ИССЛЕДОВАТЕЛЬСКИЙ ПРЕДПРОСМОТР · 18+']
-  ];
-
-  function localiseRussianVisibleCopy(){
-    if(isEn)return;
-    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){
-      const tag=node.parentElement?.tagName;
-      if(!node.nodeValue?.trim()||tag==='SCRIPT'||tag==='STYLE')return NodeFilter.FILTER_REJECT;
-      return NodeFilter.FILTER_ACCEPT;
-    }});
-    const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
-    for(const node of nodes){
-      let value=node.nodeValue;
-      for(const [from,to] of ruReplacements)if(value.includes(from))value=value.split(from).join(to);
-      node.nodeValue=value;
-    }
-  }
-
   const btn=document.querySelector('[data-explore-menu]');
   const drawer=document.querySelector('[data-explore-drawer]');
   const topbar=document.querySelector('.explore-topbar');
-  const desktopDetails=[...document.querySelectorAll('.explore-mainnav details')];
 
   function closeDrawer(){
     if(!drawer||!btn)return;
-    drawer.classList.remove('is-open');drawer.setAttribute('aria-hidden','true');btn.setAttribute('aria-expanded','false');document.body.style.overflow='';
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden','true');
+    btn.setAttribute('aria-expanded','false');
+    document.body.style.overflow='';
   }
   function openDrawer(){
     if(!drawer||!btn)return;
-    drawer.classList.add('is-open');drawer.setAttribute('aria-hidden','false');btn.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden','false');
+    btn.setAttribute('aria-expanded','true');
+    document.body.style.overflow='hidden';
   }
-  function closeFloatingMenus(except=null){desktopDetails.forEach(d=>{if(d!==except)d.removeAttribute('open')})}
+  function desktopMenus(){return [...document.querySelectorAll('.explore-mainnav details')]}
+  function closeFloatingMenus(except=null){desktopMenus().forEach(d=>{if(d!==except)d.removeAttribute('open')})}
+  function closeThemeMenus(){document.querySelectorAll('.explore-theme-menu[open]').forEach(d=>d.removeAttribute('open'))}
+
+  theme=loadTheme();
+  applyTheme(theme,{persist:false});
+  addThemeControl();
+  addLanguageSwitch();
+  addMobileThemeControl();
+  syncThemeControls();
 
   btn?.addEventListener('click',()=>drawer?.classList.contains('is-open')?closeDrawer():openDrawer());
   drawer?.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeDrawer));
-  desktopDetails.forEach(details=>details.addEventListener('toggle',()=>{if(details.open)closeFloatingMenus(details)}));
-  document.addEventListener('click',e=>{if(!e.target.closest?.('.explore-mainnav details'))closeFloatingMenus()});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();closeFloatingMenus()}});
+  desktopMenus().forEach(details=>details.addEventListener('toggle',()=>{
+    if(details.open){closeFloatingMenus(details);closeThemeMenus()}
+  }));
+  document.querySelectorAll('.explore-theme-menu').forEach(details=>details.addEventListener('toggle',()=>{
+    if(details.open)closeFloatingMenus();
+  }));
+
+  document.addEventListener('click',e=>{
+    if(!e.target.closest?.('.explore-mainnav details'))closeFloatingMenus();
+    if(!e.target.closest?.('.explore-theme-menu'))closeThemeMenus();
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){closeDrawer();closeFloatingMenus();closeThemeMenus()}
+  });
   window.matchMedia('(min-width:761px)').addEventListener?.('change',e=>{if(e.matches)closeDrawer()});
   window.addEventListener('scroll',()=>topbar?.classList.toggle('is-scrolled',window.scrollY>8),{passive:true});
+  window.addEventListener('storage',e=>{
+    if(e.key===THEME_KEY&&THEMES.includes(e.newValue))applyTheme(e.newValue,{persist:false});
+  });
 
-  addLanguageSwitch();
-  localiseRussianVisibleCopy();
   topbar?.classList.toggle('is-scrolled',window.scrollY>8);
-  html.dataset.webExploreShell='v1.2';
+  html.dataset.webExploreShell='v1.3';
+  html.classList.add('explore-unification-ready');
 })();
