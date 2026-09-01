@@ -1,0 +1,46 @@
+name: Founder Secondary Serif v1 QA
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'founder-secondary-serif-v1.0.css'
+      - 'founder-editorial-story-v1.0.css'
+      - 'founder-marginal-voice-v1.0.css'
+      - 'founder-marginal-voice-v1.0.js'
+      - 'creator/**'
+      - 'en/creator/**'
+      - 'qa/founder_secondary_serif_v1.mjs'
+      - '.github/workflows/qa-founder-secondary-serif-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  visual-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser QA runtime
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Run local site
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/p120-prata.log 2>&1 &
+          sleep 2
+          curl --fail --silent http://127.0.0.1:8765/creator/ >/dev/null
+      - name: Run production Prata regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:8765/
+        run: node qa/founder_secondary_serif_v1.mjs
+      - name: Upload visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120-FOUNDER-SECONDARY-SERIF-V1-EVIDENCE
+          path: qa-artifacts/founder-secondary-serif-v1
+          if-no-files-found: error
+          retention-days: 30
