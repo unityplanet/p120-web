@@ -67,16 +67,16 @@
 
   function reconcileExploreMenu(){
     document.querySelectorAll('[data-ecosystem-route="deeper"],[data-ecosystem-mobile="deeper"]').forEach(btn=>{
-      btn.removeAttribute('aria-disabled');
+      if(btn.hasAttribute('aria-disabled')) btn.removeAttribute('aria-disabled');
       btn.querySelector('.ecosystem-item-status,.ecosystem-mobile-status')?.remove();
       const note=btn.querySelector('.ecosystem-item-note,small');
-      if(note) note.textContent='Extended Research System · дополнительные исследования';
+      if(note&&note.textContent!=='Extended Research System · дополнительные исследования') note.textContent='Extended Research System · дополнительные исследования';
     });
     document.querySelectorAll('[data-ecosystem-route="together"],[data-ecosystem-mobile="together"]').forEach(btn=>{
-      btn.removeAttribute('aria-disabled');
+      if(btn.hasAttribute('aria-disabled')) btn.removeAttribute('aria-disabled');
       btn.querySelector('.ecosystem-item-status,.ecosystem-mobile-status')?.remove();
       const note=btn.querySelector('.ecosystem-item-note,small');
-      if(note) note.textContent='Dyadic Research Layer · исследование пары';
+      if(note&&note.textContent!=='Dyadic Research Layer · исследование пары') note.textContent='Dyadic Research Layer · исследование пары';
     });
     /* Remove pre-v2 duplicate navigation affordance: Explore map is the authority. */
     document.querySelectorAll('[data-extended-research-nav],[data-mobile-jump-extended]').forEach(n=>n.remove());
