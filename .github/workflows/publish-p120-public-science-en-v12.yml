@@ -25,7 +25,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          expected=11
+          expected=7
           found=$(find .github/p120-public-science-en-v12-xz -maxdepth 1 -type f -name 'part-*.b64' 2>/dev/null | wc -l | tr -d ' ')
           echo "found=$found" >> "$GITHUB_OUTPUT"
           if [ "$found" -ne "$expected" ]; then
