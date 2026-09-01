@@ -3342,7 +3342,6 @@ const now=()=>new Date().toISOString();
 const uid=()=> 'P120-'+Math.random().toString(36).slice(2,8).toUpperCase();
 const fresh=()=>({participantId:uid(),screen:'home',itemIndex:0,responses:{},adminModes:{},telemetry:[{type:'session_created',at:now()}],startedAt:null,consentAt:null,lastSavedAt:now()});
 let state=load();
-if(['preflight','test','transition','results'].includes(state.screen)) state.screen='home';
 let theme=loadTheme();
 applyTheme(theme);
 if(state.screen==='welcome') state.screen='home';
