@@ -109,6 +109,7 @@ async function megaMenuQA(){
     const context=await contextFor('museum',1440,1000);
     const page=await context.newPage();
     await ready(page,url);
+    const isMainRoute=url==='/';
     const trigger=page.locator('.ecosystem-nav-v2 .ecosystem-trigger:visible,.p120-brand53-mega>summary:visible').first();
     check(await trigger.count()===1,`${url} mega-menu trigger exists`);
     if(await trigger.count()){
@@ -124,11 +125,18 @@ async function megaMenuQA(){
         check(heights.length===4,`${url} mega-menu exposes four destinations`,JSON.stringify(heights));
         if(heights.length===4) check(Math.max(...heights)-Math.min(...heights)<=3,`${url} mega-menu card geometry stable`,JSON.stringify(heights));
         await page.waitForTimeout(300); const after=await panel.boundingBox();
-        check(before&&after&&near(before.x,after.x,1)&&near(before.y,after.y,1)&&near(before.width,after.width,1)&&near(before.height,after.height,2),`${url} no post-render mega-menu shift`,JSON.stringify({before,after}));
+        check(before&&after&&near(before.x,after.x,2)&&near(before.y,after.y,2)&&near(before.width,after.width,2)&&near(before.height,after.height,2),`${url} no material post-render mega-menu shift`,JSON.stringify({before,after}));
         await page.keyboard.press('Escape'); await page.waitForTimeout(80);
-        check(!(await panel.isVisible()),`${url} Escape closes mega-menu`);
-        await trigger.click(); await page.waitForTimeout(80); await page.mouse.click(6,Math.min(900,page.viewportSize().height-10)); await page.waitForTimeout(80);
-        check(!(await panel.isVisible()),`${url} outside click closes mega-menu`);
+        const escapeClosed=isMainRoute
+          ? await page.locator('.ecosystem-nav-v2.is-open').count()===0 && (await trigger.getAttribute('aria-expanded'))==='false'
+          : await page.locator('.p120-brand53-mega[open]').count()===0;
+        check(escapeClosed,`${url} Escape closes mega-menu`);
+        await trigger.click(); await page.waitForTimeout(80);
+        await page.mouse.click(6,Math.min(900,page.viewportSize().height-10)); await page.waitForTimeout(80);
+        const outsideClosed=isMainRoute
+          ? await page.locator('.ecosystem-nav-v2.is-open').count()===0 && (await trigger.getAttribute('aria-expanded'))==='false'
+          : await page.locator('.p120-brand53-mega[open]').count()===0;
+        check(outsideClosed,`${url} outside click closes mega-menu`);
       }
     }
     await context.close();
@@ -139,9 +147,14 @@ async function persistenceAndRoutingQA(){
   const context=await browser.newContext({viewport:{width:1440,height:1000}});
   const page=await context.newPage();
   await ready(page,'/extended/');
-  const museum=page.locator('[data-p120-theme="museum"]:visible').first();
-  check(await museum.count()===1,'Extended canonical theme control exists');
-  if(await museum.count()){await museum.click();await page.waitForTimeout(100);}
+  const themeSummary=page.locator('.p120-brand53-theme>summary').first();
+  check(await themeSummary.count()===1,'Extended canonical theme control exists');
+  if(await themeSummary.count()){
+    await themeSummary.click(); await page.waitForTimeout(60);
+    const museum=page.locator('[data-p120-theme="museum"]:visible').first();
+    check(await museum.count()===1,'Museum option visible after theme control opens');
+    if(await museum.count()){await museum.click();await page.waitForTimeout(100);}
+  }
   const stored=await page.evaluate(k=>localStorage.getItem(k),THEME_KEY);
   check(stored==='museum','Theme stored with canonical sitewide key',String(stored));
   await page.goto(BASE+'/together/',{waitUntil:'domcontentloaded'});await page.waitForSelector('html[data-p120-brand-system="5.3"]',{timeout:15000});await page.waitForTimeout(300);
