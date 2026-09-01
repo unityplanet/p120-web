@@ -7,13 +7,17 @@ on:
       - 'p120-brand-system-v1.0.css'
       - 'p120-brand-system-v1.0.js'
       - 'p120-pass53-visual-corrections-v1.0.css'
+      - 'p120-pass53-2-execution-corrections-v1.0.css'
+      - 'p120-pass53-2-execution-corrections-v1.0.js'
       - 'founder-route-v1.1.js'
       - 'explore-system-v1.0.js'
       - 'p120-legal-runtime-v1.0.js'
       - 'qa/pass53_brand_unification.mjs'
       - 'qa/pass53_1_visual_corrections.mjs'
+      - 'qa/pass53_2_main_execution_corrections.mjs'
       - '.github/workflows/qa-web-explore-pass53.yml'
       - 'P120_WEB_PASS5.3_BRAND_UNIFICATION_IMPLEMENTATION.md'
+      - 'P120_WEB_PASS5.3.2_EXECUTION_CORRECTIONS.md'
 permissions:
   contents: read
 jobs:
@@ -31,8 +35,14 @@ jobs:
           test -f p120-brand-system-v1.0.css
           test -f p120-brand-system-v1.0.js
           test -f p120-pass53-visual-corrections-v1.0.css
+          test -f p120-pass53-2-execution-corrections-v1.0.css
+          test -f p120-pass53-2-execution-corrections-v1.0.js
           test -f qa/pass53_1_visual_corrections.mjs
+          test -f qa/pass53_2_main_execution_corrections.mjs
           grep -q "P120_BRAND_SYSTEM" founder-route-v1.1.js
+          grep -q "P120_PASS532" founder-route-v1.1.js
+          grep -q "p120_web_theme_v16" p120-pass53-2-execution-corrections-v1.0.js
+          grep -q "chapter-nav-visible" p120-pass53-2-execution-corrections-v1.0.css
           grep -q "P120_BRAND_SYSTEM" explore-system-v1.0.js
           grep -q "P120_BRAND_SYSTEM" p120-legal-runtime-v1.0.js
           grep -q "p120_web_theme_v16" p120-brand-system-v1.0.js
@@ -62,6 +72,8 @@ jobs:
         run: node qa/pass53_brand_unification.mjs
       - name: Run PASS 5.3.1 screenshot-driven correction QA
         run: node qa/pass53_1_visual_corrections.mjs
+      - name: Run PASS 5.3.2 main execution correction QA
+        run: node qa/pass53_2_main_execution_corrections.mjs
       - name: Upload controlled QA evidence
         uses: actions/upload-artifact@v4
         if: always()
@@ -70,4 +82,5 @@ jobs:
           path: |
             qa-artifacts/pass53
             qa-artifacts/pass53-1
+            qa-artifacts/pass53-2
           retention-days: 30
