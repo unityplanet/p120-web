@@ -1,0 +1,98 @@
+name: WEB-SCIENCE EXT PASS 3 Reconcile Gate
+on:
+  push:
+    branches: [web-science-ext-pass3-reconcile]
+    paths:
+      - '.github/workflows/web-science-pass3-reconcile.yml'
+      - 'p120-science-atlas-adapter-v0.3.js'
+      - 'P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json'
+      - 'qa/webscience_pass3_reconcile.mjs'
+      - 'en/navigation-unification-v1.0.css'
+permissions:
+  contents: write
+jobs:
+  reconcile-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: web-science-ext-pass3-reconcile
+          fetch-depth: 0
+      - name: Verify current-main ancestry and frozen Science blobs
+        run: |
+          git fetch origin main
+          BASE=$(git merge-base HEAD origin/main)
+          test "$BASE" = "e2c8c0287b90f43aef50aa716b2a1e621855a15a"
+          test "$(git rev-parse e2c8c0287b90f43aef50aa716b2a1e621855a15a:science/index.html)" = "42551c1886361381154fbdd2ef7cad434d62662e"
+          test "$(git rev-parse e2c8c0287b90f43aef50aa716b2a1e621855a15a:en/science/index.html)" = "cb7ab0c2be85566469e54de82ecf97f6f76d69e7"
+          test "$(git rev-parse e2c8c0287b90f43aef50aa716b2a1e621855a15a:index.html)" = "24ae3e558c2c54fcb349f2716607c3dd7536b470"
+          test "$(git rev-parse e2c8c0287b90f43aef50aa716b2a1e621855a15a:en/index.html)" = "986b7c1bc485068faa6fb5ff716c9e12d128db30"
+      - name: Add loader to current production navigation source in working tree
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('extended-research-navigation-v1.0.js')
+          s=p.read_text(encoding='utf-8')
+          marker='p120-science-atlas-adapter-v0.3'
+          if marker not in s:
+              s += r'''
+
+/* P-120 WEB-SCIENCE EXT PASS 3 — dedicated Scientific Base adapter loader.
+   CORE-equivalence only; no visible Atlas activation in PASS 3. */
+(()=>{
+  'use strict';
+  if(!/(?:^|\/)(?:en\/)?science\/?$/i.test(location.pathname)) return;
+  const id='p120-science-atlas-adapter-v0.3';
+  if(document.getElementById(id)) return;
+  const current=document.currentScript;
+  const base=current?.src||new URL('extended-research-navigation-v1.0.js',location.href).href;
+  const script=document.createElement('script');
+  script.id=id;
+  script.src=new URL('p120-science-atlas-adapter-v0.3.js?v=websci30',base).href;
+  script.async=false;
+  script.dataset.p120WebsciencePass3='core-equivalence';
+  document.head.appendChild(script);
+})();
+'''
+              p.write_text(s,encoding='utf-8')
+          PY
+      - name: Static syntax and mutation-boundary checks
+        run: |
+          node --check p120-science-atlas-adapter-v0.3.js
+          node --check extended-research-navigation-v1.0.js
+          node --check science-navigation-reconciliation-v1.0.js
+          node --check p120-brand-system-v1.0.js
+          node --check p120-public-runtime-v1.0.js
+          node --check public-en-runtime-v1.0.js
+          node --check p120-en-system-runtime-v0.4.js
+          node --check qa/webscience_pass3_reconcile.mjs
+          python3 -m json.tool P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json >/dev/null
+          ! grep -Eq 'window\.P120_SCIENCE\s*=|P120_SCIENCE\[[^]]+\]\s*=|\.innerHTML\s*=.*science-page|querySelector\([^)]*science-page[^)]*\)\.[a-zA-Z]+\s*=' p120-science-atlas-adapter-v0.3.js
+          grep -q 'measurement_mutation_allowed":false' P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json
+          grep -q 'visual_mutation_allowed":false' P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json
+      - name: Install browser QA
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-webscience-reconcile-http.log 2>&1 &
+          sleep 2
+      - name: Run same-page Core-equivalence and route smoke QA
+        run: node qa/webscience_pass3_reconcile.mjs
+      - name: Commit loader only after all gates pass
+        run: |
+          git config user.name "p120-release-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add extended-research-navigation-v1.0.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "WEB-SCIENCE PASS 3: bind reconciled Core registry adapter [verified]"
+          git push origin web-science-ext-pass3-reconcile
+      - name: Upload controlled QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_PASS3_RECONCILE_QA
+          path: qa-artifacts/webscience-pass3-reconcile
+          retention-days: 30
