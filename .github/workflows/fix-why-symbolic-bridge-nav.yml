@@ -1,0 +1,48 @@
+name: Fix Why P-120 symbolic bridge and navigation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/scripts/fix_why_symbolic_bridge_nav.py'
+      - '.github/workflows/fix-why-symbolic-bridge-nav.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Rebase onto latest main
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git rebase origin/main
+      - name: Apply symbolic bridge and rounded nav
+        run: python3 .github/scripts/fix_why_symbolic_bridge_nav.py
+      - name: Static acceptance gates
+        run: |
+          set -euo pipefail
+          python3 -m py_compile .github/scripts/fix_why_symbolic_bridge_nav.py
+          grep -q 'id="symbolic-bridge"' why-p120/index.html
+          grep -q 'class="wp-nav-current"' why-p120/index.html
+          grep -q 'Символический слой бренда' why-p120/index.html
+          grep -q 'Symbolic reduction of 72 and 48' en/why-p120/index.html
+      - name: Commit controlled patch
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo 'Why P-120 symbolic bridge already reconciled.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add why-p120/index.html en/why-p120/index.html
+          git commit -m 'Add symbolic ACT1-to-ACT2 bridge and rounded nav'
+          git pull --rebase origin main
+          git push origin HEAD:main
