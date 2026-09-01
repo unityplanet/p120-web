@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Patch public science metadata, RU localization and Noto title
+      - name: Patch public science metadata, RU localization and EN public asset
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -25,10 +25,12 @@ jobs:
           RU_VERSION = 'Публичная исследовательская редакция A4 · v1.2'
           RU_DATE = '1 сентября 2026'
           RU_FORMULA = 'оригинальная кандидатная интеграция и операционализация'
+          EN_TITLE = 'P-120 vNext — Scientific Concept Paper'
           EN_VERSION = 'Public Research Edition A4 · v1.2'
           EN_DATE = '1 September 2026'
+          EN_STATUS = 'Research Candidate · 18+'
           PDF_RU = 'assets/p120-scientific-concept-paper-v1.2.pdf'
-          PDF_EN = '../assets/p120-scientific-concept-paper-v1.2.pdf'
+          PDF_EN = '../assets/p120-scientific-concept-paper-en-v1.2.pdf'
 
           p = Path('SCIENCE_LOCALIZATION_SOURCE.json')
           data = json.loads(p.read_text(encoding='utf-8'))
@@ -63,21 +65,32 @@ jobs:
           p = Path('en/index.html')
           if p.exists():
               t = p.read_text(encoding='utf-8')
-              t = t.replace('"version":"Academic Editorial A4 · v1.1"', f'"version":"{EN_VERSION}"')
-              t = t.replace('"version":"Academic Editorial Edition A4 · v1.1"', f'"version":"{EN_VERSION}"')
-              t = t.replace('"date":"29 August 2026"', f'"date":"{EN_DATE}"')
-              t = t.replace('"pages":21', '"pages":15')
-              t = t.replace('"pdf":"../assets/p120-scientific-concept-paper-v1.1.pdf"', f'"pdf":"{PDF_EN}"')
-              t = t.replace('"pdf":"assets/p120-scientific-concept-paper-v1.1.pdf"', f'"pdf":"{PDF_EN}"')
+              replacements = [
+                  ('"title":"P-120 vNext — Scientific Concept Paper"', f'"title":"{EN_TITLE}"'),
+                  ('"version":"Academic Editorial A4 · v1.1"', f'"version":"{EN_VERSION}"'),
+                  ('"version":"Academic Editorial Edition A4 · v1.1"', f'"version":"{EN_VERSION}"'),
+                  ('"version":"Академическая редакционная версия A4 · v1.1"', f'"version":"{EN_VERSION}"'),
+                  ('"date":"29 August 2026"', f'"date":"{EN_DATE}"'),
+                  ('"date":"29 августа 2026"', f'"date":"{EN_DATE}"'),
+                  ('"status":"Исследовательская версия · 18+"', f'"status":"{EN_STATUS}"'),
+                  ('"pages":21', '"pages":14'),
+                  ('"pages":15', '"pages":14'),
+                  ('"pdf":"../assets/p120-scientific-concept-paper-v1.1.pdf"', f'"pdf":"{PDF_EN}"'),
+                  ('"pdf":"../assets/p120-scientific-concept-paper-v1.2.pdf"', f'"pdf":"{PDF_EN}"'),
+                  ('"pdf":"assets/p120-scientific-concept-paper-v1.1.pdf"', f'"pdf":"{PDF_EN}"'),
+              ]
+              for old,new in replacements:
+                  if old in t:
+                      t = t.replace(old,new)
               p.write_text(t, encoding='utf-8')
 
           Path('P120_SCIENTIFIC_CONCEPT_PUBLIC_v1.2_RELEASE.md').write_text(
               '# P-120 Scientific Concept Paper — Public Research Edition v1.2\n\n'
               '- Date: 2026-09-01\n'
               '- Scope: public/user-facing scientific document metadata and localization only.\n'
-              '- RU document title and originality formula localized for the public interface.\n'
-              '- Public document metadata updated to v1.2 / 15 pages.\n'
-              '- Public PDF target: assets/p120-scientific-concept-paper-v1.2.pdf.\n'
+              '- RU public PDF: assets/p120-scientific-concept-paper-v1.2.pdf (15 pages).\n'
+              '- EN public PDF: assets/p120-scientific-concept-paper-en-v1.2.pdf (14 pages).\n'
+              '- RU/EN cards use locale-specific document metadata and assets.\n'
               '- Scientific Base H1 explicitly bound to Noto Serif Display per P120 typography policy.\n'
               '- Measurement, scoring, thresholds, research status and internal scientific governance: unchanged.\n',
               encoding='utf-8')
@@ -86,10 +99,14 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          t=Path('index.html').read_text(encoding='utf-8')
-          required=['P-120 vNext — Научный концептуальный документ','Публичная исследовательская редакция A4 · v1.2','1 сентября 2026','"pages":15','оригинальная кандидатная интеграция и операционализация','p120-science-public-v12-runtime','Noto Serif Display','assets/p120-scientific-concept-paper-v1.2.pdf']
-          missing=[x for x in required if x not in t]
-          if missing: raise SystemExit('Missing after patch: '+repr(missing))
+          ru=Path('index.html').read_text(encoding='utf-8')
+          en=Path('en/index.html').read_text(encoding='utf-8')
+          required_ru=['P-120 vNext — Научный концептуальный документ','Публичная исследовательская редакция A4 · v1.2','1 сентября 2026','"pages":15','оригинальная кандидатная интеграция и операционализация','Noto Serif Display','assets/p120-scientific-concept-paper-v1.2.pdf']
+          required_en=['P-120 vNext — Scientific Concept Paper','Public Research Edition A4 · v1.2','1 September 2026','Research Candidate · 18+','"pages":14','../assets/p120-scientific-concept-paper-en-v1.2.pdf']
+          missing_ru=[x for x in required_ru if x not in ru]
+          missing_en=[x for x in required_en if x not in en]
+          if missing_ru or missing_en:
+              raise SystemExit('Missing after patch: RU='+repr(missing_ru)+' EN='+repr(missing_en))
           print('PASS')
           PY
       - name: Commit production patch
@@ -98,5 +115,5 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add index.html en/index.html SCIENCE_LOCALIZATION_SOURCE.json P120_SCIENTIFIC_CONCEPT_PUBLIC_v1.2_RELEASE.md
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "SCIENCE PUBLIC v1.2: reconcile public PDF path"
+          git commit -m "SCIENCE PUBLIC v1.2: reconcile RU and EN public assets"
           git push
