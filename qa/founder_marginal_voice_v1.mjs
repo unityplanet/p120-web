@@ -21,7 +21,7 @@ try{
       await page.goto(`${base}creator/`,{waitUntil:'networkidle'});
       await page.waitForSelector('#fnd-09');
       await page.evaluate(()=>document.fonts?.ready);
-      await page.click(`[data-set-theme="${theme}"]`);
+      await page.evaluate(theme=>document.querySelector(`[data-set-theme="${theme}"]`)?.click(),theme);
       await page.waitForTimeout(250);
 
       const notes=page.locator('.founder-story__marginal-note');
