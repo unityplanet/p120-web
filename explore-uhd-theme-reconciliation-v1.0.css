@@ -1,0 +1,108 @@
+/* P-120 WEB-EXPLORE PASS 5.1 — UHD Stage & Museum Palette Reconciliation v1.0
+   Applies only to /extended/, /together/ and their EN counterparts.
+   Scope: public presentation geometry, theme tokens and desktop/UHD stage parity.
+   Main P-120 page is the visual authority for stage widths and Museum palette.
+   No assessment, scoring, persistence, report, questionnaire or scientific-authority mutation. */
+
+/* --------------------------------------------------------------------------
+   01 Museum palette authority — use the same base family as the main P-120 page.
+   Explore-specific semantic roles remain intact, but their colour sources are
+   mapped onto the canonical Museum canvas/surface/accent system.
+   -------------------------------------------------------------------------- */
+body[data-theme='museum']{
+  --canvas:#F2EEE2;
+  --paper:#FBF8EF;
+  --paper-2:#FAF7EE;
+  --graphite:#263533;
+  --ink-2:#4B5D58;
+  --teal:#2F7D78;
+  --teal-deep:#1F5C5B;
+  --petrol:#1F5C5B;
+  --pale:#E7ECE4;
+  --stone:#D6E0D8;
+  --sand:#DED0B6;
+  --line:#9DBCB2;
+  --bronze:#B39063;
+  --white:#FFF9EC;
+  --explore-bubble:rgba(47,125,120,.032);
+  --explore-bubble-line:rgba(47,125,120,.10);
+  --explore-popover:rgba(251,248,239,.988);
+  --explore-surface:rgba(251,248,239,.90);
+  --explore-soft-surface:rgba(231,236,228,.92);
+  --explore-shadow:0 24px 68px rgba(38,53,51,.10);
+  --explore-reverse-ink:#FFF9EC;
+  --explore-reverse-muted:#D8E9E4;
+  background:
+    radial-gradient(1000px 680px at 78% 2%,rgba(47,125,120,.10),transparent 66%),
+    radial-gradient(850px 620px at 8% 46%,rgba(179,144,99,.07),transparent 70%),
+    linear-gradient(180deg,#F4F0E5 0%,#F2EEE2 56%,#EEE9DC 100%);
+}
+body[data-theme='museum'] .explore-topbar{
+  background:color-mix(in srgb,#F2EEE2 92%,transparent);
+  border-bottom-color:rgba(47,125,120,.18);
+}
+body[data-theme='museum'] .explore-topbar.is-scrolled{
+  background:color-mix(in srgb,#F2EEE2 97%,transparent);
+  box-shadow:0 12px 42px rgba(38,53,51,.07);
+}
+body[data-theme='museum'] .section.ivory{background:#FBF8EF}
+body[data-theme='museum'] .section.pale{background:#E7ECE4}
+body[data-theme='museum'] .explore-footer{background:#D6E0D8!important}
+body[data-theme='museum'] .explore-theme-swatch-museum{
+  background:linear-gradient(135deg,#F2EEE2 0 46%,#B7CFC6 46% 72%,#2F7D78 72% 100%);
+}
+
+/* --------------------------------------------------------------------------
+   02 Stage parity — the main page already uses three explicit desktop stages.
+   Explore previously stopped at 1680px, which made the two new pages appear as
+   a narrow microsite on QHD/UHD monitors. The stage widths below deliberately
+   mirror the main editorial publication widths: 1720 / 2160 / 2960.
+   -------------------------------------------------------------------------- */
+@media (min-width:1920px) and (max-width:2559px){
+  :root{--max:1720px;--gutter:64px}
+  .explore-topbar__inner{
+    width:min(1840px,100%);
+    max-width:1840px;
+    padding-inline:34px;
+  }
+  .hero-copy{max-width:920px}
+  .section-intro{max-width:1100px}
+}
+
+@media (min-width:2560px) and (max-width:3199px){
+  :root{--max:2160px;--gutter:82px;--header:86px}
+  .explore-topbar__inner{
+    width:min(2320px,100%);
+    max-width:2320px;
+    min-height:83px;
+    padding-inline:24px;
+  }
+  .hero-grid{
+    grid-template-columns:minmax(0,.96fr) minmax(700px,1.04fr);
+    gap:clamp(96px,5vw,136px);
+  }
+  .hero-copy{max-width:1080px}
+  .section-intro{max-width:1320px}
+}
+
+@media (min-width:3200px){
+  :root{--max:2960px;--gutter:110px;--header:104px}
+  .explore-topbar__inner{
+    width:min(3160px,100%);
+    max-width:3160px;
+    min-height:101px;
+    padding-inline:30px;
+  }
+  .hero-grid{
+    grid-template-columns:minmax(0,.98fr) minmax(900px,1.02fr);
+    gap:clamp(124px,4.5vw,174px);
+  }
+  .hero-copy{max-width:1260px}
+  .section-intro{max-width:1540px}
+  .explore-map{width:880px;padding:20px;border-radius:28px}
+}
+
+/* Keep all stage corrections desktop-only; accepted tablet/mobile geometry is frozen. */
+@media (max-width:1919px){
+  .explore-topbar__inner{max-width:1680px}
+}
