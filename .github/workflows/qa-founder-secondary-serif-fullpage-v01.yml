@@ -1,0 +1,41 @@
+name: Founder Secondary Serif Full-Page Lab v0.1 QA
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'lab/secondary-serif/**'
+      - 'qa/founder_secondary_serif_fullpage_lab_v01.mjs'
+      - '.github/workflows/qa-founder-secondary-serif-fullpage-v01.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  visual-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser QA runtime
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Run local site
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/p120-secondary-serif.log 2>&1 &
+          sleep 2
+          curl --fail --silent http://127.0.0.1:8765/lab/secondary-serif/ >/dev/null
+      - name: Run full-page typography regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:8765/
+        run: node qa/founder_secondary_serif_fullpage_lab_v01.mjs
+      - name: Upload visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120-FOUNDER-SECONDARY-SERIF-FULLPAGE-V01-EVIDENCE
+          path: qa-artifacts/founder-secondary-serif-fullpage-v01
+          if-no-files-found: error
+          retention-days: 30
