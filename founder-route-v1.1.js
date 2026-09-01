@@ -146,13 +146,25 @@
 })();
 
 /* WEB-EXPLORE PASS 5.3 — canonical public brand layer. */
-(()=>{
+(() => {
   'use strict';
   if(document.querySelector('script[data-p120-brand-system-loader]') || window.P120_BRAND_SYSTEM) return;
-  const current=document.currentScript;
+  const base=document.currentScript?.src||document.baseURI;
   const script=document.createElement('script');
-  script.src=new URL('p120-brand-system-v1.0.js?v=brand53',current?.src||document.baseURI).href;
+  script.src=new URL('p120-brand-system-v1.0.js?v=53',base).href;
   script.async=false;
-  script.dataset.p120BrandSystemLoader='v1.0';
+  script.dataset.p120BrandSystemLoader='5.3';
+  document.head.appendChild(script);
+})();
+
+/* WEB-EXPLORE PASS 5.3.2 — main saved-plane / chapter-nav / theme-menu correction layer. */
+(() => {
+  'use strict';
+  if(document.querySelector('script[data-p120-pass532-loader]') || window.P120_PASS532) return;
+  const base=document.currentScript?.src||document.baseURI;
+  const script=document.createElement('script');
+  script.src=new URL('p120-pass53-2-execution-corrections-v1.0.js?v=532',base).href;
+  script.async=false;
+  script.dataset.p120Pass532Loader='5.3.2';
   document.head.appendChild(script);
 })();
