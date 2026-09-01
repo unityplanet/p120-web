@@ -111,3 +111,80 @@
   function start(){new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});document.addEventListener('click',intercept,true);run();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
+
+/* P-120 public scientific document reconciliation v1.2
+   Public presentation only. No measurement, scoring, thresholds or research-status changes. */
+(() => {
+  'use strict';
+  const isEn=/\/en(?:\/|$)/i.test(location.pathname);
+  const meta=isEn?{
+    title:'P-120 vNext — Scientific Concept Paper',
+    version:'Public Research Edition A4 · v1.2',
+    date:'1 September 2026',
+    formula:'original candidate integration and operationalization',
+    pdf:'../assets/p120-scientific-concept-paper-v1.2.pdf'
+  }:{
+    title:'P-120 vNext — Научный концептуальный документ',
+    version:'Публичная исследовательская редакция A4 · v1.2',
+    date:'1 сентября 2026',
+    formula:'оригинальная кандидатная интеграция и операционализация',
+    pdf:'assets/p120-scientific-concept-paper-v1.2.pdf'
+  };
+
+  function applyData(){
+    const D=window.P120_SCIENCE;
+    if(!D?.document)return;
+    D.document.title=meta.title;
+    D.document.version=meta.version;
+    D.document.date=meta.date;
+    D.document.pages=15;
+    D.document.pdf=meta.pdf;
+    if(D.positioning)D.positioning.formula=meta.formula;
+  }
+
+  function replaceLeafText(root,from,to){
+    root.querySelectorAll('strong,p,span,h2,h3,h4').forEach(el=>{
+      if(el.children.length)return;
+      const t=(el.textContent||'').trim();
+      if(t===from)el.textContent=to;
+    });
+  }
+
+  function applyDom(){
+    applyData();
+    const root=document;
+    root.querySelectorAll('a[href*="p120-scientific-concept-paper-v1.1.pdf"],a[href*="p120-scientific-concept-paper-v1.2.pdf"]').forEach(a=>a.setAttribute('href',meta.pdf));
+    root.querySelectorAll('.science-doc-card').forEach(card=>{
+      const title=card.querySelector(':scope > strong');
+      const info=card.querySelector(':scope > p');
+      const formula=card.querySelector('.formula-card strong');
+      if(title)title.textContent=meta.title;
+      if(info)info.innerHTML=`${meta.version}<br>${meta.date} · 15 ${isEn?'pp.':'стр.'}`;
+      if(formula)formula.textContent=meta.formula;
+    });
+    replaceLeafText(root,'P-120 vNext — Scientific Concept Paper',meta.title);
+    replaceLeafText(root,'original candidate integration and operationalization',meta.formula);
+    root.querySelectorAll('p').forEach(p=>{
+      const t=(p.textContent||'').trim();
+      if(/Академическая редакционная версия A4\s*·\s*v1\.1/i.test(t)&&/29 августа 2026/i.test(t)){
+        p.innerHTML=`${meta.version}<br>${meta.date} · 15 стр.`;
+      }
+    });
+    let style=document.getElementById('p120-science-public-v12-style');
+    if(!style){
+      style=document.createElement('style');
+      style.id='p120-science-public-v12-style';
+      style.textContent='.science-hero h1{font-family:"Noto Serif Display","Noto Serif",Georgia,"Times New Roman",serif!important;font-weight:600!important;}';
+      document.head.appendChild(style);
+    }
+    document.documentElement.dataset.sciencePublicDocument='v1.2';
+  }
+
+  let timer=0;
+  function schedule(){clearTimeout(timer);timer=setTimeout(applyDom,50);}
+  function start(){
+    applyDom();
+    new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+})();
