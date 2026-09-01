@@ -1,0 +1,41 @@
+name: Founder Art Serif Lab v0.1 QA
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'lab/art-serif/**'
+      - 'qa/founder_art_serif_lab_v01.mjs'
+      - '.github/workflows/qa-founder-art-serif-lab-v01.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  visual-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser QA runtime
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Run local site
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/p120-art-serif-lab.log 2>&1 &
+          sleep 2
+          curl --fail --silent http://127.0.0.1:8765/lab/art-serif/ >/dev/null
+      - name: Run A-B-C typography regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:8765/
+        run: node qa/founder_art_serif_lab_v01.mjs
+      - name: Upload visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120-FOUNDER-ART-SERIF-LAB-V01-EVIDENCE
+          path: qa-artifacts/founder-art-serif-lab-v01
+          if-no-files-found: error
+          retention-days: 30
