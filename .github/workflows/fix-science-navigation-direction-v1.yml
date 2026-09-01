@@ -1,0 +1,205 @@
+name: Fix Science Navigation Direction v1
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-science-navigation-direction-v1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply Science navigation ownership reconciliation
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          bridge = r'''/* P-120 Science Navigation Reconciliation v1.0
+             Separates Home Chapter “Science” from the dedicated Scientific Base screen.
+             Presentation/navigation only. No measurement, scoring, report or scientific-content changes. */
+          (() => {
+            'use strict';
+            const HASHES=new Set(['#scientific-base','#science-base']);
+            let hashTimer=0;
+
+            function reduced(){return !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;}
+            function closeDrawer(){
+              try{if(typeof window.closeMobileMenu==='function')window.closeMobileMenu();else document.body.classList.remove('mobile-menu-open');}
+              catch(_){document.body.classList.remove('mobile-menu-open');}
+            }
+            function scienceChapterTarget(){return document.getElementById('science-foundation');}
+            function homeVisible(){return !!document.querySelector('.editorial-home');}
+            function scrollScienceChapter(attempt=0){
+              const target=scienceChapterTarget();
+              if(homeVisible()&&target){
+                closeDrawer();
+                const topbar=document.querySelector('.topbar');
+                const chapter=document.querySelector('.chapter-jump-nav-inner');
+                const top=Math.max(58,Math.round(topbar?.getBoundingClientRect().height||70));
+                const chapterH=window.innerWidth>=1121?Math.max(0,Math.round(chapter?.getBoundingClientRect().height||48)):0;
+                const offset=top+chapterH+(window.innerWidth>=1121?18:14);
+                const y=Math.max(0,window.scrollY+target.getBoundingClientRect().top-offset);
+                window.scrollTo({top:y,behavior:reduced()?'auto':'smooth'});
+                document.documentElement.dataset.p120ScienceDirection='chapter';
+                return;
+              }
+              if(attempt<45)setTimeout(()=>scrollScienceChapter(attempt+1),45);
+            }
+            function cleanScienceHash(){
+              if(HASHES.has(location.hash))history.replaceState(null,'',location.pathname+location.search);
+            }
+            function openScientificBase(attempt=0){
+              const already=document.querySelector('.science-page,[data-science-root],#science-top');
+              if(already){cleanScienceHash();document.documentElement.dataset.p120ScienceDirection='base';return;}
+              const trigger=document.querySelector('.topnav [data-science],button[data-science],.science-navlink[data-science]');
+              if(trigger){
+                cleanScienceHash();
+                trigger.click();
+                document.documentElement.dataset.p120ScienceDirection='base';
+                return;
+              }
+              if(attempt<60)setTimeout(()=>openScientificBase(attempt+1),45);
+            }
+            function onCapture(event){
+              const chapter=event.target.closest?.('[data-chapter-jump="science"],[data-chapter-mobile="science"]');
+              if(!chapter)return;
+              event.preventDefault();
+              event.stopPropagation();
+              event.stopImmediatePropagation();
+              scrollScienceChapter();
+            }
+            function handleHash(){
+              clearTimeout(hashTimer);
+              if(HASHES.has(location.hash))hashTimer=setTimeout(()=>openScientificBase(),0);
+            }
+            function start(){
+              document.addEventListener('click',onCapture,true);
+              window.addEventListener('hashchange',handleHash);
+              handleHash();
+              document.documentElement.dataset.p120ScienceNavigation='reconciled-v1';
+            }
+            if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+          })();
+          '''.replace('          ','')
+
+          Path('science-navigation-reconciliation-v1.0.js').write_text(bridge,encoding='utf-8')
+
+          # Sitewide header on dedicated pages: Scientific Base must open the dedicated
+          # Science screen on the locale root, never the Home “Science” chapter anchor.
+          brand=Path('p120-brand-system-v1.0.js')
+          b=brand.read_text(encoding='utf-8')
+          old="${homeAnchor('science-foundation')}"
+          new="${localeRoot(isEn)}#scientific-base"
+          if old not in b and new not in b:
+              raise SystemExit('Science static-nav anchor not found in brand system')
+          b=b.replace(old,new)
+          brand.write_text(b,encoding='utf-8')
+
+          # Main RU/EN roots need the hash bridge and chapter-click ownership override.
+          for file,src in [('index.html','science-navigation-reconciliation-v1.0.js?v=scinav10'),('en/index.html','../science-navigation-reconciliation-v1.0.js?v=scinav10')]:
+              p=Path(file)
+              t=p.read_text(encoding='utf-8')
+              marker='data-p120-science-navigation="reconciled-v1"'
+              if marker not in t:
+                  tag=f'<script src="{src}" {marker}></script>'
+                  if '</body>' not in t: raise SystemExit(f'No </body> in {file}')
+                  t=t.replace('</body>',tag+'\n</body>')
+              p.write_text(t,encoding='utf-8')
+
+          Path('P120_SCIENCE_NAVIGATION_RECONCILIATION_v1.0.md').write_text('''# P-120 Science Navigation Reconciliation v1.0\n\nStatus: production navigation correction.\n\n## Route invariant\n\n- Home Chapter Navigator → **Science / Наука** = in-page scroll to `#science-foundation`.\n- Global navigation → **Scientific Base / Научная база** = dedicated P-120 Science screen.\n- Dedicated public pages route Scientific Base to the locale root through `#scientific-base`; the root bridge resolves that signal into the existing application-native Science screen.\n- RU and EN behavior is symmetric.\n\nNo measurement, scoring, scientific-content, document-version or report-engine changes.\n''',encoding='utf-8')
+          PY
+
+      - name: Static route verification
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          brand=Path('p120-brand-system-v1.0.js').read_text(encoding='utf-8')
+          bridge=Path('science-navigation-reconciliation-v1.0.js').read_text(encoding='utf-8')
+          ru=Path('index.html').read_text(encoding='utf-8')
+          en=Path('en/index.html').read_text(encoding='utf-8')
+          assert "${localeRoot(isEn)}#scientific-base" in brand
+          assert "homeAnchor('science-foundation')" not in brand
+          assert '[data-chapter-jump="science"]' in bridge
+          assert '#scientific-base' in bridge
+          assert 'science-navigation-reconciliation-v1.0.js?v=scinav10' in ru
+          assert '../science-navigation-reconciliation-v1.0.js?v=scinav10' in en
+          print('STATIC PASS')
+          PY
+
+      - name: Install browser QA runtime
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Browser route QA RU and EN
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-science-nav-http.log 2>&1 &
+          sleep 2
+          cat > /tmp/science-nav-qa.mjs <<'JS'
+          import {chromium} from 'playwright';
+          const browser=await chromium.launch({headless:true});
+          const failures=[];
+          const check=(ok,msg)=>{console.log(`${ok?'PASS':'FAIL'} ${msg}`);if(!ok)failures.push(msg)};
+
+          async function main(path,lang,pdfTail){
+            const page=await browser.newPage({viewport:{width:1440,height:1000}});
+            await page.goto('http://127.0.0.1:4173'+path,{waitUntil:'networkidle'});await page.waitForTimeout(650);
+            const ch=page.locator('[data-chapter-jump="science"]').first();
+            check(await ch.count()===1,`${lang} chapter Science exists`);
+            if(await ch.count()){
+              await ch.click();await page.waitForTimeout(900);
+              check(await page.locator('.editorial-home').count()===1,`${lang} chapter Science remains on Home`);
+              check(await page.locator('.science-page,[data-science-root],#science-top').count()===0,`${lang} chapter Science does not open Scientific Base`);
+              const rect=await page.locator('#science-foundation').boundingBox();
+              check(!!rect && rect.y<260 && rect.y>-20,`${lang} chapter Science reaches #science-foundation`);
+            }
+            const science=page.locator('.topnav [data-science]').first();
+            check(await science.count()===1,`${lang} global Scientific Base control exists`);
+            if(await science.count()){
+              await science.click();await page.waitForTimeout(450);
+              check(await page.locator('.science-page,[data-science-root],#science-top').count()>0,`${lang} global Scientific Base opens dedicated Science screen`);
+              const href=await page.locator('a[href*="p120-scientific-concept-paper"]').first().getAttribute('href').catch(()=>null);
+              check(!!href && href.endsWith(pdfTail),`${lang} Science PDF is locale-correct`);
+            }
+            await page.close();
+          }
+
+          async function dedicated(path,lang){
+            const page=await browser.newPage({viewport:{width:1440,height:1000}});
+            await page.goto('http://127.0.0.1:4173'+path,{waitUntil:'networkidle'});await page.waitForTimeout(550);
+            const link=page.locator('.p120-brand53-navitem').filter({hasText:lang==='RU'?'Научная база':'Scientific Base'}).first();
+            check(await link.count()===1,`${lang} dedicated-page Scientific Base link exists`);
+            if(await link.count()){
+              const href=await link.getAttribute('href');
+              check(!!href && href.includes('#scientific-base') && !href.includes('#science-foundation'),`${lang} dedicated-page Science link has distinct base route`);
+              await link.click();await page.waitForTimeout(900);
+              check(await page.locator('.science-page,[data-science-root],#science-top').count()>0,`${lang} dedicated-page Science link resolves to dedicated Science screen`);
+            }
+            await page.close();
+          }
+
+          await main('/','RU','assets/p120-scientific-concept-paper-v1.2.pdf');
+          await main('/en/','EN','assets/p120-scientific-concept-paper-en-v1.2.pdf');
+          await dedicated('/why-p120/','RU');
+          await dedicated('/en/why-p120/','EN');
+          await browser.close();
+          if(failures.length){console.error(failures.join('\n'));process.exit(1)}
+          JS
+          node /tmp/science-nav-qa.mjs
+
+      - name: Commit reconciled navigation
+        run: |
+          git config user.name "p120-release-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add science-navigation-reconciliation-v1.0.js p120-brand-system-v1.0.js index.html en/index.html P120_SCIENCE_NAVIGATION_RECONCILIATION_v1.0.md
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "NAV: separate Science chapter from Scientific Base"
+          git push
