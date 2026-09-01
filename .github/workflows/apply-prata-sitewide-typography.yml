@@ -20,19 +20,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Rebase onto latest main
+      - name: Apply and publish controlled Prata literary voice
         run: |
           set -euo pipefail
-          git fetch origin main
-          git rebase origin/main
+          git config user.name 'P-120 Release Bot'
+          git config user.email 'actions@users.noreply.github.com'
 
-      - name: Apply controlled Prata literary voice
-        run: python .github/scripts/apply_prata_sitewide_typography.py
+          for i in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
 
-      - name: Static conformance checks
-        run: |
-          set -euo pipefail
-          python - <<'PY'
+            python .github/scripts/apply_prata_sitewide_typography.py
+
+            python - <<'PY'
           from pathlib import Path
           for f in ['index.html','en/index.html','why-p120/index.html']:
               s=Path(f).read_text(encoding='utf-8')
@@ -44,23 +44,22 @@ jobs:
           assert 'pub21' in wf
           print('Prata static conformance: PASS')
           PY
-          if [ -f qa/check_build.py ]; then python qa/check_build.py; fi
 
-      - name: Commit controlled typography update
-        run: |
-          set -euo pipefail
-          if git diff --quiet; then
-            echo 'No Prata typography changes required.'
-            exit 0
-          fi
-          git config user.name 'P-120 Release Bot'
-          git config user.email 'actions@users.noreply.github.com'
-          git add index.html en/index.html why-p120/index.html why-p120/why-p120.css .github/workflows/integrate-bilingual-public-site-v1.yml
-          git commit -m 'feat: integrate Prata as P-120 literary voice'
-          for i in 1 2 3; do
-            git fetch origin main
-            if git rebase origin/main && git push origin HEAD:main; then exit 0; fi
-            git rebase --abort || true
+            if [ -f qa/check_build.py ]; then python qa/check_build.py; fi
+
+            git add index.html en/index.html why-p120/index.html why-p120/why-p120.css .github/workflows/integrate-bilingual-public-site-v1.yml
+            if git diff --cached --quiet; then
+              echo 'No Prata typography changes required.'
+              exit 0
+            fi
+
+            git commit -m 'feat: integrate Prata as P-120 literary voice'
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "Push race on attempt $i; reapplying on latest main."
             sleep 2
           done
+
           exit 1
