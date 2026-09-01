@@ -11,10 +11,11 @@
   <meta name="application-name" content="P-120" />
   <title>From the Creator — P-120</title>
   <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.bunny.net/css?family=ibm-plex-mono:300,400,500|ibm-plex-sans:300,400,500,600,700|noto-serif:400,500,600,700|noto-serif-display:500,600,700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=ibm-plex-mono:300,400,500|ibm-plex-sans:300,400,500,600,700|noto-serif:400,500,600,700|noto-serif-display:500,600,700&display=swap" /></noscript>
+  <link rel="preload" as="style" href="https://fonts.bunny.net/css?family=ibm-plex-mono:300,400,500|ibm-plex-sans:300,300i,400,400i,500,600,700|noto-serif:400,500,600,700|noto-serif-display:500,600,700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=ibm-plex-mono:300,400,500|ibm-plex-sans:300,300i,400,400i,500,600,700|noto-serif:400,500,600,700|noto-serif-display:500,600,700&display=swap" /></noscript>
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../../founder-editorial-story-v1.0.css?v=fnd10" />
+  <link rel="stylesheet" href="../../founder-marginal-typography-lab-v0.1.css?v=fndlab01" data-p120-founder-type-lab="v0.1" />
   <style>
     :root{--ink:#171715;--ink-2:#30302c;--muted:#6c6b64;--line:#deddd4;--line-strong:#c9c7bc;--paper:#f6f4ed;--paper-2:#efede4;--card:#fffefa;--soft:#eae8df;--soft-2:#f3f1e9;--accent:#2f7d78;--accent-soft:#d9ccb4}
     *{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}body{margin:0;min-width:320px;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
@@ -70,5 +71,6 @@
       const root=document.getElementById('founder-story');if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){root.querySelectorAll('.founder-story__reveal').forEach(el=>el.classList.add('is-visible'))}else{const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.08});root.querySelectorAll('.founder-story__reveal').forEach(el=>io.observe(el))}
     })();
   </script>
+  <script src="../../founder-marginal-typography-lab-v0.1.js?v=fndlab01" data-p120-founder-type-lab="v0.1"></script>
 </body>
 </html>
