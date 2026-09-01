@@ -1,0 +1,63 @@
+name: Publish P-120 public science EN v1.2
+
+on:
+  push:
+    paths:
+      - '.github/p120-public-science-en-v12-xz/**'
+      - '.github/workflows/publish-p120-public-science-en-v12.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: p120-public-science-en-v12-xz
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check controlled source parts
+        id: parts
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected=11
+          found=$(find .github/p120-public-science-en-v12-xz -maxdepth 1 -type f -name 'part-*.b64' 2>/dev/null | wc -l | tr -d ' ')
+          echo "found=$found" >> "$GITHUB_OUTPUT"
+          if [ "$found" -ne "$expected" ]; then
+            echo "Waiting for all $expected controlled source parts; found $found."
+            exit 0
+          fi
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Materialize and verify English PDF
+        if: steps.parts.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .github/p120-public-science-en-v12-xz/part-*.b64 > /tmp/p120-public-science-en-v12.xz.b64
+          base64 --decode /tmp/p120-public-science-en-v12.xz.b64 > /tmp/p120-public-science-en-v12.pdf.xz
+          xz --decompress --stdout /tmp/p120-public-science-en-v12.pdf.xz > assets/p120-scientific-concept-paper-en-v1.2.pdf
+          test "$(head -c 4 assets/p120-scientific-concept-paper-en-v1.2.pdf)" = '%PDF'
+          actual=$(sha256sum assets/p120-scientific-concept-paper-en-v1.2.pdf | awk '{print $1}')
+          expected='7c296cb0b399edb10766417facdd8c137f57c66e09c5b0f8792f31140f91c9ce'
+          test "$actual" = "$expected"
+          echo "Verified SHA-256: $actual"
+      - name: Commit English public PDF and remove transport parts
+        if: steps.parts.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -rf .github/p120-public-science-en-v12-xz
+          git add -A assets/p120-scientific-concept-paper-en-v1.2.pdf .github/p120-public-science-en-v12-xz
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Publish P-120 public Scientific Concept Paper EN v1.2'
+          git push
