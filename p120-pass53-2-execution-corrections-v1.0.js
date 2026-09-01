@@ -53,13 +53,14 @@
     document.querySelectorAll('.p120-brand53-mega[open]').forEach(d=>d.removeAttribute('open'));
     document.querySelectorAll('.ecosystem-nav-v2.is-open').forEach(node=>{
       node.classList.remove('is-open');
-      node.querySelector('.ecosystem-trigger')?.setAttribute('aria-expanded','false');
+      const trigger=node.querySelector('.ecosystem-trigger');
+      if(trigger?.getAttribute('aria-expanded')!=='false')trigger?.setAttribute('aria-expanded','false');
     });
   }
 
   function syncMenu(menu){
     if(!menu) return;
-    menu.classList.add('p120-main-theme532');
+    if(!menu.classList.contains('p120-main-theme532'))menu.classList.add('p120-main-theme532');
     const summary=menu.querySelector(':scope>summary');
     if(!summary) return;
     let dot=summary.querySelector('.header-theme-dot');
@@ -72,12 +73,15 @@
       dot.insertAdjacentElement('afterend',label);
     }
     const theme=currentTheme();
-    label.textContent=labels[theme];
-    summary.setAttribute('aria-label',isEn?`Theme: ${labels[theme]}`:`Тема: ${labels[theme]}`);
+    const nextLabel=labels[theme];
+    if(label.textContent!==nextLabel)label.textContent=nextLabel;
+    const ariaLabel=isEn?`Theme: ${nextLabel}`:`Тема: ${nextLabel}`;
+    if(summary.getAttribute('aria-label')!==ariaLabel)summary.setAttribute('aria-label',ariaLabel);
     menu.querySelectorAll('[data-set-theme]').forEach(btn=>{
       const active=btn.dataset.setTheme===theme;
-      btn.classList.toggle('active',active);
-      btn.setAttribute('aria-pressed',String(active));
+      if(btn.classList.contains('active')!==active)btn.classList.toggle('active',active);
+      const pressed=String(active);
+      if(btn.getAttribute('aria-pressed')!==pressed)btn.setAttribute('aria-pressed',pressed);
     });
     if(!menu.dataset.p120Pass532Bound){
       menu.dataset.p120Pass532Bound='true';
@@ -95,17 +99,24 @@
     }
   }
 
+  let syncQueued=false;
   function syncAll(){
+    syncQueued=false;
     document.querySelectorAll('.header-theme-menu').forEach(syncMenu);
-    html.dataset.p120Pass532='ready';
+    if(html.dataset.p120Pass532!=='ready')html.dataset.p120Pass532='ready';
+  }
+  function scheduleSync(){
+    if(syncQueued)return;
+    syncQueued=true;
+    requestAnimationFrame(syncAll);
   }
 
   function start(){
     syncAll();
     const root=document.getElementById('app')||document.body;
-    if(root)new MutationObserver(()=>requestAnimationFrame(syncAll)).observe(root,{childList:true,subtree:true});
-    if(document.body)new MutationObserver(()=>requestAnimationFrame(syncAll)).observe(document.body,{attributes:true,attributeFilter:['data-theme']});
-    window.addEventListener('storage',event=>{if(event.key===THEME_KEY)syncAll()});
+    if(root)new MutationObserver(scheduleSync).observe(root,{childList:true,subtree:true});
+    if(document.body)new MutationObserver(scheduleSync).observe(document.body,{attributes:true,attributeFilter:['data-theme']});
+    window.addEventListener('storage',event=>{if(event.key===THEME_KEY)scheduleSync()});
     document.addEventListener('keydown',event=>{
       if(event.key==='Escape'){
         document.querySelectorAll('.header-theme-menu[open]').forEach(d=>d.removeAttribute('open'));
