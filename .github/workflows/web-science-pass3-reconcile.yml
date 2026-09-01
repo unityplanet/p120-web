@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/web-science-pass3-reconcile.yml'
       - 'science-navigation-reconciliation-v1.0.js'
+      - 'founder-route-v1.1.js'
       - 'p120-science-atlas-adapter-v0.3.js'
       - 'P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json'
       - 'qa/webscience_pass3_reconcile.mjs'
@@ -29,22 +30,22 @@ jobs:
         run: |
           while IFS= read -r f; do node --check "$f"; done < <(git ls-files '*.js' '*.mjs')
           while IFS= read -r f; do python3 -m json.tool "$f" >/dev/null; done < <(git ls-files '*.json')
-      - name: Trace EN dedicated-route asset owners
-        run: |
-          echo '=== navigation-unification references ==='
-          grep -Rsn --exclude-dir=.git 'navigation-unification-v1.0.css' . || true
-          echo '=== extended-research-navigation references ==='
-          grep -Rsn --exclude-dir=.git 'extended-research-navigation-v1.0.js' . || true
       - name: PASS 3 targeted syntax checks
         run: |
           node --check p120-science-atlas-adapter-v0.3.js
           node --check science-navigation-reconciliation-v1.0.js
+          node --check founder-route-v1.1.js
           node --check qa/webscience_pass3_reconcile.mjs
           python3 -m json.tool P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json >/dev/null
-      - name: Install Playwright
+      - name: Verify nested EN route ownership fix
+        run: |
+          grep -Fq 'const isEn=/\\/en(?:\\/|$)/i.test(location.pathname);' founder-route-v1.1.js
+          grep -Fq "isEn?'../navigation-unification-v1.0.css?v=nav51'" founder-route-v1.1.js
+          grep -Fq "isEn?'../extended-research-navigation-v1.0.js?v=exp50'" founder-route-v1.1.js
+      - name: Install browser QA
         run: |
           npm init -y >/dev/null 2>&1
-          npm install --silent playwright@1.55.0
+          npm install --silent playwright@1.55.0 pixelmatch@7.1.0 pngjs@7.0.0
           npx playwright install --with-deps chromium >/dev/null
       - name: Start local server
         run: |
