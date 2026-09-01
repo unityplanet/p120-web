@@ -27,6 +27,8 @@ jobs:
           RU_FORMULA = 'оригинальная кандидатная интеграция и операционализация'
           EN_VERSION = 'Public Research Edition A4 · v1.2'
           EN_DATE = '1 September 2026'
+          PDF_RU = 'assets/p120-scientific-concept-paper-v1.2.pdf'
+          PDF_EN = '../assets/p120-scientific-concept-paper-v1.2.pdf'
 
           p = Path('SCIENCE_LOCALIZATION_SOURCE.json')
           data = json.loads(p.read_text(encoding='utf-8'))
@@ -45,6 +47,8 @@ jobs:
               ('"date":"29 августа 2026"', f'"date":"{RU_DATE}"'),
               ('"pages":21', '"pages":15'),
               ('"formula":"original candidate integration and operationalization"', f'"formula":"{RU_FORMULA}"'),
+              ('"pdf":"assets/p120-scientific-concept-paper-v1.1.pdf"', f'"pdf":"{PDF_RU}"'),
+              ("pdf:'assets/p120-scientific-concept-paper-v1.1.pdf'", f"pdf:'{PDF_RU}'"),
           ]
           for old,new in replacements:
               if old in t:
@@ -52,7 +56,7 @@ jobs:
 
           marker = 'id="p120-science-public-v12-runtime"'
           if marker not in t:
-              js = "<script id=\"p120-science-public-v12-runtime\">(()=>{'use strict';const R={title:'P-120 vNext — Научный концептуальный документ',version:'Публичная исследовательская редакция A4 · v1.2',date:'1 сентября 2026',pages:15,formula:'оригинальная кандидатная интеграция и операционализация'};function a(){const d=window.P120_SCIENCE;if(d&&d.document)Object.assign(d.document,{title:R.title,version:R.version,date:R.date,pages:R.pages,pdf:'assets/p120-scientific-concept-paper-v1.1.pdf'});if(d&&d.positioning)d.positioning.formula=R.formula;document.querySelectorAll('h1').forEach(h=>{if((h.textContent||'').includes('Научная база P-120')){h.style.fontFamily='\\\"Noto Serif Display\\\",\\\"Noto Serif\\\",Georgia,serif';h.dataset.p120Typography='noto-serif-display'}});const m=[['P-120 vNext — Scientific Concept Paper',R.title],['Академическая редакционная версия A4 · v1.1',R.version],['29 августа 2026 · 21 стр.','1 сентября 2026 · 15 стр.'],['29 августа 2026',R.date],['original candidate integration and operationalization',R.formula]];const w=document.createTreeWalker(document.body||document.documentElement,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){let s=n.nodeValue,q=s;m.forEach(([x,y])=>q=q.split(x).join(y));if(q!==s)n.nodeValue=q}}let q=0;const s=()=>{if(q)return;q=requestAnimationFrame(()=>{q=0;a()})};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',a,{once:true});else a();new MutationObserver(s).observe(document.documentElement,{subtree:true,childList:true,characterData:true})})();</script>"
+              js = "<script id=\"p120-science-public-v12-runtime\">(()=>{'use strict';const R={title:'P-120 vNext — Научный концептуальный документ',version:'Публичная исследовательская редакция A4 · v1.2',date:'1 сентября 2026',pages:15,formula:'оригинальная кандидатная интеграция и операционализация'};function a(){const d=window.P120_SCIENCE;if(d&&d.document)Object.assign(d.document,{title:R.title,version:R.version,date:R.date,pages:R.pages,pdf:'assets/p120-scientific-concept-paper-v1.2.pdf'});if(d&&d.positioning)d.positioning.formula=R.formula;document.querySelectorAll('h1').forEach(h=>{if((h.textContent||'').includes('Научная база P-120')){h.style.fontFamily='\\\"Noto Serif Display\\\",\\\"Noto Serif\\\",Georgia,serif';h.dataset.p120Typography='noto-serif-display'}});const m=[['P-120 vNext — Scientific Concept Paper',R.title],['Академическая редакционная версия A4 · v1.1',R.version],['29 августа 2026 · 21 стр.','1 сентября 2026 · 15 стр.'],['29 августа 2026',R.date],['original candidate integration and operationalization',R.formula]];const w=document.createTreeWalker(document.body||document.documentElement,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){let s=n.nodeValue,q=s;m.forEach(([x,y])=>q=q.split(x).join(y));if(q!==s)n.nodeValue=q}}let q=0;const s=()=>{if(q)return;q=requestAnimationFrame(()=>{q=0;a()})};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',a,{once:true});else a();new MutationObserver(s).observe(document.documentElement,{subtree:true,childList:true,characterData:true})})();</script>"
               t = t.replace('</body>', js + '\n</body>')
           p.write_text(t, encoding='utf-8')
 
@@ -63,6 +67,8 @@ jobs:
               t = t.replace('"version":"Academic Editorial Edition A4 · v1.1"', f'"version":"{EN_VERSION}"')
               t = t.replace('"date":"29 August 2026"', f'"date":"{EN_DATE}"')
               t = t.replace('"pages":21', '"pages":15')
+              t = t.replace('"pdf":"../assets/p120-scientific-concept-paper-v1.1.pdf"', f'"pdf":"{PDF_EN}"')
+              t = t.replace('"pdf":"assets/p120-scientific-concept-paper-v1.1.pdf"', f'"pdf":"{PDF_EN}"')
               p.write_text(t, encoding='utf-8')
 
           Path('P120_SCIENTIFIC_CONCEPT_PUBLIC_v1.2_RELEASE.md').write_text(
@@ -71,8 +77,8 @@ jobs:
               '- Scope: public/user-facing scientific document metadata and localization only.\n'
               '- RU document title and originality formula localized for the public interface.\n'
               '- Public document metadata updated to v1.2 / 15 pages.\n'
+              '- Public PDF target: assets/p120-scientific-concept-paper-v1.2.pdf.\n'
               '- Scientific Base H1 explicitly bound to Noto Serif Display per P120 typography policy.\n'
-              '- Existing PDF URL retained for backward-compatible binary replacement.\n'
               '- Measurement, scoring, thresholds, research status and internal scientific governance: unchanged.\n',
               encoding='utf-8')
           PY
@@ -81,7 +87,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           t=Path('index.html').read_text(encoding='utf-8')
-          required=['P-120 vNext — Научный концептуальный документ','Публичная исследовательская редакция A4 · v1.2','1 сентября 2026','"pages":15','оригинальная кандидатная интеграция и операционализация','p120-science-public-v12-runtime','Noto Serif Display']
+          required=['P-120 vNext — Научный концептуальный документ','Публичная исследовательская редакция A4 · v1.2','1 сентября 2026','"pages":15','оригинальная кандидатная интеграция и операционализация','p120-science-public-v12-runtime','Noto Serif Display','assets/p120-scientific-concept-paper-v1.2.pdf']
           missing=[x for x in required if x not in t]
           if missing: raise SystemExit('Missing after patch: '+repr(missing))
           print('PASS')
@@ -92,5 +98,5 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add index.html en/index.html SCIENCE_LOCALIZATION_SOURCE.json P120_SCIENTIFIC_CONCEPT_PUBLIC_v1.2_RELEASE.md
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "SCIENCE PUBLIC v1.2: update document metadata, RU localization and Noto title"
+          git commit -m "SCIENCE PUBLIC v1.2: reconcile public PDF path"
           git push
