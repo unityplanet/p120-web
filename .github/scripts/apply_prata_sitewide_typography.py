@@ -1,11 +1,14 @@
 from pathlib import Path
 import hashlib
+import re
 
 FONT_LEGACY = 'inter:400,500,600,700,800|noto-serif:400,500,600,700|noto-serif-display:500,600,700'
 FONT_BASE = 'ibm-plex-mono:300,400,500|ibm-plex-sans:300,400,500,600,700|noto-serif:400,500,600,700|noto-serif-display:500,600,700'
 FONT_PRATA = 'ibm-plex-mono:300,400,500|ibm-plex-sans:300,400,500,600,700|noto-serif:400,500,600,700|noto-serif-display:500,600,700|prata:400'
 PATCH = 'prata-literary-voice-v1.0.css'
 WHY_MARKER = '/* P-120 Why P-120 — Prata literary voice v1.0 */'
+ROOT_LINK = '<link rel="stylesheet" href="prata-literary-voice-v1.0.css?v=prata10" data-p120-prata-literary="v1.0" />'
+EN_LINK = '<link rel="stylesheet" href="../prata-literary-voice-v1.0.css?v=prata10" data-p120-prata-literary="v1.0" />'
 
 
 def sha(text):
@@ -35,13 +38,21 @@ def add_prata_font(s):
     return s
 
 
-def main_page(s):
+def ensure_public_link(s, link):
+    # Idempotently remove an older direct Prata link, then install one canonical current link.
+    s = re.sub(r'\s*<link[^>]+data-p120-prata-literary=["\'][^"\']+["\'][^>]*>\s*', '\n', s, flags=re.I)
+    if '</head>' not in s:
+        raise SystemExit('Missing </head> while installing Prata literary layer')
+    return s.replace('</head>', f'  {link}\n</head>', 1)
+
+
+def main_page(s, link):
     before = {
         'instrument': sha(cut(s, 'window.P120_INSTRUMENT =', 'window.P120_SCIENCE=')),
         'assessment': sha(cut(s, 'function renderPreflight(){', 'function render(){')),
         'mobile': sha(cut(s, 'function renderMobileBottomNav(){', 'function renderMobileDrawer(){')),
     }
-    n = add_prata_font(s)
+    n = ensure_public_link(add_prata_font(s), link)
     after = {
         'instrument': sha(cut(n, 'window.P120_INSTRUMENT =', 'window.P120_SCIENCE=')),
         'assessment': sha(cut(n, 'function renderPreflight(){', 'function render(){')),
@@ -100,8 +111,8 @@ if __name__ == '__main__':
     if not Path(PATCH).exists():
         raise SystemExit(f'Missing {PATCH}')
 
-    edit('index.html', main_page)
-    edit('en/index.html', main_page)
+    edit('index.html', lambda s: main_page(s, ROOT_LINK))
+    edit('en/index.html', lambda s: main_page(s, EN_LINK))
     edit('why-p120/index.html', add_prata_font)
     edit('why-p120/why-p120.css', why_css)
 
@@ -111,5 +122,10 @@ if __name__ == '__main__':
     hits = [x for x in forbidden if x in patch]
     if hits:
         raise SystemExit(f'Prata boundary violation in patch selectors: {hits}')
+
+    for f, marker in [('index.html', ROOT_LINK), ('en/index.html', EN_LINK)]:
+        text = Path(f).read_text(encoding='utf-8')
+        if text.count('data-p120-prata-literary="v1.0"') != 1 or marker not in text:
+            raise SystemExit(f'Prata direct-link conformance failed for {f}')
 
     print('P-120 Prata sitewide typography migration: PASS')
