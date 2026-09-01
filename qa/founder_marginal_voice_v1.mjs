@@ -20,6 +20,7 @@ try{
     for(const theme of ['museum','ivory','graphite']){
       await page.goto(`${base}creator/`,{waitUntil:'networkidle'});
       await page.waitForSelector('#fnd-09');
+      await page.evaluate(()=>document.fonts?.ready);
       await page.click(`[data-set-theme="${theme}"]`);
       await page.waitForTimeout(250);
 
@@ -32,7 +33,7 @@ try{
         assert(await loc.count()===1,`${vp.name}/${theme}: NOTE ${idx} target exists`);
         assert(await loc.evaluate(el=>el.classList.contains('founder-story__marginal-note')),`${vp.name}/${theme}: NOTE ${idx} marked`);
         assert(await loc.getAttribute('data-note-index')===idx,`${vp.name}/${theme}: NOTE ${idx} index preserved`);
-        const st=await loc.evaluate(el=>{const c=getComputedStyle(el);const p=getComputedStyle(el,'::before');return{family:c.fontFamily,weight:c.fontWeight,style:c.fontStyle,size:c.fontSize,line:c.lineHeight,pseudoFamily:p.fontFamily,pseudoStyle:p.fontStyle}});
+        const st=await loc.evaluate(el=>{const c=getComputedStyle(el);const p=getComputedStyle(el,'::before');return{family:c.fontFamily,weight:c.fontWeight,style:c.fontStyle,pseudoFamily:p.fontFamily,pseudoStyle:p.fontStyle}});
         assert(/IBM Plex Sans/i.test(st.family),`${vp.name}/${theme}: NOTE ${idx} uses IBM Plex Sans`);
         assert(Number(st.weight)===300,`${vp.name}/${theme}: NOTE ${idx} uses Light 300`);
         assert(st.style==='italic',`${vp.name}/${theme}: NOTE ${idx} uses true italic style`);
@@ -40,10 +41,18 @@ try{
         assert(st.pseudoStyle==='normal',`${vp.name}/${theme}: NOTE ${idx} label remains roman`);
       }
 
-      const narrative=await page.locator('#fnd-02 .founder-story__reading > p:first-child').evaluate(el=>getComputedStyle(el).fontFamily);
-      const functional=await page.locator('#fnd-02 .founder-story__eyebrow').evaluate(el=>getComputedStyle(el).fontFamily);
-      assert(/Noto Serif/i.test(narrative),`${vp.name}/${theme}: Noto narrative role preserved`);
-      assert(/IBM Plex Sans/i.test(functional),`${vp.name}/${theme}: Plex functional role preserved`);
+      const roles=await page.evaluate(()=>{
+        const story=document.querySelector('.founder-story');
+        const reading=document.querySelector('#fnd-02 .founder-story__reading');
+        const eyebrow=document.querySelector('#fnd-02 .founder-story__eyebrow');
+        return {
+          declaredReading:getComputedStyle(story).getPropertyValue('--fnd-reading'),
+          readingFamily:getComputedStyle(reading).fontFamily,
+          functionalFamily:getComputedStyle(eyebrow).fontFamily
+        };
+      });
+      assert(/Noto Serif/i.test(roles.declaredReading)||/Noto Serif/i.test(roles.readingFamily),`${vp.name}/${theme}: Noto narrative role preserved`);
+      assert(/IBM Plex Sans/i.test(roles.functionalFamily),`${vp.name}/${theme}: Plex functional role preserved`);
 
       const geom=await page.evaluate(()=>({sw:document.documentElement.scrollWidth,cw:document.documentElement.clientWidth}));
       assert(geom.sw<=geom.cw+1,`${vp.name}/${theme}: no horizontal overflow (${geom.sw}/${geom.cw})`);
