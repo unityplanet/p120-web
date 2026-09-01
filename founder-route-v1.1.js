@@ -22,6 +22,36 @@
     document.head.appendChild(style);
   }
 
+  /* The final mega-menu geometry must exist before the asynchronously appended
+     unification stylesheet arrives. Keeping base and final geometry identical removes
+     the 2–3 px post-render drift seen by visual QA without altering menu mechanics. */
+  if (!document.getElementById('p120-navigation-stability-critical-v1')) {
+    const style=document.createElement('style');
+    style.id='p120-navigation-stability-critical-v1';
+    style.textContent=`
+@media(min-width:1081px){
+  .ecosystem-panel-v2{right:-8px;width:min(680px,calc(100vw - 48px));padding:16px;border-radius:22px;transform-origin:92% 0}
+  .ecosystem-panel-head{padding:3px 6px 12px;min-height:45px}
+  .ecosystem-panel-head strong{font-family:"Noto Serif Display","Noto Serif",serif;font-size:21px;font-weight:500;line-height:1.05;letter-spacing:-.022em}
+  .ecosystem-panel-head span{font-size:9px;letter-spacing:.15em}
+  .ecosystem-grid-v2{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding-top:12px}
+  .ecosystem-column-v2{gap:8px;min-width:0}
+  .ecosystem-column-label{padding:3px 8px 1px;margin:0;font-size:9px;min-height:17px}
+  .ecosystem-item-v2{min-height:74px;padding:13px 14px;border-radius:15px;align-items:center}
+  .ecosystem-item-title{font-size:13px;line-height:1.22}
+  .ecosystem-item-note{font-size:10px;line-height:1.35;min-height:2.7em;margin-top:5px}
+}
+@media(min-width:3200px){
+  .ecosystem-panel-v2{width:880px;padding:20px;border-radius:28px}
+  .ecosystem-panel-head{min-height:58px;padding:5px 8px 16px}
+  .ecosystem-panel-head strong{font-size:27px}.ecosystem-panel-head span,.ecosystem-column-label{font-size:12px}
+  .ecosystem-grid-v2{gap:16px;padding-top:16px}.ecosystem-column-v2{gap:11px}
+  .ecosystem-item-v2{min-height:98px;padding:17px 18px;border-radius:19px}
+  .ecosystem-item-title{font-size:17px}.ecosystem-item-note{font-size:13px}
+}`;
+    document.head.appendChild(style);
+  }
+
   const isEn=/\/en\/(?:index\.html)?$/i.test(location.pathname);
   const CREATOR='[data-ecosystem-route="creator"],[data-ecosystem-mobile="creator"]';
   const DEEPER='[data-ecosystem-route="deeper"],[data-ecosystem-mobile="deeper"]';
