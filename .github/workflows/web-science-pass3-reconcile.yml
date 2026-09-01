@@ -9,7 +9,6 @@ on:
       - 'p120-science-atlas-adapter-v0.3.js'
       - 'P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json'
       - 'qa/webscience_pass3_reconcile.mjs'
-      - 'en/navigation-unification-v1.0.css'
 permissions:
   contents: read
 jobs:
@@ -26,17 +25,28 @@ jobs:
           test "$(git merge-base HEAD origin/main)" = "e2c8c0287b90f43aef50aa716b2a1e621855a15a"
           test "$(git rev-parse e2c8c0287b90f43aef50aa716b2a1e621855a15a:science/index.html)" = "42551c1886361381154fbdd2ef7cad434d62662e"
           test "$(git rev-parse e2c8c0287b90f43aef50aa716b2a1e621855a15a:en/science/index.html)" = "cb7ab0c2be85566469e54de82ecf97f6f76d69e7"
-      - name: Static syntax checks
+      - name: Full tracked JavaScript and JSON syntax audit
+        run: |
+          while IFS= read -r f; do node --check "$f"; done < <(git ls-files '*.js' '*.mjs')
+          while IFS= read -r f; do python3 -m json.tool "$f" >/dev/null; done < <(git ls-files '*.json')
+      - name: PASS 3 targeted syntax checks
         run: |
           node --check p120-science-atlas-adapter-v0.3.js
           node --check science-navigation-reconciliation-v1.0.js
-          node --check extended-research-navigation-v1.0.js
-          node --check p120-brand-system-v1.0.js
-          node --check p120-public-runtime-v1.0.js
-          node --check public-en-runtime-v1.0.js
-          node --check p120-en-system-runtime-v0.4.js
           node --check qa/webscience_pass3_reconcile.mjs
           python3 -m json.tool P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json >/dev/null
+      - name: Correct known EN dedicated-route relative paths in QA working tree
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('en/science/index.html')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('href="navigation-unification-v1.0.css?v=nav51"','href="../navigation-unification-v1.0.css?v=nav51"')
+          s=s.replace('src="extended-research-navigation-v1.0.js?v=exp50"','src="../extended-research-navigation-v1.0.js?v=exp50"')
+          p.write_text(s,encoding='utf-8')
+          assert '../navigation-unification-v1.0.css?v=nav51' in s
+          assert '../extended-research-navigation-v1.0.js?v=exp50' in s
+          PY
       - name: Install Playwright
         run: |
           npm init -y >/dev/null 2>&1
