@@ -95,9 +95,7 @@ async function inspectThemeMenu(page,label,width,theme){
     check(!/rgba\([^)]*,\s*0\)/.test(state.popBg),`${label} ${width} ${theme} theme popover has a solid semantic surface`,state.popBg);
   }
   check(state.rows.length===3,`${label} ${width} ${theme} exactly three theme rows`,JSON.stringify(state.rows));
-  for(let i=0;i<state.rows.length-1;i++){
-    check(state.rows[i].bottom<=state.rows[i+1].top+0.5,`${label} ${width} ${theme} theme rows do not overlap ${i+1}/${i+2}`,JSON.stringify(state.rows));
-  }
+  for(let i=0;i<state.rows.length-1;i++)check(state.rows[i].bottom<=state.rows[i+1].top+0.5,`${label} ${width} ${theme} theme rows do not overlap ${i+1}/${i+2}`,JSON.stringify(state.rows));
   check(state.rows.every(r=>r.height>=43&&r.width>150),`${label} ${width} ${theme} theme rows retain deterministic geometry`,JSON.stringify(state.rows));
 }
 
@@ -112,7 +110,6 @@ for(const width of [1366,1920]){
   }
 }
 
-// Explicit state-change regression: Graphite must not leave the legacy Ivory label behind.
 {
   const {context,page}=await openMain({locale:'en',theme:'ivory',width:1920});
   const menu=page.locator('.header-theme-menu.p120-main-theme532').first();
@@ -120,12 +117,7 @@ for(const width of [1366,1920]){
   await menu.locator('[data-set-theme="graphite"]').click();
   await page.waitForFunction(()=>document.body.dataset.theme==='graphite');
   await page.waitForTimeout(120);
-  const state=await page.evaluate(()=>({
-    theme:document.body.dataset.theme,
-    stored:localStorage.getItem('p120_web_theme_v16'),
-    label:document.querySelector('.header-theme-menu .p120-main-theme532-label')?.textContent.trim()||'',
-    open:document.querySelector('.header-theme-menu')?.open||false
-  }));
+  const state=await page.evaluate(()=>({theme:document.body.dataset.theme,stored:localStorage.getItem('p120_web_theme_v16'),label:document.querySelector('.header-theme-menu .p120-main-theme532-label')?.textContent.trim()||'',open:document.querySelector('.header-theme-menu')?.open||false}));
   check(state.theme==='graphite'&&state.stored==='graphite','EN theme selection persists Graphite',JSON.stringify(state));
   check(state.label==='Graphite','EN Graphite selection updates header label without stale Ivory text',JSON.stringify(state));
   check(state.open===false,'EN theme menu closes cleanly after selection',JSON.stringify(state));
@@ -134,7 +126,6 @@ for(const width of [1366,1920]){
   await context.close();
 }
 
-// RU label parity — do not fix EN while leaving the Russian public control stale.
 {
   const {context,page}=await openMain({locale:'ru',theme:'graphite',width:1920});
   const text=(await page.locator('.header-theme-menu.p120-main-theme532 summary').innerText()).trim();
@@ -142,35 +133,38 @@ for(const width of [1366,1920]){
   await context.close();
 }
 
-// Chapter 04 semantics: “Ещё глубже” is a chapter jump on the main page, not the
-// dedicated Extended route. The teaser CTA remains the explicit route transition.
+// Chapter 04 semantics and scroll execution.
 {
   const {context,page}=await openMain({locale:'ru',theme:'ivory',width:1440,height:1000});
   await page.waitForSelector('#extended-research-entry',{timeout:15000});
   await page.evaluate(()=>window.scrollTo({top:1050,behavior:'auto'}));
   await page.waitForFunction(()=>document.documentElement.classList.contains('chapter-nav-visible'),null,{timeout:8000});
-  const beforePath=await page.evaluate(()=>location.pathname);
+  await page.waitForTimeout(250);
+  const before=await page.evaluate(()=>{
+    const root=document.scrollingElement||document.documentElement;
+    const target=document.getElementById('extended-research-entry');
+    return {path:location.pathname,scrollY,rootTop:root.scrollTop,scrollHeight:root.scrollHeight,clientHeight:root.clientHeight,targetTop:target?.getBoundingClientRect().top??null,htmlBehavior:getComputedStyle(document.documentElement).scrollBehavior,bodyBehavior:getComputedStyle(document.body).scrollBehavior,htmlOverflow:getComputedStyle(document.documentElement).overflowY,bodyOverflow:getComputedStyle(document.body).overflowY};
+  });
+  console.log('CH04 BEFORE',JSON.stringify(before));
   await page.locator('[data-chapter-jump="extended"]').click();
-  await page.waitForTimeout(850);
+  await page.waitForTimeout(900);
   const state=await page.evaluate(()=>{
+    const root=document.scrollingElement||document.documentElement;
     const target=document.getElementById('extended-research-entry');
     const r=target?.getBoundingClientRect();
-    return {
-      path:location.pathname,
-      targetTop:r?.top??null,
-      targetBottom:r?.bottom??null,
-      active:document.querySelector('[data-chapter-jump="extended"]')?.classList.contains('is-active')||false,
-      title:target?.querySelector('h2')?.textContent.trim()||''
-    };
+    return {path:location.pathname,scrollY,rootTop:root.scrollTop,scrollHeight:root.scrollHeight,clientHeight:root.clientHeight,targetTop:r?.top??null,targetBottom:r?.bottom??null,active:document.querySelector('[data-chapter-jump="extended"]')?.classList.contains('is-active')||false,title:target?.querySelector('h2')?.textContent.trim()||'',htmlBehavior:getComputedStyle(document.documentElement).scrollBehavior,bodyBehavior:getComputedStyle(document.body).scrollBehavior};
   });
-  check(state.path===beforePath,'RU chapter 04 stays on the main-page route',JSON.stringify(state));
+  console.log('CH04 AFTER',JSON.stringify(state));
+  check(state.path===before.path,'RU chapter 04 stays on the main-page route',JSON.stringify(state));
   check(state.title==='Хотите глубже?','RU chapter 04 targets the compact main-page deeper teaser',JSON.stringify(state));
-  check(Number.isFinite(state.targetTop)&&state.targetTop>=0&&state.targetTop<320,'RU chapter 04 scrolls the deeper teaser into the reading plane',JSON.stringify(state));
+  check(Number.isFinite(state.targetTop)&&state.targetTop>=0&&state.targetTop<320,'RU chapter 04 scrolls the deeper teaser into the reading plane',JSON.stringify({before,state}));
   check(state.active,'RU chapter 04 becomes the active chapter after jump',JSON.stringify(state));
   await page.screenshot({path:path.join(OUT,'main-1440-ivory-chapter04-deeper.png'),fullPage:false});
-  await page.locator('#extended-research-entry [data-open-extended-page]').click();
-  await page.waitForURL(/\/extended\/$/,{timeout:10000});
-  check(new URL(page.url()).pathname.endsWith('/extended/'),'RU deeper teaser CTA still opens the dedicated Extended page',page.url());
+  if(Number.isFinite(state.targetTop)&&state.targetTop>=0&&state.targetTop<320){
+    await page.locator('#extended-research-entry [data-open-extended-page]').click();
+    await page.waitForURL(/\/extended\/$/,{timeout:10000});
+    check(new URL(page.url()).pathname.endsWith('/extended/'),'RU deeper teaser CTA still opens the dedicated Extended page',page.url());
+  }
   await context.close();
 }
 
