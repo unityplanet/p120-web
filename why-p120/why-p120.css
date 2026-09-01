@@ -27,3 +27,42 @@ body[data-theme="graphite"]{--wp-teal:#7b9d99}body[data-theme="museum"]{--wp-tea
   .wp-act4 .wp-act-inner{grid-template-columns:minmax(385px,.70fr) minmax(610px,1.30fr);gap:clamp(38px,5vw,90px)}
   .wp-act4-title{font-size:clamp(48px,3.45vw,62px);max-width:620px}
 }
+
+/* P-120 Why P-120 — Prata literary voice v1.0 */
+:root{--wp-literary:"Prata","Noto Serif",Georgia,"Times New Roman",serif}
+
+/* Brand-origin narrative uses the secondary human/literary voice.
+   Display titles, symbolic objects, semantics, labels and navigation remain Noto/Plex. */
+.wp-body,
+.wp-act2-note,
+.wp-act2-note span,
+.wp-act2-note strong,
+.wp-pi-caption{
+  font-family:var(--wp-literary)!important;
+  font-weight:400!important;
+  font-style:normal!important;
+}
+.wp-body{letter-spacing:-.004em}
+.wp-act2-note{letter-spacing:-.002em}
+.wp-pi-caption{letter-spacing:-.006em;line-height:1.42}
+
+/* Explicit protection of authoritative display and functional/technical layers. */
+.wp-display,
+.wp-big-p120,
+.wp-equation,
+.wp-venn-num,
+.wp-venn-result,
+.wp-bg-letter,
+.wp-act2-letter,
+.wp-semantic-en,
+.wp-pi-p,
+.wp-pi-mark{
+  font-family:var(--wp-serif)!important;
+}
+.wp-nav,.wp-header-tools,.wp-eyebrow,.wp-semantic-detail,.wp-semantic-ru,.wp-btn,.wp-scroll-cue{font-family:var(--wp-sans)!important}
+.wp-decimals{font-family:"IBM Plex Mono","SFMono-Regular",Consolas,"Liberation Mono",monospace!important}
+
+@media(max-width:720px){
+  .wp-body{letter-spacing:0;line-height:1.72}
+  .wp-pi-caption{line-height:1.46}
+}
