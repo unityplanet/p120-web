@@ -1,0 +1,48 @@
+name: WEB-SCIENCE EXT PASS 3 Core Equivalence QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - web-science-ext-pass3
+    paths:
+      - 'p120-science-atlas-adapter-v0.3.js'
+      - 'P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json'
+      - 'extended-research-navigation-v1.0.js'
+      - 'qa/webscience_pass3_core_equivalence.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  core-equivalence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: web-science-ext-pass3
+      - name: Static JavaScript checks
+        run: |
+          node --check p120-science-atlas-adapter-v0.3.js
+          node --check extended-research-navigation-v1.0.js
+          node --check qa/webscience_pass3_core_equivalence.mjs
+      - name: Registry JSON check
+        run: python3 -m json.tool P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json >/dev/null
+      - name: Install browser QA dependencies
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0 pixelmatch@7.1.0 pngjs@7.0.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local production source
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-webscience-pass3-http.log 2>&1 &
+          sleep 2
+      - name: Run Core-equivalence visual regression harness
+        run: node qa/webscience_pass3_core_equivalence.mjs
+      - name: Upload PASS 3 QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_PASS3_QA_EVIDENCE
+          path: qa-artifacts/webscience-pass3
+          retention-days: 30
