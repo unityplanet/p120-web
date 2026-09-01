@@ -1,0 +1,148 @@
+/* P-120 WEB-EXPLORE PASS 4 — Scale, Prata Body & Header Refinement v1.1
+   Scope: /extended/ and /together/ presentation only.
+   User-authorised local typography exception: visible Noto Serif body copy on Explore pages
+   is replaced by Prata. Display/functional/technical ownership remains controlled.
+   No assessment, scoring, persistence, report-engine or scientific-content mutation. */
+
+:root{
+  --literary:"Prata","Noto Serif",serif;
+  --display:"Noto Serif Display","Noto Serif",serif;
+  --reading:"Prata","Noto Serif",serif;
+  --sans:"IBM Plex Sans",sans-serif;
+  --mono:"IBM Plex Mono",monospace;
+  --max:1680px;
+  --gutter:clamp(18px,2.7vw,46px);
+  --header:74px;
+}
+
+html{font-synthesis:none;scroll-padding-top:calc(var(--header) + 18px)}
+body{font-family:var(--reading);font-optical-sizing:auto;text-rendering:optimizeLegibility}
+.mobile-drawer{display:none!important}
+
+/* Header — reconciled to the main P-120 stage. */
+.explore-topbar{
+  position:sticky;top:0;z-index:120;
+  min-height:var(--header);
+  border-top:3px solid var(--graphite);
+  border-bottom:1px solid rgba(157,188,178,.52);
+  background:rgba(242,238,226,.94);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  transition:box-shadow .2s ease,background .2s ease;
+}
+.explore-topbar.is-scrolled{box-shadow:0 10px 34px rgba(38,53,51,.075);background:rgba(242,238,226,.975)}
+.explore-topbar__inner{max-width:1680px;min-height:71px;padding:0 var(--gutter);gap:24px}
+.explore-brand{font-family:var(--sans)!important;font-size:15px}
+.explore-brand strong{font-size:16px;letter-spacing:.015em}
+.explore-brand small{font-size:8px;letter-spacing:.16em}
+.explore-mainnav{gap:18px;font-size:13px}
+.explore-mainnav>a,.explore-mainnav summary{padding:9px 2px}
+.explore-mainnav details[open] summary{color:var(--graphite)}
+.explore-map{top:calc(100% + 13px);width:min(720px,calc(100vw - 36px));padding:24px;border-radius:24px}
+.explore-lang-switch{display:flex;align-items:center;gap:4px;margin-left:2px;font:650 10px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase}
+.explore-lang-switch a{display:grid;place-items:center;min-width:34px;height:30px;padding:0 8px;border-radius:999px;border:1px solid transparent;text-decoration:none;color:#70807b}
+.explore-lang-switch a:hover,.explore-lang-switch a:focus-visible{color:var(--graphite);border-color:rgba(47,125,120,.32);outline:none}
+.explore-lang-switch a[aria-current='page']{border-color:rgba(47,125,120,.48);background:rgba(255,249,236,.72);color:var(--teal-deep)}
+
+/* Display voice. */
+.explore-hero h1,.section h2,.module-card h3,.level h3,.person-panel strong,.research-card h3,
+.privacy-step strong,.future-card h3,.flash,.quote-line,.orbit-core strong{
+  font-family:var(--display)!important;font-synthesis:none;
+}
+
+/* PASS 4 local exception: all visible prose previously rendered in Noto Serif Regular
+   is now Prata, matching the user's selected Founder-derived editorial treatment. */
+.hero-copy>p,.secondary-label,.section-intro,.module-card p,.equation p,.rule-callout,
+.person-panel li,.level p,.research-card p,.future-card p,.quote-line+.small-note,
+.boundary-list div,.bridge p:not(.eyebrow),.privacy-step p{
+  font-family:var(--literary)!important;font-weight:400!important;font-style:normal!important;
+  letter-spacing:-.006em;line-height:1.64;
+}
+.hero-copy>p{font-size:clamp(18px,1.13vw,21px);line-height:1.66}
+.secondary-label{font-size:clamp(17px,1.22vw,21px);line-height:1.42;letter-spacing:-.004em}
+.section-intro{max-width:950px;font-size:clamp(18px,1.22vw,22px);line-height:1.68}
+.module-card p,.research-card p{font-size:clamp(16px,1vw,18px);line-height:1.68}
+.level p,.future-card p{font-size:clamp(15px,.92vw,17px)}
+.rule-callout{font-size:clamp(17px,1.05vw,20px);line-height:1.62}
+.boundary-list div{font-size:clamp(15px,.95vw,17px)}
+
+/* Functional / research interface voice. */
+.explore-brand,.explore-mainnav,.explore-map,.explore-menu-btn,.eyebrow,.statusline,.meta,.small-note,
+.module-code,.module-sci,.candidate,.pattern-list,.dev-status,.explore-footer,.btn,.person-id{
+  font-family:var(--sans)!important;
+}
+
+/* Technical notation only. */
+.micro-line,.equation code,.level-num,.process-step,.privacy-step code,.future-card code,.footer-mark{
+  font-family:var(--mono)!important;
+}
+
+/* Main-page scale reconciliation. */
+.shell{max-width:var(--max)}
+.section{padding:clamp(78px,7vw,116px) var(--gutter)}
+.section h2{font-size:clamp(42px,4.65vw,78px);line-height:.99;max-width:1180px;margin-bottom:30px}
+.eyebrow{font-size:10px;letter-spacing:.18em}
+
+/* Hero: remove excessive vertical void and enlarge the explanatory plane. */
+.explore-hero{
+  min-height:min(760px,calc(100svh - 112px));
+  display:flex;align-items:center;
+  padding:clamp(64px,6vw,96px) var(--gutter);
+}
+.explore-hero>.shell{width:100%}
+.hero-grid{grid-template-columns:minmax(0,.92fr) minmax(520px,1.08fr);gap:clamp(64px,7vw,118px);align-items:center}
+.explore-hero h1{font-size:clamp(64px,7vw,112px);line-height:.9;margin:18px 0 24px;max-width:900px}
+.hero-copy{max-width:800px}
+.hero-copy .flash{margin-top:0;font-size:clamp(30px,3vw,48px);line-height:1.12;padding:24px 0}
+.statusline{margin-top:26px}
+
+/* Larger architectural objects, preserving current visual grammar. */
+.orbit{margin-top:58px;gap:16px}
+.orbit-core{min-height:280px}.orbit-node{min-height:128px;padding:24px}.orbit-node span{font-size:12px}
+.module-grid{gap:26px;margin-top:56px}.module-card{padding:clamp(34px,2.6vw,46px);min-height:350px}
+.module-card.featured{gap:clamp(46px,5vw,90px)}
+.equations{margin-top:48px}.equation{padding:30px 34px;min-height:156px}
+.two-systems{gap:34px;margin-top:54px}.person-panel{padding:clamp(32px,2.7vw,44px)}.person-panel strong{font-size:clamp(31px,2.1vw,39px)}
+.dyadic-node{width:190px;height:190px}
+.levels{gap:18px;margin-top:50px}.level{padding:30px 28px;min-height:300px}.level h3{font-size:clamp(28px,2vw,36px)}
+.process-chain{margin:50px 0 30px}.process-step{padding:31px 20px}
+.research-pair{gap:26px;margin-top:48px}.research-card{padding:clamp(34px,2.6vw,46px)}.research-card h3{font-size:clamp(34px,2.6vw,46px)}
+.privacy-ladder{gap:16px;margin-top:44px}.privacy-step{padding:28px;min-height:180px}
+.future-grid{gap:24px;margin-top:44px}.future-card{padding:28px 6px}.future-card h3{font-size:clamp(28px,2vw,36px)}
+.dev-status{gap:18px;margin-top:42px}.dev-status>div{padding:24px}
+
+/* Keep wide-screen composition editorial, not sparse. */
+@media(min-width:1500px){
+  .hero-grid{grid-template-columns:minmax(0,.86fr) minmax(600px,1.14fr)}
+  .hero-copy{max-width:840px}
+  .section-intro{max-width:1020px}
+}
+
+@media(max-width:1180px){
+  .hero-grid{grid-template-columns:1fr;gap:42px}.hero-copy{max-width:900px}.explore-hero{min-height:auto;padding-top:72px;padding-bottom:82px}
+  .explore-mainnav{gap:13px}.explore-lang-switch{margin-left:auto}
+}
+
+@media(max-width:760px){
+  :root{--header:66px}
+  .mobile-drawer{display:block!important}
+  .explore-topbar{border-top-width:2px}
+  .explore-topbar__inner{min-height:64px}
+  .explore-lang-switch{margin-left:auto}.explore-lang-switch a{min-width:32px;height:28px}
+  .explore-menu-btn{margin-left:0}
+  .explore-hero{display:block;min-height:auto;padding-top:58px;padding-bottom:70px}
+  .explore-hero h1{font-size:clamp(52px,16vw,78px)}
+  .hero-copy>p{font-size:17px;line-height:1.64}
+  .secondary-label{font-size:16px}
+  .section{padding-top:68px;padding-bottom:74px}
+  .section h2{font-size:clamp(38px,10.6vw,54px)}
+  .section-intro{font-size:18px}
+  .two-systems{gap:20px}.dyadic-node{width:150px;height:150px}
+}
+
+@media(max-width:480px){
+  .explore-lang-switch{gap:2px}.explore-lang-switch a{min-width:29px;padding:0 6px}
+  .explore-brand{gap:8px}.explore-brand strong{font-size:15px}
+  .explore-hero h1,.section h2,.module-card h3,.research-card h3{overflow-wrap:anywhere}
+}
+
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
