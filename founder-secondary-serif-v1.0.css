@@ -1,0 +1,39 @@
+/* P-120 Founder Secondary Serif v1.0
+   Controlled production role: Prata for secondary literary copy only.
+   Noto Serif / Noto Serif Display remain the primary display/editorial architecture.
+   IBM Plex Sans remains functional UI/research language.
+   IBM Plex Sans Light Italic remains the rare Di marginal voice.
+*/
+
+.founder-story{
+  --fnd-secondary-serif:"Prata","Noto Serif",Georgia,"Times New Roman",serif;
+}
+
+.founder-story__reading > p:not(.founder-story__marginal-note),
+.founder-story__lead,
+.founder-story__coordinate-copy > p,
+.founder-story__boundary-copy > p:not(.founder-story__marginal-note),
+.founder-story__north-copy > p{
+  font-family:var(--fnd-secondary-serif)!important;
+  font-weight:400!important;
+  font-style:normal!important;
+  letter-spacing:-.006em!important;
+  line-height:1.64!important;
+}
+
+/* Explicit protection of the Noto display/editorial architecture. */
+.founder-story__display,
+.founder-story__beat,
+.founder-story__question-text,
+.founder-story__doctrine-row span:last-child,
+.founder-story__boundary-title,
+.founder-story__signature-mark{
+  font-family:var(--fnd-serif)!important;
+}
+
+/* Explicit protection of the controlled Di marginal voice. */
+.founder-story__marginal-note{
+  font-family:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif!important;
+  font-weight:300!important;
+  font-style:italic!important;
+}
