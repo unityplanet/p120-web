@@ -1,5 +1,5 @@
-/* P-120 Science Navigation Reconciliation v1.0
-   Navigation ownership only. No measurement, scoring, report or scientific-content changes. */
+/* P-120 Science Navigation Reconciliation v1.1
+   Dedicated-page ownership for Scientific Base; Home chapter Science remains in-page. */
 (()=>{
   'use strict';
   const HASHES=new Set(['#scientific-base','#science-base']);
@@ -7,6 +7,7 @@
   let frame=0,restore=null;
   const root=()=>document.scrollingElement||document.documentElement;
   const reduced=()=>!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  const scienceUrl=()=>new URL('science/',location.href).href;
   function topOffset(){const h=Math.max(58,Math.round(document.querySelector('.topbar')?.getBoundingClientRect().height||70));const n=innerWidth>=DESKTOP_MIN?Math.max(48,Math.round(document.querySelector('.chapter-jump-nav-inner')?.getBoundingClientRect().height||48))+18:14;return h+n;}
   function write(v){root().scrollTop=Math.max(0,v);}
   function begin(){if(restore){restore();restore=null;}const h=document.documentElement,b=document.body,hs=h.style.scrollBehavior,bs=b?.style.scrollBehavior||'';h.style.scrollBehavior='auto';if(b)b.style.scrollBehavior='auto';restore=()=>{h.style.scrollBehavior=hs;if(b)b.style.scrollBehavior=bs;restore=null;};}
@@ -23,18 +24,19 @@
     const step=now=>{const p=Math.min(1,(now-t0)/dur);write(start+delta*ease(p));if(p<1){frame=requestAnimationFrame(step);return;}frame=0;const live=document.getElementById('science-foundation');if(live){const c=live.getBoundingClientRect().top-topOffset();if(Math.abs(c)>2)write(root().scrollTop+c);}end();};
     frame=requestAnimationFrame(step);
   }
-  function clean(){if(HASHES.has(location.hash))history.replaceState(null,'',location.pathname+location.search);}
-  function openBase(attempt=0){
-    if(document.querySelector('.science-page,[data-science-root],#science-top')){clean();document.documentElement.dataset.p120ScienceDirection='base';return;}
-    const b=document.querySelector('.topnav [data-science],button[data-science],.science-navlink[data-science]');
-    if(b){clean();b.click();document.documentElement.dataset.p120ScienceDirection='base';return;}
-    if(attempt<60)setTimeout(()=>openBase(attempt+1),45);
+  function goDedicated(){document.documentElement.dataset.p120ScienceDirection='dedicated';location.href=scienceUrl();}
+  function capture(event){
+    const chapter=event.target.closest?.('[data-chapter-jump="science"],[data-chapter-mobile="science"]');
+    if(chapter){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();scrollChapter();return;}
+    const base=event.target.closest?.('[data-science],[data-mobile-jump-science]');
+    if(base){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();goDedicated();}
   }
-  document.addEventListener('click',e=>{const b=e.target.closest?.('[data-chapter-jump="science"],[data-chapter-mobile="science"]');if(!b)return;e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();scrollChapter();},true);
-  function hash(){if(HASHES.has(location.hash))setTimeout(()=>openBase(),0);}
-  addEventListener('hashchange',hash);
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',hash,{once:true});else hash();
-  document.documentElement.dataset.p120ScienceNavigation='reconciled-v1';
+  function legacyHash(){if(HASHES.has(location.hash))goDedicated();}
+  function migrateLegacyScreen(){if(document.querySelector('.science-page')&&!document.querySelector('.editorial-home'))goDedicated();}
+  document.addEventListener('click',capture,true);
+  addEventListener('hashchange',legacyHash);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{legacyHash();setTimeout(migrateLegacyScreen,0)},{once:true});else{legacyHash();setTimeout(migrateLegacyScreen,0);}
+  document.documentElement.dataset.p120ScienceNavigation='dedicated-v1.1';
 })();
 
 /* Production bundle bridge: Chapter 04 has its own reconciliation owner.
