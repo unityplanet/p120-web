@@ -1,4 +1,4 @@
-/* P-120 WEB-EXPLORE PASS 5 — shared Explore shell v1.3.1.
+/* P-120 WEB-EXPLORE PASS 5.1 — shared Explore shell v1.3.2.
    Presentation/navigation/theme/localisation shell only.
    No assessment, scoring, persistence, report or scientific-authority logic. */
 (() => {
@@ -47,6 +47,7 @@
   }
   loadStyle('explore-refinement-v1.1.css?v=exp41','p120ExploreRefinement','v1.1');
   loadStyle('explore-unification-v1.0.css?v=exp50','p120ExploreUnification','v1.0');
+  loadStyle('explore-uhd-theme-reconciliation-v1.0.css?v=exp51','p120ExploreUhdThemeReconciliation','v1.0');
 
   function projectRoot(){
     const path=pathname.replace(/(?:en\/)?(?:extended|together)\/(?:index\.html)?$/i,'');
@@ -71,7 +72,7 @@
     if(document.body)document.body.dataset.theme=theme;
     html.style.colorScheme=theme==='graphite'?'dark':'light';
     const meta=document.querySelector('meta[name="theme-color"]');
-    if(meta)meta.setAttribute('content',({ivory:'#f2eee2',graphite:'#23211e',museum:'#f7f4ec'})[theme]);
+    if(meta)meta.setAttribute('content',({ivory:'#f2eee2',graphite:'#23211e',museum:'#f2eee2'})[theme]);
     if(persist){try{localStorage.setItem(THEME_KEY,theme)}catch(_){}}
     syncThemeControls();
   }
@@ -183,6 +184,6 @@
   });
 
   topbar?.classList.toggle('is-scrolled',window.scrollY>8);
-  html.dataset.webExploreShell='v1.3.1';
+  html.dataset.webExploreShell='v1.3.2';
   html.classList.add('explore-unification-ready');
 })();
