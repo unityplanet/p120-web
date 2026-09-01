@@ -33,7 +33,7 @@ for(const vp of viewports){
     await page.addInitScript(({theme})=>localStorage.setItem('p120_web_theme_v16',theme),{theme});
     await page.goto(`${base}creator/`,{waitUntil:'domcontentloaded'});
     await page.waitForSelector('#founder-story.founder-story--vo-v1',{timeout:10000});
-    await page.waitForTimeout(450);
+    await page.waitForTimeout(700);
 
     assert(await page.locator('link[href*="founder-visual-objects-v1.0.css"]').count()===1,`${vp.name}/${theme}: PASS 6 CSS loaded exactly once`);
     assert(await page.locator('script[src*="founder-visual-objects-v1.0.js"]').count()===1,`${vp.name}/${theme}: PASS 6 JS loaded exactly once`);
@@ -73,16 +73,17 @@ for(const vp of viewports){
     assert(type.literary.includes('Noto Serif'),`${vp.name}/${theme}: Noto Serif literary layer preserved`);
 
     if(theme==='museum'){
+      await page.waitForTimeout(550);
       await page.screenshot({path:`${out}/creator-${vp.name}-museum-top.png`,fullPage:false});
       for(const [id,label] of [['fnd-03','distance'],['fnd-07','atlas'],['fnd-09','evidence'],['fnd-10','north'],['fnd-11','close']]){
         await page.locator(`#${id}`).scrollIntoViewIfNeeded();
-        await page.waitForTimeout(140);
+        await page.waitForTimeout(700);
         await page.screenshot({path:`${out}/creator-${vp.name}-museum-${label}.png`,fullPage:false});
       }
     }
     if(vp.name==='desktop'){
       await page.locator('#fnd-07').scrollIntoViewIfNeeded();
-      await page.waitForTimeout(120);
+      await page.waitForTimeout(700);
       await page.screenshot({path:`${out}/creator-desktop-${theme}-atlas.png`,fullPage:false});
     }
     await page.close();
