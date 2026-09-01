@@ -1,0 +1,369 @@
+name: P-120 System Controlled Migration v1.0
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p120-system-controlled-migration-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  migrate-frozen-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Controlled migration
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          import json
+          import re
+
+          ROOT = Path('index.html')
+          SYSTEM = Path('system/index.html')
+          AUDIT = Path('P120_WEB_SYSTEM_MIGRATION_v1.0.md')
+          CHANGELOG = Path('CHANGELOG.md')
+
+          source = ROOT.read_text(encoding='utf-8')
+          source_before = source
+
+          required = [
+              '<!-- inlined: instrument.js -->',
+              '<!-- inlined: app.js -->',
+              'window.P120_INSTRUMENT = ',
+              "const KEY='p120_web_prototype_v01';",
+              'function renderPreflight()',
+              'function renderQuestion()',
+              'function renderResults()',
+              '<div id="app"></div>',
+          ]
+          missing = [x for x in required if x not in source]
+          if missing:
+              raise SystemExit('Migration precondition failed; missing: ' + ', '.join(missing))
+
+          def sha256_text(text):
+              return hashlib.sha256(text.encode('utf-8')).hexdigest()
+
+          def block_between(text, start_marker, end_marker):
+              s = text.index(start_marker)
+              e = text.index(end_marker, s)
+              return text[s:e]
+
+          instrument_block = block_between(
+              source,
+              '<!-- inlined: instrument.js -->',
+              '<!-- inlined:',
+          )
+          m = re.search(r'window\.P120_INSTRUMENT\s*=\s*(\{.*\});\s*</script>', instrument_block, re.S)
+          if not m:
+              raise SystemExit('Unable to parse frozen instrument payload')
+          instrument = json.loads(m.group(1))
+          module_ids = [x['id'] for x in instrument.get('modules', [])]
+          item_ids = [x['id'] for x in instrument.get('items', [])]
+          expected_modules = ['SAT24', 'P72', 'P72D', 'AO12', 'SOMA24']
+          if module_ids != expected_modules:
+              raise SystemExit(f'Unexpected module order: {module_ids}')
+          if len(item_ids) != 180 or len(set(item_ids)) != 180:
+              raise SystemExit(f'Frozen item registry mismatch: {len(item_ids)} items / {len(set(item_ids))} unique')
+
+          # -----------------------------------------------------------------
+          # 1) Build /system/ from the currently deployed monolith itself.
+          #    This is a relocation, not a re-authoring of the questionnaire.
+          # -----------------------------------------------------------------
+          system = source
+          system = system.replace('<head>', '<head>\n  <base href="../" />', 1)
+          system = re.sub(
+              r'<meta name="description" content="[^"]*"\s*/>',
+              '<meta name="description" content="P-120 System — отдельная каноническая страница замороженного исследовательского инструмента P-120." />',
+              system,
+              count=1,
+          )
+          system = re.sub(r'<title>.*?</title>', '<title>System — P-120</title>', system, count=1, flags=re.S)
+          system = system.replace('<body>', '<body data-p120-page="system" data-p120-runtime="frozen">', 1)
+
+          # Extended Research Set belongs to the public editorial site, not to the frozen runtime page.
+          system = re.sub(
+              r'\s*<!-- P120 EXTENDED RESEARCH SET:START -->.*?<!-- P120 EXTENDED RESEARCH SET:END -->\s*',
+              '\n',
+              system,
+              count=1,
+              flags=re.S,
+          )
+
+          system_bootstrap = r'''  <!-- P120 SYSTEM CONTROLLED MIGRATION:START -->
+          <script id="p120-system-route-bootstrap-v1">
+          (() => {
+            'use strict';
+            const KEY='p120_web_prototype_v01';
+            try {
+              const raw=localStorage.getItem(KEY);
+              const s=raw?JSON.parse(raw):{};
+              const I=window.P120_INSTRUMENT;
+              const answered=Object.keys(s.responses||{}).length;
+              const finished=Boolean(I && Number(s.itemIndex)>=I.items.length);
+              if (!s.screen || ['home','science','welcome'].includes(s.screen)) {
+                s.screen=finished?'results':answered>0?'test':'preflight';
+                localStorage.setItem(KEY,JSON.stringify(s));
+              }
+            } catch (_) {}
+          })();
+          </script>
+          <!-- P120 SYSTEM CONTROLLED MIGRATION:END -->
+          '''
+          system = system.replace('  <!-- inlined: app.js -->', system_bootstrap + '  <!-- inlined: app.js -->', 1)
+
+          old_nav = """function goHome(anchor){
+            state.screen='home';save();renderHome();
+            if(anchor) setTimeout(()=>elegantScrollTo(anchor),70);
+          }
+          function goScience(anchor){
+            state.screen='science';save();renderScience();
+            if(anchor) setTimeout(()=>elegantScrollTo(anchor),70);
+          }"""
+          new_nav = """function goHome(anchor){
+            const suffix=anchor?('#'+encodeURIComponent(anchor)):'';
+            location.href='../'+suffix;
+          }
+          function goScience(anchor){
+            location.href='../#science-foundation';
+          }"""
+          if old_nav not in system:
+              raise SystemExit('System navigation replacement precondition failed')
+          system = system.replace(old_nav, new_nav, 1)
+          system = system.replace("location.href='why-p120/'", "location.href='../why-p120/'")
+          system = system.replace(
+              "if(initialRouteHash&&homeRouteAnchors.includes(initialRouteHash)){state.screen='home';save()}",
+              "if(initialRouteHash&&homeRouteAnchors.includes(initialRouteHash)){location.replace('../#'+encodeURIComponent(initialRouteHash));return}",
+              1,
+          )
+
+          # -----------------------------------------------------------------
+          # 2) Root becomes presentation-only for test entry. Existing answers
+          #    remain in the same localStorage record and continue in /system/.
+          # -----------------------------------------------------------------
+          root = source
+          root = root.replace(
+              "let state=load();\nlet theme=loadTheme();",
+              "let state=load();\nif(['preflight','test','transition','results'].includes(state.screen)) state.screen='home';\nlet theme=loadTheme();",
+              1,
+          )
+          root = root.replace(
+              "function startOrResume(){return hasProgress()?resumeTest():openPreflight()}",
+              "function startOrResume(){location.href='system/';return false}",
+              1,
+          )
+          root = root.replace(
+              "const start=()=>progress?resumeTest():openPreflight();",
+              "const start=()=>{location.href='system/'};",
+              1,
+          )
+          root = root.replace(
+              "document.querySelectorAll('[data-mobile-resume]').forEach(b=>b.onclick=()=>{closeMobileMenu();resumeTest()});",
+              "document.querySelectorAll('[data-mobile-resume]').forEach(b=>b.onclick=()=>{closeMobileMenu();location.href='system/'});",
+              1,
+          )
+          root = root.replace(
+              "if(entryParams.get('start')==='1'){state.screen=hasProgress()?'test':'preflight';save()}",
+              "if(entryParams.get('start')==='1'){location.replace('system/');return}",
+              1,
+          )
+
+          nav_anchor = '<button class="navlink science-navlink" data-science>Научная база</button>'
+          if nav_anchor not in root:
+              raise SystemExit('Top navigation anchor not found')
+          root = root.replace(
+              nav_anchor,
+              '<a class="navlink system-navlink" href="system/" style="text-decoration:none">Система</a>\n          ' + nav_anchor,
+              1,
+          )
+
+          # -----------------------------------------------------------------
+          # 3) Integrity checks: frozen content and question mechanics must be
+          #    byte-identical between the pre-migration source and /system/.
+          # -----------------------------------------------------------------
+          system_instrument = block_between(system, '<!-- inlined: instrument.js -->', '<!-- inlined:')
+          if instrument_block != system_instrument:
+              raise SystemExit('Frozen instrument block changed during migration')
+
+          def extract_function(text, name):
+              token = f'function {name}('
+              start = text.find(token)
+              if start < 0:
+                  raise SystemExit(f'Function not found: {name}')
+              brace = text.find('{', start)
+              depth = 0
+              quote = None
+              escape = False
+              template_depth = 0
+              i = brace
+              while i < len(text):
+                  ch = text[i]
+                  if quote:
+                      if escape:
+                          escape = False
+                      elif ch == '\\':
+                          escape = True
+                      elif ch == quote:
+                          quote = None
+                  else:
+                      if ch in ('\"', "'"):
+                          quote = ch
+                      elif ch == '`':
+                          # Template literals in these functions contain nested braces;
+                          # count braces normally but ignore quoted chars inside templates.
+                          quote = '`'
+                      elif ch == '{':
+                          depth += 1
+                      elif ch == '}':
+                          depth -= 1
+                          if depth == 0:
+                              return text[start:i+1]
+                  i += 1
+              raise SystemExit(f'Unterminated function: {name}')
+
+          # Use a more robust function slicer for template-heavy runtime by matching
+          # from one known function declaration to the next known declaration.
+          function_sequence = [
+              'renderPreflight', 'renderTransition', 'maybeTransition',
+              'renderQuestion', 'advance', 'download', 'tryAI', 'renderResults'
+          ]
+          def function_slice(text, name, next_name=None):
+              start = text.index(f'function {name}(')
+              if next_name:
+                  end = text.index(f'function {next_name}(', start)
+              else:
+                  end = text.index('\nfunction render(){', start)
+              return text[start:end]
+
+          for idx, fn in enumerate(function_sequence):
+              nxt = function_sequence[idx+1] if idx+1 < len(function_sequence) else None
+              before_fn = function_slice(source_before, fn, nxt)
+              system_fn = function_slice(system, fn, nxt)
+              if before_fn != system_fn:
+                  raise SystemExit(f'Frozen questionnaire/runtime function changed: {fn}')
+
+          # Root still retains the frozen source as a rollback copy, but no longer
+          # exposes direct assessment entry. System is the canonical runtime route.
+          if 'href="system/"' not in root:
+              raise SystemExit('Root System link missing')
+          if "const start=()=>{location.href='system/'};" not in root:
+              raise SystemExit('Root editorial test redirect missing')
+          if 'data-p120-page="system"' not in system:
+              raise SystemExit('System page marker missing')
+          if '<base href="../" />' not in system:
+              raise SystemExit('System base path missing')
+          if '<!-- P120 EXTENDED RESEARCH SET:START -->' in system:
+              raise SystemExit('Extended Research Set leaked into System runtime page')
+
+          ROOT.write_text(root, encoding='utf-8')
+          SYSTEM.parent.mkdir(parents=True, exist_ok=True)
+          SYSTEM.write_text(system, encoding='utf-8')
+
+          # Controlled migration record.
+          record = f'''# P-120 WEB — System Controlled Migration v1.0
+
+**Date:** 2026-09-02  
+**Status:** CONTROLLED / IMPLEMENTED  
+**Route authority:** `/system/`  
+**Source:** pre-migration root `index.html`
+
+## Decision
+The existing frozen P-120 respondent runtime is relocated to the dedicated canonical route `/system/` by deriving the System page directly from the current deployed monolith. The questionnaire is not recreated, rewritten or re-keyed.
+
+## Frozen boundary
+- Instrument payload: unchanged, byte-identical.
+- Module order: `SAT24 → P72 → P72D → AO12 → SOMA24`.
+- Item registry: 180 unique items, unchanged order and IDs.
+- Question wording and choices: unchanged.
+- `renderPreflight`, `renderTransition`, `maybeTransition`, `renderQuestion`, `advance`, `download`, `tryAI`, `renderResults`: unchanged between the pre-migration source and `/system/`.
+- Storage key: `p120_web_prototype_v01` retained so existing local progress can continue on the new route.
+
+## Web-only changes
+- `/system/index.html` is now the canonical respondent runtime page.
+- Root editorial CTAs that previously opened the embedded assessment now route to `/system/`.
+- A visible `Система` navigation entry is added to the root header.
+- Root loads as the editorial site even when local assessment progress exists; the progress data itself is retained.
+- `/system/` resumes saved progress, opens results for a completed session, or opens preflight for a new session.
+- System navigation returns to the main editorial site instead of rendering the editorial homepage inside `/system/`.
+- Extended Research Set is not embedded in the frozen System runtime page.
+
+## Integrity evidence
+- Source root SHA-256 before migration: `{sha256_text(source_before)}`
+- Frozen instrument block SHA-256: `{sha256_text(instrument_block)}`
+- System frozen instrument block SHA-256: `{sha256_text(system_instrument)}`
+- Frozen instrument parity: **PASS**
+- Item count / uniqueness: **180 / 180 — PASS**
+- Measurement/scoring/question changes: **NONE**
+
+## Rollback rule
+The root document still contains the previous frozen runtime source as a dormant rollback copy, but test-entry controls no longer expose it. `/system/` is the operational and canonical runtime route from this migration onward.
+'''
+          AUDIT.write_text(record, encoding='utf-8')
+
+          if CHANGELOG.exists():
+              changelog = CHANGELOG.read_text(encoding='utf-8')
+              entry = '''## System Controlled Migration v1.0 — 2026-09-02
+
+- Created `/system/` as the canonical P-120 respondent runtime route.
+- Relocated the existing frozen instrument by deriving the System runtime directly from the current deployed source.
+- Preserved all 180 item IDs, wording, choices, module order and questionnaire runtime functions.
+- Redirected root test-entry CTAs to `/system/` while keeping saved local progress compatible.
+- Removed the Extended Research Set from the System runtime page; supplemental research remains in the editorial architecture.
+- Measurement changes: NONE. Scoring changes: NONE. Questionnaire changes: NONE.
+
+Control record: `P120_WEB_SYSTEM_MIGRATION_v1.0.md`.
+
+'''
+              if '## System Controlled Migration v1.0' not in changelog:
+                  changelog = changelog.replace('# P-120 Web — Changelog\n\n', '# P-120 Web — Changelog\n\n' + entry, 1)
+                  CHANGELOG.write_text(changelog, encoding='utf-8')
+
+          print('P-120 System controlled migration: PASS')
+          print('items:', len(item_ids))
+          print('instrument_sha256:', sha256_text(instrument_block))
+          PY
+
+      - name: Static migration QA
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          for page in ['index.html','system/index.html']:
+              text=Path(page).read_text(encoding='utf-8')
+              scripts=[]
+              for i,m in enumerate(re.finditer(r'<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>',text,re.S),1):
+                  p=Path('/tmp')/f"{Path(page).parent.name or 'root'}_{i}.js"
+                  p.write_text(m.group(1),encoding='utf-8')
+                  scripts.append(str(p))
+              Path('/tmp/'+('system' if page.startswith('system/') else 'root')+'_scripts.txt').write_text('\n'.join(scripts),encoding='utf-8')
+          PY
+          while IFS= read -r f; do [ -z "$f" ] || node --check "$f"; done < /tmp/root_scripts.txt
+          while IFS= read -r f; do [ -z "$f" ] || node --check "$f"; done < /tmp/system_scripts.txt
+          grep -q 'href="system/"' index.html
+          grep -q 'data-p120-page="system"' system/index.html
+          grep -q 'p120-system-route-bootstrap-v1' system/index.html
+          ! grep -q 'P120 EXTENDED RESEARCH SET:START' system/index.html
+          echo 'Static migration QA: PASS'
+
+      - name: Commit migration
+        shell: bash
+        run: |
+          if git diff --quiet -- index.html system/index.html P120_WEB_SYSTEM_MIGRATION_v1.0.md CHANGELOG.md; then
+            echo 'Migration already applied.'
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add index.html system/index.html P120_WEB_SYSTEM_MIGRATION_v1.0.md CHANGELOG.md
+            git commit -m 'Migrate frozen P-120 runtime to System page'
+            git push
+          fi
