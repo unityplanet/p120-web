@@ -1,4 +1,4 @@
-/* P-120 Science Navigation Reconciliation v1.2
+/* P-120 Science Navigation Reconciliation v1.3
    Dedicated-page ownership for Scientific Base; Home chapter Science remains in-page.
    Root Home routes are authoritative and must never auto-migrate from transient DOM state. */
 (()=>{
@@ -36,12 +36,10 @@
   document.addEventListener('click',capture,true);
   addEventListener('hashchange',legacyHash);
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',legacyHash,{once:true});else legacyHash();
-  document.documentElement.dataset.p120ScienceNavigation='dedicated-v1.2';
+  document.documentElement.dataset.p120ScienceNavigation='dedicated-v1.3';
 })();
 
-/* Production bundle bridge: Chapter 04 has its own reconciliation owner.
-   Resolve the sibling script from this runtime's URL so RU / and EN /en/ load
-   the same root asset without changing either document or the scientific route. */
+/* Production bundle bridge: Chapter 04 has its own reconciliation owner. */
 (()=>{
   'use strict';
   const ID='p120-extended-chapter-navigation-reconciliation';
@@ -52,5 +50,22 @@
   script.id=ID;
   script.src=new URL('extended-chapter-navigation-reconciliation-v1.0.js',base).href;
   script.dataset.p120ExtendedChapterNavigation='reconciled-v1';
+  document.head.appendChild(script);
+})();
+
+/* WEB-SCIENCE EXT PASS 3: invisible Core-equivalence adapter loader.
+   It is restricted to /science/ and /en/science/ and does not activate Atlas UI. */
+(()=>{
+  'use strict';
+  if(!/(?:^|\/)(?:en\/)?science\/?$/i.test(location.pathname))return;
+  const ID='p120-science-atlas-adapter-v0.3';
+  if(document.getElementById(ID))return;
+  const current=document.currentScript;
+  const base=current?.src||new URL('science-navigation-reconciliation-v1.0.js',location.href).href;
+  const script=document.createElement('script');
+  script.id=ID;
+  script.src=new URL('p120-science-atlas-adapter-v0.3.js?v=websci30',base).href;
+  script.async=false;
+  script.dataset.p120WebsciencePass3='core-equivalence';
   document.head.appendChild(script);
 })();
