@@ -200,28 +200,19 @@
   document.head.appendChild(script);
 })();
 
-/* WEB-EXPLORE PASS 5.3.1 — Explore pages already have their own compact legal footer.
-   Keep that single footer visible, but bring its master brand wording into the public canon.
-   This is presentation-only and does not modify any legal text, route or scientific content. */
+/* WEB-EXPLORE PASS 5.3.1 — Explore already has one compact legal footer.
+   Keep it as the chapter footer and canonicalize only its master brand wording. */
 (() => {
   'use strict';
   const footer=document.querySelector('.explore-footer');
   if(!footer) return;
   const isEn=(document.documentElement.lang||'').toLowerCase().startsWith('en')||/\/en\//i.test(location.pathname);
   const exact=isEn?'P-120 — Research Architecture':'P-120 — Исследовательская архитектура';
-  let repairing=false;
   const repair=()=>{
-    if(repairing) return;
-    repairing=true;
-    try{
-      footer.classList.remove('p120-footer-superseded');
-      const brand=footer.querySelector('strong');
-      if(brand&&brand.textContent.trim()!==exact) brand.textContent=exact;
-    }finally{repairing=false;}
+    if(footer.classList.contains('p120-footer-superseded')) footer.classList.remove('p120-footer-superseded');
+    const brand=footer.querySelector('strong');
+    if(brand&&brand.textContent.trim()!==exact) brand.textContent=exact;
   };
-  const observer=new MutationObserver(repair);
-  observer.observe(footer,{attributes:true,childList:true,subtree:true,characterData:true});
   repair();
-  window.setTimeout(repair,120);
-  window.setTimeout(repair,600);
+  [60,180,520,1200].forEach(ms=>window.setTimeout(repair,ms));
 })();
