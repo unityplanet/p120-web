@@ -1,0 +1,71 @@
+name: Founder Web PASS 6 QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/qa-founder-pass6.yml'
+      - 'creator/**'
+      - 'founder-editorial-story-v1.0.js'
+      - 'founder-editorial-story-v1.0.css'
+      - 'founder-visual-objects-v1.0.js'
+      - 'founder-visual-objects-v1.0.css'
+      - 'qa/founder_pass6_visual.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  founder-pass6:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Static implementation contract
+        run: |
+          set -euo pipefail
+          test -f creator/index.html
+          test -f founder-editorial-story-v1.0.js
+          test -f founder-editorial-story-v1.0.css
+          test -f founder-visual-objects-v1.0.js
+          test -f founder-visual-objects-v1.0.css
+          test -f qa/founder_pass6_visual.mjs
+          node --check founder-editorial-story-v1.0.js
+          node --check founder-visual-objects-v1.0.js
+          grep -q 'founder-visual-objects-v1.0.css' creator/index.html
+          grep -q 'founder-visual-objects-v1.0.js' creator/index.html
+          grep -q 'ibm-plex-sans' creator/index.html
+          grep -q 'ibm-plex-mono' creator/index.html
+          ! grep -qi '<meta[^>]*name="author"' creator/index.html
+          ! grep -qi 'application/ld+json' creator/index.html
+          if [ -f qa/check_founder_separate_page.py ]; then python qa/check_founder_separate_page.py; fi
+          if [ -f qa/check_build.py ]; then python qa/check_build.py; fi
+
+      - name: Install browser QA runtime
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Run local production server
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/p120-founder-pass6-server.log 2>&1 &
+          echo $! > /tmp/p120-founder-pass6-server.pid
+          sleep 2
+          curl --fail --silent http://127.0.0.1:8765/ >/dev/null
+          curl --fail --silent http://127.0.0.1:8765/creator/ >/dev/null
+
+      - name: Cross-theme responsive visual regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:8765/
+        run: node qa/founder_pass6_visual.mjs
+
+      - name: Upload PASS 6 visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120-FOUNDER-WEB-PASS6-visual-evidence
+          path: qa-artifacts/founder-pass6/
+          if-no-files-found: warn
+          retention-days: 30
