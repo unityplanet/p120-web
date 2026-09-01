@@ -46,6 +46,7 @@ jobs:
             function localizeEnglishSurface(){
               if(!isEn)return;
               const h=document.querySelector('.science-page h1');if(h&&h.textContent.trim()!=='Scientific Base P-120.')h.textContent='Scientific Base P-120.';
+              const status=document.querySelector('.science-status-label');if(status&&status.textContent.trim()!=='Evidence status')status.textContent='Evidence status';
               const map=new Map([
                 ['Статус доказательной базы','Evidence status'],['Открыть полный документ · PDF','Open full document · PDF'],['Главное меню','Main menu'],['Вернуться в главное меню','Back to main menu'],
                 ['5 слоёв','5 layers'],['Конструкты','Constructs'],['Карта доказательности','Evidence map'],['Гипотезы','Hypotheses'],['Валидация','Validation'],['Этика','Ethics'],['Литература','Literature'],
