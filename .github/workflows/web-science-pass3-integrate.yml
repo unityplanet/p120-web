@@ -1,0 +1,71 @@
+name: WEB-SCIENCE EXT PASS 3 Integrate
+on:
+  push:
+    branches: [web-science-ext-pass3]
+    paths:
+      - '.github/workflows/web-science-pass3-integrate.yml'
+      - 'extended-research-navigation-v1.0.js'
+      - 'p120-science-atlas-adapter-v0.3.js'
+      - 'P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json'
+permissions:
+  contents: write
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: web-science-ext-pass3
+      - name: Install PASS 3 loader
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('extended-research-navigation-v1.0.js')
+          s=p.read_text(encoding='utf-8')
+          marker='P-120 WEB-SCIENCE EXT PASS 3 — dedicated Scientific Base adapter loader'
+          if marker not in s:
+              s += r'''
+
+/* P-120 WEB-SCIENCE EXT PASS 3 — dedicated Scientific Base adapter loader
+   Invisible CORE-equivalence integration only; Atlas activation remains disabled. */
+(()=>{
+  'use strict';
+  if(!/(?:^|\/)(?:en\/)?science\/?$/i.test(location.pathname)) return;
+  const id='p120-science-atlas-adapter-v0.3';
+  if(document.getElementById(id)) return;
+  const current=document.currentScript;
+  const base=current?.src||new URL('extended-research-navigation-v1.0.js',location.href).href;
+  const script=document.createElement('script');
+  script.id=id;
+  script.src=new URL('p120-science-atlas-adapter-v0.3.js?v=websci30',base).href;
+  script.async=false;
+  script.dataset.p120WebsciencePass3='core-equivalence';
+  document.head.appendChild(script);
+})();
+'''
+              p.write_text(s,encoding='utf-8')
+          PY
+      - name: Static conformance
+        run: |
+          node --check extended-research-navigation-v1.0.js
+          node --check p120-science-atlas-adapter-v0.3.js
+          python3 - <<'PY'
+          import json
+          r=json.load(open('P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json',encoding='utf-8'))
+          assert r['schema_id']=='P120-WEBSCI-RUNTIME-003'
+          assert r['pass3_activation']['mode']=='CORE_ONLY_EQUIVALENCE'
+          assert r['pass3_activation']['atlas_selector_visible'] is False
+          assert r['measurement_mutation_allowed'] is False
+          assert r['visual_mutation_allowed'] is False
+          assert next(x for x in r['bases'] if x['base_id']=='DYADIC')['public_visibility']=='hidden'
+          assert all(m['is_total_allowed'] is False for m in r['modules'])
+          print('PASS3 STATIC CONTRACT PASS')
+          PY
+      - name: Commit loader
+        run: |
+          git config user.name 'p120-release-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add extended-research-navigation-v1.0.js
+          git diff --cached --quiet && exit 0
+          git commit -m 'WEB-SCIENCE PASS 3: connect Core-preserving registry adapter'
+          git push origin HEAD:web-science-ext-pass3
