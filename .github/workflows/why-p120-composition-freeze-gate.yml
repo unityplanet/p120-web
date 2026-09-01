@@ -1,0 +1,27 @@
+name: Why P-120 Composition Freeze Gate
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'why-p120/**'
+      - 'en/why-p120/**'
+      - 'qa/why-p120/**'
+      - '.github/scripts/check_why_p120_freeze.py'
+      - '.github/workflows/why-p120-composition-freeze-gate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  freeze-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate gate script syntax
+        run: python3 -m py_compile .github/scripts/check_why_p120_freeze.py
+      - name: Enforce frozen composition and screenshot evidence
+        run: python3 .github/scripts/check_why_p120_freeze.py
