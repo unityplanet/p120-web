@@ -5,48 +5,44 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="robots" content="noindex,nofollow,noarchive" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <title>P-120 · Art Display Serif Lab</title>
+  <title>P-120 · Secondary Art Serif Lab</title>
   <style>
     :root{--lab-bg:rgba(20,19,17,.94);--lab-ink:#f5f0e8;--lab-muted:#a9a39a;--lab-line:rgba(255,255,255,.14);--lab-accent:#8fb5b0}
     *{box-sizing:border-box}
     html,body{margin:0;height:100%;background:#171614;font-family:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif}
     body{overflow:hidden}
-    .labbar{position:fixed;z-index:10;inset:0 0 auto 0;min-height:72px;padding:10px 16px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;background:var(--lab-bg);color:var(--lab-ink);border-bottom:1px solid var(--lab-line);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
-    .identity{display:grid;gap:2px;min-width:178px}.identity strong{font:600 13px/1.1 "IBM Plex Sans",system-ui,sans-serif;letter-spacing:.09em;text-transform:uppercase}.identity span{font:400 9px/1.2 "IBM Plex Sans",system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--lab-muted)}
+    .labbar{position:fixed;z-index:10;inset:0 0 auto 0;min-height:76px;padding:10px 16px;display:grid;grid-template-columns:minmax(250px,auto) 1fr auto;gap:16px;align-items:center;background:var(--lab-bg);color:var(--lab-ink);border-bottom:1px solid var(--lab-line);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+    .identity{display:grid;gap:3px;min-width:250px}.identity strong{font:600 13px/1.1 "IBM Plex Sans",system-ui,sans-serif;letter-spacing:.09em;text-transform:uppercase}.identity span{font:400 9px/1.35 "IBM Plex Sans",system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--lab-muted);max-width:330px}
     .controls{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}.control{appearance:none;border:1px solid var(--lab-line);background:transparent;color:var(--lab-muted);border-radius:999px;min-height:36px;padding:8px 12px;font:500 11px/1 "IBM Plex Sans",system-ui,sans-serif;cursor:pointer}.control:hover{color:var(--lab-ink);border-color:rgba(255,255,255,.28)}.control.active{background:rgba(143,181,176,.14);border-color:rgba(143,181,176,.5);color:var(--lab-ink)}
     .right{display:flex;align-items:center;justify-content:flex-end;gap:9px}.status{font:400 9px/1.2 "IBM Plex Mono",monospace;color:var(--lab-muted);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}.production{color:var(--lab-ink);text-decoration:none;border-bottom:1px solid var(--lab-line);font:500 10px/1.2 "IBM Plex Sans",system-ui,sans-serif;padding-bottom:2px;white-space:nowrap}
-    .scene-switch{position:fixed;z-index:9;right:14px;top:84px;display:flex;gap:5px;padding:5px;border:1px solid var(--lab-line);border-radius:999px;background:rgba(20,19,17,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}.scene-switch button{appearance:none;border:0;background:transparent;color:var(--lab-muted);border-radius:999px;padding:8px 10px;font:500 9px/1 "IBM Plex Mono",monospace;cursor:pointer}.scene-switch button:hover{color:var(--lab-ink);background:rgba(255,255,255,.06)}
-    iframe{position:absolute;inset:72px 0 0;width:100%;height:calc(100% - 72px);border:0;background:#f7f4ec}
-    @media(max-width:920px){.labbar{grid-template-columns:1fr;gap:8px;padding:9px 10px;min-height:112px}.identity{display:none}.controls{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap}.right{justify-content:space-between}.scene-switch{top:122px;right:8px}.status{display:none}iframe{inset:112px 0 0;height:calc(100% - 112px)}}
+    .target-note{position:fixed;z-index:9;right:14px;top:88px;padding:7px 10px;border:1px solid var(--lab-line);border-radius:999px;background:rgba(20,19,17,.82);color:var(--lab-muted);font:500 9px/1 "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+    iframe{position:absolute;inset:76px 0 0;width:100%;height:calc(100% - 76px);border:0;background:#f7f4ec}
+    @media(max-width:980px){.labbar{grid-template-columns:1fr;gap:8px;padding:9px 10px;min-height:118px}.identity{display:none}.controls{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap}.right{justify-content:space-between}.target-note{top:128px;right:8px}.status{display:none}iframe{inset:118px 0 0;height:calc(100% - 118px)}}
   </style>
 </head>
 <body>
-  <header class="labbar" aria-label="Display serif lab controls">
-    <div class="identity"><strong>P-120 · Display Serif Lab</strong><span>не production · реальные блоки /creator/</span></div>
+  <header class="labbar" aria-label="Secondary artistic serif lab controls">
+    <div class="identity"><strong>P-120 · Secondary Serif Lab</strong><span>Меняется только два абзаца FND-06. Noto в display statements остаётся нетронутым.</span></div>
     <div class="controls" role="group" aria-label="Выбор художественного шрифта">
       <button class="control" type="button" data-font="noto">Noto · baseline</button>
       <button class="control" type="button" data-font="prata">A · Prata</button>
       <button class="control" type="button" data-font="cormorant">B · Cormorant</button>
       <button class="control" type="button" data-font="playfair">C · Playfair</button>
     </div>
-    <div class="right"><span class="status" id="status">loading</span><a class="production" href="../../creator/" target="_blank" rel="noopener">Открыть production ↗</a></div>
+    <div class="right"><span class="status" id="status">loading</span><a class="production" href="../../creator/#fnd-06" target="_blank" rel="noopener">Production FND-06 ↗</a></div>
   </header>
-  <nav class="scene-switch" aria-label="Переход между тестовыми блоками">
-    <button type="button" data-scene="fnd-00">01 · HERO</button>
-    <button type="button" data-scene="fnd-06">02 · TURN</button>
-    <button type="button" data-scene="fnd-10">03 · NORTH</button>
-  </nav>
-  <iframe id="preview" src="../../creator/" title="P-120 Founder page — typography lab preview"></iframe>
+  <div class="target-note">TARGET · FND-06 / BODY COPY</div>
+  <iframe id="preview" src="../../creator/#fnd-06" title="P-120 Founder page — secondary serif typography lab preview"></iframe>
   <script>
     (()=>{
       'use strict';
       const frame=document.getElementById('preview');
       const status=document.getElementById('status');
       const configs={
-        noto:{label:'Noto baseline',family:'"Noto Serif Display", "Noto Serif", Georgia, serif',weight:'600',spacing:'-.04em',fontUrl:null},
-        prata:{label:'A · Prata',family:'"Prata", "Noto Serif Display", serif',weight:'400',spacing:'-.028em',fontUrl:'https://fonts.bunny.net/css?family=prata:400&display=swap'},
-        cormorant:{label:'B · Cormorant Garamond',family:'"Cormorant Garamond", "Noto Serif Display", serif',weight:'500',spacing:'-.018em',fontUrl:'https://fonts.bunny.net/css?family=cormorant-garamond:500,600&display=swap'},
-        playfair:{label:'C · Playfair Display',family:'"Playfair Display", "Noto Serif Display", serif',weight:'500',spacing:'-.035em',fontUrl:'https://fonts.bunny.net/css?family=playfair-display:500,600&display=swap'}
+        noto:{label:'Noto baseline',family:'"Noto Serif", Georgia, serif',weight:'400',spacing:'0em',size:'1em',line:'1.68',fontUrl:null},
+        prata:{label:'A · Prata',family:'"Prata", "Noto Serif", serif',weight:'400',spacing:'-.012em',size:'1.01em',line:'1.62',fontUrl:'https://fonts.bunny.net/css?family=prata:400&display=swap'},
+        cormorant:{label:'B · Cormorant Garamond',family:'"Cormorant Garamond", "Noto Serif", serif',weight:'500',spacing:'-.006em',size:'1.13em',line:'1.50',fontUrl:'https://fonts.bunny.net/css?family=cormorant-garamond:500,600&display=swap'},
+        playfair:{label:'C · Playfair Display',family:'"Playfair Display", "Noto Serif", serif',weight:'500',spacing:'-.012em',size:'1.02em',line:'1.58',fontUrl:'https://fonts.bunny.net/css?family=playfair-display:500,600&display=swap'}
       };
       let current='prata';
       function param(){const p=new URLSearchParams(location.search).get('font');return configs[p]?p:'prata'}
@@ -60,23 +56,34 @@
         const cfg=configs[current];
         if(cfg.fontUrl){const link=doc.createElement('link');link.id='p120-art-serif-lab-font';link.rel='stylesheet';link.href=cfg.fontUrl;doc.head.appendChild(link)}
         const style=doc.createElement('style');style.id='p120-art-serif-lab-style';style.textContent=`
-          #fnd-00 .founder-story__display,
-          #fnd-06 .founder-story__display--turn,
-          #fnd-10 .founder-story__display--north{
+          #fnd-06 .founder-story__reading > p:nth-child(3),
+          #fnd-06 .founder-story__reading > p:nth-child(4){
             font-family:${cfg.family}!important;
             font-weight:${cfg.weight}!important;
+            font-size:${cfg.size}!important;
+            line-height:${cfg.line}!important;
             letter-spacing:${cfg.spacing}!important;
             font-style:normal!important;
+            text-wrap:pretty;
           }
-          #fnd-00 .founder-story__display{line-height:.98!important}
-          #fnd-06 .founder-story__display--turn{line-height:1.00!important}
-          #fnd-10 .founder-story__display--north{line-height:.98!important}
+          /* Guard: the monumental statement remains the production Noto role. */
+          #fnd-06 .founder-story__display--turn{
+            font-family:var(--fnd-serif)!important;
+            font-weight:500!important;
+          }
         `;doc.head.appendChild(style);
         status.textContent=`${cfg.label} · loading`;
-        try{await doc.fonts.ready;if(current==='prata')await doc.fonts.load('400 72px Prata');if(current==='cormorant')await doc.fonts.load('500 72px "Cormorant Garamond"');if(current==='playfair')await doc.fonts.load('500 72px "Playfair Display"');status.textContent=`${cfg.label} · loaded`}catch(_){status.textContent=`${cfg.label} · fallback`}
+        try{
+          await doc.fonts.ready;
+          if(current==='prata')await doc.fonts.load('400 24px Prata');
+          if(current==='cormorant')await doc.fonts.load('500 26px "Cormorant Garamond"');
+          if(current==='playfair')await doc.fonts.load('500 24px "Playfair Display"');
+          status.textContent=`${cfg.label} · loaded`;
+        }catch(_){status.textContent=`${cfg.label} · fallback`}
+        requestAnimationFrame(()=>doc.getElementById('fnd-06')?.scrollIntoView({block:'center'}));
       }
       frame.addEventListener('load',()=>{apply(param())});
-      document.addEventListener('click',e=>{const f=e.target.closest('[data-font]');if(f){apply(f.dataset.font);return}const s=e.target.closest('[data-scene]');if(s){frame.contentDocument?.getElementById(s.dataset.scene)?.scrollIntoView({behavior:'smooth',block:'start'})}});
+      document.addEventListener('click',e=>{const f=e.target.closest('[data-font]');if(f)apply(f.dataset.font)});
       current=param();
     })();
   </script>
