@@ -30,7 +30,7 @@ The existing frozen P-120 respondent runtime was relocated to `/system/` by deri
 
 ## Integrity evidence
 
-- Source root SHA-256 before migration: `063f282e7258fafd16622eb457c858a587a29a69a1f13fe81e8157b6866bd528`
+- Source root SHA-256 before migration: `dc301b9d1fcfb159682e28856249d6492f8cb11c46c982bd4f733e69b1755783`
 - Frozen instrument block SHA-256: `488cc206b63fb18fb2508a0ae9cbe8a431fd0e9297b31b423588093ebfa7332b`
 - System frozen instrument block SHA-256: `488cc206b63fb18fb2508a0ae9cbe8a431fd0e9297b31b423588093ebfa7332b`
 - Frozen instrument parity: **PASS**
