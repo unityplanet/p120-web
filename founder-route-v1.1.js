@@ -1,6 +1,8 @@
-/* P-120 Founder Route v1.1
+/* P-120 Founder Route v1.2 — WEB-EXPLORE PASS 2 bridge
    Keeps the full Founder Editorial Story off the main page and activates the existing
    Navigation Architecture v2 "creator" entry as a dedicated-page route.
+   Loads the RU Explore reconciliation adapter after the generated public runtime so
+   legacy Extended navigation can remain source-compatible without owning public routing.
    Includes a narrow shared mobile correction for the Brand Origin interstitial close control.
    No assessment, scoring, report, science or persistence mutations. */
 (() => {
@@ -59,6 +61,15 @@
     });
   }
 
+  function loadExplorePass2(){
+    if(document.querySelector('script[data-web-explore-pass2-loader]'))return;
+    const script=document.createElement('script');
+    script.src=new URL('extended-research-navigation-v1.0.js?v=exp20',document.baseURI).href;
+    script.async=false;
+    script.dataset.webExplorePass2Loader='v2.0';
+    document.body.appendChild(script);
+  }
+
   function intercept(event){
     const target=event.target.closest?.(SELECTOR);
     if(!target)return;
@@ -78,9 +89,10 @@
     const root=document.getElementById('app')||document.body;
     new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
     patch();
+    loadExplorePass2();
     let retries=0;
     const retry=setInterval(()=>{patch();if(++retries>30)clearInterval(retry)},100);
-    window.P120_FOUNDER_ROUTE={version:'1.1',url:creatorUrl()};
+    window.P120_FOUNDER_ROUTE={version:'1.2',url:creatorUrl(),webExplorePass2:true};
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
