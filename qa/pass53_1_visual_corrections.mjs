@@ -32,12 +32,17 @@ async function makeContext({session=false}={}){
 }
 
 async function ready(page,url){
+  page.setDefaultTimeout(60000);
   page.on('console',msg=>{if(msg.type()==='error')consoleErrors.push(`${url} console: ${msg.text()}`)});
   page.on('pageerror',err=>consoleErrors.push(`${url} pageerror: ${err.message}`));
   const r=await page.goto(BASE+url,{waitUntil:'domcontentloaded',timeout:30000});
   check(!!r&&r.status()<400,`${url} responds`,r?String(r.status()):'no response');
   await page.waitForSelector('html[data-p120-brand-system="5.3"]',{timeout:15000});
   await page.waitForTimeout(850);
+}
+
+async function shot(page,file){
+  await page.screenshot({path:path.join(OUT,file),fullPage:false,animations:'disabled',timeout:60000});
 }
 
 async function footerState(page,url,{legacySelector='' }={}){
@@ -76,9 +81,9 @@ async function footerState(page,url,{legacySelector='' }={}){
   check(resume.resume==='Продолжить исследование · вопрос 1','Main resume CTA is human-readable',resume.resume);
   check(!/Q01/.test(resume.text),'Main consumer bubble does not leak raw Q item ID',resume.text);
   await footerState(page,'/',{legacySelector:'.home-footer'});
-  await page.screenshot({path:path.join(OUT,'main-resume-1920-museum.png'),fullPage:false});
+  await shot(page,'main-resume-1920-museum.png');
   const footer=page.locator('.p120-site-footer').first();await footer.scrollIntoViewIfNeeded();await page.waitForTimeout(150);
-  await page.screenshot({path:path.join(OUT,'main-footer-1920-museum.png'),fullPage:false});
+  await shot(page,'main-footer-1920-museum.png');
   await context.close();
 }
 
@@ -92,9 +97,9 @@ async function footerState(page,url,{legacySelector='' }={}){
   check(controls.canonical===1,'Creator has one canonical utility-control cluster',JSON.stringify(controls));
   check(controls.legacy===0,'Creator legacy utility cluster is suppressed',JSON.stringify(controls));
   await footerState(page,'/creator/');
-  await page.screenshot({path:path.join(OUT,'creator-header-1920-museum.png'),fullPage:false});
+  await shot(page,'creator-header-1920-museum.png');
   const footer=page.locator('.p120-site-footer').first();await footer.scrollIntoViewIfNeeded();await page.waitForTimeout(150);
-  await page.screenshot({path:path.join(OUT,'creator-footer-1920-museum.png'),fullPage:false});
+  await shot(page,'creator-footer-1920-museum.png');
   await context.close();
 }
 
@@ -107,9 +112,9 @@ async function footerState(page,url,{legacySelector='' }={}){
   const act1=await page.locator('#act-1').evaluate(el=>getComputedStyle(el).backgroundColor);
   check(!!act1,'Why P-120 ACT 1 remains present',act1);
   await footerState(page,'/why-p120/',{legacySelector:'.wp-footer'});
-  await page.screenshot({path:path.join(OUT,'why-header-1920-museum.png'),fullPage:false});
+  await shot(page,'why-header-1920-museum.png');
   const footer=page.locator('.p120-site-footer').first();await footer.scrollIntoViewIfNeeded();await page.waitForTimeout(150);
-  await page.screenshot({path:path.join(OUT,'why-footer-1920-museum.png'),fullPage:false});
+  await shot(page,'why-footer-1920-museum.png');
   await context.close();
 }
 
