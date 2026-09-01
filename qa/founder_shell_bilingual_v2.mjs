@@ -5,14 +5,17 @@ const out=path.join(process.cwd(),'qa-artifacts','founder-shell-bilingual-v2');f
 const assert=(c,m)=>{if(!c)throw new Error(m);console.log('PASS',m)};
 const browser=await chromium.launch({headless:true});
 const cases=[
-  {lang:'ru',url:'creator/',trigger:'Исследовать',theme:'Музейная',forbidden:['North Star','semantic coordinate field','no score plotted','NOTE /','Ivory','Graphite','Extended Research Set','Dyadic research layer'],expected:['Главный ориентир P-120','семантическое поле координат / баллы не нанесены','ЗАМЕТКА / 01']},
-  {lang:'en',url:'en/creator/',trigger:'Explore',theme:'Museum',forbidden:['ОЩУЩЕНИЕ','СЛОВО','НАБЛЮДЕНИЕ','ГИПОТЕЗА','ОСНОВАНИЕ','ЗАМЕТКА'],expected:['P-120 North Star','semantic coordinate field / no score plotted','NOTE / 01']}
+  {lang:'ru',url:'creator/',trigger:'Исследовать',theme:'Музейная',north:'10 / Главный ориентир P-120',atlas:'семантическое поле координат / баллы не нанесены',note:'ЗАМЕТКА / 01',forbidden:['North Star','semantic coordinate field','no score plotted','NOTE /','Ivory','Graphite','Extended Research Set','Dyadic research layer']},
+  {lang:'en',url:'en/creator/',trigger:'Explore',theme:'Museum',north:'10 / P-120 North Star',atlas:'semantic coordinate field / no score plotted',note:'NOTE / 01',forbidden:['ОЩУЩЕНИЕ','СЛОВО','НАБЛЮДЕНИЕ','ГИПОТЕЗА','ОСНОВАНИЕ','ЗАМЕТКА']}
 ];
 try{
   for(const c of cases){
     for(const vp of [{name:'desktop',width:1440,height:1000},{name:'mobile',width:390,height:844}]){
       const page=await browser.newPage({viewport:{width:vp.width,height:vp.height}});
-      await page.goto(base+c.url,{waitUntil:'networkidle'});await page.waitForSelector('#founder-story');await page.waitForTimeout(500);
+      await page.goto(base+c.url,{waitUntil:'networkidle'});await page.waitForSelector('#founder-story');
+      await page.waitForFunction(()=>document.documentElement.dataset.founderShell==='v2');
+      await page.waitForFunction(()=>document.querySelector('#founder-story')?.dataset.voInstalled==='1.1');
+      await page.waitForSelector('.founder-story__marginal-note');await page.waitForTimeout(250);
       assert(await page.locator('[data-fnd-screen]').count()===12,`${c.lang}/${vp.name}: 12 Founder scenes`);
       assert(await page.locator('[data-founder-mega] .ecosystem-trigger').count()===1,`${c.lang}/${vp.name}: one Explore mega trigger`);
       assert((await page.locator('[data-founder-mega] .ecosystem-trigger').innerText()).trim()===c.trigger,`${c.lang}/${vp.name}: localized Explore trigger`);
@@ -27,9 +30,16 @@ try{
       assert((await page.locator('.header-theme-menu summary').innerText()).includes(c.theme),`${c.lang}/${vp.name}: localized current theme label`);
       await page.locator('.header-theme-menu summary').click();await page.locator('[data-set-theme="graphite"]').click();
       assert(await page.locator('body').getAttribute('data-theme')==='graphite',`${c.lang}/${vp.name}: theme dropdown switches theme`);
-      const bodyText=await page.locator('body').innerText();
-      for(const bad of c.forbidden)assert(!bodyText.includes(bad),`${c.lang}/${vp.name}: forbidden visible token absent: ${bad}`);
-      for(const good of c.expected)assert(bodyText.includes(good),`${c.lang}/${vp.name}: expected localized token present: ${good}`);
+
+      const north=(await page.locator('#fnd-10 .founder-story__eyebrow').textContent()||'').trim();
+      assert(north===c.north,`${c.lang}/${vp.name}: localized North Star eyebrow`);
+      const atlas=(await page.locator('.founder-vo__atlas-caption').textContent()||'').trim();
+      assert(atlas===c.atlas,`${c.lang}/${vp.name}: localized atlas caption`);
+      const noteBefore=await page.locator('.founder-story__marginal-note').first().evaluate(el=>getComputedStyle(el,'::before').content.replace(/^['"]|['"]$/g,''));
+      assert(noteBefore===c.note,`${c.lang}/${vp.name}: localized marginal-note label`);
+
+      const sourceText=await page.locator('body').textContent()||'';
+      for(const bad of c.forbidden)assert(!sourceText.includes(bad),`${c.lang}/${vp.name}: forbidden visible/source token absent: ${bad}`);
       const prata=await page.locator('#fnd-06 .founder-story__reading > p:nth-child(3)').evaluate(el=>getComputedStyle(el).fontFamily);
       assert(prata.toLowerCase().includes('prata'),`${c.lang}/${vp.name}: Prata secondary serif preserved`);
       const display=await page.locator('#fnd-06 .founder-story__display--turn').evaluate(el=>getComputedStyle(el).fontFamily);
