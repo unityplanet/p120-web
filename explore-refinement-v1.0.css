@@ -1,0 +1,130 @@
+/* P-120 WEB-EXPLORE PASS 3 — Visual Refinement & Typography Conformance v1.0
+   Scope: /extended/ and /together/ presentation only.
+   No assessment, scoring, persistence, report-engine or scientific-content mutation. */
+
+:root{
+  --literary:"Prata","Noto Serif",serif;
+  --display:"Noto Serif Display","Noto Serif",serif;
+  --reading:"Noto Serif",serif;
+  --sans:"IBM Plex Sans",sans-serif;
+  --mono:"IBM Plex Mono",monospace;
+}
+
+html{font-synthesis:none}
+body{font-family:var(--reading);font-optical-sizing:auto;text-rendering:optimizeLegibility}
+
+/* EXP-DEF-01 — desktop leakage of the mobile drawer.
+   The PASS-2 base stylesheet only declared .mobile-drawer inside <=760px,
+   so its raw anchor markup remained in normal desktop flow. */
+.mobile-drawer{display:none!important}
+
+/* Canonical P-120 typography roles, reconciled with the Founder page. */
+.explore-hero h1,
+.section h2,
+.module-card h3,
+.level h3,
+.person-panel strong,
+.research-card h3,
+.privacy-step strong,
+.future-card h3,
+.flash,
+.quote-line,
+.orbit-core strong{
+  font-family:var(--display)!important;
+  font-synthesis:none;
+}
+
+/* Human/editorial voice: intentionally sparse, never used for technical labels. */
+.explore-hero .hero-copy>p,
+.secondary-label{
+  font-family:var(--literary)!important;
+  font-weight:400!important;
+  font-style:normal!important;
+  letter-spacing:-.006em;
+}
+.explore-hero .hero-copy>p{line-height:1.68}
+.secondary-label{line-height:1.42;letter-spacing:-.004em}
+
+/* Scientific / explanatory long-form voice. */
+.section-intro,
+.module-card p,
+.equation p,
+.rule-callout,
+.person-panel li,
+.level p,
+.research-card p,
+.future-card p{
+  font-family:var(--reading)!important;
+  font-weight:400;
+}
+
+/* Functional / research interface voice. */
+.explore-brand,
+.explore-mainnav,
+.explore-map,
+.explore-menu-btn,
+.eyebrow,
+.statusline,
+.meta,
+.small-note,
+.module-code,
+.module-sci,
+.candidate,
+.pattern-list,
+.privacy-step p,
+.dev-status,
+.explore-footer,
+.btn{
+  font-family:var(--sans)!important;
+}
+
+/* Technical notation only. */
+.micro-line,
+.equation code,
+.level-num,
+.process-step,
+.privacy-step code,
+.future-card code,
+.footer-mark{
+  font-family:var(--mono)!important;
+}
+
+/* Reading polish. */
+.explore-hero h1,.section h2,.module-card h3,.research-card h3,.quote-line,.flash{text-wrap:balance}
+.explore-hero p,.section-intro,.module-card p,.research-card p,.rule-callout{text-wrap:pretty}
+.section-intro{max-width:72ch;line-height:1.68}
+.module-card p,.research-card p{line-height:1.68}
+.hero-copy{max-width:590px}
+
+/* EXP-REF-02 — the PASS-2 hero used end alignment, leaving the display title
+   visually stranded near the bottom on wide/short desktop viewports. */
+@media(min-width:1180px){
+  .explore-hero{
+    min-height:calc(100svh - var(--header));
+    display:flex;
+    align-items:center;
+    padding-top:clamp(84px,7vw,112px);
+    padding-bottom:clamp(84px,7vw,112px);
+  }
+  .explore-hero>.shell{width:100%}
+  .hero-grid{align-items:center}
+  .explore-hero h1{margin-top:20px;margin-bottom:24px}
+  .hero-copy .flash{margin-top:0}
+}
+
+/* Keep the intended compact mobile drawer behavior. */
+@media(max-width:760px){
+  .mobile-drawer{display:block!important}
+  .explore-hero{min-height:auto;display:block}
+  .explore-hero .hero-copy>p{font-size:16px;line-height:1.64}
+  .secondary-label{font-size:16px}
+}
+
+/* Small-screen protection against display collisions. */
+@media(max-width:480px){
+  .explore-hero h1,.section h2,.module-card h3,.research-card h3{overflow-wrap:anywhere}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important}
+}
