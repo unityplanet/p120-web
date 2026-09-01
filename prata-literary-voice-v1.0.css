@@ -1,0 +1,78 @@
+/* P-120 Prata Literary Voice v1.0
+   Controlled typography layer.
+   Authority: P120 Publication Design Book v2.0 / Unified Web Design Manifesto.
+
+   Role boundary:
+   - Prata = secondary human / literary / reflective voice only.
+   - Noto Serif Display / Noto Serif remain authoritative display and scientific reading voices.
+   - IBM Plex Sans / Mono remain functional and technical voices.
+   - Questionnaire, science, navigation, metadata, controls and scoring surfaces are intentionally excluded.
+*/
+
+:root{
+  --p120-font-literary:"Prata","Noto Serif",Georgia,"Times New Roman",serif;
+}
+
+/* Homepage editorial voice changes. */
+.editorial-interlude p,
+#why-important .manifesto-closing-copy p,
+.render-systems-copy p,
+.semantic-life-energy>.editorial-prose p:not(:first-child),
+.editorial-final .final-close p:last-child{
+  font-family:var(--p120-font-literary)!important;
+  font-weight:400!important;
+  font-style:normal!important;
+}
+
+/* Prata has wider, more calligraphic forms than Noto Display; keep large interludes open. */
+.editorial-interlude p{
+  letter-spacing:-.018em!important;
+  line-height:1.055!important;
+}
+
+/* Respondent-facing / report-preview literary narrative. */
+.premium-quote p,
+.showcase-cover p,
+.showcase-narrative-card p,
+.example-title p,
+.example-summary,
+.result-showcase-cover p,
+.luxury-quote{
+  font-family:var(--p120-font-literary)!important;
+  font-weight:400!important;
+  font-style:normal!important;
+  letter-spacing:-.004em;
+}
+
+/* Keep caveats, evidence and functional interpretation labels out of the literary voice. */
+.example-watch,
+.example-watch p,
+.results-side-note,
+.showcase-note,
+.showcase-bar p,
+.science-section,
+.science-section p,
+.science-status,
+.science-status p,
+.question-card,
+.question-card p,
+.qtext,
+.compare-box,
+.scale-note,
+.mobile-menu,
+.mobile-bottom-nav,
+.topbar,
+.extended-research-set{
+  font-family:inherit;
+}
+
+@media(max-width:820px){
+  .editorial-interlude p{letter-spacing:-.012em!important;line-height:1.07!important}
+  .premium-quote p,
+  .showcase-cover p,
+  .showcase-narrative-card p,
+  .example-title p,
+  .example-summary,
+  .result-showcase-cover p,
+  .luxury-quote{letter-spacing:0}
+}
