@@ -29,24 +29,18 @@ jobs:
         run: |
           while IFS= read -r f; do node --check "$f"; done < <(git ls-files '*.js' '*.mjs')
           while IFS= read -r f; do python3 -m json.tool "$f" >/dev/null; done < <(git ls-files '*.json')
+      - name: Trace EN dedicated-route asset owners
+        run: |
+          echo '=== navigation-unification references ==='
+          grep -Rsn --exclude-dir=.git 'navigation-unification-v1.0.css' . || true
+          echo '=== extended-research-navigation references ==='
+          grep -Rsn --exclude-dir=.git 'extended-research-navigation-v1.0.js' . || true
       - name: PASS 3 targeted syntax checks
         run: |
           node --check p120-science-atlas-adapter-v0.3.js
           node --check science-navigation-reconciliation-v1.0.js
           node --check qa/webscience_pass3_reconcile.mjs
           python3 -m json.tool P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json >/dev/null
-      - name: Correct known EN dedicated-route relative paths in QA working tree
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          p=Path('en/science/index.html')
-          s=p.read_text(encoding='utf-8')
-          s=s.replace('href="navigation-unification-v1.0.css?v=nav51"','href="../navigation-unification-v1.0.css?v=nav51"')
-          s=s.replace('src="extended-research-navigation-v1.0.js?v=exp50"','src="../extended-research-navigation-v1.0.js?v=exp50"')
-          p.write_text(s,encoding='utf-8')
-          assert '../navigation-unification-v1.0.css?v=nav51' in s
-          assert '../extended-research-navigation-v1.0.js?v=exp50' in s
-          PY
       - name: Install Playwright
         run: |
           npm init -y >/dev/null 2>&1
