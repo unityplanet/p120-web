@@ -130,7 +130,7 @@
   }
   function sectionPositions(){
     const offset=topOffset()+(window.innerWidth>=DESKTOP_MIN?76:20);
-    return chapters.map(ch=>{const el=targetElement(ch);if(!el)return null;return{chapter:ch,top=window.scrollY+el.getBoundingClientRect().top-offset};}).filter(Boolean).sort((a,b)=>a.top-b.top);
+    return chapters.map(ch=>{const el=targetElement(ch);if(!el)return null;return{chapter:ch,top:window.scrollY+el.getBoundingClientRect().top-offset};}).filter(Boolean).sort((a,b)=>a.top-b.top);
   }
   function setActive(id){
     activeId=id||chapters[0].id;
