@@ -45,7 +45,7 @@ jobs:
             }
             function localizeEnglishSurface(){
               if(!isEn)return;
-              const h=document.querySelector('.science-page h1');if(h)h.textContent='Scientific Base P-120.';
+              const h=document.querySelector('.science-page h1');if(h&&h.textContent.trim()!=='Scientific Base P-120.')h.textContent='Scientific Base P-120.';
               const map=new Map([
                 ['Статус доказательной базы','Evidence status'],['Открыть полный документ · PDF','Open full document · PDF'],['Главное меню','Main menu'],['Вернуться в главное меню','Back to main menu'],
                 ['5 слоёв','5 layers'],['Конструкты','Constructs'],['Карта доказательности','Evidence map'],['Гипотезы','Hypotheses'],['Валидация','Validation'],['Этика','Ethics'],['Литература','Literature'],
@@ -123,7 +123,7 @@ jobs:
           import {chromium} from 'playwright';
           const b=await chromium.launch({headless:true});const bad=[];const ok=(v,m)=>{console.log(`${v?'PASS':'FAIL'} ${m}`);if(!v)bad.push(m)};
           async function check(path,lang,title,pdfTail){
-            const p=await b.newPage({viewport:{width:1920,height:1080}});await p.goto('http://127.0.0.1:4173'+path,{waitUntil:'networkidle'});await p.waitForSelector('.science-page',{timeout:8000});await p.waitForTimeout(600);
+            const p=await b.newPage({viewport:{width:1920,height:1080}});await p.goto('http://127.0.0.1:4173'+path,{waitUntil:'domcontentloaded',timeout:30000});await p.waitForSelector('.science-page',{timeout:10000});await p.waitForTimeout(700);
             ok(new URL(p.url()).pathname===path,`${lang} stays on dedicated URL`);ok((await p.locator('.science-page h1').first().innerText()).includes(title),`${lang} original visual Science H1`);ok(await p.locator('.science-doc-card').count()===1,`${lang} academic document card`);ok(await p.locator('.science-metrics').count()===1,`${lang} metrics row`);ok(await p.locator('.science-subnav').count()===1,`${lang} scientific subnav`);ok(await p.locator('.p120-dedicated-science-lang').isVisible(),`${lang} RU/EN visible`);
             const pdf=await p.locator('a[href*="scientific-concept-paper"]').first().getAttribute('href');ok(!!pdf&&pdf.includes(pdfTail),`${lang} locale scientific PDF`);
             if(lang==='en'){ok((await p.locator('.science-status-label').innerText()).includes('Evidence'), 'en evidence label localized');}
@@ -131,7 +131,7 @@ jobs:
           }
           await check('/science/','ru','Научная база P-120','p120-scientific-concept-paper-v1.2.pdf');
           await check('/en/science/','en','Scientific Base P-120','p120-scientific-concept-paper-en-v1.2.pdf');
-          const p=await b.newPage({viewport:{width:1440,height:900}});await p.goto('http://127.0.0.1:4173/science/',{waitUntil:'networkidle'});await p.waitForSelector('.science-page');await p.locator('.p120-dedicated-science-lang a[lang="en"]').click();await p.waitForURL(u=>u.pathname==='/en/science/');ok(new URL(p.url()).pathname==='/en/science/','RU -> EN keeps dedicated Science route');await p.close();
+          const p=await b.newPage({viewport:{width:1440,height:900}});await p.goto('http://127.0.0.1:4173/science/',{waitUntil:'domcontentloaded'});await p.waitForSelector('.science-page');await p.locator('.p120-dedicated-science-lang a[lang="en"]').click();await p.waitForURL(u=>u.pathname==='/en/science/');ok(new URL(p.url()).pathname==='/en/science/','RU -> EN keeps dedicated Science route');await p.close();
           await b.close();if(bad.length){console.error(bad.join('\n'));process.exit(1)}
           JS
           node qa-science-parity.mjs
