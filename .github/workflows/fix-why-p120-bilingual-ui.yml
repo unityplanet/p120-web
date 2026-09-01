@@ -7,10 +7,11 @@ on:
     paths:
       - '.github/workflows/fix-why-p120-bilingual-ui.yml'
       - '.github/scripts/fix_why_p120_bilingual_ui.py'
-      - '.github/scripts/install_why_p120_bilingual_hooks.py'
-      - 'why-p120/index.html'
-      - 'en/why-p120/index.html'
-      - 'en/index.html'
+  workflow_run:
+    workflows:
+      - 'Integrate bilingual public site v1.7'
+      - 'Integrate Why P-120 into production'
+    types: [completed]
 
 permissions:
   contents: write
@@ -21,10 +22,12 @@ concurrency:
 
 jobs:
   patch:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Rebase onto latest main
@@ -36,20 +39,15 @@ jobs:
       - name: Apply bilingual UI corrections
         run: python3 .github/scripts/fix_why_p120_bilingual_ui.py
 
-      - name: Install durable integration hooks
-        run: python3 .github/scripts/install_why_p120_bilingual_hooks.py
-
       - name: Static acceptance gates
         run: |
           set -euo pipefail
-          python3 -m py_compile .github/scripts/fix_why_p120_bilingual_ui.py .github/scripts/install_why_p120_bilingual_hooks.py
+          python3 -m py_compile .github/scripts/fix_why_p120_bilingual_ui.py
           grep -q 'id="wp-bilingual-ui-fix-v1"' why-p120/index.html
           grep -q 'class="wp-lang-switch"' why-p120/index.html
           grep -q 'data-why-origin>Why P-120?</button>' en/index.html
           grep -q 'data-nav="why-p120">What makes it different</button>' en/index.html
           grep -q 'Six directions of meaning.' en/why-p120/index.html
-          grep -q 'Apply bilingual UI alignment fix' .github/workflows/integrate-why-p120-production.yml
-          grep -q 'Apply Why P-120 bilingual UI alignment' .github/workflows/integrate-bilingual-public-site-v1.yml
 
       - name: Commit corrected public UI
         run: |
@@ -60,8 +58,8 @@ jobs:
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add why-p120/index.html en/why-p120/index.html en/index.html .github/workflows/integrate-why-p120-production.yml .github/workflows/integrate-bilingual-public-site-v1.yml
-          git commit -m 'Persist Why P-120 bilingual UI alignment'
+          git add why-p120/index.html en/why-p120/index.html en/index.html
+          git commit -m 'Auto-heal Why P-120 bilingual UI alignment'
           for i in 1 2 3; do
             git fetch origin main
             if git rebase origin/main && git push origin HEAD:main; then
