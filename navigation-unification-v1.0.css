@@ -1,4 +1,4 @@
-/* P-120 Navigation Unification v1.1 — main-page mega menu + resume rail stability.
+/* P-120 Navigation Unification v1.2 — main-page mega menu + resume rail stability.
    Presentation only. Keeps Navigation Architecture v2 mechanics intact. */
 
 @media(min-width:1081px){
@@ -26,12 +26,30 @@
   .ecosystem-item-title{font-size:13px;line-height:1.22}
   .ecosystem-item-note{font-size:10px;line-height:1.35;min-height:2.7em;margin-top:5px}
 
+  /* PASS 5.3 brand-lockup requirement: the main desktop header may not collapse
+     to a bare P-120 wordmark at 1366/1440. Keep the canonical descriptor visible
+     and recover space from navigation padding instead of removing brand identity. */
+  html.p120-brand53-ready .topbar .brand-sub{display:block!important}
+
   /* Both new Explore destinations are now live. The legacy runtime still removes
      its former reserved flags; suppressing that obsolete visual state from the
      first paint prevents the post-load card shift reported in desktop review. */
   .ecosystem-item-status{display:none!important}
   .ecosystem-item-v2[aria-disabled="true"]{opacity:1;cursor:pointer}
   .ecosystem-item-v2[aria-disabled="true"] .ecosystem-item-title:after{display:none!important}
+}
+
+@media(min-width:1081px) and (max-width:1440px){
+  html.p120-brand53-ready .topbar .brand-sub{
+    font-size:7px!important;
+    letter-spacing:.135em!important;
+  }
+  html.p120-brand53-ready .topbar .brand-lockup{max-width:158px}
+  html.p120-brand53-ready .topbar .p120-brand53-nav :is(.navlink,.ecosystem-trigger){
+    padding-left:9px!important;
+    padding-right:9px!important;
+    font-size:11px!important;
+  }
 }
 
 /* Resume rail: the primary action remains dominant; restarting is a readable
