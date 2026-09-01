@@ -20,12 +20,22 @@
   const themes=Object.keys(labels);
 
   function ensureCss(){
-    if(document.querySelector('link[data-p120-pass532]')) return;
-    const link=document.createElement('link');
-    link.rel='stylesheet';
-    link.href=new URL('p120-pass53-2-execution-corrections-v1.0.css?v=532',scriptUrl).href;
-    link.dataset.p120Pass532='5.3.2';
-    document.head.appendChild(link);
+    if(!document.querySelector('link[data-p120-pass532]')){
+      const link=document.createElement('link');
+      link.rel='stylesheet';
+      link.href=new URL('p120-pass53-2-execution-corrections-v1.0.css?v=532',scriptUrl).href;
+      link.dataset.p120Pass532='5.3.2';
+      document.head.appendChild(link);
+    }
+    /* The mega menu keeps its subtle opacity fade, but its geometry no longer scales
+       during opening. This removes a transform-only bounding-box drift that the visual
+       gate correctly treats as instability, without changing menu position or content. */
+    if(!document.getElementById('p120-pass532-stable-floating-geometry')){
+      const style=document.createElement('style');
+      style.id='p120-pass532-stable-floating-geometry';
+      style.textContent='.ecosystem-panel-v2{transition:opacity .16s ease,visibility .16s!important}';
+      document.head.appendChild(style);
+    }
   }
 
   function currentTheme(){
@@ -91,7 +101,6 @@
   }
 
   function start(){
-    ensureCss();
     syncAll();
     const root=document.getElementById('app')||document.body;
     if(root)new MutationObserver(()=>requestAnimationFrame(syncAll)).observe(root,{childList:true,subtree:true});
@@ -108,6 +117,7 @@
     },true);
   }
 
+  ensureCss();
   window.P120_PASS532=Object.freeze({version:'5.3.2',ready:true,sync:syncAll});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
