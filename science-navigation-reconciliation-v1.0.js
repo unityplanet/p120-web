@@ -36,3 +36,19 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',hash,{once:true});else hash();
   document.documentElement.dataset.p120ScienceNavigation='reconciled-v1';
 })();
+
+/* Production bundle bridge: Chapter 04 has its own reconciliation owner.
+   Resolve the sibling script from this runtime's URL so RU / and EN /en/ load
+   the same root asset without changing either document or the scientific route. */
+(()=>{
+  'use strict';
+  const ID='p120-extended-chapter-navigation-reconciliation';
+  if(document.getElementById(ID))return;
+  const current=document.currentScript;
+  const base=current?.src||new URL('science-navigation-reconciliation-v1.0.js',location.href).href;
+  const script=document.createElement('script');
+  script.id=ID;
+  script.src=new URL('extended-chapter-navigation-reconciliation-v1.0.js',base).href;
+  script.dataset.p120ExtendedChapterNavigation='reconciled-v1';
+  document.head.appendChild(script);
+})();
