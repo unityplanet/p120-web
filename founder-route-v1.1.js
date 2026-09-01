@@ -1,7 +1,7 @@
-/* P-120 Founder Route v1.3 — WEB-EXPLORE PASS 4 bilingual bridge
-   Keeps the full Founder Editorial Story off the main page and activates the existing
-   Navigation Architecture v2 creator entry as a dedicated-page route.
-   Loads the bilingual Explore reconciliation adapter after the generated public runtime.
+/* P-120 Founder Route v1.4 — WEB-EXPLORE PASS 5 bilingual bridge
+   Keeps the full Founder Editorial Story off the main page, activates the existing
+   Navigation Architecture v2 creator entry, loads the bilingual Explore reconciliation
+   adapter and the shared main-page mega-menu stability layer.
    Includes the shared mobile correction for the Brand Origin interstitial close control.
    No assessment, scoring, report, science or persistence mutations. */
 (() => {
@@ -29,6 +29,15 @@
 
   function creatorUrl(){return new URL('creator/',document.baseURI).href;}
 
+  function loadNavigationUnification(){
+    if(document.querySelector('link[data-p120-navigation-unification]'))return;
+    const link=document.createElement('link');
+    link.rel='stylesheet';
+    link.href=new URL(isEn?'../navigation-unification-v1.0.css?v=nav50':'navigation-unification-v1.0.css?v=nav50',document.baseURI).href;
+    link.dataset.p120NavigationUnification='v1.0';
+    document.head.appendChild(link);
+  }
+
   function patch(){
     timer=0;
     document.querySelectorAll(SELECTOR).forEach(btn=>{
@@ -41,7 +50,7 @@
   function loadExplorePass2(){
     if(document.querySelector('script[data-p120-extended-navigation],script[data-web-explore-pass2-loader],script[src*="extended-research-navigation-v1.0.js"]'))return;
     const script=document.createElement('script');
-    const rel=isEn?'../extended-research-navigation-v1.0.js?v=exp41':'extended-research-navigation-v1.0.js?v=exp41';
+    const rel=isEn?'../extended-research-navigation-v1.0.js?v=exp50':'extended-research-navigation-v1.0.js?v=exp50';
     script.src=new URL(rel,document.baseURI).href;
     script.async=false;script.dataset.webExplorePass2Loader='v2.1';document.body.appendChild(script);
   }
@@ -52,12 +61,13 @@
   }
   function schedule(){if(timer)clearTimeout(timer);timer=setTimeout(patch,55);}
   function start(){
+    loadNavigationUnification();
     document.addEventListener('click',intercept,true);
     const root=document.getElementById('app')||document.body;
     new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
     patch();loadExplorePass2();
     let retries=0;const retry=setInterval(()=>{patch();if(++retries>30)clearInterval(retry)},100);
-    window.P120_FOUNDER_ROUTE={version:'1.3',url:creatorUrl(),webExplorePass2:true,bilingual:true};
+    window.P120_FOUNDER_ROUTE={version:'1.4',url:creatorUrl(),webExplorePass2:true,bilingual:true,navigationUnification:'v1.0'};
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
