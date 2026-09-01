@@ -1,5 +1,16 @@
 # P-120 Web — Changelog
 
+## System Controlled Migration v1.0 — 2026-09-02
+
+- Created `/system/` as the canonical P-120 respondent runtime route.
+- Relocated the existing frozen instrument directly from the deployed source.
+- Preserved all 180 item IDs, wording, choices, module order and assessment runtime.
+- Redirected root test-entry CTAs to `/system/` while retaining saved local progress.
+- Kept the Extended Research Set in the editorial architecture, outside the frozen runtime page.
+- Measurement changes: NONE. Scoring changes: NONE. Questionnaire changes: NONE.
+
+Control record: `P120_WEB_SYSTEM_MIGRATION_v1.0.md`.
+
 ## Extended Research Set Section v1.0 — 2026-08-31
 
 ### Additive editorial chapter
