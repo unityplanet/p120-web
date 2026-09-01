@@ -1,42 +1,15 @@
-name: Founder Marginal Typography Lab QA
+name: Founder Marginal Typography Lab QA — Historical
 
+# Historical A/B gate retained for provenance only.
+# Production authority moved to Founder Marginal Voice v1 QA after Light Italic selection.
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'creator/index.html'
-      - 'en/creator/index.html'
-      - 'founder-marginal-typography-lab-v0.1.css'
-      - 'founder-marginal-typography-lab-v0.1.js'
-      - 'qa/founder_marginal_typography_lab.mjs'
-      - '.github/workflows/qa-founder-marginal-typography-lab.yml'
 
 permissions:
   contents: read
 
 jobs:
-  visual-qa:
+  historical-note:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Install browser QA runtime
-        run: |
-          npm init -y >/dev/null 2>&1
-          npm install --no-save playwright@1.55.0 >/dev/null 2>&1
-          npx playwright install --with-deps chromium >/dev/null
-      - name: Run local site
-        run: |
-          python -m http.server 8765 --bind 127.0.0.1 >/tmp/p120-founder-type-lab.log 2>&1 &
-          sleep 2
-          curl --fail --silent http://127.0.0.1:8765/creator/ >/dev/null
-      - name: Run Light vs Light Italic visual QA
-        env:
-          P120_QA_BASE: http://127.0.0.1:8765/
-        run: node qa/founder_marginal_typography_lab.mjs
-      - name: Upload comparison evidence
-        uses: actions/upload-artifact@v4
-        with:
-          name: P120-FOUNDER-MARGINAL-TYPE-LAB-EVIDENCE
-          path: qa-artifacts/founder-type-lab/
-          retention-days: 30
+      - run: echo "Historical Light vs Light Italic comparison retained; production gate is qa-founder-marginal-voice-v1.yml."
