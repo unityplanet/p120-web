@@ -96,14 +96,17 @@
     });
   }
 
+  /* Explore destinations and chapter navigation are intentionally different controls.
+     Explore → “Хотите глубже?” opens the dedicated Extended page.
+     Chapter navigation → “Ещё глубже” remains on the main page and scrolls to the
+     compact Extended Research teaser. Do not intercept chapter-jump controls here. */
   function intercept(event){
-    const btn=event.target.closest?.('[data-ecosystem-route],[data-ecosystem-mobile],[data-chapter-jump="extended"],[data-chapter-mobile="extended"]');
+    const btn=event.target.closest?.('[data-ecosystem-route],[data-ecosystem-mobile]');
     if(!btn) return;
     const key=btn.dataset.ecosystemRoute||btn.dataset.ecosystemMobile;
-    const extendedChapter=btn.dataset.chapterJump==='extended'||btn.dataset.chapterMobile==='extended';
-    if(!extendedChapter&&key!=='deeper'&&key!=='together') return;
+    if(key!=='deeper'&&key!=='together') return;
     event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();
-    route((extendedChapter||key==='deeper')?'extended/':'together/');
+    route(key==='deeper'?'extended/':'together/');
   }
 
   function run(){timer=0;reconcileHome();reconcileExploreMenu();document.documentElement.dataset.webExplorePass2='ready';}
