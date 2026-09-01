@@ -129,8 +129,6 @@
 /* WEB-EXPLORE PASS 5.3.2 — main saved-plane / chapter-nav / theme-menu correction layer. */
 (() => {
   'use strict';
-  const pathname=location.pathname.replace(/index\.html$/i,'');
-  if(!/^(?:\/|\/en\/)$/.test(pathname)) return;
   if(document.querySelector('script[data-p120-pass532-loader]') || window.P120_PASS532) return;
   const base=document.currentScript?.src||document.baseURI;
   const script=document.createElement('script');
