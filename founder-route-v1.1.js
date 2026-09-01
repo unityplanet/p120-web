@@ -62,7 +62,7 @@
   }
 
   function loadExplorePass2(){
-    if(document.querySelector('script[data-web-explore-pass2-loader]'))return;
+    if(document.querySelector('script[data-p120-extended-navigation],script[data-web-explore-pass2-loader],script[src*="extended-research-navigation-v1.0.js"]'))return;
     const script=document.createElement('script');
     script.src=new URL('extended-research-navigation-v1.0.js?v=exp20',document.baseURI).href;
     script.async=false;
