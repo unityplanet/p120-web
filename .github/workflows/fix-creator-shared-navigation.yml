@@ -1,0 +1,59 @@
+name: Fix Creator shared navigation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-creator-shared-navigation.yml'
+      - '.github/scripts/fix_creator_shared_navigation.py'
+      - 'creator/index.html'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: p120-creator-shared-navigation
+  cancel-in-progress: true
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Rebase onto latest main
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git rebase origin/main
+
+      - name: Apply shared Creator navigation
+        run: python3 .github/scripts/fix_creator_shared_navigation.py
+
+      - name: Static acceptance gates
+        run: |
+          set -euo pipefail
+          python3 -m py_compile .github/scripts/fix_creator_shared_navigation.py
+          grep -q 'href="../why-p120/">Почему P-120?</a>' creator/index.html
+          grep -q 'href="../#why-p120">Уникальность</a>' creator/index.html
+          grep -q 'href="../#what-p120-shows">Что покажет</a>' creator/index.html
+          grep -q 'href="../#showcase">Отчёт</a>' creator/index.html
+          grep -q 'class="creator-explore"' creator/index.html
+          grep -q 'creator-explore:after' creator/index.html
+
+      - name: Commit Creator navigation reconciliation
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo 'Creator navigation already reconciled.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add creator/index.html
+          git commit -m 'Align Creator navigation with public site'
+          git pull --rebase origin main
+          git push origin HEAD:main
