@@ -1,4 +1,4 @@
-/* P-120 Navigation Unification v1.0 — main-page mega menu stability patch.
+/* P-120 Navigation Unification v1.1 — main-page mega menu + resume rail stability.
    Presentation only. Keeps Navigation Architecture v2 mechanics intact. */
 
 @media(min-width:1081px){
@@ -32,6 +32,25 @@
   .ecosystem-item-status{display:none!important}
   .ecosystem-item-v2[aria-disabled="true"]{opacity:1;cursor:pointer}
   .ecosystem-item-v2[aria-disabled="true"] .ecosystem-item-title:after{display:none!important}
+}
+
+/* Resume rail: the primary action remains dominant; restarting is a readable
+   secondary action in every theme instead of inheriting an obsolete ghost state. */
+.editorial-resume-rail #homeRestart{
+  background:color-mix(in srgb,var(--card) 88%,transparent)!important;
+  color:var(--ink)!important;
+  border:1px solid var(--line-strong)!important;
+  box-shadow:none!important;
+}
+body[data-theme='museum'] .editorial-resume-rail #homeRestart{
+  background:#FBF8EF!important;
+  color:#304E4A!important;
+  border-color:rgba(47,125,120,.30)!important;
+}
+body[data-theme='graphite'] .editorial-resume-rail #homeRestart{
+  background:color-mix(in srgb,var(--card) 88%,transparent)!important;
+  color:var(--ink)!important;
+  border-color:var(--line-strong)!important;
 }
 
 @media(min-width:3200px){
