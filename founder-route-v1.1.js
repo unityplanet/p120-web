@@ -1,7 +1,7 @@
-/* P-120 Founder Route v1.5 — WEB-EXPLORE PASS 5 bilingual bridge
+/* P-120 Founder Route v1.6 — WEB-EXPLORE PASS 5.1 bilingual bridge
    Stabilises live Explore destinations in the main navigation at first paint,
    keeps the Founder page on its dedicated route, loads the legacy home reconciliation
-   adapter and the unified mega-menu presentation layer.
+   adapter and the unified mega-menu / resume-rail presentation layer.
    No assessment, scoring, report, science or persistence mutations. */
 (() => {
   'use strict';
@@ -35,8 +35,8 @@
     if(document.querySelector('link[data-p120-navigation-unification]'))return;
     const link=document.createElement('link');
     link.rel='stylesheet';
-    link.href=new URL(isEn?'../navigation-unification-v1.0.css?v=nav50':'navigation-unification-v1.0.css?v=nav50',document.baseURI).href;
-    link.dataset.p120NavigationUnification='v1.0';
+    link.href=new URL(isEn?'../navigation-unification-v1.0.css?v=nav51':'navigation-unification-v1.0.css?v=nav51',document.baseURI).href;
+    link.dataset.p120NavigationUnification='v1.1';
     document.head.appendChild(link);
   }
 
@@ -46,6 +46,27 @@
     const noteNode=node.querySelector('.ecosystem-item-note,small');
     if(noteNode&&noteNode.textContent!==note)noteNode.textContent=note;
     if(label)node.setAttribute('aria-label',label);
+  }
+
+  function patchResumeRail(){
+    const resume=document.querySelector('#editorialResume');
+    if(resume&&!resume.dataset.p120HumanisedResume){
+      const raw=(resume.textContent||'').trim();
+      const match=raw.match(/(\d{1,3})(?!.*\d)/);
+      const question=match?Number.parseInt(match[1],10):null;
+      const label=isEn
+        ?(question?`Resume research · question ${question}`:'Resume research')
+        :(question?`Продолжить исследование · вопрос ${question}`:'Продолжить исследование');
+      resume.textContent=label;
+      resume.dataset.p120HumanisedResume='true';
+      resume.setAttribute('aria-label',label);
+    }
+    const restart=document.querySelector('#homeRestart');
+    if(restart){
+      restart.classList.remove('ghost');
+      restart.classList.add('secondary');
+      restart.setAttribute('aria-label',isEn?'Start a new research session':'Начать новую исследовательскую сессию');
+    }
   }
 
   function patch(){
@@ -59,6 +80,7 @@
     document.querySelectorAll(TOGETHER).forEach(node=>activateNode(node,
       isEn?'Dyadic Research Layer · relationship research':'Исследование пары · диадический слой',
       isEn?'Are we together? — open page':'Мы вместе? — открыть страницу'));
+    patchResumeRail();
   }
 
   function loadExplorePass2(){
@@ -87,7 +109,7 @@
     new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
     patch();loadExplorePass2();
     let retries=0;const retry=setInterval(()=>{patch();if(++retries>24)clearInterval(retry)},80);
-    window.P120_FOUNDER_ROUTE={version:'1.5',url:creatorUrl(),webExplorePass2:true,bilingual:true,navigationUnification:'v1.0',exploreRoutes:'live'};
+    window.P120_FOUNDER_ROUTE={version:'1.6',url:creatorUrl(),webExplorePass2:true,bilingual:true,navigationUnification:'v1.1',exploreRoutes:'live',resumeRail:'humanised'};
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
