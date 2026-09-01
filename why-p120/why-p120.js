@@ -116,6 +116,15 @@
     const mobileHome=document.querySelector('.wp-mobile-menu');
     if(mobileHome) mobileHome.textContent=isEn?'Home':'На главную';
 
+    const coordinateLabel=document.querySelector('.wp-coordinate-label');
+    if(coordinateLabel) coordinateLabel.textContent=isEn?'data → structure → human':'данные → структура → человек';
+
+    const finalManifesto=document.querySelectorAll('.wp-final-manifesto span');
+    if(finalManifesto.length>=2){
+      finalManifesto[0].textContent=isEn?'120 questions are not the result.':'120 вопросов — не результат.';
+      finalManifesto[1].textContent=isEn?'They are the coordinates.':'Это координаты.';
+    }
+
     const brandLine=document.querySelector('.wp-brand-line .tag');
     if(brandLine) brandLine.textContent=isEn
       ? 'Science. Structure. Depth.  The person in full complexity.'
