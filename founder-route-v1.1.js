@@ -1,4 +1,4 @@
-/* P-120 Founder Route v1.6 — WEB-EXPLORE PASS 5.1 bilingual bridge
+/* P-120 Founder Route v1.6.1 — WEB-EXPLORE PASS 5.1 bilingual bridge
    Stabilises live Explore destinations in the main navigation at first paint,
    keeps the Founder page on its dedicated route, loads the legacy home reconciliation
    adapter and the unified mega-menu / resume-rail presentation layer.
@@ -52,7 +52,8 @@
     document.head.appendChild(style);
   }
 
-  const isEn=/\/en\/(?:index\.html)?$/i.test(location.pathname);
+  /* Language ownership must work for every nested EN route, not only /en/. */
+  const isEn=/\/en(?:\/|$)/i.test(location.pathname);
   const CREATOR='[data-ecosystem-route="creator"],[data-ecosystem-mobile="creator"]';
   const DEEPER='[data-ecosystem-route="deeper"],[data-ecosystem-mobile="deeper"]';
   const TOGETHER='[data-ecosystem-route="together"],[data-ecosystem-mobile="together"]';
@@ -139,31 +140,19 @@
     new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
     patch();loadExplorePass2();
     let retries=0;const retry=setInterval(()=>{patch();if(++retries>24)clearInterval(retry)},80);
-    window.P120_FOUNDER_ROUTE={version:'1.6',url:creatorUrl(),webExplorePass2:true,bilingual:true,navigationUnification:'v1.1',exploreRoutes:'live',resumeRail:'humanised'};
+    window.P120_FOUNDER_ROUTE={version:'1.6.1',url:creatorUrl(),webExplorePass2:true,bilingual:true,navigationUnification:'v1.1',exploreRoutes:'live',resumeRail:'humanised'};
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
 
 /* WEB-EXPLORE PASS 5.3 — canonical public brand layer. */
-(() => {
+(()=>{
   'use strict';
   if(document.querySelector('script[data-p120-brand-system-loader]') || window.P120_BRAND_SYSTEM) return;
-  const base=document.currentScript?.src||document.baseURI;
+  const current=document.currentScript;
   const script=document.createElement('script');
-  script.src=new URL('p120-brand-system-v1.0.js?v=53',base).href;
+  script.src=new URL('p120-brand-system-v1.0.js?v=brand53',current?.src||document.baseURI).href;
   script.async=false;
-  script.dataset.p120BrandSystemLoader='5.3';
-  document.head.appendChild(script);
-})();
-
-/* WEB-EXPLORE PASS 5.3.2 — main saved-plane / chapter-nav / theme-menu correction layer. */
-(() => {
-  'use strict';
-  if(document.querySelector('script[data-p120-pass532-loader]') || window.P120_PASS532) return;
-  const base=document.currentScript?.src||document.baseURI;
-  const script=document.createElement('script');
-  script.src=new URL('p120-pass53-2-execution-corrections-v1.0.js?v=532',base).href;
-  script.async=false;
-  script.dataset.p120Pass532Loader='5.3.2';
+  script.dataset.p120BrandSystemLoader='v1.0';
   document.head.appendChild(script);
 })();
