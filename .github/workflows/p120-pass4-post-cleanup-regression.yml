@@ -1,4 +1,5 @@
 name: P120 PASS 4 Post-Cleanup Regression
+# Final branch revalidation after retirement of one-shot PASS 4 executors.
 
 on:
   push:
