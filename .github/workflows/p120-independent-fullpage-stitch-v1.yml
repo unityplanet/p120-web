@@ -7,6 +7,8 @@ on:
     paths:
       - 'qa/independent_fullpage_stitch_v1_0.mjs'
       - '.github/workflows/p120-independent-fullpage-stitch-v1.yml'
+      - 'en/science/index.html'
+      - 'p120-en-science-localization-runtime-v1.0.js'
 permissions:
   contents: read
 jobs:
@@ -35,3 +37,4 @@ jobs:
           name: P120_FULL_PAGE_STITCHED_RENDERS_V1
           path: qa-evidence-fullpage-stitch-v1-0/
           retention-days: 30
+# final rerun after LOC-EN-SCI-01 controlled localization closure
