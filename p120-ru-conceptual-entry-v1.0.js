@@ -221,12 +221,7 @@
   }
 
   function reconcileActs(home){
-    const titles=[
-      'Различить то, что ощущается вместе',
-      'Когда различия встречаются',
-      'Что мы знаем — и где проходят границы',
-      'Собрать различия в карту'
-    ];
+    const titles=['Различить то, что ощущается вместе','Когда различия встречаются','Что мы знаем — и где проходят границы','Собрать различия в карту'];
     home.querySelectorAll(':scope > .act-marker').forEach((m,i)=>{const s=m.querySelector('strong');if(s&&titles[i])s.textContent=titles[i];});
   }
 
@@ -238,22 +233,20 @@
 
   function reconcileNavigation(){
     document.querySelectorAll('[data-why-origin]').forEach(el=>{
-      if(el.matches('button,a')){
-        const first=el.querySelector('div>div');
-        const note=el.querySelector('small');
-        if(first){first.textContent='Происхождение названия';if(note)note.textContent='Почему система называется P-120';}
-        else el.textContent='Происхождение названия';
-      }
+      if(!el.matches('button,a'))return;
+      const first=el.querySelector('div>div');const note=el.querySelector('small');
+      if(first){if(first.textContent!=='Происхождение названия')first.textContent='Происхождение названия';if(note&&note.textContent!=='Почему система называется P-120')note.textContent='Почему система называется P-120';}
+      else if(el.textContent!=='Происхождение названия')el.textContent='Происхождение названия';
     });
     document.querySelectorAll('.brand-origin-teaser').forEach(teaser=>{
-      const h=teaser.querySelector('h2');if(h)h.textContent='Происхождение названия';
-      const p=teaser.querySelector('.brand-origin-copy p');if(p)p.textContent='72 + 48 объясняют число. Отдельная страница рассказывает, откуда появилось название P-120.';
-      const a=teaser.querySelector('.brand-origin-link');if(a)a.innerHTML='Узнать происхождение <span aria-hidden="true">→</span>';
+      const h=teaser.querySelector('h2');if(h&&h.textContent!=='Происхождение названия')h.textContent='Происхождение названия';
+      const p=teaser.querySelector('.brand-origin-copy p');const pt='72 + 48 объясняют число. Отдельная страница рассказывает, откуда появилось название P-120.';if(p&&p.textContent!==pt)p.textContent=pt;
+      const a=teaser.querySelector('.brand-origin-link');const ah='Узнать происхождение <span aria-hidden="true">→</span>';if(a&&a.innerHTML!==ah)a.innerHTML=ah;
     });
     document.querySelectorAll('.brand-origin-interstitial').forEach(panel=>{
-      const h=panel.querySelector('h2');if(h)h.textContent='Происхождение названия';
-      const p=panel.querySelector('.brand-origin-interstitial-copy p');if(p)p.textContent='72 + 48 объясняют число. Но происхождение названия этим не исчерпывается.';
-      const a=panel.querySelector('a');if(a)a.innerHTML='Узнать происхождение <span aria-hidden="true">→</span>';
+      const h=panel.querySelector('h2');if(h&&h.textContent!=='Происхождение названия')h.textContent='Происхождение названия';
+      const p=panel.querySelector('.brand-origin-interstitial-copy p');const pt='72 + 48 объясняют число. Но происхождение названия этим не исчерпывается.';if(p&&p.textContent!==pt)p.textContent=pt;
+      const a=panel.querySelector('a');const ah='Узнать происхождение <span aria-hidden="true">→</span>';if(a&&a.innerHTML!==ah)a.innerHTML=ah;
     });
   }
 
@@ -266,29 +259,27 @@
       const note=showcase.querySelector('.showcase-note');if(note)note.textContent='В итоговом отчёте несколько независимых профилей могут рассматриваться рядом. Межмодульные связи описываются только там, где это разрешено измерительной и интерпретационной логикой.';
     }
     const examples=home.querySelector('#examples');
-    if(examples&&examples.dataset.p120ConceptualEntry!==VERSION){
-      examples.dataset.p120ConceptualEntry=VERSION;
-      const h=examples.querySelector('.support-head h2');if(h)h.textContent='Одинаковая внешняя реакция может соответствовать разным конфигурациям профиля.';
-    }
+    if(examples&&examples.dataset.p120ConceptualEntry!==VERSION){examples.dataset.p120ConceptualEntry=VERSION;const h=examples.querySelector('.support-head h2');if(h)h.textContent='Одинаковая внешняя реакция может соответствовать разным конфигурациям профиля.';}
     const sci=home.querySelector('.science-confidence-insert');
-    if(sci){
-      const grid=sci.querySelector('.science-ledger-grid');
-      if(grid&&grid.dataset.p120ConceptualEntry!==VERSION){
-        grid.dataset.p120ConceptualEntry=VERSION;
-        grid.innerHTML='<div><strong>Evidence</strong><span>проверяемая научная основа и source provenance</span></div><div><strong>Methods</strong><span>отдельная методологическая и измерительная архитектура</span></div><div><strong>Hypotheses</strong><span>фальсифицируемые межслойные вопросы</span></div><div><strong>Validation</strong><span>поэтапная эмпирическая программа</span></div>';
-      }
-    }
+    if(sci){const grid=sci.querySelector('.science-ledger-grid');if(grid&&grid.dataset.p120ConceptualEntry!==VERSION){grid.dataset.p120ConceptualEntry=VERSION;grid.innerHTML='<div><strong>Evidence</strong><span>проверяемая научная основа и source provenance</span></div><div><strong>Methods</strong><span>отдельная методологическая и измерительная архитектура</span></div><div><strong>Hypotheses</strong><span>фальсифицируемые межслойные вопросы</span></div><div><strong>Validation</strong><span>поэтапная эмпирическая программа</span></div>';}}
+  }
+
+  function bindCanonicalActions(home){
+    const start=()=>{location.href='system/';};
+    const map={
+      'why-important':()=>document.getElementById('what-p120-shows')?.scrollIntoView({behavior:'smooth',block:'start'}),
+      'understand-desire':start,'two-systems':start,'why-p120':start,
+      'what-p120-shows':()=>document.getElementById('layers-insert')?.scrollIntoView({behavior:'smooth',block:'start'}),
+      'science-foundation':()=>{location.href='science/';},'understand-earlier':start,'final':start
+    };
+    Object.entries(map).forEach(([id,fn])=>{const b=home.querySelector(`#${id} .chapter-cta .editorial-cta`);if(b)b.onclick=fn;});
   }
 
   function addStyle(){
     if(document.getElementById('p120-conceptual-entry-p25-style'))return;
     const style=document.createElement('style');style.id='p120-conceptual-entry-p25-style';
-    style.textContent=`
-      .p120-conceptual-insert{border-top:1px solid var(--frame-line-soft,var(--line));padding-top:clamp(42px,6vw,86px);margin-top:clamp(38px,5vw,72px)}
-      .p120-conceptual-prose,.p120-boundary-list{max-width:930px}
-      .p120-boundary-list p{margin-block:.52em}
-      @media(max-width:760px){.p120-conceptual-insert{padding-top:38px;margin-top:30px}.p120-conceptual-prose,.p120-boundary-list{max-width:none}}
-    `;document.head.appendChild(style);
+    style.textContent='.p120-conceptual-insert{border-top:1px solid var(--frame-line-soft,var(--line));padding-top:clamp(42px,6vw,86px);margin-top:clamp(38px,5vw,72px)}.p120-conceptual-prose,.p120-boundary-list{max-width:930px}.p120-boundary-list p{margin-block:.52em}@media(max-width:760px){.p120-conceptual-insert{padding-top:38px;margin-top:30px}.p120-conceptual-prose,.p120-boundary-list{max-width:none}}';
+    document.head.appendChild(style);
   }
 
   function run(){
@@ -296,14 +287,15 @@
     const home=document.querySelector('.editorial-home');if(!home)return;
     addStyle();
     Object.entries(sections).forEach(([id,s])=>setSection(id,s));
-    insertCoreBlocks(home);
-    reconcileActs(home);
-    reconcileInterludes(home);
-    reconcileNavigation();
-    reconcileSupportInserts(home);
+    insertCoreBlocks(home);reconcileActs(home);reconcileInterludes(home);reconcileNavigation();reconcileSupportInserts(home);bindCanonicalActions(home);
+    home.dataset.p120ConceptualEntry=VERSION;
     document.documentElement.dataset.p120RuConceptualEntry=VERSION;
   }
   function schedule(){if(timer)clearTimeout(timer);timer=setTimeout(run,35);}
-  const start=()=>{run();new MutationObserver(schedule).observe(document.getElementById('app')||document.body,{childList:true,subtree:true});new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});};
+  const start=()=>{
+    run();
+    const app=document.getElementById('app');if(app)new MutationObserver(schedule).observe(app,{childList:true,subtree:false});
+    setTimeout(run,300);
+  };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
