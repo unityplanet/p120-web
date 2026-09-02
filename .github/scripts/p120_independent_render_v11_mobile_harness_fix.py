@@ -3,6 +3,8 @@ from pathlib import Path
 p=Path('qa/independent_render_audit_v1_1.mjs')
 s=p.read_text(encoding='utf-8')
 
+# A) Mobile language transitions live inside the closed drawer. The audit must open
+# the same user-facing mobile menu before requiring those links to be visible.
 old_sig="async function clickTransition(id,source,selector,expected,{mobile=false}={}){"
 new_sig="async function clickTransition(id,source,selector,expected,{mobile=false,revealMobileMenu=false}={}){"
 if old_sig not in s and new_sig not in s:
@@ -29,5 +31,40 @@ for old,new in pairs:
     elif new not in s:
         raise SystemExit(f'call marker missing: {old}')
 
+# B) Full-page screenshots must reflect the page after normal scrolling has activated
+# intersection/reveal states. Otherwise a static fullPage capture can contain large
+# false blank bands even though the live page displays content while scrolling.
+settle_marker="async function settle(page){\n  await page.waitForLoadState('networkidle',{timeout:9000}).catch(()=>{});\n  await page.waitForTimeout(700);\n}\n"
+reveal_block="""async function settle(page){
+  await page.waitForLoadState('networkidle',{timeout:9000}).catch(()=>{});
+  await page.waitForTimeout(700);
+}
+
+async function primeFullPageVisualState(page){
+  await page.evaluate(async()=>{
+    const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+    const step=Math.max(520,Math.floor(window.innerHeight*0.82));
+    const height=Math.max(document.documentElement.scrollHeight,document.body?.scrollHeight||0);
+    for(let y=0;y<=height;y+=step){
+      window.scrollTo(0,y);
+      await sleep(32);
+    }
+    window.scrollTo(0,0);
+    await sleep(260);
+  });
+}
+"""
+if 'async function primeFullPageVisualState(page)' not in s:
+    if settle_marker not in s:
+        raise SystemExit('settle marker missing for full-page visual priming')
+    s=s.replace(settle_marker,reveal_block,1)
+
+old_nav="    try{const res=await page.goto(BASE+route,{waitUntil:'domcontentloaded',timeout:30000});status=res?.status()??null;await settle(page);}catch(e){navError=String(e)}\n    const metrics=await page.evaluate(()=>({"
+new_nav="    try{const res=await page.goto(BASE+route,{waitUntil:'domcontentloaded',timeout:30000});status=res?.status()??null;await settle(page);await primeFullPageVisualState(page);}catch(e){navError=String(e)}\n    const metrics=await page.evaluate(()=>({"
+if old_nav in s:
+    s=s.replace(old_nav,new_nav,1)
+elif new_nav not in s:
+    raise SystemExit('render-loop visual priming marker missing')
+
 p.write_text(s,encoding='utf-8')
-print('Independent render v1.1 mobile harness corrected: drawer is opened before language-link visibility/click checks.')
+print('Independent render v1.1 harness corrected: mobile drawer-aware transitions + scroll-primed full-page screenshots.')
