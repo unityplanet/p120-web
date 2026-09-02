@@ -5,7 +5,8 @@ ROUTES = [
     (Path('en/science/index.html'), 'p120_science_page_state_en_v1'),
 ]
 MARKER = '<script id="p120-dedicated-science-bootstrap-v2">'
-TAG = '<script src="p120-scientific-base-runtime-v1.0.js?v=sbm10" data-p120-scientific-base-runtime="v1.0"></script>'
+OLD_TAG = '<script src="p120-scientific-base-runtime-v1.0.js?v=sbm10" data-p120-scientific-base-runtime="v1.0"></script>'
+TAG = '<script src="../p120-scientific-base-runtime-v1.0.js?v=sbm10" data-p120-scientific-base-runtime="v1.0"></script>'
 LEGACY = "const KEY='p120_web_prototype_v01';"
 
 for path, science_key in ROUTES:
@@ -21,6 +22,13 @@ for path, science_key in ROUTES:
     elif f"const KEY='{science_key}';" not in text:
         raise SystemExit(f'{path}: neither legacy nor expected Science state key found')
 
+    # Both dedicated routes have <base href="../">. Using ../ here resolves the
+    # runtime to the repository root for both /science/ and /en/science/.
+    if OLD_TAG in text:
+        if text.count(OLD_TAG) != 1:
+            raise SystemExit(f'{path}: old runtime tag occurrence mismatch')
+        text = text.replace(OLD_TAG, TAG, 1)
+
     count = text.count(TAG)
     if count > 1:
         raise SystemExit(f'{path}: duplicate Scientific Base runtime tags: {count}')
@@ -30,6 +38,6 @@ for path, science_key in ROUTES:
         text = text.replace(MARKER, TAG + '\n' + MARKER, 1)
 
     path.write_text(text, encoding='utf-8')
-    print(f'{path}: MATERIALIZED / STATE ISOLATED')
+    print(f'{path}: MATERIALIZED / STATE ISOLATED / ROOT-SAFE')
 
 print('P120 Scientific Base production migration materializer: PASS')
