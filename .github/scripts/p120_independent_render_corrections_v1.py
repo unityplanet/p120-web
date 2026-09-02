@@ -1,5 +1,6 @@
 from pathlib import Path
 import hashlib
+import re
 
 ROOT=Path('.')
 RU_SYSTEM=ROOT/'system/index.html'
@@ -33,16 +34,22 @@ elif new_start not in en:
     raise SystemExit('EN System start marker not found')
 
 # 3) EN Scientific Base: root-owned assets must escape its /en/ base URL.
-science_replacements=[
-    ('navigation-unification-v1.0.css?v=nav51','../navigation-unification-v1.0.css?v=nav51'),
-    ('extended-research-navigation-v1.0.js?v=exp50','../extended-research-navigation-v1.0.js?v=exp50'),
-]
-for old,new in science_replacements:
-    if new in science:
-        continue
-    count=science.count(old)
-    if count!=1: raise SystemExit(f'EN Science asset marker {old}: expected 1, found {count}')
-    science=science.replace(old,new,1)
+science_assets=['navigation-unification-v1.0.css','extended-research-navigation-v1.0.js']
+corrected_assets=[]
+for asset in science_assets:
+    # Match the source token plus optional cache query, but only when it is not already ../-prefixed.
+    pattern=re.compile(r'(?<!\.\./)'+re.escape(asset)+r'(?:\?[^"\'<>\s]*)?')
+    matches=pattern.findall(science)
+    if len(matches)>1:
+        raise SystemExit(f'EN Science asset {asset}: expected at most 1 uncorrected marker, found {len(matches)}')
+    if matches:
+        token=matches[0]
+        science=science.replace(token,'../'+token,1)
+    # Postcondition: an explicitly ../-prefixed token must now exist.
+    ok=re.search(r'\.\./'+re.escape(asset)+r'(?:\?[^"\'<>\s]*)?',science)
+    if not ok:
+        raise SystemExit(f'EN Science corrected asset missing: ../{asset}')
+    corrected_assets.append('../'+asset)
 
 # 4) RU legal pages: constrain hero grid min-content on narrow screens; content stays unchanged.
 legal_marker='/* P120 INDEPENDENT RENDER MOBILE LEGAL CONTAINMENT v1.0 */'
@@ -50,7 +57,6 @@ legal_fix='''\n\n/* P120 INDEPENDENT RENDER MOBILE LEGAL CONTAINMENT v1.0 */\n@m
 if legal_marker not in legal:
     legal=legal.rstrip()+legal_fix
 
-# Protected-scope sanity: no accidental item/scoring edits are part of this script.
 RU_SYSTEM.write_text(ru,encoding='utf-8')
 EN_SYSTEM.write_text(en,encoding='utf-8')
 EN_SCIENCE.write_text(science,encoding='utf-8')
@@ -60,8 +66,6 @@ LEGAL.write_text(legal,encoding='utf-8')
 for label,text in [('RU System',ru),('EN System',en)]:
     if text.count(guard_tag)!=1: raise SystemExit(f'{label}: guard tag count != 1')
 if old_start in en or new_start not in en: raise SystemExit('EN System start-route correction failed')
-for _,new in science_replacements:
-    if new not in science: raise SystemExit(f'EN Science corrected asset missing: {new}')
 if legal_marker not in legal: raise SystemExit('Legal containment marker missing')
 
 CONTROL.write_text(f'''# P120 Independent Render Corrections v1.0\n\n**Date:** 2026-09-02  \n**Status:** IMPLEMENTED / INDEPENDENT RENDER QA REQUIRED\n\n## Trigger\nIndependent Playwright render of 20 production pages in desktop and mobile modes identified four presentation/routing defects after PASS 2.2.\n\n## Corrections\n1. System locale switch: dedicated route guard preserves `/system/` ↔ `/en/system/` instead of falling back to editorial roots.\n2. EN System `?start=1`: query cleanup now preserves the current `/en/system/` pathname despite `<base href="../../">`.\n3. EN Scientific Base: two root-owned navigation assets now resolve from repository root, eliminating `/en/...` 404 requests.\n4. RU legal mobile containment: legal hero grid children can shrink/wrap at narrow widths; legal wording is unchanged.\n\n## Protected scope\n- P-120 item wording: **UNCHANGED**.\n- Item IDs/order/response values: **UNCHANGED**.\n- Scoring/interpretation logic: **UNCHANGED**.\n- Scientific Base content/evidence: **UNCHANGED**; only two asset URL references corrected.\n- Legal text: **UNCHANGED**; CSS containment only.\n- Editorial scientific copy/design grammar: **UNCHANGED**.\n\n## File hashes after patch\n- `system/index.html`: `{hashlib.sha256(ru.encode()).hexdigest()}`\n- `en/system/index.html`: `{hashlib.sha256(en.encode()).hexdigest()}`\n- `en/science/index.html`: `{hashlib.sha256(science.encode()).hexdigest()}`\n- `p120-legal-v1.0.css`: `{hashlib.sha256(legal.encode()).hexdigest()}`\n\n**Gate:** rerun independent 40-render desktop/mobile matrix, internal links, critical transitions, and live deployment QA before PASS 3.\n''',encoding='utf-8')
