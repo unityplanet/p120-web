@@ -3323,6 +3323,7 @@ const now=()=>new Date().toISOString();
 const uid=()=> 'P120-'+Math.random().toString(36).slice(2,8).toUpperCase();
 const fresh=()=>({participantId:uid(),screen:'home',itemIndex:0,responses:{},adminModes:{},telemetry:[{type:'session_created',at:now()}],startedAt:null,consentAt:null,lastSavedAt:now()});
 let state=load();
+if(['preflight','test','transition','results'].includes(state.screen)) state.screen='home';
 let theme=loadTheme();
 applyTheme(theme);
 if(state.screen==='welcome') state.screen='home';
@@ -3381,7 +3382,7 @@ function renderHeaderThemeMenu(){
   return `<details class="header-theme-menu desktop-only"><summary><span class="header-theme-dot"></span>${themeLabel(theme)}</summary><div class="header-theme-popover">${['ivory','graphite','museum'].map(t=>`<button class="header-theme-option ${theme===t?'active':''}" data-set-theme="${t}" aria-pressed="${theme===t}"><span class="theme-swatch theme-swatch-${t}"></span><span>${themeLabel(t)}</span></button>`).join('')}</div></details>`;
 }
 function isAssessmentScreen(){return ['preflight','test','transition','results'].includes(state.screen)}
-function startOrResume(){return hasProgress()?resumeTest():openPreflight()}
+function startOrResume(){location.href='system/';return false}
 function renderMobileBottomNav(){
   const startLabel=hasProgress()?'Продолжить':'Пройти';
   const activeHome=state.screen==='home'?'active':'';
@@ -3494,7 +3495,7 @@ function bindShell(){
   document.querySelectorAll('[data-mobile-jump-home]').forEach(b=>b.onclick=()=>{closeMobileMenu();goHome(b.dataset.mobileJumpHome)});
   document.querySelectorAll('[data-mobile-jump-science]').forEach(b=>b.onclick=()=>{closeMobileMenu();goScience(b.dataset.mobileJumpScience)});
   document.querySelectorAll('[data-mobile-start]').forEach(b=>b.onclick=()=>{closeMobileMenu();startOrResume()});
-  document.querySelectorAll('[data-mobile-resume]').forEach(b=>b.onclick=()=>{closeMobileMenu();resumeTest()});
+  document.querySelectorAll('[data-mobile-resume]').forEach(b=>b.onclick=()=>{closeMobileMenu();location.href='system/'});
   document.querySelectorAll('[data-mobile-menu]').forEach(b=>b.onclick=()=>toggleMobileMenu());
   document.querySelectorAll('[data-drawer-close]').forEach(b=>b.onclick=()=>closeMobileMenu());
   window.onkeydown=e=>{if(e.key==='Escape') closeMobileMenu()};
@@ -3725,7 +3726,7 @@ function renderBrandOriginTeaser(){
   return `<section class="brand-origin-teaser" id="brand-origin" data-reveal aria-labelledby="brand-origin-title"><div class="brand-origin-copy"><span class="brand-origin-kicker">THE NAME · BRAND ORIGIN</span><h2 id="brand-origin-title">Why P-120?</h2><p>72 + 48 explain the number. But not the whole meaning of the name.</p><a class="brand-origin-link" href="../why-p120/">Discover the story <span aria-hidden="true">→</span></a></div><div class="brand-origin-visual" aria-hidden="true"><strong>P-120</strong><span>72 + 48 = 120</span><i class="brand-origin-ghost">P</i><small class="brand-origin-caption">FACT → MEANING → SYMBOL → HUMAN</small></div></section>`;
 }
 function bindEditorialExperience(progress){
-  const start=()=>progress?resumeTest():openPreflight();
+  const start=()=>{location.href='system/'};
   document.querySelectorAll('[data-editorial-action="test"]').forEach(b=>b.onclick=start);
   document.querySelectorAll('[data-editorial-action="layers"]').forEach(b=>b.onclick=()=>elegantScrollTo('layers-insert'));
   document.querySelectorAll('[data-editorial-action="science"]').forEach(b=>b.onclick=()=>goScience());
@@ -4107,7 +4108,7 @@ const entryParams=new URLSearchParams(location.search);
 const initialRouteHash=(location.hash||'').replace(/^#/,'');
 const homeRouteAnchors=['why-important','life-energy','understand-desire','two-systems','why-p120','what-p120-shows','showcase','examples','science-foundation','life-importance','understand-earlier','final','brand-origin'];
 if(initialRouteHash&&homeRouteAnchors.includes(initialRouteHash)){state.screen='home';save()}
-if(entryParams.get('start')==='1'){state.screen=hasProgress()?'test':'preflight';save()}
+if(entryParams.get('start')==='1'){location.replace('system/');return}
 render();
 if(initialRouteHash)setTimeout(()=>{if(document.getElementById(initialRouteHash))elegantScrollTo(initialRouteHash)},120);
 updateReadingProgress();
