@@ -1,0 +1,1 @@
+Status: exact-font PDF sealing in progress. No measurement/scoring/runtime changes.
