@@ -51,8 +51,14 @@ const readSession=k=>page.evaluate(key=>JSON.parse(localStorage.getItem(key)||'n
 const invokeChoice=async value=>{
   const locator=page.locator(`.choice[data-value="${value}"]`);
   await locator.waitFor({state:'attached'});
-  await locator.evaluate(el=>el.click());
-  await page.waitForTimeout(120);
+  return locator.evaluate(el=>{
+    const key=window.P120_SESSION_KEY;
+    const before=key?localStorage.getItem(key):null;
+    const handlerType=typeof el.onclick;
+    if(handlerType==='function') el.onclick.call(el);
+    const after=key?localStorage.getItem(key):null;
+    return {handlerType,key,before,after};
+  });
 };
 
 const ru1=await systemSnapshot('/system/');
@@ -64,11 +70,10 @@ add('RU visit does not create EN session',ru1.en===null);
 add('RU current respondent item is SAT02',ru1.currentItem==='SAT02',{currentItem:ru1.currentItem});
 add('RU downstream intake reads RU session',ru1.intakePackage?.locale==='ru'&&ru1.intakePackage?.responses?.SAT01==='4',{locale:ru1.intakePackage?.locale});
 
-// Invoke the questionnaire's own button handler directly. A fresh QA browser may show the
-// independent legal-consent overlay; that gate is tested elsewhere and must not mask storage wiring.
-await invokeChoice('5');
+const ruInvoke=await invokeChoice('5');
+add('RU native answer handler is bound',ruInvoke.handlerType==='function',{handlerType:ruInvoke.handlerType,key:ruInvoke.key});
 const ruPersisted=await readSession(RU);
-add('RU respondent write persists in RU session',ruPersisted?.responses?.SAT02==='5',{value:ruPersisted?.responses?.SAT02});
+add('RU respondent write persists in RU session',ruPersisted?.responses?.SAT02==='5',{value:ruPersisted?.responses?.SAT02,handler:ruInvoke});
 const ruPkgAfterWrite=await page.evaluate(()=>window.P120SubmissionIntake?.buildPackage?.());
 add('RU intake exports RU respondent write',ruPkgAfterWrite?.locale==='ru'&&ruPkgAfterWrite?.responses?.SAT02==='5');
 
@@ -83,9 +88,10 @@ add('EN migration does not mutate legacy',en1.legacy===legacyRaw);
 add('EN current respondent item is SAT02',en1.currentItem==='SAT02',{currentItem:en1.currentItem});
 add('EN downstream intake reads EN session',en1.intakePackage?.locale==='en'&&en1.intakePackage?.responses?.SAT01==='4'&&en1.intakePackage?.responses?.SAT02===undefined,{locale:en1.intakePackage?.locale});
 
-await invokeChoice('2');
+const enInvoke=await invokeChoice('2');
+add('EN native answer handler is bound',enInvoke.handlerType==='function',{handlerType:enInvoke.handlerType,key:enInvoke.key});
 const enPersisted=await readSession(EN);
-add('EN respondent write persists in EN session',enPersisted?.responses?.SAT02==='2',{value:enPersisted?.responses?.SAT02});
+add('EN respondent write persists in EN session',enPersisted?.responses?.SAT02==='2',{value:enPersisted?.responses?.SAT02,handler:enInvoke});
 const enPkgAfterWrite=await page.evaluate(()=>window.P120SubmissionIntake?.buildPackage?.());
 add('EN intake exports EN respondent write',enPkgAfterWrite?.locale==='en'&&enPkgAfterWrite?.responses?.SAT02==='2');
 
