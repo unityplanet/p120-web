@@ -6,7 +6,7 @@ import subprocess
 
 RU=Path('system/index.html')
 EN=Path('en/system/index.html')
-FREEZE_REF='freeze/p120-web-pre-reconciliation-2026-09-02'
+FREEZE_REF='origin/freeze/p120-web-pre-reconciliation-2026-09-02'
 
 
 def sha(s): return hashlib.sha256(s.encode('utf-8')).hexdigest()
