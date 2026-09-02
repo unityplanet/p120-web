@@ -7,7 +7,7 @@
   const REGISTRY_FILE='P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json';
   const EXPECTED_SCHEMA='P120-WEBSCI-PRODUCTION-001';
   const CORE_IDS=['science-layers','science-constructs','science-evidence'];
-  const REQUIRED_ANCHORS=['science-foundation','science-layers','science-constructs','science-evidence','science-validation','science-ethics','science-refs'];
+  const REQUIRED_ANCHORS=['science-top','science-layers','science-constructs','science-evidence','science-hypotheses','science-validation','science-ethics','science-refs'];
   const COUNT_KEYS=['metrics','layers','p72','p72d','evidenceMap','discriminantBoundaries','hypotheses','validation','ethics','limitations','internalSources','references'];
   const dedicated=/(?:^|\/)(?:en\/)?science\/?$/i.test(location.pathname);
   if(!dedicated)return;
@@ -50,7 +50,7 @@
       const actual=Array.isArray(D?.[key])?D[key].length:null;
       if(actual!==expected[key])fail(`Core count mismatch ${key}: ${actual} != ${expected[key]}`);
     });
-    REQUIRED_ANCHORS.forEach(id=>{if(!document.getElementById(id))fail(`legacy anchor missing: #${id}`);});
+    REQUIRED_ANCHORS.forEach(id=>{if(!document.getElementById(id))fail(`dedicated Science anchor missing: #${id}`);});
     if(!document.querySelector('.science-page'))fail('Scientific Base visual root missing');
     if((D.references||[]).length!==45)fail(`reference corpus changed: ${(D.references||[]).length}`);
   }
@@ -208,7 +208,7 @@
         else (panel||document.getElementById('p120-science-atlas'))?.scrollIntoView({behavior:'smooth',block:'start'});
       });
     }
-    window.dispatchEvent(new CustomEvent('p120:scientific-base-change',{detail:{baseId,stateModuleId:state.activeModuleId}}));
+    window.dispatchEvent(new CustomEvent('p120:scientific-base-change',{detail:{baseId,moduleId:state.activeModuleId}}));
     return baseId;
   }
 
