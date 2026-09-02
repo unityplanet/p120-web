@@ -4,12 +4,14 @@ on:
   push:
     branches:
       - 'work/p120-deployment-path-reconciliation-pass4a'
+      - 'work/p120-pass4a-science-qa-reconciliation'
       - 'main'
     paths:
       - 'science/index.html'
       - 'en/science/index.html'
       - 'qa/pass4a_deployment_path_gate.mjs'
       - '.github/workflows/p120-pass4a-deployment-path-gate.yml'
+      - '.github/workflows/p120-scientific-base-production-gate.yml'
       - 'P120_PASS4A_DEPLOYMENT_PATH_RECONCILIATION_v1.0.md'
   workflow_dispatch:
 
@@ -36,6 +38,7 @@ jobs:
             'en/science/index.html',
             'qa/pass4a_deployment_path_gate.mjs',
             '.github/workflows/p120-pass4a-deployment-path-gate.yml',
+            '.github/workflows/p120-scientific-base-production-gate.yml',
             '.github/scripts/p120_pass4a_deployment_path_apply.py',
             '.github/workflows/p120-pass4a-deployment-path-apply.yml',
             'P120_PASS4A_DEPLOYMENT_PATH_RECONCILIATION_v1.0.md',
