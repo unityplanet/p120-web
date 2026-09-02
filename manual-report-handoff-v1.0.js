@@ -8,7 +8,7 @@
   const STORAGE_KEY = 'p120_web_prototype_v01';
   const ROOT_ID = 'p120-manual-report-handoff';
   const STYLE_ID = 'p120-manual-report-handoff-style';
-  const isEn = /\/en\/(?:index\.html)?$/i.test(location.pathname);
+  const isEn = /(^|\/)en(?:\/|$)/i.test(location.pathname);
   let timer = 0;
 
   const copy = isEn ? {

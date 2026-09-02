@@ -1,0 +1,6 @@
+P120-WEB-REC-PASS1
+VERSION=1.0
+STATUS=PASS
+DATE=2026-09-02
+WORK_BRANCH_HEAD_AFTER_CONTROL_PACKAGE=94bc29b305b0a96aad3ff2f02001630fa82cc521
+NOTE=Subsequent marker commits may advance the work-branch HEAD; production baseline remains separately frozen.

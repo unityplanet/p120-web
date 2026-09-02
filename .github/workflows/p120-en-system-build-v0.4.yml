@@ -1,4 +1,4 @@
-name: P-120 EN System Build v0.4
+name: P-120 Native System Route Build
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
       - 'system/index.html'
       - 'localization/p120-en-items-*.js'
       - 'localization/p120-en-pass4-overrides-v0.4.js'
-      - 'p120-en-instrument-bind-v0.4.js'
-      - 'p120-en-system-runtime-v0.4.js'
+      - '.github/scripts/p120_pass2_native_routes.py'
+      - '.github/scripts/p120_pass2_native_routes_runner.py'
       - '.github/workflows/p120-en-system-build-v0.4.yml'
   workflow_dispatch:
 
@@ -16,7 +16,7 @@ permissions:
   contents: write
 
 jobs:
-  build-en-system:
+  build-native-system-routes:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,109 +24,47 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Build canonical English System route
+      - name: Materialize native RU and EN System routes
+        run: python .github/scripts/p120_pass2_native_routes_runner.py
+
+      - name: Verify native route contract
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
-
-          src = Path('system/index.html').read_text(encoding='utf-8')
-
-          src = src.replace('<html lang="ru">', '<html lang="en">', 1)
-          src = src.replace('<base href="../" />', '<base href="../../" />', 1)
-          src = src.replace(
-              'content="P-120 System — каноническая страница замороженного исследовательского инструмента P-120."',
-              'content="P-120 System — English research version of the controlled P-120 instrument."',
-              1
-          )
-          src = src.replace('content="ru_RU"', 'content="en_US"', 1)
-          src = src.replace(
-              'content="P-120 — архитектура притяжения и близости"',
-              'content="P-120 — architecture of attraction and intimacy"'
-          )
-          src = src.replace(
-              'content="Многослойная исследовательская система о притяжении, близости, телесном отклике и устойчивости желания."',
-              'content="A multilayer research system exploring attraction, intimacy, bodily response, and the stability of desire."',
-              1
-          )
-          src = src.replace(
-              'content="Research Candidate · 18+ · многослойная исследовательская архитектура."',
-              'content="Research Candidate · 18+ · multilayer research architecture."',
-              1
-          )
-          src = src.replace('<title>System — P-120</title>', '<title>P-120 System — English research version</title>', 1)
-          src = src.replace('>Перейти к содержанию<', '>Skip to content<', 1)
-
-          # Inject controlled EN item corpus after the frozen RU instrument payload
-          # and before the unchanged scoring/app runtime consumes it.
-          marker = '  <!-- inlined: app.js -->'
-          injection = '''  <!-- P-120 EN controlled localization v0.4 · PASS 4 -->
-          <script src="localization/p120-en-items-sat24-v1.0.js?v=en04"></script>
-          <script src="localization/p120-en-items-p72-q01-q48-v1.0.js?v=en04"></script>
-          <script src="localization/p120-en-items-p72-q49-q72-v1.0.js?v=en04"></script>
-          <script src="localization/p120-en-items-p72d-v1.0.js?v=en04"></script>
-          <script src="localization/p120-en-items-ao12-v1.0.js?v=en04"></script>
-          <script src="localization/p120-en-items-soma24-v1.0.js?v=en04"></script>
-          <script src="localization/p120-en-pass4-overrides-v0.4.js?v=en04"></script>
-          <script src="p120-en-instrument-bind-v0.4.js?v=en04"></script>
-          '''
-          if marker not in src:
-              raise SystemExit('app.js marker not found; refusing unsafe EN build')
-          src = src.replace(marker, injection + marker, 1)
-
-          # Post-render respondent UI localization. The app/scoring source itself is
-          # intentionally not rewritten.
-          runtime = '  <script src="p120-en-system-runtime-v0.4.js?v=en04" data-p120-en-system-runtime="v0.4"></script>\n'
-          if '</body>' not in src:
-              raise SystemExit('body close not found')
-          src = src.replace('</body>', runtime + '</body>', 1)
-
-          Path('en/system').mkdir(parents=True, exist_ok=True)
-          Path('en/system/index.html').write_text(src, encoding='utf-8')
-          print('Built en/system/index.html from frozen system/index.html')
+          import json,re
+          ru=Path('system/index.html').read_text(encoding='utf-8')
+          en=Path('en/system/index.html').read_text(encoding='utf-8')
+          required_ru=['<html lang="ru">','data-p120-route-authority="native-ru"','<base href="../" />']
+          required_en=['<html lang="en">','data-p120-route-authority="native-en"','<base href="../../" />']
+          for token in required_ru:
+              if token not in ru: raise SystemExit('RU native route requirement missing: '+token)
+          for token in required_en:
+              if token not in en: raise SystemExit('EN native route requirement missing: '+token)
+          forbidden=['p120-en-system-runtime-v0.4.js','p120-en-instrument-bind-v0.4.js','p120-public-runtime-v1.0.js','founder-route-v1.1.js','extended-research-navigation-v1.0.js','science-navigation-reconciliation-v1.0.js']
+          for token in forbidden:
+              if token in ru or token in en: raise SystemExit('Forbidden System runtime coupling: '+token)
+          def inst(s):
+              m=re.search(r'window\.P120_INSTRUMENT\s*=\s*(\{.*?\});\s*</script>',s,re.S)
+              if not m: raise SystemExit('instrument missing')
+              return json.loads(m.group(1))
+          def manifest(x):
+              return [(i['id'],i.get('module'),i.get('type'),tuple(c.get('value') for c in i.get('choices',[]))) for i in x['items']]
+          if manifest(inst(ru)) != manifest(inst(en)): raise SystemExit('coded response manifest mismatch')
+          if len(manifest(inst(ru))) != 180: raise SystemExit('item count != 180')
+          print('Native System route contract: PASS')
           PY
 
-      - name: Static localization integrity checks
+      - name: Commit generated route materialization
         shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-
-          p = Path('en/system/index.html')
-          s = p.read_text(encoding='utf-8')
-          required = [
-              '<html lang="en">',
-              '<base href="../../" />',
-              'p120-en-pass4-overrides-v0.4.js',
-              'p120-en-instrument-bind-v0.4.js',
-              'p120-en-system-runtime-v0.4.js',
-              'window.P120_INSTRUMENT',
-              'window.P120Scoring'
-          ]
-          missing = [x for x in required if x not in s]
-          if missing:
-              raise SystemExit('Missing EN System requirements: ' + ', '.join(missing))
-
-          # Frozen ID manifest must still be present exactly once per item object
-          # in the inherited instrument payload.
-          ids = re.findall(r'"id"\s*:\s*"(SAT\d{2}|Q\d{2}|D\d{2}|AO\d{2}|SOMA\d{2})"', s)
-          # This page contains other data structures too, so this is only a lower-bound
-          # safety check; the authoritative 180/180 check occurs in the binding script.
-          if len(set(ids)) < 180:
-              raise SystemExit(f'Only {len(set(ids))} unique scored IDs found')
-          print('EN System static integrity: PASS')
-          PY
-
-      - name: Commit generated English System page
-        shell: bash
-        run: |
-          if [ -z "$(git status --porcelain -- en/system/index.html)" ]; then
-            echo 'English System page already current.'
+          files=(system/index.html en/system/index.html manual-report-handoff-v1.0.js p120-submission-intake-v1.0.js P120_WEB_RECONCILIATION_PASS2_NATIVE_ROUTE_QA.json)
+          if [ -z "$(git status --porcelain -- "${files[@]}")" ]; then
+            echo 'Native System routes already current.'
           else
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add en/system/index.html
-            git commit -m 'Build English P-120 System runtime v0.4'
+            git add "${files[@]}"
+            git commit -m 'Build native RU and EN P-120 System routes'
             git push
           fi

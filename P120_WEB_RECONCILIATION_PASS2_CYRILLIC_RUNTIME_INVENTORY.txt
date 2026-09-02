@@ -1,0 +1,192 @@
+P120 WEB RECONCILIATION PASS 2 — CYRILLIC RUNTIME INVENTORY
+Scope: system/index.html app.js block only
+Lines containing Cyrillic: 188
+
+0035	    SAT24:'Обычные прикосновения, границы и телесный комфорт.',
+0036	    P72:'Что именно захватывает внимание и включает притяжение.',
+0037	    P72D:'Как желание меняется со временем, близостью и повторяемостью.',
+0038	    AO12:'Как переживаются доверие, дистанция и значимая близость.',
+0039	    SOMA24:'Как тело замечает, удерживает и теряет эротический отклик.'
+0043	  return ({'General Pattern':'Общая повторяющаяся тенденция','Index Relationship':'Одна конкретная связь','Limited Experience':'Ограниченный опыт'})[value] || value;
+0046	  return ({'General Pattern':'Повторяющаяся общая тенденция.','Index Relationship':'Все ответы относятся к одной выбранной связи.','Limited Experience':'Только реально пережитый опыт; Н/Д ожидаемы.'})[value] || '';
+0063	function themeLabel(next){return ({ivory:'Светлая',graphite:'Графит',museum:'Музейная'})[next] || next}
+0065	  return `<div class="theme-switch ${extra}" aria-label="Темы оформления"><span class="theme-switch-label">Тема</span>${['ivory','graphite','museum'].map(t=>`<button class="theme-chip ${theme===t?'active':''}" data-set-theme="${t}" aria-pressed="${theme===t}">${themeLabel(t)}</button>`).join('')}</div>`;
+0073	  const startLabel=hasProgress()?'Продолжить':'Пройти';
+0077	  return `<nav class="mobile-bottom-nav" aria-label="Быстрая мобильная навигация"><span class="mobile-reading-rail" aria-hidden="true"><i></i></span>
+0078	    <button class="${activeHome}" data-home><span class="mobile-nav-icon">⌂</span><small>Главная</small></button>
+0079	    <button class="${state.screen==='home'?'active':''}" data-mobile-jump-home="why-important"><span class="mobile-nav-icon">◌</span><small>О тесте</small></button>
+0080	    <button class="${activeScience}" data-science><span class="mobile-nav-icon">◎</span><small>Наука</small></button>
+0086	    ['Верх научной базы','science-top','science'],['5 слоёв','science-layers','science'],['Конструкты','science-constructs','science'],['Карта доказательности','science-evidence','science'],['Литература','science-refs','science']
+0088	    ['Почему P-120 важен','why-important','home'],['Почему именно P-120','why-p120','home'],['Что P-120 может показать','what-p120-shows','home'],['Пример отчёта','showcase','home'],['Примеры результатов','examples','home']
+0090	  const startLabel=hasProgress()?'Продолжить тест':'Пройти P-120';
+0091	  const progressCard=hasProgress()?`<div class="mobile-menu-progress"><div class="mobile-menu-progress-top"><div><span>Текущая сессия</span><strong>${pct()}%</strong></div><span>${totalAnswered()} из ${I.items.length}</span></div><div class="mini-track"><div class="mini-fill" style="width:${pct()}%"></div></div></div>`:'';
+0092	  const current=isAssessmentScreen()?`<div class="mobile-menu-meta">Текущий экран: <strong>${state.screen==='test'?'тест':state.screen==='preflight'?'подготовка':state.screen==='transition'?'переход между модулями':state.screen==='results'?'результат':'главная'}</strong>${hasProgress()?` · общий прогресс ${pct()}%`:''}</div>`:'';
+0096	        <div class="mobile-menu-title"><span class="mobile-menu-orb" aria-hidden="true"><span class="mobile-menu-node-a"></span><span class="mobile-menu-node-b"></span></span><div class="mobile-menu-copy"><strong>P-120</strong><span>исследовательская архитектура · 18+</span></div></div>
+0097	        <button class="mobile-menu-close" data-drawer-close aria-label="Закрыть меню">×</button>
+0102	          <span class="eyebrow">Навигация</span>
+0103	          <button class="mobile-menu-action primary" data-mobile-start><div><div>${startLabel}</div><small>Перейти к опроснику и сохранить ритм прохождения</small></div></button>
+0104	          ${hasProgress()?`<button class="mobile-menu-action" data-mobile-resume><div><div>Продолжить текущую сессию</div><small>${pct()}% общего прогресса</small></div></button>`:''}
+0105	          <button class="mobile-menu-action" data-home><div><div>Главная страница</div><small>Вернуться к editorial-структуре</small></div></button>
+0106	          <button class="mobile-menu-action" data-why-origin><div><div>Почему P-120?</div><small>История названия · 72 + 48 · символический слой бренда</small></div></button>
+0107	          <button class="mobile-menu-action" data-science><div><div>Научная база</div><small>Открыть отдельный научный раздел</small></div></button>
+0110	          <span class="eyebrow">Разделы</span>
+0111	          ${links.map(([label,id,kind])=>`<button class="mobile-menu-link" ${kind==='science'?`data-mobile-jump-science="${id}"`:`data-mobile-jump-home="${id}"`}><div><div>${label}</div><small>${kind==='science'?'перейти в научную базу':'перейти на главной странице'}</small></div></button>`).join('')}
+0114	          <span class="eyebrow">Тема оформления</span>
+0143	          <button class="brand-button" data-home aria-label="P-120 — главное меню">
+0145	            <span class="brand-lockup"><span class="brand">P-120</span><span class="brand-sub">исследовательская архитектура</span></span>
+0148	        <nav class="topnav" aria-label="Главная навигация">
+0149	          <button class="navlink" data-nav="why-important">О P-120</button>
+0150	          <button class="navlink navlink-origin" data-why-origin>Почему P-120?</button>
+0151	          <button class="navlink" data-nav="why-p120">Уникальность</button>
+0152	          <button class="navlink" data-nav="what-p120-shows">Что покажет</button>
+0153	          <button class="navlink" data-nav="showcase">Отчёт</button>
+0154	          <a class="navlink system-navlink" href="system/" aria-current="page" style="text-decoration:none">Система</a>
+0155	          <button class="navlink science-navlink" data-science>Научная база</button>
+0159	          <span class="badge desktop-only">Исследовательская версия · 18+</span>
+0160	          ${showSave?`<span class="badge desktop-only"><span class="save-dot"></span><span id="save-status">автосохранение</span></span>`:''}
+0161	          ${showProgress?`<span class="badge progress-badge" aria-label="Общий прогресс теста ${p}%">${p}%</span>`:''}
+0162	          ${home?'':`<button class="menu-btn desktop-home-btn" data-home>Главная</button>`}
+0163	          <button class="mobile-menu-toggle" data-mobile-menu aria-label="Открыть меню" aria-expanded="false"><span></span><span></span><span></span></button>
+0236	function updateTopbar(){const e=$('#save-status');if(e)e.textContent='сохранено '+new Date(state.lastSavedAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
+0241	    <div class="eyebrow participant-label">Участник ${esc(state.participantId)}</div>
+0243	    <div class="sidebar-summary"><div class="small">Сессия сохраняется автоматически в этом браузере. Возврат в главное меню не удаляет ответы.</div></div>
+0252	  return `<div class="module-progress-block" aria-label="Прогресс модуля ${esc(m.name)}: ${pos} из ${total}"><div class="module-progress-meta"><span>${esc(m.name)} · прогресс модуля</span><strong>${pos} / ${total} · ${mp}%</strong></div><div class="module-progress-track"><div class="module-progress-fill" style="width:${mp}%"></div></div></div>`;
+0255	  return `<details class="example-profile"><summary><div class="example-index">${esc(x.id)}</div><div class="example-title"><span class="eyebrow">Пример профиля</span><strong>${esc(x.name)}</strong><p>${esc(x.strap)}</p></div><span class="example-open">Подробнее</span></summary><div class="example-body"><p class="example-summary">${esc(x.summary)}</p><div class="signal-list">${x.signals.map(s=>`<div class="signal-row"><div class="signal-label"><strong>${esc(s[0])}</strong><span>${esc(s[2])}</span></div><div class="signal-track"><div style="width:${Number(s[1])}%"></div></div><span class="signal-value">${Number(s[1])}</span></div>`).join('')}</div><div class="example-bottom"><div><span class="eyebrow">Что обычно поддерживает такой профиль</span><div class="condition-tags">${x.conditions.map(c=>`<span>${esc(c)}</span>`).join('')}</div></div><div class="example-watch"><strong>Важно не перепутать</strong><p>${esc(x.watch)}</p></div></div></div></details>`;
+0260	  let m=clean.match(/^(.*?) и (.*?) — не одно и то же$/i);
+0262	  m=clean.match(/^(Умение .*?) и (способность .*?) — тоже разные процессы$/i);
+0269	  return `<div class="editorial-body semantic-life-energy"><div class="grammar-kicker">Желание как направление движения</div><div class="semantic-flow-intro">${b.slice(0,2).map(x=>`<p>${esc(x)}</p>`).join('')}</div><div class="semantic-flow-grid">${manifestations.map((x,i)=>`<article class="semantic-flow-card"><span>${String(i+1).padStart(2,'0')} · ФОРМА ПРОЯВЛЕНИЯ</span><p>${esc(x)}</p></article>`).join('')}</div><div class="editorial-prose">${b.slice(11).map(x=>`<p>${esc(x)}</p>`).join('')}</div></div>`;
+0273	  const dimensions=['желание','тело','прикосновение','приближение / дистанция','новизна','свобода','безопасность','привязанность','восстановление близости'];
+0274	  return `<div class="editorial-body semantic-two-systems"><div class="grammar-kicker">Девять измерений, которые есть у обоих</div><div class="semantic-sequence">${b.slice(0,9).map((x,i)=>`<div class="semantic-sequence-row"><span>${String(i+1).padStart(2,'0')}</span><p>${esc(x)}</p></div>`).join('')}</div><section class="systems-encounter"><div class="systems-encounter-head"><h3>Встречаются две системы — не два противоположных полюса.</h3><p>У каждого человека есть свой рисунок по этим измерениям. Сходство не обязательно, а различие не означает несовместимость само по себе.</p></div><div class="systems-encounter-grid"><article class="system-panel"><div class="system-panel-head"><span>A</span><strong>Ваша система</strong></div><div class="system-dimensions">${dimensions.map(x=>`<span>${esc(x)}</span>`).join('')}</div></article><div class="system-meet"><strong>+</strong><span>встречаются</span></div><article class="system-panel"><div class="system-panel-head"><span>B</span><strong>Система другого</strong></div><div class="system-dimensions">${dimensions.map(x=>`<span>${esc(x)}</span>`).join('')}</div></article></div></section><div class="systems-closing">${b.slice(9).map(x=>`<p>${esc(x)}</p>`).join('')}</div></div>`;
+0278	  return `<div class="editorial-body semantic-precision"><div class="grammar-kicker">Процессы, которые важно не смешивать</div><div class="semantic-distinction-list">${b.slice(0,7).map((x,i)=>{const pair=splitContrastThesis(x);return pair?`<article class="semantic-distinction-card"><div class="semantic-distinction-side"><p>${esc(pair[0])}</p></div><div class="semantic-distinction-op"><strong>≠</strong><small>не одно и то же</small></div><div class="semantic-distinction-side"><p>${esc(pair[1])}</p></div></article>`:`<article class="semantic-distinction-card"><div class="semantic-distinction-side" style="grid-column:1/-1"><p>${esc(x)}</p></div></article>`}).join('')}</div><p class="semantic-distinction-closing">${esc(b[7])}</p></div>`;
+0283	    ['Внимание и эстетика',b.slice(0,3)],
+0284	    ['Ответ партнёра',b.slice(3,5)],
+0285	    ['Новизна и устойчивость',b.slice(5,8)],
+0286	    ['Близость и регуляция',b.slice(8,12)],
+0287	    ['Тело и восстановление',b.slice(12,14)]
+0289	  return `<div class="editorial-body semantic-orbital-map"><div class="grammar-kicker">Карта независимых, но взаимодействующих сигналов</div><div class="orbital-map-shell"><div class="orbital-map-core"><div><strong>P-120</strong><span>не один показатель</span></div></div><div class="orbital-cluster-grid">${groups.map((g,i)=>`<article class="orbital-cluster"><span class="orbital-cluster-node" aria-hidden="true"></span><h4>${esc(g[0])}</h4><ul>${g[1].map(x=>`<li>${esc(x.replace(/;$/,''))}</li>`).join('')}</ul></article>`).join('')}</div></div></div>`;
+0331	  return body[0]==='Можно очень любить человека и при этом по-разному переживать близость.';
+0373	  return `<section class="editorial-interlude interlude-${index}" data-reveal aria-label="Редакционная пауза"><div class="interlude-mark" aria-hidden="true"><span></span><i></i><b></b></div><p>${esc(line)}</p></section>`;
+0377	    <div class="support-head"><div><span class="eyebrow">Карта инструмента</span><h2>Пять слоёв. Пять разных вопросов к одному человеку.</h2></div><p>Каждый слой остаётся самостоятельным. Смысл появляется не из одного общего числа, а из того, как эти части сочетаются — или расходятся — именно у вас.</p></div>
+0379	      <div class="layer-card"><span class="num">01 · SAT-24</span><strong>Социальное прикосновение</strong><p>Как несексуальное прикосновение приобретает эмоциональное и телесное значение.</p></div>
+0380	      <div class="layer-card"><span class="num">02 · P-72</span><strong>Активация</strong><p>Что захватывает внимание и организует эротико-эстетическое вовлечение.</p></div>
+0381	      <div class="layer-card"><span class="num">03 · P-72D</span><strong>Устойчивость желания</strong><p>Что происходит с желанием при знакомстве, повторяемости, близости и восстановлении контакта.</p></div>
+0382	      <div class="layer-card"><span class="num">04 · AO-12</span><strong>Регуляция близости</strong><p>Как переживаются доверие, дистанция, неопределённость и опора на другого.</p></div>
+0383	      <div class="layer-card"><span class="num">05 · SOMA-24</span><strong>Телесный отклик</strong><p>Как собственное тело замечает, различает и модулирует эротически значимый отклик.</p></div>
+0389	    ['Активация через форму и красоту','AE / EA / SG',86],
+0390	    ['Устойчивость при близости','FCS / BENH',78],
+0391	    ['Телесная доступность','SOMA / SAT',74],
+0392	    ['Нежелательные триггеры','HAV / AV',58]
+0395	    <div class="support-head"><div><span class="eyebrow">Пример будущего отчёта</span><h2>Результат должен ощущаться как портрет, а не как таблица баллов.</h2></div><p>Это демонстрационная визуализация. Реальный отчёт будет строиться из рассчитанных профилей, качества покрытия и разрешённых интерпретаций — и описывать человека значительно глубже.</p></div>
+0397	      <article class="showcase-cover"><div class="showcase-cover-top"><span class="eyebrow">Профиль участника</span><span class="showcase-chip">пример</span></div><h3>«Эстетически-резонансный партнёрный профиль»</h3><p>Сильное вовлечение через форму, красоту и целостность образа становится устойчивее в условиях эмоциональной ответности и живого контакта.</p><div class="showcase-conditions"><span>эстетическая выразительность</span><span>живая ответность</span><span>эмоциональная безопасность</span><span>телесная доступность</span></div></article>
+0398	      <article class="showcase-summary"><div class="showcase-note">В итоговом отчёте здесь будут несколько независимых профилей и подробный текст с объяснением межмодульных связей.</div><div class="showcase-bars">${signals.map(row=>`<div class="showcase-bar"><div class="showcase-bar-head"><strong>${row[0]}</strong><span>${row[1]}</span></div><div class="showcase-track"><div style="width:${row[2]}%"></div></div></div>`).join('')}</div><div class="showcase-narrative-card inline-narrative"><span class="eyebrow">Как это может звучать</span><p>«Ваше притяжение чаще начинается как эстетическое узнавание формы, усиливается ощущением взаимного присутствия и закрепляется тогда, когда в контакте появляется живая ответность, а не просто доступность другого человека.»</p></div></article>
+0403	  return `<section class="support-insert examples-insert" id="examples" data-reveal><div class="support-head"><div><span class="eyebrow">Возможные конфигурации</span><h2>Одинаковая внешняя реакция может иметь совершенно разное внутреннее устройство.</h2></div><p>Эти 10 примеров не являются официальной типологией. Они показывают, насколько по-разному может складываться карта человека — и почему реальный отчёт должен быть многослойным.</p></div><div class="examples-grid">${E.map(renderExampleCard).join('')}</div></section>`;
+0407	    <div class="science-confidence-copy"><span class="eyebrow">Прозрачность доказательной базы</span><h2>Не скрывать границы знания — часть научного дизайна P-120.</h2><p>Верифицированный ledger и более широкая методологическая библиотека — разные уровни. Сайт показывает оба: проверенные peer-reviewed источники отдельно от более широкого массива научно-методологических материалов.</p><div class="hero-actions"><button class="btn large" data-science>Открыть научную базу</button><a class="btn secondary large button-link" href="${esc(D.document.pdf)}" target="_blank" rel="noopener">Scientific Concept Paper · PDF</a></div></div>
+0408	    <div class="science-ledger-grid"><div><strong>33</strong><span>верифицированных peer-reviewed источника в scientific ledger</span></div><div><strong>45</strong><span>источников в более широкой научно-методологической базе сайта</span></div><div><strong>16</strong><span>фальсифицируемых межслойных гипотез</span></div><div><strong>13</strong><span>этапов программы валидации</span></div></div>
+0412	  return `<section class="brand-origin-teaser" id="brand-origin" data-reveal aria-labelledby="brand-origin-title"><div class="brand-origin-copy"><span class="brand-origin-kicker">THE NAME · BRAND ORIGIN</span><h2 id="brand-origin-title">Почему P-120?</h2><p>72 + 48 объясняют число. Но не весь смысл названия.</p><a class="brand-origin-link" href="why-p120/">Узнать историю <span aria-hidden="true">→</span></a></div><div class="brand-origin-visual" aria-hidden="true"><strong>P-120</strong><span>72 + 48 = 120</span><i class="brand-origin-ghost">P</i><small class="brand-origin-caption">FACT → MEANING → SYMBOL → HUMAN</small></div></section>`;
+0441	    ${progress?`<div class="editorial-resume-rail"><span>У вас сохранена незавершённая сессия · ${pct()}%</span><button id="editorialResume" class="btn">Продолжить с ${esc(I.items[Math.min(state.itemIndex,I.items.length-1)]?.id || 'теста')}</button><button id="homeRestart" class="btn ghost">Новая сессия</button></div>`:''}
+0442	    <div class="act-marker"><span>Акт I</span><strong>Увидеть внутреннюю систему</strong></div>
+0445	    <div class="act-marker"><span>Акт II</span><strong>Понять различия и отношения</strong></div>
+0451	    <div class="act-marker"><span>Акт III</span><strong>Опора на науку и реальную жизнь</strong></div>
+0454	    <div class="act-marker"><span>Акт IV</span><strong>Открыть свою карту</strong></div>
+0456	    <section class="editorial-endnote" data-reveal><div><span class="eyebrow">Research Candidate · 18+</span><p>P-120 не является диагнозом и не сводит человека к одному баллу. N/A означает недостаток релевантного опыта, а индивидуальная форма не устанавливает фактическую совместимость конкретной пары.</p></div><div><span class="eyebrow">Конфиденциальность текущей версии</span><p>Для прохождения не нужны имя, e-mail или телефон. Пока backend не подключён, ответы сохраняются только локально в этом браузере.</p></div></section>
+0457	    <footer class="home-footer"><span>P-120 · Research Candidate · 18+</span><span>10 глав · 4 акта · многослойная исследовательская архитектура</span></footer>
+0475	        <h1>Научная база P-120.</h1>
+0478	          <div class="science-status-label">Статус доказательной базы</div>
+0482	          <a class="btn large button-link" href="${esc(D.document.pdf)}" target="_blank" rel="noopener">Открыть полный документ · PDF</a>
+0483	          <button class="btn secondary large" id="scienceHome">Главное меню</button>
+0487	        <span class="eyebrow">Основной академический документ</span>
+0489	        <p>${esc(D.document.version)}<br>${esc(D.document.date)} · ${D.document.pages} стр.</p>
+0490	        <div class="formula-card"><span>Корректная формула оригинальности</span><strong>${esc(D.positioning.formula)}</strong></div>
+0495	    <nav class="science-subnav" aria-label="Навигация по научной базе">
+0496	      <a href="#science-layers">5 слоёв</a>
+0497	      <a href="#science-constructs">Конструкты</a>
+0498	      <a href="#science-evidence">Карта доказательности</a>
+0499	      <a href="#science-hypotheses">Гипотезы</a>
+0500	      <a href="#science-validation">Валидация</a>
+0501	      <a href="#science-ethics">Этика</a>
+0502	      <a href="#science-refs">Литература</a>
+0506	      <div class="eyebrow">Модель</div>
+0507	      <h2>Пять слоёв остаются самостоятельными.</h2>
+0508	      <p class="lead">Согласующиеся и расходящиеся сигналы между слоями одинаково допустимы. Межслойный синтез не должен переписывать исходные показатели или создавать единый общий показатель сексуальности.</p>
+0509	      <div class="science-layer-grid">${D.layers.map(x=>`<article class="science-layer-card"><div class="science-code">${esc(x.code)}</div><h3>${esc(x.name)}</h3><p>${esc(x.focus)}</p><div class="boundary-note"><strong>Граница</strong>${esc(x.boundary)}</div></article>`).join('')}</div>
+0513	      <div class="section-split-head"><div><div class="eyebrow">Методологическая архитектура</div><h2>Кандидатные конструкты.</h2></div><p>P-72 разделяет начальную активацию на 12 компонентов; P-72D отдельно исследует судьбу уже возникшего желания во времени.</p></div>
+0515	        <summary><span>P-72 · 12 компонентов активации</span><span class="detail-meta">AE → GC</span></summary>
+0516	        <div class="construct-grid">${D.p72.map(x=>`<article class="construct-card"><div class="construct-head"><span class="science-code">${esc(x.code)}</span><span>${esc(x.name)}</span></div><strong>${esc(x.ru)}</strong><p>${esc(x.definition)}</p><div class="construct-boundary">Граница: ${esc(x.boundary)}</div></article>`).join('')}</div>
+0519	        <summary><span>P-72D · устойчивость желания</span><span class="detail-meta">NRW · END · ERC · Bond-Eros…</span></summary>
+0520	        <div class="durability-grid">${D.p72d.map(x=>`<article class="durability-card"><div><span class="science-code">${esc(x.code)}</span><strong>${esc(x.ru)}</strong><small>${esc(x.name)}</small></div><span class="evidence-pill ${x.status.includes('исслед')?'research':x.status.includes('сильн')?'moderate-strong':'mixed'}">${esc(x.status)}</span></article>`).join('')}</div>
+0523	        <summary><span>Критические дискриминантные границы</span><span class="detail-meta">${D.discriminantBoundaries.length} различий</span></summary>
+0529	      <div class="section-split-head"><div><div class="eyebrow">Карта доказательности</div><h2>Карта научной базы.</h2></div><p>Статус относится к поддержке родственного механизма или методологического прецедента — не к прямой валидации точной шкалы P-120.</p></div>
+0531	        <span class="evidence-pill strong">сильный прецедент</span>
+0532	        <span class="evidence-pill moderate-strong">умеренно сильная</span>
+0533	        <span class="evidence-pill moderate">умеренная</span>
+0534	        <span class="evidence-pill research">исследовательская</span>
+0535	        <span class="evidence-pill method">методологический прецедент</span>
+0538	        <div class="evidence-row evidence-head"><span>Научная традиция</span><span>Ближайший прецедент</span><span>P-120</span><span>Текущая оценка</span></div>
+0539	        ${D.evidenceMap.map(x=>`<div class="evidence-row"><span data-label="Традиция">${esc(x.tradition)}</span><span data-label="Прецедент">${esc(x.precedent)}</span><span data-label="P-120"><strong>${esc(x.construct)}</strong></span><span data-label="Оценка"><span class="evidence-pill ${supportClass(x.level)}">${esc(x.support)}</span></span></div>`).join('')}
+0545	        <div class="eyebrow">Проверяемость гипотез</div>
+0546	        <h2>16 гипотез, которые система обязана уметь проиграть.</h2>
+0547	        <p>Научная ценность здесь не в том, чтобы подтвердить любую исходную идею, а в том, чтобы данные могли разделить, объединить или отвергнуть кандидатные различия.</p>
+0551	        <div class="eyebrow">Условие выживания модели</div>
+0552	        <h3>Модель должна иметь право стать проще.</h3>
+0554	        <div class="science-callout"><strong>Критически допустимые исходы</strong><p>Меньше 12 факторов P-72, объединение соседних компонентов, отсутствие incremental validity ERC/EDP, сильный DIF или отсутствие ожидаемых межслойных связей — научно допустимые результаты, а не «провал теста».</p></div>
+0560	      <div class="section-split-head"><div><div class="eyebrow">Программа валидации</div><h2>Программа валидации 0–12.</h2></div><p>От контроля версий и процесса ответа — к структуре, независимой выборке, лонгитюдным данным, DIF, диадической валидации и независимой репликации.</p></div>
+0561	      <div class="validation-timeline">${D.validation.map(x=>`<article class="validation-step"><div class="validation-index">${esc(x.stage)}</div><div class="validation-copy"><strong>${esc(x.name)}</strong><p>${esc(x.work)}</p><div class="validation-criterion">Критерий · ${esc(x.criterion)}</div></div></article>`).join('')}</div>
+0566	        <div class="eyebrow">Этика и конфиденциальность</div><h2>Инварианты интерпретации.</h2>
+0570	        <div class="eyebrow">Ограничения</div><h3>Что может исказить результат.</h3>
+0572	        <div class="notice"><strong>Особенно важно для слоя автоматического отчёта.</strong><br>Убедительный по стилю текст не должен звучать точнее, чем позволяют рассчитанные данные и уровень доказательности. Поэтому движок повествовательного отчёта в рабочая версия получает только разрешённые интерпретации после детерминированного расчёта.</div>
+0577	      <div class="section-split-head"><div><div class="eyebrow">Научная и методологическая литература</div><h2>${D.references.length} источников.</h2></div><p>Список перенесён из Scientific Concept Paper v1.1. DOI открываются во внешнем окне.</p></div>
+0579	        <label class="reference-search"><span>Поиск по автору, теме или DOI</span><input id="refSearch" type="search" placeholder="например: привязанность, touch, Chivers, 10.1037…" /></label>
+0580	        <div class="ref-count"><strong id="refCount">${D.references.length}</strong><span>показано</span></div>
+0584	        <summary><span>Внутренние контролируемые источники</span><span class="detail-meta">${D.internalSources.length}</span></summary>
+0589	    <footer class="home-footer"><span>P-120 · Research Candidate · Научная база</span><button class="navlink" data-home>Вернуться в главное меню</button></footer>
+0607	  if(confirm('Удалить локальные ответы текущей сессии и создать новый идентификатор участника?')){state=fresh();save();renderHome()}
+0616	        <div class="eyebrow">Перед прохождением · 18+</div>
+0617	        <h2>Тихое пространство для внимательного и честного ответа.</h2>
+0618	        <p class="lead">Эта короткая подготовка нужна не для формальности, а для точности. Чем спокойнее и ближе к реальному опыту вы отвечаете, тем глубже и человечнее потом будет чтение результата.</p>
+0620	          <article class="luxury-ritual-card"><span>01</span><strong>Опирайтесь на реальный опыт</strong><p>Не на желаемый образ себя и не на то, как «должно быть». Для P-120 важнее живая достоверность, чем социально правильный ответ.</p></article>
+0621	          <article class="luxury-ritual-card"><span>02</span><strong>Используйте Н/Д честно</strong><p>Если релевантного опыта не было, такой ответ полезнее случайной оценки и не трактуется как низкий показатель.</p></article>
+0622	          <article class="luxury-ritual-card"><span>03</span><strong>Делайте паузу, если нужно</strong><p>Автосохранение позволяет спокойно прерваться и вернуться к текущей сессии в этом же браузере без потери ответов.</p></article>
+0627	            <strong>Рекомендуемый ритм прохождения</strong>
+0628	            <p>Лучше идти без спешки, отвечая по первому внутренне точному ощущению. Важно не «выиграть тест», а позволить ему бережно собрать карту вашей внутренней динамики.</p>
+0631	        <label class="consent luxury-consent"><input id="consent" type="checkbox"><span>Мне 18 лет или больше; я понимаю исследовательский статус формы и хочу начать самостоятельное прохождение.</span></label>
+0632	        <div class="actions"><button id="start" class="btn large" disabled>Начать P-120</button><button id="preflightHome" class="btn secondary">Вернуться в главное меню</button></div>
+0636	          <div class="eyebrow">Текущая сессия</div>
+0638	          <p class="small">Идентификатор создаётся автоматически. Для прохождения имя, e-mail и телефон не требуются.</p>
+0641	          <strong>Граница применения</strong>
+0645	          <strong>Конфиденциальность текущей версии</strong>
+0646	          <p class="small">В текущей автономной сборке ответы сохраняются локально в памяти браузера. Серверная передача должна включаться только после подключения защищённого backend.</p>
+0660	  const content=`${renderMobileModulebar(moduleItems(module.id)[0])}<section class="card transition"><div class="eyebrow">Следующий модуль · ${module.name}</div><h2>${esc(module.title)}</h2><p>${esc(module.intro)}</p>${modes}<div class="actions"><button class="btn" id="enter" ${module.adminModes&&!state.adminModes.P72D?'disabled':''}>Перейти к ${module.name}</button><button class="btn secondary" id="backFromTransition">Назад</button><button class="btn ghost" id="transitionHome">Главное меню</button></div></section>`;
+0682	  const scale=item.type==='comparative'?'Выберите более незаменимый механизм и силу предпочтения.':'1 — минимально / совсем не характерно · 5 — максимально / очень характерно · N/A — недостаточно опыта';
+0683	  const content=`${renderMobileModulebar(item)}<section class="card question-card"><div class="question-head"><div><div class="eyebrow">${m.name} · ${esc(m.title)}</div><div class="qid">${item.id}</div></div><div class="qcount">${mi} / ${moduleItems(item.module).length}</div></div>${renderModuleProgress(item)}<div class="qtext">${esc(item.text)}</div>${compare}<div class="scale-note">${scale}</div><div class="choices ${item.type==='comparative'?'comparative':''}">${item.choices.map(c=>`<button class="choice ${existing===c.value?'selected':''}" data-value="${c.value}" aria-pressed="${existing===c.value}">${esc(c.label)}</button>`).join('')}</div><div class="navrow"><button id="prev" class="btn secondary" ${state.itemIndex===0?'disabled':''}>← Назад</button><button id="next" class="btn" ${existing==null?'disabled':''}>Далее →</button></div></section>`;
+0701	    out.textContent='Это автономная статическая сборка. Серверный OpenAI endpoint, база данных и e-mail должны подключаться только в защищённом hosting/backend окружении.';
+0704	  btn.disabled=true;btn.textContent='Проверяю…';out.textContent='Проверяю сервер…';
+0705	  try{const r=await fetch('/api/generate-report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({result,format:'participant'})});const data=await r.json();if(!r.ok)throw new Error(data.error||'Сервер недоступен');$('#ai-output').textContent=data.report||JSON.stringify(data,null,2)}catch(e){$('#ai-output').textContent='Слой автоматического отчёта сейчас ожидаемо заблокирован: '+e.message+'\n\nСначала нужно подключить авторитетную конфигурацию расчёта и интерпретации.'}finally{btn.disabled=false;btn.textContent='Проверить AI endpoint'}
+0713	      <div class="eyebrow">Завершение сессии</div>
+0714	      <h2>Интерфейс завершил сбор профиля и подготовил основу для будущего отчёта.</h2>
+0715	      <p class="lead">Эта версия уже умеет красиво собирать ответы, фиксировать покрытие модулей и готовить структурированный пакет данных. На следующем уровне к нему подключается отдельный серверный расчёт и генерация итогового текста по утверждённой логике.</p>
+0716	      <div class="result-chip-row"><span class="result-chip">Участник: ${esc(state.participantId)}</span><span class="result-chip">Старт: ${startedAt}</span><span class="result-chip">Завершение: ${completedAt}</span></div>
+0719	      <div class="results-side-stat"><strong>${cov.pct}%</strong><span>заполнено</span></div>
+0720	      <div class="results-side-stat"><strong>${cov.answered}</strong><span>ответов из ${cov.total}</span></div>
+0721	      <div class="results-side-note">Реальный отчёт будет намного богаче этого экрана: с интерпретацией межмодульных сочетаний, условий устойчивости и ключевых паттернов профиля.</div>
+0727	      <div><div class="eyebrow">Демонстрация будущего результата</div><h3>Так может ощущаться персональный отчёт в полной версии.</h3></div>
+0728	      <p>Ниже — не реальная интерпретация этой конкретной сессии, а художественный макет будущей подачи результата: спокойный, редакционный и легко читаемый.</p>
+0732	        <span class="eyebrow">Фрагмент профиля</span>
+0733	        <h3>«Эстетически чувствительный и партнёрно-устойчивый рисунок»</h3>
+0734	        <p>Обычно такой профиль быстрее включается через форму, красоту и живую сцену взаимодействия, а устойчивость желания сильнее раскрывается там, где присутствуют эмоциональная ответность, безопасность и ощущение телесного контакта без внутренней перегрузки.</p>
+0737	        <div class="luxury-quote">«Ваше притяжение чаще не вспыхивает из пустоты, а складывается как узнавание: сначала — форма и эстетическая выразительность, затем — чувство присутствия другого человека, и только после этого — более устойчивое внутреннее включение.»</div>
+0739	          <div class="luxury-signal"><span>Эстетическая активация</span><strong>высокая</strong></div>
+0740	          <div class="luxury-signal"><span>Телесная доступность</span><strong>умеренно высокая</strong></div>
+0741	          <div class="luxury-signal"><span>Устойчивость при близости</span><strong>хорошая</strong></div>
+0742	          <div class="luxury-signal"><span>Риск угасания</span><strong>контекст-зависимый</strong></div>
+0751	        <div><div class="eyebrow">Заполнение модулей</div><h3>Структура прохождения</h3></div>
+0752	        <p>Каждый модуль остаётся самостоятельным слоем и в будущем участвует в общем профиле без сведения всего результата к одной цифре.</p>
+0754	      <div class="luxury-coverage-grid">${I.modules.map(m=>{const c=cov.byModule[m.id];return `<article class="luxury-coverage-card"><div class="luxury-coverage-head"><strong>${m.name}</strong><span>${c.pct}%</span></div><div class="small">${esc(moduleBlurb(m.id))}</div><div class="mini-track"><div class="mini-fill" style="width:${c.pct}%"></div></div><div class="small">${c.answered} из ${c.total} вопросов</div></article>`}).join('')}</div>
+0755	      <div class="actions"><button class="btn" id="export">Скачать JSON</button><button class="btn secondary" id="return">Вернуться к тесту</button><button class="btn ghost" id="resultsHome">Главное меню</button></div>
+0759	      <div class="eyebrow">Статус движка</div>
+0760	      <h3>Что уже работает в текущей сборке, а что подключается отдельно.</h3>
+0761	      <div class="status-box warn luxury-status-box"><strong>РАСЧЁТ ПО КЛЮЧАМ: ЕЩЁ НЕ ПОДКЛЮЧЁН</strong><br>Публичный интерфейс знает ответы и покрытие, но не содержит замороженные scoring-keys и не должен интерпретировать их напрямую в браузере.</div>
+0762	      <div class="arch luxury-arch"><div class="arch-step">① Интерфейс участника · ответы и метаданные прохождения</div><div class="arch-arrow">↓ HTTPS</div><div class="arch-step">② Серверный расчёт · детерминированные ключи и формулы</div><div class="arch-arrow">↓</div><div class="arch-step">③ Слой автоматического отчёта · текст, summary, PDF / e-mail</div><div class="arch-arrow">↓</div><div class="arch-step">④ Финальный результат для участника или специалиста</div></div>
+0763	      <div class="actions"><button class="btn secondary" id="ai">Проверить AI endpoint</button></div>
+0764	      <pre id="ai-output">Нажми кнопку, чтобы увидеть поведение подготовленного endpoint.</pre>
+0770	      <div><div class="eyebrow">Предпросмотр данных</div><h3>Структурированный объект результата</h3></div>
+0771	      <p>Этот блок нужен для разработки и интеграции. На production-сайте его можно скрыть и отдавать только специалисту или администратору.</p>

@@ -1,0 +1,64 @@
+name: P-120 PASS 2 Native Route Authority
+
+on:
+  push:
+    branches:
+      - 'work/p120-runtime-reconciliation-pass2'
+    paths:
+      - '.github/scripts/p120_pass2_native_routes.py'
+      - '.github/scripts/p120_pass2_native_routes_runner.py'
+      - '.github/workflows/p120-pass2-native-route-authority.yml'
+      - 'system/index.html'
+      - 'localization/p120-en-items-*.js'
+      - 'localization/p120-en-pass4-overrides-v0.4.js'
+      - 'manual-report-handoff-v1.0.js'
+      - 'p120-submission-intake-v1.0.js'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile-system-routes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PASS 2 branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Materialize native RU and EN System routes
+        run: python .github/scripts/p120_pass2_native_routes_runner.py
+
+      - name: Verify no measurement or scoring source changes
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          def instrument(path):
+              s=Path(path).read_text(encoding='utf-8')
+              m=re.search(r'window\.P120_INSTRUMENT\s*=\s*(\{.*?\});\s*</script>',s,re.S)
+              if not m: raise SystemExit(f'instrument missing: {path}')
+              return json.loads(m.group(1))
+          def manifest(x):
+              return [(i.get('id'),i.get('module'),i.get('type'),tuple(c.get('value') for c in i.get('choices',[]))) for i in x['items']]
+          ru=instrument('system/index.html'); en=instrument('en/system/index.html')
+          if manifest(ru)!=manifest(en): raise SystemExit('RU/EN coded-response manifest mismatch')
+          if len(manifest(ru))!=180: raise SystemExit('item count != 180')
+          print('Coded-response parity: PASS 180/180')
+          PY
+
+      - name: Commit PASS 2 route materialization
+        shell: bash
+        run: |
+          files=(system/index.html en/system/index.html manual-report-handoff-v1.0.js p120-submission-intake-v1.0.js P120_WEB_RECONCILIATION_PASS2_NATIVE_ROUTE_QA.json)
+          if [ -z "$(git status --porcelain -- "${files[@]}")" ]; then
+            echo 'PASS 2 route materialization already current.'
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add "${files[@]}"
+            git commit -m 'Materialize native RU and EN System route authority'
+            git push
+          fi
