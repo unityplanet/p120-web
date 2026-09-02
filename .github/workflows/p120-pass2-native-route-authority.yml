@@ -6,6 +6,7 @@ on:
       - 'work/p120-runtime-reconciliation-pass2'
     paths:
       - '.github/scripts/p120_pass2_native_routes.py'
+      - '.github/scripts/p120_pass2_native_routes_runner.py'
       - '.github/workflows/p120-pass2-native-route-authority.yml'
       - 'system/index.html'
       - 'localization/p120-en-items-*.js'
@@ -27,14 +28,14 @@ jobs:
           fetch-depth: 0
 
       - name: Materialize native RU and EN System routes
-        run: python .github/scripts/p120_pass2_native_routes.py
+        run: python .github/scripts/p120_pass2_native_routes_runner.py
 
       - name: Verify no measurement or scoring source changes
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
-          import json,re,hashlib
+          import json,re
           def instrument(path):
               s=Path(path).read_text(encoding='utf-8')
               m=re.search(r'window\.P120_INSTRUMENT\s*=\s*(\{.*?\});\s*</script>',s,re.S)
