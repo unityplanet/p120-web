@@ -48,6 +48,12 @@ async function systemSnapshot(route){
 }
 const sessionTriple=()=>page.evaluate(({legacy,ru,en})=>({legacy:localStorage.getItem(legacy),ru:localStorage.getItem(ru),en:localStorage.getItem(en)}),{legacy:LEGACY,ru:RU,en:EN});
 const readSession=k=>page.evaluate(key=>JSON.parse(localStorage.getItem(key)||'null'),k);
+const invokeChoice=async value=>{
+  const locator=page.locator(`.choice[data-value="${value}"]`);
+  await locator.waitFor({state:'attached'});
+  await locator.evaluate(el=>el.click());
+  await page.waitForTimeout(120);
+};
 
 const ru1=await systemSnapshot('/system/');
 const ruState1=JSON.parse(ru1.ru||'null');
@@ -58,11 +64,9 @@ add('RU visit does not create EN session',ru1.en===null);
 add('RU current respondent item is SAT02',ru1.currentItem==='SAT02',{currentItem:ru1.currentItem});
 add('RU downstream intake reads RU session',ru1.intakePackage?.locale==='ru'&&ru1.intakePackage?.responses?.SAT01==='4',{locale:ru1.intakePackage?.locale});
 
-// Force dispatch is intentional here: the independent legal-consent modal is a separate gate
-// and may cover the questionnaire in a fresh QA browser. We are testing respondent-state wiring,
-// not legal-modal interaction; the same questionnaire onclick handler still executes.
-await page.locator('.choice[data-value="5"]').click({force:true});
-await page.waitForTimeout(120);
+// Invoke the questionnaire's own button handler directly. A fresh QA browser may show the
+// independent legal-consent overlay; that gate is tested elsewhere and must not mask storage wiring.
+await invokeChoice('5');
 const ruPersisted=await readSession(RU);
 add('RU respondent write persists in RU session',ruPersisted?.responses?.SAT02==='5',{value:ruPersisted?.responses?.SAT02});
 const ruPkgAfterWrite=await page.evaluate(()=>window.P120SubmissionIntake?.buildPackage?.());
@@ -79,8 +83,7 @@ add('EN migration does not mutate legacy',en1.legacy===legacyRaw);
 add('EN current respondent item is SAT02',en1.currentItem==='SAT02',{currentItem:en1.currentItem});
 add('EN downstream intake reads EN session',en1.intakePackage?.locale==='en'&&en1.intakePackage?.responses?.SAT01==='4'&&en1.intakePackage?.responses?.SAT02===undefined,{locale:en1.intakePackage?.locale});
 
-await page.locator('.choice[data-value="2"]').click({force:true});
-await page.waitForTimeout(120);
+await invokeChoice('2');
 const enPersisted=await readSession(EN);
 add('EN respondent write persists in EN session',enPersisted?.responses?.SAT02==='2',{value:enPersisted?.responses?.SAT02});
 const enPkgAfterWrite=await page.evaluate(()=>window.P120SubmissionIntake?.buildPackage?.());
