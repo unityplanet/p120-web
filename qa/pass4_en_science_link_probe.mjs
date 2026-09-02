@@ -1,34 +1,15 @@
 import { chromium } from 'playwright';
+import { execFileSync } from 'node:child_process';
 
 const ORIGIN='http://127.0.0.1:4179';
 const LIVE='https://unityplanet.github.io/p120-web';
+const FAILING_COMMIT='84289e278a5bb4b157d21533d22a70c5b5e7d6c3';
 const SENTINELS={
   legacy:'{"sentinel":"legacy-preserve","responses":{"SAT01":"4"}}',
   ru:'{"sentinel":"ru-session-preserve","responses":{"SAT02":"5"}}',
   en:'{"sentinel":"en-session-preserve","responses":{"SAT02":"2"}}'
 };
 const baseStates=['CORE','EXTENDED','OUTCOMES','METHODS','LIBRARY'];
-
-function cssPath(el){
-  if(!el || el.nodeType!==1)return null;
-  if(el.id)return `#${CSS.escape(el.id)}`;
-  const parts=[];
-  let node=el;
-  while(node && node.nodeType===1 && node!==document.documentElement){
-    let part=node.localName;
-    if(node.classList.length)part+='.'+[...node.classList].slice(0,3).map(x=>CSS.escape(x)).join('.');
-    const parent=node.parentElement;
-    if(parent){
-      const same=[...parent.children].filter(x=>x.localName===node.localName);
-      if(same.length>1)part+=`:nth-of-type(${same.indexOf(node)+1})`;
-    }
-    parts.unshift(part);
-    if(parent?.id){parts.unshift(`#${CSS.escape(parent.id)}`);break;}
-    node=parent;
-    if(parts.length>=7)break;
-  }
-  return parts.join(' > ');
-}
 
 async function seedContext(browser){
   const context=await browser.newContext({viewport:{width:1440,height:1000}});
@@ -59,7 +40,7 @@ async function selectBase(page,base){
 }
 
 async function snapshotLinks(page,label){
-  const rows=await page.evaluate(({origin,label})=>{
+  return page.evaluate(({origin,label})=>{
     function pathFor(el){
       if(!el || el.nodeType!==1)return null;
       if(el.id)return `#${CSS.escape(el.id)}`;
@@ -102,14 +83,13 @@ async function snapshotLinks(page,label){
         sameOrigin,
         selector:pathFor(a),
         sourceSelector:pathFor(source),
-        sourceOuterHTML:source?.outerHTML?.slice(0,1800)||null
+        sourceOuterHTML:source?.outerHTML?.slice(0,2200)||null
       };
     });
   },{origin:ORIGIN,label});
-  return rows;
 }
 
-async function diagnoseLocal(browser){
+async function diagnoseLocal(browser,snapshotLabel){
   const context=await seedContext(browser);
   const page=await context.newPage();
   await page.goto(`${ORIGIN}/en/science/`,{waitUntil:'domcontentloaded'});
@@ -125,9 +105,9 @@ async function diagnoseLocal(browser){
   checkpoints.push({label:'qa-final-core',links:await snapshotLinks(page,'qa-final-core')});
 
   const finalRows=checkpoints.at(-1).links;
-  const sameOrigin=[...new Map(finalRows.filter(x=>x.sameOrigin).map(x=>[x.domHref,x])).values()];
+  const uniqueSameOrigin=[...new Map(finalRows.filter(x=>x.sameOrigin).map(x=>[x.domHref,x])).values()];
   const probes=[];
-  for(const row of sameOrigin){
+  for(const row of uniqueSameOrigin){
     const clean=row.qaResolverUrl;
     if(!clean)continue;
     const res=await page.request.get(clean,{failOnStatusCode:false,timeout:10000}).catch(error=>({status:()=>0,error:String(error)}));
@@ -136,33 +116,41 @@ async function diagnoseLocal(browser){
   const broken=probes.filter(x=>x.status>=400||x.status===0);
   const targetUrls=new Set(broken.map(x=>x.url));
   const specific=finalRows.filter(x=>targetUrls.has(x.qaResolverUrl)||x.domHref.includes('/en/science/en/'));
+  const emergence=checkpoints.map(cp=>({
+    checkpoint:cp.label,
+    matches:cp.links.filter(x=>x.domHref.includes('/en/science/en/')||x.qaResolverUrl.includes('/en/science/en/'))
+  })).map(x=>({checkpoint:x.checkpoint,count:x.matches.length,matches:x.matches}));
 
-  const emergence=[];
-  for(const cp of checkpoints){
-    const matches=cp.links.filter(x=>x.domHref.includes('/en/science/en/')||x.qaResolverUrl.includes('/en/science/en/'));
-    emergence.push({checkpoint:cp.label,count:matches.length,matches});
-  }
-
+  const pageMeta=await page.evaluate(()=>({pageUrl:location.href,documentBaseURI:document.baseURI,activeBase:window.P120ScientificBase?.activeBaseId||null}));
   await context.close();
   return {
-    route:`${ORIGIN}/en/science/`,
+    snapshotLabel,
+    pageMeta,
     exactQaSequence:baseStates,
-    qaResolverDefinition:'DOM a.href -> split("#")[0] -> page.request.get(clean)',
+    qaResolverDefinition:'collect DOM a.href -> unique -> split("#")[0] -> page.request.get(clean)',
     broken,
     specific,
     emergence,
-    conclusionHint:specific.length
-      ? 'The failing URL exists as a browser-resolved DOM a.href at the exact QA checkpoint.'
-      : 'The failing URL was not present as browser-resolved DOM a.href at the exact QA checkpoint; investigate QA/state nondeterminism.'
+    browserResolvedTargetPresent:specific.some(x=>x.domHref.includes('/en/science/en/'))
   };
+}
+
+function checkoutFailingSnapshot(){
+  execFileSync('git',['fetch','--depth=1','origin',FAILING_COMMIT],{stdio:'inherit'});
+  execFileSync('git',['checkout','--detach',FAILING_COMMIT],{stdio:'inherit'});
+  return execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
 }
 
 async function checkLiveRoute(browser,path){
   const context=await browser.newContext({viewport:{width:1440,height:1000}});
   const page=await context.newPage();
-  const errors=[];
-  page.on('pageerror',e=>errors.push(`pageerror: ${e.message}`));
-  page.on('console',m=>{if(m.type()==='error')errors.push(`console: ${m.text()}`)});
+  const consoleErrors=[];
+  const badResponses=[];
+  const failedRequests=[];
+  page.on('pageerror',e=>consoleErrors.push(`pageerror: ${e.message}`));
+  page.on('console',m=>{if(m.type()==='error')consoleErrors.push(`console: ${m.text()}`)});
+  page.on('response',r=>{if(r.status()>=400)badResponses.push({url:r.url(),status:r.status(),resourceType:r.request().resourceType()})});
+  page.on('requestfailed',r=>failedRequests.push({url:r.url(),resourceType:r.resourceType(),failure:r.failure()}));
   const url=`${LIVE}${path}`;
   const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:30000});
   let runtimeReady=false;
@@ -182,27 +170,35 @@ async function checkLiveRoute(browser,path){
       activeBase:window.P120ScientificBase?.activeBaseId||null,
       atlasExists:Boolean(atlas),
       atlasVisible:visible(atlas),
-      atlasText:(atlas?.textContent||'').replace(/\s+/g,' ').trim().slice(0,500),
+      atlasOuterHTML:atlas?.outerHTML?.slice(0,1800)||null,
+      atlasText:(atlas?.textContent||'').replace(/\s+/g,' ').trim().slice(0,700),
       evidenceExists:Boolean(evidence),
       evidenceVisible:visible(evidence),
-      evidenceText:(evidence?.textContent||'').replace(/\s+/g,' ').trim().slice(0,500)
+      evidenceText:(evidence?.textContent||'').replace(/\s+/g,' ').trim().slice(0,700),
+      scriptSources:[...document.scripts].map(s=>s.src).filter(Boolean)
     };
   });
   await context.close();
-  return {requested:url,httpStatus:response?.status()||null,runtimeReady,errors,...result};
+  return {requested:url,httpStatus:response?.status()||null,runtimeReady,consoleErrors,badResponses,failedRequests,...result};
 }
 
 const browser=await chromium.launch({headless:true});
 try{
-  const local=await diagnoseLocal(browser);
+  const currentHead=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+  const current=await diagnoseLocal(browser,`current-head:${currentHead}`);
+  const exactSha=checkoutFailingSnapshot();
+  await new Promise(r=>setTimeout(r,250));
+  const exactFailing=await diagnoseLocal(browser,`failing-commit:${exactSha}`);
   const liveRU=await checkLiveRoute(browser,'/science/');
   const liveEN=await checkLiveRoute(browser,'/en/science/');
   console.log(JSON.stringify({
-    document_id:'P120-PASS4-DIAGNOSTIC-RECONCILIATION-EN-SCIENCE-LINK-001',
+    document_id:'P120-PASS4-DIAGNOSTIC-RECONCILIATION-EN-SCIENCE-LINK-002',
     date:'2026-09-02',
     productionRuntimeMutation:'NONE',
     cleanupMutation:'NONE',
-    local,
+    repositoryMutation:'DIAGNOSTIC_QA_SCRIPT_ONLY_ON_WORK_BRANCH',
+    current,
+    exactFailing,
     live:{ru:liveRU,en:liveEN}
   },null,2));
 } finally {
