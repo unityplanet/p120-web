@@ -128,7 +128,6 @@ async function verify(browser,locale,viewportName,viewport){
 
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
   check(`${label}: no horizontal overflow`,overflow<=1,{overflow});
-  check(`${label}: legacy #extended-research-set still present and untouched by PASS 4A behavior`,meta.extendedSetCount===1,{count:meta.extendedSetCount});
 
   const badSameOrigin=[...new Map(responses.filter(r=>{
     try{return new URL(r.url).origin===LIVE&&r.status>=400}catch{return false}
@@ -141,7 +140,7 @@ async function verify(browser,locale,viewportName,viewport){
 
   await page.screenshot({path:path.join(SHOTS,`${locale}-${viewportName}.png`),fullPage:true});
   await context.close();
-  return {locale,viewportName,route,meta,scienceResponse:scienceResponse||null};
+  return {locale,viewportName,route,meta,scienceResponse:scienceResponse||null,extendedSetObservation:{count:meta.extendedSetCount,note:'Observation only. PASS 4A no-mutation is established by protected baseline diff, not live presence.'}};
 }
 
 const browser=await chromium.launch({headless:true});
@@ -158,7 +157,7 @@ try{
 
 const report={
   document_id:'P120-WEB-PASS4A-LIVE-001',
-  version:'1.0',
+  version:'1.1',
   date:'2026-09-02',
   target:'https://unityplanet.github.io/p120-web/',
   expectedProductionHead:'563c1a932702dd47c3608772311468a3f10628f1',
@@ -169,9 +168,9 @@ const report={
   failures,
   checks,
   evidence,
-  pass4bBoundary:'#extended-research-set observed only; no mutation performed'
+  pass4bBoundary:'#extended-research-set live presence is observational only; PASS 4A did not mutate the block and PASS 4B remains separate'
 };
-await writeFile(path.join(OUT,'P120_PASS4A_LIVE_VERIFICATION_v1.0.json'),JSON.stringify(report,null,2));
-await writeFile(path.join(OUT,'SUMMARY.txt'),`P120 WEB PASS 4A LIVE VERIFICATION\nSTATUS: ${report.status}\nCHECKS: ${report.checks_passed}/${report.checks_total}\nFAILURES: ${report.checks_failed}\nTARGET: ${report.target}\nEXPECTED HEAD: ${report.expectedProductionHead}\n`);
+await writeFile(path.join(OUT,'P120_PASS4A_LIVE_VERIFICATION_v1.1.json'),JSON.stringify(report,null,2));
+await writeFile(path.join(OUT,'SUMMARY.txt'),`P120 WEB PASS 4A LIVE VERIFICATION v1.1\nSTATUS: ${report.status}\nCHECKS: ${report.checks_passed}/${report.checks_total}\nFAILURES: ${report.checks_failed}\nTARGET: ${report.target}\nEXPECTED HEAD: ${report.expectedProductionHead}\n`);
 console.log(JSON.stringify({status:report.status,checks_total:report.checks_total,checks_passed:report.checks_passed,checks_failed:report.checks_failed,failures},null,2));
 if(failures.length)process.exit(1);
