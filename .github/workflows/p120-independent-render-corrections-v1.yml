@@ -17,6 +17,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: fix/p120-independent-render-corrections-v1
+      - name: Locate navigation asset sources
+        run: |
+          grep -R -n -E 'navigation-unification-v1\.0\.css|extended-research-navigation-v1\.0\.js|nav51|exp50' . --exclude-dir=.git | head -120 || true
       - name: Apply controlled corrections
         run: python3 .github/scripts/p120_independent_render_corrections_v1.py
       - name: Verify protected diff scope
@@ -42,4 +45,3 @@ jobs:
           git add system/index.html en/system/index.html en/science/index.html p120-legal-v1.0.css P120_INDEPENDENT_RENDER_CORRECTIONS_v1.0.md
           git commit -m 'Apply independent render corrections v1'
           git push origin HEAD:fix/p120-independent-render-corrections-v1
-# controlled trigger 2026-09-02
