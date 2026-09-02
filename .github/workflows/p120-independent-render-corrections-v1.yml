@@ -1,0 +1,44 @@
+name: P120 Independent Render Corrections v1
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'fix/p120-independent-render-corrections-v1'
+    paths:
+      - '.github/scripts/p120_independent_render_corrections_v1.py'
+      - '.github/workflows/p120-independent-render-corrections-v1.yml'
+permissions:
+  contents: write
+jobs:
+  patch-and-control:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/p120-independent-render-corrections-v1
+      - name: Apply controlled corrections
+        run: python3 .github/scripts/p120_independent_render_corrections_v1.py
+      - name: Verify protected diff scope
+        run: |
+          git diff --check
+          git diff --name-only
+          python3 - <<'PY'
+          import subprocess
+          allowed={
+            'system/index.html','en/system/index.html','founder-route-v1.1.js','p120-legal-v1.0.css','P120_INDEPENDENT_RENDER_CORRECTIONS_v1.0.md'
+          }
+          changed=set(subprocess.check_output(['git','diff','--name-only'],text=True).split())
+          extra=changed-allowed
+          if extra: raise SystemExit(f'Unexpected patched files: {sorted(extra)}')
+          required={'system/index.html','en/system/index.html','founder-route-v1.1.js','p120-legal-v1.0.css'}
+          if not required.issubset(changed): raise SystemExit(f'Missing expected patch files: {sorted(required-changed)}')
+          print('Protected diff scope PASS')
+          PY
+      - name: Commit controlled corrections
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add system/index.html en/system/index.html founder-route-v1.1.js p120-legal-v1.0.css P120_INDEPENDENT_RENDER_CORRECTIONS_v1.0.md
+          git commit -m 'Apply independent render corrections v1'
+          git push origin HEAD:fix/p120-independent-render-corrections-v1

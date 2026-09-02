@@ -52,7 +52,7 @@
     document.head.appendChild(style);
   }
 
-  const isEn=/\/en\/(?:index\.html)?$/i.test(location.pathname);
+  const isEn=/\/en(?:\/|$)/i.test(location.pathname);
   const CREATOR='[data-ecosystem-route="creator"],[data-ecosystem-mobile="creator"]';
   const DEEPER='[data-ecosystem-route="deeper"],[data-ecosystem-mobile="deeper"]';
   const TOGETHER='[data-ecosystem-route="together"],[data-ecosystem-mobile="together"]';

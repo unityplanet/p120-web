@@ -1,0 +1,39 @@
+name: P120 EN Science Localization Gate v1
+on:
+  push:
+    branches:
+      - 'fix/p120-independent-render-corrections-v1'
+    paths:
+      - 'qa/en_science_localization_gate_v1.mjs'
+      - '.github/workflows/p120-en-science-localization-gate-v1.yml'
+      - 'p120-en-science-localization-runtime-v1.0.js'
+      - 'en/science/index.html'
+      - 'public-en-science-dictionary-v1.0.js'
+permissions:
+  contents: read
+jobs:
+  localization-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/p120-independent-render-corrections-v1
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start site
+        run: |
+          python3 -m http.server 4176 --bind 127.0.0.1 >/tmp/p120-en-science-gate-http.log 2>&1 &
+          sleep 2
+      - name: Verify EN Scientific Base localization closure
+        run: node qa/en_science_localization_gate_v1.mjs
+      - name: Upload localization evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_EN_SCIENCE_LOCALIZATION_GATE_V1
+          path: qa-evidence-en-science-localization-v1/
+          retention-days: 30
