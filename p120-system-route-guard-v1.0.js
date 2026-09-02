@@ -61,3 +61,16 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once:true});
   else start();
 })();
+
+/* Conceptual Entry PASS 2.5 — RU system orientation loader.
+   Presentation-only; EN parity remains blocked until RU freeze. */
+(() => {
+  'use strict';
+  if(!/^ru$/i.test(document.documentElement.lang||''))return;
+  if(!/\/system\/(?:index\.html)?$/i.test(location.pathname))return;
+  if(document.querySelector('script[data-p120-system-orientation-loader]'))return;
+  const s=document.createElement('script');
+  s.src='p120-system-orientation-ru-v1.0.js?v=cec25';
+  s.dataset.p120SystemOrientationLoader='P2.5-RU-v1.0';
+  document.head.appendChild(s);
+})();
