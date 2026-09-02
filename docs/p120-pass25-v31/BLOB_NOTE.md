@@ -1,0 +1,1 @@
+Exact-font sealing workstream. Binary font files are not distributed in user deliverables; only final controlled documents and QA evidence are released.
