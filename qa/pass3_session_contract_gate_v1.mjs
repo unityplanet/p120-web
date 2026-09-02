@@ -18,7 +18,7 @@ const browser=await chromium.launch({headless:true});
 const context=await browser.newContext({viewport:{width:1440,height:1000}});
 const page=await context.newPage();
 
-const legacyState={participantId:'P120-ABC123',screen:'test',itemIndex:1,responses:{SAT01:4},adminModes:{},telemetry:[{type:'legacy_seed',at:'2026-09-02T00:00:00.000Z'}],startedAt:'2026-09-02T00:00:00.000Z',consentAt:'2026-09-02T00:00:01.000Z',lastSavedAt:'2026-09-02T00:00:02.000Z'};
+const legacyState={participantId:'P120-ABC123',screen:'test',itemIndex:1,responses:{SAT01:'4'},adminModes:{},telemetry:[{type:'legacy_seed',at:'2026-09-02T00:00:00.000Z'}],startedAt:'2026-09-02T00:00:00.000Z',consentAt:'2026-09-02T00:00:01.000Z',lastSavedAt:'2026-09-02T00:00:02.000Z'};
 await page.goto(BASE+'/',{waitUntil:'domcontentloaded'});
 await page.evaluate(([k,v,ru,en,eru,een])=>{localStorage.clear();localStorage.setItem(k,JSON.stringify(v));localStorage.removeItem(ru);localStorage.removeItem(en);localStorage.removeItem(eru);localStorage.removeItem(een);},[LEGACY,legacyState,RU,EN,ERU,EEN]);
 const legacyRaw=await page.evaluate(k=>localStorage.getItem(k),LEGACY);
@@ -28,6 +28,7 @@ async function systemSnapshot(route){
   return await page.evaluate(({legacy,ru,en})=>({
     path:location.pathname,
     lang:document.documentElement.lang,
+    currentItem:document.querySelector('.qid')?.textContent?.trim()||null,
     contract:window.P120_SESSION_CONTRACT||null,
     legacy:localStorage.getItem(legacy),
     ru:localStorage.getItem(ru),
@@ -41,49 +42,53 @@ async function systemSnapshot(route){
         coverage:String(window.P120Scoring?.coverage||''),
         buildPrototypeResult:String(window.P120Scoring?.buildPrototypeResult||'')
       },
-      sample:window.P120Scoring?.coverage?window.P120Scoring.coverage({SAT01:4},window.P120_INSTRUMENT):null
+      sample:window.P120Scoring?.coverage?window.P120Scoring.coverage({SAT01:'4'},window.P120_INSTRUMENT):null
     }
   }),{legacy:LEGACY,ru:RU,en:EN});
 }
 const sessionTriple=()=>page.evaluate(({legacy,ru,en})=>({legacy:localStorage.getItem(legacy),ru:localStorage.getItem(ru),en:localStorage.getItem(en)}),{legacy:LEGACY,ru:RU,en:EN});
+const readSession=k=>page.evaluate(key=>JSON.parse(localStorage.getItem(key)||'null'),k);
 
 const ru1=await systemSnapshot('/system/');
 const ruState1=JSON.parse(ru1.ru||'null');
 add('RU contract selects RU session',ru1.contract?.locale==='ru'&&ru1.contract?.sessionKey===RU,{contract:ru1.contract});
-add('RU migration preserves legacy payload',ruState1?.responses?.SAT01===4&&ruState1?.sessionLocale==='ru',{sessionLocale:ruState1?.sessionLocale});
+add('RU migration preserves legacy payload',ruState1?.responses?.SAT01==='4'&&ruState1?.sessionLocale==='ru',{sessionLocale:ruState1?.sessionLocale});
 add('RU migration does not delete or mutate legacy',ru1.legacy===legacyRaw);
 add('RU visit does not create EN session',ru1.en===null);
-add('RU downstream intake reads RU session',ru1.intakePackage?.locale==='ru'&&ru1.intakePackage?.responses?.SAT01===4,{locale:ru1.intakePackage?.locale});
+add('RU current respondent item is SAT02',ru1.currentItem==='SAT02',{currentItem:ru1.currentItem});
+add('RU downstream intake reads RU session',ru1.intakePackage?.locale==='ru'&&ru1.intakePackage?.responses?.SAT01==='4',{locale:ru1.intakePackage?.locale});
 
-await page.evaluate(k=>{const s=JSON.parse(localStorage.getItem(k));s.responses.SAT02=5;localStorage.setItem(k,JSON.stringify(s));},RU);
-await page.reload({waitUntil:'networkidle'});
-const ruPersisted=JSON.parse(await page.evaluate(k=>localStorage.getItem(k),RU));
-add('RU-only write is accepted by RU session',ruPersisted?.responses?.SAT02===5);
+await page.locator('.choice[data-value="5"]').click();
+await page.waitForTimeout(120);
+const ruPersisted=await readSession(RU);
+add('RU respondent write persists in RU session',ruPersisted?.responses?.SAT02==='5',{value:ruPersisted?.responses?.SAT02});
 const ruPkgAfterWrite=await page.evaluate(()=>window.P120SubmissionIntake?.buildPackage?.());
-add('RU intake exports RU-only write',ruPkgAfterWrite?.locale==='ru'&&ruPkgAfterWrite?.responses?.SAT02===5&&ruPkgAfterWrite?.responses?.SAT03===undefined);
+add('RU intake exports RU respondent write',ruPkgAfterWrite?.locale==='ru'&&ruPkgAfterWrite?.responses?.SAT02==='5');
 
 const en1=await systemSnapshot('/en/system/');
 const enState1=JSON.parse(en1.en||'null');
 const ruStateAfterEn=JSON.parse(en1.ru||'null');
 add('EN contract selects EN session',en1.contract?.locale==='en'&&en1.contract?.sessionKey===EN,{contract:en1.contract});
-add('EN migration preserves legacy answer',enState1?.responses?.SAT01===4);
-add('EN session does not inherit later RU-only write',enState1?.responses?.SAT02===undefined);
-add('RU session survives EN initialization',ruStateAfterEn?.responses?.SAT02===5);
+add('EN migration preserves legacy answer',enState1?.responses?.SAT01==='4');
+add('EN session does not inherit RU SAT02 write',enState1?.responses?.SAT02===undefined);
+add('RU session survives EN initialization',ruStateAfterEn?.responses?.SAT02==='5',{value:ruStateAfterEn?.responses?.SAT02});
 add('EN migration does not mutate legacy',en1.legacy===legacyRaw);
-add('EN downstream intake reads EN session',en1.intakePackage?.locale==='en'&&en1.intakePackage?.responses?.SAT01===4&&en1.intakePackage?.responses?.SAT02===undefined,{locale:en1.intakePackage?.locale});
+add('EN current respondent item is SAT02',en1.currentItem==='SAT02',{currentItem:en1.currentItem});
+add('EN downstream intake reads EN session',en1.intakePackage?.locale==='en'&&en1.intakePackage?.responses?.SAT01==='4'&&en1.intakePackage?.responses?.SAT02===undefined,{locale:en1.intakePackage?.locale});
 
-await page.evaluate(k=>{const s=JSON.parse(localStorage.getItem(k));s.responses.SAT03=2;localStorage.setItem(k,JSON.stringify(s));},EN);
-await page.reload({waitUntil:'networkidle'});
-const enPersisted=JSON.parse(await page.evaluate(k=>localStorage.getItem(k),EN));
-add('EN-only write is accepted by EN session',enPersisted?.responses?.SAT03===2);
+await page.locator('.choice[data-value="2"]').click();
+await page.waitForTimeout(120);
+const enPersisted=await readSession(EN);
+add('EN respondent write persists in EN session',enPersisted?.responses?.SAT02==='2',{value:enPersisted?.responses?.SAT02});
 const enPkgAfterWrite=await page.evaluate(()=>window.P120SubmissionIntake?.buildPackage?.());
-add('EN intake exports EN-only write',enPkgAfterWrite?.locale==='en'&&enPkgAfterWrite?.responses?.SAT03===2&&enPkgAfterWrite?.responses?.SAT02===undefined);
+add('EN intake exports EN respondent write',enPkgAfterWrite?.locale==='en'&&enPkgAfterWrite?.responses?.SAT02==='2');
 
 const ru2=await systemSnapshot('/system/');
 const ruState2=JSON.parse(ru2.ru||'null');
 const enState2=JSON.parse(ru2.en||'null');
-add('RU session excludes EN-only write',ruState2?.responses?.SAT03===undefined);
-add('EN-only write remains in EN session',enState2?.responses?.SAT03===2);
+add('RU session retains RU value after EN write',ruState2?.responses?.SAT02==='5',{ru:ruState2?.responses?.SAT02});
+add('EN session retains EN value after RU return',enState2?.responses?.SAT02==='2',{en:enState2?.responses?.SAT02});
+add('Locale-isolated same-item values remain distinct',ruState2?.responses?.SAT02==='5'&&enState2?.responses?.SAT02==='2');
 
 await page.goto(BASE+'/',{waitUntil:'networkidle'});
 const editorialBaseline=await sessionTriple();
