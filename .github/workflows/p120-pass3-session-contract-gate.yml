@@ -37,6 +37,7 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
+          import re
           ru=Path('system/index.html').read_text(encoding='utf-8')
           en=Path('en/system/index.html').read_text(encoding='utf-8')
           root=Path('index.html').read_text(encoding='utf-8')
@@ -53,7 +54,27 @@ jobs:
               if "const STORAGE_KEY = 'p120_web_prototype_v01';" in text: raise SystemExit(f'{name}: active legacy storage dependency')
               if 'window.P120_SESSION_KEY' not in text: raise SystemExit(f'{name}: locale session binding missing')
               if 'p120_runtime_session_ru_v1' not in text or 'p120_runtime_session_en_v1' not in text: raise SystemExit(f'{name}: route fallback keys incomplete')
-          print('Static storage ownership: PASS')
+
+          # Scan every external script actually loaded by either System route. The frozen legacy
+          # key is allowed only inside the dedicated copy-preserving migration contract.
+          loaded=set()
+          for html_path in (Path('system/index.html'),Path('en/system/index.html')):
+              html=html_path.read_text(encoding='utf-8')
+              base_m=re.search(r'<base\s+href="([^"]+)"',html,re.I)
+              base=base_m.group(1) if base_m else './'
+              for src in re.findall(r'<script[^>]+src="([^"]+)"',html,re.I):
+                  src=src.split('?',1)[0]
+                  if re.match(r'https?://',src,re.I): continue
+                  p=(html_path.parent/base/src).resolve()
+                  try: rel=p.relative_to(Path.cwd().resolve())
+                  except ValueError: raise SystemExit(f'System script resolves outside repository: {src}')
+                  if p.exists(): loaded.add(rel.as_posix())
+          offenders=[]
+          for rel in sorted(loaded):
+              text=Path(rel).read_text(encoding='utf-8')
+              if 'p120_web_prototype_v01' in text and rel!='p120-session-contract-v1.0.js': offenders.append(rel)
+          if offenders: raise SystemExit('Active System scripts still reference legacy respondent key: '+', '.join(offenders))
+          print('Static storage ownership and active dependency scan: PASS')
           PY
       - name: Install Playwright Chromium
         run: |
