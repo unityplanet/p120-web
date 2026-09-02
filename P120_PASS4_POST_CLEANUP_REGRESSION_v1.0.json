@@ -1,0 +1,430 @@
+{
+  "document_id": "P120-WEB-RUNTIME-PASS4-REGRESSION-001",
+  "version": "1.0",
+  "date": "2026-09-02",
+  "stage": "P120 Web Runtime Reconciliation — PASS 4 / Post-Science Integration Cleanup & Consolidation",
+  "baseline": "f46b7335e47d75672424136979f91a1a3997aa37",
+  "status": "PASS",
+  "acceptance_criterion": "Post-Science cleanup completed with no regression to production behavior, locale isolation, measurement/scoring contract, Scientific Base presentation, or routing.",
+  "checks_total": 71,
+  "checks_passed": 71,
+  "checks_failed": 0,
+  "removed_operational_files": 39,
+  "protected_production_files": 14,
+  "checks": [
+    {
+      "id": "protected byte identity: index.html",
+      "pass": true,
+      "detail": {
+        "baseline_sha256": "c05fc83e19fe7b4877c66bd0514a293cfc35a2eb9cfbb22b33e6b9f183b0ccbb",
+        "current_sha256": "c05fc83e19fe7b4877c66bd0514a293cfc35a2eb9cfbb22b33e6b9f183b0ccbb"
+      }
+    },
+    {
+      "id": "protected byte identity: en/index.html",
+      "pass": true,
+      "detail": {
+        "baseline_sha256": "b4724b176b40ae69e95700848b6200f3a55ba32478c27cadf8a6a0f2d5f47638",
+        "current_sha256": "b4724b176b40ae69e95700848b6200f3a55ba32478c27cadf8a6a0f2d5f47638"
+      }
+    },
+    {
+      "id": "protected byte identity: science/index.html",
+      "pass": true,
+      "detail": {
+        "baseline_sha256": "e59a6d2b2f80f6224d99fc5b8da927aae966d86aa88c62d41826e31510f621e0",
+        "current_sha256": "e59a6d2b2f80f6224d99fc5b8da927aae966d86aa88c62d41826e31510f621e0"
+      }
+    },
+    {
+      "id": "protected byte identity: en/science/index.html",
+      "pass": true,
+      "detail": {
+        "baseline_sha256": "65531ebdac010f17952b7437240a2e900a243322a3fa2d0fc56cd30e9158940d",
+        "current_sha256": "65531ebdac010f17952b7437240a2e900a243322a3fa2d0fc56cd30e9158940d"
+      }
+    },
+    {
+      "id": "protected byte identity: system/index.html",
+      "pass": true,
+      "detail": {
+        "baseline_sha256": "a102ebe769ac22a15b9de26a489eeaef395ede164514078b58c7a55c60502492",
+        "current_sha256": "a102ebe769ac22a15b9de26a489eeaef395ede164514078b58c7a55c60502492"
+      }
+    },
+    {
+      "id": "protected byte identity: en/system/index.html",
+      "pass": true,
+      "detail": {
+        "baseline_sha256": "645e6b366b3d654450a2fca2e7470c49de45af40c627ac48b1c961078c766ab0",
+        "current_sha256": "645e6b366b3d654450a2fca2e7470c49de45af40c627ac48b1c961078c766ab0"
+      }
+    },
+    {
+      "id": "protected byte identity: p120-scientific-base-runtime-v1.0.js",
+      "pass": true,
+      "detail": {
+        "baseline_sha256": "e57bc535313436cb94839afd845f7d11e5c32bdc9b6ff2e9f08a1c1b00b7dd63",
+        "current_sha256": "e57bc535313436cb94839afd845f7d11e5c32bdc9b6ff2e9f08a1c1b00b7dd63"
+      }
+    },
+    {
+      "id": "protected byte identity: P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json",
+      "pass": true,
+      "detail": {
+        "baseline_sha256": "38b706b38f8f19f60c5917874b8371661340bb0cf30059fe9a7de98d16251f5e",
+        "current_sha256": "38b706b38f8f19f60c5917874b8371661340bb0cf30059fe9a7de98d16251f5e"
+      }
+    },
+    {
+      "id": "protected byte identity: p120-session-contract-v1.0.js",
+      "pass": true,
+      "detail": {
+        "baseline_sha256": "47f11abb9c672bc55d5967583cd1a06277ea434dd857a96acb09a6402832908f",
+        "current_sha256": "47f11abb9c672bc55d5967583cd1a06277ea434dd857a96acb09a6402832908f"
+      }
+    },
+    {
+      "id": "protected byte identity: p120-submission-intake-v1.0.js",
+      "pass": true,
+      "detail": {
+        "baseline_sha256": "795e8af61079e7ca5bf1f4d0a6bbe6ca613140cedece99e8bd7568082dae06ee",
+        "current_sha256": "795e8af61079e7ca5bf1f4d0a6bbe6ca613140cedece99e8bd7568082dae06ee"
+      }
+    },
+    {
+      "id": "protected byte identity: manual-report-handoff-v1.0.js",
+      "pass": true,
+      "detail": {
+        "baseline_sha256": "e750ac8188aac3e9945dcece634126ee56fd5e7fd5a7446cf1e5776301e4a969",
+        "current_sha256": "e750ac8188aac3e9945dcece634126ee56fd5e7fd5a7446cf1e5776301e4a969"
+      }
+    },
+    {
+      "id": "protected byte identity: science-navigation-reconciliation-v1.0.js",
+      "pass": true,
+      "detail": {
+        "baseline_sha256": "3be063808ae1ed4aeaaeab5fd1c18d4a90438921d6c1f49e7a8061a065189061",
+        "current_sha256": "3be063808ae1ed4aeaaeab5fd1c18d4a90438921d6c1f49e7a8061a065189061"
+      }
+    },
+    {
+      "id": "protected byte identity: p120-en-science-localization-runtime-v1.0.js",
+      "pass": true,
+      "detail": {
+        "baseline_sha256": "44996ff5987ae3ddae5c103d944bde14782b06b324a7f80675e53fbe32b92845",
+        "current_sha256": "44996ff5987ae3ddae5c103d944bde14782b06b324a7f80675e53fbe32b92845"
+      }
+    },
+    {
+      "id": "protected byte identity: public-en-science-dictionary-v1.0.js",
+      "pass": true,
+      "detail": {
+        "baseline_sha256": "220eddd9d7522fc847faae08d295947c5998e7b478afe933b0dd227256816255",
+        "current_sha256": "220eddd9d7522fc847faae08d295947c5998e7b478afe933b0dd227256816255"
+      }
+    },
+    {
+      "id": "obsolete debris absent: .github/scripts/p120_scientific_base_production_migration.py",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/scripts/p120_en_science_localization_bind_v1.py",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/p120-scientific-base-production-migration-apply.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/apply-science-public-v12.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/publish-p120-public-science-v12.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/publish-p120-public-science-en-v12.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/extract-science-localization-source.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/restore-science-visual-parity-v1.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/restore-science-visual-parity-v2.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/fix-science-navigation-direction-v1.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/fix-science-navigation-direction-v1-1.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/fix-science-navigation-direction-v1-2.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/fix-science-navigation-direction-v1-3.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/fix-science-navigation-direction-v1-4.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/fix-science-parity-idempotence.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/patch-science-direct-link-v1.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/p120-en-science-localization-bind-v1.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/p120-en-science-localization-gate-v1.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/p120-en-science-localization-probe-v1.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/qa-scientific-base-dedicated-v1.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/workflows/qa-web-science-pass3.yml",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: qa/en_science_localization_gate_v1.mjs",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: qa/en_science_localization_probe_v1.mjs",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-en-v12-xz/part-00.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-en-v12-xz/part-01.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-en-v12-xz/part-02.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-en-v12-xz/part-04.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-en-v12-xz/part-05.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-v12-xz/part-00.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-v12-xz/part-01.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-v12-xz/part-02.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-v12-xz/part-03.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-v12-xz/part-04.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-v12-xz/part-05.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-v12/part-00.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-v12/part-01.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-v12/part-02.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-v12/part-03.b64",
+      "pass": true
+    },
+    {
+      "id": "obsolete debris absent: .github/p120-public-science-v12/part-04.b64",
+      "pass": true
+    },
+    {
+      "id": "site_render report exists",
+      "pass": true,
+      "detail": "qa-evidence-independent-render-v1-1/report.json"
+    },
+    {
+      "id": "pass3_session report exists",
+      "pass": true,
+      "detail": "qa-evidence-pass3-session-contract-v1/P120_WEB_RECONCILIATION_PASS3_QA.json"
+    },
+    {
+      "id": "science report exists",
+      "pass": true,
+      "detail": "qa-evidence-science-production-v1/P120_SCIENCE_PRODUCTION_QA_v1.0.json"
+    },
+    {
+      "id": "20-route independent render regression",
+      "pass": true,
+      "detail": {
+        "production_pages": 20,
+        "render_cases": 40,
+        "link_checks": 205,
+        "transition_checks": 14,
+        "failures": [],
+        "pass": true
+      }
+    },
+    {
+      "id": "40 desktop/mobile render cases",
+      "pass": true,
+      "detail": 40
+    },
+    {
+      "id": "180/180 RU/EN measurement item parity",
+      "pass": true,
+      "detail": {
+        "ru_items": 180,
+        "en_items": 180,
+        "ru_unique": 180,
+        "en_unique": 180,
+        "id_order_parity": true,
+        "module_order_parity": true,
+        "coded_structure_sha256_ru": "248685291cf21a67eb0a658188fc8b6666540d2f73d422f497bbe1e116e2f0c4",
+        "coded_structure_sha256_en": "248685291cf21a67eb0a658188fc8b6666540d2f73d422f497bbe1e116e2f0c4",
+        "coded_structure_parity": true
+      }
+    },
+    {
+      "id": "measurement ID/order parity",
+      "pass": true,
+      "detail": {
+        "ru_items": 180,
+        "en_items": 180,
+        "ru_unique": 180,
+        "en_unique": 180,
+        "id_order_parity": true,
+        "module_order_parity": true,
+        "coded_structure_sha256_ru": "248685291cf21a67eb0a658188fc8b6666540d2f73d422f497bbe1e116e2f0c4",
+        "coded_structure_sha256_en": "248685291cf21a67eb0a658188fc8b6666540d2f73d422f497bbe1e116e2f0c4",
+        "coded_structure_parity": true
+      }
+    },
+    {
+      "id": "coded response structure parity",
+      "pass": true,
+      "detail": {
+        "ru_items": 180,
+        "en_items": 180,
+        "ru_unique": 180,
+        "en_unique": 180,
+        "id_order_parity": true,
+        "module_order_parity": true,
+        "coded_structure_sha256_ru": "248685291cf21a67eb0a658188fc8b6666540d2f73d422f497bbe1e116e2f0c4",
+        "coded_structure_sha256_en": "248685291cf21a67eb0a658188fc8b6666540d2f73d422f497bbe1e116e2f0c4",
+        "coded_structure_parity": true
+      }
+    },
+    {
+      "id": "PASS 3 locale/session contract regression",
+      "pass": true,
+      "detail": {
+        "status": "PASS",
+        "measurement": {
+          "item_count": 180,
+          "manifest_sha256": "55d91f29d80d9de9535890386d1c65ec9b558e2e4b56714eb54efa8837574b7b",
+          "scoring_sha256": "d51dce3bb64dbe575a68111db9e47bd0ac009a9aeb1af216142ad93c9ce6f8b5"
+        },
+        "storage": {
+          "legacy": "p120_web_prototype_v01",
+          "ru_session": "p120_runtime_session_ru_v1",
+          "en_session": "p120_runtime_session_en_v1",
+          "ru_editorial": "p120_editorial_state_ru_v1",
+          "en_editorial": "p120_editorial_state_en_v1",
+          "migration": "COPY_PRESERVE_LEGACY"
+        }
+      }
+    },
+    {
+      "id": "Scientific Base production regression",
+      "pass": true,
+      "detail": {
+        "status": "PASS",
+        "checks_total": 269,
+        "checks_passed": 269,
+        "checks_failed": 0
+      }
+    },
+    {
+      "id": "Scientific Base 269/269 acceptance parity",
+      "pass": true,
+      "detail": {
+        "total": 269,
+        "passed": 269,
+        "failed": 0
+      }
+    },
+    {
+      "id": "RU Science single production runtime loader",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "id": "RU Science no active historical respondent key",
+      "pass": true
+    },
+    {
+      "id": "EN Science single production runtime loader",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "id": "EN Science no active historical respondent key",
+      "pass": true
+    },
+    {
+      "id": "current Scientific Base QA retained",
+      "pass": true
+    },
+    {
+      "id": "current PASS 3 QA retained",
+      "pass": true
+    },
+    {
+      "id": "active Science navigation reconciliation retained",
+      "pass": true
+    }
+  ]
+}
