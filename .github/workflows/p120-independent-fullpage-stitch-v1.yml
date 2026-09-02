@@ -1,0 +1,37 @@
+name: P120 Independent Full-Page Stitch v1
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'fix/p120-independent-render-corrections-v1'
+    paths:
+      - 'qa/independent_fullpage_stitch_v1_0.mjs'
+      - '.github/workflows/p120-independent-fullpage-stitch-v1.yml'
+permissions:
+  contents: read
+jobs:
+  stitched-visual-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/p120-independent-render-corrections-v1
+      - name: Install browser and image compositor
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0 sharp@0.34.3
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local P-120 site
+        run: |
+          python3 -m http.server 4174 --bind 127.0.0.1 >/tmp/p120-fullpage-stitch-http.log 2>&1 &
+          sleep 2
+      - name: Capture stitched full-page visual evidence
+        run: node qa/independent_fullpage_stitch_v1_0.mjs
+      - name: Upload stitched full-page renders
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_FULL_PAGE_STITCHED_RENDERS_V1
+          path: qa-evidence-fullpage-stitch-v1-0/
+          retention-days: 30
