@@ -6,10 +6,10 @@
 (() => {
   'use strict';
 
-  const STORAGE_KEY = 'p120_web_prototype_v01';
   const RECEIPT_PREFIX = 'p120_submission_receipt_v10_';
   const STATUS_ID = 'p120-submission-intake-status';
   const isEn = /(^|\/)en(?:\/|$)/i.test(location.pathname);
+  const STORAGE_KEY = window.P120_SESSION_KEY || (isEn ? 'p120_runtime_session_en_v1' : 'p120_runtime_session_ru_v1');
   let observer = null;
   let scheduled = 0;
   let running = false;

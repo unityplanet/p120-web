@@ -1,0 +1,96 @@
+name: P120 PASS 3 Session Contract Gate
+
+on:
+  push:
+    branches:
+      - 'work/p120-runtime-reconciliation-pass3'
+    paths:
+      - 'index.html'
+      - 'en/index.html'
+      - 'system/index.html'
+      - 'en/system/index.html'
+      - 'p120-session-contract-v1.0.js'
+      - 'manual-report-handoff-v1.0.js'
+      - 'p120-submission-intake-v1.0.js'
+      - 'qa/pass3_session_contract_gate_v1.mjs'
+      - '.github/workflows/p120-pass3-session-contract-gate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pass3-session-contract-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/p120-runtime-reconciliation-pass3
+      - name: Verify native System generator preserves PASS 3 boundary
+        shell: bash
+        run: |
+          python3 .github/scripts/p120_pass2_native_routes_runner.py
+          git diff --exit-code -- system/index.html en/system/index.html
+      - name: Verify storage-key ownership statically
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          ru=Path('system/index.html').read_text(encoding='utf-8')
+          en=Path('en/system/index.html').read_text(encoding='utf-8')
+          root=Path('index.html').read_text(encoding='utf-8')
+          eroot=Path('en/index.html').read_text(encoding='utf-8')
+          handoff=Path('manual-report-handoff-v1.0.js').read_text(encoding='utf-8')
+          intake=Path('p120-submission-intake-v1.0.js').read_text(encoding='utf-8')
+          expr="const KEY=window.P120_SESSION_KEY||(/\\/en\\/system(?:\\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');"
+          if ru.count(expr)!=2 or en.count(expr)!=2: raise SystemExit('System session-key binding mismatch')
+          if "const KEY='p120_web_prototype_v01';" in ru or "const KEY='p120_web_prototype_v01';" in en: raise SystemExit('legacy respondent key remains active in System')
+          if "const KEY='p120_editorial_state_ru_v1';" not in root: raise SystemExit('RU Editorial key missing')
+          if "const KEY='p120_editorial_state_en_v1';" not in eroot: raise SystemExit('EN Editorial key missing')
+          if 'data-p120-session-contract="v1.0"' not in ru or 'data-p120-session-contract="v1.0"' not in en: raise SystemExit('session contract runtime missing')
+          for name,text in [('manual handoff',handoff),('submission intake',intake)]:
+              if "const STORAGE_KEY = 'p120_web_prototype_v01';" in text: raise SystemExit(f'{name}: active legacy storage dependency')
+              if 'window.P120_SESSION_KEY' not in text: raise SystemExit(f'{name}: locale session binding missing')
+              if 'p120_runtime_session_ru_v1' not in text or 'p120_runtime_session_en_v1' not in text: raise SystemExit(f'{name}: route fallback keys incomplete')
+
+          # Scan every external script actually loaded by either System route. The frozen legacy
+          # key is allowed only inside the dedicated copy-preserving migration contract.
+          loaded=set()
+          for html_path in (Path('system/index.html'),Path('en/system/index.html')):
+              html=html_path.read_text(encoding='utf-8')
+              base_m=re.search(r'<base\s+href="([^"]+)"',html,re.I)
+              base=base_m.group(1) if base_m else './'
+              for src in re.findall(r'<script[^>]+src="([^"]+)"',html,re.I):
+                  src=src.split('?',1)[0]
+                  if re.match(r'https?://',src,re.I): continue
+                  p=(html_path.parent/base/src).resolve()
+                  try: rel=p.relative_to(Path.cwd().resolve())
+                  except ValueError: raise SystemExit(f'System script resolves outside repository: {src}')
+                  if p.exists(): loaded.add(rel.as_posix())
+          offenders=[]
+          for rel in sorted(loaded):
+              text=Path(rel).read_text(encoding='utf-8')
+              if 'p120_web_prototype_v01' in text and rel!='p120-session-contract-v1.0.js': offenders.append(rel)
+          if offenders: raise SystemExit('Active System scripts still reference legacy respondent key: '+', '.join(offenders))
+          print('Static storage ownership and active dependency scan: PASS')
+          PY
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local P-120 site
+        run: |
+          python3 -m http.server 4178 --bind 127.0.0.1 >/tmp/p120-pass3-http.log 2>&1 &
+          sleep 2
+      - name: Run PASS 3 session and measurement gate
+        run: node qa/pass3_session_contract_gate_v1.mjs
+      - name: Upload PASS 3 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEB_RECONCILIATION_PASS3_QA
+          path: qa-evidence-pass3-session-contract-v1/
+          retention-days: 30
