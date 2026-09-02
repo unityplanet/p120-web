@@ -17,6 +17,16 @@ function check(name,ok,detail=''){
   if(!ok) throw new Error(`${name}: ${detail}`);
 }
 
+async function revealAll(page, selector='.editorial-home > *'){
+  const count=await page.locator(selector).count();
+  for(let i=0;i<count;i++){
+    const loc=page.locator(selector).nth(i);
+    try{await loc.scrollIntoViewIfNeeded(); await page.waitForTimeout(35);}catch(_){ }
+  }
+  await page.evaluate(()=>window.scrollTo(0,0));
+  await page.waitForTimeout(120);
+}
+
 const retired=[
   'Сексуальность начинается не с секса',
   'импульс к жизни',
@@ -36,12 +46,17 @@ try{
     const page=await context.newPage();
     await page.goto(`${BASE}/`,{waitUntil:'networkidle'});
     await page.waitForSelector('html[data-p120-ru-conceptual-entry]',{timeout:10000});
+    await revealAll(page);
     const state=await page.evaluate(()=>{
       const bodyText=document.body.innerText;
       const h1=[...document.querySelectorAll('h1')].filter(el=>{const r=el.getBoundingClientRect();return r.width>0&&r.height>0}).map(el=>el.textContent.trim());
       const nav=[...document.querySelectorAll('[data-why-origin]')].map(el=>el.textContent.replace(/\s+/g,' ').trim());
+      const chapters=[...document.querySelectorAll('.editorial-home .editorial-chapter')].map(el=>{
+        const cs=getComputedStyle(el); const r=el.getBoundingClientRect();
+        return {id:el.id,opacity:Number(cs.opacity||1),display:cs.display,visibility:cs.visibility,width:r.width,height:r.height};
+      });
       return {
-        h1,nav,bodyText,
+        h1,nav,bodyText,chapters,
         utility:!!document.getElementById('p120-utility'),
         boundary:!!document.getElementById('p120-reality-boundary'),
         width:{scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth},
@@ -55,6 +70,8 @@ try{
     check(`${name}: origin nav label`,state.nav.some(x=>x.includes('Происхождение названия')),JSON.stringify(state.nav));
     check(`${name}: no horizontal overflow`,state.width.scroll<=state.width.client+2,JSON.stringify(state.width));
     check(`${name}: adapter version`,state.version==='P2.5-RU-v1.0',String(state.version));
+    const invisible=state.chapters.filter(x=>x.display==='none'||x.visibility==='hidden'||x.opacity<0.85||x.width<20||x.height<20);
+    check(`${name}: all editorial chapters visibly rendered after controlled scroll`,invisible.length===0,JSON.stringify(invisible));
     for(const phrase of retired) check(`${name}: retired phrase absent — ${phrase}`,!state.bodyText.includes(phrase),'visible text still contains retired phrase');
     report.viewports[name]={...state,bodyText:undefined};
     await page.screenshot({path:path.join(OUT,`homepage-${name}.png`),fullPage:true});
@@ -67,10 +84,13 @@ try{
     const page=await context.newPage();
     await page.goto(`${BASE}/creator/`,{waitUntil:'networkidle'});
     await page.waitForSelector('[data-founder-origin-boundary]',{timeout:10000});
+    await revealAll(page,'#founder-story > *');
     const t=await page.locator('[data-founder-origin-boundary]').innerText();
     check('Founder: personal origin/evidence bridge',t.includes('личный опыт может поставить вопрос')&&t.includes('не может служить доказательством ответа'),t);
     const nav=await page.locator('.creator-topbar').innerText();
     check('Founder: origin navigation label',nav.includes('Происхождение названия'),nav);
+    const box=await page.locator('[data-founder-origin-boundary]').boundingBox();
+    check('Founder: boundary bridge rendered visibly',!!box&&box.width>250&&box.height>80,JSON.stringify(box));
     await page.screenshot({path:path.join(OUT,'creator-desktop.png'),fullPage:true});
     await context.close();
   }
@@ -112,6 +132,7 @@ try{
     const page=await context.newPage();
     await page.goto(`${BASE}/`,{waitUntil:'networkidle'});
     await page.waitForSelector('html[data-p120-ru-conceptual-entry]');
+    await revealAll(page);
     const text=await page.locator('body').innerText();
     const required=[
       'Научная основа и собственная архитектура P-120 — не одно и то же.',
