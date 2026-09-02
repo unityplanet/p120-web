@@ -3399,8 +3399,28 @@ function renderThemeSwitch(extra=''){
 function renderHeaderThemeMenu(){
   return `<details class="header-theme-menu desktop-only"><summary><span class="header-theme-dot"></span>${themeLabel(theme)}</summary><div class="header-theme-popover">${['ivory','graphite','museum'].map(t=>`<button class="header-theme-option ${theme===t?'active':''}" data-set-theme="${t}" aria-pressed="${theme===t}"><span class="theme-swatch theme-swatch-${t}"></span><span>${themeLabel(t)}</span></button>`).join('')}</div></details>`;
 }
+function systemLocaleHref(locale){
+  const url=new URL(location.href);
+  let p=url.pathname;
+  if(locale==='en'){
+    if(!/\/en\/system\/?$/i.test(p))p=p.replace(/\/system\/?$/i,'/en/system/');
+  }else{
+    p=p.replace(/\/en\/system\/?$/i,'/system/');
+  }
+  url.pathname=p;url.search='';url.hash='';return url.href;
+}
+function renderSystemLanguageSwitch(mode='desktop'){
+  const isEn=document.documentElement.lang==='en';
+  const label=isEn?'Language':'Language';
+  if(mode==='mobile')return `<section class="p120-language-mobile-group" aria-label="${label}"><div class="p120-language-mobile-label">${label}</div><div class="p120-language-mobile-options"><a href="${systemLocaleHref('ru')}" lang="ru" ${!isEn?'aria-current="page"':''}>RU</a><a href="${systemLocaleHref('en')}" lang="en" ${isEn?'aria-current="page"':''}>EN</a></div></section>`;
+  return `<nav class="p120-language-switch p120-language-switch-desktop" aria-label="${label}"><a href="${systemLocaleHref('ru')}" lang="ru" ${!isEn?'aria-current="page"':''}>RU</a><a href="${systemLocaleHref('en')}" lang="en" ${isEn?'aria-current="page"':''}>EN</a></nav>`;
+}
 function isAssessmentScreen(){return ['preflight','test','transition','results'].includes(state.screen)}
-function startOrResume(){startOrResume();return false}
+function startOrResume(){
+  if(state.itemIndex>=I.items.length){state.screen='results';save();renderResults();return false}
+  if(hasProgress()){state.screen='test';save();renderQuestion();return false}
+  state.screen='preflight';save();renderPreflight();return false
+}
 function renderMobileBottomNav(){
   const startLabel=hasProgress()?'Continue':'Start';
   const activeHome=state.screen==='home'?'active':'';
@@ -3442,6 +3462,7 @@ function renderMobileDrawer(){
           <span class="eyebrow">Sections</span>
           ${links.map(([label,id,kind])=>`<button class="mobile-menu-link" ${kind==='science'?`data-mobile-jump-science="${id}"`:`data-mobile-jump-home="${id}"`}><div><div>${label}</div><small>${kind==='science'?'open the scientific section':'open on the home page'}</small></div></button>`).join('')}
         </div>
+        ${renderSystemLanguageSwitch('mobile')}
         <div class="mobile-menu-group">
           <span class="eyebrow">Appearance</span>
           ${renderThemeSwitch('menu-theme-switch')}
@@ -3487,6 +3508,7 @@ function shell(content,{sidebar=true,home=false}={}){
           <button class="navlink science-navlink" data-science>Scientific basis</button>
         </nav>
         <div class="topbar-tools">
+          ${renderSystemLanguageSwitch('desktop')}
           ${renderHeaderThemeMenu()}
           <span class="badge desktop-only">Research version · 18+</span>
           ${showSave?`<span class="badge desktop-only"><span class="save-dot"></span><span id="save-status">autosave</span></span>`:''}
@@ -3510,7 +3532,7 @@ function bindShell(){
   document.querySelectorAll('[data-home]').forEach(b=>b.onclick=()=>{closeMobileMenu();goHome()});
   document.querySelectorAll('[data-nav]').forEach(b=>b.onclick=()=>{closeMobileMenu();goHome(b.dataset.nav)});
   document.querySelectorAll('[data-science]').forEach(b=>b.onclick=()=>{closeMobileMenu();goScience()});
-  document.querySelectorAll('[data-why-origin]').forEach(b=>b.onclick=()=>{closeMobileMenu();location.href='../why-p120/'});
+  document.querySelectorAll('[data-why-origin]').forEach(b=>b.onclick=()=>{closeMobileMenu();location.href=new URL('../why-p120/',location.href).href});
   document.querySelectorAll('[data-mobile-jump-home]').forEach(b=>b.onclick=()=>{closeMobileMenu();goHome(b.dataset.mobileJumpHome)});
   document.querySelectorAll('[data-mobile-jump-science]').forEach(b=>b.onclick=()=>{closeMobileMenu();goScience(b.dataset.mobileJumpScience)});
   document.querySelectorAll('[data-mobile-start]').forEach(b=>b.onclick=()=>{closeMobileMenu();startOrResume()});
@@ -3559,11 +3581,14 @@ function bindElegantAnchors(){
 }
 
 function goHome(anchor){
-  const suffix=anchor?('#'+encodeURIComponent(anchor)):'';
-  location.href='../'+suffix;
+  const url=new URL('../',location.href);
+  if(anchor)url.hash=encodeURIComponent(anchor);
+  location.href=url.href;
 }
 function goScience(anchor){
-  location.href='../#science-foundation';
+  const url=new URL('../',location.href);
+  url.hash=anchor||'science-foundation';
+  location.href=url.href;
 }
 function updateTopbar(){const e=$('#save-status');if(e)e.textContent='saved '+new Date(state.lastSavedAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
 
