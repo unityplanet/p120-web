@@ -95,13 +95,26 @@ for(const item of uniqueLinkChecks.values()){
   await page.close();
 }
 
-async function clickTransition(id,source,selector,expected,{mobile=false}={}){
+async function clickTransition(id,source,selector,expected,{mobile=false,revealMobileMenu=false}={}){
   const context=await browser.newContext({viewport:mobile?devices.mobile:devices.desktop});
   const page=await context.newPage();
   await page.goto(BASE+source,{waitUntil:'domcontentloaded'}); await settle(page);
   let count=0,visible=false,error=null,final='';
   try{
     const loc=page.locator(selector).first(); count=await loc.count(); visible=count?await loc.isVisible():false;
+    if(revealMobileMenu && count && !visible){
+      const openers=page.locator('.menu-btn,.mobile-menu-toggle,[data-mobile-menu-open],[data-menu-toggle],button[aria-controls*="mobile"]');
+      const openerCount=await openers.count();
+      for(let i=0;i<openerCount;i++){
+        const opener=openers.nth(i);
+        if(await opener.isVisible().catch(()=>false)){
+          await opener.click();
+          await page.waitForTimeout(220);
+          break;
+        }
+      }
+      visible=await loc.isVisible().catch(()=>false);
+    }
     if(!count) throw new Error(`selector not found: ${selector}`);
     if(!visible) throw new Error(`selector not visible: ${selector}`);
     await loc.click();
@@ -133,8 +146,8 @@ await clickTransition('RU System home -> RU Editorial','/system/','[data-home]',
 await clickTransition('EN System home -> EN Editorial','/en/system/','[data-home]','/en/');
 await clickTransition('RU Editorial mobile Start -> RU System','/','.mobile-bottom-nav [data-mobile-start]','/system/',{mobile:true});
 await clickTransition('EN Editorial mobile Start -> EN System','/en/','.mobile-bottom-nav [data-mobile-start]','/en/system/',{mobile:true});
-await clickTransition('RU System mobile language -> EN System','/system/','.p120-language-mobile-options a[lang="en"]','/en/system/',{mobile:true});
-await clickTransition('EN System mobile language -> RU System','/en/system/','.p120-language-mobile-options a[lang="ru"]','/system/',{mobile:true});
+await clickTransition('RU System mobile language -> EN System','/system/','.p120-language-mobile-options a[lang="en"]','/en/system/',{mobile:true,revealMobileMenu:true});
+await clickTransition('EN System mobile language -> RU System','/en/system/','.p120-language-mobile-options a[lang="ru"]','/system/',{mobile:true,revealMobileMenu:true});
 
 // 4) Saved assessment state must not seize editorial routes.
 for(const [id,source,expected] of [['RU saved-state editorial guard','/','/'],['EN saved-state editorial guard','/en/','/en/']]){
