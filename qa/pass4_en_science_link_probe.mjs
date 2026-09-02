@@ -4,203 +4,26 @@ import { execFileSync } from 'node:child_process';
 const ORIGIN='http://127.0.0.1:4179';
 const LIVE='https://unityplanet.github.io/p120-web';
 const FAILING_COMMIT='84289e278a5bb4b157d21533d22a70c5b5e7d6c3';
-const SENTINELS={
-  legacy:'{"sentinel":"legacy-preserve","responses":{"SAT01":"4"}}',
-  ru:'{"sentinel":"ru-session-preserve","responses":{"SAT02":"5"}}',
-  en:'{"sentinel":"en-session-preserve","responses":{"SAT02":"2"}}'
-};
+const SENTINELS={legacy:'{"sentinel":"legacy-preserve","responses":{"SAT01":"4"}}',ru:'{"sentinel":"ru-session-preserve","responses":{"SAT02":"5"}}',en:'{"sentinel":"en-session-preserve","responses":{"SAT02":"2"}}'};
 const baseStates=['CORE','EXTENDED','OUTCOMES','METHODS','LIBRARY'];
 
-async function seedContext(browser){
-  const context=await browser.newContext({viewport:{width:1440,height:1000}});
-  await context.addInitScript(seed=>{
-    localStorage.setItem('p120_web_prototype_v01',seed.legacy);
-    localStorage.setItem('p120_runtime_session_ru_v1',seed.ru);
-    localStorage.setItem('p120_runtime_session_en_v1',seed.en);
-    localStorage.removeItem('p120_science_page_state_ru_v1');
-    localStorage.removeItem('p120_science_page_state_en_v1');
-  },SENTINELS);
-  return context;
-}
-
-async function waitRuntime(page){
-  await page.waitForFunction(()=>document.documentElement.dataset.p120ScientificBaseStatus==='pass'&&window.P120ScientificBase?.status?.pass===true,null,{timeout:12000});
-}
-
-async function selectBase(page,base){
-  if(base==='CORE'){
-    await page.evaluate(()=>window.P120ScientificBase?.setBase('CORE'));
-  }else{
-    const button=page.locator(`[data-p120-science-base="${base}"]`);
-    await button.waitFor({state:'visible',timeout:5000});
-    await button.click();
-  }
-  await page.waitForFunction(expected=>document.documentElement.dataset.p120ScienceActiveBase===expected,base,{timeout:5000});
-  await page.waitForTimeout(120);
-}
-
-async function snapshotLinks(page,label){
-  return page.evaluate(({origin,label})=>{
-    function pathFor(el){
-      if(!el || el.nodeType!==1)return null;
-      if(el.id)return `#${CSS.escape(el.id)}`;
-      const parts=[];
-      let node=el;
-      while(node && node.nodeType===1 && node!==document.documentElement){
-        let part=node.localName;
-        if(node.classList.length)part+='.'+[...node.classList].slice(0,3).map(x=>CSS.escape(x)).join('.');
-        const parent=node.parentElement;
-        if(parent){
-          const same=[...parent.children].filter(x=>x.localName===node.localName);
-          if(same.length>1)part+=`:nth-of-type(${same.indexOf(node)+1})`;
-        }
-        parts.unshift(part);
-        if(parent?.id){parts.unshift(`#${CSS.escape(parent.id)}`);break;}
-        node=parent;
-        if(parts.length>=7)break;
-      }
-      return parts.join(' > ');
-    }
-    return [...document.querySelectorAll('a[href]')].map((a,index)=>{
-      const raw=a.getAttribute('href');
-      const domHref=a.href;
-      let rawResolved=null;
-      try{rawResolved=new URL(raw,document.baseURI).href}catch(_){}
-      let sameOrigin=false;
-      try{sameOrigin=new URL(domHref).origin===origin}catch(_){}
-      const source=a.closest('[data-p120-science-base],[data-p120-science-module],.p120-dedicated-science-lang,.science-page,nav,header,footer');
-      return {
-        checkpoint:label,
-        index,
-        text:(a.textContent||'').replace(/\s+/g,' ').trim(),
-        outerHTML:a.outerHTML,
-        rawHref:raw,
-        documentBaseURI:document.baseURI,
-        domHref,
-        pageUrl:location.href,
-        rawResolvedAgainstBaseURI:rawResolved,
-        qaResolverUrl:domHref.split('#')[0],
-        sameOrigin,
-        selector:pathFor(a),
-        sourceSelector:pathFor(source),
-        sourceOuterHTML:source?.outerHTML?.slice(0,2200)||null
-      };
-    });
-  },{origin:ORIGIN,label});
-}
+async function seedContext(browser){const context=await browser.newContext({viewport:{width:1440,height:1000}});await context.addInitScript(seed=>{localStorage.setItem('p120_web_prototype_v01',seed.legacy);localStorage.setItem('p120_runtime_session_ru_v1',seed.ru);localStorage.setItem('p120_runtime_session_en_v1',seed.en);localStorage.removeItem('p120_science_page_state_ru_v1');localStorage.removeItem('p120_science_page_state_en_v1');},SENTINELS);return context;}
+async function waitRuntime(page){await page.waitForFunction(()=>document.documentElement.dataset.p120ScientificBaseStatus==='pass'&&window.P120ScientificBase?.status?.pass===true,null,{timeout:12000});}
+async function selectBase(page,base){if(base==='CORE'){await page.evaluate(()=>window.P120ScientificBase?.setBase('CORE'));}else{const button=page.locator(`[data-p120-science-base="${base}"]`);await button.waitFor({state:'visible',timeout:5000});await button.click();}await page.waitForFunction(expected=>document.documentElement.dataset.p120ScienceActiveBase===expected,base,{timeout:5000});await page.waitForTimeout(120);}
+async function scrollPage(page){await page.evaluate(async()=>{const root=document.scrollingElement||document.documentElement;const max=Math.max(0,root.scrollHeight-innerHeight);const step=Math.max(420,Math.floor(innerHeight*.72));for(let y=0;y<=max;y+=step){scrollTo(0,y);await new Promise(r=>setTimeout(r,70));}scrollTo(0,0);});await page.waitForTimeout(120);}
+async function snapshotLinks(page,label){return page.evaluate(({origin,label})=>{function pathFor(el){if(!el||el.nodeType!==1)return null;if(el.id)return `#${CSS.escape(el.id)}`;const parts=[];let node=el;while(node&&node.nodeType===1&&node!==document.documentElement){let part=node.localName;if(node.classList.length)part+='.'+[...node.classList].slice(0,3).map(x=>CSS.escape(x)).join('.');const parent=node.parentElement;if(parent){const same=[...parent.children].filter(x=>x.localName===node.localName);if(same.length>1)part+=`:nth-of-type(${same.indexOf(node)+1})`;}parts.unshift(part);if(parent?.id){parts.unshift(`#${CSS.escape(parent.id)}`);break;}node=parent;if(parts.length>=7)break;}return parts.join(' > ');}return [...document.querySelectorAll('a[href]')].map((a,index)=>{const raw=a.getAttribute('href');const domHref=a.href;let rawResolved=null;try{rawResolved=new URL(raw,document.baseURI).href}catch(_){}let sameOrigin=false;try{sameOrigin=new URL(domHref).origin===origin}catch(_){}const source=a.closest('[data-p120-science-base],[data-p120-science-module],.p120-dedicated-science-lang,.science-page,nav,header,footer');return{checkpoint:label,index,text:(a.textContent||'').replace(/\s+/g,' ').trim(),outerHTML:a.outerHTML,rawHref:raw,documentBaseURI:document.baseURI,domHref,pageUrl:location.href,rawResolvedAgainstBaseURI:rawResolved,qaResolverUrl:domHref.split('#')[0],sameOrigin,selector:pathFor(a),sourceSelector:pathFor(source),sourceOuterHTML:source?.outerHTML?.slice(0,2200)||null};});},{origin:ORIGIN,label});}
 
 async function diagnoseLocal(browser,snapshotLabel){
-  const context=await seedContext(browser);
-  const page=await context.newPage();
-  await page.goto(`${ORIGIN}/en/science/`,{waitUntil:'domcontentloaded'});
-  await waitRuntime(page);
-
-  const checkpoints=[];
-  checkpoints.push({label:'initial-core',links:await snapshotLinks(page,'initial-core')});
-  for(const base of baseStates){
-    await selectBase(page,base);
-    checkpoints.push({label:`after-${base.toLowerCase()}`,links:await snapshotLinks(page,`after-${base.toLowerCase()}`)});
-  }
-  await selectBase(page,'CORE');
-  checkpoints.push({label:'qa-final-core',links:await snapshotLinks(page,'qa-final-core')});
-
-  const finalRows=checkpoints.at(-1).links;
-  const uniqueSameOrigin=[...new Map(finalRows.filter(x=>x.sameOrigin).map(x=>[x.domHref,x])).values()];
-  const probes=[];
-  for(const row of uniqueSameOrigin){
-    const clean=row.qaResolverUrl;
-    if(!clean)continue;
-    const res=await page.request.get(clean,{failOnStatusCode:false,timeout:10000}).catch(error=>({status:()=>0,error:String(error)}));
-    probes.push({url:clean,status:res.status(),error:res.error||null});
-  }
-  const broken=probes.filter(x=>x.status>=400||x.status===0);
-  const targetUrls=new Set(broken.map(x=>x.url));
-  const specific=finalRows.filter(x=>targetUrls.has(x.qaResolverUrl)||x.domHref.includes('/en/science/en/'));
-  const emergence=checkpoints.map(cp=>({
-    checkpoint:cp.label,
-    matches:cp.links.filter(x=>x.domHref.includes('/en/science/en/')||x.qaResolverUrl.includes('/en/science/en/'))
-  })).map(x=>({checkpoint:x.checkpoint,count:x.matches.length,matches:x.matches}));
-
-  const pageMeta=await page.evaluate(()=>({pageUrl:location.href,documentBaseURI:document.baseURI,activeBase:window.P120ScientificBase?.activeBaseId||null}));
-  await context.close();
-  return {
-    snapshotLabel,
-    pageMeta,
-    exactQaSequence:baseStates,
-    qaResolverDefinition:'collect DOM a.href -> unique -> split("#")[0] -> page.request.get(clean)',
-    broken,
-    specific,
-    emergence,
-    browserResolvedTargetPresent:specific.some(x=>x.domHref.includes('/en/science/en/'))
-  };
+  const context=await seedContext(browser);const page=await context.newPage();await page.goto(`${ORIGIN}/en/science/`,{waitUntil:'domcontentloaded'});await waitRuntime(page);
+  const checkpoints=[];checkpoints.push({label:'initial-core',links:await snapshotLinks(page,'initial-core')});
+  for(const base of baseStates){await selectBase(page,base);checkpoints.push({label:`${base.toLowerCase()}-pre-scroll`,links:await snapshotLinks(page,`${base.toLowerCase()}-pre-scroll`)});await scrollPage(page);checkpoints.push({label:`${base.toLowerCase()}-post-scroll`,links:await snapshotLinks(page,`${base.toLowerCase()}-post-scroll`)});}
+  await selectBase(page,'CORE');checkpoints.push({label:'qa-final-core-0ms',links:await snapshotLinks(page,'qa-final-core-0ms')});
+  for(const delay of [50,150,300,600,1200]){await page.waitForTimeout(delay);checkpoints.push({label:`qa-final-core-${delay}ms`,links:await snapshotLinks(page,`qa-final-core-${delay}ms`)});}
+  const finalRows=checkpoints.at(-1).links;const uniqueSameOrigin=[...new Map(finalRows.filter(x=>x.sameOrigin).map(x=>[x.domHref,x])).values()];const probes=[];for(const row of uniqueSameOrigin){const clean=row.qaResolverUrl;if(!clean)continue;const res=await page.request.get(clean,{failOnStatusCode:false,timeout:10000}).catch(error=>({status:()=>0,error:String(error)}));probes.push({url:clean,status:res.status(),error:res.error||null});}
+  const broken=probes.filter(x=>x.status>=400||x.status===0);const targetUrls=new Set(broken.map(x=>x.url));const allRows=checkpoints.flatMap(x=>x.links);const specific=allRows.filter(x=>targetUrls.has(x.qaResolverUrl)||x.domHref.includes('/en/science/en/')||x.rawHref==='en/'||x.rawHref==='./en/');const emergence=checkpoints.map(cp=>({checkpoint:cp.label,count:cp.links.filter(x=>x.domHref.includes('/en/science/en/')||x.qaResolverUrl.includes('/en/science/en/')).length,matches:cp.links.filter(x=>x.domHref.includes('/en/science/en/')||x.qaResolverUrl.includes('/en/science/en/'))}));
+  const pageMeta=await page.evaluate(()=>({pageUrl:location.href,documentBaseURI:document.baseURI,activeBase:window.P120ScientificBase?.activeBaseId||null}));await context.close();return{snapshotLabel,pageMeta,exactQaSequenceWithScroll:true,qaResolverDefinition:'collect DOM a.href -> unique -> split("#")[0] -> page.request.get(clean)',broken,specific,emergence,browserResolvedTargetPresent:allRows.some(x=>x.domHref.includes('/en/science/en/'))};
 }
+function checkoutFailingSnapshot(){execFileSync('git',['fetch','--depth=1','origin',FAILING_COMMIT],{stdio:'inherit'});execFileSync('git',['checkout','--detach',FAILING_COMMIT],{stdio:'inherit'});return execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();}
+async function checkLiveRoute(browser,path){const context=await browser.newContext({viewport:{width:1440,height:1000}});const page=await context.newPage();const consoleErrors=[];const badResponses=[];const failedRequests=[];page.on('pageerror',e=>consoleErrors.push(`pageerror: ${e.message}`));page.on('console',m=>{if(m.type()==='error')consoleErrors.push(`console: ${m.text()}`)});page.on('response',r=>{if(r.status()>=400)badResponses.push({url:r.url(),status:r.status(),resourceType:r.request().resourceType()})});page.on('requestfailed',r=>failedRequests.push({url:r.url(),resourceType:r.resourceType(),failure:r.failure()}));const url=`${LIVE}${path}`;const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:30000});let runtimeReady=false;try{await page.waitForFunction(()=>document.documentElement.dataset.p120ScientificBaseStatus==='pass'&&window.P120ScientificBase?.status?.pass===true,null,{timeout:15000});runtimeReady=true;}catch(_){}const result=await page.evaluate(()=>{const atlas=document.querySelector('#p120-science-atlas');const evidence=document.querySelector('#science-evidence');const visible=el=>Boolean(el&&getComputedStyle(el).display!=='none'&&getComputedStyle(el).visibility!=='hidden'&&el.getBoundingClientRect().height>0);return{pageUrl:location.href,baseURI:document.baseURI,lang:document.documentElement.lang,scientificBaseStatus:document.documentElement.dataset.p120ScientificBaseStatus||null,activeBase:window.P120ScientificBase?.activeBaseId||null,atlasExists:Boolean(atlas),atlasVisible:visible(atlas),atlasOuterHTML:atlas?.outerHTML?.slice(0,1800)||null,atlasText:(atlas?.textContent||'').replace(/\s+/g,' ').trim().slice(0,700),evidenceExists:Boolean(evidence),evidenceVisible:visible(evidence),evidenceText:(evidence?.textContent||'').replace(/\s+/g,' ').trim().slice(0,700),scriptSources:[...document.scripts].map(s=>s.src).filter(Boolean)};});await context.close();return{requested:url,httpStatus:response?.status()||null,runtimeReady,consoleErrors,badResponses,failedRequests,...result};}
 
-function checkoutFailingSnapshot(){
-  execFileSync('git',['fetch','--depth=1','origin',FAILING_COMMIT],{stdio:'inherit'});
-  execFileSync('git',['checkout','--detach',FAILING_COMMIT],{stdio:'inherit'});
-  return execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
-}
-
-async function checkLiveRoute(browser,path){
-  const context=await browser.newContext({viewport:{width:1440,height:1000}});
-  const page=await context.newPage();
-  const consoleErrors=[];
-  const badResponses=[];
-  const failedRequests=[];
-  page.on('pageerror',e=>consoleErrors.push(`pageerror: ${e.message}`));
-  page.on('console',m=>{if(m.type()==='error')consoleErrors.push(`console: ${m.text()}`)});
-  page.on('response',r=>{if(r.status()>=400)badResponses.push({url:r.url(),status:r.status(),resourceType:r.request().resourceType()})});
-  page.on('requestfailed',r=>failedRequests.push({url:r.url(),resourceType:r.resourceType(),failure:r.failure()}));
-  const url=`${LIVE}${path}`;
-  const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:30000});
-  let runtimeReady=false;
-  try{
-    await page.waitForFunction(()=>document.documentElement.dataset.p120ScientificBaseStatus==='pass'&&window.P120ScientificBase?.status?.pass===true,null,{timeout:15000});
-    runtimeReady=true;
-  }catch(_){}
-  const result=await page.evaluate(()=>{
-    const atlas=document.querySelector('#p120-science-atlas');
-    const evidence=document.querySelector('#science-evidence');
-    const visible=el=>Boolean(el&&getComputedStyle(el).display!=='none'&&getComputedStyle(el).visibility!=='hidden'&&el.getBoundingClientRect().height>0);
-    return {
-      pageUrl:location.href,
-      baseURI:document.baseURI,
-      lang:document.documentElement.lang,
-      scientificBaseStatus:document.documentElement.dataset.p120ScientificBaseStatus||null,
-      activeBase:window.P120ScientificBase?.activeBaseId||null,
-      atlasExists:Boolean(atlas),
-      atlasVisible:visible(atlas),
-      atlasOuterHTML:atlas?.outerHTML?.slice(0,1800)||null,
-      atlasText:(atlas?.textContent||'').replace(/\s+/g,' ').trim().slice(0,700),
-      evidenceExists:Boolean(evidence),
-      evidenceVisible:visible(evidence),
-      evidenceText:(evidence?.textContent||'').replace(/\s+/g,' ').trim().slice(0,700),
-      scriptSources:[...document.scripts].map(s=>s.src).filter(Boolean)
-    };
-  });
-  await context.close();
-  return {requested:url,httpStatus:response?.status()||null,runtimeReady,consoleErrors,badResponses,failedRequests,...result};
-}
-
-const browser=await chromium.launch({headless:true});
-try{
-  const currentHead=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
-  const current=await diagnoseLocal(browser,`current-head:${currentHead}`);
-  const exactSha=checkoutFailingSnapshot();
-  await new Promise(r=>setTimeout(r,250));
-  const exactFailing=await diagnoseLocal(browser,`failing-commit:${exactSha}`);
-  const liveRU=await checkLiveRoute(browser,'/science/');
-  const liveEN=await checkLiveRoute(browser,'/en/science/');
-  console.log(JSON.stringify({
-    document_id:'P120-PASS4-DIAGNOSTIC-RECONCILIATION-EN-SCIENCE-LINK-002',
-    date:'2026-09-02',
-    productionRuntimeMutation:'NONE',
-    cleanupMutation:'NONE',
-    repositoryMutation:'DIAGNOSTIC_QA_SCRIPT_ONLY_ON_WORK_BRANCH',
-    current,
-    exactFailing,
-    live:{ru:liveRU,en:liveEN}
-  },null,2));
-} finally {
-  await browser.close();
-}
+const browser=await chromium.launch({headless:true});try{const currentHead=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();const current=await diagnoseLocal(browser,`current-head:${currentHead}`);const exactSha=checkoutFailingSnapshot();await new Promise(r=>setTimeout(r,250));const exactFailing=await diagnoseLocal(browser,`failing-commit:${exactSha}`);const liveRU=await checkLiveRoute(browser,'/science/');const liveEN=await checkLiveRoute(browser,'/en/science/');console.log(JSON.stringify({document_id:'P120-PASS4-DIAGNOSTIC-RECONCILIATION-EN-SCIENCE-LINK-003',date:'2026-09-02',productionRuntimeMutation:'NONE',cleanupMutation:'NONE',repositoryMutation:'DIAGNOSTIC_QA_SCRIPT_ONLY_ON_WORK_BRANCH',current,exactFailing,live:{ru:liveRU,en:liveEN}},null,2));}finally{await browser.close();}
