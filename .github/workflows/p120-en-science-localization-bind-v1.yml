@@ -1,0 +1,35 @@
+name: P120 EN Science Localization Bind v1
+on:
+  push:
+    branches:
+      - 'fix/p120-independent-render-corrections-v1'
+    paths:
+      - '.github/scripts/p120_en_science_localization_bind_v1.py'
+      - '.github/workflows/p120-en-science-localization-bind-v1.yml'
+permissions:
+  contents: write
+jobs:
+  bind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/p120-independent-render-corrections-v1
+          fetch-depth: 0
+      - name: Bind controlled localization runtime
+        run: python3 .github/scripts/p120_en_science_localization_bind_v1.py
+      - name: Verify protected-scope diff
+        run: |
+          git diff -- en/science/index.html
+          git diff --exit-code -- system/index.html en/system/index.html || exit 1
+      - name: Commit binding
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add en/science/index.html
+          if git diff --cached --quiet; then
+            echo 'No binding change required.'
+            exit 0
+          fi
+          git commit -m 'Bind EN Scientific Base localization runtime'
+          git push
