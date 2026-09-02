@@ -1,0 +1,23 @@
+# P120 WEB RECONCILIATION PASS 1 — CLOSURE CHECKLIST
+
+- [x] Production baseline SHA frozen
+- [x] Permanent rollback branch created
+- [x] Dedicated working branch created
+- [x] `/` authority recorded
+- [x] `/system/` authority recorded
+- [x] `/en/` authority recorded
+- [x] `/en/system/` authority recorded
+- [x] Shared 180-item measurement/scoring contract protected
+- [x] EN item localization manifests protected
+- [x] EN post-render translator classified as active legacy bridge
+- [x] EN System build workflow classified
+- [x] Shared storage key coupling recorded
+- [x] Submission/report locale-detection defects recorded
+- [x] Editorial runtime mutation coupling recorded
+- [x] Workflow/script accumulation put under no-delete rule
+- [x] Current Scientific Base protected
+- [x] New Scientific Base candidate protected
+- [x] Legacy/deletion gate documented
+- [x] Risk register documented
+- [x] PASS 2 handoff documented
+- [x] PASS 1 decision = PASS
