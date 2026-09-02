@@ -1,0 +1,95 @@
+name: P120 Scientific Base Production QA Gate
+
+on:
+  push:
+    branches:
+      - 'work/p120-scientific-base-production-migration'
+      - 'main'
+    paths:
+      - 'science/index.html'
+      - 'en/science/index.html'
+      - 'p120-scientific-base-runtime-v1.0.js'
+      - 'P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json'
+      - 'qa/scientific_base_production_gate_v1.mjs'
+      - '.github/workflows/p120-scientific-base-production-gate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  science-production-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify controlled migration delta and protected runtime boundary
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess, json
+          BASE='54ac77854d511dbf625b65eaac627947bb9ced98'
+          TAG='<script src="../p120-scientific-base-runtime-v1.0.js?v=sbm10" data-p120-scientific-base-runtime="v1.0"></script>\n'
+          LEGACY="const KEY='p120_web_prototype_v01';"
+          routes=[
+              ('science/index.html',"const KEY='p120_science_page_state_ru_v1';"),
+              ('en/science/index.html',"const KEY='p120_science_page_state_en_v1';"),
+          ]
+          for path,science_key in routes:
+              current=Path(path).read_text(encoding='utf-8')
+              baseline=subprocess.check_output(['git','show',f'{BASE}:{path}'],text=True)
+              if current.count(science_key)!=1: raise SystemExit(f'{path}: Science state key mismatch')
+              if LEGACY in current: raise SystemExit(f'{path}: legacy respondent key still active')
+              if current.count(TAG.strip())!=1: raise SystemExit(f'{path}: Scientific Base loader mismatch')
+              normalized=current.replace(science_key,LEGACY,1).replace(TAG,'',1)
+              if normalized!=baseline: raise SystemExit(f'{path}: migration changed content outside authorized state-key + loader delta')
+              print(path,'authorized-delta-only: PASS')
+
+          protected=[
+              'system/index.html','en/system/index.html','p120-session-contract-v1.0.js',
+              'p120-submission-intake-v1.0.js','manual-report-handoff-v1.0.js',
+              'index.html','en/index.html'
+          ]
+          changed=subprocess.check_output(['git','diff','--name-only',BASE,'--',*protected],text=True).strip()
+          if changed: raise SystemExit('Protected PASS3/runtime files changed: '+changed)
+
+          runtime=Path('p120-scientific-base-runtime-v1.0.js').read_text(encoding='utf-8')
+          for token in ('localStorage','sessionStorage','P120_SESSION_KEY'):
+              if token in runtime: raise SystemExit(f'Scientific Base runtime contains prohibited storage/session token: {token}')
+
+          registry=json.loads(Path('P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json').read_text(encoding='utf-8'))
+          if registry.get('schema_id')!='P120-WEBSCI-PRODUCTION-001': raise SystemExit('registry schema mismatch')
+          if registry.get('measurement_mutation_allowed') is not False: raise SystemExit('measurement mutation boundary broken')
+          if registry.get('scoring_mutation_allowed') is not False: raise SystemExit('scoring mutation boundary broken')
+          if registry.get('session_storage_access')!='PROHIBITED': raise SystemExit('session storage boundary broken')
+          dyadic=next((b for b in registry.get('bases',[]) if b.get('base_id')=='DYADIC'),None)
+          if not dyadic or dyadic.get('public_visibility')!='hidden': raise SystemExit('DYADIC publication boundary broken')
+          if any(m.get('is_total_allowed') is not False for m in registry.get('modules',[])): raise SystemExit('module total prohibition broken')
+          print('Scientific/measurement/scoring/session boundary: PASS')
+          PY
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start local P-120 site
+        run: |
+          python3 -m http.server 4179 --bind 127.0.0.1 >/tmp/p120-science-http.log 2>&1 &
+          sleep 2
+
+      - name: Run independent RU/EN Science browser gate
+        run: node qa/scientific_base_production_gate_v1.mjs
+
+      - name: Upload Science QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_SCIENTIFIC_BASE_PRODUCTION_QA
+          path: qa-evidence-science-production-v1/
+          retention-days: 30
