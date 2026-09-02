@@ -1,0 +1,1 @@
+Final P120 conformance requires exact canonical font resolution in the PDF output and post-export font inventory verification.
