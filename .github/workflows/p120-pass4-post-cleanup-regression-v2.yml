@@ -1,0 +1,189 @@
+name: P120 PASS 4 Post-Cleanup Regression v2
+
+on:
+  push:
+    branches:
+      - 'work/p120-runtime-reconciliation-pass4-continuation'
+    paths:
+      - '.github/workflows/p120-pass4-post-cleanup-regression-v2.yml'
+      - '.github/scripts/p120_pass4_post_cleanup_regression_v2.py'
+      - 'P120_PASS4_POST_CLEANUP_REGRESSION_v2.0.md'
+      - 'P120_PASS4_POST_CLEANUP_REGRESSION_v2.0.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  protected-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify PASS 4 entry baseline and narrow cleanup delta
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          from pathlib import Path
+
+          BASE='563c1a932702dd47c3608772311468a3f10628f1'
+          expected_removed={
+            '.github/p120-public-science-en-v12-xz/part-00.b64',
+            '.github/p120-public-science-en-v12-xz/part-01.b64',
+            '.github/p120-public-science-en-v12-xz/part-02.b64',
+            '.github/p120-public-science-en-v12-xz/part-04.b64',
+            '.github/p120-public-science-en-v12-xz/part-05.b64',
+            '.github/p120-public-science-v12-xz/part-00.b64',
+            '.github/p120-public-science-v12-xz/part-01.b64',
+            '.github/p120-public-science-v12-xz/part-02.b64',
+            '.github/p120-public-science-v12-xz/part-03.b64',
+            '.github/p120-public-science-v12-xz/part-04.b64',
+            '.github/p120-public-science-v12-xz/part-05.b64',
+            '.github/p120-public-science-v12/part-00.b64',
+            '.github/p120-public-science-v12/part-01.b64',
+            '.github/p120-public-science-v12/part-02.b64',
+            '.github/p120-public-science-v12/part-03.b64',
+            '.github/p120-public-science-v12/part-04.b64',
+            '.github/scripts/p120_en_science_localization_bind_v1.py',
+            '.github/scripts/p120_scientific_base_production_migration.py',
+            '.github/workflows/apply-science-public-v12.yml',
+            '.github/workflows/extract-science-localization-source.yml',
+            '.github/workflows/fix-science-navigation-direction-v1-1.yml',
+            '.github/workflows/fix-science-navigation-direction-v1-2.yml',
+            '.github/workflows/fix-science-navigation-direction-v1-3.yml',
+            '.github/workflows/fix-science-navigation-direction-v1-4.yml',
+            '.github/workflows/fix-science-navigation-direction-v1.yml',
+            '.github/workflows/fix-science-parity-idempotence.yml',
+            '.github/workflows/p120-en-science-localization-bind-v1.yml',
+            '.github/workflows/p120-en-science-localization-gate-v1.yml',
+            '.github/workflows/p120-en-science-localization-probe-v1.yml',
+            '.github/workflows/p120-scientific-base-production-migration-apply.yml',
+            '.github/workflows/patch-science-direct-link-v1.yml',
+            '.github/workflows/publish-p120-public-science-en-v12.yml',
+            '.github/workflows/publish-p120-public-science-v12.yml',
+            '.github/workflows/qa-scientific-base-dedicated-v1.yml',
+            '.github/workflows/qa-web-science-pass3.yml',
+            '.github/workflows/restore-science-visual-parity-v1.yml',
+            '.github/workflows/restore-science-visual-parity-v2.yml',
+            'qa/en_science_localization_gate_v1.mjs',
+            'qa/en_science_localization_probe_v1.mjs',
+          }
+          qa_allowed={
+            '.github/scripts/p120_pass4_post_cleanup_regression_v2.py',
+            '.github/workflows/p120-pass4-post-cleanup-regression-v2.yml',
+            'P120_PASS4_POST_CLEANUP_REGRESSION_v2.0.md',
+            'P120_PASS4_POST_CLEANUP_REGRESSION_v2.0.json',
+          }
+
+          merge_base=subprocess.check_output(['git','merge-base','HEAD',BASE],text=True).strip()
+          if merge_base!=BASE:
+            raise SystemExit(f'PASS 4 continuation is not based on authoritative entry baseline: {merge_base}')
+
+          rows=subprocess.check_output(['git','diff','--name-status',BASE,'HEAD'],text=True).splitlines()
+          observed_removed=set()
+          unexpected=[]
+          for row in rows:
+            if not row.strip(): continue
+            status,path=row.split('\t',1)
+            if status=='D' and path in expected_removed:
+              observed_removed.add(path)
+            elif status in {'A','M'} and path in qa_allowed:
+              pass
+            else:
+              unexpected.append((status,path))
+          if unexpected:
+            raise SystemExit('Unexpected PASS 4 delta: '+repr(unexpected))
+          missing=expected_removed-observed_removed
+          if missing:
+            raise SystemExit('Expected cleanup removals missing: '+repr(sorted(missing)))
+
+          protected=[
+            'index.html','en/index.html',
+            'system/index.html','en/system/index.html',
+            'science/index.html','en/science/index.html',
+            'p120-session-contract-v1.0.js',
+            'p120-submission-intake-v1.0.js',
+            'manual-report-handoff-v1.0.js',
+            'p120-scientific-base-runtime-v1.0.js',
+            'p120-en-science-localization-runtime-v1.0.js',
+            'P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json',
+            'qa/independent_render_audit_v1_1.mjs',
+            'qa/pass3_session_contract_gate_v1.mjs',
+            'qa/scientific_base_production_gate_v1.mjs',
+            'qa/pass4a_deployment_path_gate.mjs',
+          ]
+          changed=subprocess.check_output(['git','diff','--name-only',BASE,'HEAD','--',*protected],text=True).strip()
+          if changed:
+            raise SystemExit('Protected production/QA contract changed: '+changed)
+
+          print(f'Cleanup removals: {len(observed_removed)}/39 PASS')
+          print('Protected production/runtime/measurement/Science surfaces: BYTE-IDENTICAL PASS')
+          PY
+
+  regression:
+    needs: protected-contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start domain-root QA servers
+        shell: bash
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-pass4-4173.log 2>&1 & echo $! >/tmp/p120-pass4-4173.pid
+          python3 -m http.server 4178 --bind 127.0.0.1 >/tmp/p120-pass4-4178.log 2>&1 & echo $! >/tmp/p120-pass4-4178.pid
+          python3 -m http.server 4179 --bind 127.0.0.1 >/tmp/p120-pass4-4179-root.log 2>&1 & echo $! >/tmp/p120-pass4-4179.pid
+          sleep 2
+          curl -fsS http://127.0.0.1:4173/ >/dev/null
+          curl -fsS http://127.0.0.1:4178/system/ >/dev/null
+          curl -fsS http://127.0.0.1:4179/science/ >/dev/null
+
+      - name: Run full 20-route desktop/mobile render and transition regression
+        run: node qa/independent_render_audit_v1_1.mjs
+
+      - name: Run PASS 3 session and measurement/scoring regression
+        run: node qa/pass3_session_contract_gate_v1.mjs
+
+      - name: Run Scientific Base domain-root production regression
+        run: node qa/scientific_base_production_gate_v1.mjs
+
+      - name: Switch 4179 to GitHub Pages project-subpath model
+        shell: bash
+        run: |
+          kill "$(cat /tmp/p120-pass4-4179.pid)" || true
+          sleep 1
+          (cd .. && python3 -m http.server 4179 --bind 127.0.0.1 >/tmp/p120-pass4-4179-project.log 2>&1 & echo $! >/tmp/p120-pass4-4179-project.pid)
+          sleep 2
+          curl -fsS http://127.0.0.1:4179/p120-web/science/ >/dev/null
+          curl -fsS http://127.0.0.1:4179/p120-web/en/science/ >/dev/null
+
+      - name: Run PASS 4A GitHub Pages project-subpath regression
+        run: node qa/pass4a_deployment_path_gate.mjs
+
+      - name: Aggregate controlled PASS 4 regression evidence
+        run: python3 .github/scripts/p120_pass4_post_cleanup_regression_v2.py
+
+      - name: Upload complete PASS 4 regression evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_PASS4_POST_CLEANUP_REGRESSION_V2
+          path: |
+            qa-evidence-independent-render-v1-1/
+            qa-evidence-pass3-session-contract-v1/
+            qa-evidence-science-production-v1/
+            qa-evidence-pass4a/
+            P120_PASS4_POST_CLEANUP_REGRESSION_v2.0.json
+            P120_PASS4_POST_CLEANUP_REGRESSION_v2.0.md
+          retention-days: 30
