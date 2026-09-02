@@ -1,0 +1,41 @@
+name: P120 RU Conceptual Entry PASS 2.5 QA
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'work/ru-conceptual-entry-pass2'
+    paths:
+      - 'p120-ru-conceptual-entry-v1.0.js'
+      - 'extended-research-navigation-v1.0.js'
+      - 'founder-ru-cleanup-v1.0.js'
+      - 'founder-ru-conceptual-boundary-v1.0.js'
+      - 'p120-system-route-guard-v1.0.js'
+      - 'p120-system-orientation-ru-v1.0.js'
+      - 'qa/ru_conceptual_entry_pass2_qa.mjs'
+      - '.github/workflows/p120-ru-conceptual-entry-pass2-qa.yml'
+permissions:
+  contents: read
+jobs:
+  ru-conceptual-entry-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local P-120 site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-ru-conceptual-entry-http.log 2>&1 &
+          sleep 2
+      - name: Responsive visual + scientific copy regression
+        run: node qa/ru_conceptual_entry_pass2_qa.mjs
+      - name: Upload QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_RU_CONCEPTUAL_ENTRY_PASS2_5_QA
+          path: qa-evidence-ru-conceptual-entry-pass2/
+          retention-days: 30
