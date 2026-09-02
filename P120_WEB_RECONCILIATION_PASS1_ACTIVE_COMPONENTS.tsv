@@ -1,0 +1,28 @@
+component	layer	route_scope	classification	pass_action	note
+index.html	page	/	CANONICAL	PRESERVE	RU editorial production source; contains legacy embedded assessment history
+system/index.html	page	/system/	CANONICAL	PRESERVE	RU respondent System authority
+en/index.html	page	/en/	CANONICAL	PRESERVE	EN editorial route
+en/system/index.html	page	/en/system/	ACTIVE_RECONCILIATION_REQUIRED	PRESERVE	Generated from RU System under current EN build
+p120-production-public-runtime-v1.1.js	runtime	Editorial/shared historical	CANONICAL_EDITORIAL_WITH_COUPLING	TRACE	Generated public runtime with dynamic navigation and MutationObserver layers
+p120-en-system-runtime-v0.4.js	localization-runtime	/en/system/	LEGACY_BRIDGE_ACTIVE	REPLACE_PASS2	Post-render RU-to-EN DOM translation; do not delete before native EN assembly
+p120-en-instrument-bind-v0.4.js	instrument-localization	/en/system/	CANONICAL_PATTERN	PRESERVE	Binds EN respondent text by existing item IDs; keeps response/scoring identity
+localization/p120-en-items-sat24-v1.0.js	item-manifest	/en/system/	PROTECTED_EN_CONTENT	PRESERVE	Controlled EN SAT-24 language realization
+localization/p120-en-items-p72-q01-q48-v1.0.js	item-manifest	/en/system/	PROTECTED_EN_CONTENT	PRESERVE	Controlled EN P-72 Likert language realization
+localization/p120-en-items-p72-q49-q72-v1.0.js	item-manifest	/en/system/	PROTECTED_EN_CONTENT	PRESERVE	Controlled EN P-72 comparative language realization
+localization/p120-en-items-p72d-v1.0.js	item-manifest	/en/system/	PROTECTED_EN_CONTENT	PRESERVE	Controlled EN P-72D language realization
+localization/p120-en-items-ao12-v1.0.js	item-manifest	/en/system/	PROTECTED_EN_CONTENT	PRESERVE	Controlled EN AO-12 language realization
+localization/p120-en-items-soma24-v1.0.js	item-manifest	/en/system/	PROTECTED_EN_CONTENT	PRESERVE	Controlled EN SOMA-24 language realization
+localization/p120-en-pass4-overrides-v0.4.js	item-manifest-override	/en/system/	PROTECTED_EN_CONTENT	PRESERVE	PASS 4 semantic-fidelity overrides
+.github/workflows/p120-en-system-build-v0.4.yml	build	/en/system/	ACTIVE_BUILD_AUTHORITY	REPLACE_PASS2	Copies RU System, injects EN content and translator
+p120-submission-intake-v1.0.js	transport	System/results	SHARED_ACTIVE_DEFECT	RECONCILE_PASS3	Shared coded-response transport; locale detection does not cover /en/system/
+manual-report-handoff-v1.0.js	transport	System/results	SHARED_ACTIVE_DEFECT	RECONCILE_PASS3	Manual report transport; locale detection requires /en/system/ reconciliation
+p120_web_prototype_v01	localStorage	/system/ + /en/system/	SHARED_ACTIVE_STATE	RECONCILE_PASS3	Responses and route/UI state currently coexist in one storage object
+P120_WEB_SYSTEM_MIGRATION_v1.0.md	control	/system/	CANONICAL_CONTROL	PRESERVE	Frozen System migration evidence
+BILINGUAL_RELEASE_QA.txt	control	RU/EN	CONTROL_REFERENCE	PRESERVE	Existing bilingual QA record
+LOCALIZATION_RU_INVENTORY.tsv	localization-control	RU/EN	CONTROL_REFERENCE	PRESERVE	Localization inventory; not deletion target in PASS 1
+P120_SCIENCE_NAVIGATION_RECONCILIATION_v1.0.md	science-control	Editorial/science	PROTECTED_SCIENCE	PRESERVE	Science navigation reconciliation record
+P120_SCIENTIFIC_CONCEPT_PUBLIC_v1.2_RELEASE.md	science-release	Scientific Base	PROTECTED_SCIENCE	PRESERVE	Public science release/control material
+.github/workflows/apply-science-public-v12.yml	science-build	Scientific Base	UNKNOWN_ACTIVE_SCIENCE_DEPENDENCY	PROTECT	Do not remove before new Scientific Base migration/reference trace
+.github/p120-public-science-v12*	science-build-material	Scientific Base	UNKNOWN_ACTIVE_SCIENCE_DEPENDENCY	PROTECT	Chunked/staged science build material; must be traced before cleanup
+.github/workflows/apply-*.yml	historical-build	mixed	UNKNOWN_DEPENDENCY	TRACE_PASS4	Large historical workflow family; no deletion by filename/age
+.github/scripts/*.py	historical-build	mixed	UNKNOWN_DEPENDENCY	TRACE_PASS4	Migration/reconciliation/build scripts; no deletion in PASS 1
