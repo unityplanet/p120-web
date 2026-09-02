@@ -1,0 +1,55 @@
+name: P120 PASS 4A Deployment Path Apply
+
+on:
+  push:
+    branches:
+      - 'work/p120-deployment-path-reconciliation-pass4a'
+    paths:
+      - '.github/scripts/p120_pass4a_deployment_path_apply.py'
+      - '.github/workflows/p120-pass4a-deployment-path-apply.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/p120-deployment-path-reconciliation-pass4a
+          fetch-depth: 0
+      - name: Apply minimal Science deployment-path corrections
+        run: python3 .github/scripts/p120_pass4a_deployment_path_apply.py
+      - name: Verify correction scope
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          BASE='f46b7335e47d75672424136979f91a1a3997aa37'
+          ru=Path('science/index.html').read_text(encoding='utf-8')
+          en=Path('en/science/index.html').read_text(encoding='utf-8')
+          assert '<base href="../">' in ru
+          assert '<base href="../">' in en
+          assert 'src="p120-scientific-base-runtime-v1.0.js?v=sbm10"' in ru
+          assert 'src="../p120-en-science-localization-runtime-v1.0.js?v=ensci10"' in en
+          print('Path contracts: PASS')
+          PY
+          changed="$(git diff --name-only)"
+          bad="$(printf '%s\n' "$changed" | grep -Ev '^(science/index.html|en/science/index.html)$' || true)"
+          if [ -n "$bad" ]; then
+            echo "Unexpected changed files:"; echo "$bad"; exit 1
+          fi
+      - name: Commit materialized route correction
+        shell: bash
+        run: |
+          if [ -z "$(git status --porcelain -- science/index.html en/science/index.html)" ]; then
+            echo 'Routes already current.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add science/index.html en/science/index.html
+          git commit -m 'PASS 4A: reconcile Scientific Base deployment paths'
+          git push
