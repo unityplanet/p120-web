@@ -3311,11 +3311,12 @@ window.P120_EDITORIAL = {
 };
 
   </script>
+  <script src="p120-session-contract-v1.0.js?v=pass3" data-p120-session-contract="v1.0"></script>
   <!-- P120 SYSTEM CONTROLLED MIGRATION:START -->
   <script id="p120-system-route-bootstrap-v1">
   (() => {
     'use strict';
-    const KEY='p120_web_prototype_v01';
+    const KEY=window.P120_SESSION_KEY||(/\/en\/system(?:\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');
     try {
       const raw=localStorage.getItem(KEY);
       const s=raw?JSON.parse(raw):{};
@@ -3334,13 +3335,13 @@ window.P120_EDITORIAL = {
   <script>
 (function(){
 const I=window.P120_INSTRUMENT, S=window.P120Scoring, D=window.P120_SCIENCE, P=window.P120_PRESENTATION, E=window.P120_EXAMPLES, ED=window.P120_EDITORIAL;
-/* Keep the v0.1 storage key intentionally so an existing local demo session survives this UX update. */
-const KEY='p120_web_prototype_v01';
+/* PASS 3: respondent state is stored in a locale-isolated System session; legacy state is copied once without deletion. */
+const KEY=window.P120_SESSION_KEY||(/\/en\/system(?:\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');
 const THEME_KEY='p120_web_theme_v16';
 const $=sel=>document.querySelector(sel);
 const now=()=>new Date().toISOString();
 const uid=()=> 'P120-'+Math.random().toString(36).slice(2,8).toUpperCase();
-const fresh=()=>({participantId:uid(),screen:'home',itemIndex:0,responses:{},adminModes:{},telemetry:[{type:'session_created',at:now()}],startedAt:null,consentAt:null,lastSavedAt:now()});
+const fresh=()=>({participantId:uid(),sessionLocale:(window.P120_SESSION_CONTRACT?.locale||(/\/en\/system(?:\/|$)/i.test(location.pathname)?'en':'ru')),screen:'home',itemIndex:0,responses:{},adminModes:{},telemetry:[{type:'session_created',at:now()}],startedAt:null,consentAt:null,lastSavedAt:now()});
 let state=load();
 let theme=loadTheme();
 applyTheme(theme);

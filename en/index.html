@@ -3315,8 +3315,8 @@ window.P120_EDITORIAL = {
   <script>
 (function(){
 const I=window.P120_INSTRUMENT, S=window.P120Scoring, D=window.P120_SCIENCE, P=window.P120_PRESENTATION, E=window.P120_EXAMPLES, ED=window.P120_EDITORIAL;
-/* Keep the v0.1 storage key intentionally so an existing local demo session survives this UX update. */
-const KEY='p120_web_prototype_v01';
+/* PASS 3: dormant editorial runtime uses editorial-only state; respondent sessions belong to /system/. */
+const KEY='p120_editorial_state_en_v1';
 const THEME_KEY='p120_web_theme_v16';
 const $=sel=>document.querySelector(sel);
 const now=()=>new Date().toISOString();
