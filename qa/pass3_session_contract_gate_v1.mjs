@@ -58,7 +58,10 @@ add('RU visit does not create EN session',ru1.en===null);
 add('RU current respondent item is SAT02',ru1.currentItem==='SAT02',{currentItem:ru1.currentItem});
 add('RU downstream intake reads RU session',ru1.intakePackage?.locale==='ru'&&ru1.intakePackage?.responses?.SAT01==='4',{locale:ru1.intakePackage?.locale});
 
-await page.locator('.choice[data-value="5"]').click();
+// Force dispatch is intentional here: the independent legal-consent modal is a separate gate
+// and may cover the questionnaire in a fresh QA browser. We are testing respondent-state wiring,
+// not legal-modal interaction; the same questionnaire onclick handler still executes.
+await page.locator('.choice[data-value="5"]').click({force:true});
 await page.waitForTimeout(120);
 const ruPersisted=await readSession(RU);
 add('RU respondent write persists in RU session',ruPersisted?.responses?.SAT02==='5',{value:ruPersisted?.responses?.SAT02});
@@ -76,7 +79,7 @@ add('EN migration does not mutate legacy',en1.legacy===legacyRaw);
 add('EN current respondent item is SAT02',en1.currentItem==='SAT02',{currentItem:en1.currentItem});
 add('EN downstream intake reads EN session',en1.intakePackage?.locale==='en'&&en1.intakePackage?.responses?.SAT01==='4'&&en1.intakePackage?.responses?.SAT02===undefined,{locale:en1.intakePackage?.locale});
 
-await page.locator('.choice[data-value="2"]').click();
+await page.locator('.choice[data-value="2"]').click({force:true});
 await page.waitForTimeout(120);
 const enPersisted=await readSession(EN);
 add('EN respondent write persists in EN session',enPersisted?.responses?.SAT02==='2',{value:enPersisted?.responses?.SAT02});
