@@ -1,0 +1,82 @@
+name: P120 PASS 4 Post-Cleanup Regression
+
+on:
+  push:
+    branches:
+      - 'work/p120-runtime-reconciliation-pass4'
+      - 'main'
+    paths:
+      - '.github/scripts/p120_pass4_post_cleanup_regression.py'
+      - '.github/workflows/p120-pass4-post-cleanup-regression.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify PASS 4 production-baseline ancestry
+        run: |
+          test "$(git merge-base HEAD f46b7335e47d75672424136979f91a1a3997aa37)" = "f46b7335e47d75672424136979f91a1a3997aa37"
+          echo 'PASS 4 baseline ancestry: PASS'
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start isolated local servers
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-pass4-4173.log 2>&1 &
+          python3 -m http.server 4178 --bind 127.0.0.1 >/tmp/p120-pass4-4178.log 2>&1 &
+          python3 -m http.server 4179 --bind 127.0.0.1 >/tmp/p120-pass4-4179.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:4173/ >/dev/null
+          curl -fsS http://127.0.0.1:4178/ >/dev/null
+          curl -fsS http://127.0.0.1:4179/science/ >/dev/null
+
+      - name: Run full 20-route desktop/mobile render and transition regression
+        run: node qa/independent_render_audit_v1_1.mjs
+
+      - name: Run PASS 3 session and measurement/scoring regression
+        run: node qa/pass3_session_contract_gate_v1.mjs
+
+      - name: Run Scientific Base production regression
+        run: node qa/scientific_base_production_gate_v1.mjs
+
+      - name: Aggregate PASS 4 acceptance evidence
+        run: python3 .github/scripts/p120_pass4_post_cleanup_regression.py
+
+      - name: Upload PASS 4 regression evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_PASS4_POST_CLEANUP_REGRESSION
+          path: |
+            qa-evidence-independent-render-v1-1/
+            qa-evidence-pass3-session-contract-v1/
+            qa-evidence-science-production-v1/
+            P120_PASS4_POST_CLEANUP_REGRESSION_v1.0.json
+            P120_PASS4_POST_CLEANUP_REGRESSION_v1.0.md
+          retention-days: 30
+
+      - name: Commit controlled regression record on work branch only
+        if: success() && github.ref == 'refs/heads/work/p120-runtime-reconciliation-pass4'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add P120_PASS4_POST_CLEANUP_REGRESSION_v1.0.json P120_PASS4_POST_CLEANUP_REGRESSION_v1.0.md
+          if git diff --cached --quiet; then
+            echo 'PASS 4 regression record already current.'
+          else
+            git commit -m 'Record PASS 4 post-cleanup regression'
+            git push
+          fi
