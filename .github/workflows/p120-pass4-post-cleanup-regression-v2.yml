@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'work/p120-runtime-reconciliation-pass4-continuation'
+      - 'main'
     paths:
       - '.github/workflows/p120-pass4-post-cleanup-regression-v2.yml'
       - '.github/scripts/p120_pass4_post_cleanup_regression_v2.py'
