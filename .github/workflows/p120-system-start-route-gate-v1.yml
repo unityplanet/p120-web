@@ -1,0 +1,35 @@
+name: P120 System Start Route Gate v1
+on:
+  push:
+    branches:
+      - 'fix/p120-system-start-route-normalization-v1'
+    paths:
+      - 'system/index.html'
+      - 'en/system/index.html'
+      - 'qa/system_start_route_gate_v1.mjs'
+      - '.github/workflows/p120-system-start-route-gate-v1.yml'
+permissions:
+  contents: read
+jobs:
+  start-route-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/p120-system-start-route-normalization-v1
+      - name: Verify native route generator is idempotent for System surfaces
+        run: |
+          python3 .github/scripts/p120_pass2_native_routes_runner.py
+          git diff --exit-code -- system/index.html en/system/index.html
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local P-120 site
+        run: |
+          python3 -m http.server 4177 --bind 127.0.0.1 >/tmp/p120-system-start-route-gate-http.log 2>&1 &
+          sleep 2
+      - name: Verify direct and editorial start routes
+        run: node qa/system_start_route_gate_v1.mjs
