@@ -40,4 +40,4 @@ jobs:
           name: P120_INDEPENDENT_RENDER_AUDIT_V1_1
           path: qa-evidence-independent-render-v1-1/
           retention-days: 30
-# rerun after drawer-aware mobile transition harness correction
+# rerun after scroll-primed full-page screenshot and drawer-aware transition harness correction
