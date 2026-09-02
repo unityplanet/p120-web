@@ -157,7 +157,7 @@
     }
   };
 
-  const utilityMarkup=()=>`<section class="editorial-chapter editorial-precision p120-conceptual-insert" id="p120-utility" data-p120-conceptual-insert="utility" data-reveal>
+  const utilityMarkup=()=>`<section class="editorial-chapter editorial-precision p120-conceptual-insert" id="p120-utility" data-p120-conceptual-insert="utility">
     <div class="chapter-index"><span>03</span><small>Акт I · Что даёт P-120</small></div>
     <div class="chapter-head"><div class="chapter-hero"><h2>Не вердикт. Более точная карта.</h2></div><div class="chapter-subtitle">Результат P-120 — не окончательный ответ на вопрос «кто я?». Он может дать более точный язык для вопроса: «что именно здесь происходит со мной?».</div></div>
     <div class="chapter-flash"><p>P-120 не говорит, как должно быть. Она увеличивает разрешение, с которым можно рассмотреть то, что уже есть.</p></div>
@@ -169,7 +169,7 @@
     </div></div>
   </section>`;
 
-  const boundaryMarkup=()=>`<section class="editorial-chapter editorial-precision p120-conceptual-insert" id="p120-reality-boundary" data-p120-conceptual-insert="boundary" data-reveal>
+  const boundaryMarkup=()=>`<section class="editorial-chapter editorial-precision p120-conceptual-insert" id="p120-reality-boundary" data-p120-conceptual-insert="boundary">
     <div class="chapter-index"><span>04</span><small>Акт I · Граница</small></div>
     <div class="chapter-head"><div class="chapter-hero"><h2>Понимание не гарантирует результат.</h2></div><div class="chapter-subtitle">P-120 объясняет различия; она не обещает идеальный исход.</div></div>
     <div class="chapter-flash"><p>Понимание не отменяет реальность другого человека.</p></div>
@@ -278,7 +278,7 @@
   function addStyle(){
     if(document.getElementById('p120-conceptual-entry-p25-style'))return;
     const style=document.createElement('style');style.id='p120-conceptual-entry-p25-style';
-    style.textContent='.p120-conceptual-insert{border-top:1px solid var(--frame-line-soft,var(--line));padding-top:clamp(42px,6vw,86px);margin-top:clamp(38px,5vw,72px)}.p120-conceptual-prose,.p120-boundary-list{max-width:930px}.p120-boundary-list p{margin-block:.52em}@media(max-width:760px){.p120-conceptual-insert{padding-top:38px;margin-top:30px}.p120-conceptual-prose,.p120-boundary-list{max-width:none}}';
+    style.textContent='.p120-conceptual-insert{border-top:1px solid var(--frame-line-soft,var(--line));padding-top:clamp(42px,6vw,86px);margin-top:clamp(38px,5vw,72px);opacity:1!important;transform:none!important;visibility:visible!important}.p120-conceptual-prose,.p120-boundary-list{max-width:930px}.p120-boundary-list p{margin-block:.52em}@media(max-width:760px){.p120-conceptual-insert{padding-top:38px;margin-top:30px}.p120-conceptual-prose,.p120-boundary-list{max-width:none}}';
     document.head.appendChild(style);
   }
 
