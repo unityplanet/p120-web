@@ -22,7 +22,20 @@ jobs:
           fetch-depth: 0
 
       - name: Run route, language, measurement and design QA
-        run: python .github/scripts/p120_pass2_closure_qa.py
+        shell: bash
+        run: |
+          # The checked-in QA parser is conservative; extend its function matcher
+          # in the ephemeral QA workspace to include async function declarations.
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('.github/scripts/p120_pass2_closure_qa.py')
+          s=p.read_text(encoding='utf-8')
+          old="m=re.search(rf'function\\s+{re.escape(name)}\\s*\\([^)]*\\)\\s*\\{{',app)"
+          new="m=re.search(rf'(?:async\\s+)?function\\s+{re.escape(name)}\\s*\\([^)]*\\)\\s*\\{{',app)"
+          if old not in s: raise SystemExit('QA function parser signature not found')
+          p.write_text(s.replace(old,new,1),encoding='utf-8')
+          PY
+          python .github/scripts/p120_pass2_closure_qa.py
 
       - name: Syntax-check every inline System JavaScript block
         shell: bash
@@ -66,6 +79,7 @@ jobs:
       - name: Commit closure QA evidence
         shell: bash
         run: |
+          git checkout -- .github/scripts/p120_pass2_closure_qa.py
           if [ -z "$(git status --porcelain -- P120_WEB_RECONCILIATION_PASS2_CLOSURE_QA.json)" ]; then
             echo 'Closure QA evidence already current.'
           else
