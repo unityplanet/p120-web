@@ -1,0 +1,60 @@
+name: P120 Scientific Base Production Migration Apply
+
+on:
+  push:
+    branches:
+      - 'work/p120-scientific-base-production-migration'
+    paths:
+      - '.github/scripts/p120_scientific_base_production_migration.py'
+      - '.github/workflows/p120-scientific-base-production-migration-apply.yml'
+      - 'p120-scientific-base-runtime-v1.0.js'
+      - 'P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize-scientific-base-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/p120-scientific-base-production-migration
+          fetch-depth: 0
+      - name: Materialize runtime loader into RU/EN Science routes
+        run: python3 .github/scripts/p120_scientific_base_production_migration.py
+      - name: Verify protected Core payload and assessment files are unchanged
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, subprocess, hashlib
+          BASE='54ac77854d511dbf625b65eaac627947bb9ced98'
+          paths=['science/index.html','en/science/index.html']
+          patt=re.compile(r'window\.P120_SCIENCE\s*=\s*(\{.*?\});\s*</script>',re.S)
+          for path in paths:
+              cur=Path(path).read_text(encoding='utf-8')
+              old=subprocess.check_output(['git','show',f'{BASE}:{path}'],text=True)
+              cm=patt.search(cur); om=patt.search(old)
+              if not cm or not om: raise SystemExit(f'{path}: P120_SCIENCE payload missing')
+              if cm.group(1)!=om.group(1): raise SystemExit(f'{path}: P120_SCIENCE payload changed')
+              print(path,'science-payload-sha256',hashlib.sha256(cm.group(1).encode()).hexdigest())
+          forbidden=['system/index.html','en/system/index.html','p120-session-contract-v1.0.js','p120-submission-intake-v1.0.js','manual-report-handoff-v1.0.js']
+          changed=subprocess.check_output(['git','diff','--name-only',BASE,'--',*forbidden],text=True).strip()
+          if changed: raise SystemExit('Protected runtime files changed: '+changed)
+          print('Protected Core + System runtime boundary: PASS')
+          PY
+      - name: Commit route materialization
+        shell: bash
+        run: |
+          files=(science/index.html en/science/index.html)
+          if [ -z "$(git status --porcelain -- "${files[@]}")" ]; then
+            echo 'Scientific Base route materialization already current.'
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add "${files[@]}"
+            git commit -m 'Materialize Scientific Base production runtime on RU and EN routes'
+            git push
+          fi
