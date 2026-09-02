@@ -1,0 +1,291 @@
+{
+  "document_id": "P120-WEB-REC-PASS2-CLOSURE-QA",
+  "version": "1.0",
+  "date": "2026-09-02",
+  "status": "PASS",
+  "route_authority": {
+    "/system/": "native-ru",
+    "/en/system/": "native-en"
+  },
+  "post_render_translator": "ABSENT",
+  "runtime_translation_manifests": "ABSENT_FROM_EN_ROUTE",
+  "system_language_selector": "NATIVE_ROUTE_OWNED",
+  "item_count": 180,
+  "measurement_manifest_sha256": "c890e03d54e1c1d9edc4d72c34a31d5402f02b1b03e2aceacccf266d3dc4bd3f",
+  "ru_instrument_sha256": "25654202e9d4075c917ceb062b420b4ec8ed9c5a92aa46577b46c52acc1f2794",
+  "frozen_ru_instrument_sha256": "25654202e9d4075c917ceb062b420b4ec8ed9c5a92aa46577b46c52acc1f2794",
+  "scoring_runtime_sha256": "c8cb0ced76a148f1a20b5ca08ce75734807d7da21e30536b6fcbe869feb16411",
+  "visual_inline_style_hashes": [
+    "d51596fb1ba34b3b4ce1b1b05181697b9910bb3dd2ea85617578062b12173425",
+    "fee991579d7d501112b00602368e559503d8bb38f55634e0c846cad9859114d4",
+    "48ed66597355685c0bde7ec2122c02d841db00c1e0cca0e242afa167188b5b61"
+  ],
+  "active_en_functions_checked": 18,
+  "measurement_scoring_changes": "NONE",
+  "scientific_base_changes": "NONE",
+  "session_storage_redesign": "DEFERRED_TO_PASS3",
+  "legacy_file_deletion": "NONE",
+  "checks": [
+    {
+      "check": "RU lang authority",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN lang authority",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "RU native route marker",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN native route marker",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "RU shared-asset base",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN shared-asset base",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "System excludes runtime coupling",
+      "status": "PASS",
+      "detail": "p120-en-system-runtime-v0.4.js"
+    },
+    {
+      "check": "System excludes runtime coupling",
+      "status": "PASS",
+      "detail": "p120-en-instrument-bind-v0.4.js"
+    },
+    {
+      "check": "System excludes runtime coupling",
+      "status": "PASS",
+      "detail": "p120-public-runtime-v1.0.js"
+    },
+    {
+      "check": "System excludes runtime coupling",
+      "status": "PASS",
+      "detail": "founder-route-v1.1.js"
+    },
+    {
+      "check": "System excludes runtime coupling",
+      "status": "PASS",
+      "detail": "extended-research-navigation-v1.0.js"
+    },
+    {
+      "check": "System excludes runtime coupling",
+      "status": "PASS",
+      "detail": "science-navigation-reconciliation-v1.0.js"
+    },
+    {
+      "check": "System excludes runtime coupling",
+      "status": "PASS",
+      "detail": "brand-origin-scroll-interstitial-runtime-v1"
+    },
+    {
+      "check": "System excludes runtime coupling",
+      "status": "PASS",
+      "detail": "p120-science-public-v12-runtime"
+    },
+    {
+      "check": "EN has no runtime item binding",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN has no runtime localization manifests",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "RU instrument payload byte parity with rollback freeze",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "RU/EN coded-response manifest parity",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "180/180 unique scored item IDs",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN instrument respondent fields contain no Cyrillic",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN instrument locale metadata",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Scoring runtime byte parity RU/EN/freeze",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "RU inline design styles preserved",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN inline design styles preserved",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Shared stylesheet/font links preserved",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "RU startOrResume recursion absent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "RU nested system redirect absent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "RU native start/resume state routing",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "RU System locale route helper",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "RU native RU/EN selector present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "RU base-sensitive System self-link absent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "RU System self-link uses route authority helper",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "RU home route uses current URL authority",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "RU science route uses current URL authority",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN startOrResume recursion absent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN nested system redirect absent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN native start/resume state routing",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN System locale route helper",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN native RU/EN selector present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN base-sensitive System self-link absent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN System self-link uses route authority helper",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN home route uses current URL authority",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "EN science route uses current URL authority",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Active EN System functions contain no Cyrillic",
+      "status": "PASS",
+      "detail": "{}"
+    },
+    {
+      "check": "Owner screenshot mixed-language regression absent",
+      "status": "PASS",
+      "detail": "ПРОГРЕСС МОДУЛЯ"
+    },
+    {
+      "check": "Owner screenshot mixed-language regression absent",
+      "status": "PASS",
+      "detail": "прогресс модуля"
+    },
+    {
+      "check": "Owner screenshot mixed-language regression absent",
+      "status": "PASS",
+      "detail": ">Главная<"
+    },
+    {
+      "check": "Owner screenshot mixed-language regression absent",
+      "status": "PASS",
+      "detail": ">О тесте<"
+    },
+    {
+      "check": "Owner screenshot mixed-language regression absent",
+      "status": "PASS",
+      "detail": ">Наука<"
+    },
+    {
+      "check": "Owner screenshot mixed-language regression absent",
+      "status": "PASS",
+      "detail": ">Продолжить<"
+    },
+    {
+      "check": "Nested EN locale detector",
+      "status": "PASS",
+      "detail": "manual-report-handoff-v1.0.js"
+    },
+    {
+      "check": "Nested EN locale detector",
+      "status": "PASS",
+      "detail": "p120-submission-intake-v1.0.js"
+    }
+  ],
+  "failures": []
+}
