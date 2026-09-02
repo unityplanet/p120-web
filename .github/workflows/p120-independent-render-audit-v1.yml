@@ -1,0 +1,35 @@
+name: P120 Independent Render Audit v1
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'qa/p120-independent-render-20260902'
+    paths:
+      - 'qa/independent_render_audit_v1.mjs'
+      - '.github/workflows/p120-independent-render-audit-v1.yml'
+permissions:
+  contents: read
+jobs:
+  render-and-transition-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local P-120 site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-independent-render-http.log 2>&1 &
+          sleep 2
+      - name: Render all production pages and verify transitions
+        run: node qa/independent_render_audit_v1.mjs
+      - name: Upload render evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_INDEPENDENT_RENDER_AUDIT_V1
+          path: qa-evidence-independent-render-v1/
+          retention-days: 30
