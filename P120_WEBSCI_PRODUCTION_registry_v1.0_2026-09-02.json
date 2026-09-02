@@ -1,0 +1,243 @@
+{
+  "schema_id": "P120-WEBSCI-PRODUCTION-001",
+  "schema_version": "1.0",
+  "document_id": "P120-WEBSCI-PROD-MIG-001",
+  "status": "PRODUCTION MIGRATION CANDIDATE",
+  "effective_date": "2026-09-02",
+  "authority": "P-120 Research System / WEB-SCIENCE controlled architecture",
+  "source_lineage": {
+    "architecture": "P120-WEBSCI-EXT PASS 1 v0.1",
+    "registry": "P120-WEBSCI-EXT PASS 2 v0.2",
+    "adapter_candidate": "P120-WEBSCI-EXT runtime registry / adapter v0.3",
+    "migration_rule": "Production integration only. No source-scientific refresh is performed by this migration gate."
+  },
+  "production_baseline": {
+    "repository": "unityplanet/p120-web",
+    "branch": "main",
+    "commit_sha": "54ac77854d511dbf625b65eaac627947bb9ced98",
+    "science_ru_blob_sha": "42551c1886361381154fbdd2ef7cad434d62662e",
+    "science_en_blob_sha": "f12fe65ce482eae34978128430c35da691c2faf4",
+    "routes": ["/science/", "/en/science/"]
+  },
+  "default_base_id": "CORE",
+  "one_active_deep_base": true,
+  "measurement_mutation_allowed": false,
+  "scoring_mutation_allowed": false,
+  "session_storage_access": "PROHIBITED",
+  "visual_rule": "Preserve current Scientific Base grammar; add only the controlled Atlas selector and registry-derived summary panels.",
+  "public_visibility_enum": ["published", "summary_only", "roadmap", "hidden"],
+  "bases": [
+    {
+      "base_id": "CORE",
+      "label_ru": "Основной P-120",
+      "label_en": "P-120 Core",
+      "role_ru": "Основная научная база пяти исследовательских слоёв P-120.",
+      "role_en": "Core scientific foundation for the five P-120 research layers.",
+      "public_visibility": "published",
+      "module_ids": ["SAT-24", "P-72", "P-72D", "AO-12", "SOMA-24"]
+    },
+    {
+      "base_id": "EXTENDED",
+      "label_ru": "Углублённые исследования",
+      "label_en": "Extended Research",
+      "role_ru": "Дополнительные независимые исследовательские системы; они не пересчитывают основной профиль P-120.",
+      "role_en": "Optional independent research systems that do not recalculate the P-120 core profile.",
+      "public_visibility": "published",
+      "module_ids": ["COM-12", "MOT-12", "SELF-12", "RPE-MOD"]
+    },
+    {
+      "base_id": "OUTCOMES",
+      "label_ru": "Исходы и влияние на жизнь",
+      "label_en": "Outcomes & Life Spillover",
+      "role_ru": "Отдельный outcome/spillover слой; причинные выводы и общий LIFE Total не разрешены.",
+      "role_en": "Separate outcome/spillover layer; causal attribution and a global LIFE Total are not authorized.",
+      "public_visibility": "summary_only",
+      "module_ids": ["LIFE-12/18"]
+    },
+    {
+      "base_id": "METHODS",
+      "label_ru": "Методы и валидация",
+      "label_en": "Methods & Validation",
+      "role_ru": "Общая научная методология, программа валидации, этика и границы выводов.",
+      "role_en": "Shared scientific methodology, validation programme, ethics and claim boundaries.",
+      "public_visibility": "published",
+      "module_ids": []
+    },
+    {
+      "base_id": "LIBRARY",
+      "label_ru": "Научная библиотека",
+      "label_en": "Scientific Library",
+      "role_ru": "Единый публичный корпус научных ссылок текущей Core Scientific Base.",
+      "role_en": "Shared public reference corpus of the current Core Scientific Base.",
+      "public_visibility": "published",
+      "module_ids": []
+    },
+    {
+      "base_id": "DYADIC",
+      "label_ru": "Диадические исследования",
+      "label_en": "Dyadic Research",
+      "role_ru": "Зарезервированная отдельная family; требуется собственный public gate.",
+      "role_en": "Reserved separate family; requires its own public gate.",
+      "public_visibility": "hidden",
+      "module_ids": []
+    }
+  ],
+  "modules": [
+    {
+      "module_id": "SAT-24",
+      "base_id": "CORE",
+      "name_ru": "Социально-аффективное прикосновение",
+      "name_en": "Social-Affective Touch Architecture",
+      "measurement_state": "RESEARCH CANDIDATE / FROZEN FOR PILOT",
+      "public_visibility": "published",
+      "public_science_label": "Research Candidate",
+      "is_total_allowed": false,
+      "public_summary_ru": "Неэротический baseline социально-аффективного прикосновения и калибровочный слой.",
+      "public_summary_en": "Nonsexual social-affective touch baseline and calibration layer."
+    },
+    {
+      "module_id": "P-72",
+      "base_id": "CORE",
+      "name_ru": "Архитектура эротико-эстетической активации",
+      "name_en": "Erotic-Aesthetic Activation Architecture",
+      "measurement_state": "RESEARCH CANDIDATE / FROZEN SOURCE",
+      "public_visibility": "published",
+      "public_science_label": "Research Candidate",
+      "is_total_allowed": false,
+      "public_summary_ru": "Архитектура эротико-эстетической активации.",
+      "public_summary_en": "Erotic-aesthetic activation architecture."
+    },
+    {
+      "module_id": "P-72D",
+      "base_id": "CORE",
+      "name_ru": "Архитектура устойчивости желания",
+      "name_en": "Desire Durability Architecture",
+      "measurement_state": "RESEARCH CANDIDATE / FROZEN SOURCE",
+      "public_visibility": "published",
+      "public_science_label": "Research Candidate",
+      "is_total_allowed": false,
+      "public_summary_ru": "Архитектура устойчивости желания и его временной динамики.",
+      "public_summary_en": "Desire durability and temporal trajectory architecture."
+    },
+    {
+      "module_id": "AO-12",
+      "base_id": "CORE",
+      "name_ru": "Регуляция привязанности",
+      "name_en": "Attachment Regulation Architecture",
+      "measurement_state": "RESEARCH CANDIDATE / SUPPLEMENTAL / FROZEN FOR PILOT",
+      "public_visibility": "published",
+      "public_science_label": "Supplemental Research Module",
+      "is_total_allowed": false,
+      "public_summary_ru": "Размерный слой регуляции привязанности.",
+      "public_summary_en": "Dimensional attachment-regulation layer."
+    },
+    {
+      "module_id": "SOMA-24",
+      "base_id": "CORE",
+      "name_ru": "Телесный эротический отклик",
+      "name_en": "Embodied Erotic Response Architecture",
+      "measurement_state": "RESEARCH CANDIDATE / FROZEN FOR PILOT",
+      "public_visibility": "published",
+      "public_science_label": "Research Candidate",
+      "is_total_allowed": false,
+      "public_summary_ru": "Архитектура замечания, дифференциации, модуляции и препятствий телесного эротического ответа.",
+      "public_summary_en": "Embodied erotic-response awareness, differentiation, modulation and interference architecture."
+    },
+    {
+      "module_id": "COM-12",
+      "base_id": "EXTENDED",
+      "name_ru": "Эротическая коммуникация",
+      "name_en": "Erotic Communication Architecture",
+      "measurement_state": "RESEARCH CANDIDATE / CONTROLLED COGNITIVE FIELD PROTOCOL / MODEL OPEN",
+      "public_visibility": "summary_only",
+      "public_science_label": "Supplemental Research Module",
+      "is_total_allowed": false,
+      "public_summary_ru": "Исследует процессы эротической коммуникации; controlled cognitive-field protocol подготовлен, итоговая factor/scoring architecture не заморожена.",
+      "public_summary_en": "Studies erotic communication processes; the controlled cognitive-field protocol is prepared while the final factor/scoring architecture remains open."
+    },
+    {
+      "module_id": "MOT-12",
+      "base_id": "EXTENDED",
+      "name_ru": "Сексуальная мотивация",
+      "name_en": "Sexual Motivation Architecture",
+      "measurement_state": "RESEARCH CANDIDATE / 24-ITEM COGNITIVE CANDIDATE / FACTOR MODEL OPEN",
+      "public_visibility": "summary_only",
+      "public_science_label": "Supplemental Research Module",
+      "is_total_allowed": false,
+      "public_summary_ru": "Исследует причины входа в сексуальную или эротически значимую близость; 24-item cognitive candidate подготовлен, final factors/items/scoring остаются открытыми.",
+      "public_summary_en": "Studies reasons for entering sexual or erotically significant intimacy; a 24-item cognitive candidate is prepared while final factors, items and scoring remain open."
+    },
+    {
+      "module_id": "SELF-12",
+      "base_id": "EXTENDED",
+      "name_ru": "Отношение к себе как к сексуальному субъекту",
+      "name_en": "Sexual Self-Relation Architecture",
+      "measurement_state": "RESEARCH CANDIDATE / 5 CORE + 2 LIMITED / NOT SCORED",
+      "public_visibility": "summary_only",
+      "public_science_label": "Supplemental Research Module",
+      "is_total_allowed": false,
+      "public_summary_ru": "Кандидатная архитектура отношения к себе как к сексуальному субъекту: 5 CORE + 2 LIMITED; no SELF Total, items/scoring/norms не заморожены.",
+      "public_summary_en": "Candidate architecture of sexual self-relation: 5 CORE + 2 LIMITED; no SELF Total, and items/scoring/norms are not frozen."
+    },
+    {
+      "module_id": "RPE-MOD",
+      "base_id": "EXTENDED",
+      "name_ru": "Психофизические предпочтения и reward coordinates",
+      "name_en": "RPE-MOD Specialized Preference / Reward Architecture",
+      "measurement_state": "RESEARCH CANDIDATE / CONTROLLED ADAPTIVE ROUTING / NOT PILOT-FROZEN",
+      "public_visibility": "summary_only",
+      "public_science_label": "Supplemental Research Module",
+      "is_total_allowed": false,
+      "public_summary_ru": "Специализированная psychophysical preference/reward architecture с respondent-selected adaptive routing; final scoring и pilot freeze отсутствуют.",
+      "public_summary_en": "Specialized psychophysical preference/reward architecture with respondent-selected adaptive routing; final scoring and pilot freeze remain unauthorized."
+    },
+    {
+      "module_id": "LIFE-12/18",
+      "base_id": "OUTCOMES",
+      "name_ru": "Интеграция близости с остальной жизнью",
+      "name_en": "Intimacy-Life Integration / Relationship-to-Life Spillover",
+      "measurement_state": "RESEARCH CANDIDATE / 6 CORE + 2 LIMITED / NOT SCORED",
+      "public_visibility": "summary_only",
+      "public_science_label": "Candidate Outcome Layer",
+      "is_total_allowed": false,
+      "public_summary_ru": "Отдельный outcome/spillover layer: 6 CORE + 2 LIMITED; no LIFE Total, causal attribution and scoring unauthorized.",
+      "public_summary_en": "Separate outcome/spillover layer: 6 CORE + 2 LIMITED; no LIFE Total, causal attribution or scoring is authorized."
+    }
+  ],
+  "core_runtime_contract": {
+    "expected_counts": {
+      "metrics": 4,
+      "layers": 5,
+      "p72": 12,
+      "p72d": 10,
+      "evidenceMap": 14,
+      "discriminantBoundaries": 10,
+      "hypotheses": 16,
+      "validation": 13,
+      "ethics": 9,
+      "limitations": 7,
+      "internalSources": 5,
+      "references": 45
+    },
+    "reference_count": 45,
+    "legacy_anchors": ["science-foundation", "science-layers", "science-constructs", "science-evidence", "science-validation", "science-ethics", "science-refs"],
+    "content_change_authorized": false
+  },
+  "activation": {
+    "atlas_selector_visible": true,
+    "core_default": true,
+    "extended_public_activation": "summary_only",
+    "outcomes_public_activation": "summary_only",
+    "methods_public_activation": true,
+    "library_public_activation": "existing_core_library",
+    "dyadic_public_activation": false,
+    "deep_link_query": "?science=extended&module=COM-12"
+  },
+  "publication_gate": {
+    "rule": "Internal CONTROLLED status never auto-publishes unstable scientific detail.",
+    "summary_only": "Render module role/status/boundary summary only; suppress unstable construct detail.",
+    "hidden": "Do not render publicly.",
+    "no_global_extended_total": true,
+    "claim_ceiling_enforced": true
+  }
+}
