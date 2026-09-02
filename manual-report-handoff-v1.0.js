@@ -5,10 +5,10 @@
 (() => {
   'use strict';
 
-  const STORAGE_KEY = 'p120_web_prototype_v01';
   const ROOT_ID = 'p120-manual-report-handoff';
   const STYLE_ID = 'p120-manual-report-handoff-style';
   const isEn = /(^|\/)en(?:\/|$)/i.test(location.pathname);
+  const STORAGE_KEY = window.P120_SESSION_KEY || (isEn ? 'p120_runtime_session_en_v1' : 'p120_runtime_session_ru_v1');
   let timer = 0;
 
   const copy = isEn ? {
