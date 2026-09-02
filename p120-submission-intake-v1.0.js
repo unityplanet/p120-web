@@ -9,7 +9,7 @@
   const STORAGE_KEY = 'p120_web_prototype_v01';
   const RECEIPT_PREFIX = 'p120_submission_receipt_v10_';
   const STATUS_ID = 'p120-submission-intake-status';
-  const isEn = /\/en\/(?:index\.html)?$/i.test(location.pathname);
+  const isEn = /(^|\/)en(?:\/|$)/i.test(location.pathname);
   let observer = null;
   let scheduled = 0;
   let running = false;

@@ -2501,7 +2501,7 @@ body[data-theme='museum'] :is(.dark-statement,.showcase-cover){border-color:var(
   <link rel="stylesheet" href="p120-public-styles-v1.0.css?v=pub21" data-p120-production-bundle="styles-v1.1" />
   <link rel="stylesheet" href="extended-research-navigation-v1.0.css?v=ersnav10" data-p120-extended-navigation="v1.0" />
 </head>
-<body data-p120-page="system" data-p120-runtime="frozen">
+<body data-p120-page="system" data-p120-runtime="frozen" data-p120-locale="ru" data-p120-route-authority="native-ru">
   <a class="skip-link" href="#main-content">Перейти к основному содержанию</a>
   <div id="app"></div>
   <!-- inlined: instrument.js -->
@@ -3400,7 +3400,7 @@ function renderHeaderThemeMenu(){
   return `<details class="header-theme-menu desktop-only"><summary><span class="header-theme-dot"></span>${themeLabel(theme)}</summary><div class="header-theme-popover">${['ivory','graphite','museum'].map(t=>`<button class="header-theme-option ${theme===t?'active':''}" data-set-theme="${t}" aria-pressed="${theme===t}"><span class="theme-swatch theme-swatch-${t}"></span><span>${themeLabel(t)}</span></button>`).join('')}</div></details>`;
 }
 function isAssessmentScreen(){return ['preflight','test','transition','results'].includes(state.screen)}
-function startOrResume(){location.href='system/';return false}
+function startOrResume(){startOrResume();return false}
 function renderMobileBottomNav(){
   const startLabel=hasProgress()?'Продолжить':'Пройти';
   const activeHome=state.screen==='home'?'active':'';
@@ -3483,7 +3483,7 @@ function shell(content,{sidebar=true,home=false}={}){
           <button class="navlink" data-nav="why-p120">Уникальность</button>
           <button class="navlink" data-nav="what-p120-shows">Что покажет</button>
           <button class="navlink" data-nav="showcase">Отчёт</button>
-          <a class="navlink system-navlink" href="system/" aria-current="page" style="text-decoration:none">Система</a>
+          <a class="navlink system-navlink" href="./" aria-current="page" style="text-decoration:none">Система</a>
           <button class="navlink science-navlink" data-science>Научная база</button>
         </nav>
         <div class="topbar-tools">
@@ -3514,7 +3514,7 @@ function bindShell(){
   document.querySelectorAll('[data-mobile-jump-home]').forEach(b=>b.onclick=()=>{closeMobileMenu();goHome(b.dataset.mobileJumpHome)});
   document.querySelectorAll('[data-mobile-jump-science]').forEach(b=>b.onclick=()=>{closeMobileMenu();goScience(b.dataset.mobileJumpScience)});
   document.querySelectorAll('[data-mobile-start]').forEach(b=>b.onclick=()=>{closeMobileMenu();startOrResume()});
-  document.querySelectorAll('[data-mobile-resume]').forEach(b=>b.onclick=()=>{closeMobileMenu();location.href='system/'});
+  document.querySelectorAll('[data-mobile-resume]').forEach(b=>b.onclick=()=>{closeMobileMenu();startOrResume()});
   document.querySelectorAll('[data-mobile-menu]').forEach(b=>b.onclick=()=>toggleMobileMenu());
   document.querySelectorAll('[data-drawer-close]').forEach(b=>b.onclick=()=>closeMobileMenu());
   window.onkeydown=e=>{if(e.key==='Escape') closeMobileMenu()};
@@ -3744,7 +3744,7 @@ function renderBrandOriginTeaser(){
   return `<section class="brand-origin-teaser" id="brand-origin" data-reveal aria-labelledby="brand-origin-title"><div class="brand-origin-copy"><span class="brand-origin-kicker">THE NAME · BRAND ORIGIN</span><h2 id="brand-origin-title">Почему P-120?</h2><p>72 + 48 объясняют число. Но не весь смысл названия.</p><a class="brand-origin-link" href="why-p120/">Узнать историю <span aria-hidden="true">→</span></a></div><div class="brand-origin-visual" aria-hidden="true"><strong>P-120</strong><span>72 + 48 = 120</span><i class="brand-origin-ghost">P</i><small class="brand-origin-caption">FACT → MEANING → SYMBOL → HUMAN</small></div></section>`;
 }
 function bindEditorialExperience(progress){
-  const start=()=>{location.href='system/'};
+  const start=()=>{startOrResume()};
   document.querySelectorAll('[data-editorial-action="test"]').forEach(b=>b.onclick=start);
   document.querySelectorAll('[data-editorial-action="layers"]').forEach(b=>b.onclick=()=>elegantScrollTo('layers-insert'));
   document.querySelectorAll('[data-editorial-action="science"]').forEach(b=>b.onclick=()=>goScience());
@@ -4136,68 +4136,5 @@ updateReadingProgress();
 <script src="manual-report-handoff-v1.0.js?v=mrh11" data-p120-manual-report-handoff="v1.0"></script>
   <script src="p120-submission-config-v1.0.js?v=psi11" data-p120-submission-config="v1.0"></script>
   <script src="p120-submission-intake-v1.0.js?v=psi11" data-p120-submission-intake="v1.0"></script>
-<script src="founder-route-v1.1.js?v=fnd11" defer data-p120-founder-route="v1.1"></script>
-<script id="brand-origin-scroll-interstitial-runtime-v1">
-(()=>{
-  'use strict';
-  const KEY='p120-brand-origin-interstitial-v1';
-  const isEn=/\/en\/(?:index\.html)?$/i.test(location.pathname);
-  let io=null, observed=null, panel=null, shownMemory=false;
-  const copy=isEn?{
-    kicker:'THE NAME · BRAND ORIGIN',title:'Why P-120?',body:'72 + 48 explain the number. But not the whole meaning of the name.',cta:'Discover the story',cont:'Continue reading',eq:'72 + 48 = 120'
-  }:{
-    kicker:'THE NAME · BRAND ORIGIN',title:'Почему P-120?',body:'72 + 48 объясняют число. Но не весь смысл названия.',cta:'Узнать историю',cont:'Продолжить чтение',eq:'72 + 48 = 120'
-  };
-  const seen=()=>{try{return sessionStorage.getItem(KEY)==='1'}catch(_){return shownMemory}};
-  const markSeen=()=>{shownMemory=true;try{sessionStorage.setItem(KEY,'1')}catch(_){}};
-  function closePanel(){if(panel)panel.classList.remove('is-open')}
-  function ensurePanel(){
-    if(panel&&document.body.contains(panel))return panel;
-    panel=document.createElement('aside');
-    panel.className='brand-origin-interstitial';
-    panel.setAttribute('role','dialog');
-    panel.setAttribute('aria-modal','false');
-    panel.setAttribute('aria-label',copy.title);
-    const href=isEn?'../why-p120/':'why-p120/';
-    panel.innerHTML=`<button type="button" class="brand-origin-interstitial-close" aria-label="${isEn?'Close':'Закрыть'}">×</button><div class="brand-origin-interstitial-inner"><div class="brand-origin-interstitial-copy"><span class="brand-origin-interstitial-kicker">${copy.kicker}</span><h2>${copy.title}</h2><p>${copy.body}</p><div class="brand-origin-interstitial-actions"><a href="${href}">${copy.cta} <span aria-hidden="true">→</span></a><button type="button" class="brand-origin-continue">${copy.cont}</button></div></div><div class="brand-origin-interstitial-visual" aria-hidden="true"><strong>P-120</strong><span>${copy.eq}</span><i class="brand-origin-interstitial-ghost">P</i></div></div>`;
-    document.body.appendChild(panel);
-    panel.querySelector('.brand-origin-interstitial-close').addEventListener('click',closePanel);
-    panel.querySelector('.brand-origin-continue').addEventListener('click',closePanel);
-    panel.querySelector('a').addEventListener('click',markSeen);
-    return panel;
-  }
-  function showPanel(){if(seen())return;markSeen();ensurePanel();requestAnimationFrame(()=>panel.classList.add('is-open'))}
-  function sync(){
-    const teaser=document.querySelector('.brand-origin-teaser');
-    if(!teaser){closePanel();return}
-    teaser.setAttribute('aria-hidden','true');
-    let trigger=teaser.previousElementSibling;
-    if(!trigger||!trigger.classList.contains('brand-origin-scroll-trigger')){
-      trigger=document.createElement('span');
-      trigger.className='brand-origin-scroll-trigger';
-      trigger.setAttribute('aria-hidden','true');
-      teaser.parentNode.insertBefore(trigger,teaser);
-    }
-    if(seen()||observed===trigger)return;
-    if(io)io.disconnect();
-    observed=trigger;
-    if('IntersectionObserver' in window){
-      io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){showPanel();io.disconnect()}}),{threshold:0,rootMargin:'0px 0px -32% 0px'});
-      io.observe(trigger);
-    }else{
-      const onScroll=()=>{const r=trigger.getBoundingClientRect();if(r.top<innerHeight*.68&&r.bottom>0){removeEventListener('scroll',onScroll);showPanel()}};
-      addEventListener('scroll',onScroll,{passive:true});onScroll();
-    }
-  }
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')closePanel()});
-  const mo=new MutationObserver(()=>requestAnimationFrame(sync));
-  mo.observe(document.getElementById('app')||document.body,{childList:true,subtree:true});
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
-})();
-</script>
-<script src="p120-public-runtime-v1.0.js?v=pub21" data-p120-production-bundle="runtime-v1.1"></script>
-<script id="p120-science-public-v12-runtime">(()=>{'use strict';const R={title:'P-120 vNext — Научный концептуальный документ',version:'Публичная исследовательская редакция A4 · v1.2',date:'1 сентября 2026',pages:15,formula:'оригинальная кандидатная интеграция и операционализация'};function a(){const d=window.P120_SCIENCE;if(d&&d.document)Object.assign(d.document,{title:R.title,version:R.version,date:R.date,pages:R.pages,pdf:'assets/p120-scientific-concept-paper-v1.2.pdf'});if(d&&d.positioning)d.positioning.formula=R.formula;document.querySelectorAll('h1').forEach(h=>{if((h.textContent||'').includes('Научная база P-120')){h.style.fontFamily='\"Noto Serif Display\",\"Noto Serif\",Georgia,serif';h.dataset.p120Typography='noto-serif-display'}});const m=[['P-120 vNext — Scientific Concept Paper',R.title],['Академическая редакционная версия A4 · v1.1',R.version],['29 августа 2026 · 21 стр.','1 сентября 2026 · 15 стр.'],['29 августа 2026',R.date],['original candidate integration and operationalization',R.formula]];const w=document.createTreeWalker(document.body||document.documentElement,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){let s=n.nodeValue,q=s;m.forEach(([x,y])=>q=q.split(x).join(y));if(q!==s)n.nodeValue=q}}let q=0;const s=()=>{if(q)return;q=requestAnimationFrame(()=>{q=0;a()})};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',a,{once:true});else a();new MutationObserver(s).observe(document.documentElement,{subtree:true,childList:true,characterData:true})})();</script>
-<script src="extended-research-navigation-v1.0.js?v=ersnav10" data-p120-extended-navigation="v1.0"></script>
-<script src="science-navigation-reconciliation-v1.0.js?v=scinav10" data-p120-science-navigation="reconciled-v1"></script>
 </body>
 </html>
