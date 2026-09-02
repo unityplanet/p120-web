@@ -36,6 +36,20 @@ async function settle(page){
   await page.waitForTimeout(700);
 }
 
+async function primeFullPageVisualState(page){
+  await page.evaluate(async()=>{
+    const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+    const step=Math.max(520,Math.floor(window.innerHeight*0.82));
+    const height=Math.max(document.documentElement.scrollHeight,document.body?.scrollHeight||0);
+    for(let y=0;y<=height;y+=step){
+      window.scrollTo(0,y);
+      await sleep(32);
+    }
+    window.scrollTo(0,0);
+    await sleep(260);
+  });
+}
+
 // 1) Independent full-page render matrix.
 for(const [name,route] of routes){
   for(const [device,viewport] of Object.entries(devices)){
@@ -47,7 +61,7 @@ for(const [name,route] of routes){
     page.on('requestfailed',req=>{if(req.url().startsWith(BASE))requestFailures.push(`${req.method()} ${req.url()} :: ${req.failure()?.errorText||'failed'}`)});
     page.on('response',res=>{if(res.url().startsWith(BASE)&&res.status()>=400)badResponses.push(`${res.status()} ${res.url()}`)});
     let status=null,navError=null;
-    try{const res=await page.goto(BASE+route,{waitUntil:'domcontentloaded',timeout:30000});status=res?.status()??null;await settle(page);}catch(e){navError=String(e)}
+    try{const res=await page.goto(BASE+route,{waitUntil:'domcontentloaded',timeout:30000});status=res?.status()??null;await settle(page);await primeFullPageVisualState(page);}catch(e){navError=String(e)}
     const metrics=await page.evaluate(()=>({
       title:document.title,lang:document.documentElement.lang||'',bodyText:(document.body?.innerText||'').trim(),
       scrollWidth:document.documentElement.scrollWidth,clientWidth:document.documentElement.clientWidth,
