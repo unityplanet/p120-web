@@ -2,13 +2,13 @@
 
 **Document code:** P120-WEB-QA-IRG-1.1  
 **Date:** 2026-09-02  
-**Status:** PASS / RENDER GATE GREEN  
-**Scope:** public web routes, System runtime routing, responsive rendering, link/transition integrity, measurement payload parity, full-page visual evidence  
+**Status:** PASS / RENDER GATE GREEN / LOCALIZATION CLOSURE PASS  
+**Scope:** public web routes, System runtime routing, responsive rendering, link/transition integrity, measurement payload parity, full-page visual evidence, EN Scientific Base localization closure  
 **Scientific / scoring authority:** OUT OF SCOPE / UNCHANGED
 
 ## 1. Gate result
 
-The independent second render gate is GREEN.
+The independent second render gate is GREEN after final EN Scientific Base localization reconciliation.
 
 - Production routes: **20**
 - Render cases: **40** (desktop + mobile)
@@ -19,8 +19,8 @@ The independent second render gate is GREEN.
 - Local runtime errors: **0 across all 40 cases**
 - Technical gate failures: **NONE**
 
-Independent render workflow: `P120 Independent Render Audit v1.1`, run `33617553914`, conclusion `success`.
-Evidence artifact: `P120_INDEPENDENT_RENDER_AUDIT_V1_1`, artifact `9841679172`.
+Final independent render workflow: `P120 Independent Render Audit v1.1`, run `33620267232`, conclusion `success`.
+Evidence artifact: `P120_INDEPENDENT_RENDER_AUDIT_V1_1`, artifact `9842738333`, archive SHA-256 `e546a5f81d6fc3a1340348aea3ec50350ddb7fd58b046ca9331c2dc7590f61ca`.
 
 ## 2. Critical transition closure
 
@@ -37,27 +37,36 @@ All controlled transitions passed in desktop/mobile coverage, including:
 
 ## 3. Full-page visual evidence
 
-Because browser-native `fullPage` capture does not faithfully represent scroll-driven / intersection-driven scenes, a second independent visual-evidence pass was executed using normal scrolling and viewport stitching.
+Browser-native `fullPage` capture is not sufficient evidence for scroll-driven / intersection-driven scenes, so the final visual-evidence pass used normal scrolling and viewport stitching.
 
 - Routes: **20**
 - Desktop stitched captures: **20**
 - Mobile stitched captures: **20**
 - Total visual captures: **40**
 - HTTP failures: **0**
+- Document height / stitched height parity: **PASS across all 40 captures**
 - Visual-evidence workflow result: **PASS**
 
-Workflow: `P120 Independent Full-Page Stitch v1`, run `33618088080`, conclusion `success`.
-Evidence artifact: `P120_FULL_PAGE_STITCHED_RENDERS_V1`, artifact `9841899635`.
+Final workflow: `P120 Independent Full-Page Stitch v1`, run `33620288794`, conclusion `success`.
+Evidence artifact: `P120_FULL_PAGE_STITCHED_RENDERS_V1`, artifact `9842746864`, archive SHA-256 `6f18a101a76a9e43a1049e757927ec314b6746d2dcea5a85d03580326198acda`.
 
-## 4. Independent visual review
+## 4. EN Scientific Base localization closure
 
-The EN System / questionnaire entry surface renders cleanly in both desktop and mobile evidence and is consistent with the controlled responsive architecture.
+**LOC-EN-SCI-01 — CLOSED / PASS.**
 
-### Localization observation — separate gate
+A dedicated controlled localization application layer was bound to `/en/science/`. It reuses the authorized RU→EN scientific translation dictionary and controlled formulaic UI bindings. The correction is localization/presentation-only and does not modify scientific constructs, evidence claims, measurement content, scoring, or interpretation rules.
 
-**LOC-EN-SCI-01 — OPEN:** `/en/science/` renders the English route, English shell/title and correct route assets, but the current full-page visual evidence still shows substantial Russian subsection copy inside the Scientific Base body.
+Dedicated localization closure workflow: `P120 EN Science Localization Gate v1`, run `33620158188`, conclusion `success`.
+Evidence artifact: `P120_EN_SCIENCE_LOCALIZATION_GATE_V1`, artifact `9842581145`, archive SHA-256 `f9564733555cdd6189a6a72259b23c7094ca77b239fc58d1f8bf322e9fef57ce`.
 
-This observation **does not invalidate the technical render gate** above: routing, loading, responsive geometry, transitions and measurement parity all pass. It does mean that **full bilingual-publication closure should not be declared yet** for the English Scientific Base. Resolution belongs to a controlled localization/source-reconciliation pass so scientific wording is not changed ad hoc.
+Closure evidence:
+
+- `/en/science/` desktop: **HTTP 200 / lang=en / 0 px overflow / 0 visible Cyrillic / 0 Cyrillic UI attributes / 0 page errors / 0 bad responses / PASS**
+- `/en/science/` mobile: **HTTP 200 / lang=en / 0 px overflow / 0 visible Cyrillic / 0 Cyrillic UI attributes / 0 page errors / 0 bad responses / PASS**
+- English scientific PDF binding: **PASS** (`p120-scientific-concept-paper-en-v1.2.pdf`)
+- Localization marker: **en-v1.0 / PASS**
+
+The EN System / questionnaire entry surface also remains clean in desktop and mobile evidence.
 
 ## 5. Protected scope confirmation
 
@@ -65,13 +74,15 @@ This observation **does not invalidate the technical render gate** above: routin
 - Item IDs/order/response values: **UNCHANGED**
 - Measurement payload: **180/180 parity retained**
 - Scoring / interpretation logic: **UNCHANGED**
-- Scientific evidence claims / constructs: **UNCHANGED by render corrections**
+- Scientific evidence claims / constructs: **UNCHANGED by render/localization corrections**
 - Legal wording: **UNCHANGED**
+- RU Scientific Base source: **UNCHANGED**
 
 ## 6. Gate decision
 
 **INDEPENDENT SECOND RENDER: PASS / GREEN.**  
 **FULL-PAGE VISUAL EVIDENCE: PASS / CAPTURED.**  
-**EN SCIENTIFIC BASE LOCALIZATION: OPEN SEPARATE CLOSURE ITEM.**
+**EN SCIENTIFIC BASE LOCALIZATION: CLOSED / PASS.**  
+**RU/EN PUBLIC PRESENTATION RENDER CLOSURE: PASS.**
 
-The web/runtime workstream may proceed beyond the second-render gate while keeping LOC-EN-SCI-01 explicitly open until controlled English Scientific Base reconciliation is completed.
+The controlled web/runtime branch is cleared for merge and production deployment, subject only to the repository merge/deployment controls. No scientific or scoring unfreeze is implied by this decision.
