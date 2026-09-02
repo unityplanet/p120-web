@@ -4151,7 +4151,7 @@ const entryParams=new URLSearchParams(location.search);
 const initialRouteHash=(location.hash||'').replace(/^#/,'');
 const homeRouteAnchors=['why-important','life-energy','understand-desire','two-systems','why-p120','what-p120-shows','showcase','examples','science-foundation','life-importance','understand-earlier','final','brand-origin'];
 if(initialRouteHash&&homeRouteAnchors.includes(initialRouteHash)){location.replace('../#'+encodeURIComponent(initialRouteHash));return}
-if(entryParams.get('start')==='1'){location.replace(location.pathname);return}
+if(entryParams.get('start')==='1'){location.replace('system/');return}
 render();
 if(initialRouteHash)setTimeout(()=>{if(document.getElementById(initialRouteHash))elegantScrollTo(initialRouteHash)},120);
 updateReadingProgress();
