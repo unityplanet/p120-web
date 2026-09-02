@@ -1,0 +1,31 @@
+{
+  "document_id": "P120-WEB-RUNTIME-PASS4-REGRESSION-002",
+  "version": "2.0",
+  "date": "2026-09-02",
+  "stage": "P120 Web Runtime Reconciliation — PASS 4 / Post-Science Integration Cleanup & Consolidation",
+  "entry_baseline": "563c1a932702dd47c3608772311468a3f10628f1",
+  "branch_gate_run": 33643697932,
+  "evidence_artifact_id": 9852116096,
+  "evidence_artifact_sha256": "df32bcd3d76ca30286740fe719f5217d9e048b4bebbb9ab4b9c98948bc41e747",
+  "status": "PASS",
+  "acceptance_criterion": "Post-Science cleanup completed with no regression to production behavior, locale isolation, measurement/scoring contract, Scientific Base presentation, or routing.",
+  "cleanup": {
+    "removed_files": 39,
+    "production_html_changed": false,
+    "system_runtime_changed": false,
+    "scientific_base_runtime_changed": false,
+    "measurement_scoring_changed": false,
+    "design_typography_content_changed": false
+  },
+  "checks": [
+    {"id":"protected production/runtime/QA contract byte identity","pass":true},
+    {"id":"exact 39-file cleanup removal set","pass":true},
+    {"id":"20-route desktop/mobile render + transition audit","pass":true,"production_pages":20,"render_cases":40,"link_checks":205,"transition_checks":14,"failures":0},
+    {"id":"independent 180/180 measurement parity","pass":true,"ru_items":180,"en_items":180,"coded_structure_sha256_ru":"248685291cf21a67eb0a658188fc8b6666540d2f73d422f497bbe1e116e2f0c4","coded_structure_sha256_en":"248685291cf21a67eb0a658188fc8b6666540d2f73d422f497bbe1e116e2f0c4"},
+    {"id":"PASS 3 locale-isolated session/measurement/scoring contract","pass":true,"manifest_sha256":"55d91f29d80d9de9535890386d1c65ec9b558e2e4b56714eb54efa8837574b7b","scoring_sha256":"d51dce3bb64dbe575a68111db9e47bd0ac009a9aeb1af216142ad93c9ce6f8b5"},
+    {"id":"Scientific Base production regression","pass":true,"checks_passed":269,"checks_total":269,"checks_failed":0},
+    {"id":"PASS 4A project-subpath Science regression","pass":true,"checks_passed":82,"checks_total":82,"checks_failed":0,"project_path":"/p120-web/"}
+  ],
+  "disposition": "BRANCH GREEN / RELEASE CLOSURE REQUIRED",
+  "next_required": ["controlled PR", "controlled merge", "post-merge regression on factual main", "production deployment verification"]
+}
