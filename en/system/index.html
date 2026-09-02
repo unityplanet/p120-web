@@ -3504,7 +3504,7 @@ function shell(content,{sidebar=true,home=false}={}){
           <button class="navlink" data-nav="why-p120">What makes it different</button>
           <button class="navlink" data-nav="what-p120-shows">What it shows</button>
           <button class="navlink" data-nav="showcase">Report</button>
-          <a class="navlink system-navlink" href="./" aria-current="page" style="text-decoration:none">System</a>
+          <a class="navlink system-navlink" href="${systemLocaleHref(document.documentElement.lang==='en'?'en':'ru')}" aria-current="page" style="text-decoration:none">System</a>
           <button class="navlink science-navlink" data-science>Scientific basis</button>
         </nav>
         <div class="topbar-tools">
