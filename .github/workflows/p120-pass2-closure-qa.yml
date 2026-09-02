@@ -24,8 +24,8 @@ jobs:
       - name: Run route, language, measurement and design QA
         shell: bash
         run: |
-          # The checked-in QA parser is conservative; extend its function matcher
-          # in the ephemeral QA workspace to include async function declarations.
+          # Harden the conservative checked-in parser in the ephemeral QA
+          # workspace: include async functions and target the actual tryAI name.
           python - <<'PY'
           from pathlib import Path
           p=Path('.github/scripts/p120_pass2_closure_qa.py')
@@ -33,7 +33,9 @@ jobs:
           old="m=re.search(rf'function\\s+{re.escape(name)}\\s*\\([^)]*\\)\\s*\\{{',app)"
           new="m=re.search(rf'(?:async\\s+)?function\\s+{re.escape(name)}\\s*\\([^)]*\\)\\s*\\{{',app)"
           if old not in s: raise SystemExit('QA function parser signature not found')
-          p.write_text(s.replace(old,new,1),encoding='utf-8')
+          s=s.replace(old,new,1)
+          s=s.replace("'renderQuestion','checkAI','renderResults'","'renderQuestion','tryAI','renderResults'",1)
+          p.write_text(s,encoding='utf-8')
           PY
           python .github/scripts/p120_pass2_closure_qa.py
 
