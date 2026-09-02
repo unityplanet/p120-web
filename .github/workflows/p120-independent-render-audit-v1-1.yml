@@ -9,6 +9,8 @@ on:
       - '.github/workflows/p120-independent-render-audit-v1-1.yml'
       - 'system/index.html'
       - 'en/system/index.html'
+      - 'en/science/index.html'
+      - 'p120-en-science-localization-runtime-v1.0.js'
       - 'founder-route-v1.1.js'
       - 'p120-legal-v1.0.css'
       - 'p120-system-route-guard-v1.0.js'
@@ -40,4 +42,4 @@ jobs:
           name: P120_INDEPENDENT_RENDER_AUDIT_V1_1
           path: qa-evidence-independent-render-v1-1/
           retention-days: 30
-# rerun after scroll-primed full-page screenshot and drawer-aware transition harness correction
+# final rerun after LOC-EN-SCI-01 controlled localization closure
