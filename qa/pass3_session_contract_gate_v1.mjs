@@ -18,7 +18,7 @@ const browser=await chromium.launch({headless:true});
 const context=await browser.newContext({viewport:{width:1440,height:1000}});
 const page=await context.newPage();
 
-const legacyState={participantId:'P120-PASS3-LEGACY',screen:'test',itemIndex:1,responses:{SAT01:4},adminModes:{},telemetry:[{type:'legacy_seed',at:'2026-09-02T00:00:00.000Z'}],startedAt:'2026-09-02T00:00:00.000Z',consentAt:'2026-09-02T00:00:01.000Z',lastSavedAt:'2026-09-02T00:00:02.000Z'};
+const legacyState={participantId:'P120-ABC123',screen:'test',itemIndex:1,responses:{SAT01:4},adminModes:{},telemetry:[{type:'legacy_seed',at:'2026-09-02T00:00:00.000Z'}],startedAt:'2026-09-02T00:00:00.000Z',consentAt:'2026-09-02T00:00:01.000Z',lastSavedAt:'2026-09-02T00:00:02.000Z'};
 await page.goto(BASE+'/',{waitUntil:'domcontentloaded'});
 await page.evaluate(([k,v,ru,en,eru,een])=>{localStorage.clear();localStorage.setItem(k,JSON.stringify(v));localStorage.removeItem(ru);localStorage.removeItem(en);localStorage.removeItem(eru);localStorage.removeItem(een);},[LEGACY,legacyState,RU,EN,ERU,EEN]);
 const legacyRaw=await page.evaluate(k=>localStorage.getItem(k),LEGACY);
@@ -32,6 +32,7 @@ async function systemSnapshot(route){
     legacy:localStorage.getItem(legacy),
     ru:localStorage.getItem(ru),
     en:localStorage.getItem(en),
+    intakePackage:window.P120SubmissionIntake?.buildPackage?window.P120SubmissionIntake.buildPackage():null,
     measurement:{
       items:(window.P120_INSTRUMENT?.items||[]).map(i=>[i.id,i.module,i.type,(i.choices||[]).map(c=>c.value)]),
       modules:(window.P120_INSTRUMENT?.modules||[]).map(m=>m.id),
@@ -52,13 +53,14 @@ add('RU contract selects RU session',ru1.contract?.locale==='ru'&&ru1.contract?.
 add('RU migration preserves legacy payload',ruState1?.responses?.SAT01===4&&ruState1?.sessionLocale==='ru',{sessionLocale:ruState1?.sessionLocale});
 add('RU migration does not delete or mutate legacy',ru1.legacy===legacyRaw);
 add('RU visit does not create EN session',ru1.en===null);
+add('RU downstream intake reads RU session',ru1.intakePackage?.locale==='ru'&&ru1.intakePackage?.responses?.SAT01===4,{locale:ru1.intakePackage?.locale});
 
-// Persist a RU-only mutation into the app's in-memory state by reloading the same locale
-// before navigating away; otherwise beforeunload would correctly save the pre-mutation state.
 await page.evaluate(k=>{const s=JSON.parse(localStorage.getItem(k));s.responses.SAT02=5;localStorage.setItem(k,JSON.stringify(s));},RU);
 await page.reload({waitUntil:'networkidle'});
 const ruPersisted=JSON.parse(await page.evaluate(k=>localStorage.getItem(k),RU));
 add('RU-only write is accepted by RU session',ruPersisted?.responses?.SAT02===5);
+const ruPkgAfterWrite=await page.evaluate(()=>window.P120SubmissionIntake?.buildPackage?.());
+add('RU intake exports RU-only write',ruPkgAfterWrite?.locale==='ru'&&ruPkgAfterWrite?.responses?.SAT02===5&&ruPkgAfterWrite?.responses?.SAT03===undefined);
 
 const en1=await systemSnapshot('/en/system/');
 const enState1=JSON.parse(en1.en||'null');
@@ -68,11 +70,14 @@ add('EN migration preserves legacy answer',enState1?.responses?.SAT01===4);
 add('EN session does not inherit later RU-only write',enState1?.responses?.SAT02===undefined);
 add('RU session survives EN initialization',ruStateAfterEn?.responses?.SAT02===5);
 add('EN migration does not mutate legacy',en1.legacy===legacyRaw);
+add('EN downstream intake reads EN session',en1.intakePackage?.locale==='en'&&en1.intakePackage?.responses?.SAT01===4&&en1.intakePackage?.responses?.SAT02===undefined,{locale:en1.intakePackage?.locale});
 
 await page.evaluate(k=>{const s=JSON.parse(localStorage.getItem(k));s.responses.SAT03=2;localStorage.setItem(k,JSON.stringify(s));},EN);
 await page.reload({waitUntil:'networkidle'});
 const enPersisted=JSON.parse(await page.evaluate(k=>localStorage.getItem(k),EN));
 add('EN-only write is accepted by EN session',enPersisted?.responses?.SAT03===2);
+const enPkgAfterWrite=await page.evaluate(()=>window.P120SubmissionIntake?.buildPackage?.());
+add('EN intake exports EN-only write',enPkgAfterWrite?.locale==='en'&&enPkgAfterWrite?.responses?.SAT03===2&&enPkgAfterWrite?.responses?.SAT02===undefined);
 
 const ru2=await systemSnapshot('/system/');
 const ruState2=JSON.parse(ru2.ru||'null');
@@ -80,8 +85,6 @@ const enState2=JSON.parse(ru2.en||'null');
 add('RU session excludes EN-only write',ruState2?.responses?.SAT03===undefined);
 add('EN-only write remains in EN session',enState2?.responses?.SAT03===2);
 
-// Enter Editorial first; the System beforeunload save is legitimate. From this point onward,
-// Editorial must not mutate legacy/RU/EN respondent storage.
 await page.goto(BASE+'/',{waitUntil:'networkidle'});
 const editorialBaseline=await sessionTriple();
 await page.waitForTimeout(350);
