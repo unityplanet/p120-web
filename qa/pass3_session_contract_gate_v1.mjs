@@ -44,6 +44,7 @@ async function systemSnapshot(route){
     }
   }),{legacy:LEGACY,ru:RU,en:EN});
 }
+const sessionTriple=()=>page.evaluate(({legacy,ru,en})=>({legacy:localStorage.getItem(legacy),ru:localStorage.getItem(ru),en:localStorage.getItem(en)}),{legacy:LEGACY,ru:RU,en:EN});
 
 const ru1=await systemSnapshot('/system/');
 const ruState1=JSON.parse(ru1.ru||'null');
@@ -52,7 +53,13 @@ add('RU migration preserves legacy payload',ruState1?.responses?.SAT01===4&&ruSt
 add('RU migration does not delete or mutate legacy',ru1.legacy===legacyRaw);
 add('RU visit does not create EN session',ru1.en===null);
 
+// Persist a RU-only mutation into the app's in-memory state by reloading the same locale
+// before navigating away; otherwise beforeunload would correctly save the pre-mutation state.
 await page.evaluate(k=>{const s=JSON.parse(localStorage.getItem(k));s.responses.SAT02=5;localStorage.setItem(k,JSON.stringify(s));},RU);
+await page.reload({waitUntil:'networkidle'});
+const ruPersisted=JSON.parse(await page.evaluate(k=>localStorage.getItem(k),RU));
+add('RU-only write is accepted by RU session',ruPersisted?.responses?.SAT02===5);
+
 const en1=await systemSnapshot('/en/system/');
 const enState1=JSON.parse(en1.en||'null');
 const ruStateAfterEn=JSON.parse(en1.ru||'null');
@@ -63,21 +70,28 @@ add('RU session survives EN initialization',ruStateAfterEn?.responses?.SAT02===5
 add('EN migration does not mutate legacy',en1.legacy===legacyRaw);
 
 await page.evaluate(k=>{const s=JSON.parse(localStorage.getItem(k));s.responses.SAT03=2;localStorage.setItem(k,JSON.stringify(s));},EN);
+await page.reload({waitUntil:'networkidle'});
+const enPersisted=JSON.parse(await page.evaluate(k=>localStorage.getItem(k),EN));
+add('EN-only write is accepted by EN session',enPersisted?.responses?.SAT03===2);
+
 const ru2=await systemSnapshot('/system/');
 const ruState2=JSON.parse(ru2.ru||'null');
 const enState2=JSON.parse(ru2.en||'null');
 add('RU session excludes EN-only write',ruState2?.responses?.SAT03===undefined);
 add('EN-only write remains in EN session',enState2?.responses?.SAT03===2);
 
-const systemBeforeEditorial=await page.evaluate(({legacy,ru,en})=>({legacy:localStorage.getItem(legacy),ru:localStorage.getItem(ru),en:localStorage.getItem(en)}),{legacy:LEGACY,ru:RU,en:EN});
+// Enter Editorial first; the System beforeunload save is legitimate. From this point onward,
+// Editorial must not mutate legacy/RU/EN respondent storage.
 await page.goto(BASE+'/',{waitUntil:'networkidle'});
-await page.waitForTimeout(250);
-const afterRuEditorial=await page.evaluate(({legacy,ru,en})=>({legacy:localStorage.getItem(legacy),ru:localStorage.getItem(ru),en:localStorage.getItem(en)}),{legacy:LEGACY,ru:RU,en:EN});
+const editorialBaseline=await sessionTriple();
+await page.waitForTimeout(350);
+const afterRuEditorial=await sessionTriple();
+add('RU Editorial cannot write respondent session',JSON.stringify(afterRuEditorial)===JSON.stringify(editorialBaseline));
 await page.goto(BASE+'/en/',{waitUntil:'networkidle'});
-await page.waitForTimeout(250);
-const afterEnEditorial=await page.evaluate(({legacy,ru,en})=>({legacy:localStorage.getItem(legacy),ru:localStorage.getItem(ru),en:localStorage.getItem(en)}),{legacy:LEGACY,ru:RU,en:EN});
-add('RU Editorial cannot write respondent session',JSON.stringify(afterRuEditorial)===JSON.stringify(systemBeforeEditorial));
-add('EN Editorial cannot write respondent session',JSON.stringify(afterEnEditorial)===JSON.stringify(systemBeforeEditorial));
+await page.waitForTimeout(350);
+const afterEnEditorial=await sessionTriple();
+add('EN Editorial cannot write respondent session',JSON.stringify(afterEnEditorial)===JSON.stringify(editorialBaseline));
+add('Editorial routes preserve frozen legacy source',afterEnEditorial.legacy===legacyRaw);
 
 const en2=await systemSnapshot('/en/system/');
 add('Measurement item count 180/180',ru2.measurement.items.length===180&&en2.measurement.items.length===180,{ru:ru2.measurement.items.length,en:en2.measurement.items.length});
