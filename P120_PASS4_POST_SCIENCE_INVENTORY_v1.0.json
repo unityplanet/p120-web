@@ -1,0 +1,1854 @@
+{
+  "document_id": "P120-WEB-RUNTIME-PASS4-INVENTORY-001",
+  "version": "1.0",
+  "date": "2026-09-02",
+  "stage": "P120 Web Runtime Reconciliation — PASS 4 / Post-Science Integration Cleanup & Consolidation",
+  "status": "INVENTORY COMPLETE",
+  "baseline": "f46b7335e47d75672424136979f91a1a3997aa37",
+  "scope_rule": "Post-Science technical consolidation only. No design, typography, content architecture, Scientific Base structure, measurement or scoring changes.",
+  "acceptance_criterion": "Post-Science cleanup completed with no regression to production behavior, locale isolation, measurement/scoring contract, Scientific Base presentation, or routing.",
+  "token_index": {
+    "legacy_respondent_storage": [
+      {
+        "path": "P120_WEB_PASS5.3_BRAND_UNIFICATION_IMPLEMENTATION.md",
+        "hits": [
+          {
+            "line": 92,
+            "excerpt": "It now derives presentation metadata from the already-existing `window.P120_INSTRUMENT` and local session state (`p120_web_prototype_v01`) and shows, where available:"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "P120_WEB_RECONCILIATION_PASS1_INVENTORY.md",
+        "hits": [
+          {
+            "line": 76,
+            "excerpt": "`p120_web_prototype_v01`"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "p120-session-contract-v1.0.js",
+        "hits": [
+          {
+            "line": 4,
+            "excerpt": "const LEGACY_KEY='p120_web_prototype_v01';"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "P120_WEB_RECONCILIATION_PASS1_RISK_REGISTER.md",
+        "hits": [
+          {
+            "line": 11,
+            "excerpt": "| Shared session route jumps | RU/EN use shared `p120_web_prototype_v01` state including screen/progress | Preserve storage in PASS 1 | PASS 3 state contract/migration |"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "p120-brand-system-v1.0.js",
+        "hits": [
+          {
+            "line": 13,
+            "excerpt": "const SESSION_KEY = 'p120_web_prototype_v01';"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "P120_WEB_SYSTEM_MIGRATION_v1.0.md",
+        "hits": [
+          {
+            "line": 19,
+            "excerpt": "- Storage key `p120_web_prototype_v01`: retained for continuity of saved local progress."
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "P120_SCIENTIFIC_BASE_PRODUCTION_MIGRATION_v1.0.md",
+        "hits": [
+          {
+            "line": 75,
+            "excerpt": "During migration an additional legacy-coupling condition was identified: the dedicated Science route copies still contained the historical pre-PASS3 key `p120_web_prototype_v01` inside dormant monolithic state logic."
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "P120_WEB_RUNTIME_RECONCILIATION_PASS3_v1.0.md",
+        "hits": [
+          {
+            "line": 23,
+            "excerpt": "| Historical pre-PASS3 respondent source | `p120_web_prototype_v01` — migration source only |"
+          },
+          {
+            "line": 31,
+            "excerpt": "When a locale-specific System session does not yet exist, the runtime may copy the historical `p120_web_prototype_v01` payload once into that locale's new session key. The historical source is not deleted or mutated. Each new session receives explicit `sessionLocale` and migration provenance metadat"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": "qa/pass53_2_main_execution_corrections.mjs",
+        "hits": [
+          {
+            "line": 8,
+            "excerpt": "const SESSION_KEY='p120_web_prototype_v01';"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "qa/independent_render_audit_v1_1.mjs",
+        "hits": [
+          {
+            "line": 170,
+            "excerpt": "await page.evaluate(()=>localStorage.setItem('p120_web_prototype_v01',JSON.stringify({participantId:'P120-QATEST1',screen:'test',itemIndex:5,responses:{Q01:3},adminModes:{},telemetry:[],startedAt:new Date().toISOString(),consentAt:new Date().toISOString(),lastSavedAt:new Date().toISOString()})));"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "qa/scientific_base_production_gate_v1.mjs",
+        "hits": [
+          {
+            "line": 25,
+            "excerpt": "localStorage.setItem('p120_web_prototype_v01',seed.legacy);"
+          },
+          {
+            "line": 59,
+            "excerpt": "legacy:localStorage.getItem('p120_web_prototype_v01'),"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": "qa/pass53_1_visual_corrections.mjs",
+        "hits": [
+          {
+            "line": 8,
+            "excerpt": "const SESSION_KEY='p120_web_prototype_v01';"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "qa/pass3_session_contract_gate_v1.mjs",
+        "hits": [
+          {
+            "line": 8,
+            "excerpt": "const LEGACY='p120_web_prototype_v01';"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "preview/v1.7.1/index.html",
+        "hits": [
+          {
+            "line": 3264,
+            "excerpt": "const KEY='p120_web_prototype_v01';"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/workflows/p120-scientific-base-production-gate.yml",
+        "hits": [
+          {
+            "line": 37,
+            "excerpt": "LEGACY=\"const KEY='p120_web_prototype_v01';\""
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/workflows/apply-submission-intake-v1.yml",
+        "hits": [
+          {
+            "line": 31,
+            "excerpt": "\"p120_web_prototype_v01\","
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/workflows/p120-pass3-session-contract-gate.yml",
+        "hits": [
+          {
+            "line": 49,
+            "excerpt": "if \"const KEY='p120_web_prototype_v01';\" in ru or \"const KEY='p120_web_prototype_v01';\" in en: raise SystemExit('legacy respondent key remains active in System')"
+          },
+          {
+            "line": 54,
+            "excerpt": "if \"const STORAGE_KEY = 'p120_web_prototype_v01';\" in text: raise SystemExit(f'{name}: active legacy storage dependency')"
+          },
+          {
+            "line": 75,
+            "excerpt": "if 'p120_web_prototype_v01' in text and rel!='p120-session-contract-v1.0.js': offenders.append(rel)"
+          }
+        ],
+        "count": 3
+      },
+      {
+        "path": ".github/workflows/p120-system-state-reconciliation-v1.yml",
+        "hits": [
+          {
+            "line": 43,
+            "excerpt": "if \"const KEY='p120_web_prototype_v01';\" not in system:"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/workflows/apply-manual-report-handoff-v1.yml",
+        "hits": [
+          {
+            "line": 66,
+            "excerpt": "\"p120_web_prototype_v01\","
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/workflows/qa-web-explore-pass53.yml",
+        "hits": [
+          {
+            "line": 68,
+            "excerpt": "grep -q \"p120_web_prototype_v01\" p120-brand-system-v1.0.js"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/workflows/p120-system-controlled-migration-v1.yml",
+        "hits": [
+          {
+            "line": 37,
+            "excerpt": "'window.P120_INSTRUMENT = ',\"const KEY='p120_web_prototype_v01';\","
+          },
+          {
+            "line": 83,
+            "excerpt": "const KEY='p120_web_prototype_v01';"
+          },
+          {
+            "line": 173,
+            "excerpt": "'- Instrument payload: byte-identical.','- Module order: `SAT24 → P72 → P72D → AO12 → SOMA24`.','- Item registry: 180 unique items, same order and IDs.','- Question wording and choices: unchanged.','- Assessment runtime from `renderPreflight()` through `renderResults()`: byte-identical.','- Storage "
+          }
+        ],
+        "count": 3
+      },
+      {
+        "path": ".github/scripts/p120_system_migrate_v1.py",
+        "hits": [
+          {
+            "line": 17,
+            "excerpt": "\"const KEY='p120_web_prototype_v01';\","
+          },
+          {
+            "line": 80,
+            "excerpt": "const KEY='p120_web_prototype_v01';"
+          },
+          {
+            "line": 211,
+            "excerpt": "'- Storage key `p120_web_prototype_v01`: retained for continuity of saved local progress.',"
+          }
+        ],
+        "count": 3
+      },
+      {
+        "path": ".github/scripts/p120_scientific_base_production_migration.py",
+        "hits": [
+          {
+            "line": 10,
+            "excerpt": "LEGACY = \"const KEY='p120_web_prototype_v01';\""
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+        "hits": [
+          {
+            "line": 17,
+            "excerpt": "'legacy_respondent_storage': 'p120_web_prototype_v01',"
+          },
+          {
+            "line": 102,
+            "excerpt": "'legacy_key_count': text.count('p120_web_prototype_v01'),"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": ".github/scripts/p120_pass3_session_isolation.py",
+        "hits": [
+          {
+            "line": 11,
+            "excerpt": "LEGACY=\"const KEY='p120_web_prototype_v01';\""
+          }
+        ],
+        "count": 1
+      }
+    ],
+    "science_runtime_v1": [
+      {
+        "path": "p120-scientific-base-runtime-v1.0.js",
+        "hits": [
+          {
+            "line": 17,
+            "excerpt": "const scriptUrl=currentScript?.src||new URL('p120-scientific-base-runtime-v1.0.js',location.href).href;"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "P120_SCIENTIFIC_BASE_PRODUCTION_MIGRATION_v1.0.md",
+        "hits": [
+          {
+            "line": 150,
+            "excerpt": "- `p120-scientific-base-runtime-v1.0.js`;"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "science/index.html",
+        "hits": [
+          {
+            "line": 4373,
+            "excerpt": "<script src=\"../p120-scientific-base-runtime-v1.0.js?v=sbm10\" data-p120-scientific-base-runtime=\"v1.0\"></script>"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "en/science/index.html",
+        "hits": [
+          {
+            "line": 4376,
+            "excerpt": "<script src=\"../p120-scientific-base-runtime-v1.0.js?v=sbm10\" data-p120-scientific-base-runtime=\"v1.0\"></script>"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/workflows/p120-scientific-base-production-gate.yml",
+        "hits": [
+          {
+            "line": 11,
+            "excerpt": "- 'p120-scientific-base-runtime-v1.0.js'"
+          },
+          {
+            "line": 36,
+            "excerpt": "TAG='<script src=\"../p120-scientific-base-runtime-v1.0.js?v=sbm10\" data-p120-scientific-base-runtime=\"v1.0\"></script>\\n'"
+          },
+          {
+            "line": 60,
+            "excerpt": "runtime=Path('p120-scientific-base-runtime-v1.0.js').read_text(encoding='utf-8')"
+          }
+        ],
+        "count": 3
+      },
+      {
+        "path": ".github/workflows/p120-scientific-base-production-migration-apply.yml",
+        "hits": [
+          {
+            "line": 10,
+            "excerpt": "- 'p120-scientific-base-runtime-v1.0.js'"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/scripts/p120_scientific_base_production_migration.py",
+        "hits": [
+          {
+            "line": 8,
+            "excerpt": "OLD_TAG = '<script src=\"p120-scientific-base-runtime-v1.0.js?v=sbm10\" data-p120-scientific-base-runtime=\"v1.0\"></script>'"
+          },
+          {
+            "line": 9,
+            "excerpt": "TAG = '<script src=\"../p120-scientific-base-runtime-v1.0.js?v=sbm10\" data-p120-scientific-base-runtime=\"v1.0\"></script>'"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+        "hits": [
+          {
+            "line": 22,
+            "excerpt": "'science_runtime_v1': 'p120-scientific-base-runtime-v1.0.js',"
+          },
+          {
+            "line": 105,
+            "excerpt": "'production_runtime_loader_count': text.count('p120-scientific-base-runtime-v1.0.js'),"
+          }
+        ],
+        "count": 2
+      }
+    ],
+    "production_registry_v1": [
+      {
+        "path": "p120-scientific-base-runtime-v1.0.js",
+        "hits": [
+          {
+            "line": 7,
+            "excerpt": "const REGISTRY_FILE='P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json';"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "P120_SCIENTIFIC_BASE_PRODUCTION_MIGRATION_v1.0.md",
+        "hits": [
+          {
+            "line": 149,
+            "excerpt": "- `P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json`;"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/workflows/p120-scientific-base-production-gate.yml",
+        "hits": [
+          {
+            "line": 12,
+            "excerpt": "- 'P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json'"
+          },
+          {
+            "line": 64,
+            "excerpt": "registry=json.loads(Path('P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json').read_text(encoding='utf-8'))"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": ".github/workflows/p120-scientific-base-production-migration-apply.yml",
+        "hits": [
+          {
+            "line": 11,
+            "excerpt": "- 'P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json'"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+        "hits": [
+          {
+            "line": 27,
+            "excerpt": "'production_registry_v1': 'P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json',"
+          }
+        ],
+        "count": 1
+      }
+    ],
+    "science_global_api": [
+      {
+        "path": "p120-scientific-base-runtime-v1.0.js",
+        "hits": [
+          {
+            "line": 14,
+            "excerpt": "if(window.P120ScientificBase?.version==='1.0')return;"
+          },
+          {
+            "line": 226,
+            "excerpt": "window.P120ScientificBase=api;"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": "qa/scientific_base_production_gate_v1.mjs",
+        "hits": [
+          {
+            "line": 36,
+            "excerpt": "await page.waitForFunction(()=>document.documentElement.dataset.p120ScientificBaseStatus==='pass'&&window.P120ScientificBase?.status?.pass===true,null,{timeout:12000});"
+          },
+          {
+            "line": 40,
+            "excerpt": "const diag=await page.evaluate(()=>({dataset:{...document.documentElement.dataset},api:window.P120ScientificBase?.status||null})).catch(()=>null);"
+          },
+          {
+            "line": 69,
+            "excerpt": "await page.evaluate(()=>window.P120ScientificBase?.setBase('CORE'));"
+          },
+          {
+            "line": 81,
+            "excerpt": "const active=await page.evaluate(()=>window.P120ScientificBase?.activeBaseId||null);"
+          },
+          {
+            "line": 177,
+            "excerpt": "const state=await page.evaluate(()=>({base:window.P120ScientificBase.activeBaseId,module:window.P120ScientificBase.activeModuleId,url:location.href}));"
+          },
+          {
+            "line": 182,
+            "excerpt": "await page.evaluate(()=>window.P120ScientificBase.setBase('OUTCOMES'));"
+          },
+          {
+            "line": 186,
+            "excerpt": "const back=await page.evaluate(()=>({base:window.P120ScientificBase.activeBaseId,module:window.P120ScientificBase.activeModuleId}));"
+          },
+          {
+            "line": 208,
+            "excerpt": "schema:window.P120ScientificBase.registry?.schema_id,"
+          },
+          {
+            "line": 209,
+            "excerpt": "defaultBase:window.P120ScientificBase.registry?.default_base_id,"
+          },
+          {
+            "line": 210,
+            "excerpt": "sessionAccess:window.P120ScientificBase.registry?.session_storage_access,"
+          },
+          {
+            "line": 211,
+            "excerpt": "measurementMutation:window.P120ScientificBase.registry?.measurement_mutation_allowed,"
+          },
+          {
+            "line": 212,
+            "excerpt": "scoringMutation:window.P120ScientificBase.registry?.scoring_mutation_allowed,"
+          },
+          {
+            "line": 214,
+            "excerpt": "status:window.P120ScientificBase.status"
+          }
+        ],
+        "count": 13
+      },
+      {
+        "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+        "hits": [
+          {
+            "line": 28,
+            "excerpt": "'science_global_api': 'P120ScientificBase',"
+          },
+          {
+            "line": 113,
+            "excerpt": "'P120ScientificBase_assignment': re.compile(r'window\\.P120ScientificBase\\s*='),"
+          }
+        ],
+        "count": 2
+      }
+    ],
+    "science_atlas_api": [
+      {
+        "path": "p120-scientific-base-runtime-v1.0.js",
+        "hits": [
+          {
+            "line": 227,
+            "excerpt": "window.P120ScienceAtlas=api;"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+        "hits": [
+          {
+            "line": 29,
+            "excerpt": "'science_atlas_api': 'P120ScienceAtlas',"
+          },
+          {
+            "line": 114,
+            "excerpt": "'P120ScienceAtlas_assignment': re.compile(r'window\\.P120ScienceAtlas\\s*='),"
+          }
+        ],
+        "count": 2
+      }
+    ],
+    "old_science_nav_reconciliation": [
+      {
+        "path": "P120_WEB_PASS5.3.2_EXECUTION_CORRECTIONS.md",
+        "hits": [
+          {
+            "line": 35,
+            "excerpt": "The Science workstream had independently established a valid post-bundle reconciliation pattern through `science-navigation-reconciliation-v1.0.js`. PASS 5.3.2 uses the same ownership principle without modifying Scientific Base content or its routing contract."
+          },
+          {
+            "line": 57,
+            "excerpt": "`science-navigation-reconciliation-v1.0.js` remains the already-loaded post-bundle navigation bridge on both RU and EN main pages."
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": "index.html",
+        "hits": [
+          {
+            "line": 4366,
+            "excerpt": "<script src=\"science-navigation-reconciliation-v1.0.js?v=scinav10\" data-p120-science-navigation=\"reconciled-v1\"></script>"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "science-navigation-reconciliation-v1.0.js",
+        "hits": [
+          {
+            "line": 50,
+            "excerpt": "const base=current?.src||new URL('science-navigation-reconciliation-v1.0.js',location.href).href;"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "P120_WEB_RECONCILIATION_PASS2_CLOSURE_QA.json",
+        "hits": [
+          {
+            "line": 87,
+            "excerpt": "\"detail\": \"science-navigation-reconciliation-v1.0.js\""
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "en/index.html",
+        "hits": [
+          {
+            "line": 4368,
+            "excerpt": "<script src=\"../science-navigation-reconciliation-v1.0.js?v=scinav10\" data-p120-science-navigation=\"reconciled-v1\"></script>"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/workflows/restore-science-visual-parity-v2.yml",
+        "hits": [
+          {
+            "line": 111,
+            "excerpt": "assert 'science-navigation-reconciliation-v1.0.js' not in t"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/workflows/fix-science-navigation-direction-v1.yml",
+        "hits": [
+          {
+            "line": 92,
+            "excerpt": "Path('science-navigation-reconciliation-v1.0.js').write_text(bridge,encoding='utf-8')"
+          },
+          {
+            "line": 106,
+            "excerpt": "for file,src in [('index.html','science-navigation-reconciliation-v1.0.js?v=scinav10'),('en/index.html','../science-navigation-reconciliation-v1.0.js?v=scinav10')]:"
+          },
+          {
+            "line": 124,
+            "excerpt": "bridge=Path('science-navigation-reconciliation-v1.0.js').read_text(encoding='utf-8')"
+          },
+          {
+            "line": 131,
+            "excerpt": "assert 'science-navigation-reconciliation-v1.0.js?v=scinav10' in ru"
+          },
+          {
+            "line": 132,
+            "excerpt": "assert '../science-navigation-reconciliation-v1.0.js?v=scinav10' in en"
+          },
+          {
+            "line": 202,
+            "excerpt": "git add science-navigation-reconciliation-v1.0.js p120-brand-system-v1.0.js index.html en/index.html P120_SCIENCE_NAVIGATION_RECONCILIATION_v1.0.md"
+          }
+        ],
+        "count": 6
+      },
+      {
+        "path": ".github/workflows/fix-science-navigation-direction-v1-3.yml",
+        "hits": [
+          {
+            "line": 19,
+            "excerpt": "Path('science-navigation-reconciliation-v1.0.js').write_text(js,encoding='utf-8')"
+          },
+          {
+            "line": 23,
+            "excerpt": "for fn,src in [('index.html','science-navigation-reconciliation-v1.0.js?v=scinav10'),('en/index.html','../science-navigation-reconciliation-v1.0.js?v=scinav10')]:"
+          },
+          {
+            "line": 33,
+            "excerpt": "b=Path('p120-brand-system-v1.0.js').read_text();j=Path('science-navigation-reconciliation-v1.0.js').read_text();ru=Path('index.html').read_text();en=Path('en/index.html').read_text()"
+          },
+          {
+            "line": 36,
+            "excerpt": "assert 'science-navigation-reconciliation-v1.0.js?v=scinav10' in ru and '../science-navigation-reconciliation-v1.0.js?v=scinav10' in en"
+          },
+          {
+            "line": 55,
+            "excerpt": "git add science-navigation-reconciliation-v1.0.js p120-brand-system-v1.0.js index.html en/index.html P120_SCIENCE_NAVIGATION_RECONCILIATION_v1.0.md"
+          }
+        ],
+        "count": 5
+      },
+      {
+        "path": ".github/workflows/restore-science-visual-parity-v1.yml",
+        "hits": [
+          {
+            "line": 114,
+            "excerpt": "assert 'science-navigation-reconciliation-v1.0.js' not in t"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/workflows/fix-science-navigation-direction-v1-2.yml",
+        "hits": [
+          {
+            "line": 19,
+            "excerpt": "Path('science-navigation-reconciliation-v1.0.js').write_text(js,encoding='utf-8')"
+          },
+          {
+            "line": 23,
+            "excerpt": "for fn,src in [('index.html','science-navigation-reconciliation-v1.0.js?v=scinav10'),('en/index.html','../science-navigation-reconciliation-v1.0.js?v=scinav10')]:"
+          },
+          {
+            "line": 33,
+            "excerpt": "b=Path('p120-brand-system-v1.0.js').read_text();j=Path('science-navigation-reconciliation-v1.0.js').read_text();ru=Path('index.html').read_text();en=Path('en/index.html').read_text()"
+          },
+          {
+            "line": 36,
+            "excerpt": "assert 'science-navigation-reconciliation-v1.0.js?v=scinav10' in ru and '../science-navigation-reconciliation-v1.0.js?v=scinav10' in en"
+          },
+          {
+            "line": 55,
+            "excerpt": "git add science-navigation-reconciliation-v1.0.js p120-brand-system-v1.0.js index.html en/index.html P120_SCIENCE_NAVIGATION_RECONCILIATION_v1.0.md"
+          }
+        ],
+        "count": 5
+      },
+      {
+        "path": ".github/workflows/qa-web-explore-pass53.yml",
+        "hits": [
+          {
+            "line": 15,
+            "excerpt": "- 'science-navigation-reconciliation-v1.0.js'"
+          },
+          {
+            "line": 47,
+            "excerpt": "test -f science-navigation-reconciliation-v1.0.js"
+          },
+          {
+            "line": 53,
+            "excerpt": "node --check science-navigation-reconciliation-v1.0.js"
+          },
+          {
+            "line": 62,
+            "excerpt": "grep -q \"extended-chapter-navigation-reconciliation-v1.0.js\" science-navigation-reconciliation-v1.0.js"
+          }
+        ],
+        "count": 4
+      },
+      {
+        "path": ".github/workflows/fix-science-navigation-direction-v1-4.yml",
+        "hits": [
+          {
+            "line": 57,
+            "excerpt": "Path('science-navigation-reconciliation-v1.0.js').write_text(js,encoding='utf-8')"
+          },
+          {
+            "line": 61,
+            "excerpt": "for fn,src in [('index.html','science-navigation-reconciliation-v1.0.js?v=scinav10'),('en/index.html','../science-navigation-reconciliation-v1.0.js?v=scinav10')]:"
+          },
+          {
+            "line": 71,
+            "excerpt": "b=Path('p120-brand-system-v1.0.js').read_text();j=Path('science-navigation-reconciliation-v1.0.js').read_text();ru=Path('index.html').read_text();en=Path('en/index.html').read_text()"
+          },
+          {
+            "line": 74,
+            "excerpt": "assert 'science-navigation-reconciliation-v1.0.js?v=scinav10' in ru and '../science-navigation-reconciliation-v1.0.js?v=scinav10' in en"
+          },
+          {
+            "line": 94,
+            "excerpt": "git add science-navigation-reconciliation-v1.0.js p120-brand-system-v1.0.js index.html en/index.html P120_SCIENCE_NAVIGATION_RECONCILIATION_v1.0.md"
+          }
+        ],
+        "count": 5
+      },
+      {
+        "path": ".github/workflows/fix-science-navigation-direction-v1-1.yml",
+        "hits": [
+          {
+            "line": 24,
+            "excerpt": "Path('science-navigation-reconciliation-v1.0.js').write_text(js,encoding='utf-8')"
+          },
+          {
+            "line": 29,
+            "excerpt": "for fn,src in [('index.html','science-navigation-reconciliation-v1.0.js?v=scinav10'),('en/index.html','../science-navigation-reconciliation-v1.0.js?v=scinav10')]:"
+          },
+          {
+            "line": 40,
+            "excerpt": "b=Path('p120-brand-system-v1.0.js').read_text();j=Path('science-navigation-reconciliation-v1.0.js').read_text();ru=Path('index.html').read_text();en=Path('en/index.html').read_text()"
+          },
+          {
+            "line": 43,
+            "excerpt": "assert 'science-navigation-reconciliation-v1.0.js?v=scinav10' in ru"
+          },
+          {
+            "line": 44,
+            "excerpt": "assert '../science-navigation-reconciliation-v1.0.js?v=scinav10' in en"
+          },
+          {
+            "line": 68,
+            "excerpt": "git add science-navigation-reconciliation-v1.0.js p120-brand-system-v1.0.js index.html en/index.html P120_SCIENCE_NAVIGATION_RECONCILIATION_v1.0.md"
+          }
+        ],
+        "count": 6
+      },
+      {
+        "path": ".github/workflows/p120-en-system-build-v0.4.yml",
+        "hits": [
+          {
+            "line": 44,
+            "excerpt": "forbidden=['p120-en-system-runtime-v0.4.js','p120-en-instrument-bind-v0.4.js','p120-public-runtime-v1.0.js','founder-route-v1.1.js','extended-research-navigation-v1.0.js','science-navigation-reconciliation-v1.0.js']"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/scripts/p120_pass2_native_routes.py",
+        "hits": [
+          {
+            "line": 442,
+            "excerpt": "for bad in ['p120-public-runtime-v1.0.js','founder-route-v1.1.js','extended-research-navigation-v1.0.js','science-navigation-reconciliation-v1.0.js','brand-origin-scroll-interstitial-runtime-v1','p120-science-public-v12-runtime']:"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/scripts/p120_pass2_closure_qa.py",
+        "hits": [
+          {
+            "line": 92,
+            "excerpt": "'extended-research-navigation-v1.0.js','science-navigation-reconciliation-v1.0.js',"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+        "hits": [
+          {
+            "line": 24,
+            "excerpt": "'old_science_nav_reconciliation': 'science-navigation-reconciliation-v1.0.js',"
+          },
+          {
+            "line": 107,
+            "excerpt": "'old_nav_loader_count': text.count('science-navigation-reconciliation-v1.0.js'),"
+          }
+        ],
+        "count": 2
+      }
+    ],
+    "pass3_session_ru": [
+      {
+        "path": "p120-session-contract-v1.0.js",
+        "hits": [
+          {
+            "line": 8,
+            "excerpt": "const otherKey=locale==='en'?'p120_runtime_session_ru_v1':'p120_runtime_session_en_v1';"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "p120-submission-intake-v1.0.js",
+        "hits": [
+          {
+            "line": 12,
+            "excerpt": "const STORAGE_KEY = window.P120_SESSION_KEY || (isEn ? 'p120_runtime_session_en_v1' : 'p120_runtime_session_ru_v1');"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "P120_WEB_RUNTIME_RECONCILIATION_PASS3_v1.0.md",
+        "hits": [
+          {
+            "line": 19,
+            "excerpt": "| `/system/` | `p120_runtime_session_ru_v1` |"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "manual-report-handoff-v1.0.js",
+        "hits": [
+          {
+            "line": 11,
+            "excerpt": "const STORAGE_KEY = window.P120_SESSION_KEY || (isEn ? 'p120_runtime_session_en_v1' : 'p120_runtime_session_ru_v1');"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "system/index.html",
+        "hits": [
+          {
+            "line": 3319,
+            "excerpt": "const KEY=window.P120_SESSION_KEY||(/\\/en\\/system(?:\\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');"
+          },
+          {
+            "line": 3339,
+            "excerpt": "const KEY=window.P120_SESSION_KEY||(/\\/en\\/system(?:\\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": "qa/scientific_base_production_gate_v1.mjs",
+        "hits": [
+          {
+            "line": 26,
+            "excerpt": "localStorage.setItem('p120_runtime_session_ru_v1',seed.ru);"
+          },
+          {
+            "line": 60,
+            "excerpt": "ru:localStorage.getItem('p120_runtime_session_ru_v1'),"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": "qa/pass3_session_contract_gate_v1.mjs",
+        "hits": [
+          {
+            "line": 9,
+            "excerpt": "const RU='p120_runtime_session_ru_v1';"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "en/system/index.html",
+        "hits": [
+          {
+            "line": 3319,
+            "excerpt": "const KEY=window.P120_SESSION_KEY||(/\\/en\\/system(?:\\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');"
+          },
+          {
+            "line": 3339,
+            "excerpt": "const KEY=window.P120_SESSION_KEY||(/\\/en\\/system(?:\\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": ".github/workflows/p120-pass3-session-contract-gate.yml",
+        "hits": [
+          {
+            "line": 47,
+            "excerpt": "expr=\"const KEY=window.P120_SESSION_KEY||(/\\\\/en\\\\/system(?:\\\\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');\""
+          },
+          {
+            "line": 56,
+            "excerpt": "if 'p120_runtime_session_ru_v1' not in text or 'p120_runtime_session_en_v1' not in text: raise SystemExit(f'{name}: route fallback keys incomplete')"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+        "hits": [
+          {
+            "line": 20,
+            "excerpt": "'pass3_session_ru': 'p120_runtime_session_ru_v1',"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/scripts/p120_pass3_session_isolation.py",
+        "hits": [
+          {
+            "line": 12,
+            "excerpt": "SYSTEM_KEY=\"const KEY=window.P120_SESSION_KEY||(/\\\\/en\\\\/system(?:\\\\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');\""
+          }
+        ],
+        "count": 1
+      }
+    ],
+    "pass3_session_en": [
+      {
+        "path": "p120-session-contract-v1.0.js",
+        "hits": [
+          {
+            "line": 8,
+            "excerpt": "const otherKey=locale==='en'?'p120_runtime_session_ru_v1':'p120_runtime_session_en_v1';"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "p120-submission-intake-v1.0.js",
+        "hits": [
+          {
+            "line": 12,
+            "excerpt": "const STORAGE_KEY = window.P120_SESSION_KEY || (isEn ? 'p120_runtime_session_en_v1' : 'p120_runtime_session_ru_v1');"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "P120_WEB_RUNTIME_RECONCILIATION_PASS3_v1.0.md",
+        "hits": [
+          {
+            "line": 20,
+            "excerpt": "| `/en/system/` | `p120_runtime_session_en_v1` |"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "manual-report-handoff-v1.0.js",
+        "hits": [
+          {
+            "line": 11,
+            "excerpt": "const STORAGE_KEY = window.P120_SESSION_KEY || (isEn ? 'p120_runtime_session_en_v1' : 'p120_runtime_session_ru_v1');"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "system/index.html",
+        "hits": [
+          {
+            "line": 3319,
+            "excerpt": "const KEY=window.P120_SESSION_KEY||(/\\/en\\/system(?:\\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');"
+          },
+          {
+            "line": 3339,
+            "excerpt": "const KEY=window.P120_SESSION_KEY||(/\\/en\\/system(?:\\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": "qa/scientific_base_production_gate_v1.mjs",
+        "hits": [
+          {
+            "line": 27,
+            "excerpt": "localStorage.setItem('p120_runtime_session_en_v1',seed.en);"
+          },
+          {
+            "line": 61,
+            "excerpt": "en:localStorage.getItem('p120_runtime_session_en_v1'),"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": "qa/pass3_session_contract_gate_v1.mjs",
+        "hits": [
+          {
+            "line": 10,
+            "excerpt": "const EN='p120_runtime_session_en_v1';"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "en/system/index.html",
+        "hits": [
+          {
+            "line": 3319,
+            "excerpt": "const KEY=window.P120_SESSION_KEY||(/\\/en\\/system(?:\\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');"
+          },
+          {
+            "line": 3339,
+            "excerpt": "const KEY=window.P120_SESSION_KEY||(/\\/en\\/system(?:\\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": ".github/workflows/p120-pass3-session-contract-gate.yml",
+        "hits": [
+          {
+            "line": 47,
+            "excerpt": "expr=\"const KEY=window.P120_SESSION_KEY||(/\\\\/en\\\\/system(?:\\\\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');\""
+          },
+          {
+            "line": 56,
+            "excerpt": "if 'p120_runtime_session_ru_v1' not in text or 'p120_runtime_session_en_v1' not in text: raise SystemExit(f'{name}: route fallback keys incomplete')"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+        "hits": [
+          {
+            "line": 21,
+            "excerpt": "'pass3_session_en': 'p120_runtime_session_en_v1',"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/scripts/p120_pass3_session_isolation.py",
+        "hits": [
+          {
+            "line": 12,
+            "excerpt": "SYSTEM_KEY=\"const KEY=window.P120_SESSION_KEY||(/\\\\/en\\\\/system(?:\\\\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');\""
+          }
+        ],
+        "count": 1
+      }
+    ],
+    "science_state_ru": [
+      {
+        "path": "P120_SCIENTIFIC_BASE_PRODUCTION_MIGRATION_v1.0.md",
+        "hits": [
+          {
+            "line": 79,
+            "excerpt": "- RU dedicated Science state → `p120_science_page_state_ru_v1`;"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "science/index.html",
+        "hits": [
+          {
+            "line": 3326,
+            "excerpt": "const KEY='p120_science_page_state_ru_v1';"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "qa/scientific_base_production_gate_v1.mjs",
+        "hits": [
+          {
+            "line": 28,
+            "excerpt": "localStorage.removeItem('p120_science_page_state_ru_v1');"
+          },
+          {
+            "line": 62,
+            "excerpt": "scienceRu:localStorage.getItem('p120_science_page_state_ru_v1'),"
+          },
+          {
+            "line": 247,
+            "excerpt": "check(`${locale.toUpperCase()} ${viewportName}: dedicated Science state isolated`,Boolean(ownScienceKey),{scienceStateKey:locale==='ru'?'p120_science_page_state_ru_v1':'p120_science_page_state_en_v1'});"
+          }
+        ],
+        "count": 3
+      },
+      {
+        "path": ".github/workflows/p120-scientific-base-production-gate.yml",
+        "hits": [
+          {
+            "line": 39,
+            "excerpt": "('science/index.html',\"const KEY='p120_science_page_state_ru_v1';\"),"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/scripts/p120_scientific_base_production_migration.py",
+        "hits": [
+          {
+            "line": 4,
+            "excerpt": "(Path('science/index.html'), 'p120_science_page_state_ru_v1'),"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+        "hits": [
+          {
+            "line": 18,
+            "excerpt": "'science_state_ru': 'p120_science_page_state_ru_v1',"
+          },
+          {
+            "line": 103,
+            "excerpt": "'science_ru_key_count': text.count('p120_science_page_state_ru_v1'),"
+          }
+        ],
+        "count": 2
+      }
+    ],
+    "science_state_en": [
+      {
+        "path": "P120_SCIENTIFIC_BASE_PRODUCTION_MIGRATION_v1.0.md",
+        "hits": [
+          {
+            "line": 80,
+            "excerpt": "- EN dedicated Science state → `p120_science_page_state_en_v1`."
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": "qa/scientific_base_production_gate_v1.mjs",
+        "hits": [
+          {
+            "line": 29,
+            "excerpt": "localStorage.removeItem('p120_science_page_state_en_v1');"
+          },
+          {
+            "line": 63,
+            "excerpt": "scienceEn:localStorage.getItem('p120_science_page_state_en_v1')"
+          },
+          {
+            "line": 247,
+            "excerpt": "check(`${locale.toUpperCase()} ${viewportName}: dedicated Science state isolated`,Boolean(ownScienceKey),{scienceStateKey:locale==='ru'?'p120_science_page_state_ru_v1':'p120_science_page_state_en_v1'});"
+          }
+        ],
+        "count": 3
+      },
+      {
+        "path": "en/science/index.html",
+        "hits": [
+          {
+            "line": 3327,
+            "excerpt": "const KEY='p120_science_page_state_en_v1';"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/workflows/p120-scientific-base-production-gate.yml",
+        "hits": [
+          {
+            "line": 40,
+            "excerpt": "('en/science/index.html',\"const KEY='p120_science_page_state_en_v1';\"),"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/scripts/p120_scientific_base_production_migration.py",
+        "hits": [
+          {
+            "line": 5,
+            "excerpt": "(Path('en/science/index.html'), 'p120_science_page_state_en_v1'),"
+          }
+        ],
+        "count": 1
+      },
+      {
+        "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+        "hits": [
+          {
+            "line": 19,
+            "excerpt": "'science_state_en': 'p120_science_page_state_en_v1',"
+          },
+          {
+            "line": 104,
+            "excerpt": "'science_en_key_count': text.count('p120_science_page_state_en_v1'),"
+          }
+        ],
+        "count": 2
+      }
+    ],
+    "old_science_atlas_adapter": [
+      {
+        "path": ".github/workflows/qa-web-science-pass3.yml",
+        "hits": [
+          {
+            "line": 9,
+            "excerpt": "- 'p120-science-atlas-adapter-v0.3.js'"
+          },
+          {
+            "line": 26,
+            "excerpt": "node --check p120-science-atlas-adapter-v0.3.js"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+        "hits": [
+          {
+            "line": 23,
+            "excerpt": "'old_science_atlas_adapter': 'p120-science-atlas-adapter-v0.3.js',"
+          },
+          {
+            "line": 106,
+            "excerpt": "'old_adapter_loader_count': text.count('p120-science-atlas-adapter-v0.3.js'),"
+          }
+        ],
+        "count": 2
+      }
+    ],
+    "old_extended_registry_v03": [
+      {
+        "path": ".github/workflows/qa-web-science-pass3.yml",
+        "hits": [
+          {
+            "line": 10,
+            "excerpt": "- 'P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json'"
+          },
+          {
+            "line": 30,
+            "excerpt": "run: python3 -m json.tool P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json >/dev/null"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+        "hits": [
+          {
+            "line": 25,
+            "excerpt": "'old_extended_registry_v03': 'P120_WEBSCI_EXT_runtime_registry_v0.3_2026-09-02.json',"
+          }
+        ],
+        "count": 1
+      }
+    ],
+    "old_extended_registry_v02": [
+      {
+        "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+        "hits": [
+          {
+            "line": 26,
+            "excerpt": "'old_extended_registry_v02': 'P120_WEBSCI_EXT_science_registry_v0.2_2026-09-02.json',"
+          }
+        ],
+        "count": 1
+      }
+    ]
+  },
+  "science_assets": [
+    ".github/scripts/p120_en_science_localization_bind_v1.py",
+    ".github/scripts/p120_pass4_post_science_inventory.py",
+    ".github/workflows/apply-science-public-v12.yml",
+    ".github/workflows/extract-science-localization-source.yml",
+    ".github/workflows/fix-science-navigation-direction-v1-1.yml",
+    ".github/workflows/fix-science-navigation-direction-v1-2.yml",
+    ".github/workflows/fix-science-navigation-direction-v1-3.yml",
+    ".github/workflows/fix-science-navigation-direction-v1-4.yml",
+    ".github/workflows/fix-science-navigation-direction-v1.yml",
+    ".github/workflows/fix-science-parity-idempotence.yml",
+    ".github/workflows/p120-en-science-localization-bind-v1.yml",
+    ".github/workflows/p120-en-science-localization-gate-v1.yml",
+    ".github/workflows/p120-en-science-localization-probe-v1.yml",
+    ".github/workflows/p120-pass4-post-science-inventory.yml",
+    ".github/workflows/patch-science-direct-link-v1.yml",
+    ".github/workflows/publish-p120-public-science-en-v12.yml",
+    ".github/workflows/publish-p120-public-science-v12.yml",
+    ".github/workflows/qa-web-science-pass3.yml",
+    ".github/workflows/restore-science-visual-parity-v1.yml",
+    ".github/workflows/restore-science-visual-parity-v2.yml",
+    "P120_SCIENCE_NAVIGATION_RECONCILIATION_v1.0.md",
+    "P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json",
+    "P120_WEB_RECONCILIATION_PASS1_SCIENCE_PROTECTION.md",
+    "SCIENCE_LOCALIZATION_SOURCE.json",
+    "p120-en-science-localization-runtime-v1.0.js",
+    "public-en-science-dictionary-v1.0.js",
+    "qa/en_science_localization_gate_v1.mjs",
+    "qa/en_science_localization_probe_v1.mjs",
+    "science-navigation-reconciliation-v1.0.js",
+    "science-page-v1.0.css"
+  ],
+  "candidate_era_assets": [
+    ".github/workflows/qa-web-science-pass3.yml",
+    "P120_WEB_RECONCILIATION_PASS1_SCIENCE_PROTECTION.md"
+  ],
+  "route_scripts": {
+    "science/index.html": [
+      "manual-report-handoff-v1.0.js?v=mrh11",
+      "p120-submission-config-v1.0.js?v=psi11",
+      "p120-submission-intake-v1.0.js?v=psi11",
+      "founder-route-v1.1.js?v=fnd11",
+      "p120-public-runtime-v1.0.js?v=pub21",
+      "extended-research-navigation-v1.0.js?v=ersnav10",
+      "../p120-scientific-base-runtime-v1.0.js?v=sbm10"
+    ],
+    "en/science/index.html": [
+      "../manual-report-handoff-v1.0.js?v=mrh11",
+      "../p120-submission-config-v1.0.js?v=psi11",
+      "../p120-submission-intake-v1.0.js?v=psi11",
+      "../founder-route-v1.1.js?v=fnd11",
+      "../p120-public-runtime-v1.0.js?v=pub21",
+      "../public-en-home-dictionary-v1.0.js?v=en10",
+      "../public-en-science-dictionary-v1.0.js?v=en10",
+      "../public-en-localization-patch-v1.1.js?v=en12",
+      "../public-en-runtime-v1.0.js?v=en13",
+      "../p120-scientific-base-runtime-v1.0.js?v=sbm10",
+      "../../p120-en-science-localization-runtime-v1.0.js?v=ensci10"
+    ]
+  },
+  "route_duplicate_scripts": {
+    "science/index.html": {},
+    "en/science/index.html": {}
+  },
+  "route_inline_state": {
+    "science/index.html": {
+      "legacy_key_count": 0,
+      "science_ru_key_count": 1,
+      "science_en_key_count": 0,
+      "production_runtime_loader_count": 1,
+      "old_adapter_loader_count": 0,
+      "old_nav_loader_count": 0
+    },
+    "en/science/index.html": {
+      "legacy_key_count": 0,
+      "science_ru_key_count": 0,
+      "science_en_key_count": 1,
+      "production_runtime_loader_count": 1,
+      "old_adapter_loader_count": 0,
+      "old_nav_loader_count": 0
+    }
+  },
+  "global_owners": {
+    "P120ScientificBase_assignment": [
+      {
+        "path": "p120-scientific-base-runtime-v1.0.js",
+        "line": 226
+      }
+    ],
+    "P120ScienceAtlas_assignment": [
+      {
+        "path": "p120-scientific-base-runtime-v1.0.js",
+        "line": 227
+      }
+    ],
+    "P120_SCIENCE_assignment": [
+      {
+        "path": "index.html",
+        "line": 2547
+      },
+      {
+        "path": "science/index.html",
+        "line": 2555
+      },
+      {
+        "path": "en/index.html",
+        "line": 2548
+      },
+      {
+        "path": "system/index.html",
+        "line": 2548
+      },
+      {
+        "path": "preview/v1.7.1/index.html",
+        "line": 2493
+      },
+      {
+        "path": "en/science/index.html",
+        "line": 2556
+      },
+      {
+        "path": "en/system/index.html",
+        "line": 2548
+      }
+    ]
+  },
+  "materializer_idempotence": {
+    "available": true,
+    "pass": true,
+    "changed_files": [],
+    "stdout": "science/index.html: MATERIALIZED / STATE ISOLATED / ROOT-SAFE\nen/science/index.html: MATERIALIZED / STATE ISOLATED / ROOT-SAFE\nP120 Scientific Base production migration materializer: PASS",
+    "stderr": ""
+  },
+  "protected_hashes_at_inventory": {
+    "system/index.html": "a102ebe769ac22a15b9de26a489eeaef395ede164514078b58c7a55c60502492",
+    "en/system/index.html": "645e6b366b3d654450a2fca2e7470c49de45af40c627ac48b1c961078c766ab0",
+    "p120-session-contract-v1.0.js": "47f11abb9c672bc55d5967583cd1a06277ea434dd857a96acb09a6402832908f",
+    "p120-submission-intake-v1.0.js": "795e8af61079e7ca5bf1f4d0a6bbe6ca613140cedece99e8bd7568082dae06ee",
+    "manual-report-handoff-v1.0.js": "e750ac8188aac3e9945dcece634126ee56fd5e7fd5a7446cf1e5776301e4a969",
+    "index.html": "c05fc83e19fe7b4877c66bd0514a293cfc35a2eb9cfbb22b33e6b9f183b0ccbb",
+    "en/index.html": "b4724b176b40ae69e95700848b6200f3a55ba32478c27cadf8a6a0f2d5f47638"
+  },
+  "findings": [
+    {
+      "id": "P4-F01",
+      "category": "state-bridge",
+      "severity": "INFO",
+      "disposition": "NO_ACTIVE_SCIENCE_HIT",
+      "evidence": [],
+      "rationale": "Dedicated Science routes must not regain ownership of the historical respondent migration source."
+    },
+    {
+      "id": "P4-F02",
+      "category": "temporary-adapter",
+      "severity": "MEDIUM",
+      "disposition": "EVALUATE_DELETE_OR_ARCHIVE",
+      "evidence": [
+        {
+          "path": ".github/workflows/qa-web-science-pass3.yml",
+          "hits": [
+            {
+              "line": 9,
+              "excerpt": "- 'p120-science-atlas-adapter-v0.3.js'"
+            },
+            {
+              "line": 26,
+              "excerpt": "node --check p120-science-atlas-adapter-v0.3.js"
+            }
+          ],
+          "count": 2
+        },
+        {
+          "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+          "hits": [
+            {
+              "line": 23,
+              "excerpt": "'old_science_atlas_adapter': 'p120-science-atlas-adapter-v0.3.js',"
+            },
+            {
+              "line": 106,
+              "excerpt": "'old_adapter_loader_count': text.count('p120-science-atlas-adapter-v0.3.js'),"
+            }
+          ],
+          "count": 2
+        }
+      ],
+      "rationale": "Candidate v0.3 Atlas adapter is obsolete if production runtime v1.0 is the sole active owner."
+    },
+    {
+      "id": "P4-F03",
+      "category": "compatibility-glue",
+      "severity": "MEDIUM",
+      "disposition": "EVALUATE_DELETE_OR_ARCHIVE",
+      "evidence": [
+        {
+          "path": "P120_WEB_PASS5.3.2_EXECUTION_CORRECTIONS.md",
+          "hits": [
+            {
+              "line": 35,
+              "excerpt": "The Science workstream had independently established a valid post-bundle reconciliation pattern through `science-navigation-reconciliation-v1.0.js`. PASS 5.3.2 uses the same ownership principle without modifying Scientific Base content or its routing contract."
+            },
+            {
+              "line": 57,
+              "excerpt": "`science-navigation-reconciliation-v1.0.js` remains the already-loaded post-bundle navigation bridge on both RU and EN main pages."
+            }
+          ],
+          "count": 2
+        },
+        {
+          "path": "index.html",
+          "hits": [
+            {
+              "line": 4366,
+              "excerpt": "<script src=\"science-navigation-reconciliation-v1.0.js?v=scinav10\" data-p120-science-navigation=\"reconciled-v1\"></script>"
+            }
+          ],
+          "count": 1
+        },
+        {
+          "path": "science-navigation-reconciliation-v1.0.js",
+          "hits": [
+            {
+              "line": 50,
+              "excerpt": "const base=current?.src||new URL('science-navigation-reconciliation-v1.0.js',location.href).href;"
+            }
+          ],
+          "count": 1
+        },
+        {
+          "path": "P120_WEB_RECONCILIATION_PASS2_CLOSURE_QA.json",
+          "hits": [
+            {
+              "line": 87,
+              "excerpt": "\"detail\": \"science-navigation-reconciliation-v1.0.js\""
+            }
+          ],
+          "count": 1
+        },
+        {
+          "path": "en/index.html",
+          "hits": [
+            {
+              "line": 4368,
+              "excerpt": "<script src=\"../science-navigation-reconciliation-v1.0.js?v=scinav10\" data-p120-science-navigation=\"reconciled-v1\"></script>"
+            }
+          ],
+          "count": 1
+        },
+        {
+          "path": ".github/workflows/restore-science-visual-parity-v2.yml",
+          "hits": [
+            {
+              "line": 111,
+              "excerpt": "assert 'science-navigation-reconciliation-v1.0.js' not in t"
+            }
+          ],
+          "count": 1
+        },
+        {
+          "path": ".github/workflows/fix-science-navigation-direction-v1.yml",
+          "hits": [
+            {
+              "line": 92,
+              "excerpt": "Path('science-navigation-reconciliation-v1.0.js').write_text(bridge,encoding='utf-8')"
+            },
+            {
+              "line": 106,
+              "excerpt": "for file,src in [('index.html','science-navigation-reconciliation-v1.0.js?v=scinav10'),('en/index.html','../science-navigation-reconciliation-v1.0.js?v=scinav10')]:"
+            },
+            {
+              "line": 124,
+              "excerpt": "bridge=Path('science-navigation-reconciliation-v1.0.js').read_text(encoding='utf-8')"
+            },
+            {
+              "line": 131,
+              "excerpt": "assert 'science-navigation-reconciliation-v1.0.js?v=scinav10' in ru"
+            },
+            {
+              "line": 132,
+              "excerpt": "assert '../science-navigation-reconciliation-v1.0.js?v=scinav10' in en"
+            },
+            {
+              "line": 202,
+              "excerpt": "git add science-navigation-reconciliation-v1.0.js p120-brand-system-v1.0.js index.html en/index.html P120_SCIENCE_NAVIGATION_RECONCILIATION_v1.0.md"
+            }
+          ],
+          "count": 6
+        },
+        {
+          "path": ".github/workflows/fix-science-navigation-direction-v1-3.yml",
+          "hits": [
+            {
+              "line": 19,
+              "excerpt": "Path('science-navigation-reconciliation-v1.0.js').write_text(js,encoding='utf-8')"
+            },
+            {
+              "line": 23,
+              "excerpt": "for fn,src in [('index.html','science-navigation-reconciliation-v1.0.js?v=scinav10'),('en/index.html','../science-navigation-reconciliation-v1.0.js?v=scinav10')]:"
+            },
+            {
+              "line": 33,
+              "excerpt": "b=Path('p120-brand-system-v1.0.js').read_text();j=Path('science-navigation-reconciliation-v1.0.js').read_text();ru=Path('index.html').read_text();en=Path('en/index.html').read_text()"
+            },
+            {
+              "line": 36,
+              "excerpt": "assert 'science-navigation-reconciliation-v1.0.js?v=scinav10' in ru and '../science-navigation-reconciliation-v1.0.js?v=scinav10' in en"
+            },
+            {
+              "line": 55,
+              "excerpt": "git add science-navigation-reconciliation-v1.0.js p120-brand-system-v1.0.js index.html en/index.html P120_SCIENCE_NAVIGATION_RECONCILIATION_v1.0.md"
+            }
+          ],
+          "count": 5
+        },
+        {
+          "path": ".github/workflows/restore-science-visual-parity-v1.yml",
+          "hits": [
+            {
+              "line": 114,
+              "excerpt": "assert 'science-navigation-reconciliation-v1.0.js' not in t"
+            }
+          ],
+          "count": 1
+        },
+        {
+          "path": ".github/workflows/fix-science-navigation-direction-v1-2.yml",
+          "hits": [
+            {
+              "line": 19,
+              "excerpt": "Path('science-navigation-reconciliation-v1.0.js').write_text(js,encoding='utf-8')"
+            },
+            {
+              "line": 23,
+              "excerpt": "for fn,src in [('index.html','science-navigation-reconciliation-v1.0.js?v=scinav10'),('en/index.html','../science-navigation-reconciliation-v1.0.js?v=scinav10')]:"
+            },
+            {
+              "line": 33,
+              "excerpt": "b=Path('p120-brand-system-v1.0.js').read_text();j=Path('science-navigation-reconciliation-v1.0.js').read_text();ru=Path('index.html').read_text();en=Path('en/index.html').read_text()"
+            },
+            {
+              "line": 36,
+              "excerpt": "assert 'science-navigation-reconciliation-v1.0.js?v=scinav10' in ru and '../science-navigation-reconciliation-v1.0.js?v=scinav10' in en"
+            },
+            {
+              "line": 55,
+              "excerpt": "git add science-navigation-reconciliation-v1.0.js p120-brand-system-v1.0.js index.html en/index.html P120_SCIENCE_NAVIGATION_RECONCILIATION_v1.0.md"
+            }
+          ],
+          "count": 5
+        },
+        {
+          "path": ".github/workflows/qa-web-explore-pass53.yml",
+          "hits": [
+            {
+              "line": 15,
+              "excerpt": "- 'science-navigation-reconciliation-v1.0.js'"
+            },
+            {
+              "line": 47,
+              "excerpt": "test -f science-navigation-reconciliation-v1.0.js"
+            },
+            {
+              "line": 53,
+              "excerpt": "node --check science-navigation-reconciliation-v1.0.js"
+            },
+            {
+              "line": 62,
+              "excerpt": "grep -q \"extended-chapter-navigation-reconciliation-v1.0.js\" science-navigation-reconciliation-v1.0.js"
+            }
+          ],
+          "count": 4
+        },
+        {
+          "path": ".github/workflows/fix-science-navigation-direction-v1-4.yml",
+          "hits": [
+            {
+              "line": 57,
+              "excerpt": "Path('science-navigation-reconciliation-v1.0.js').write_text(js,encoding='utf-8')"
+            },
+            {
+              "line": 61,
+              "excerpt": "for fn,src in [('index.html','science-navigation-reconciliation-v1.0.js?v=scinav10'),('en/index.html','../science-navigation-reconciliation-v1.0.js?v=scinav10')]:"
+            },
+            {
+              "line": 71,
+              "excerpt": "b=Path('p120-brand-system-v1.0.js').read_text();j=Path('science-navigation-reconciliation-v1.0.js').read_text();ru=Path('index.html').read_text();en=Path('en/index.html').read_text()"
+            },
+            {
+              "line": 74,
+              "excerpt": "assert 'science-navigation-reconciliation-v1.0.js?v=scinav10' in ru and '../science-navigation-reconciliation-v1.0.js?v=scinav10' in en"
+            },
+            {
+              "line": 94,
+              "excerpt": "git add science-navigation-reconciliation-v1.0.js p120-brand-system-v1.0.js index.html en/index.html P120_SCIENCE_NAVIGATION_RECONCILIATION_v1.0.md"
+            }
+          ],
+          "count": 5
+        },
+        {
+          "path": ".github/workflows/fix-science-navigation-direction-v1-1.yml",
+          "hits": [
+            {
+              "line": 24,
+              "excerpt": "Path('science-navigation-reconciliation-v1.0.js').write_text(js,encoding='utf-8')"
+            },
+            {
+              "line": 29,
+              "excerpt": "for fn,src in [('index.html','science-navigation-reconciliation-v1.0.js?v=scinav10'),('en/index.html','../science-navigation-reconciliation-v1.0.js?v=scinav10')]:"
+            },
+            {
+              "line": 40,
+              "excerpt": "b=Path('p120-brand-system-v1.0.js').read_text();j=Path('science-navigation-reconciliation-v1.0.js').read_text();ru=Path('index.html').read_text();en=Path('en/index.html').read_text()"
+            },
+            {
+              "line": 43,
+              "excerpt": "assert 'science-navigation-reconciliation-v1.0.js?v=scinav10' in ru"
+            },
+            {
+              "line": 44,
+              "excerpt": "assert '../science-navigation-reconciliation-v1.0.js?v=scinav10' in en"
+            },
+            {
+              "line": 68,
+              "excerpt": "git add science-navigation-reconciliation-v1.0.js p120-brand-system-v1.0.js index.html en/index.html P120_SCIENCE_NAVIGATION_RECONCILIATION_v1.0.md"
+            }
+          ],
+          "count": 6
+        },
+        {
+          "path": ".github/workflows/p120-en-system-build-v0.4.yml",
+          "hits": [
+            {
+              "line": 44,
+              "excerpt": "forbidden=['p120-en-system-runtime-v0.4.js','p120-en-instrument-bind-v0.4.js','p120-public-runtime-v1.0.js','founder-route-v1.1.js','extended-research-navigation-v1.0.js','science-navigation-reconciliation-v1.0.js']"
+            }
+          ],
+          "count": 1
+        },
+        {
+          "path": ".github/scripts/p120_pass2_native_routes.py",
+          "hits": [
+            {
+              "line": 442,
+              "excerpt": "for bad in ['p120-public-runtime-v1.0.js','founder-route-v1.1.js','extended-research-navigation-v1.0.js','science-navigation-reconciliation-v1.0.js','brand-origin-scroll-interstitial-runtime-v1','p120-science-public-v12-runtime']:"
+            }
+          ],
+          "count": 1
+        },
+        {
+          "path": ".github/scripts/p120_pass2_closure_qa.py",
+          "hits": [
+            {
+              "line": 92,
+              "excerpt": "'extended-research-navigation-v1.0.js','science-navigation-reconciliation-v1.0.js',"
+            }
+          ],
+          "count": 1
+        },
+        {
+          "path": ".github/scripts/p120_pass4_post_science_inventory.py",
+          "hits": [
+            {
+              "line": 24,
+              "excerpt": "'old_science_nav_reconciliation': 'science-navigation-reconciliation-v1.0.js',"
+            },
+            {
+              "line": 107,
+              "excerpt": "'old_nav_loader_count': text.count('science-navigation-reconciliation-v1.0.js'),"
+            }
+          ],
+          "count": 2
+        }
+      ],
+      "rationale": "Legacy Science navigation reconciliation should not duplicate production route/navigation ownership."
+    },
+    {
+      "id": "P4-F04",
+      "category": "runtime-glue",
+      "severity": "INFO",
+      "disposition": "KEEP_SINGLE_OWNER",
+      "evidence": {
+        "science/index.html": {
+          "legacy_key_count": 0,
+          "science_ru_key_count": 1,
+          "science_en_key_count": 0,
+          "production_runtime_loader_count": 1,
+          "old_adapter_loader_count": 0,
+          "old_nav_loader_count": 0
+        },
+        "en/science/index.html": {
+          "legacy_key_count": 0,
+          "science_ru_key_count": 0,
+          "science_en_key_count": 1,
+          "production_runtime_loader_count": 1,
+          "old_adapter_loader_count": 0,
+          "old_nav_loader_count": 0
+        }
+      },
+      "rationale": "Each dedicated Science route should load exactly one production Scientific Base runtime."
+    },
+    {
+      "id": "P4-F05",
+      "category": "generated-source-consistency",
+      "severity": "INFO",
+      "disposition": "KEEP",
+      "evidence": {
+        "available": true,
+        "pass": true,
+        "changed_files": [],
+        "stdout": "science/index.html: MATERIALIZED / STATE ISOLATED / ROOT-SAFE\nen/science/index.html: MATERIALIZED / STATE ISOLATED / ROOT-SAFE\nP120 Scientific Base production migration materializer: PASS",
+        "stderr": ""
+      },
+      "rationale": "Production migration materializer must be idempotent after release closure."
+    },
+    {
+      "id": "P4-F06",
+      "category": "duplicate-runtime-glue",
+      "severity": "INFO",
+      "disposition": "NO_ACTIVE_DUPLICATE",
+      "evidence": {},
+      "rationale": "Old adapter/navigation loaders must not coexist with the production Scientific Base runtime on public Science routes."
+    },
+    {
+      "id": "P4-F07",
+      "category": "operational-debris",
+      "severity": "LOW",
+      "disposition": "REVIEW_ONLY",
+      "evidence": [
+        ".github/workflows/qa-web-science-pass3.yml",
+        "P120_WEB_RECONCILIATION_PASS1_SCIENCE_PROTECTION.md"
+      ],
+      "rationale": "Candidate-era files may be retained as controlled evidence or removed if they are purely operational; PASS 4 must not erase scientific provenance."
+    }
+  ]
+}
