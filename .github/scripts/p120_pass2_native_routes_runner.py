@@ -136,6 +136,14 @@ function renderSystemLanguageSwitch(mode='desktop'){
             1
         )
 
+    # <base> deliberately points to the repository root for shared assets, so a
+    # literal href="./" would navigate away from System. Use the route helper.
+    html=html.replace(
+        '<a class="navlink system-navlink" href="./" aria-current="page"',
+        '<a class="navlink system-navlink" href="${systemLocaleHref(document.documentElement.lang===\'en\'?\'en\':\'ru\')}" aria-current="page"',
+        1
+    )
+
     return html,removed
 
 
