@@ -10,6 +10,8 @@ on:
       - 'system/index.html'
       - 'en/system/index.html'
       - 'p120-session-contract-v1.0.js'
+      - 'manual-report-handoff-v1.0.js'
+      - 'p120-submission-intake-v1.0.js'
       - 'qa/pass3_session_contract_gate_v1.mjs'
       - '.github/workflows/p120-pass3-session-contract-gate.yml'
   workflow_dispatch:
@@ -39,12 +41,18 @@ jobs:
           en=Path('en/system/index.html').read_text(encoding='utf-8')
           root=Path('index.html').read_text(encoding='utf-8')
           eroot=Path('en/index.html').read_text(encoding='utf-8')
+          handoff=Path('manual-report-handoff-v1.0.js').read_text(encoding='utf-8')
+          intake=Path('p120-submission-intake-v1.0.js').read_text(encoding='utf-8')
           expr="const KEY=window.P120_SESSION_KEY||(/\\/en\\/system(?:\\/|$)/i.test(location.pathname)?'p120_runtime_session_en_v1':'p120_runtime_session_ru_v1');"
           if ru.count(expr)!=2 or en.count(expr)!=2: raise SystemExit('System session-key binding mismatch')
           if "const KEY='p120_web_prototype_v01';" in ru or "const KEY='p120_web_prototype_v01';" in en: raise SystemExit('legacy respondent key remains active in System')
           if "const KEY='p120_editorial_state_ru_v1';" not in root: raise SystemExit('RU Editorial key missing')
           if "const KEY='p120_editorial_state_en_v1';" not in eroot: raise SystemExit('EN Editorial key missing')
           if 'data-p120-session-contract="v1.0"' not in ru or 'data-p120-session-contract="v1.0"' not in en: raise SystemExit('session contract runtime missing')
+          for name,text in [('manual handoff',handoff),('submission intake',intake)]:
+              if "const STORAGE_KEY = 'p120_web_prototype_v01';" in text: raise SystemExit(f'{name}: active legacy storage dependency')
+              if 'window.P120_SESSION_KEY' not in text: raise SystemExit(f'{name}: locale session binding missing')
+              if 'p120_runtime_session_ru_v1' not in text or 'p120_runtime_session_en_v1' not in text: raise SystemExit(f'{name}: route fallback keys incomplete')
           print('Static storage ownership: PASS')
           PY
       - name: Install Playwright Chromium
