@@ -4151,7 +4151,7 @@ const entryParams=new URLSearchParams(location.search);
 const initialRouteHash=(location.hash||'').replace(/^#/,'');
 const homeRouteAnchors=['why-important','life-energy','understand-desire','two-systems','why-p120','what-p120-shows','showcase','examples','science-foundation','life-importance','understand-earlier','final','brand-origin'];
 if(initialRouteHash&&homeRouteAnchors.includes(initialRouteHash)){location.replace('../#'+encodeURIComponent(initialRouteHash));return}
-if(entryParams.get('start')==='1'){location.replace('system/');return}
+if(entryParams.get('start')==='1'){location.replace(location.pathname);return}
 render();
 if(initialRouteHash)setTimeout(()=>{if(document.getElementById(initialRouteHash))elegantScrollTo(initialRouteHash)},120);
 updateReadingProgress();
@@ -4161,5 +4161,6 @@ updateReadingProgress();
 <script src="manual-report-handoff-v1.0.js?v=mrh11" data-p120-manual-report-handoff="v1.0"></script>
   <script src="p120-submission-config-v1.0.js?v=psi11" data-p120-submission-config="v1.0"></script>
   <script src="p120-submission-intake-v1.0.js?v=psi11" data-p120-submission-intake="v1.0"></script>
+  <script src="p120-system-route-guard-v1.0.js?v=sysroute10" data-p120-system-route-guard="v1.0"></script>
 </body>
 </html>
