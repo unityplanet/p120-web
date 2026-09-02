@@ -1,0 +1,116 @@
+name: P120 PASS 4A Deployment Path Gate
+
+on:
+  push:
+    branches:
+      - 'work/p120-deployment-path-reconciliation-pass4a'
+      - 'main'
+    paths:
+      - 'science/index.html'
+      - 'en/science/index.html'
+      - 'qa/pass4a_deployment_path_gate.mjs'
+      - '.github/workflows/p120-pass4a-deployment-path-gate.yml'
+      - 'P120_PASS4A_DEPLOYMENT_PATH_RECONCILIATION_v1.0.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  protected-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify exact PASS 4A delta and protected contracts
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+
+          BASE='f46b7335e47d75672424136979f91a1a3997aa37'
+          allowed={
+            'science/index.html',
+            'en/science/index.html',
+            'qa/pass4a_deployment_path_gate.mjs',
+            '.github/workflows/p120-pass4a-deployment-path-gate.yml',
+            '.github/scripts/p120_pass4a_deployment_path_apply.py',
+            '.github/workflows/p120-pass4a-deployment-path-apply.yml',
+            'P120_PASS4A_DEPLOYMENT_PATH_RECONCILIATION_v1.0.md',
+          }
+          changed=set(filter(None,subprocess.check_output(['git','diff','--name-only',BASE,'HEAD'],text=True).splitlines()))
+          unexpected=sorted(changed-allowed)
+          if unexpected:
+            raise SystemExit('PASS 4A scope violation; unexpected files: '+', '.join(unexpected))
+
+          specs=[
+            (
+              'science/index.html',
+              '<script src="p120-scientific-base-runtime-v1.0.js?v=sbm10" data-p120-scientific-base-runtime="v1.0"></script>',
+              '<script src="../p120-scientific-base-runtime-v1.0.js?v=sbm10" data-p120-scientific-base-runtime="v1.0"></script>',
+            ),
+            (
+              'en/science/index.html',
+              '<script src="../p120-en-science-localization-runtime-v1.0.js?v=ensci10" data-p120-en-science-localization="v1.0"></script>',
+              '<script src="../../p120-en-science-localization-runtime-v1.0.js?v=ensci10" data-p120-en-science-localization="v1.0"></script>',
+            ),
+          ]
+          for path,new,old in specs:
+            current=Path(path).read_text(encoding='utf-8')
+            baseline=subprocess.check_output(['git','show',f'{BASE}:{path}'],text=True)
+            if current.count(new)!=1:
+              raise SystemExit(f'{path}: corrected path count != 1')
+            normalized=current.replace(new,old,1)
+            if normalized!=baseline:
+              raise SystemExit(f'{path}: content changed outside the single authorized path token')
+            if current.count('id="extended-research-set"')!=baseline.count('id="extended-research-set"'):
+              raise SystemExit(f'{path}: #extended-research-set count changed')
+            print(path,'single-token delta: PASS')
+
+          protected=[
+            'index.html','en/index.html','system/index.html','en/system/index.html',
+            'p120-session-contract-v1.0.js','p120-submission-intake-v1.0.js',
+            'manual-report-handoff-v1.0.js','p120-scientific-base-runtime-v1.0.js',
+            'p120-en-science-localization-runtime-v1.0.js',
+            'P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json'
+          ]
+          touched=[]
+          for path in protected:
+            rc=subprocess.run(['git','diff','--quiet',BASE,'HEAD','--',path]).returncode
+            if rc!=0:touched.append(path)
+          if touched:
+            raise SystemExit('Protected runtime/measurement/science contracts changed: '+', '.join(touched))
+          print('Protected respondent/scoring/System/Editorial/Scientific Base contracts: PASS')
+          print('#extended-research-set: UNMODIFIED')
+          PY
+
+  project-subpath-science-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    needs: protected-contract
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local GitHub-Pages-equivalent project-subpath server
+        shell: bash
+        run: |
+          cd ..
+          python3 -m http.server 4179 --bind 127.0.0.1 >/tmp/p120-pass4a-http.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:4179/p120-web/science/ >/dev/null
+          curl -fsS http://127.0.0.1:4179/p120-web/en/science/ >/dev/null
+      - name: Run PASS 4A project-subpath Science regression
+        run: node qa/pass4a_deployment_path_gate.mjs
+      - name: Upload PASS 4A QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_PASS4A_DEPLOYMENT_PATH_QA
+          path: qa-evidence-pass4a/
+          retention-days: 30
