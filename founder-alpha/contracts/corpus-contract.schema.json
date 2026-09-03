@@ -14,7 +14,7 @@
         "corpus_id": {"type": "string", "minLength": 1},
         "corpus_version": {"type": "string", "minLength": 1},
         "item_count": {"type": "integer", "minimum": 1},
-        "payload_sha256": {"type": ["string", "null"], "pattern": "^[a-fA-F0-9]{64}$"}
+        "payload_sha256": {"type": ["string", "null"], "pattern": "^[a-fA-F0-9]{64}$", "description": "SHA-256 of JSON.stringify({modules,items}) after parsing the protected corpus."}
       },
       "additionalProperties": true
     },
@@ -52,7 +52,8 @@
               "required": ["value", "label"],
               "properties": {
                 "value": {"type": "string"},
-                "label": {"type": "string"}
+                "label": {"type": "string"},
+                "response_state": {"enum": ["ANSWERED", "NOT_APPLICABLE", "NO_EXPERIENCE", "PREFER_NOT_ANSWER", "UNKNOWN"]}
               },
               "additionalProperties": false
             }
