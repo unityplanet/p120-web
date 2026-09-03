@@ -1,0 +1,15 @@
+{
+  "schema": "p120.fa01.corpus.v1",
+  "locale": "ru",
+  "manifest": {
+    "corpus_id": "REPLACE_WITH_CONTROLLED_CORPUS_ID",
+    "corpus_version": "REPLACE_WITH_CONTROLLED_VERSION",
+    "item_count": 253,
+    "payload_sha256": null,
+    "authority": "P120 FOUNDER ALPHA-01 PASS 1.1",
+    "report_cutover": "HOLD",
+    "candidate_scoring": false
+  },
+  "modules": [],
+  "items": []
+}
