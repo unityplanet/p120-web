@@ -15,7 +15,7 @@ This repository is public. Therefore this branch MUST NOT contain:
 - response values in operational telemetry;
 - generated personal reports.
 
-The scaffold loads an exact corpus from a **local file selected by the authorised operator**. The protected corpus remains outside GitHub. No network upload is required by the scaffold.
+The scaffold loads an exact corpus from a **local file selected by the authorised operator**. The protected corpus remains outside GitHub. No network upload is required by the scaffold. The local browser storage used by the scaffold is not encryption; the Alpha run must therefore be executed only on a controlled device/profile.
 
 ## Runtime namespaces
 
@@ -32,10 +32,12 @@ The runtime refuses to start unless the local corpus:
 2. declares locale `ru`;
 3. includes a source manifest;
 4. matches the manifest item count;
-5. matches the manifest SHA-256 when `payload_sha256` is supplied;
+5. matches the manifest SHA-256 when `payload_sha256` is supplied; the hash authority is `SHA-256(JSON.stringify({modules,items}))` after parsing;
 6. contains only supported response models;
 7. contains unique item IDs;
 8. does not declare respondent-facing candidate scoring.
+
+An already-started Alpha session is fail-closed against a different corpus ID, version or verified payload hash. Export evidence and clear the local Alpha session before switching corpora.
 
 ## Report boundary
 
