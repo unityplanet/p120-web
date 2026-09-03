@@ -63,8 +63,8 @@
       if (item.candidate_scoring === true) throw new Error(`Candidate scoring запрещён: ${item.id}.`);
     }
     if (c.manifest.payload_sha256) {
-      // Protected build contract hashes the exact selected payload bytes/text.
-      const actual = await sha256(raw);
+      // The protected build hashes the canonical module+item payload, not the file that contains the hash itself.
+      const actual = await sha256(JSON.stringify({modules:c.modules, items:c.items}));
       if (actual.toLowerCase() !== String(c.manifest.payload_sha256).toLowerCase()) throw new Error('SHA-256 корпуса не совпадает с manifest.');
     }
     return c;
@@ -82,7 +82,11 @@
     try {
       corpusRaw = await file.text();
       corpus = await validateCorpus(corpusRaw);
-      const sourceHash = await sha256(corpusRaw);
+      const sourceHash = await sha256(JSON.stringify({modules:corpus.modules, items:corpus.items}));
+      const existingManifest = load(KEYS.manifest, null)?.manifest || null;
+      if (state.started_at && existingManifest && (existingManifest.corpus_id !== corpus.manifest.corpus_id || existingManifest.corpus_version !== corpus.manifest.corpus_version || existingManifest.verified_sha256 !== sourceHash)) {
+        throw new Error('Активная Alpha-сессия привязана к другому корпусу. Сначала экспортируй evidence и очисти локальные данные Alpha.');
+      }
       const safeManifest = {...corpus.manifest, verified_sha256:sourceHash, loaded_at:now(), local_filename:file.name};
       save(KEYS.manifest, {schema:'p120.fa01.source-manifest.v1', manifest:safeManifest});
       log('corpus_loaded', {corpus_id:corpus.manifest.corpus_id, corpus_version:corpus.manifest.corpus_version, item_count:corpus.items.length});
@@ -125,7 +129,7 @@
     $('choices').innerHTML = '';
     for (const c of item.choices) {
       const b = document.createElement('button'); b.className = `choice ${existing === c.value ? 'selected' : ''}`; b.textContent = c.label;
-      b.onclick = () => select(item, c.value); $('choices').appendChild(b);
+      b.onclick = () => select(item, c); $('choices').appendChild(b);
     }
     $('prev').disabled = state.item_index === 0;
     $('next').disabled = !state.responses[item.id];
@@ -138,8 +142,9 @@
     if (!seen) log('item_presented', {item_id:item.id, module_id:item.module});
   }
 
-  function classifyResponseState(value) {
-    const v = String(value).toUpperCase();
+  function classifyResponseState(choice) {
+    if (choice && choice.response_state) return String(choice.response_state);
+    const v = String(choice?.value ?? '').toUpperCase();
     if (['NA','N/A','NOT_APPLICABLE'].includes(v)) return 'NOT_APPLICABLE';
     if (['NO_EXPERIENCE','INSUFFICIENT_EXPERIENCE'].includes(v)) return 'NO_EXPERIENCE';
     if (['PREFER_NOT_ANSWER','PNA'].includes(v)) return 'PREFER_NOT_ANSWER';
@@ -147,9 +152,9 @@
     return 'ANSWERED';
   }
 
-  function select(item, value) {
+  function select(item, choice) {
     const old = state.responses[item.id];
-    state.responses[item.id] = {item_id:item.id, module_id:item.module, value, response_state:classifyResponseState(value), answered_at:now()};
+    state.responses[item.id] = {item_id:item.id, module_id:item.module, value:choice.value, response_state:classifyResponseState(choice), answered_at:now()};
     save(KEYS.responses, state);
     // No response value is sent to runtime log.
     log(old ? 'response_changed' : 'response_recorded', {item_id:item.id, module_id:item.module, response_state:state.responses[item.id].response_state});
