@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p120.fa01.founder-feedback.schema.v1",
+  "title": "P120 Founder Alpha-01 feedback record",
+  "type": "object",
+  "required": ["schema", "participant_id", "records"],
+  "properties": {
+    "schema": {"const": "p120.fa01.feedback.v1"},
+    "participant_id": {"type": "string"},
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["at", "scope", "category", "note"],
+        "properties": {
+          "at": {"type": "string"},
+          "scope": {"type": "string"},
+          "item_id": {"type": ["string", "null"]},
+          "module_id": {"type": ["string", "null"]},
+          "category": {"enum": ["CLARITY", "REDUNDANCY", "SCOPE_CONFUSION", "ROUTING", "UI_UX", "BURDEN", "REPORT_REVIEW", "OTHER"]},
+          "severity": {"enum": ["NOTE", "MINOR", "MAJOR", "BLOCKER"]},
+          "note": {"type": "string", "minLength": 1},
+          "proposed_action": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
