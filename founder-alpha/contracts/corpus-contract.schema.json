@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p120.fa01.corpus-contract.schema.v1",
+  "title": "P120 Founder Alpha-01 protected corpus contract",
+  "type": "object",
+  "required": ["schema", "locale", "manifest", "modules", "items"],
+  "properties": {
+    "schema": {"const": "p120.fa01.corpus.v1"},
+    "locale": {"const": "ru"},
+    "manifest": {
+      "type": "object",
+      "required": ["corpus_id", "corpus_version", "item_count"],
+      "properties": {
+        "corpus_id": {"type": "string", "minLength": 1},
+        "corpus_version": {"type": "string", "minLength": 1},
+        "item_count": {"type": "integer", "minimum": 1},
+        "payload_sha256": {"type": ["string", "null"], "pattern": "^[a-fA-F0-9]{64}$"}
+      },
+      "additionalProperties": true
+    },
+    "modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "name": {"type": "string", "minLength": 1},
+          "title": {"type": "string"},
+          "intro": {"type": "string"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "module", "type", "text", "choices"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "module": {"type": "string", "minLength": 1},
+          "type": {"enum": ["likert", "comparative", "single_choice"]},
+          "text": {"type": "string", "minLength": 1},
+          "optionA": {"type": "string"},
+          "optionB": {"type": "string"},
+          "choices": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["value", "label"],
+              "properties": {
+                "value": {"type": "string"},
+                "label": {"type": "string"}
+              },
+              "additionalProperties": false
+            }
+          },
+          "candidate_scoring": {"const": false}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}
