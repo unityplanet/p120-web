@@ -32,6 +32,7 @@ on:
       - 'privacy/**'
       - 'en/privacy/**'
       - 'qa/global_header_code_hardening_pass21.mjs'
+      - 'qa/footer_link_presentation_correction_pass1.mjs'
       - '.github/workflows/qa-global-header-pass21-code-hardened.yml'
 
 permissions:
@@ -56,6 +57,8 @@ jobs:
         run: node qa/global_header_code_hardening_pass21.mjs
       - name: Re-run PASS 1 original regression gate
         run: node qa/global_header_brand_lockup_cleaning_pass1.mjs
+      - name: Run footer link presentation regression gate
+        run: node qa/footer_link_presentation_correction_pass1.mjs
       - name: Upload PASS 2.1 evidence
         uses: actions/upload-artifact@v4
         if: always()
@@ -64,4 +67,5 @@ jobs:
           path: |
             qa-artifacts/header-code-pass21
             qa-artifacts/header-lockup-pass1
+            qa-artifacts/footer-link-correction-pass1
           retention-days: 30
