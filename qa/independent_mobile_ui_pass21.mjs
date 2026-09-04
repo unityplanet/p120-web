@@ -31,38 +31,19 @@ const expected = {
 const report = {
   targetSha: TARGET_SHA,
   startedAt: new Date().toISOString(),
-  source: {},
-  contrast: {},
-  environments: {},
-  failures: [],
-  warnings: [],
+  source: {}, contrast: {}, environments: {}, failures: [], warnings: [],
   counts: { publicCases: 0, systemCases: 0, progressCases: 0, switchCases: 0, pressCases: 0 },
 };
 
-function fail(scope, message, detail = null) {
-  report.failures.push({ scope, message, detail });
-}
-function warn(scope, message, detail = null) {
-  report.warnings.push({ scope, message, detail });
-}
-function assert(scope, condition, message, detail = null) {
-  if (!condition) fail(scope, message, detail);
-}
-function hexToRgb(hex) {
-  const h = hex.replace('#', '');
-  return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16));
-}
+function fail(scope, message, detail = null) { report.failures.push({ scope, message, detail }); }
+function warn(scope, message, detail = null) { report.warnings.push({ scope, message, detail }); }
+function assert(scope, condition, message, detail = null) { if (!condition) fail(scope, message, detail); }
+function hexToRgb(hex) { const h = hex.replace('#', ''); return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16)); }
 function luminance(hex) {
-  const [r, g, b] = hexToRgb(hex).map(v => {
-    const x = v / 255;
-    return x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4;
-  });
+  const [r, g, b] = hexToRgb(hex).map(v => { const x = v / 255; return x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; });
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
-function contrast(a, b) {
-  const l1 = luminance(a), l2 = luminance(b);
-  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
-}
+function contrast(a, b) { const l1 = luminance(a), l2 = luminance(b); return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05); }
 function mixHex(a, b, ratioA) {
   const A = hexToRgb(a), B = hexToRgb(b);
   const vals = A.map((v, i) => Math.round(v * ratioA + B[i] * (1 - ratioA)));
@@ -78,7 +59,6 @@ function sourceAudit() {
   const enSystem = fs.readFileSync('en/system/index.html', 'utf8');
   const ruRoot = fs.readFileSync('index.html', 'utf8');
   const enRoot = fs.readFileSync('en/index.html', 'utf8');
-
   const checks = {
     ctaActivePair: /button\.cta,\s*[\s\S]*button\.cta\.active/.test(cta),
     graphiteHardened: cta.includes('#58706C') && cta.includes('#49635F'),
@@ -97,12 +77,9 @@ function sourceAudit() {
 
   const ivoryEnd = mixHex('#171715', '#4A8E89', 0.74);
   const ratios = {
-    ivoryStart: contrast('#FFFFFF', '#171715'),
-    ivoryEnd: contrast('#FFFFFF', ivoryEnd),
-    graphiteStart: contrast('#F5EFE5', '#58706C'),
-    graphiteEnd: contrast('#F5EFE5', '#49635F'),
-    museumStart: contrast('#FFF9EC', '#2F756F'),
-    museumEnd: contrast('#FFF9EC', '#255F5C'),
+    ivoryStart: contrast('#FFFFFF', '#171715'), ivoryEnd: contrast('#FFFFFF', ivoryEnd),
+    graphiteStart: contrast('#F5EFE5', '#58706C'), graphiteEnd: contrast('#F5EFE5', '#49635F'),
+    museumStart: contrast('#FFF9EC', '#2F756F'), museumEnd: contrast('#FFF9EC', '#255F5C'),
   };
   report.contrast = { ratios, ivoryEnd };
   for (const [k, ratio] of Object.entries(ratios)) assert('contrast:' + k, ratio >= 4.5, `Contrast ${ratio.toFixed(2)} is below 4.5:1`);
@@ -110,53 +87,33 @@ function sourceAudit() {
 
 async function instrumentMeta(page) {
   await page.waitForFunction(() => Array.isArray(window.P120_INSTRUMENT?.items) && window.P120_INSTRUMENT.items.length > 0);
-  return page.evaluate(() => window.P120_INSTRUMENT.items.map(i => ({
-    id: i.id,
-    value: Array.isArray(i.choices) && i.choices.length ? String(i.choices[0].value) : '1',
-  })));
+  return page.evaluate(() => window.P120_INSTRUMENT.items.map(i => ({ id: i.id, value: Array.isArray(i.choices) && i.choices.length ? String(i.choices[0].value) : '1' })));
 }
-
 function makeResponses(items, count) {
   const n = count === 'all' ? items.length : Math.min(Number(count), items.length);
   return Object.fromEntries(items.slice(0, n).map(i => [i.id, i.value]));
 }
-
 async function setStorage(page, key, state, theme) {
   await page.evaluate(({ key, state, theme }) => {
     localStorage.setItem(key, JSON.stringify(state));
     localStorage.setItem('p120_web_theme_v16', theme);
   }, { key, state, theme });
 }
-
 async function inspectCta(page) {
   const loc = page.locator('.mobile-bottom-nav button.cta').first();
   await loc.waitFor({ state: 'visible', timeout: 10000 });
   return loc.evaluate(el => {
-    const cs = getComputedStyle(el);
-    const r = el.getBoundingClientRect();
-    const icon = el.querySelector('.mobile-nav-icon');
-    const ics = icon ? getComputedStyle(icon) : null;
+    const cs = getComputedStyle(el), r = el.getBoundingClientRect();
+    const icon = el.querySelector('.mobile-nav-icon'), ics = icon ? getComputedStyle(icon) : null;
     return {
-      className: el.className,
-      text: el.textContent.trim(),
-      backgroundImage: cs.backgroundImage,
-      backgroundColor: cs.backgroundColor,
-      color: cs.color,
-      borderColor: cs.borderColor,
-      boxShadow: cs.boxShadow,
-      width: r.width,
-      left: r.left,
-      right: r.right,
-      viewport: innerWidth,
-      iconColor: ics?.color || null,
-      iconBackground: ics?.backgroundColor || null,
-      bodyTheme: document.body.getAttribute('data-theme'),
-      bodyPage: document.body.getAttribute('data-p120-page'),
-      bodyLocale: document.body.getAttribute('data-p120-locale'),
+      className: el.className, text: el.textContent.trim(), backgroundImage: cs.backgroundImage,
+      backgroundColor: cs.backgroundColor, color: cs.color, borderColor: cs.borderColor, boxShadow: cs.boxShadow,
+      width: r.width, left: r.left, right: r.right, viewport: innerWidth,
+      iconColor: ics?.color || null, iconBackground: ics?.backgroundColor || null,
+      bodyTheme: document.body.getAttribute('data-theme'), bodyPage: document.body.getAttribute('data-p120-page'), bodyLocale: document.body.getAttribute('data-p120-locale'),
     };
   });
 }
-
 function assertThemeSurface(scope, surface, theme) {
   const exp = expected[theme];
   assert(scope, surface.bodyTheme === theme, `Body theme is ${surface.bodyTheme}, expected ${theme}`);
@@ -167,37 +124,29 @@ function assertThemeSurface(scope, surface, theme) {
 
 async function inspectProgress(page, expectedCount, totalItems, scope) {
   if (expectedCount <= 0) return null;
-  const toggle = page.locator('[data-mobile-menu]').first();
-  await toggle.click();
+  await page.locator('[data-mobile-menu]').first().click();
   await page.waitForFunction(() => document.body.classList.contains('mobile-menu-open'));
   const card = page.locator('.mobile-menu-progress').first();
   await card.waitFor({ state: 'visible' });
   const data = await card.evaluate(el => {
     const top = el.querySelector('.mobile-menu-progress-top');
     const left = top?.querySelector(':scope > div:first-child');
-    const label = left?.querySelector('span');
-    const metric = left?.querySelector('strong');
-    const counter = top?.querySelector(':scope > span:last-child');
-    const rect = x => x ? (() => { const r = x.getBoundingClientRect(); return { x:r.x,y:r.y,left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height }; })() : null;
-    const lcs = left ? getComputedStyle(left) : null;
-    const menu = el.closest('.mobile-menu');
+    const label = left?.querySelector('span'), metric = left?.querySelector('strong'), counter = top?.querySelector(':scope > span:last-child');
+    const rect = x => x ? (() => { const r = x.getBoundingClientRect(); return { left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height }; })() : null;
+    const lcs = left ? getComputedStyle(left) : null, menu = el.closest('.mobile-menu');
     return {
-      labelText: label?.textContent.trim() || '',
-      metricText: metric?.textContent.trim() || '',
-      counterText: counter?.textContent.trim() || '',
+      labelText: label?.textContent.trim() || '', metricText: metric?.textContent.trim() || '', counterText: counter?.textContent.trim() || '',
       left: rect(left), label: rect(label), metric: rect(metric), counter: rect(counter),
-      leftDisplay: lcs?.display || null,
-      leftRowGap: lcs?.rowGap || null,
-      menuOverflow: menu ? menu.scrollWidth - menu.clientWidth : 0,
-      cardOverflow: el.scrollWidth - el.clientWidth,
+      leftDisplay: lcs?.display || null, leftRowGap: lcs?.rowGap || null,
+      menuOverflow: menu ? menu.scrollWidth - menu.clientWidth : 0, cardOverflow: el.scrollWidth - el.clientWidth,
     };
   });
   const pct = Math.round(expectedCount / totalItems * 100);
   assert(scope, data.leftDisplay === 'grid', `Progress left cluster display is ${data.leftDisplay}, expected grid`, data);
   assert(scope, data.metricText === `${pct}%`, `Metric is ${data.metricText}, expected ${pct}%`, data);
   assert(scope, data.counterText.includes(String(expectedCount)) && data.counterText.includes(String(totalItems)), 'Counter text does not match seeded progress', data);
-  assert(scope, data.metric.top >= data.label.bottom + 2.5, 'Label and metric are not vertically separated', data);
-  assert(scope, data.left.right <= data.counter.left + 0.5, 'Left cluster overlaps counter', data);
+  assert(scope, data.metric && data.label && data.metric.top >= data.label.bottom + 2.5, 'Label and metric are not vertically separated', data);
+  assert(scope, data.left && data.counter && data.left.right <= data.counter.left + 0.5, 'Left cluster overlaps counter', data);
   assert(scope, data.menuOverflow <= 1 && data.cardOverflow <= 1, 'Progress drawer has horizontal overflow', data);
   report.counts.progressCases++;
   await page.locator('[data-drawer-close]').first().click().catch(() => {});
@@ -207,9 +156,7 @@ async function inspectProgress(page, expectedCount, totalItems, scope) {
 async function seedSystem(page, base, locale, theme, spec) {
   const url = urlFor(base, locale.system);
   await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
-  const items = await instrumentMeta(page);
-  const responses = makeResponses(items, spec.responseCount);
-  const count = Object.keys(responses).length;
+  const items = await instrumentMeta(page), responses = makeResponses(items, spec.responseCount), count = Object.keys(responses).length;
   const state = {
     participantId: 'P120-AUDIT', sessionLocale: locale.id, screen: spec.seedScreen,
     itemIndex: spec.id === 'results' ? items.length : Math.min(count, Math.max(0, items.length - 1)),
@@ -221,21 +168,26 @@ async function seedSystem(page, base, locale, theme, spec) {
   await page.waitForSelector('.mobile-bottom-nav button.cta', { timeout: 10000 });
   return { items, count };
 }
-
 async function seedPublic(page, base, locale, theme, progress) {
   const url = urlFor(base, locale.root);
   await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
-  const items = await instrumentMeta(page);
-  const key = locale.id === 'ru' ? 'p120_editorial_state_ru_v1' : 'p120_editorial_state_en_v1';
+  const items = await instrumentMeta(page), key = locale.id === 'ru' ? 'p120_editorial_state_ru_v1' : 'p120_editorial_state_en_v1';
   const responses = makeResponses(items, progress ? 7 : 0);
-  const state = {
-    participantId: 'P120-AUDIT-EDITORIAL', screen: 'home', itemIndex: 0, responses,
-    adminModes: {}, telemetry: [], startedAt: null, consentAt: null, lastSavedAt: new Date().toISOString(),
-  };
+  const state = { participantId:'P120-AUDIT-EDITORIAL', screen:'home', itemIndex:0, responses, adminModes:{}, telemetry:[], startedAt:null, consentAt:null, lastSavedAt:new Date().toISOString() };
   await setStorage(page, key, state, theme);
   await page.reload({ waitUntil: 'domcontentloaded', timeout: 30000 });
   await page.waitForSelector('.mobile-bottom-nav button.cta', { timeout: 10000 });
   return { items, count: Object.keys(responses).length };
+}
+
+async function clickVisibleTheme(page, theme) {
+  const candidates = page.locator(`[data-set-theme="${theme}"]`);
+  const n = await candidates.count();
+  for (let i = 0; i < n; i++) {
+    const c = candidates.nth(i);
+    if (await c.isVisible()) { await c.click(); return true; }
+  }
+  return false;
 }
 
 async function runEnvironment(name, base, fullMatrix) {
@@ -248,42 +200,36 @@ async function runEnvironment(name, base, fullMatrix) {
     for (const width of matrixWidths) {
       for (const theme of themes) {
         for (const progress of [false, true]) {
-          const context = await browser.newContext({ viewport: { width, height: 900 } });
-          const page = await context.newPage();
+          const context = await browser.newContext({ viewport: { width, height: 900 } }), page = await context.newPage();
           const scope = `${name}:public:${locale.id}:${width}:${theme}:${progress ? 'resume' : 'fresh'}`;
           page.on('pageerror', e => env.pageErrors.push({ scope, message: e.message }));
           page.on('console', m => { if (m.type() === 'error') env.consoleErrors.push({ scope, message: m.text() }); });
           try {
             await seedPublic(page, base, locale, theme, progress);
-            const surface = await inspectCta(page);
-            report.counts.publicCases++;
+            const surface = await inspectCta(page); report.counts.publicCases++;
             assert(scope, !surface.className.split(/\s+/).includes('active'), 'Public editorial CTA unexpectedly has generic active state', surface.className);
-            assertThemeSurface(scope, surface, theme);
-            env.public.push({ scope, surface });
+            assertThemeSurface(scope, surface, theme); env.public.push({ scope, surface });
           } catch (e) { fail(scope, e.message, e.stack); }
           await context.close();
         }
 
         for (const spec of systemStates) {
-          const context = await browser.newContext({ viewport: { width, height: 900 } });
-          const page = await context.newPage();
+          const context = await browser.newContext({ viewport: { width, height: 900 } }), page = await context.newPage();
           const scope = `${name}:system:${locale.id}:${width}:${theme}:${spec.id}`;
           page.on('pageerror', e => env.pageErrors.push({ scope, message: e.message }));
           page.on('console', m => { if (m.type() === 'error') env.consoleErrors.push({ scope, message: m.text() }); });
           try {
-            const seeded = await seedSystem(page, base, locale, theme, spec);
-            const surface = await inspectCta(page);
-            report.counts.systemCases++;
+            const seeded = await seedSystem(page, base, locale, theme, spec), surface = await inspectCta(page); report.counts.systemCases++;
             assert(scope, surface.className.split(/\s+/).includes('active'), 'System CTA lost active state on assessment runtime', surface.className);
             assertThemeSurface(scope, surface, theme);
             const matchingPublic = env.public.find(x => x.scope.includes(`public:${locale.id}:${width}:${theme}:fresh`));
             if (matchingPublic) {
-              assert(scope, surface.backgroundImage === matchingPublic.surface.backgroundImage, 'Active System CTA primary surface differs from inactive public CTA', { system: surface.backgroundImage, public: matchingPublic.surface.backgroundImage });
-              assert(scope, surface.color === matchingPublic.surface.color, 'Active System CTA text color differs from inactive public CTA', { system: surface.color, public: matchingPublic.surface.color });
+              assert(scope, surface.backgroundImage === matchingPublic.surface.backgroundImage, 'Active System CTA primary surface differs from inactive public CTA', { system:surface.backgroundImage, public:matchingPublic.surface.backgroundImage });
+              assert(scope, surface.color === matchingPublic.surface.color, 'Active System CTA text color differs from inactive public CTA', { system:surface.color, public:matchingPublic.surface.color });
             }
             let progressData = null;
             if (seeded.count > 0) progressData = await inspectProgress(page, seeded.count, seeded.items.length, scope + ':progress');
-            env.system.push({ scope, surface, seededCount: seeded.count, totalItems: seeded.items.length, progressData });
+            env.system.push({ scope, surface, seededCount:seeded.count, totalItems:seeded.items.length, progressData });
           } catch (e) { fail(scope, e.message, e.stack); }
           await context.close();
         }
@@ -291,85 +237,58 @@ async function runEnvironment(name, base, fullMatrix) {
     }
   }
 
-  // Runtime theme switching on canonical System: every locale/width, one active session.
   for (const locale of locales) {
     for (const width of matrixWidths) {
-      const context = await browser.newContext({ viewport: { width, height: 900 } });
-      const page = await context.newPage();
+      const context = await browser.newContext({ viewport: { width, height: 900 } }), page = await context.newPage();
       const scope = `${name}:switch:${locale.id}:${width}`;
       try {
         await seedSystem(page, base, locale, 'ivory', systemStates[1]);
         for (const theme of ['graphite', 'museum', 'ivory']) {
-          await page.locator('[data-mobile-menu]').first().click();
+          if (!await page.evaluate(() => document.body.classList.contains('mobile-menu-open'))) await page.locator('[data-mobile-menu]').first().click();
           await page.waitForFunction(() => document.body.classList.contains('mobile-menu-open'));
-          const chip = page.locator(`[data-set-theme="${theme}"]`).filter({ visible: true }).first();
-          if (await chip.count()) await chip.click();
-          else await page.locator(`[data-set-theme="${theme}"]`).first().click();
+          assert(`${scope}:${theme}`, await clickVisibleTheme(page, theme), `No visible theme control found for ${theme}`);
           await page.waitForFunction(t => document.body.getAttribute('data-theme') === t, theme);
-          const s = await inspectCta(page);
-          assertThemeSurface(`${scope}:${theme}`, s, theme);
-          if (document) {}
-          if (await page.evaluate(() => document.body.classList.contains('mobile-menu-open'))) {
-            await page.locator('[data-drawer-close]').first().click().catch(() => {});
-          }
+          const s = await inspectCta(page); assertThemeSurface(`${scope}:${theme}`, s, theme);
+          if (await page.evaluate(() => document.body.classList.contains('mobile-menu-open'))) await page.locator('[data-drawer-close]').first().click().catch(() => {});
         }
-        report.counts.switchCases++;
-        env.switches.push({ scope, ok: true });
+        report.counts.switchCases++; env.switches.push({ scope, ok:true });
       } catch (e) { fail(scope, e.message, e.stack); }
       await context.close();
     }
   }
 
-  // Press-state preservation at 390 px for all locale/theme combinations.
   for (const locale of locales) {
     for (const theme of themes) {
-      const context = await browser.newContext({ viewport: { width: 390, height: 900 } });
-      const page = await context.newPage();
+      const context = await browser.newContext({ viewport: { width:390, height:900 } }), page = await context.newPage();
       const scope = `${name}:press:${locale.id}:${theme}`;
       try {
         await seedSystem(page, base, locale, theme, systemStates[1]);
-        const loc = page.locator('.mobile-bottom-nav button.cta').first();
-        const before = await inspectCta(page);
-        const box = await loc.boundingBox();
-        await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-        await page.mouse.down();
-        const during = await inspectCta(page);
-        await page.mouse.up();
-        assert(scope, during.backgroundImage === before.backgroundImage, 'Press state changes primary CTA surface', { before: before.backgroundImage, during: during.backgroundImage });
-        assert(scope, during.color === before.color, 'Press state changes CTA text contrast', { before: before.color, during: during.color });
-        report.counts.pressCases++;
-        env.press.push({ scope, ok: true });
+        const loc = page.locator('.mobile-bottom-nav button.cta').first(), before = await inspectCta(page), box = await loc.boundingBox();
+        await page.mouse.move(box.x + box.width/2, box.y + box.height/2); await page.mouse.down();
+        const during = await inspectCta(page); await page.mouse.up();
+        assert(scope, during.backgroundImage === before.backgroundImage, 'Press state changes primary CTA surface', { before:before.backgroundImage, during:during.backgroundImage });
+        assert(scope, during.color === before.color, 'Press state changes CTA text contrast', { before:before.color, during:during.color });
+        report.counts.pressCases++; env.press.push({ scope, ok:true });
       } catch (e) { fail(scope, e.message, e.stack); }
       await context.close();
     }
   }
 
-  // Targeted runtime errors: page exceptions are blockers; console errors are retained as evidence and flagged if any.
   for (const e of env.pageErrors) fail(e.scope, 'Runtime pageerror', e.message);
   if (env.consoleErrors.length) warn(`${name}:console`, `${env.consoleErrors.length} console error messages observed; inspect evidence before classification`, env.consoleErrors.slice(0, 20));
-
   await browser.close();
 }
 
 sourceAudit();
 await runEnvironment('local', LOCAL_BASE, false);
 await runEnvironment('production', LIVE_BASE, true);
-
 report.completedAt = new Date().toISOString();
 report.verdict = report.failures.length === 0 ? (report.warnings.length ? 'PASS_WITH_NOTES' : 'PASS') : 'FAIL';
 fs.writeFileSync(path.join(outDir, 'independent-mobile-ui-pass21-report.json'), JSON.stringify(report, null, 2));
 fs.writeFileSync(path.join(outDir, 'summary.txt'), [
-  `P-120 WEB — INDEPENDENT MOBILE UI REGRESSION AUDIT`,
-  `Target SHA: ${TARGET_SHA}`,
-  `Verdict: ${report.verdict}`,
-  `Public CTA cases: ${report.counts.publicCases}`,
-  `System CTA cases: ${report.counts.systemCases}`,
-  `Progress layout cases: ${report.counts.progressCases}`,
-  `Theme-switch cases: ${report.counts.switchCases}`,
-  `Press-state cases: ${report.counts.pressCases}`,
-  `Failures: ${report.failures.length}`,
-  `Warnings: ${report.warnings.length}`,
+  'P-120 WEB — INDEPENDENT MOBILE UI REGRESSION AUDIT', `Target SHA: ${TARGET_SHA}`, `Verdict: ${report.verdict}`,
+  `Public CTA cases: ${report.counts.publicCases}`, `System CTA cases: ${report.counts.systemCases}`, `Progress layout cases: ${report.counts.progressCases}`,
+  `Theme-switch cases: ${report.counts.switchCases}`, `Press-state cases: ${report.counts.pressCases}`, `Failures: ${report.failures.length}`, `Warnings: ${report.warnings.length}`,
 ].join('\n') + '\n');
-
-console.log(JSON.stringify({ verdict: report.verdict, counts: report.counts, failures: report.failures.slice(0, 20), warnings: report.warnings.slice(0, 10) }, null, 2));
+console.log(JSON.stringify({ verdict:report.verdict, counts:report.counts, failures:report.failures.slice(0,20), warnings:report.warnings.slice(0,10) }, null, 2));
 if (report.failures.length) process.exit(1);
