@@ -1,0 +1,69 @@
+name: P120 WEB Contact PASS 4 Static QA
+
+on:
+  push:
+    branches: [qa/pass4-contact-static]
+    paths:
+      - 'contact/**'
+      - 'en/contact/**'
+      - 'p120-contact-v1.0.css'
+      - 'p120-contact-v1.0.js'
+      - 'qa/contact_static_pass4_qa.py'
+      - '.github/workflows/contact-static-pass4-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contact-static-transport-off:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout QA branch
+        uses: actions/checkout@v4
+
+      - name: Verify PASS 4 source boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check 2236099b21971a186515562276ec43f20f8a2825..HEAD -- contact/index.html en/contact/index.html p120-contact-v1.0.css p120-contact-v1.0.js
+          git diff --name-only 2236099b21971a186515562276ec43f20f8a2825..45fb62b5da00abc7054a13326a0e8a3ae49657a4 | sort > /tmp/contact-files.txt
+          cat /tmp/contact-files.txt
+          test "$(wc -l < /tmp/contact-files.txt)" -eq 4
+          grep -qx 'contact/index.html' /tmp/contact-files.txt
+          grep -qx 'en/contact/index.html' /tmp/contact-files.txt
+          grep -qx 'p120-contact-v1.0.css' /tmp/contact-files.txt
+          grep -qx 'p120-contact-v1.0.js' /tmp/contact-files.txt
+          ! grep -Eiq 'fetch\s*\(|XMLHttpRequest|supabase|service[_-]?role|smtp|api[_-]?key|sendgrid|resend|postmark' p120-contact-v1.0.js
+          grep -q "transport:'off'" p120-contact-v1.0.js
+          grep -q 'type="button" disabled' contact/index.html
+          grep -q 'type="button" disabled' en/contact/index.html
+
+      - name: Install browser QA runtime
+        run: |
+          python3 -m pip install --disable-pip-version-check playwright==1.55.0
+          python3 -m playwright install --with-deps chromium
+
+      - name: Start local static server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/p120-contact-http.log 2>&1 &
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173/contact/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/p120-contact-http.log
+          exit 1
+
+      - name: Run RU EN theme responsive Contact matrix
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173
+        run: python3 qa/contact_static_pass4_qa.py
+
+      - name: Upload PASS 4 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p120-contact-pass4-evidence
+          path: qa-artifacts/contact-pass4
+          if-no-files-found: warn
+          retention-days: 30
