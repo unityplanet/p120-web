@@ -6,7 +6,7 @@
   const cfg = window.P120_SUBMISSION_CONFIG || {};
   if (!window.supabase || !cfg.projectUrl || !cfg.publishableKey) throw new Error('P120 internal config unavailable');
   const sb = window.supabase.createClient(cfg.projectUrl, cfg.publishableKey, {
-    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'pkce' }
   });
   const $ = id => document.getElementById(id);
   const loginView=$('loginView'), cabinetView=$('cabinetView'), authBadge=$('authBadge'), signOut=$('signOut');
