@@ -1,0 +1,77 @@
+name: P120 WEB Mobile Primary CTA PASS 2 QA
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - p120-mobile-primary-cta-pass2.css
+      - index.html
+      - en/index.html
+      - en/system/index.html
+      - .github/workflows/qa-mobile-primary-cta-pass2.yml
+  pull_request:
+    paths:
+      - p120-mobile-primary-cta-pass2.css
+      - index.html
+      - en/index.html
+      - en/system/index.html
+      - .github/workflows/qa-mobile-primary-cta-pass2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cta-theme-state-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify PASS 2 CSS authority and integration
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          css_path = Path('p120-mobile-primary-cta-pass2.css')
+          if not css_path.exists():
+              raise SystemExit('Missing PASS 2 CSS authority')
+          css = css_path.read_text(encoding='utf-8')
+
+          required = {
+              'active-invariant': '.mobile-bottom-nav button.cta.active',
+              'graphite-active': 'body[data-theme="graphite"] .mobile-bottom-nav button.cta.active',
+              'museum-active': 'body[data-theme="museum"] .mobile-bottom-nav button.cta.active',
+              'ivory-black': '#171715',
+              'graphite-start': '#667F7B',
+              'graphite-end': '#49635F',
+              'museum-start': '#337F79',
+              'museum-end': '#255F5C',
+              'header-freeze': 'GLOBAL HEADER BRAND AUTHORITY: FROZEN / NOT REOPENED.'
+          }
+          missing = [name for name, token in required.items() if token not in css]
+          if missing:
+              raise SystemExit('PASS 2 CSS gate failed: ' + ', '.join(missing))
+
+          targets = {
+              'index.html': 'p120-mobile-primary-cta-pass2.css?v=cta2',
+              'en/index.html': '../p120-mobile-primary-cta-pass2.css?v=cta2',
+              'en/system/index.html': 'p120-mobile-primary-cta-pass2.css?v=cta2',
+          }
+          for file_name, href in targets.items():
+              text = Path(file_name).read_text(encoding='utf-8')
+              marker = 'data-p120-mobile-primary-cta="pass2"'
+              anchor = 'data-p120-pass53-visual-corrections="5.3.2"'
+              if text.count(marker) != 1:
+                  raise SystemExit(f'{file_name}: PASS 2 marker count != 1')
+              if href not in text:
+                  raise SystemExit(f'{file_name}: wrong PASS 2 href')
+              if anchor not in text:
+                  raise SystemExit(f'{file_name}: frozen visual anchor missing')
+              if text.index(marker) < text.index(anchor):
+                  raise SystemExit(f'{file_name}: PASS 2 loads before frozen visual layer')
+
+          print('P120 MOBILE PRIMARY CTA PASS 2 QA: PASS')
+          PY
