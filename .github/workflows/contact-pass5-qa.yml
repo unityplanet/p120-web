@@ -1,0 +1,86 @@
+name: P120 WEB Contact PASS 5 Backend Security QA
+on:
+  push:
+    branches: [qa/pass5-contact-backend]
+    paths:
+      - 'contact/**'
+      - 'en/contact/**'
+      - 'p120-contact-v1.0.css'
+      - 'p120-contact-v1.0.js'
+      - 'qa/contact_pass5_qa.py'
+      - '.github/workflows/contact-pass5-qa.yml'
+permissions:
+  contents: read
+jobs:
+  contact-pass5:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify controlled frontend boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=95cf844ec532d3739cca924407bddb7d7856bd7b
+          CANDIDATE=$(git rev-parse origin/pass5-contact-backend-security)
+          git diff --check "$BASE..$CANDIDATE"
+          git diff --name-only "$BASE..$CANDIDATE" | sort > /tmp/files
+          cat /tmp/files
+          test "$(wc -l < /tmp/files)" -eq 4
+          grep -qx 'contact/index.html' /tmp/files
+          grep -qx 'en/contact/index.html' /tmp/files
+          grep -qx 'p120-contact-v1.0.css' /tmp/files
+          grep -qx 'p120-contact-v1.0.js' /tmp/files
+          ! grep -Eiq 'SUPABASE_SERVICE_ROLE_KEY|smtp[_-]?pass|api[_-]?secret|private[_-]?key' contact/index.html en/contact/index.html p120-contact-v1.0.js
+          grep -q 'p120-contact-submit' p120-contact-v1.0.js
+          grep -q 'P120-CONTACT-FORM-v1.1' p120-contact-v1.0.js
+          grep -q 'P120-CONTACT-PRIVACY-v1.0' p120-contact-v1.0.js
+          grep -q 'data-contact-honeypot' contact/index.html
+          grep -q 'data-contact-honeypot' en/contact/index.html
+      - name: Real Edge Function security probes
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL='https://hvjgrpssjnnprazwhikn.supabase.co/functions/v1/p120-contact-submit'
+          code=$(curl -sS -o /tmp/options -w '%{http_code}' -X OPTIONS "$URL" -H 'Origin: https://unityplanet.github.io' -H 'Access-Control-Request-Method: POST')
+          test "$code" = 204
+          code=$(curl -sS -o /tmp/bad-origin -w '%{http_code}' -X POST "$URL" -H 'Origin: https://example.invalid' -H 'Content-Type: application/json' --data '{}')
+          test "$code" = 403
+          code=$(curl -sS -o /tmp/get -w '%{http_code}' "$URL" -H 'Origin: https://unityplanet.github.io')
+          test "$code" = 405
+          code=$(curl -sS -o /tmp/invalid -w '%{http_code}' -X POST "$URL" -H 'Origin: https://unityplanet.github.io' -H 'Content-Type: application/json' --data '{bad')
+          test "$code" = 400
+          NOW=$(date +%s%3N); START=$((NOW-3000))
+          code=$(curl -sS -o /tmp/honeypot -w '%{http_code}' -X POST "$URL" -H 'Origin: https://unityplanet.github.io' -H 'Content-Type: application/json' --data "{\"website\":\"bot.example\",\"started_at\":$START,\"locale\":\"en\",\"form_version\":\"P120-CONTACT-FORM-v1.1\",\"privacy_notice_version\":\"P120-CONTACT-PRIVACY-v1.0\"}")
+          test "$code" = 202
+          NOW=$(date +%s%3N); START=$((NOW-3000))
+          SUBJECT="P120 PASS5 QA ${GITHUB_RUN_ID}"
+          BODY=$(printf '{"name":"QA","email":"p120-pass5-qa-%s@example.com","subject":"%s","message":"Controlled PASS 5 E2E message for backend security verification only.","website":"","started_at":%s,"locale":"en","form_version":"P120-CONTACT-FORM-v1.1","privacy_notice_version":"P120-CONTACT-PRIVACY-v1.0"}' "$GITHUB_RUN_ID" "$SUBJECT" "$START")
+          code=$(curl -sS -o /tmp/valid -w '%{http_code}' -X POST "$URL" -H 'Origin: https://unityplanet.github.io' -H 'Content-Type: application/json' --data "$BODY")
+          cat /tmp/valid
+          test "$code" = 201
+          grep -q '"ok":true' /tmp/valid
+          grep -q '"code":"RECEIVED"' /tmp/valid
+      - name: Install Playwright
+        run: |
+          python3 -m pip install --disable-pip-version-check playwright==1.55.0
+          python3 -m playwright install --with-deps chromium
+      - name: Start local server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/http.log 2>&1 &
+          for i in {1..30}; do curl -fsS http://127.0.0.1:4173/contact/ >/dev/null && exit 0; sleep 1; done
+          cat /tmp/http.log; exit 1
+      - name: Browser responsive and state QA
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173
+        run: python3 qa/contact_pass5_qa.py
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p120-contact-pass5-evidence
+          path: qa-artifacts/contact-pass5
+          if-no-files-found: warn
+          retention-days: 30
