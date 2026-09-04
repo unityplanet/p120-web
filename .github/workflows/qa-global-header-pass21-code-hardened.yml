@@ -8,6 +8,8 @@ on:
       - 'p120-brand-system-v1.0.css'
       - 'p120-brand-system-v1.0.js'
       - 'p120-pass53-visual-corrections-v1.0.css'
+      - 'mobile-session-resume-v1.0.js'
+      - 'mobile-session-resume-v1.0.css'
       - 'explore-system-v1.0.js'
       - 'founder-route-v1.1.js'
       - 'p120-legal-runtime-v1.0.js'
