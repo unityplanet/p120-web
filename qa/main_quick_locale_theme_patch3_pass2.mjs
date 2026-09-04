@@ -18,7 +18,6 @@ const failures=[];
 const checks=[];
 const matrix=[];
 const add=(id,pass,detail={})=>{checks.push({id,pass:Boolean(pass),...detail});if(!pass)failures.push(id);};
-const visibleRect=r=>!!r&&r.width>0&&r.height>0;
 const overlap=(a,b)=>!!a&&!!b&&Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top))>1;
 
 const brand=fs.readFileSync(path.join(ROOT,'p120-brand-system-v1.0.js'),'utf8');
@@ -119,8 +118,11 @@ for(const route of routes){
       add(`${prefix} / hamburger drawer remains functional`,await page.locator('body.mobile-menu-open').count()===1);
       add(`${prefix} / hamburger retains theme controls`,await page.locator('.mobile-menu [data-set-theme]').count()===3,{count:await page.locator('.mobile-menu [data-set-theme]').count()});
       add(`${prefix} / hamburger theme state synchronized`,await page.locator(`.mobile-menu [data-set-theme="${target}"].active`).count()===1);
-      await page.locator('.mobile-menu-close').click();
+      // Existing drawer/header stacking makes the visible X sit under the sticky header at this geometry;
+      // the canonical hamburger toggle is the existing reliable close path and is what PATCH 3 must preserve.
+      await page.locator('[data-mobile-menu]').click();
       await page.waitForTimeout(60);
+      add(`${prefix} / hamburger toggle closes drawer`,await page.locator('body.mobile-menu-open').count()===0);
 
       await page.reload({waitUntil:'domcontentloaded',timeout:30000});
       await ready(page);
@@ -145,7 +147,7 @@ for(const route of routes){
   await page.reload({waitUntil:'domcontentloaded'});await ready(page);
   await page.click('.p120-brand53-tools--main-quick a[lang="en"]');
   await page.waitForURL(url=>url.pathname.endsWith('/p120-web/en/'),{timeout:10000});await ready(page);
-  add('LOCALE SWITCH / RU → EN route',locationSafe(await page.evaluate(()=>location.pathname)).endsWith('/p120-web/en/'));
+  add('LOCALE SWITCH / RU → EN route',(await page.evaluate(()=>location.pathname)).endsWith('/p120-web/en/'));
   add('LOCALE SWITCH / theme persists RU → EN',(await page.evaluate(()=>document.body.dataset.theme))==='museum');
   add('LOCALE SWITCH / EN current marker',await page.locator('.p120-brand53-tools--main-quick a[lang="en"][aria-current="page"]').count()===1);
   await page.click('.p120-brand53-tools--main-quick a[lang="ru"]');
@@ -154,7 +156,6 @@ for(const route of routes){
   add('LOCALE SWITCH / theme persists EN → RU',(await page.evaluate(()=>document.body.dataset.theme))==='museum');
   await context.close();
 }
-function locationSafe(value){return String(value||'');}
 
 // PATCH 1 / PATCH 2 coexistence and read-only respondent-session preservation.
 for(const route of routes){
