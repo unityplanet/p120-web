@@ -11,62 +11,46 @@ permissions:
 
 jobs:
   apply:
-    name: Correct base-aware canonical stylesheet paths
+    name: Correct remaining base-aware EN Science stylesheet paths
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Apply controlled path correction
+      - name: Apply controlled EN Science path correction
         run: |
           python3 - <<'PY'
           from pathlib import Path
 
-          replacements = {
-              Path('system/index.html'): [
-                  ('href="../p120-brand-system-v1.0.css?v=532"', 'href="p120-brand-system-v1.0.css?v=532"'),
-                  ('href="../p120-pass53-visual-corrections-v1.0.css?v=532"', 'href="p120-pass53-visual-corrections-v1.0.css?v=532"'),
-              ],
-              Path('science/index.html'): [
-                  ('href="../p120-brand-system-v1.0.css?v=532"', 'href="p120-brand-system-v1.0.css?v=532"'),
-                  ('href="../p120-pass53-visual-corrections-v1.0.css?v=532"', 'href="p120-pass53-visual-corrections-v1.0.css?v=532"'),
-              ],
-              Path('en/system/index.html'): [
-                  ('href="../../p120-brand-system-v1.0.css?v=532"', 'href="p120-brand-system-v1.0.css?v=532"'),
-                  ('href="../../p120-pass53-visual-corrections-v1.0.css?v=532"', 'href="p120-pass53-visual-corrections-v1.0.css?v=532"'),
-              ],
-              Path('en/science/index.html'): [
-                  ('href="../../p120-brand-system-v1.0.css?v=532"', 'href="p120-brand-system-v1.0.css?v=532"'),
-                  ('href="../../p120-pass53-visual-corrections-v1.0.css?v=532"', 'href="p120-pass53-visual-corrections-v1.0.css?v=532"'),
-              ],
-          }
+          path = Path('en/science/index.html')
+          text = path.read_text(encoding='utf-8')
+          expected_base = '<base href="../">'
+          if expected_base not in text:
+              raise SystemExit('en/science/index.html: expected base ../ missing')
 
-          for path, pairs in replacements.items():
-              text = path.read_text(encoding='utf-8')
-              if '<base href=' not in text:
-                  raise SystemExit(f'{path}: expected base element missing')
-              for old, new in pairs:
-                  count = text.count(old)
-                  if count != 1:
-                      raise SystemExit(f'{path}: expected exactly one {old!r}, found {count}')
-                  text = text.replace(old, new)
-              path.write_text(text, encoding='utf-8')
-              print(f'corrected {path}')
+          replacements = [
+              ('href="p120-brand-system-v1.0.css?v=532"', 'href="../p120-brand-system-v1.0.css?v=532"'),
+              ('href="p120-pass53-visual-corrections-v1.0.css?v=532"', 'href="../p120-pass53-visual-corrections-v1.0.css?v=532"'),
+          ]
+          for old, new in replacements:
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'expected exactly one {old!r}, found {count}')
+              text = text.replace(old, new)
+          path.write_text(text, encoding='utf-8')
+          print('corrected en/science/index.html for base ../ semantics')
           PY
-      - name: Verify mutation scope
+      - name: Verify mutation scope and deployed resolution shape
         run: |
           git diff --check
-          changed="$(git diff --name-only | sort)"
-          expected="$(printf '%s\n' en/science/index.html en/system/index.html science/index.html system/index.html | sort)"
-          test "$changed" = "$expected" || { echo "Unexpected mutation scope:"; echo "$changed"; exit 1; }
-          ! grep -R 'href="\.\./p120-brand-system-v1.0.css?v=532"' system/index.html science/index.html
-          ! grep -R 'href="\.\./p120-pass53-visual-corrections-v1.0.css?v=532"' system/index.html science/index.html
-          ! grep -R 'href="\.\./\.\./p120-brand-system-v1.0.css?v=532"' en/system/index.html en/science/index.html
-          ! grep -R 'href="\.\./\.\./p120-pass53-visual-corrections-v1.0.css?v=532"' en/system/index.html en/science/index.html
+          changed="$(git diff --name-only)"
+          test "$changed" = "en/science/index.html" || { echo "Unexpected mutation scope: $changed"; exit 1; }
+          grep -q 'href="../p120-brand-system-v1.0.css?v=532"' en/science/index.html
+          grep -q 'href="../p120-pass53-visual-corrections-v1.0.css?v=532"' en/science/index.html
       - name: Commit production correction
         run: |
           git config user.name 'P-120 CI'
           git config user.email 'actions@users.noreply.github.com'
-          git add system/index.html science/index.html en/system/index.html en/science/index.html
-          git commit -m 'P120 WEB: correct base-aware footer stylesheet resolution'
+          git add en/science/index.html
+          git commit -m 'P120 WEB: correct EN Science base-aware stylesheet resolution'
           git push origin HEAD:main
