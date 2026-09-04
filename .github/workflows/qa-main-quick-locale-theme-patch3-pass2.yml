@@ -1,0 +1,74 @@
+name: P120 WEB Main Quick Locale Theme PATCH 3 PASS 2 QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'p120-brand-system-v1.0.js'
+      - 'p120-brand-system-v1.0.css'
+      - 'qa/main_quick_locale_theme_patch3_pass2.mjs'
+      - 'qa/mobile_quick_chapter_navigation_pass2.mjs'
+      - 'qa/mobile_session_resume_patch2_pass2.mjs'
+      - 'qa/global_header_code_hardening_pass21.mjs'
+      - 'qa/global_header_brand_lockup_cleaning_pass1.mjs'
+      - 'qa/footer_link_presentation_correction_pass1.mjs'
+      - '.github/workflows/qa-main-quick-locale-theme-patch3-pass2.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    name: Main utilities + continuity + frozen-header regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local production and GitHub-Pages-prefix sites
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-patch3-root.log 2>&1 &
+          python3 -m http.server 4174 --bind 127.0.0.1 --directory .. >/tmp/p120-patch3-prefix.log 2>&1 &
+          sleep 2
+      - name: Run PATCH 3 / PASS 2 Main quick locale-theme gate
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/main_quick_locale_theme_patch3_pass2.mjs
+      - name: Re-run PATCH 1 mobile quick chapter gate
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/mobile_quick_chapter_navigation_pass2.mjs
+      - name: Re-run PATCH 2 mobile session resume gate
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/mobile_session_resume_patch2_pass2.mjs
+      - name: Re-run frozen Global Header PASS 2.1 gate
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173
+        run: node qa/global_header_code_hardening_pass21.mjs
+      - name: Re-run original Global Header PASS 1 gate
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173
+        run: node qa/global_header_brand_lockup_cleaning_pass1.mjs
+      - name: Re-run footer presentation gate under project prefix
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/footer_link_presentation_correction_pass1.mjs
+      - name: Upload PATCH 3 and cross-regression evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEB_MAIN_QUICK_LOCALE_THEME_PATCH3_PASS2_QA
+          path: |
+            qa-artifacts/main-quick-locale-theme-patch3-pass2
+            qa-artifacts/mobile-quick-chapters-pass2
+            qa-artifacts/mobile-session-resume-patch2-pass2
+            qa-artifacts/header-code-pass21
+            qa-artifacts/header-lockup-pass1
+            qa-artifacts/footer-link-correction-pass1
+          retention-days: 30
