@@ -32,6 +32,38 @@
     return m;
   }
 
+  function scienceRoute(en){
+    const basePath=location.pathname.replace(/(?:en\/)?science\/?(?:index\.html)?$/i,'');
+    return `${basePath}${en?'en/science/':'science/'}`;
+  }
+
+  function reconcileLanguageSwitch(){
+    const tools=document.querySelector('.topbar-tools');
+    if(!tools)return false;
+    const canonical=tools.querySelector('.p120-language-switch');
+    if(!canonical)return false;
+
+    canonical.classList.add('p120-dedicated-science-lang');
+    canonical.setAttribute('aria-label',isEn()?'Language':'Язык');
+    const ru=canonical.querySelector('a[lang="ru"]');
+    const en=canonical.querySelector('a[lang="en"]');
+    if(ru){ru.setAttribute('href',scienceRoute(false));if(isEn())ru.removeAttribute('aria-current');else ru.setAttribute('aria-current','page');}
+    if(en){en.setAttribute('href',scienceRoute(true));if(isEn())en.setAttribute('aria-current','page');else en.removeAttribute('aria-current');}
+
+    tools.querySelectorAll('.p120-dedicated-science-lang').forEach(node=>{if(node!==canonical)node.remove();});
+    document.documentElement.dataset.p120ScienceLanguageSwitch='canonical-single-owner';
+    return true;
+  }
+
+  function startLanguageReconciliation(){
+    const run=()=>reconcileLanguageSwitch();
+    run();
+    const host=document.getElementById('app')||document.body;
+    if(!host)return;
+    const observer=new MutationObserver(run);
+    observer.observe(host,{childList:true,subtree:true});
+  }
+
   function validateRegistry(r){
     if(!r||r.schema_id!==EXPECTED_SCHEMA)fail(`registry schema mismatch: ${r?.schema_id||'missing'}`);
     if(r?.measurement_mutation_allowed!==false)fail('measurement mutation must remain prohibited');
@@ -263,5 +295,6 @@
     }
   }
 
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+  const boot=()=>{startLanguageReconciliation();start();};
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
