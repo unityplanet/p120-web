@@ -1,0 +1,54 @@
+/* P-120 WEB — MOBILE PRIMARY CTA THEME/STATE RESTORATION / PASS 2
+   Scope: presentation-preserving mobile CTA restoration only.
+   GLOBAL HEADER BRAND AUTHORITY: FROZEN / NOT REOPENED.
+   Footer composition, navigation geometry, questionnaire, scoring, persistence,
+   privacy, safety and scientific authority: NO CHANGE.
+
+   Invariant:
+   The primary mobile CTA keeps its theme-canonical surface when it also carries
+   the generic navigation-state class .active. The .active state may add the
+   existing state cue, but must never demote the CTA to an ordinary nav item.
+*/
+
+@media (max-width:820px){
+  /* Ivory / default authority — near-black primary CTA. */
+  .mobile-bottom-nav button.cta,
+  .mobile-bottom-nav button.cta.active{
+    background:linear-gradient(135deg,#171715,color-mix(in srgb,#171715 74%,#4A8E89));
+    color:#fff;
+    box-shadow:0 16px 30px rgba(18,18,16,.16);
+  }
+  .mobile-bottom-nav button.cta .mobile-nav-icon,
+  .mobile-bottom-nav button.cta.active .mobile-nav-icon{
+    background:rgba(255,255,255,.14);
+    color:#fff;
+  }
+
+  /* Graphite authority — muted teal primary CTA. */
+  body[data-theme="graphite"] .mobile-bottom-nav button.cta,
+  body[data-theme="graphite"] .mobile-bottom-nav button.cta.active{
+    background:linear-gradient(135deg,#667F7B,#49635F);
+    color:#F5EFE5;
+    border-color:rgba(205,220,214,.22);
+    box-shadow:0 14px 32px rgba(0,0,0,.16),0 0 30px rgba(130,155,152,.08);
+  }
+  body[data-theme="graphite"] .mobile-bottom-nav button.cta .mobile-nav-icon,
+  body[data-theme="graphite"] .mobile-bottom-nav button.cta.active .mobile-nav-icon{
+    background:rgba(245,239,228,.12);
+    color:#F5EFE5;
+  }
+
+  /* Museum authority — deep Museum Teal primary CTA. */
+  body[data-theme="museum"] .mobile-bottom-nav button.cta,
+  body[data-theme="museum"] .mobile-bottom-nav button.cta.active{
+    background:linear-gradient(135deg,#337F79,#255F5C);
+    color:#FFF9EC;
+    border-color:rgba(31,92,91,.54);
+    box-shadow:0 14px 32px rgba(31,92,91,.16),0 0 34px rgba(47,125,120,.10);
+  }
+  body[data-theme="museum"] .mobile-bottom-nav button.cta .mobile-nav-icon,
+  body[data-theme="museum"] .mobile-bottom-nav button.cta.active .mobile-nav-icon{
+    background:rgba(255,255,255,.12);
+    color:#FFF9EC;
+  }
+}
