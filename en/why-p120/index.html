@@ -1,101 +1,339 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <base href="../../why-p120/">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#090b0c" />
+  <meta name="theme-color" content="#090b0c" id="theme-color-meta" />
+  <meta name="color-scheme" content="dark" />
+  <style id="wp-first-paint-guard">html,body{margin:0;background:#090b0c;color:#f3eee5;color-scheme:dark}html{background:#090b0c!important}body.wp-fixed-editorial-theme{background:#090b0c}</style>
   <meta name="description" content="Why P-120: the origin of the name, 72 + 48 = 120, the meanings of P, and the symbolic layer of π." />
   <meta name="robots" content="noindex,nofollow,noarchive" />
-  <title>Why P-120? — P-120</title>
-  <style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#090b0c;color:#f3eee5;font:500 14px/1.5 system-ui,sans-serif}.route-loader{opacity:.7}noscript{max-width:520px;padding:24px}</style>
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.bunny.net/css?family=ibm-plex-mono:300,400,500|ibm-plex-sans:300,400,500,600,700|noto-serif:400,500,600,700|noto-serif-display:500,600,700|prata:400&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=ibm-plex-mono:300,400,500|ibm-plex-sans:300,400,500,600,700|noto-serif:400,500,600,700|noto-serif-display:500,600,700|prata:400&display=swap" /></noscript>
+  <script>document.documentElement.classList.add('wp-js')</script>
+  <link rel="stylesheet" href="why-p120.css" />
+  <link id="wp-mobile-origin-corrective-v4" rel="stylesheet" href="why-p120-firstpaint.css?v=fp1" />
+  <style id="wp-v14-founder-profile">
+/* PASS 4 — founder contour + responsive choreography */
+.wp-coordinate-svg .net-line.fine{stroke-width:.58;opacity:.14}
+.wp-coordinate-svg .profile-face{stroke:#5578ad;stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round;opacity:.72;fill:none}
+.wp-coordinate-svg .profile-hair{stroke:url(#founderHairStroke);stroke-width:1.18;stroke-linecap:round;stroke-linejoin:round;opacity:.54;fill:none}
+.wp-coordinate-svg .profile-posterior{stroke:url(#founderPosteriorStroke);stroke-width:1.05;stroke-linecap:round;stroke-linejoin:round;opacity:.40;fill:none}
+.wp-coordinate-svg .profile-construction{stroke:#8fa7c8;stroke-width:.72;stroke-dasharray:1.6 4.5;stroke-linecap:round;opacity:.11;fill:none}
+.wp-coordinate-svg .profile-fill{fill:url(#founderWash);opacity:.075}
+.wp-coordinate-svg .net-line.blue{stroke:#5b79ad}
+.wp-coordinate-svg .net-node.blue{fill:#315b9b}
+.wp-coordinate-stage{isolation:isolate}
+
+@media(min-width:1600px){
+  .wp-act4 .wp-act-inner{grid-template-columns:minmax(400px,.66fr) minmax(720px,1.34fr);gap:clamp(48px,5vw,92px)}
+  .wp-coordinate-stage{min-height:610px}
+  .wp-coordinate-svg{transform:translateX(1.5%) scale(1.025);transform-origin:center right}
+}
+@media(min-width:2200px){
+  .wp-coordinate-stage{min-height:650px}
+  .wp-coordinate-svg{transform:translateX(1%) scale(1.04)}
+}
+@media(max-width:1100px) and (min-width:721px){
+  .wp-act4 .wp-act-inner{grid-template-columns:minmax(300px,.74fr) minmax(520px,1.26fr);gap:32px}
+  .wp-coordinate-stage{min-height:500px}
+  .wp-coordinate-svg{transform:translateX(2%) scale(1.02);transform-origin:center right}
+  .wp-coordinate-svg .profile-face{stroke-width:1.6;opacity:.78}
+  .wp-coordinate-svg .profile-hair{stroke-width:1.25;opacity:.56}
+}
+
+@media(max-width:900px) and (min-width:721px){
+  .wp-act4{padding-top:76px}
+  .wp-act4 .wp-act-inner{display:block}
+  .wp-act4-copy{max-width:620px}
+  .wp-act4-title{max-width:620px}
+  .wp-coordinate-stage{min-height:520px;margin-top:42px;overflow:hidden}
+  .wp-coordinate-svg{width:100%;transform:none;transform-origin:center}
+  .wp-coordinate-svg .profile-face{stroke-width:1.65;opacity:.80}
+  .wp-coordinate-svg .profile-hair{stroke-width:1.3;opacity:.61}
+  .wp-coordinate-svg .profile-posterior{stroke-width:1.15;opacity:.43}
+}
+
+@media(max-width:720px){
+  .wp-act4-copy .wp-body br{display:none}
+  .wp-act4 .wp-btns{margin-top:24px}
+  .wp-coordinate-stage{min-height:360px;margin-top:36px;overflow:hidden}
+  .wp-coordinate-svg{width:118%;max-width:none;transform:translateX(-7%);transform-origin:center}
+  .wp-coordinate-svg .profile-face{stroke-width:1.85;opacity:.88}
+  .wp-coordinate-svg .profile-hair{stroke-width:1.5;opacity:.64}
+  .wp-coordinate-svg .profile-posterior{stroke-width:1.35;opacity:.48}
+  .wp-coordinate-svg .profile-construction{opacity:.06}
+  .wp-coordinate-svg .profile-fill{opacity:.055}
+  .wp-coordinate-svg .net-line{opacity:.19}
+  .wp-coordinate-svg .net-line.fine{opacity:.085}
+  .wp-coordinate-svg .grid-dot{opacity:.56}
+}
+@media(max-width:420px){
+  .wp-coordinate-stage{min-height:335px}
+  .wp-coordinate-svg{width:126%;transform:translateX(-10%)}
+}
+@media(prefers-reduced-motion:reduce){
+  .wp-coordinate-svg{transform:none!important}
+}
+</style>
+  <title>Why P-120? — P-120 · Brand Origin</title>
+<style id="wp-fixed-palette-lock">.wp-fixed-editorial-theme{color-scheme:dark}.wp-fixed-editorial-theme .wp-header{border-top-color:transparent}.wp-fixed-editorial-theme .wp-header-tools{margin-left:0}.wp-fixed-editorial-theme .wp-header:after{content:"BRAND ORIGIN";position:absolute;right:var(--wp-gutter);bottom:5px;font:700 7px/1 Inter,system-ui,sans-serif;letter-spacing:.16em;color:rgba(255,255,255,.22);pointer-events:none}@media(max-width:980px){.wp-fixed-editorial-theme .wp-header:after{display:none}}</style>
+<style id="wp-act2-semantic-object-v1">
+/* ACT 2 — bilingual P-semantic object: P.01–P.06 */
+.wp-semantic{position:relative;display:grid;gap:0;align-self:center;padding-left:42px;max-width:360px}
+.wp-semantic::before{content:"";position:absolute;left:14px;top:14px;bottom:14px;width:1px;background:linear-gradient(to bottom,rgba(199,160,91,.12),rgba(199,160,91,.52) 18%,rgba(121,150,181,.38) 72%,rgba(121,150,181,.08))}
+.wp-semantic-item{position:relative;display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;align-items:start;padding:10px 0 11px;border-bottom:1px solid rgba(31,30,28,.075)}
+.wp-semantic-item:last-child{border-bottom:0}
+.wp-semantic-item::before{content:"";position:absolute;left:-30px;top:17px;width:5px;height:5px;border-radius:50%;box-sizing:border-box;background:#f4f0e8;border:1px solid rgba(199,160,91,.72);box-shadow:0 0 0 4px rgba(199,160,91,.045)}
+.wp-semantic-item:nth-child(n+4)::before{border-color:rgba(121,150,181,.74);box-shadow:0 0 0 4px rgba(121,150,181,.045)}
+.wp-semantic-index{padding-top:3px;font:700 9px/1 var(--wp-sans);letter-spacing:.13em;color:#ad874a;font-variant-numeric:tabular-nums}
+.wp-semantic-item:nth-child(n+4) .wp-semantic-index{color:#6f88a3}
+.wp-semantic-copy{display:grid;gap:2px;min-width:0}
+.wp-semantic-term{font-family:var(--wp-serif);font-size:14px;line-height:1.15;letter-spacing:.12em;text-transform:uppercase;color:#24211e}
+.wp-semantic-detail{font:500 11.5px/1.35 var(--wp-sans);color:#9b958c;letter-spacing:.005em}
+.wp-act2-note{display:grid;gap:4px;max-width:190px}
+.wp-act2-note span{font:500 11px/1.4 var(--wp-sans);color:#9a948b}
+.wp-act2-note strong{font:500 12px/1.45 var(--wp-serif);letter-spacing:.01em;color:#817a70}
+@media(max-width:1100px){.wp-semantic{padding-left:36px;max-width:330px}.wp-semantic-item{grid-template-columns:48px minmax(0,1fr);padding:9px 0 10px}.wp-semantic-item::before{left:-25px}.wp-semantic::before{left:12px}}
+@media(max-width:720px){.wp-semantic{padding-left:34px;max-width:100%;margin-top:30px}.wp-semantic::before{left:11px;top:12px;bottom:12px}.wp-semantic-item{grid-template-columns:46px minmax(0,1fr);gap:8px;padding:10px 0 11px}.wp-semantic-item::before{left:-25px;top:17px}.wp-semantic-term{font-size:13px}.wp-semantic-detail{font-size:11px}.wp-act2-note{position:static!important;margin:26px 0 0 auto;max-width:210px;text-align:right}}
+</style>
+<style id="wp-bilingual-ui-fix-v1">
+/* Why P-120 — bilingual UI / ACT 2 composition correction */
+.wp-semantic>.wp-act2-note{
+  position:static!important;
+  display:grid!important;
+  gap:3px!important;
+  justify-self:end;
+  align-self:start;
+  width:min(220px,100%);
+  max-width:220px!important;
+  margin:18px 0 0 auto!important;
+  padding:14px 0 0;
+  border-top:1px solid rgba(31,30,28,.10);
+  text-align:right!important;
+}
+.wp-semantic>.wp-act2-note span,
+.wp-semantic>.wp-act2-note strong{display:block}
+.wp-semantic::before{bottom:82px!important}
+.wp-lang-switch{display:inline-flex;gap:2px;padding:3px;border:1px solid rgba(255,255,255,.2);border-radius:999px;flex:0 0 auto}
+.wp-lang-switch a{min-width:30px;height:25px;padding:0 7px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;text-decoration:none;font:700 9px/1 Inter,system-ui,sans-serif;letter-spacing:.06em;color:rgba(247,243,234,.68)}
+.wp-lang-switch a[aria-current="page"]{background:rgba(255,255,255,.12);color:#fff}
+@media(max-width:1100px){
+  .wp-semantic>.wp-act2-note{margin-top:16px!important}
+  .wp-semantic::before{bottom:80px!important}
+}
+@media(max-width:720px){
+  .wp-lang-switch{margin-left:auto}
+  .wp-lang-switch a{min-width:28px}
+  .wp-mobile-menu{margin-left:0}
+  .wp-semantic>.wp-act2-note{margin:18px 0 0 auto!important;max-width:220px!important}
+  .wp-semantic::before{bottom:80px!important}
+}
+</style>
+
+
+
+
+
+
+
+
+
+<style id="wp-act1-symbolic-venn-v2">
+/* ACT 1 symbolic number layer lives inside the existing 72/48 Venn plane.
+   Brand mythology only — not methodology or scoring logic. */
+.wp-fixed-editorial-theme .wp-nav{
+  display:flex;align-items:center;gap:4px;margin-left:auto;
+  padding:4px;border:1px solid rgba(255,255,255,.18);border-radius:999px;
+  background:rgba(255,255,255,.025);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)
+}
+.wp-fixed-editorial-theme .wp-nav a{
+  display:inline-flex;align-items:center;justify-content:center;min-height:34px;
+  padding:8px 12px;border-radius:999px;font-size:11px;font-weight:650;
+  text-transform:none;letter-spacing:.01em;color:rgba(247,243,234,.72);
+  transition:background .16s ease,color .16s ease,box-shadow .16s ease
+}
+.wp-fixed-editorial-theme .wp-nav a:hover,.wp-fixed-editorial-theme .wp-nav a:focus-visible,
+.wp-fixed-editorial-theme .wp-nav a[aria-current="page"]{
+  background:rgba(255,255,255,.09);color:#fff;box-shadow:0 4px 16px rgba(0,0,0,.14)
+}
+
+.wp-venn{height:352px}
+.wp-venn-content{display:grid;justify-items:center;align-content:center;min-width:0}
+.wp-venn-reduction{
+  margin-top:12px;padding-top:9px;min-width:150px;border-top:1px solid currentColor;
+  display:flex;align-items:baseline;justify-content:center;gap:6px;
+  font-family:var(--wp-serif);font-size:13px;line-height:1;color:rgba(245,241,234,.44)
+}
+.wp-venn-reduction i{font-family:var(--wp-sans);font-style:normal;font-size:9px;opacity:.38}
+.wp-venn-reduction strong{font-size:18px;font-weight:500;color:currentColor}
+.wp-venn-a .wp-venn-reduction{color:var(--wp-gold-soft);border-top-color:rgba(199,160,91,.22)}
+.wp-venn-b .wp-venn-reduction{color:#9cb2ca;border-top-color:rgba(121,150,181,.24)}
+.wp-venn-reduction .soft{color:rgba(245,241,234,.44)}
+
+.wp-venn-result{bottom:84px;font-size:35px}
+.wp-venn-result::before{height:30px;bottom:37px}
+.wp-venn-six{
+  position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  width:430px;display:grid;justify-items:center;text-align:center;color:#f2ede5
+}
+.wp-venn-six::before{content:"";position:absolute;left:50%;top:-31px;width:1px;height:24px;background:linear-gradient(rgba(255,255,255,.34),transparent)}
+.wp-venn-six-equation{display:flex;align-items:baseline;justify-content:center;gap:8px;font-family:var(--wp-serif);font-size:18px;line-height:1;color:rgba(242,237,229,.62)}
+.wp-venn-six-equation .gold{color:var(--wp-gold-soft)}
+.wp-venn-six-equation .blue{color:#9cb2ca}
+.wp-venn-six-equation i{font-style:normal;opacity:.38}
+.wp-venn-six-equation strong{font-size:27px;font-weight:500;color:#f5f0e7}
+.wp-venn-six-nodes{position:relative;width:330px;margin-top:9px;display:grid;grid-template-columns:repeat(6,1fr);color:rgba(238,232,222,.38)}
+.wp-venn-six-nodes::before{content:"";position:absolute;left:7%;right:7%;top:3px;height:1px;background:linear-gradient(90deg,rgba(199,160,91,.34),rgba(199,160,91,.16) 42%,rgba(121,150,181,.18) 58%,rgba(121,150,181,.35))}
+.wp-venn-six-nodes span{position:relative;padding-top:12px;font:700 6.5px/1 var(--wp-sans);letter-spacing:.08em}
+.wp-venn-six-nodes span::before{content:"";position:absolute;left:50%;top:0;width:5px;height:5px;border-radius:50%;transform:translateX(-50%);background:#0b0d0e;border:1px solid var(--wp-gold)}
+.wp-venn-six-nodes span:nth-child(n+4)::before{border-color:var(--wp-blue)}
+.wp-venn-symbol-note{margin-top:7px;font:650 6.5px/1.3 var(--wp-sans);letter-spacing:.11em;text-transform:uppercase;color:rgba(240,234,225,.25);white-space:nowrap}
+
+@media(max-width:1100px){
+  .wp-fixed-editorial-theme .wp-nav{gap:2px}.wp-fixed-editorial-theme .wp-nav a{padding:8px 9px;font-size:10px}
+  .wp-venn{height:335px}
+}
+@media(max-width:980px){.wp-fixed-editorial-theme .wp-nav{display:none}}
+@media(max-width:720px){
+  .wp-venn{height:282px}
+  .wp-venn-reduction{margin-top:7px;padding-top:6px;min-width:118px;gap:4px;font-size:9px}
+  .wp-venn-reduction i{font-size:7px}.wp-venn-reduction strong{font-size:13px}
+  .wp-venn-result{bottom:68px;font-size:28px}.wp-venn-result::before{height:20px;bottom:31px}
+  .wp-venn-six{width:min(340px,94vw)}.wp-venn-six::before{top:-25px;height:18px}
+  .wp-venn-six-equation{font-size:15px}.wp-venn-six-equation strong{font-size:22px}
+  .wp-venn-six-nodes{width:min(280px,82vw);margin-top:7px}.wp-venn-six-nodes span{font-size:5.7px;padding-top:10px}
+  .wp-venn-symbol-note{font-size:5.5px;letter-spacing:.07em;margin-top:6px}
+}
+@media(max-width:420px){
+  .wp-venn{height:270px}
+  .wp-venn-reduction{min-width:102px;font-size:8px}.wp-venn-reduction strong{font-size:12px}
+  .wp-venn-six-nodes{width:250px}
+}
+@media(prefers-reduced-motion:reduce){.wp-fixed-editorial-theme .wp-nav a{transition:none}}
+</style>
+
 
   <!-- P120 GLOBAL HEADER PASS 2.1 — canonical first-paint authority -->
-  <link rel="stylesheet" href="../../p120-brand-system-v1.0.css?v=532" data-p120-brand-system="5.3" />
-  <link rel="stylesheet" href="../../p120-pass53-visual-corrections-v1.0.css?v=532" data-p120-pass53-visual-corrections="5.3.2" />
+  <link rel="stylesheet" href="../p120-brand-system-v1.0.css?v=532" data-p120-brand-system="5.3" />
+  <link rel="stylesheet" href="../p120-pass53-visual-corrections-v1.0.css?v=532" data-p120-pass53-visual-corrections="5.3.2" />
   <script data-p120-brand-bootstrap="5.3.2">document.documentElement.classList.add('p120-brand53-ready')</script>
 </head>
-<body>
-  <div class="route-loader" aria-live="polite">Loading P-120…</div>
-  <noscript>This page requires JavaScript. <a href="../../why-p120/" style="color:inherit">Open the Russian page</a>.</noscript>
-  <script>
-  (()=>{
-    'use strict';
-    const sourceUrl='../../why-p120/index.html';
-    const pairs=[
-      ['<html lang="ru">','<html lang="en">'],
-      ['<meta name="description" content="Почему P-120: происхождение названия, 72 + 48 = 120, смысл буквы P и символический слой π." />','<meta name="description" content="Why P-120: the origin of the name, 72 + 48 = 120, the meanings of P, and the symbolic layer of π." />'],
-      ['<title>Почему P-120? — P-120 · Founder Profile v1.4</title>','<title>Why P-120? — P-120 · Brand Origin</title>'],
-      ['<a class="wp-skip" href="#main">К содержанию</a>','<a class="wp-skip" href="#main">Skip to content</a>'],
-      ['aria-label="Навигация P-120"','aria-label="P-120 navigation"'],
-      ['aria-label="P-120 — главная"','aria-label="P-120 — home"'],
-      ['<small class="brand-sub">исследовательская архитектура</small>','<small class="brand-sub">RESEARCH ARCHITECTURE</small>'],
-      ['aria-label="Главная навигация"','aria-label="Main navigation"'],
-      ['<nav class="wp-lang-switch" aria-label="Язык"><a href="./" lang="ru" aria-current="page">RU</a><a href="../en/why-p120/" lang="en">EN</a></nav>','<nav class="wp-lang-switch" aria-label="Language"><a href="./" lang="ru">RU</a><a href="../en/why-p120/" lang="en" aria-current="page">EN</a></nav>'],
-      ['href="../#why-important">О P-120</a>','href="../en/#why-important">About P-120</a>'],
-      ['href="../#why-p120">Уникальность</a>','href="../en/#why-p120">What makes it different</a>'],
-      ['href="../#what-p120-shows">Что покажет</a>','href="../en/#what-p120-shows">What it can show</a>'],
-      ['href="../#showcase">Отчёт</a>','href="../en/#showcase">Report</a>'],
-      ['href="../#science-foundation">Научная база</a>','href="../en/#science-foundation">Scientific Base</a>'],
-      ['<a class="wp-start" href="../?start=1">Начать</a>','<a class="wp-start" href="../?start=1" title="The questionnaire is currently available in Russian">Take P-120 · RU</a>'],
-      ['<a class="wp-mobile-menu" href="../">На главную</a>','<a class="wp-mobile-menu" href="../en/">Home</a>'],
-      ['<a class="wp-brand" href="../"','<a class="wp-brand" href="../en/"'],
-      ['<div class="wp-eyebrow" data-reveal>Акт 1</div>','<div class="wp-eyebrow" data-reveal>Act 1</div>'],
-      ['>Почему P-120?</h1>','>Why P-120?</h1>'],
-      ['История названия, архитектура системы<br>и символ, который отражает её философию.','The origin of the name, the architecture of the system<br>and the symbol that reflects its philosophy.'],
-      ['<span>Прокрутите вниз</span>','<span>Scroll down</span>'],
-      ['<a class="wp-nav-current" href="./" aria-current="page">Почему P-120?</a>','<a class="wp-nav-current" href="../en/why-p120/" aria-current="page">Why P-120?</a>'],
-      ['href="../creator/">От создателя</a>','href="../en/creator/">From the Creator</a>'],
-      ['aria-label="Символическое сведение 72 к 9"','aria-label="Symbolic reduction of 72 to 9"'],
-      ['aria-label="Символическое сведение 48 к 3"','aria-label="Symbolic reduction of 48 to 3"'],
-      ['aria-label="Девять минус три равно шесть"','aria-label="Nine minus three equals six"'],
-      ['aria-label="Шесть смысловых направлений буквы P"','aria-label="Six semantic directions of the letter P"'],
-      ['Символический слой бренда · не часть методологии','Symbolic brand layer · not part of the methodology'],
-      ['<a class="wp-nav-current" href="./" aria-current="page">Почему P-120?</a>','<a class="wp-nav-current" href="../en/why-p120/" aria-current="page">Why P-120?</a>'],
-      ['<strong id="symbolic-bridge-title">Символический слой бренда</strong><span>не часть методологии</span>','<strong id="symbolic-bridge-title">Symbolic brand layer</strong><span>not part of the methodology</span>'],
-      ['aria-label="Символическое сведение чисел 72 и 48"','aria-label="Symbolic reduction of 72 and 48"'],
-      ['>Шесть смысловых направлений буквы P</div>','>Six semantic directions of the letter P</div>'],
-      ['aria-label="72 плюс 48 равно 120"','aria-label="72 plus 48 equals 120"'],
-      ['основное<br>измерительное<br>ядро','primary<br>measurement<br>core'],
-      ['второй<br>независимый<br>слой','second<br>independent<br>layer'],
-      ['<div class="wp-eyebrow" data-reveal>Акт 2</div>','<div class="wp-eyebrow" data-reveal>Act 2</div>'],
-      ['Буква P.<br>Больше, чем одна<br>расшифровка.','The letter P.<br>More than one<br>meaning.'],
-      ['P стала контейнером смыслов,<br>которые описывают человека<br>в разных измерениях.','P became a container for meanings<br>that describe a person<br>across different dimensions.'],
-      ['aria-label="Шесть смысловых направлений буквы P"','aria-label="Six semantic directions of the letter P"'],
-      ['<span class="wp-semantic-detail">человек</span>','<span class="wp-semantic-detail">the individual</span>'],
-      ['<span class="wp-semantic-detail">профиль</span>','<span class="wp-semantic-detail">structured portrait</span>'],
-      ['<span class="wp-semantic-detail">паттерн</span>','<span class="wp-semantic-detail">recurring form</span>'],
-      ['<span class="wp-semantic-detail">восприятие</span>','<span class="wp-semantic-detail">way of sensing</span>'],
-      ['<span class="wp-semantic-detail">присутствие</span>','<span class="wp-semantic-detail">felt engagement</span>'],
-      ['<span class="wp-semantic-detail">партнёрство</span>','<span class="wp-semantic-detail">relational bond</span>'],
-      ['<p class="wp-act2-note"><span>Одна буква.</span><strong>Шесть направлений смысла.</strong></p>','<p class="wp-act2-note"><span>One letter.</span><strong>Six directions of meaning.</strong></p>'],
-      ['<div class="wp-eyebrow" data-reveal>Акт 3</div>','<div class="wp-eyebrow" data-reveal>Act 3</div>'],
-      ['Внутри P — π.','Inside P — π.'],
-      ['Не часть методологии.<br>Не научное основание теста.<br>Символический слой бренда.','Not part of the methodology.<br>Not a scientific basis of the instrument.<br>A symbolic layer of the brand.'],
-      ['π — постоянная величина.<br>Её десятичная запись бесконечна<br>и не повторяется простым циклом.<br><br>Как и человек.','π is a constant.<br>Its decimal expansion is infinite<br>and does not repeat in a simple cycle.<br><br>Like a person.'],
-      ['aria-label="Символическая композиция P и π"','aria-label="Symbolic composition of P and π"'],
-      ['aria-label="Десятичная запись числа пи"','aria-label="Decimal expansion of pi"'],
-      ['<div class="wp-eyebrow" data-reveal>Акт 4</div>','<div class="wp-eyebrow" data-reveal>Act 4</div>'],
-      ['120 —<br>не результат.<br>Это координаты.','120 is not<br>the result.<br>It is the coordinates.'],
-      ['120 вопросов — это пространство наблюдений.<br>Из него система собирает структуру,<br>а не ставит человеку оценку.','120 questions form a space of observations.<br>From them, the system assembles structure<br>rather than assigning a grade to a person.'],
-      ['href="../#what-p120-shows">Как работает P-120 →</a>','href="../en/#what-p120-shows">How P-120 works →</a>'],
-      ['href="../?start=1">Пройти P-120</a>','href="../?start=1" title="The questionnaire is currently available in Russian">Take P-120 · Russian questionnaire</a>'],
-      ['<title id="coord-title">От координат к человеческому профилю</title>','<title id="coord-title">From coordinates to a human profile</title>'],
-      ['<desc id="coord-desc">Поле из 120 точек постепенно превращается в сеть и человеческий профиль, построенный по реальному боковому контуру создателя P-120.</desc>','<desc id="coord-desc">A field of 120 points gradually becomes a network and a human profile built from the creator’s actual side-profile contour.</desc>'],
-      ['Наука. Структура. Глубина. &nbsp;&nbsp; Человек во всей сложности.','Science. Structure. Depth. &nbsp;&nbsp; The person in full complexity.'],
-      ['Вернуться на сайт →','Return to the site →']
-    ];
-    const langCss=`<style id="wp-en-language-switch">.wp-lang-switch{display:inline-flex;gap:2px;padding:3px;border:1px solid rgba(255,255,255,.2);border-radius:999px}.wp-lang-switch a{min-width:30px;height:25px;padding:0 7px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;text-decoration:none;font:700 9px/1 Inter,system-ui,sans-serif;letter-spacing:.06em;color:rgba(247,243,234,.68)}.wp-lang-switch a[aria-current="page"]{background:rgba(255,255,255,.12);color:#fff}@media(max-width:720px){.wp-lang-switch{margin-left:auto}.wp-lang-switch a{min-width:28px}}</style>`;
-    fetch(sourceUrl,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(src=>{
-      src=src.replace('<head>','<head><base href="../../why-p120/">'+langCss);
-      for(const [a,b] of pairs)src=src.split(a).join(b);
-      if(!src.includes('class="wp-lang-switch"')) src=src.replace('<div class="wp-header-tools">','<div class="wp-header-tools"><nav class="wp-lang-switch" aria-label="Language"><a href="./" lang="ru">RU</a><a href="../en/why-p120/" lang="en" aria-current="page">EN</a></nav>');
-      src=src.replace('</body>','<script>document.documentElement.lang="en";<\/script></body>');
-      document.open();document.write(src);document.close();
-    }).catch(err=>{
-      document.body.innerHTML='<main style="max-width:720px;padding:32px"><h1>Why P-120?</h1><p>The page could not be loaded.</p><p><a href="../">Return to P-120</a></p></main>';
-      console.error('P-120 English Why route:',err);
-    });
-  })();
-  </script>
+<body class="wp-fixed-editorial-theme" style="background:#090b0c">
+<a class="wp-skip" href="#main">Skip to content</a>
+<div class="wp-page">
+  <header class="wp-header p120-brand53-header" aria-label="P-120 navigation">
+    <div class="wp-header-inner p120-brand53-header__inner">
+      <a class="wp-brand" href="../en/" data-p120-canonical-brand="5.3" aria-label="P-120 — home"><span class="wp-brand-mark brand-mark" aria-hidden="true"><span class="brand-orbit"></span><span class="brand-node brand-node-a"></span><span class="brand-node brand-node-b"></span></span><span class="wp-brand-lockup brand-lockup"><strong class="brand">P-120</strong><small class="brand-sub">RESEARCH ARCHITECTURE</small></span></a>
+      <nav class="wp-nav" aria-label="Main navigation">
+        <a href="../en/#why-important">About P-120</a>
+        <a class="wp-nav-current" href="../en/why-p120/" aria-current="page">Why P-120?</a>
+        <a href="../en/creator/">From the Creator</a>
+        <a href="../en/#why-p120">What makes it different</a>
+        <a href="../en/#what-p120-shows">What it can show</a>
+        <a href="../en/#showcase">Report</a>
+        <a href="../en/#science-foundation">Scientific Base</a>
+      </nav>
+      <div class="wp-header-tools"><nav class="wp-lang-switch" aria-label="Language"><a href="./" lang="ru">RU</a><a href="../en/why-p120/" lang="en" aria-current="page">EN</a></nav>
+        <a class="wp-start" href="../?start=1" title="The questionnaire is currently available in Russian">Take P-120 · RU</a>
+        <a class="wp-mobile-menu" href="../en/">Home</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="wp-act wp-act1 wp-dark" id="act-1" aria-labelledby="act1-title">
+      <div class="wp-arcs" aria-hidden="true"></div>
+      <div class="wp-act-inner">
+        <div class="wp-act1-copy">
+          <div class="wp-eyebrow" data-reveal>Act 1</div>
+          <h1 class="wp-display wp-act1-title" id="act1-title" data-reveal data-delay="1">Why P-120?</h1>
+          <p class="wp-body" data-reveal data-delay="2">The origin of the name, the architecture of the system<br>and the symbol that reflects its philosophy.</p>
+          <div class="wp-scroll-cue" data-reveal data-delay="4" aria-hidden="true"><span>Scroll down</span><span class="wp-scroll-line"></span><span class="wp-scroll-circle">↓</span></div>
+        </div>
+        <div class="wp-act1-visual" aria-label="72 plus 48 equals 120">
+          <div class="wp-big-p120" data-reveal="scale">P-120</div>
+          <div class="wp-equation" data-reveal data-delay="1"><span class="g">72</span> + <span class="b">48</span> = 120</div>
+          <div class="wp-venn" data-reveal data-delay="2">
+            <div class="wp-venn-circle wp-venn-a"><div class="wp-venn-content"><div class="wp-venn-num">72</div><div class="wp-venn-label">primary<br>measurement<br>core</div><div class="wp-venn-reduction" aria-label="Symbolic reduction of 72 to 9"><span>7 + 2</span><i>→</i><strong>9</strong></div></div></div>
+            <div class="wp-venn-circle wp-venn-b"><div class="wp-venn-content"><div class="wp-venn-num">48</div><div class="wp-venn-label">second<br>independent<br>layer</div><div class="wp-venn-reduction" aria-label="Symbolic reduction of 48 to 3"><span>4 + 8 = 12</span><i>→</i><span class="soft">1 + 2 =</span><strong>3</strong></div></div></div>
+            <div class="wp-venn-result">120</div>
+            <div class="wp-venn-six" data-reveal data-delay="3">
+              <div class="wp-venn-six-equation" aria-label="Nine minus three equals six"><span class="gold">9</span><i>−</i><span class="blue">3</span><i>=</i><strong>6</strong></div>
+              <div class="wp-venn-six-nodes" aria-label="Six semantic directions of the letter P"><span>P.01</span><span>P.02</span><span>P.03</span><span>P.04</span><span>P.05</span><span>P.06</span></div>
+              <div class="wp-venn-symbol-note">Symbolic brand layer · not part of the methodology</div>
+            </div>
+          </div>
+          <div class="wp-bg-letter" aria-hidden="true">P</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wp-act wp-act2 wp-light" id="act-2" aria-labelledby="act2-title">
+      <div class="wp-act-inner">
+        <div class="wp-act2-copy"><div class="wp-eyebrow" data-reveal>Act 2</div><h2 class="wp-display wp-act2-title" id="act2-title" data-reveal data-delay="1">The letter P.<br>More than one<br>meaning.</h2><p class="wp-body" data-reveal data-delay="2">P became a container for meanings<br>that describe a person<br>across different dimensions.</p></div>
+        <div class="wp-act2-letter" data-reveal="scale" aria-hidden="true">P</div>
+        <div class="wp-semantic" aria-label="Six semantic directions of the letter P">
+          <div class="wp-semantic-item" data-reveal><span class="wp-semantic-index">P.01</span><span class="wp-semantic-copy"><span class="wp-semantic-term">Person</span><span class="wp-semantic-detail">the individual</span></span></div>
+          <div class="wp-semantic-item" data-reveal data-delay="1"><span class="wp-semantic-index">P.02</span><span class="wp-semantic-copy"><span class="wp-semantic-term">Profile</span><span class="wp-semantic-detail">structured portrait</span></span></div>
+          <div class="wp-semantic-item" data-reveal data-delay="2"><span class="wp-semantic-index">P.03</span><span class="wp-semantic-copy"><span class="wp-semantic-term">Pattern</span><span class="wp-semantic-detail">recurring form</span></span></div>
+          <div class="wp-semantic-item" data-reveal data-delay="3"><span class="wp-semantic-index">P.04</span><span class="wp-semantic-copy"><span class="wp-semantic-term">Perception</span><span class="wp-semantic-detail">way of sensing</span></span></div>
+          <div class="wp-semantic-item" data-reveal data-delay="4"><span class="wp-semantic-index">P.05</span><span class="wp-semantic-copy"><span class="wp-semantic-term">Presence</span><span class="wp-semantic-detail">felt engagement</span></span></div>
+          <div class="wp-semantic-item" data-reveal data-delay="5"><span class="wp-semantic-index">P.06</span><span class="wp-semantic-copy"><span class="wp-semantic-term">Partnership</span><span class="wp-semantic-detail">relational bond</span></span></div>
+          <p class="wp-act2-note"><span>One letter.</span><strong>Six directions of meaning.</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wp-act wp-act3 wp-dark" id="act-3" aria-labelledby="act3-title">
+      <div class="wp-starfield" aria-hidden="true"></div>
+      <div class="wp-act-inner">
+        <div class="wp-act3-copy"><div class="wp-eyebrow" data-reveal>Act 3</div><h2 class="wp-display wp-act3-title" id="act3-title" data-reveal data-delay="1">Inside P — π.</h2><p class="wp-body" data-reveal data-delay="2">Not part of the methodology.<br>Not a scientific basis of the instrument.<br>A symbolic layer of the brand.</p><p class="wp-body" data-reveal data-delay="3">π is a constant.<br>Its decimal expansion is infinite<br>and does not repeat in a simple cycle.<br><br>Like a person.</p></div>
+        <div class="wp-pi-stage" aria-label="Symbolic composition of P and π"><div class="wp-pi-p" aria-hidden="true">P</div><div class="wp-pi-rings" aria-hidden="true"><span class="wp-pi-cross"></span></div><div class="wp-pi-mark" data-reveal="scale" aria-hidden="true">π</div><div class="wp-pi-caption" data-reveal data-delay="3">A finite instrument<br>for something that is not finite.</div></div>
+        <div class="wp-decimals" data-reveal data-delay="3" aria-label="Decimal expansion of pi"><strong>3.14159265358979323846264338327950288419716939937510</strong>5820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102701938521105559644622948954930381964428810975665933446128475648233786783165271201909145648566923460348610454326648213393607260249141273724587006606315588174881520920962829254091715364367892590360011330530548820466521384146951941511609433057270365759591953092186117381932611793105118548074462379962749567351885752724891227938183011949129833673362440656643086021394946395224737190702179860943702770539217176293176752384674818467669405132000568127145263560827785771342757789609173637178721</div>
+      </div>
+    </section>
+
+    <section class="wp-act wp-act4 wp-light" id="act-4" aria-labelledby="act4-title">
+      <div class="wp-act-inner">
+        <div class="wp-act4-copy"><div class="wp-eyebrow" data-reveal>Act 4</div><h2 class="wp-display wp-act4-title" id="act4-title" data-reveal data-delay="1">120 is not<br>the result.<br>It is the coordinates.</h2><p class="wp-body" data-reveal data-delay="2">120 questions form a space of observations.<br>From them, the system assembles structure<br>rather than assigning a grade to a person.</p><div class="wp-btns" data-reveal data-delay="3"><a class="wp-btn" href="../en/#what-p120-shows">How P-120 works →</a><a class="wp-btn primary" href="../?start=1" title="The questionnaire is currently available in Russian">Take P-120 · Russian questionnaire</a></div></div>
+        <div class="wp-coordinate-stage" data-reveal="scale">
+          <svg class="wp-coordinate-svg" viewBox="0 0 900 560" data-human-contour-version="founder-v1.4" data-founder-source="selected-side-profile" role="img" aria-labelledby="coord-title coord-desc"><title id="coord-title">From coordinates to a human profile</title><desc id="coord-desc">A field of 120 points gradually becomes a network and a human profile built from the creator’s actual side-profile contour.</desc><defs>
+<linearGradient id="founderWash" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+  <stop offset=".56" stop-color="#eef4fb" stop-opacity=".12"/>
+  <stop offset="1" stop-color="#dce8f7" stop-opacity=".18"/>
+</linearGradient>
+<linearGradient id="founderHairStroke" x1="520" y1="460" x2="805" y2="170" gradientUnits="userSpaceOnUse">
+  <stop offset="0" stop-color="#f9fbfd" stop-opacity=".08"/>
+  <stop offset=".28" stop-color="#dce8f6" stop-opacity=".45"/>
+  <stop offset=".72" stop-color="#90acd1" stop-opacity=".68"/>
+  <stop offset="1" stop-color="#6889b9" stop-opacity=".78"/>
+</linearGradient>
+<linearGradient id="founderPosteriorStroke" x1="505" y1="360" x2="585" y2="465" gradientUnits="userSpaceOnUse">
+  <stop offset="0" stop-color="#d9e6f5" stop-opacity=".40"/>
+  <stop offset=".55" stop-color="#eef4fa" stop-opacity=".18"/>
+  <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+</linearGradient>
+</defs><g id="wp-grid" data-static="120"><circle cx="36" cy="112" r="1.7" class="grid-dot blue"/><circle cx="62.5" cy="112" r="1.7" class="grid-dot blue"/><circle cx="89" cy="112" r="1.7" class="grid-dot blue"/><circle cx="115.5" cy="112" r="1.7" class="grid-dot blue"/><circle cx="142" cy="112" r="1.7" class="grid-dot"/><circle cx="168.5" cy="112" r="1.7" class="grid-dot"/><circle cx="195" cy="112" r="1.7" class="grid-dot"/><circle cx="221.5" cy="112" r="1.7" class="grid-dot"/><circle cx="248" cy="112" r="1.7" class="grid-dot"/><circle cx="274.5" cy="112" r="1.7" class="grid-dot gold"/><circle cx="301" cy="112" r="1.7" class="grid-dot gold"/><circle cx="327.5" cy="112" r="1.7" class="grid-dot gold"/><circle cx="36" cy="143.5" r="1.7" class="grid-dot"/><circle cx="62.5" cy="143.5" r="1.7" class="grid-dot"/><circle cx="89" cy="143.5" r="1.7" class="grid-dot"/><circle cx="115.5" cy="143.5" r="1.7" class="grid-dot"/><circle cx="142" cy="143.5" r="1.7" class="grid-dot"/><circle cx="168.5" cy="143.5" r="1.7" class="grid-dot"/><circle cx="195" cy="143.5" r="1.7" class="grid-dot"/><circle cx="221.5" cy="143.5" r="1.7" class="grid-dot"/><circle cx="248" cy="143.5" r="1.7" class="grid-dot"/><circle cx="274.5" cy="143.5" r="1.7" class="grid-dot"/><circle cx="301" cy="143.5" r="1.7" class="grid-dot"/><circle cx="327.5" cy="143.5" r="1.7" class="grid-dot"/><circle cx="36" cy="175" r="1.7" class="grid-dot"/><circle cx="62.5" cy="175" r="1.7" class="grid-dot"/><circle cx="89" cy="175" r="1.7" class="grid-dot"/><circle cx="115.5" cy="175" r="1.7" class="grid-dot"/><circle cx="142" cy="175" r="1.7" class="grid-dot"/><circle cx="168.5" cy="175" r="1.7" class="grid-dot"/><circle cx="195" cy="175" r="1.7" class="grid-dot"/><circle cx="221.5" cy="175" r="1.7" class="grid-dot"/><circle cx="248" cy="175" r="1.7" class="grid-dot"/><circle cx="274.5" cy="175" r="1.7" class="grid-dot"/><circle cx="301" cy="175" r="1.7" class="grid-dot"/><circle cx="327.5" cy="175" r="1.7" class="grid-dot"/><circle cx="36" cy="206.5" r="1.7" class="grid-dot blue"/><circle cx="62.5" cy="206.5" r="1.7" class="grid-dot blue"/><circle cx="89" cy="206.5" r="1.7" class="grid-dot blue"/><circle cx="115.5" cy="206.5" r="1.7" class="grid-dot blue"/><circle cx="142" cy="206.5" r="1.7" class="grid-dot"/><circle cx="168.5" cy="206.5" r="1.7" class="grid-dot"/><circle cx="195" cy="206.5" r="1.7" class="grid-dot"/><circle cx="221.5" cy="206.5" r="1.7" class="grid-dot"/><circle cx="248" cy="206.5" r="1.7" class="grid-dot"/><circle cx="274.5" cy="206.5" r="1.7" class="grid-dot"/><circle cx="301" cy="206.5" r="1.7" class="grid-dot"/><circle cx="327.5" cy="206.5" r="1.7" class="grid-dot"/><circle cx="36" cy="238" r="1.7" class="grid-dot"/><circle cx="62.5" cy="238" r="1.7" class="grid-dot"/><circle cx="89" cy="238" r="1.7" class="grid-dot"/><circle cx="115.5" cy="238" r="1.7" class="grid-dot"/><circle cx="142" cy="238" r="1.7" class="grid-dot"/><circle cx="168.5" cy="238" r="1.7" class="grid-dot"/><circle cx="195" cy="238" r="1.7" class="grid-dot"/><circle cx="221.5" cy="238" r="1.7" class="grid-dot"/><circle cx="248" cy="238" r="1.7" class="grid-dot"/><circle cx="274.5" cy="238" r="1.7" class="grid-dot gold"/><circle cx="301" cy="238" r="1.7" class="grid-dot gold"/><circle cx="327.5" cy="238" r="1.7" class="grid-dot gold"/><circle cx="36" cy="269.5" r="1.7" class="grid-dot"/><circle cx="62.5" cy="269.5" r="1.7" class="grid-dot"/><circle cx="89" cy="269.5" r="1.7" class="grid-dot"/><circle cx="115.5" cy="269.5" r="1.7" class="grid-dot"/><circle cx="142" cy="269.5" r="1.7" class="grid-dot"/><circle cx="168.5" cy="269.5" r="1.7" class="grid-dot"/><circle cx="195" cy="269.5" r="1.7" class="grid-dot"/><circle cx="221.5" cy="269.5" r="1.7" class="grid-dot"/><circle cx="248" cy="269.5" r="1.7" class="grid-dot"/><circle cx="274.5" cy="269.5" r="1.7" class="grid-dot"/><circle cx="301" cy="269.5" r="1.7" class="grid-dot"/><circle cx="327.5" cy="269.5" r="1.7" class="grid-dot"/><circle cx="36" cy="301" r="1.7" class="grid-dot blue"/><circle cx="62.5" cy="301" r="1.7" class="grid-dot blue"/><circle cx="89" cy="301" r="1.7" class="grid-dot blue"/><circle cx="115.5" cy="301" r="1.7" class="grid-dot blue"/><circle cx="142" cy="301" r="1.7" class="grid-dot"/><circle cx="168.5" cy="301" r="1.7" class="grid-dot"/><circle cx="195" cy="301" r="1.7" class="grid-dot"/><circle cx="221.5" cy="301" r="1.7" class="grid-dot"/><circle cx="248" cy="301" r="1.7" class="grid-dot"/><circle cx="274.5" cy="301" r="1.7" class="grid-dot"/><circle cx="301" cy="301" r="1.7" class="grid-dot"/><circle cx="327.5" cy="301" r="1.7" class="grid-dot"/><circle cx="36" cy="332.5" r="1.7" class="grid-dot"/><circle cx="62.5" cy="332.5" r="1.7" class="grid-dot"/><circle cx="89" cy="332.5" r="1.7" class="grid-dot"/><circle cx="115.5" cy="332.5" r="1.7" class="grid-dot"/><circle cx="142" cy="332.5" r="1.7" class="grid-dot"/><circle cx="168.5" cy="332.5" r="1.7" class="grid-dot"/><circle cx="195" cy="332.5" r="1.7" class="grid-dot"/><circle cx="221.5" cy="332.5" r="1.7" class="grid-dot"/><circle cx="248" cy="332.5" r="1.7" class="grid-dot"/><circle cx="274.5" cy="332.5" r="1.7" class="grid-dot"/><circle cx="301" cy="332.5" r="1.7" class="grid-dot"/><circle cx="327.5" cy="332.5" r="1.7" class="grid-dot"/><circle cx="36" cy="364" r="1.7" class="grid-dot"/><circle cx="62.5" cy="364" r="1.7" class="grid-dot"/><circle cx="89" cy="364" r="1.7" class="grid-dot"/><circle cx="115.5" cy="364" r="1.7" class="grid-dot"/><circle cx="142" cy="364" r="1.7" class="grid-dot"/><circle cx="168.5" cy="364" r="1.7" class="grid-dot"/><circle cx="195" cy="364" r="1.7" class="grid-dot"/><circle cx="221.5" cy="364" r="1.7" class="grid-dot"/><circle cx="248" cy="364" r="1.7" class="grid-dot"/><circle cx="274.5" cy="364" r="1.7" class="grid-dot gold"/><circle cx="301" cy="364" r="1.7" class="grid-dot gold"/><circle cx="327.5" cy="364" r="1.7" class="grid-dot gold"/><circle cx="36" cy="395.5" r="1.7" class="grid-dot blue"/><circle cx="62.5" cy="395.5" r="1.7" class="grid-dot blue"/><circle cx="89" cy="395.5" r="1.7" class="grid-dot blue"/><circle cx="115.5" cy="395.5" r="1.7" class="grid-dot blue"/><circle cx="142" cy="395.5" r="1.7" class="grid-dot"/><circle cx="168.5" cy="395.5" r="1.7" class="grid-dot"/><circle cx="195" cy="395.5" r="1.7" class="grid-dot"/><circle cx="221.5" cy="395.5" r="1.7" class="grid-dot"/><circle cx="248" cy="395.5" r="1.7" class="grid-dot"/><circle cx="274.5" cy="395.5" r="1.7" class="grid-dot"/><circle cx="301" cy="395.5" r="1.7" class="grid-dot"/><circle cx="327.5" cy="395.5" r="1.7" class="grid-dot"/></g><g id="wp-network-lines"><line x1="274.5" y1="112" x2="345" y2="164" class="net-line"/><line x1="274.5" y1="143.5" x2="345" y2="164" class="net-line"/><line x1="274.5" y1="175" x2="385" y2="198" class="net-line"/><line x1="274.5" y1="206.5" x2="424" y2="157" class="net-line"/><line x1="274.5" y1="238" x2="451" y2="230" class="net-line"/><line x1="274.5" y1="269.5" x2="482" y2="196" class="net-line"/><line x1="274.5" y1="301" x2="506" y2="276" class="net-line"/><line x1="274.5" y1="332.5" x2="536" y2="217" class="net-line"/><line x1="274.5" y1="364" x2="572" y2="149" class="net-line"/><line x1="274.5" y1="395.5" x2="610" y2="187" class="net-line"/><line x1="345" y1="164" x2="385" y2="198" class="net-line"/><line x1="345" y1="164" x2="424" y2="157" class="net-line"/><line x1="345" y1="164" x2="349" y2="248" class="net-line"/><line x1="385" y1="198" x2="424" y2="157" class="net-line"/><line x1="385" y1="198" x2="451" y2="230" class="net-line"/><line x1="385" y1="198" x2="390" y2="278" class="net-line"/><line x1="385" y1="198" x2="349" y2="248" class="net-line"/><line x1="424" y1="157" x2="451" y2="230" class="net-line"/><line x1="451" y1="230" x2="482" y2="196" class="net-line"/><line x1="451" y1="230" x2="506" y2="276" class="net-line"/><line x1="451" y1="230" x2="390" y2="278" class="net-line"/><line x1="482" y1="196" x2="536" y2="217" class="net-line blue"/><line x1="506" y1="276" x2="536" y2="217" class="net-line blue"/><line x1="506" y1="276" x2="568" y2="284" class="net-line"/><line x1="506" y1="276" x2="520" y2="324" class="net-line"/><line x1="506" y1="276" x2="470" y2="360" class="net-line"/><line x1="506" y1="276" x2="429" y2="315" class="net-line"/><line x1="536" y1="217" x2="572" y2="149" class="net-line blue"/><line x1="536" y1="217" x2="610" y2="187" class="net-line blue"/><line x1="536" y1="217" x2="623" y2="251" class="net-line blue"/><line x1="572" y1="149" x2="610" y2="187" class="net-line blue"/><line x1="572" y1="149" x2="642" y2="121" class="net-line blue"/><line x1="610" y1="187" x2="642" y2="121" class="net-line blue"/><line x1="610" y1="187" x2="623" y2="251" class="net-line blue"/><line x1="642" y1="121" x2="676" y2="164" class="net-line blue"/><line x1="642" y1="121" x2="718" y2="128" class="net-line blue"/><line x1="676" y1="164" x2="718" y2="128" class="net-line blue"/><line x1="676" y1="164" x2="752" y2="184" class="net-line blue"/><line x1="676" y1="164" x2="733" y2="234" class="net-line blue"/><line x1="676" y1="164" x2="686" y2="221" class="net-line blue"/><line x1="718" y1="128" x2="752" y2="184" class="net-line blue"/><line x1="752" y1="184" x2="785" y2="142" class="net-line blue"/><line x1="752" y1="184" x2="801" y2="218" class="net-line blue"/><line x1="752" y1="184" x2="733" y2="234" class="net-line blue"/><line x1="752" y1="184" x2="686" y2="221" class="net-line blue"/><line x1="801" y1="218" x2="733" y2="234" class="net-line blue"/><line x1="733" y1="234" x2="686" y2="221" class="net-line blue"/><line x1="733" y1="234" x2="707" y2="294" class="net-line blue"/><line x1="733" y1="234" x2="760" y2="316" class="net-line blue"/><line x1="686" y1="221" x2="707" y2="294" class="net-line blue"/><line x1="623" y1="251" x2="568" y2="284" class="net-line blue"/><line x1="623" y1="251" x2="649" y2="317" class="net-line blue"/><line x1="568" y1="284" x2="520" y2="324" class="net-line"/><line x1="568" y1="284" x2="589" y2="345" class="net-line"/><line x1="520" y1="324" x2="524" y2="384" class="net-line"/><line x1="520" y1="324" x2="470" y2="360" class="net-line"/><line x1="520" y1="324" x2="429" y2="315" class="net-line"/><line x1="589" y1="345" x2="649" y2="317" class="net-line"/><line x1="589" y1="345" x2="650" y2="381" class="net-line"/><line x1="589" y1="345" x2="584" y2="405" class="net-line"/><line x1="649" y1="317" x2="707" y2="294" class="net-line"/><line x1="649" y1="317" x2="716" y2="372" class="net-line"/><line x1="649" y1="317" x2="650" y2="381" class="net-line"/><line x1="707" y1="294" x2="760" y2="316" class="net-line blue"/><line x1="707" y1="294" x2="716" y2="372" class="net-line"/><line x1="760" y1="316" x2="780" y2="360" class="net-line blue"/><line x1="780" y1="360" x2="716" y2="372" class="net-line blue"/><line x1="650" y1="381" x2="584" y2="405" class="net-line"/><line x1="584" y1="405" x2="524" y2="384" class="net-line"/><line x1="524" y1="384" x2="470" y2="360" class="net-line"/><line x1="470" y1="360" x2="429" y2="315" class="net-line"/><line x1="429" y1="315" x2="390" y2="278" class="net-line"/><line x1="390" y1="278" x2="349" y2="248" class="net-line"/></g><g id="wp-network-mesh" aria-hidden="true"><line x1="676" y1="164" x2="785" y2="142" class="net-line blue fine"/><line x1="718" y1="128" x2="801" y2="218" class="net-line blue fine"/><line x1="642" y1="121" x2="733" y2="234" class="net-line blue fine"/><line x1="610" y1="187" x2="718" y2="128" class="net-line blue fine"/><line x1="610" y1="187" x2="707" y2="294" class="net-line blue fine"/><line x1="676" y1="164" x2="649" y2="317" class="net-line blue fine"/><line x1="733" y1="234" x2="649" y2="317" class="net-line blue fine"/><line x1="752" y1="184" x2="707" y2="294" class="net-line blue fine"/><line x1="785" y1="142" x2="733" y2="234" class="net-line blue fine"/><line x1="801" y1="218" x2="760" y2="316" class="net-line blue fine"/><line x1="623" y1="251" x2="707" y2="294" class="net-line fine"/><line x1="568" y1="284" x2="649" y2="317" class="net-line fine"/><line x1="536" y1="217" x2="649" y2="317" class="net-line fine"/><line x1="572" y1="149" x2="733" y2="234" class="net-line blue fine"/><line x1="482" y1="196" x2="623" y2="251" class="net-line fine"/><line x1="451" y1="230" x2="568" y2="284" class="net-line fine"/><line x1="424" y1="157" x2="536" y2="217" class="net-line fine"/><line x1="385" y1="198" x2="506" y2="276" class="net-line fine"/><line x1="349" y1="248" x2="451" y2="230" class="net-line fine"/><line x1="345" y1="164" x2="482" y2="196" class="net-line fine"/></g><path class="profile-fill" data-founder-layer="wash" d="M 584 463 C 550 452 526 425 516 392 C 506 358 511 322 519 291 C 527 258 540 226 557 198 C 575 167 597 139 625 118 C 649 99 675 88 700 84 C 727 81 752 89 773 104 C 790 117 801 140 808 171 C 818 184 821 198 823 212 C 824 229 828 247 832 260 C 836 273 837 283 833 292 C 829 302 829 312 834 324 C 839 338 846 351 853 364 C 860 375 861 382 855 388 C 849 394 839 396 835 402 C 832 408 835 414 836 426 C 832 432 824 432 822 436 C 821 441 829 446 827 452 C 824 459 815 462 811 465 C 811 474 814 484 813 493 L 810 508 L 584 508 Z"/>
+<path class="profile-construction" data-founder-layer="construction" d="M 526 365 C 507 279 522 182 582 116 C 637 56 734 55 800 118"/>
+<!-- Posterior hair/nape dissolves almost completely; it is not a second hard outline. -->
+<path class="profile-posterior" data-founder-layer="posterior-dissolve" d="M 584 463 C 556 454 535 438 522 416 C 511 396 507 373 509 349 C 510 326 514 307 519 291"/>
+<!-- Long swept-back hair mass: flatter crown + controlled posterior volume. -->
+<path class="profile-hair" data-founder-layer="hair-contour" d="M 519 291 C 527 258 540 226 557 198 C 575 167 597 139 625 118 C 649 99 675 88 700 84 C 727 81 752 89 773 104 C 790 117 801 140 808 171"/>
+<!-- Face anchor remains continuous and solid: forehead → nose → lips → chin → neck. -->
+<path class="profile-face" data-founder-layer="face-contour" d="M 808 171 C 818 184 821 198 823 212 C 824 229 828 247 832 260 C 836 273 837 283 833 292 C 829 302 829 312 834 324 C 839 338 846 351 853 364 C 860 375 861 382 855 388 C 849 394 839 396 835 402 C 832 408 835 414 836 426 C 832 432 824 432 822 436 C 821 441 829 446 827 452 C 824 459 815 462 811 465 C 811 474 814 484 813 493 C 813 499 812 504 810 508"/><g id="wp-network-nodes"><circle cx="345" cy="164" r="3.4" class="net-node"/><circle cx="385" cy="198" r="2.5" class="net-node"/><circle cx="424" cy="157" r="2.5" class="net-node"/><circle cx="451" cy="230" r="2.5" class="net-node"/><circle cx="482" cy="196" r="2.5" class="net-node"/><circle cx="506" cy="276" r="3.4" class="net-node"/><circle cx="536" cy="217" r="2.5" class="net-node blue"/><circle cx="572" cy="149" r="2.5" class="net-node blue"/><circle cx="610" cy="187" r="2.5" class="net-node blue"/><circle cx="642" cy="121" r="2.5" class="net-node blue"/><circle cx="676" cy="164" r="3.4" class="net-node blue"/><circle cx="718" cy="128" r="2.5" class="net-node blue"/><circle cx="752" cy="184" r="2.5" class="net-node blue"/><circle cx="785" cy="142" r="2.5" class="net-node blue"/><circle cx="801" cy="218" r="2.5" class="net-node blue"/><circle cx="733" cy="234" r="3.4" class="net-node blue"/><circle cx="686" cy="221" r="2.5" class="net-node blue"/><circle cx="623" cy="251" r="2.5" class="net-node blue"/><circle cx="568" cy="284" r="2.5" class="net-node"/><circle cx="520" cy="324" r="2.5" class="net-node"/><circle cx="589" cy="345" r="3.4" class="net-node"/><circle cx="649" cy="317" r="2.5" class="net-node"/><circle cx="707" cy="294" r="2.5" class="net-node"/><circle cx="760" cy="316" r="2.5" class="net-node blue"/><circle cx="780" cy="360" r="2.5" class="net-node blue"/><circle cx="716" cy="372" r="3.4" class="net-node"/><circle cx="650" cy="381" r="2.5" class="net-node"/><circle cx="584" cy="405" r="2.5" class="net-node"/><circle cx="524" cy="384" r="2.5" class="net-node"/><circle cx="470" cy="360" r="2.5" class="net-node"/><circle cx="429" cy="315" r="3.4" class="net-node"/><circle cx="390" cy="278" r="2.5" class="net-node"/><circle cx="349" cy="248" r="2.5" class="net-node"/></g></svg>
+          <div class="wp-coordinate-label">data → structure → human</div>
+        </div>
+      </div>
+      <div class="wp-final-manifesto" data-reveal><span>120 questions are not the result.</span><span>They are the coordinates.</span></div>
+      <div class="wp-brand-line"><span class="brandname">P-120</span><span class="tag">Science. Structure. Depth. &nbsp;&nbsp; The person in full complexity.</span><span class="pi">π</span></div>
+    </section>
+  </main>
+  <footer class="wp-footer"><div class="wp-footer-inner"><strong>P-120</strong><span>Scientific credibility above mythology.</span><a href="../">Return to the site →</a></div></footer>
+</div>
+<script src="why-p120.js?v=firstpaint-v1"></script>
 </body>
 </html>
