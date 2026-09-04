@@ -1,0 +1,47 @@
+name: P120 WEB Independent Mobile UI PASS 2.1 Hardened Audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [audit/mobile-ui-pass21-ef6020a]
+    paths:
+      - 'qa/independent_mobile_ui_pass21_hardened.mjs'
+      - '.github/workflows/independent-mobile-ui-pass21-hardened.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Hardened pre-load CTA + progress matrix
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify exact implementation ancestor
+        run: git merge-base --is-ancestor ef6020afa0df6035bbbfe540a1ace815341589d4 HEAD
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Syntax check
+        run: node --check qa/independent_mobile_ui_pass21_hardened.mjs
+      - name: Start exact-source local server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-mobile-ui-hardened.log 2>&1 &
+          sleep 2
+      - name: Run hardened local + production matrix
+        env:
+          P120_LOCAL_BASE: http://127.0.0.1:4173
+          P120_LIVE_BASE: https://unityplanet.github.io/p120-web
+        run: node qa/independent_mobile_ui_pass21_hardened.mjs
+      - name: Upload independent evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEB_INDEPENDENT_MOBILE_UI_PASS21_HARDENED_AUDIT
+          path: qa-artifacts/mobile-ui-pass21-independent-hardened
+          retention-days: 30
