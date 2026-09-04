@@ -94,7 +94,7 @@ html.p120-brand53-ready .p120-brand53-tools--main-quick{display:none}
 }
 """
 assert 'p120-brand53-tools--main-quick' not in css, 'PATCH 3 CSS already present'
-css=css.rstrip()+css_block+'\n'
+css=css.rstrip()+css_block.rstrip()+'\n'
 
 js_path.write_text(js,encoding='utf-8')
 css_path.write_text(css,encoding='utf-8')
