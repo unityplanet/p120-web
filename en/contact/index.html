@@ -46,29 +46,75 @@
 
   <main id="contact-main" class="contact-main">
     <section class="contact-hero" aria-labelledby="contact-title">
-      <div class="contact-hero__title"><p class="contact-kicker">P-120 · CONTACT</p><h1 id="contact-title">Contact</h1></div>
+      <div class="contact-hero__title">
+        <p class="contact-kicker">P-120 · CONTACT</p>
+        <h1 id="contact-title">Contact</h1>
+      </div>
       <p class="contact-intro">For questions about P-120, research collaboration, using the system, technical issues, publications or partnerships, you can write through the form below. A valid email address and a description of the question are sufficient for a response.</p>
     </section>
 
     <section class="contact-workspace" aria-label="P-120 contact channel">
       <aside class="contact-context">
-        <div class="contact-context__block"><p class="contact-section-label">CONTACT CHANNEL</p><h2>Write to P-120</h2><p>This form is intended for general questions and professional communication. It is not part of the research instrument and should not be used to transmit P-120 results or responses.</p></div>
-        <div class="contact-boundary" role="note" aria-labelledby="contact-boundary-title"><p class="contact-section-label" id="contact-boundary-title">DATA BOUNDARY</p><p><strong>Please do not send through this form</strong> P-120 results or responses, Participant IDs, medical information, details about your intimate life, passwords, payment information, or other confidential material.</p><p>A general description of the question is sufficient.</p></div>
+        <div class="contact-context__block">
+          <p class="contact-section-label">CONTACT CHANNEL</p>
+          <h2>Write to P-120</h2>
+          <p>This form is intended for general questions and professional communication. It is not part of the research instrument and should not be used to transmit P-120 results or responses.</p>
+        </div>
+        <div class="contact-boundary" role="note" aria-labelledby="contact-boundary-title">
+          <p class="contact-section-label" id="contact-boundary-title">DATA BOUNDARY</p>
+          <p><strong>Please do not send through this form</strong> P-120 results or responses, Participant IDs, medical information, details about your intimate life, passwords, payment information, or other confidential material.</p>
+          <p>A general description of the question is sufficient.</p>
+        </div>
       </aside>
 
       <section class="contact-correspondence" aria-labelledby="contact-form-title">
-        <div class="contact-correspondence__head"><div><p class="contact-section-label">CORRESPONDENCE · 01</p><h2 id="contact-form-title">Message</h2></div><span class="contact-offline-badge">SECURE CHANNEL</span></div>
+        <div class="contact-correspondence__head">
+          <div><p class="contact-section-label">CORRESPONDENCE · 01</p><h2 id="contact-form-title">Message</h2></div>
+          <span class="contact-offline-badge">SECURE CHANNEL</span>
+        </div>
+
         <form class="contact-form" data-p120-contact-form novalidate autocomplete="on" aria-describedby="contact-transport-note">
           <div class="contact-field-grid">
-            <div class="contact-field" data-contact-field="name"><label for="contact-name">Name <span>optional</span></label><input id="contact-name" type="text" autocomplete="name" maxlength="80" placeholder="How should we address you?" /><p class="contact-field-error" id="contact-name-error" hidden></p></div>
-            <div class="contact-field" data-contact-field="email"><label for="contact-email">Email <span>required</span></label><input id="contact-email" type="email" autocomplete="email" inputmode="email" maxlength="254" required aria-describedby="contact-email-error" placeholder="name@example.com" /><p class="contact-field-error" id="contact-email-error" hidden>Please enter a valid email address.</p></div>
+            <div class="contact-field" data-contact-field="name">
+              <label for="contact-name">Name <span>optional</span></label>
+              <input id="contact-name" type="text" autocomplete="name" maxlength="80" placeholder="How should we address you?" />
+              <p class="contact-field-error" id="contact-name-error" hidden></p>
+            </div>
+            <div class="contact-field" data-contact-field="email">
+              <label for="contact-email">Email <span>required</span></label>
+              <input id="contact-email" type="email" autocomplete="email" inputmode="email" maxlength="254" required aria-describedby="contact-email-error" placeholder="name@example.com" />
+              <p class="contact-field-error" id="contact-email-error" hidden>Please enter a valid email address.</p>
+            </div>
           </div>
-          <div class="contact-field" data-contact-field="subject"><label for="contact-subject">Subject <span>required</span></label><input id="contact-subject" type="text" autocomplete="off" minlength="3" maxlength="120" required aria-describedby="contact-subject-error" placeholder="Briefly describe the topic" /><p class="contact-field-error" id="contact-subject-error" hidden>Please enter a subject.</p></div>
-          <div class="contact-field contact-field--message" data-contact-field="message"><label for="contact-message">Message <span>required</span></label><textarea id="contact-message" rows="8" minlength="20" maxlength="5000" required aria-describedby="contact-message-error contact-message-counter" placeholder="Describe your question"></textarea><div class="contact-message-meta"><p class="contact-field-error" id="contact-message-error" hidden>Please add a little more information so we can understand the question.</p><span id="contact-message-counter" data-contact-counter>0 / 5000</span></div></div>
-          <div class="contact-honeypot" aria-hidden="true"><label for="contact-website">Website</label><input id="contact-website" type="text" tabindex="-1" autocomplete="off" data-contact-honeypot /></div>
-          <div class="contact-transport-note" id="contact-transport-note" role="note"><span class="contact-transport-note__mark" aria-hidden="true"></span><div><strong>Secure submission is enabled.</strong><p>Name (if provided), email, subject and message are stored in private P-120 contact storage to process the enquiry. Retention is limited to 90 days. Do not send P-120 responses or results through this form.</p></div></div>
+
+          <div class="contact-field" data-contact-field="subject">
+            <label for="contact-subject">Subject <span>required</span></label>
+            <input id="contact-subject" type="text" autocomplete="off" minlength="3" maxlength="120" required aria-describedby="contact-subject-error" placeholder="Briefly describe the topic" />
+            <p class="contact-field-error" id="contact-subject-error" hidden>Please enter a subject.</p>
+          </div>
+
+          <div class="contact-field contact-field--message" data-contact-field="message">
+            <label for="contact-message">Message <span>required</span></label>
+            <textarea id="contact-message" rows="8" minlength="20" maxlength="5000" required aria-describedby="contact-message-error contact-message-counter" placeholder="Describe your question"></textarea>
+            <div class="contact-message-meta"><p class="contact-field-error" id="contact-message-error" hidden>Please add a little more information so we can understand the question.</p><span id="contact-message-counter" data-contact-counter>0 / 5000</span></div>
+          </div>
+
+          <div class="contact-honeypot" aria-hidden="true">
+            <label for="contact-website">Website</label>
+            <input id="contact-website" type="text" tabindex="-1" autocomplete="off" data-contact-honeypot />
+          </div>
+
+          <div class="contact-transport-note" id="contact-transport-note" role="note">
+            <span class="contact-transport-note__mark" aria-hidden="true"></span>
+            <div><strong>Secure submission is enabled.</strong><p>Name (if provided), email, subject and message are stored in private P-120 contact storage to process the enquiry. Retention is limited to 90 days. Do not send P-120 responses or results through this form.</p></div>
+          </div>
+
           <p class="contact-privacy">Information is used only to process and respond to the enquiry. Raw IP addresses and browser telemetry are not included in the stored message record; short-lived HMAC markers are used only for rate limiting. See the <a href="../privacy/">Privacy Policy</a>.</p>
-          <div class="contact-actions"><button class="contact-submit" type="submit">Send message</button><span class="contact-submit-state" data-contact-status aria-live="polite">Secure contact channel ready</span></div>
+
+          <div class="contact-actions">
+            <button class="contact-submit" type="submit">Send message</button>
+            <span class="contact-submit-state" data-contact-status aria-live="polite">Secure contact channel ready</span>
+          </div>
         </form>
       </section>
     </section>
