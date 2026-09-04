@@ -4,10 +4,11 @@
 **Document ID:** P120-WEB-MSR-P2-P2  
 **Version:** 1.0  
 **Date:** 2026-09-04  
-**Status:** PASS / IMPLEMENTED / REGRESSION-GATED / DEPLOYMENT VERIFICATION PENDING  
+**Status:** PASS / IMPLEMENTED / REGRESSION-GATED / PRODUCTION DEPLOYED  
 **PASS 1 authority baseline:** `415121c2d5ed753fa8ee3aeb117786cfb1cbf75b`  
 **Production authority commit:** `46f574154cafc58f56a14c7f29e182554657e746`  
-**Post-implementation cleanup head before this record:** `49fe1c6695c24c050eab3a6c030503849cbcd280`  
+**Post-implementation cleanup head:** `49fe1c6695c24c050eab3a6c030503849cbcd280`  
+**Controlled implementation-record deployment head:** `aac871c6011e31e7d7f7738b0d4f3b7c55679007`  
 **Scope class:** Mobile session-resume access / read-only presentation bridge  
 **Scientific / measurement / scoring impact:** NONE  
 **Questionnaire impact:** NONE  
@@ -293,11 +294,18 @@ A future change touching these decisions requires rerunning the dedicated PATCH 
 
 ## 12. Deployment verification
 
-Final GitHub Pages deployment verification is intentionally recorded after this controlled implementation record is committed. The runtime and regression gates are closed; release closure remains pending only on successful Pages deployment of the final documentation/cleanup head.
+GitHub Pages deployment of the complete implementation-record head finished successfully:
+
+**Workflow:** pages build and deployment  
+**Run:** `33897515974`  
+**Head:** `aac871c6011e31e7d7f7738b0d4f3b7c55679007`  
+**Conclusion:** SUCCESS
+
+This deployment head already contains the production runtime, permanent QA, canonical header-QA fixture, cleanup of all one-shot implementation infrastructure, and this controlled implementation record. The present status update is documentation-only and does not alter the deployed production runtime.
 
 ## 13. Gate decision
 
-**PATCH 2 / PASS 2 — PASS / IMPLEMENTED / REGRESSION-GATED.**
+**PATCH 2 / PASS 2 — PASS / IMPLEMENTED / REGRESSION-GATED / PRODUCTION DEPLOYED.**
 
 **CANONICAL SESSION AUTHORITY:** PRESERVED  
 **PUBLIC EDITORIAL ROLE:** READ-ONLY  
@@ -308,4 +316,5 @@ Final GitHub Pages deployment verification is intentionally recorded after this 
 **PASS 3 REGRESSION:** PASS  
 **FROZEN HEADER REGRESSION:** PASS  
 **IMPLEMENTATION FINDINGS OPEN:** 0  
-**PRODUCTION DEPLOYMENT VERIFICATION:** PENDING FINAL PAGES RUN
+**PRODUCTION DEPLOYMENT:** SUCCESS  
+**PATCH 2 / PASS 2:** CLOSED
