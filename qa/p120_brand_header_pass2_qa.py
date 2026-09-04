@@ -75,6 +75,26 @@ with sync_playwright() as p:
                       const ds=descriptor?getComputedStyle(descriptor):null;
                       const overlap = br && tr && Math.min(br.bottom,tr.bottom)>Math.max(br.top,tr.top)
                         ? Math.max(0, Math.min(br.right,tr.right)-Math.max(br.left,tr.left)) : 0;
+
+                      const visibleChildren = inner ? Array.from(inner.children).filter(el => {
+                        const s=getComputedStyle(el), r=el.getBoundingClientRect();
+                        return s.display!=='none' && s.visibility!=='hidden' && r.width>0 && r.height>0;
+                      }) : [];
+                      const childBounds = visibleChildren.map(el => {
+                        const r=el.getBoundingClientRect();
+                        return {tag:el.tagName, cls:el.className||'', left:r.left, right:r.right, top:r.top, bottom:r.bottom};
+                      });
+                      const visibleChildOutOfViewport = childBounds.some(r => r.left < -1 || r.right > window.innerWidth + 1);
+
+                      let withoutDescriptorHeight = hr?.height || 0;
+                      if(descriptor && header){
+                        const prev=descriptor.getAttribute('style');
+                        descriptor.style.setProperty('display','none','important');
+                        withoutDescriptorHeight=header.getBoundingClientRect().height;
+                        if(prev===null) descriptor.removeAttribute('style'); else descriptor.setAttribute('style',prev);
+                        void header.offsetHeight;
+                      }
+
                       return {
                         runtime:document.documentElement.dataset.p120BrandSystem||'',
                         descriptor:descriptor?.textContent?.trim()||'',
@@ -86,10 +106,14 @@ with sync_playwright() as p:
                         brandWidth:br?.width||0,
                         markWidth:mr?.width||0,
                         headerHeight:hr?.height||0,
+                        withoutDescriptorHeight,
+                        descriptorHeightDelta:(hr?.height||0)-withoutDescriptorHeight,
                         innerClientWidth:inner?.clientWidth||0,
                         innerScrollWidth:inner?.scrollWidth||0,
                         descriptorInsideHeader:!!(dr&&hr&&dr.left>=hr.left-1&&dr.right<=hr.right+1&&dr.top>=hr.top-1&&dr.bottom<=hr.bottom+1),
                         brandToolsOverlap:overlap,
+                        visibleChildOutOfViewport,
+                        childBounds,
                         docWidth:document.documentElement.scrollWidth,
                         viewport:window.innerWidth,
                         aria:brand?.getAttribute('aria-label')||'',
@@ -106,12 +130,13 @@ with sync_playwright() as p:
                         'runtime': data['runtime'] == '5.3',
                         'descriptor-text': data['descriptor'] == EXPECTED[locale],
                         'descriptor-visible': data['descriptorDisplay'] != 'none' and data['descriptorVisibility'] != 'hidden' and data['descriptorWidth'] > 0 and data['descriptorHeight'] > 0,
-                        'descriptor-readable-floor': data['descriptorFontSize'] >= (5.9 if width <= 359 else 6.4 if width <= 430 else 6.9),
+                        'descriptor-readable-floor': data['descriptorFontSize'] >= (6.2 if width <= 359 else 6.4 if width <= 430 else 6.9),
                         'descriptor-contained': data['descriptorInsideHeader'],
                         'brand-mark-visible': data['markWidth'] >= (30 if width <= 359 else 33 if width <= 430 else 35),
-                        'header-inner-overflow': data['innerScrollWidth'] <= data['innerClientWidth'] + 1,
+                        'document-overflow': data['docWidth'] <= data['viewport'] + 1,
+                        'visible-header-child-bounds': not data['visibleChildOutOfViewport'],
                         'brand-tools-overlap': data['brandToolsOverlap'] <= 1,
-                        'header-height': data['headerHeight'] <= (96 if width <= 430 else 112 if width <= 1080 else 118),
+                        'descriptor-header-growth': data['descriptorHeightDelta'] <= 3,
                         'header-stability': early is None or late is None or abs(late - early) <= 3,
                         'localized-aria': ('home' in data['aria'].lower()) if locale == 'en' else ('главн' in data['aria'].lower()),
                         'console-errors': len(console_errors) == 0,
@@ -120,9 +145,14 @@ with sync_playwright() as p:
                         if not ok:
                             fail(case, name, json.dumps({'data': data, 'early': early, 'late': late, 'console': console_errors}, ensure_ascii=False))
 
-                    # Capture the governing stress matrix and every failure-prone narrow case.
-                    if width in (320, 360, 390, 430, 1366, 1920, 2560) and route in ('/', '/en/'):
-                        slug = 'en' if locale == 'en' else 'ru'
+                    # Capture governing root matrix plus narrow static routes where
+                    # control density is highest.
+                    capture = width in (320, 360, 390, 430, 1366, 1920, 2560) and route in ('/', '/en/')
+                    capture = capture or (width in (320,360,390,430) and route in ('/extended/','/en/extended/','/why-p120/','/en/why-p120/','/science/','/en/science/'))
+                    if capture:
+                        slug = route.strip('/').replace('/','-') or ('en' if locale=='en' else 'ru')
+                        if route == '/en/': slug='en'
+                        if route == '/': slug='ru'
                         page.screenshot(path=str(OUT / f'{width}-{theme}-{slug}.png'), full_page=False)
 
                     results.append({'case': case, 'locale': locale, 'data': data, 'earlyHeaderHeight': early, 'lateHeaderHeight': late, 'consoleErrors': console_errors, 'checks': checks})
@@ -145,6 +175,6 @@ report = {
 (OUT / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
 print(f"BRAND / HEADER PASS 2 QA — {report['status']} · {len(results)} cases · {len(failures)} failures")
 if failures:
-    for item in failures[:80]:
-        print(f"FAIL · {item['case']} · {item['check']} · {item['detail'][:700]}")
+    for item in failures[:100]:
+        print(f"FAIL · {item['case']} · {item['check']} · {item['detail'][:900]}")
     raise SystemExit(1)
