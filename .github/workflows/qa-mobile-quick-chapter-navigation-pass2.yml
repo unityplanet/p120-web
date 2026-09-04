@@ -1,0 +1,51 @@
+name: P120 WEB Mobile Quick Chapter Navigation PASS 2 QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'chapter-navigation-v1.0.js'
+      - 'chapter-navigation-v1.0.css'
+      - 'qa/mobile_quick_chapter_navigation_pass2.mjs'
+      - '.github/workflows/qa-mobile-quick-chapter-navigation-pass2.yml'
+      - 'P120_WEB_MOBILE_QUICK_CHAPTER_NAVIGATION_PASS2.md'
+
+permissions:
+  contents: read
+
+jobs:
+  mobile-quick-chapter-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Source integrity checks
+        run: |
+          node --check chapter-navigation-v1.0.js
+          grep -q "Chapter Navigation v1.6.0" chapter-navigation-v1.0.js
+          grep -q "data-p120-chapter-mobile" chapter-navigation-v1.0.js
+          grep -q "p120-mobile-quick-chapters" chapter-navigation-v1.0.js
+          grep -q "body.mobile-menu-open .chapter-mobile-quick" chapter-navigation-v1.0.css
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start local production tree
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-mobile-quick-http.log 2>&1 &
+          sleep 2
+
+      - name: Run mobile quick chapter matrix
+        run: node qa/mobile_quick_chapter_navigation_pass2.mjs
+
+      - name: Upload PASS 2 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEB_MOBILE_QUICK_CHAPTER_NAVIGATION_PASS2_QA
+          path: qa-artifacts/mobile-quick-chapters-pass2
+          retention-days: 30
