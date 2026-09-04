@@ -23,14 +23,15 @@ jobs:
         run: |
           python3 -m py_compile qa/apply_global_header_pass21.py
           python3 -m py_compile qa/run_global_header_pass21.py
-      - name: Normalize compact EN Explore header formatting
+      - name: Normalize compact Explore header formatting
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          for rel in ('en/extended/index.html','en/together/index.html'):
+          for rel in ('extended/index.html','en/extended/index.html','together/index.html','en/together/index.html'):
               p=Path(rel)
               text=p.read_text(encoding='utf-8')
-              text=text.replace('<button class="explore-menu-btn"','\n    <button class="explore-menu-btn"',1)
+              if '\n    <button class="explore-menu-btn"' not in text:
+                  text=text.replace('<button class="explore-menu-btn"','\n    <button class="explore-menu-btn"',1)
               p.write_text(text,encoding='utf-8')
           PY
       - name: Apply deterministic PASS 2.1 patch
