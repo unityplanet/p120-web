@@ -193,7 +193,7 @@ for(const width of widths){
     const stamp=new Date().toISOString();
     const fixture={participantId:'P120-QA-P21',screen:'home',itemIndex:1,responses:{SAT01:'4'},adminModes:{},startedAt:stamp,lastSavedAt:stamp,telemetry:[]};
     localStorage.setItem('p120_editorial_state_ru_v1',JSON.stringify(fixture));
-    localStorage.setItem('p120_web_prototype_v01',JSON.stringify(fixture));
+    localStorage.setItem('p120_runtime_session_ru_v1',JSON.stringify({...fixture,sessionLocale:'ru'}));
   });
   await page.goto(BASE+'/',{waitUntil:'domcontentloaded',timeout:30000});
   await page.waitForFunction(()=>window.P120_BRAND_SYSTEM?.revision==='5.3.2');
