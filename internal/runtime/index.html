@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="robots" content="noindex,nofollow,noarchive" />
   <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.bunny.net; font-src https://fonts.bunny.net; connect-src 'self' https://hvjgrpssjnnprazwhikn.supabase.co; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'" />
   <title>P-120 — Controlled Runtime</title>
   <link rel="stylesheet" href="https://fonts.bunny.net/css?family=ibm-plex-mono:400,500|ibm-plex-sans:300,400,500,600,700|noto-serif:500,600,700&display=swap" />
   <style>
@@ -16,7 +17,7 @@
   </style>
 </head>
 <body>
-<header><div class="bar"><div class="brand">P-120</div><div class="sub">Controlled Internal Runtime</div><div class="grow"></div><button id="back" class="secondary">Cabinet</button></div></header>
+<header><div class="bar"><div class="brand">P-120</div><div class="sub">Controlled Internal Runtime · PASS 1D</div><div class="grow"></div><button id="back" class="secondary">Cabinet</button></div></header>
 <main>
   <section id="gate" class="card"><div class="sub">FAIL-CLOSED LOADER</div><h1>Verifying access and package authority</h1><div id="gateStatus" class="status">Initialising…</div></section>
   <section id="runner" class="card hidden">
@@ -27,7 +28,7 @@
   </section>
   <section id="complete" class="card hidden luxury-results-hero"><div class="sub">COMPLETE</div><h1>Response package ready</h1><p class="muted">Raw pseudonymous response transport remains governed by the existing P-120 submission intake. Account binding is performed separately using Participant ID + payload SHA-256.</p><div id="completeStatus" class="status">Preparing submission…</div></section>
 </main>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4"></script>
 <script src="../../p120-submission-config-v1.0.js"></script>
 <script src="./p120-internal-runtime-v1.0.js"></script>
 </body>
