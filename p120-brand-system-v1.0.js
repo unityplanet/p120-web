@@ -300,9 +300,22 @@
       service.style.marginTop='12px';
       legal.appendChild(service);
     }
-    service.setAttribute('aria-label',isEn?'Contact':'Связь');
-    const current=pageKind==='contact'?' aria-current="page"':'';
-    service.innerHTML=`<a href="${routeFor('contact')}"${current}>${copy.contact}</a>`;
+    const serviceLabel=isEn?'Contact':'Связь';
+    if(service.getAttribute('aria-label')!==serviceLabel) service.setAttribute('aria-label',serviceLabel);
+    let link=service.querySelector('a[data-p120-contact-discovery]')||service.querySelector('a');
+    if(!link){
+      link=document.createElement('a');
+      link.dataset.p120ContactDiscovery='5.3';
+      service.appendChild(link);
+    } else if(!link.dataset.p120ContactDiscovery){
+      link.dataset.p120ContactDiscovery='5.3';
+    }
+    const href=routeFor('contact');
+    if(link.href!==href) link.href=href;
+    if(link.textContent!==copy.contact) link.textContent=copy.contact;
+    if(pageKind==='contact'){
+      if(link.getAttribute('aria-current')!=='page') link.setAttribute('aria-current','page');
+    } else if(link.hasAttribute('aria-current')) link.removeAttribute('aria-current');
   }
 
   function patchMobileContact(){
@@ -316,12 +329,17 @@
       action.type='button';
       action.className='mobile-menu-action';
       action.dataset.p120ContactDiscovery='5.3';
+      action.innerHTML='<div><div></div><small></small></div>';
       const science=group.querySelector('[data-science]');
       if(science) science.insertAdjacentElement('afterend',action); else group.appendChild(action);
       action.addEventListener('click',()=>{location.href=routeFor('contact');});
     }
-    action.innerHTML=`<div><div>${copy.contact}</div><small>${copy.contactNote}</small></div>`;
-    action.setAttribute('aria-label',`${copy.contact} — ${copy.contactNote}`);
+    const title=action.querySelector(':scope > div > div');
+    const note=action.querySelector(':scope > div > small');
+    if(title&&title.textContent!==copy.contact) title.textContent=copy.contact;
+    if(note&&note.textContent!==copy.contactNote) note.textContent=copy.contactNote;
+    const aria=`${copy.contact} — ${copy.contactNote}`;
+    if(action.getAttribute('aria-label')!==aria) action.setAttribute('aria-label',aria);
   }
 
   function patchFooter(){
@@ -447,6 +465,6 @@
     }).observe(document.body,{attributes:true,attributeFilter:['data-theme']});
   }
 
-  window.P120_BRAND_SYSTEM=Object.freeze({version:'5.3',revision:'5.3.3',themeKey:THEME_KEY,descriptor:copy.descriptor,brand:copy.brand,root:rootUrl.href,reconcile,getReconcileCount:()=>reconcileCount});
+  window.P120_BRAND_SYSTEM=Object.freeze({version:'5.3',revision:'5.3.2',themeKey:THEME_KEY,descriptor:copy.descriptor,brand:copy.brand,root:rootUrl.href,reconcile,getReconcileCount:()=>reconcileCount});
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
 })();
