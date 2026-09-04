@@ -1,0 +1,46 @@
+name: P120 WEB Independent Mobile UI Regression Audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'qa/independent_mobile_ui_regression_audit.mjs'
+      - '.github/workflows/qa-independent-mobile-ui-regression-audit.yml'
+      - 'p120-mobile-primary-cta-pass2.css'
+      - 'index.html'
+      - 'en/index.html'
+      - 'system/index.html'
+      - 'en/system/index.html'
+      - 'p120-pass53-visual-corrections-v1.0.css'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Independent CTA + session progress verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start GitHub Pages project-prefix source
+        run: |
+          python3 -m http.server 4174 --bind 127.0.0.1 --directory .. >/tmp/p120-independent-mobile-audit.log 2>&1 &
+          sleep 2
+      - name: Run independent mobile UI audit
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/independent_mobile_ui_regression_audit.mjs
+      - name: Upload independent evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P120_WEB_INDEPENDENT_MOBILE_UI_REGRESSION_AUDIT
+          path: qa-artifacts/independent-mobile-ui-audit
+          retention-days: 30
