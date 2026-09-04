@@ -1,3 +1,4 @@
+# PATCH 2 / PASS 2: canonical-session fixture reconciled; frozen gate rerun required.
 name: P120 WEB Global Header PASS 2.1 Hardened QA
 
 on:
