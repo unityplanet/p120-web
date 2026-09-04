@@ -1,0 +1,69 @@
+name: P120 WEB Contact Global Discoverability QA
+
+on:
+  push:
+    branches: [qa/contact-global-discoverability]
+    paths:
+      - 'p120-brand-system-v1.0.js'
+      - 'qa/contact_discoverability_qa.py'
+      - '.github/workflows/contact-global-discoverability-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  discoverability-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout QA candidate
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify production boundary and syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=fc1016947cb5ef514e4b4b8e8f0b245a1398616e
+          CANDIDATE=c7d43fe3097b5828ae5071f22fecd3c37cf84987
+          git diff --check "$BASE..$CANDIDATE"
+          mapfile -t changed < <(git diff --name-only "$BASE..$CANDIDATE")
+          printf 'Production changes:\n%s\n' "${changed[*]}"
+          test "${#changed[@]}" -eq 1
+          test "${changed[0]}" = 'p120-brand-system-v1.0.js'
+          node --check p120-brand-system-v1.0.js
+          grep -q "contact:'Contact'" p120-brand-system-v1.0.js
+          grep -q "contact:'Контакты'" p120-brand-system-v1.0.js
+          grep -q "revision:'5.3.3'" p120-brand-system-v1.0.js
+          grep -q 'homeAnchor.*showcase' p120-brand-system-v1.0.js
+          ! git diff "$BASE..$CANDIDATE" -- p120-brand-system-v1.0.js | grep -E '^\+.*staticNavMarkup.*contact'
+
+      - name: Install Playwright
+        run: |
+          python3 -m pip install --disable-pip-version-check playwright==1.55.0
+          python3 -m playwright install --with-deps chromium
+
+      - name: Start local candidate server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-discoverability-http.log 2>&1 &
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/p120-discoverability-http.log
+          exit 1
+
+      - name: Run discoverability matrix
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173
+        run: python3 qa/contact_discoverability_qa.py
+
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p120-contact-discoverability-evidence
+          path: qa-artifacts/contact-discoverability
+          if-no-files-found: warn
+          retention-days: 30
