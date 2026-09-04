@@ -115,7 +115,7 @@ html.p120-brand53-ready :is(.brand-button,.explore-brand,.creator-brand,.wp-bran
   }
 }
 '''
-CSS.write_text(css.rstrip() + css_append + '\n', encoding='utf-8')
+CSS.write_text(css.rstrip() + css_append.rstrip() + '\n', encoding='utf-8')
 
 js = JS.read_text(encoding='utf-8')
 old = """      if(node.dataset.p120CanonicalBrand==='5.3') return;"""
