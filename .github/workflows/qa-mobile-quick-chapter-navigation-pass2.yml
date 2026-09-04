@@ -7,6 +7,10 @@ on:
     paths:
       - 'chapter-navigation-v1.0.js'
       - 'chapter-navigation-v1.0.css'
+      - 'p120-public-runtime-v1.0.js'
+      - 'p120-public-styles-v1.0.css'
+      - 'index.html'
+      - 'en/index.html'
       - 'qa/mobile_quick_chapter_navigation_pass2.mjs'
       - '.github/workflows/qa-mobile-quick-chapter-navigation-pass2.yml'
       - 'P120_WEB_MOBILE_QUICK_CHAPTER_NAVIGATION_PASS2.md'
@@ -20,13 +24,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Source integrity checks
+      - name: Source and bundle integrity checks
         run: |
           node --check chapter-navigation-v1.0.js
+          node --check p120-public-runtime-v1.0.js
           grep -q "Chapter Navigation v1.6.0" chapter-navigation-v1.0.js
+          grep -q "Chapter Navigation v1.6.0" p120-public-runtime-v1.0.js
           grep -q "data-p120-chapter-mobile" chapter-navigation-v1.0.js
           grep -q "p120-mobile-quick-chapters" chapter-navigation-v1.0.js
+          grep -q "p120-mobile-quick-chapters" p120-public-runtime-v1.0.js
           grep -q "body.mobile-menu-open .chapter-mobile-quick" chapter-navigation-v1.0.css
+          grep -q "body.mobile-menu-open .chapter-mobile-quick" p120-public-styles-v1.0.css
+          test "$(grep -o 'p120-public-runtime-v1.0.js?v=pub22' index.html | wc -l)" -eq 1
+          test "$(grep -o 'p120-public-styles-v1.0.css?v=pub22' index.html | wc -l)" -eq 1
+          test "$(grep -o '../p120-public-runtime-v1.0.js?v=pub22' en/index.html | wc -l)" -eq 1
+          test "$(grep -o '../p120-public-styles-v1.0.css?v=pub22' en/index.html | wc -l)" -eq 1
 
       - name: Install Playwright Chromium
         run: |
