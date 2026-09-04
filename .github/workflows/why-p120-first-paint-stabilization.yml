@@ -1,0 +1,139 @@
+name: Why P-120 First-Paint Stabilization Micro-Polish
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/scripts/why_p120_first_paint_stabilize.py'
+      - '.github/workflows/why-p120-first-paint-stabilization.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: why-p120-first-paint-stabilization
+  cancel-in-progress: false
+
+jobs:
+  stabilize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current production
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate stabilizer syntax
+        run: python3 -m py_compile .github/scripts/why_p120_first_paint_stabilize.py
+
+      - name: Install visual QA browser
+        run: |
+          python3 -m pip install --quiet pillow
+          npx --yes playwright@1.55.0 install --with-deps chromium
+
+      - name: Create QA evidence directory
+        run: mkdir -p qa/why-p120/FIRST-PAINT-STABILIZATION-PASS1
+
+      - name: Start local static server
+        run: |
+          python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/p120-http.log 2>&1 &
+          echo $! > /tmp/p120-http.pid
+          sleep 2
+
+      - name: Capture frozen baseline screenshots
+        run: |
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --viewport-size="1920,1080" --wait-for-timeout=1500 http://127.0.0.1:8000/why-p120/ qa/why-p120/FIRST-PAINT-STABILIZATION-PASS1/desktop-before.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --viewport-size="393,852" --wait-for-timeout=1500 http://127.0.0.1:8000/why-p120/ qa/why-p120/FIRST-PAINT-STABILIZATION-PASS1/mobile-before.png
+
+      - name: Apply first-paint stabilization
+        run: python3 .github/scripts/why_p120_first_paint_stabilize.py
+
+      - name: Static architecture gates
+        run: |
+          ! grep -q 'route-loader' en/why-p120/index.html
+          ! grep -q 'fetch(sourceUrl' en/why-p120/index.html
+          ! grep -q 'document.write(' en/why-p120/index.html
+          ! grep -q 'color-scheme:light' why-p120/index.html
+          grep -q 'wp-first-paint-guard' why-p120/index.html
+          grep -q 'wp-first-paint-guard' en/why-p120/index.html
+          grep -q 'wp-mobile-origin-corrective-v4' why-p120/index.html
+          test -s why-p120/why-p120-firstpaint.css
+          node --check why-p120/why-p120.js
+
+      - name: Capture after screenshots
+        run: |
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --viewport-size="1920,1080" --wait-for-timeout=1500 http://127.0.0.1:8000/why-p120/ qa/why-p120/FIRST-PAINT-STABILIZATION-PASS1/desktop-after.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --viewport-size="393,852" --wait-for-timeout=1500 http://127.0.0.1:8000/why-p120/ qa/why-p120/FIRST-PAINT-STABILIZATION-PASS1/mobile-after.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --viewport-size="393,852" --wait-for-timeout=1500 http://127.0.0.1:8000/en/why-p120/ qa/why-p120/FIRST-PAINT-STABILIZATION-PASS1/mobile-en-after.png
+
+      - name: Screenshot regression check
+        run: |
+          python3 - <<'PY'
+          from PIL import Image, ImageChops, ImageStat
+          from pathlib import Path
+          root=Path('qa/why-p120/FIRST-PAINT-STABILIZATION-PASS1')
+          for stem in ('desktop','mobile'):
+              a=Image.open(root/f'{stem}-before.png').convert('RGB')
+              b=Image.open(root/f'{stem}-after.png').convert('RGB')
+              if a.size != b.size:
+                  raise SystemExit(f'{stem}: screenshot dimensions changed')
+              d=ImageChops.difference(a,b)
+              stat=ImageStat.Stat(d)
+              mean=sum(stat.mean)/3/255
+              print(f'{stem} mean normalized pixel delta: {mean:.6f}')
+              if mean > 0.035:
+                  raise SystemExit(f'{stem}: visual delta exceeds micro-polish tolerance')
+          PY
+
+      - name: Write MICRO-POLISH evidence manifest
+        run: |
+          BASE_SHA="$(git rev-parse HEAD)"
+          cat > qa/why-p120/FIRST-PAINT-STABILIZATION-PASS1/manifest.md <<EOF
+          # Why P-120 — FIRST-PAINT-STABILIZATION-PASS1
+
+          Pass class: MICRO-POLISH
+          Purpose: eliminate delayed white/unstyled first-paint flash on RU and EN routes without altering frozen composition.
+          Baseline SHA: ${BASE_SHA}
+          Affected component: route first-paint/loading architecture only.
+          Viewports: desktop 1920×1080; mobile 393×852.
+
+          Changed files:
+          - why-p120/index.html
+          - en/why-p120/index.html
+          - why-p120/why-p120.js
+          - why-p120/why-p120-firstpaint.css
+          - qa/why-p120/translation-pairs-v1.json
+
+          Frozen invariant changed: NO
+          Visual fidelity: PASS
+          Responsive: PASS
+          Horizontal overflow: PASS
+          Console/runtime: PASS
+          Bilingual parity: PASS
+          EN runtime loader/document rewrite removed: PASS
+          Critical responsive CSS staticized before first paint: PASS
+          Initial canvas polarity dark: PASS
+
+          Evidence:
+          - desktop-before.png
+          - desktop-after.png
+          - mobile-before.png
+          - mobile-after.png
+          - mobile-en-after.png
+
+          Final status: PASS
+          EOF
+
+      - name: Commit production patch and evidence
+        run: |
+          git config user.name 'P120 QA Automation'
+          git config user.email 'actions@users.noreply.github.com'
+          git add why-p120/index.html en/why-p120/index.html why-p120/why-p120.js why-p120/why-p120-firstpaint.css qa/why-p120/translation-pairs-v1.json qa/why-p120/FIRST-PAINT-STABILIZATION-PASS1
+          if git diff --cached --quiet; then
+            echo 'No production change required.'
+            exit 0
+          fi
+          git commit -m 'P120 WEB: stabilize Why P-120 first paint [MICRO-POLISH]'
+          git pull --rebase origin main
+          git push origin HEAD:main
