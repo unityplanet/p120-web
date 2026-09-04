@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'qa/apply_global_header_pass21.py'
+      - 'qa/run_global_header_pass21.py'
       - '.github/workflows/apply-global-header-pass21.yml'
 
 permissions:
@@ -19,7 +20,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: Validate patcher syntax
-        run: python3 -m py_compile qa/apply_global_header_pass21.py
+        run: |
+          python3 -m py_compile qa/apply_global_header_pass21.py
+          python3 -m py_compile qa/run_global_header_pass21.py
       - name: Normalize compact EN Explore header formatting
         run: |
           python3 - <<'PY'
@@ -31,7 +34,7 @@ jobs:
               p.write_text(text,encoding='utf-8')
           PY
       - name: Apply deterministic PASS 2.1 patch
-        run: python3 qa/apply_global_header_pass21.py
+        run: python3 qa/run_global_header_pass21.py
       - name: Validate diff
         run: |
           git diff --check
