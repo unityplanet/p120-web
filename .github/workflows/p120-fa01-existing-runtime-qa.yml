@@ -25,6 +25,8 @@ jobs:
           node --check internal/p120-internal-cabinet-v1.0.js
           node --check p120-submission-intake-v1.0.js
       - name: Package contract JSON
-        run: node -e "JSON.parse(require('fs').readFileSync('internal/contracts/p120-fa01-extension-package.schema.json','utf8')); console.log('PASS: schema JSON')"
+        run: |
+          node -e "JSON.parse(require('fs').readFileSync('internal/contracts/p120-fa01-extension-package.schema.json','utf8')); console.log('PASS schema JSON')"
       - name: Frozen runtime and integration QA
-        run: node .github/scripts/p120_fa01_existing_runtime_qa.js
+        run: |
+          node .github/scripts/p120_fa01_existing_runtime_qa.js
