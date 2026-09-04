@@ -1,0 +1,61 @@
+name: P120 WEB Global Header PASS 2 Code Audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'p120-brand-system-v1.0.css'
+      - 'p120-brand-system-v1.0.js'
+      - 'p120-pass53-visual-corrections-v1.0.css'
+      - 'p120-pass53-2-execution-corrections-v1.0.css'
+      - 'p120-pass53-2-execution-corrections-v1.0.js'
+      - 'navigation-architecture-v2.css'
+      - 'navigation-architecture-v2.js'
+      - 'navigation-unification-v1.0.css'
+      - 'explore-system-v1.0.css'
+      - 'explore-system-v1.0.js'
+      - 'founder-shell-v2.css'
+      - 'founder-shell-v2.js'
+      - 'founder-route-v1.1.js'
+      - 'p120-legal-runtime-v1.0.js'
+      - 'p120-public-styles-v1.0.css'
+      - 'p120-public-runtime-v1.0.js'
+      - 'index.html'
+      - 'en/index.html'
+      - 'extended/**'
+      - 'together/**'
+      - 'creator/**'
+      - 'why-p120/**'
+      - 'science/**'
+      - 'en/**'
+      - 'qa/global_header_code_integrity_pass2.mjs'
+      - '.github/workflows/qa-global-header-pass2-code-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Technical / code integrity audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local production source
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-header-pass2-http.log 2>&1 &
+          sleep 2
+      - name: Run PASS 2 technical/code audit
+        run: node qa/global_header_code_integrity_pass2.mjs
+      - name: Upload PASS 2 audit evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P120_WEB_GLOBAL_HEADER_PASS2_CODE_AUDIT
+          path: qa-artifacts/header-code-pass2
+          retention-days: 30
