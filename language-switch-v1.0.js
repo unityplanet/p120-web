@@ -1,14 +1,24 @@
-/* P-120 Web Editorial — RU/EN language switch v1.1 */
+/* P-120 Web Editorial — RU/EN language switch v1.2 */
 (() => {
   'use strict';
   const path = location.pathname;
-  const isEn = /\/en\/(?:index\.html)?$/i.test(path);
-  const rootPath = isEn
-    ? path.replace(/\/en\/(?:index\.html)?$/i,'/')
-    : path.replace(/index\.html$/i,'');
-  const normalizedRoot = rootPath.endsWith('/') ? rootPath : rootPath + '/';
-  const rootHref = normalizedRoot;
-  const enHref = normalizedRoot + 'en/';
+  const scienceMatch = path.match(/^(.*?)(en\/)?science\/?(?:index\.html)?$/i);
+  const isScience = Boolean(scienceMatch);
+  const isEn = isScience ? Boolean(scienceMatch[2]) : /\/en\/(?:index\.html)?$/i.test(path);
+  let rootHref;
+  let enHref;
+  if (isScience) {
+    const base = scienceMatch[1];
+    rootHref = `${base}science/`;
+    enHref = `${base}en/science/`;
+  } else {
+    const rootPath = isEn
+      ? path.replace(/\/en\/(?:index\.html)?$/i,'/')
+      : path.replace(/index\.html$/i,'');
+    const normalizedRoot = rootPath.endsWith('/') ? rootPath : rootPath + '/';
+    rootHref = normalizedRoot;
+    enHref = normalizedRoot + 'en/';
+  }
   let timer=0;
 
   function desktopSwitch(){
@@ -37,7 +47,7 @@
   }
 
   function launchRussianAssessment(){
-    if(isEn) return;
+    if(isEn || isScience) return;
     const params=new URLSearchParams(location.search);
     const start=params.get('start');
     const resume=params.get('resume');
