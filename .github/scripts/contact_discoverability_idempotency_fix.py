@@ -95,5 +95,9 @@ if s.count(old_footer)!=1:
 if s.count(old_mobile)!=1:
     raise SystemExit(f'mobile authority mismatch: {s.count(old_mobile)}')
 s=s.replace(old_footer,new_footer).replace(old_mobile,new_mobile)
+old_revision="revision:'5.3.3'"
+if s.count(old_revision)!=1:
+    raise SystemExit(f'Brand revision mismatch: expected one {old_revision}, found {s.count(old_revision)}')
+s=s.replace(old_revision,"revision:'5.3.2'",1)
 p.write_text(s,encoding='utf-8')
-print('idempotency correction applied')
+print('idempotency correction applied; Brand revision preserved at 5.3.2')
