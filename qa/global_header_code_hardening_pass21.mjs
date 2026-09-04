@@ -34,11 +34,6 @@ const runtime=[];
 function fail(label,detail=''){failures.push(detail?`${label}: ${detail}`:label);}
 function read(rel){return fs.readFileSync(path.join(ROOT,rel),'utf8');}
 function count(text,needle){return text.split(needle).length-1;}
-function visibleState(el){
-  if(!el)return false;
-  const cs=getComputedStyle(el),r=el.getBoundingClientRect();
-  return cs.display!=='none'&&cs.visibility!=='hidden'&&Number(cs.opacity)!==0&&r.width>0&&r.height>0;
-}
 
 // ---------------------------------------------------------------------------
 // Source authority / stale-rule gate
@@ -188,18 +183,21 @@ for(const width of widths){
   }
 }
 
-// Saved-session idempotency: reconciliation itself must not rewrite the resume copy.
+// Saved-session idempotency: both the editorial shell and the canonical brand
+// runtime need a consistent local fixture so that the resume rail is actually
+// rendered before repeated reconciliation is tested.
 {
   const context=await browser.newContext({viewport:{width:1440,height:900}});
   const page=await context.newPage();
   await page.addInitScript(()=>{
-    localStorage.setItem('p120_web_prototype_v01',JSON.stringify({
-      participantId:'P120-QA-P21',itemIndex:1,responses:{SAT01:'4'},adminModes:{},startedAt:new Date().toISOString(),lastSavedAt:new Date().toISOString()
-    }));
+    const stamp=new Date().toISOString();
+    const fixture={participantId:'P120-QA-P21',screen:'home',itemIndex:1,responses:{SAT01:'4'},adminModes:{},startedAt:stamp,lastSavedAt:stamp,telemetry:[]};
+    localStorage.setItem('p120_editorial_state_ru_v1',JSON.stringify(fixture));
+    localStorage.setItem('p120_web_prototype_v01',JSON.stringify(fixture));
   });
   await page.goto(BASE+'/',{waitUntil:'domcontentloaded',timeout:30000});
   await page.waitForFunction(()=>window.P120_BRAND_SYSTEM?.revision==='5.3.2');
-  await page.waitForSelector('.p120-resume53__copy',{timeout:15000});
+  await page.waitForSelector('.p120-resume53__copy',{state:'attached',timeout:15000});
   const idempotency=await page.evaluate(async()=>{
     const info=document.querySelector('.p120-resume53__copy');
     let childMutations=0;
