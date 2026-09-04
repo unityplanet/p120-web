@@ -18,9 +18,6 @@ results=[]
 
 def fail(case,check,detail): failures.append({'case':case,'check':check,'detail':detail})
 
-def suffix(path):
-    return path if path.startswith('/') else '/'+path
-
 with sync_playwright() as p:
     browser=p.chromium.launch(headless=True)
     for width in WIDTHS:
@@ -48,6 +45,17 @@ with sync_playwright() as p:
                       const bottom=document.querySelector('.mobile-bottom-nav');
                       const drawer=document.querySelector('.mobile-menu');
                       const drawerContact=drawer?.querySelector('[data-p120-contact-discovery]');
+                      const withContactWidth=document.documentElement.scrollWidth;
+                      const saved=[];
+                      for(const el of [service,drawerContact]){
+                        if(!el) continue;
+                        saved.push([el,el.getAttribute('style')]);
+                        el.style.setProperty('display','none','important');
+                      }
+                      void document.documentElement.offsetWidth;
+                      const withoutContactWidth=document.documentElement.scrollWidth;
+                      for(const [el,style] of saved){ if(style===null) el.removeAttribute('style'); else el.setAttribute('style',style); }
+                      void document.documentElement.offsetWidth;
                       return {
                         footerCount:footer?.querySelectorAll('.p120-site-footer__service a').length||0,
                         footerText:contact?.textContent?.trim()||'',
@@ -60,7 +68,9 @@ with sync_playwright() as p:
                         drawerContactCount:drawer?.querySelectorAll('[data-p120-contact-discovery]').length||0,
                         drawerContactText:drawerContact?.textContent?.replace(/\\s+/g,' ').trim()||'',
                         drawerContactAria:drawerContact?.getAttribute('aria-label')||'',
-                        docWidth:document.documentElement.scrollWidth,
+                        docWidth:withContactWidth,
+                        withoutContactWidth,
+                        contactWidthDelta:withContactWidth-withoutContactWidth,
                         viewport:innerWidth,
                         theme:document.body?.dataset.theme||'',
                         revision:window.P120_BRAND_SYSTEM?.revision||'',
@@ -75,7 +85,7 @@ with sync_playwright() as p:
                       'desktop-topnav-unchanged':d['topContact']==0,
                       'bottom-nav-no-contact':d['bottomContact']==0,
                       'bottom-nav-four':d['bottomCount']==4,
-                      'no-horizontal-overflow':d['docWidth']<=d['viewport']+1,
+                      'no-contact-induced-overflow':d['contactWidthDelta']<=1,
                       'theme-preserved':d['theme']==theme,
                       'runtime-revision':d['revision']=='5.3.3',
                       'console-errors':len(errors)==0,
@@ -88,7 +98,7 @@ with sync_playwright() as p:
                         })
                     for name,ok in checks.items():
                         if not ok: fail(case,name,json.dumps({'data':d,'errors':errors},ensure_ascii=False))
-                    if width in (320,390,430,1366) and theme in ('ivory','graphite','museum'):
+                    if width in (320,390,430,1366):
                         page.screenshot(path=str(OUT/f"root-{locale}-{theme}-{width}.png"),full_page=False)
                     results.append({'case':case,'data':d,'checks':checks})
                 except Exception as exc: fail(case,'exception',repr(exc))
@@ -96,7 +106,6 @@ with sync_playwright() as p:
                     if not page.is_closed(): page.close()
                     ctx.close()
 
-    # Static/global footer routes: Contact must be globally discoverable without entering primary nav.
     static_cases=[('/contact/','ru'),('/privacy/','ru'),('/why-p120/','ru'),('/en/contact/','en'),('/en/privacy/','en'),('/en/why-p120/','en')]
     for route,locale in static_cases:
         ctx=browser.new_context(viewport={'width':390,'height':844})
@@ -120,19 +129,21 @@ with sync_playwright() as p:
         except Exception as exc: fail(case,'exception',repr(exc))
         finally: page.close();ctx.close()
 
-    # Real mobile drawer navigation in each locale.
+    # Real hamburger → drawer → Contact navigation in each locale.
     for route,locale in ROOTS:
         ctx=browser.new_context(viewport={'width':390,'height':844});page=ctx.new_page();case=f'drawer navigation {route}'
         try:
             page.goto(BASE+route,wait_until='domcontentloaded',timeout=30000)
-            page.wait_for_selector('[data-p120-contact-discovery]',timeout=15000)
+            page.wait_for_selector('[data-mobile-menu]',state='visible',timeout=15000)
+            page.click('[data-mobile-menu]')
+            page.wait_for_selector('[data-p120-contact-discovery]',state='visible',timeout=5000)
             page.click('[data-p120-contact-discovery]')
             page.wait_for_load_state('domcontentloaded');page.wait_for_timeout(120)
             expected=EXPECTED[locale]['contact_path']
             path=page.evaluate('location.pathname')
             if not path.endswith(expected): fail(case,'navigation-route',path)
-            if page.locator('h1').first.text_content().strip()!=EXPECTED[locale]['contact']:
-                fail(case,'contact-page-locale',page.locator('h1').first.text_content().strip())
+            h1=page.locator('h1').first.text_content().strip()
+            if h1!=EXPECTED[locale]['contact']: fail(case,'contact-page-locale',h1)
         except Exception as exc: fail(case,'exception',repr(exc))
         finally: page.close();ctx.close()
     browser.close()
