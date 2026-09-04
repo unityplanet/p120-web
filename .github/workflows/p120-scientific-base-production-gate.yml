@@ -9,9 +9,12 @@ on:
     paths:
       - 'science/index.html'
       - 'en/science/index.html'
+      - 'language-switch-v1.0.js'
+      - 'p120-public-runtime-v1.0.js'
       - 'p120-scientific-base-runtime-v1.0.js'
       - 'P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json'
       - 'qa/scientific_base_production_gate_v1.mjs'
+      - 'qa/science_language_switch_gate_v1.mjs'
       - '.github/workflows/p120-scientific-base-production-gate.yml'
   workflow_dispatch:
 
@@ -27,56 +30,46 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Verify controlled migration delta and protected runtime boundary
+      - name: Verify accepted Science baseline and protected scientific boundary
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
           import subprocess, json
-          BASE='54ac77854d511dbf625b65eaac627947bb9ced98'
-          LEGACY="const KEY='p120_web_prototype_v01';"
-          routes=[
-              (
-                  'science/index.html',
-                  "const KEY='p120_science_page_state_ru_v1';",
-                  '<script src="p120-scientific-base-runtime-v1.0.js?v=sbm10" data-p120-scientific-base-runtime="v1.0"></script>\n',
-                  None,
-              ),
-              (
-                  'en/science/index.html',
-                  "const KEY='p120_science_page_state_en_v1';",
-                  '<script src="../p120-scientific-base-runtime-v1.0.js?v=sbm10" data-p120-scientific-base-runtime="v1.0"></script>\n',
-                  (
-                      '<script src="../p120-en-science-localization-runtime-v1.0.js?v=ensci10" data-p120-en-science-localization="v1.0"></script>',
-                      '<script src="../../p120-en-science-localization-runtime-v1.0.js?v=ensci10" data-p120-en-science-localization="v1.0"></script>',
-                  ),
-              ),
+
+          # Accepted baseline after Scientific Base language-switch reconciliation.
+          BASE='6ef15f83ab1d7db132151b0d2216ba788f65ec71'
+          locked=[
+              'science/index.html',
+              'en/science/index.html',
+              'language-switch-v1.0.js',
+              'p120-scientific-base-runtime-v1.0.js',
+              'P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json',
           ]
-          for path,science_key,science_tag,pass4a_normalization in routes:
+          for path in locked:
               current=Path(path).read_text(encoding='utf-8')
               baseline=subprocess.check_output(['git','show',f'{BASE}:{path}'],text=True)
-              if current.count(science_key)!=1: raise SystemExit(f'{path}: Science state key mismatch')
-              if LEGACY in current: raise SystemExit(f'{path}: legacy respondent key still active')
-              if current.count(science_tag.strip())!=1: raise SystemExit(f'{path}: Scientific Base loader mismatch')
-              normalized=current.replace(science_key,LEGACY,1).replace(science_tag,'',1)
-              if pass4a_normalization:
-                  corrected,baseline_path=pass4a_normalization
-                  if normalized.count(corrected)!=1: raise SystemExit(f'{path}: PASS 4A localization path mismatch')
-                  normalized=normalized.replace(corrected,baseline_path,1)
-              if normalized!=baseline: raise SystemExit(f'{path}: migration changed content outside authorized migration + PASS 4A path delta')
-              print(path,'authorized-delta-only: PASS')
-
-          protected=[
-              'system/index.html','en/system/index.html','p120-session-contract-v1.0.js',
-              'p120-submission-intake-v1.0.js','manual-report-handoff-v1.0.js',
-              'index.html','en/index.html'
-          ]
-          changed=subprocess.check_output(['git','diff','--name-only',BASE,'--',*protected],text=True).strip()
-          if changed: raise SystemExit('Protected PASS3/runtime files changed: '+changed)
+              if current!=baseline:
+                  raise SystemExit(f'{path}: diverged from accepted Science baseline {BASE}; explicit baseline reconciliation required')
+              print(path,'accepted-baseline: PASS')
 
           runtime=Path('p120-scientific-base-runtime-v1.0.js').read_text(encoding='utf-8')
           for token in ('localStorage','sessionStorage','P120_SESSION_KEY'):
-              if token in runtime: raise SystemExit(f'Scientific Base runtime contains prohibited storage/session token: {token}')
+              if token in runtime:
+                  raise SystemExit(f'Scientific Base runtime contains prohibited storage/session token: {token}')
+          required_runtime=(
+              'reconcileLanguageSwitch',
+              'canonical-single-owner',
+              "tools.querySelector('.p120-language-switch')",
+          )
+          for token in required_runtime:
+              if token not in runtime:
+                  raise SystemExit(f'Scientific Base language reconciliation contract missing: {token}')
+
+          language=Path('language-switch-v1.0.js').read_text(encoding='utf-8')
+          for token in ('RU/EN language switch v1.2','scienceMatch','isScience'):
+              if token not in language:
+                  raise SystemExit(f'Canonical language-switch Science-route contract missing: {token}')
 
           registry=json.loads(Path('P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json').read_text(encoding='utf-8'))
           if registry.get('schema_id')!='P120-WEBSCI-PRODUCTION-001': raise SystemExit('registry schema mismatch')
@@ -102,6 +95,9 @@ jobs:
 
       - name: Run independent RU/EN Science browser gate
         run: node qa/scientific_base_production_gate_v1.mjs
+
+      - name: Run RU/EN single-owner language-switch regression gate
+        run: node qa/science_language_switch_gate_v1.mjs
 
       - name: Upload Science QA evidence
         if: always()
