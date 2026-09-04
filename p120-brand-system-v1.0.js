@@ -101,7 +101,13 @@
   function patchBrand(){
     const nodes=document.querySelectorAll('.brand-button,.explore-brand,.creator-brand,.wp-brand,.p120-brand53-brand');
     nodes.forEach(node=>{
-      if(node.dataset.p120CanonicalBrand==='5.3') return;
+      if(node.dataset.p120CanonicalBrand==='5.3'){
+        const descriptor=node.querySelector(':scope > .brand-lockup > .brand-sub');
+        if(descriptor&&descriptor.textContent.trim()!==copy.descriptor) descriptor.textContent=copy.descriptor;
+        if(node.tagName==='A') node.href=localeRoot(isEn);
+        node.setAttribute('aria-label',isEn?'P-120 — home':'P-120 — на главную');
+        return;
+      }
       if(!hasCanonicalBrandMarkup(node)) node.innerHTML=brandMarkup();
       else {
         const descriptor=node.querySelector(':scope > .brand-lockup > .brand-sub');
@@ -183,6 +189,11 @@
   function ensureTools(){
     const inner=findHeaderInner();
     if(!inner || inner.querySelector('[data-p120-brand53-tools]')) return;
+    /* Science uses the same mature application header shell as Main and already
+       carries locale/theme/mobile utilities inside .topbar-tools. Injecting a
+       second canonical utility block creates a mobile second row, so preserve
+       the existing Science utility authority instead of duplicating it. */
+    if(pageKind==='science' && inner.querySelector('.topbar-tools')) return;
     const tpl=document.createElement('template'); tpl.innerHTML=toolsMarkup();
     const tools=tpl.content.firstElementChild;
     if(isMain){
