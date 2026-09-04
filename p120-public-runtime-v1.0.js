@@ -1,209 +1,214 @@
 /* P-120 production public runtime v1.1 — generated, source order preserved */
 
 /* === extended-research-navigation-v1.0.js === */
-/* P-120 WEB-EXPLORE PASS 4 — Explore route reconciliation adapter v2.1
-   RU/EN public-shell routing + compact home bridge.
-   Presentation/navigation only: no assessment, scoring, questionnaire or report logic. */
+/* P-120 Web Editorial — Extended Research Set Navigation Integration v1.1
+   Presentation/navigation only. Does not touch measurement, scoring or questionnaire logic. */
 (() => {
   'use strict';
-  const isEn=/\/en(?:\/|$)/i.test(location.pathname);
-  const SECTION_ID='extended-research-set';
-  const TEASER_ID='extended-research-entry';
-  let timer=0;
 
-  const copy=isEn?{
-    kicker:'P-120 · OPTIONAL DEEP DIVE',title:'Want to go deeper?',
-    body:'The core P-120 remains independent. The Extended Research System adds optional research lenses — COM, MOT, SELF, RPE-MOD and LIFE — without recalculating the core profile.',
-    button:'Open Extended Research System',deeperNote:'Extended Research System · optional research layers',togetherNote:'Dyadic Research Layer · relationship research'
-  }:{
-    kicker:'P-120 · ДОПОЛНИТЕЛЬНОЕ УГЛУБЛЕНИЕ',title:'Хотите глубже?',
-    body:'Основной P-120 остаётся самостоятельным. Система углублённых исследований добавляет отдельные исследовательские линзы — COM, MOT, SELF, RPE-MOD и LIFE — без пересчёта основного профиля.',
-    button:'Открыть систему углублённых исследований',deeperNote:'Система углублённых исследований · дополнительные модули',togetherNote:'Исследование пары · диадический слой'
-  };
+  const SECTION_ID = 'extended-research-set';
+  const TEASER_ID = 'extended-research-entry';
+  const MOBILE_MAX = 680;
+  let sectionTemplate = '';
+  let timer = 0;
 
-  function projectRoot(){
-    const p=location.pathname;
-    const markers=['/creator/','/why-p120/','/extended/','/together/','/privacy/','/terms/','/intellectual-property/'];
-    for(const m of markers){
-      const i=p.indexOf(m);
-      if(i>=0) return p.slice(0,i+1);
-    }
-    return p.endsWith('/')?p:p.replace(/[^/]*$/,'');
+  const source = document.getElementById(SECTION_ID);
+  if (source) {
+    sectionTemplate = source.outerHTML;
+    source.remove();
   }
-  function route(path){ location.assign(`${location.origin}${projectRoot()}${path}`); }
+
+  function makeSection(){
+    if (!sectionTemplate) return null;
+    const tpl = document.createElement('template');
+    tpl.innerHTML = sectionTemplate.trim();
+    const section = tpl.content.firstElementChild;
+    if (!section) return null;
+    section.dataset.placement = 'report-to-science';
+    return section;
+  }
 
   function makeTeaser(){
-    const section=document.createElement('section');
-    section.id=TEASER_ID;
-    section.className='extended-entry-teaser';
+    const section = document.createElement('section');
+    section.id = TEASER_ID;
+    section.className = 'extended-entry-teaser';
     section.setAttribute('aria-labelledby','extended-entry-title');
-    section.innerHTML=`
+    section.innerHTML = `
       <div>
-        <span class="extended-entry-kicker">${copy.kicker}</span>
-        <h2 id="extended-entry-title">${copy.title}</h2>
+        <span class="extended-entry-kicker">P-120 · OPTIONAL DEEP DIVE</span>
+        <h2 id="extended-entry-title">А хотите ещё глубже?</h2>
       </div>
       <div class="extended-entry-copy">
-        <p>${copy.body}</p>
-        <div class="extended-entry-meta" aria-label="${isEn?'Optional research directions':'Дополнительные исследовательские направления'}">
-          <span>COM</span><span>MOT</span><span>SELF</span><span>RPE-MOD</span><span>LIFE</span>
+        <p>P-120 уже даёт самостоятельный многослойный профиль. Extended Research Set позволяет исследовать отдельные стороны опыта глубже — не изменяя основной результат.</p>
+        <div class="extended-entry-meta" aria-label="Будущие дополнительные исследовательские модули">
+          <span>COM</span><span>MOT</span><span>SELF</span><span>LIFE</span><span>optional research</span>
         </div>
-        <button type="button" class="extended-entry-button" data-open-extended-page>${copy.button}</button>
+        <button type="button" class="extended-entry-button" data-open-extended>Посмотреть Extended Set</button>
       </div>`;
     return section;
   }
 
   function findScienceAnchor(home){
-    const science=home?.querySelector('#science-foundation')||home?.querySelector('[data-section-id="science-foundation"]');
-    if(!science) return null;
-    let node=science.previousElementSibling;
-    while(node){
-      if(node.matches?.('.act-marker')&&/(?:Акт|Act)\s*III/i.test(node.textContent||'')) return node;
-      node=node.previousElementSibling;
+    if (!home) return null;
+    const science = home.querySelector('#science-foundation') || home.querySelector('[data-section-id="science-foundation"]');
+    if (!science) return null;
+    let node = science.previousElementSibling;
+    while (node) {
+      if (node.matches?.('.act-marker') && /Акт\s*III/i.test(node.textContent || '')) return node;
+      node = node.previousElementSibling;
     }
     return science;
   }
 
-  function reconcileHome(){
-    const home=document.querySelector('.editorial-home');
-    if(!home) return;
-    home.querySelectorAll(`#${SECTION_ID}`).forEach(n=>{
-      if(!n.hidden)n.hidden=true;
-      if(n.getAttribute('aria-hidden')!=='true')n.setAttribute('aria-hidden','true');
-      if(n.dataset.webExploreLegacy!=='retired')n.dataset.webExploreLegacy='retired';
+  function syncModuleDetails(root){
+    if (!root) return;
+    const mobile = window.matchMedia(`(max-width:${MOBILE_MAX}px)`).matches;
+    root.querySelectorAll('.extended-module details').forEach(details => {
+      if (mobile) {
+        if (details.dataset.ersMobileState !== 'set') {
+          details.open = false;
+          details.dataset.ersMobileState = 'set';
+        }
+      } else {
+        details.open = true;
+        delete details.dataset.ersMobileState;
+      }
     });
-    const anchor=findScienceAnchor(home);
-    if(!anchor?.parentNode) return;
-    let teaser=home.querySelector(`#${TEASER_ID}`);
-    if(!teaser){teaser=makeTeaser();anchor.parentNode.insertBefore(teaser,anchor);}
-    else if(teaser.dataset.webExplorePass2!=='true'){
-      const fresh=makeTeaser();teaser.replaceWith(fresh);teaser=fresh;
+  }
+
+  function integrateIntoHome(){
+    const home = document.querySelector('.editorial-home');
+    if (!home) return false;
+    const anchor = findScienceAnchor(home);
+    if (!anchor || !anchor.parentNode) return false;
+
+    let teaser = home.querySelector(`#${TEASER_ID}`);
+    if (!teaser) {
+      teaser = makeTeaser();
+      anchor.parentNode.insertBefore(teaser, anchor);
     }
-    teaser.dataset.webExplorePass2='true';
-    const open=teaser.querySelector('[data-open-extended-page]');
-    if(open&&open.dataset.webExploreBound!=='true'){
-      open.dataset.webExploreBound='true';open.addEventListener('click',()=>route('extended/'));
+
+    let section = home.querySelector(`#${SECTION_ID}`);
+    if (!section) {
+      section = makeSection();
+      if (!section) return false;
+      anchor.parentNode.insertBefore(section, anchor);
+    }
+
+    syncModuleDetails(section);
+    bindExtendedControls(document);
+    return true;
+  }
+
+  function closeDrawer(){
+    try {
+      if (typeof window.closeMobileMenu === 'function') window.closeMobileMenu();
+      else document.body.classList.remove('mobile-menu-open');
+    } catch (_) {
+      document.body.classList.remove('mobile-menu-open');
     }
   }
 
-  function reconcileExploreMenu(){
-    document.querySelectorAll('[data-ecosystem-route="deeper"],[data-ecosystem-mobile="deeper"]').forEach(btn=>{
-      btn.removeAttribute('aria-disabled');btn.querySelector('.ecosystem-item-status,.ecosystem-mobile-status')?.remove();
-      const note=btn.querySelector('.ecosystem-item-note,small');if(note)note.textContent=copy.deeperNote;
-    });
-    document.querySelectorAll('[data-ecosystem-route="together"],[data-ecosystem-mobile="together"]').forEach(btn=>{
-      btn.removeAttribute('aria-disabled');btn.querySelector('.ecosystem-item-status,.ecosystem-mobile-status')?.remove();
-      const note=btn.querySelector('.ecosystem-item-note,small');if(note)note.textContent=copy.togetherNote;
-    });
-    document.querySelectorAll('[data-extended-research-nav],[data-mobile-jump-extended]').forEach(n=>{
-      if(!n.hidden)n.hidden=true;if(n.getAttribute('aria-hidden')!=='true')n.setAttribute('aria-hidden','true');if(n.tabIndex!==-1)n.tabIndex=-1;
+  function waitForSectionAndScroll(attempt=0){
+    const target = document.getElementById(SECTION_ID);
+    if (target) {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      target.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});
+      return;
+    }
+    if (attempt < 30) window.setTimeout(() => waitForSectionAndScroll(attempt+1), 45);
+  }
+
+  function openExtended(){
+    closeDrawer();
+    const home = document.querySelector('.editorial-home');
+    if (home) {
+      integrateIntoHome();
+      waitForSectionAndScroll();
+      return;
+    }
+    try {
+      if (typeof window.goHome === 'function') window.goHome();
+      else if (typeof window.navigate === 'function') window.navigate('home');
+    } catch (_) {}
+    window.setTimeout(() => {
+      integrateIntoHome();
+      waitForSectionAndScroll();
+    },80);
+  }
+
+  function ensureDesktopNav(){
+    document.querySelectorAll('.topnav').forEach(nav => {
+      if (nav.querySelector('[data-extended-research-nav]')) return;
+      const science = nav.querySelector('[data-science], .science-navlink');
+      const report = nav.querySelector('[data-nav="showcase"]');
+      if (!science && !report) return;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'navlink extended-navlink';
+      btn.dataset.extendedResearchNav = 'true';
+      btn.textContent = 'Ещё глубже';
+      btn.addEventListener('click', openExtended);
+      if (science?.parentNode === nav) nav.insertBefore(btn, science);
+      else report?.insertAdjacentElement('afterend',btn);
     });
   }
 
-  /* Explore destinations and chapter navigation are intentionally different controls.
-     Explore -> “Хотите глубже?” opens the dedicated Extended page.
-     Chapter navigation -> “Ещё глубже” remains on the main page and scrolls to the
-     compact Extended Research teaser. Do not intercept chapter-jump controls here. */
-  function intercept(event){
-    const btn=event.target.closest?.('[data-ecosystem-route],[data-ecosystem-mobile]');
-    if(!btn) return;
-    const key=btn.dataset.ecosystemRoute||btn.dataset.ecosystemMobile;
-    if(key!=='deeper'&&key!=='together') return;
-    event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();
-    route(key==='deeper'?'extended/':'together/');
+  function ensureMobileDrawerEntry(){
+    document.querySelectorAll('.mobile-menu-body').forEach(body => {
+      if (body.querySelector('[data-mobile-jump-extended]')) return;
+      const examples = body.querySelector('[data-mobile-jump-home="examples"]');
+      const scienceLink = body.querySelector('[data-mobile-jump-science]');
+      const scienceAction = body.querySelector('[data-science]');
+      const homeAction = body.querySelector('[data-home]');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = examples ? 'mobile-menu-link extended-mobile-menu-link' : 'mobile-menu-action extended-mobile-menu-link';
+      btn.dataset.mobileJumpExtended = 'true';
+      btn.innerHTML = '<div><div>А хотите ещё глубже?</div><small>Extended Research Set · дополнительные модули</small></div>';
+      btn.addEventListener('click', openExtended);
+      if (examples?.parentNode) examples.insertAdjacentElement('afterend',btn);
+      else if (scienceLink?.parentNode) scienceLink.parentNode.insertBefore(btn,scienceLink);
+      else if (scienceAction?.parentNode) scienceAction.parentNode.insertBefore(btn,scienceAction);
+      else if (homeAction?.parentNode) homeAction.insertAdjacentElement('afterend',btn);
+      else body.prepend(btn);
+    });
   }
 
-  function run(){timer=0;reconcileHome();reconcileExploreMenu();document.documentElement.dataset.webExplorePass2='ready';}
-  function schedule(){if(timer)clearTimeout(timer);timer=setTimeout(run,70);}
-  function start(){new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});document.addEventListener('click',intercept,true);run();}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
-})();
+  function bindExtendedControls(root){
+    root.querySelectorAll('[data-open-extended]').forEach(btn => {
+      if (btn.dataset.ersBound === 'true') return;
+      btn.dataset.ersBound = 'true';
+      btn.addEventListener('click',openExtended);
+    });
+  }
 
-/* P-120 public scientific document reconciliation v1.2
-   Public presentation only. No measurement, scoring, thresholds or research-status changes. */
-(() => {
-  'use strict';
-  const isEn=/\/en(?:\/|$)/i.test(location.pathname);
-  const meta=isEn?{
-    title:'P-120 vNext — Scientific Concept Paper',
-    version:'Public Research Edition A4 · v1.2',
-    date:'1 September 2026',
-    status:'Research Candidate · 18+',
-    formula:'original candidate integration and operationalization',
-    pages:14,
-    pdf:'../assets/p120-scientific-concept-paper-en-v1.2.pdf'
-  }:{
-    title:'P-120 vNext — Научный концептуальный документ',
-    version:'Публичная исследовательская редакция A4 · v1.2',
-    date:'1 сентября 2026',
-    status:'Исследовательская версия · 18+',
-    formula:'оригинальная кандидатная интеграция и операционализация',
-    pages:15,
-    pdf:'assets/p120-scientific-concept-paper-v1.2.pdf'
+  function run(){
+    timer = 0;
+    ensureDesktopNav();
+    ensureMobileDrawerEntry();
+    integrateIntoHome();
+    bindExtendedControls(document);
+  }
+
+  function schedule(delay=70){
+    if (timer) clearTimeout(timer);
+    timer = window.setTimeout(run,delay);
+  }
+
+  const start = () => {
+    const watch = document.getElementById('app') || document.body;
+    new MutationObserver(() => schedule()).observe(watch,{childList:true,subtree:true});
+    run();
+    const mq = window.matchMedia(`(max-width:${MOBILE_MAX}px)`);
+    const onViewport = () => syncModuleDetails(document.getElementById(SECTION_ID));
+    if (typeof mq.addEventListener === 'function') mq.addEventListener('change',onViewport);
+    else if (typeof mq.addListener === 'function') mq.addListener(onViewport);
+    document.documentElement.classList.add('ers-navigation-ready');
   };
 
-  function applyData(){
-    const D=window.P120_SCIENCE;
-    if(!D?.document)return;
-    D.document.title=meta.title;
-    D.document.version=meta.version;
-    D.document.date=meta.date;
-    D.document.status=meta.status;
-    D.document.pages=meta.pages;
-    D.document.pdf=meta.pdf;
-    if(D.positioning)D.positioning.formula=meta.formula;
-  }
-
-  function replaceLeafText(root,from,to){
-    root.querySelectorAll('strong,p,span,h2,h3,h4').forEach(el=>{
-      if(el.children.length)return;
-      const t=(el.textContent||'').trim();
-      if(t===from)el.textContent=to;
-    });
-  }
-
-  function applyDom(){
-    applyData();
-    const root=document;
-    root.querySelectorAll('a[href*="p120-scientific-concept-paper"]').forEach(a=>a.setAttribute('href',meta.pdf));
-    root.querySelectorAll('.science-doc-card').forEach(card=>{
-      const title=card.querySelector(':scope > strong');
-      const info=card.querySelector(':scope > p');
-      const formula=card.querySelector('.formula-card strong');
-      if(title)title.textContent=meta.title;
-      if(info)info.innerHTML=`${meta.version}<br>${meta.date} · ${meta.pages} ${isEn?'pp.':'стр.'}`;
-      if(formula)formula.textContent=meta.formula;
-    });
-    replaceLeafText(root,'P-120 vNext — Scientific Concept Paper',meta.title);
-    replaceLeafText(root,'original candidate integration and operationalization',meta.formula);
-    if(isEn){
-      replaceLeafText(root,'Исследовательская версия · 18+',meta.status);
-      replaceLeafText(root,'Академическая редакционная версия A4 · v1.1',meta.version);
-      replaceLeafText(root,'29 августа 2026',meta.date);
-    }else{
-      root.querySelectorAll('p').forEach(p=>{
-        const t=(p.textContent||'').trim();
-        if(/Академическая редакционная версия A4\s*·\s*v1\.1/i.test(t)&&/29 августа 2026/i.test(t)){
-          p.innerHTML=`${meta.version}<br>${meta.date} · ${meta.pages} стр.`;
-        }
-      });
-    }
-    let style=document.getElementById('p120-science-public-v12-style');
-    if(!style){
-      style=document.createElement('style');
-      style.id='p120-science-public-v12-style';
-      style.textContent='.science-hero h1{font-family:"Noto Serif Display","Noto Serif",Georgia,"Times New Roman",serif!important;font-weight:600!important;}';
-      document.head.appendChild(style);
-    }
-    document.documentElement.dataset.sciencePublicDocument=isEn?'v1.2-en':'v1.2-ru';
-  }
-
-  let timer=0;
-  function schedule(){clearTimeout(timer);timer=setTimeout(applyDom,50);}
-  function start(){
-    applyDom();
-    new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',start,{once:true});
+  else start();
 })();
 
 
@@ -358,29 +363,18 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
 
-
 /* === language-switch-v1.0.js === */
-/* P-120 Web Editorial — RU/EN language switch v1.2 */
+/* P-120 Web Editorial — RU/EN language switch v1.1 */
 (() => {
   'use strict';
   const path = location.pathname;
-  const scienceMatch = path.match(/^(.*?)(en\/)?science\/?(?:index\.html)?$/i);
-  const isScience = Boolean(scienceMatch);
-  const isEn = isScience ? Boolean(scienceMatch[2]) : /\/en\/(?:index\.html)?$/i.test(path);
-  let rootHref;
-  let enHref;
-  if (isScience) {
-    const base = scienceMatch[1];
-    rootHref = `${base}science/`;
-    enHref = `${base}en/science/`;
-  } else {
-    const rootPath = isEn
-      ? path.replace(/\/en\/(?:index\.html)?$/i,'/')
-      : path.replace(/index\.html$/i,'');
-    const normalizedRoot = rootPath.endsWith('/') ? rootPath : rootPath + '/';
-    rootHref = normalizedRoot;
-    enHref = normalizedRoot + 'en/';
-  }
+  const isEn = /\/en\/(?:index\.html)?$/i.test(path);
+  const rootPath = isEn
+    ? path.replace(/\/en\/(?:index\.html)?$/i,'/')
+    : path.replace(/index\.html$/i,'');
+  const normalizedRoot = rootPath.endsWith('/') ? rootPath : rootPath + '/';
+  const rootHref = normalizedRoot;
+  const enHref = normalizedRoot + 'en/';
   let timer=0;
 
   function desktopSwitch(){
@@ -409,7 +403,7 @@
   }
 
   function launchRussianAssessment(){
-    if(isEn || isScience) return;
+    if(isEn) return;
     const params=new URLSearchParams(location.search);
     const start=params.get('start');
     const resume=params.get('resume');

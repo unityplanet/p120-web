@@ -19,6 +19,7 @@ Navigation Architecture: v2
 Chapter Navigation runtime: v1.6.0
 Mobile quick chapter surface: PATCH 1 / PASS 2
 Hamburger navigation: PRESERVED
+Reserved ecosystem routes: creator, together
 Mobile bottom navigation changes: NONE
 Web font stylesheet: non-render-blocking preload
 Localization runtime: debounced v1.1
