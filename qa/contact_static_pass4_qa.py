@@ -127,6 +127,10 @@ with sync_playwright() as p:
                         if not ok: fail(case,name,json.dumps({'data':data,'before':before_url,'after':after_url,'network':mutating_requests,'console':console_errors,'counter':counter_text},ensure_ascii=False))
 
                     if width in (320,390,1366,1920):
+                        # Full-page evidence must represent the canonical top-of-page
+                        # state, not the scroll position left by field interaction.
+                        page.evaluate("window.scrollTo(0,0)")
+                        page.wait_for_timeout(120)
                         page.screenshot(path=str(OUT/f'{width}-{theme}-{locale}.png'),full_page=True)
                     results.append({'case':case,'data':data,'checks':checks,'console':console_errors,'network':mutating_requests})
                 except Exception as exc:
