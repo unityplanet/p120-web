@@ -18,6 +18,7 @@
     exploreTitle:'Explore P-120', map:'Project map', story:'Story of P-120', next:'Next',
     whyNote:'Origin of the name and the idea', creator:'From the Creator', creatorNote:'The personal context behind P-120',
     deeper:'Go deeper', deeperNote:'Extended Research Set · optional research', together:'Together?', togetherNote:'Dyadic research layer · relationship research',
+    contact:'Contact', contactNote:'Write to P-120',
     language:'Language', theme:'Theme', light:'Light', graphite:'Graphite', museum:'Museum',
     brand:'P-120 — Research Architecture'
   } : {
@@ -26,6 +27,7 @@
     exploreTitle:'Исследовать P-120', map:'Карта проекта', story:'История P-120', next:'Дальше',
     whyNote:'Происхождение названия и самой идеи', creator:'От создателя', creatorNote:'Личный контекст появления P-120',
     deeper:'Хотите глубже?', deeperNote:'Система углублённых исследований', together:'Мы вместе?', togetherNote:'Исследование пары',
+    contact:'Контакты', contactNote:'Связаться с P-120',
     language:'Язык', theme:'Тема', light:'Светлая', graphite:'Графит', museum:'Музейная',
     brand:'P-120 — Исследовательская архитектура'
   };
@@ -53,7 +55,7 @@
 
   function kind(){
     const p=location.pathname.toLowerCase();
-    for(const k of ['intellectual-property','privacy','terms','why-p120','creator','extended','together','science']){
+    for(const k of ['intellectual-property','privacy','terms','why-p120','creator','extended','together','science','contact']){
       if(p.includes(`/${k}/`)) return k;
     }
     return 'main';
@@ -127,7 +129,7 @@
 
   function staticNavMarkup(){
     const whyCurrent=pageKind==='why-p120'?' aria-current="page"':'';
-    return `<a class="p120-brand53-navitem" href="${homeAnchor('why-important')}">${copy.about}</a><a class="p120-brand53-navitem" href="${routeFor('why-p120')}"${whyCurrent}>${copy.why}</a><a class="p120-brand53-navitem" href="${homeAnchor('why-p120')}">${copy.unique}</a><a class="p120-brand53-navitem" href="${homeAnchor('what-p120-shows')}">${copy.shows}</a><a class="p120-brand53-navitem" href="${homeAnchor('showcase')}">${copy.report}</a><a class="p120-brand53-navitem" href="${routeFor('science')}">${copy.science}</a>${megaMarkup()}`;
+    return `<a class="p120-brand53-navitem" href="${homeAnchor('why-important')}">${copy.about}</a><a class="p120-brand53-navitem" href="${routeFor('why-p120')}"${whyCurrent}>${copy.why}</a><a class="p120-brand53-navitem" href="${homeAnchor('why-p120')}">${copy.unique}</a><a class="p120-brand53-navitem" href="${homeAnchor('what-p120-shows')}">${copy.shows}</a><a class="p120-brand53-navitem" href="${routeFor('science')}">${copy.science}</a>${megaMarkup()}`;
   }
 
   function patchNav(){
@@ -288,6 +290,40 @@
     rail.querySelectorAll(':scope > span').forEach(old=>old.remove());
   }
 
+  function ensureFooterContact(inner){
+    const legal=inner.querySelector('.p120-site-footer__legal');
+    if(!legal) return;
+    let service=legal.querySelector('.p120-site-footer__service');
+    if(!service){
+      service=document.createElement('nav');
+      service.className='p120-site-footer__service p120-legal-footer__links';
+      service.style.marginTop='12px';
+      legal.appendChild(service);
+    }
+    service.setAttribute('aria-label',isEn?'Contact':'Связь');
+    const current=pageKind==='contact'?' aria-current="page"':'';
+    service.innerHTML=`<a href="${routeFor('contact')}"${current}>${copy.contact}</a>`;
+  }
+
+  function patchMobileContact(){
+    if(!isPublicMain) return;
+    const menu=document.querySelector('.mobile-menu');
+    const group=menu?.querySelector('.mobile-menu-body > .mobile-menu-group');
+    if(!group) return;
+    let action=group.querySelector('[data-p120-contact-discovery]');
+    if(!action){
+      action=document.createElement('button');
+      action.type='button';
+      action.className='mobile-menu-action';
+      action.dataset.p120ContactDiscovery='5.3';
+      const science=group.querySelector('[data-science]');
+      if(science) science.insertAdjacentElement('afterend',action); else group.appendChild(action);
+      action.addEventListener('click',()=>{location.href=routeFor('contact');});
+    }
+    action.innerHTML=`<div><div>${copy.contact}</div><small>${copy.contactNote}</small></div>`;
+    action.setAttribute('aria-label',`${copy.contact} — ${copy.contactNote}`);
+  }
+
   function patchFooter(){
     document.querySelectorAll('.home-footer,.wp-footer,.explore-footer').forEach(node=>node.classList.add('p120-footer-superseded'));
     document.querySelectorAll('[data-p120-legal-footer]').forEach(footer=>{
@@ -298,6 +334,7 @@
       if(inner.dataset.p120UnifiedFooter==='5.3.1'){
         const brand=inner.querySelector('.p120-footer-brand');
         if(brand && brand.textContent!==copy.brand) brand.textContent=copy.brand;
+        ensureFooterContact(inner);
         return;
       }
       const notice=inner.querySelector('.p120-legal-footer__notice');
@@ -320,6 +357,7 @@
 
       inner.replaceChildren(brand,chapters,legal,sandbox);
       inner.dataset.p120UnifiedFooter='5.3.1';
+      ensureFooterContact(inner);
     });
   }
 
@@ -374,6 +412,7 @@
       ensureTools();
       patchDescriptor();
       patchResumeRail();
+      patchMobileContact();
       patchFooter();
       if(document.body && document.body.dataset.theme!==currentTheme) applyTheme(currentTheme,{persist:false});
       html.classList.add('p120-brand53-ready');
@@ -382,7 +421,7 @@
     } finally {running=false;}
   }
 
-  const RECONCILE_SELECTOR='.brand-button,.explore-brand,.creator-brand,.wp-brand,.p120-brand53-brand,.topnav,.explore-mainnav,.creator-nav,.wp-nav,.explore-topbar,.creator-topbar,.wp-header,.p120-brand53-header,.editorial-resume-rail,[data-p120-legal-footer]';
+  const RECONCILE_SELECTOR='.brand-button,.explore-brand,.creator-brand,.wp-brand,.p120-brand53-brand,.topnav,.explore-mainnav,.creator-nav,.wp-nav,.explore-topbar,.creator-topbar,.wp-header,.p120-brand53-header,.editorial-resume-rail,.mobile-menu,[data-p120-legal-footer]';
   function touchesReconcileSurface(node){
     if(!(node instanceof Element)) return false;
     return node.matches(RECONCILE_SELECTOR)||!!node.querySelector(RECONCILE_SELECTOR);
@@ -408,6 +447,6 @@
     }).observe(document.body,{attributes:true,attributeFilter:['data-theme']});
   }
 
-  window.P120_BRAND_SYSTEM=Object.freeze({version:'5.3',revision:'5.3.2',themeKey:THEME_KEY,descriptor:copy.descriptor,brand:copy.brand,root:rootUrl.href,reconcile,getReconcileCount:()=>reconcileCount});
+  window.P120_BRAND_SYSTEM=Object.freeze({version:'5.3',revision:'5.3.3',themeKey:THEME_KEY,descriptor:copy.descriptor,brand:copy.brand,root:rootUrl.href,reconcile,getReconcileCount:()=>reconcileCount});
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
 })();
