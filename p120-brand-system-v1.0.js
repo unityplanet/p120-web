@@ -10,7 +10,7 @@
   const html = document.documentElement;
   const isEn = (html.lang || '').toLowerCase().startsWith('en') || /\/en(?:\/|$)/i.test(location.pathname);
   const THEME_KEY = 'p120_web_theme_v16';
-  const SESSION_KEY = 'p120_web_prototype_v01';
+  const SESSION_KEY = isEn ? 'p120_runtime_session_en_v1' : 'p120_runtime_session_ru_v1';
   const THEMES = ['ivory','graphite','museum'];
   const copy = isEn ? {
     descriptor:'RESEARCH ARCHITECTURE',
@@ -60,6 +60,24 @@
   }
   const pageKind=kind();
   const isMain=pageKind==='main';
+
+  // PATCH 2 / PASS 2 — load the read-only mobile resume bridge only on the
+  // locale-matched public Main route. Respondent storage remains System-owned.
+  const normalizeResumePath=(value)=>{
+    const clean=String(value||'/').replace(/\/{2,}/g,'/');
+    return clean.endsWith('/')?clean:`${clean}/`;
+  };
+  const publicMainPath=new URL(isEn?'en/':'./',rootUrl).pathname;
+  const isPublicMain=normalizeResumePath(location.pathname)===normalizeResumePath(publicMainPath);
+  function ensureMobileSessionResume(){
+    if(!isPublicMain||document.querySelector('script[data-p120-mobile-session-resume]')) return;
+    const runtime=document.createElement('script');
+    runtime.src=new URL('mobile-session-resume-v1.0.js?v=1',rootUrl).href;
+    runtime.async=false;
+    runtime.dataset.p120MobileSessionResume='2.2';
+    document.head.appendChild(runtime);
+  }
+  ensureMobileSessionResume();
 
   function localeRoot(en=isEn){return new URL(en?'en/':'./',rootUrl).href;}
   function routeFor(k,en=isEn){
