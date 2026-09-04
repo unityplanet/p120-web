@@ -393,6 +393,6 @@
     }).observe(document.body,{attributes:true,attributeFilter:['data-theme']});
   }
 
-  window.P120_BRAND_SYSTEM=Object.freeze({version:'5.3',revision:'5.3.3',themeKey:THEME_KEY,descriptor:copy.descriptor,brand:copy.brand,root:rootUrl.href,reconcile,getReconcileCount:()=>reconcileCount});
+  window.P120_BRAND_SYSTEM=Object.freeze({version:'5.3',revision:'5.3.2',themeKey:THEME_KEY,descriptor:copy.descriptor,brand:copy.brand,root:rootUrl.href,reconcile,getReconcileCount:()=>reconcileCount});
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
 })();
