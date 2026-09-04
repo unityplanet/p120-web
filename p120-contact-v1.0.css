@@ -281,3 +281,14 @@ body[data-theme='graphite'] .contact-correspondence{box-shadow:0 30px 90px rgba(
 @media(prefers-reduced-motion:reduce){
   .p120-contact-page *, .p120-contact-page *::before, .p120-contact-page *::after{scroll-behavior:auto!important;transition-duration:.001ms!important;animation-duration:.001ms!important;animation-iteration-count:1!important}
 }
+
+/* PASS 5 — secure submission states; base Contact composition remains frozen. */
+:root{--contact-success:#2F756F}
+body[data-theme='graphite']{--contact-success:#9DB7B4}
+.contact-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
+.contact-submit:not(:disabled){cursor:pointer;transition:transform .16s ease,opacity .16s ease}
+.contact-submit:is(:hover,:focus-visible):not(:disabled){transform:translateY(-1px)}
+.contact-form[data-contact-state='success'] .contact-submit-state{color:var(--contact-success)}
+.contact-form[data-contact-state='error'] .contact-submit-state,
+.contact-form[data-contact-state='rate-limit'] .contact-submit-state,
+.contact-form[data-contact-state='validation'] .contact-submit-state{color:var(--contact-danger)}

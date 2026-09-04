@@ -16,10 +16,10 @@
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../p120-brand-system-v1.0.css?v=532" data-p120-brand-system="5.3" />
   <link rel="stylesheet" href="../p120-pass53-visual-corrections-v1.0.css?v=532" data-p120-pass53-visual-corrections="5.3.2" />
-  <link rel="stylesheet" href="../p120-contact-v1.0.css?v=contact10" data-p120-contact-css="1.0" />
+  <link rel="stylesheet" href="../p120-contact-v1.0.css?v=contact11" data-p120-contact-css="1.1" />
   <script data-p120-brand-bootstrap="5.3.2">document.documentElement.classList.add('p120-brand53-ready')</script>
 </head>
-<body data-theme="ivory" class="p120-contact-page" data-p120-contact-transport="off">
+<body data-theme="ivory" class="p120-contact-page" data-p120-contact-transport="edge-function-v1">
   <a class="contact-skip-link" href="#contact-main">Перейти к содержимому</a>
 
   <header class="p120-brand53-header contact-header">
@@ -70,7 +70,7 @@
       <section class="contact-correspondence" aria-labelledby="contact-form-title">
         <div class="contact-correspondence__head">
           <div><p class="contact-section-label">CORRESPONDENCE · 01</p><h2 id="contact-form-title">Сообщение</h2></div>
-          <span class="contact-offline-badge">TRANSPORT OFF</span>
+          <span class="contact-offline-badge">SECURE CHANNEL</span>
         </div>
 
         <form class="contact-form" data-p120-contact-form novalidate autocomplete="on" aria-describedby="contact-transport-note">
@@ -99,16 +99,21 @@
             <div class="contact-message-meta"><p class="contact-field-error" id="contact-message-error" hidden>Добавьте немного больше информации, чтобы мы могли понять вопрос.</p><span id="contact-message-counter" data-contact-counter>0 / 5000</span></div>
           </div>
 
-          <div class="contact-transport-note" id="contact-transport-note" role="note">
-            <span class="contact-transport-note__mark" aria-hidden="true"></span>
-            <div><strong>Отправка сообщений пока не подключена.</strong><p>Данные из этой формы не отправляются и не сохраняются. Форма доступна только для проверки интерфейса.</p></div>
+          <div class="contact-honeypot" aria-hidden="true">
+            <label for="contact-website">Website</label>
+            <input id="contact-website" type="text" tabindex="-1" autocomplete="off" data-contact-honeypot />
           </div>
 
-          <p class="contact-privacy">После подключения канала данные из формы будут использоваться только для обработки обращения и ответа на него. Подробнее — в <a href="../privacy/">Политике конфиденциальности</a>.</p>
+          <div class="contact-transport-note" id="contact-transport-note" role="note">
+            <span class="contact-transport-note__mark" aria-hidden="true"></span>
+            <div><strong>Защищённая отправка подключена.</strong><p>Имя (если указано), email, тема и сообщение сохраняются в закрытом хранилище P-120 для обработки обращения. Срок хранения — до 90 дней. Ответы и результаты P-120 через эту форму не передавайте.</p></div>
+          </div>
+
+          <p class="contact-privacy">Данные используются только для обработки обращения и ответа на него. Raw IP-адрес и браузерная телеметрия в запись сообщения не включаются; технические HMAC-маркеры используются только для краткоживущего rate limiting. Подробнее — в <a href="../privacy/">Политике конфиденциальности</a>.</p>
 
           <div class="contact-actions">
-            <button class="contact-submit" type="button" disabled aria-disabled="true">Отправить сообщение</button>
-            <span class="contact-submit-state" data-contact-status aria-live="polite">Канал отправки отключён</span>
+            <button class="contact-submit" type="submit">Отправить сообщение</button>
+            <span class="contact-submit-state" data-contact-status aria-live="polite">Защищённый канал связи готов</span>
           </div>
         </form>
       </section>
@@ -116,7 +121,7 @@
   </main>
 
   <script src="../p120-brand-system-v1.0.js?v=532"></script>
-  <script src="../p120-contact-v1.0.js?v=contact10" data-p120-contact-runtime="1.0"></script>
+  <script src="../p120-contact-v1.0.js?v=contact11" data-p120-contact-runtime="1.1"></script>
   <script src="../p120-legal-runtime-v1.0.js?v=legal10" data-p120-legal-runtime="v1.0"></script>
 </body>
 </html>
