@@ -156,17 +156,21 @@
     document.querySelectorAll('[data-p120-theme-label]').forEach(node=>node.textContent=themeLabel(currentTheme));
   }
 
-  // PATCH 3 / PASS 2 — Main quick utilities reuse the canonical theme authority
-  // while keeping Main's legacy render-local theme variable synchronized.
+  // PATCH 3 / PASS 2 — Main quick utilities reuse the canonical theme authority.
+  // Main's theme setter is closure-local, so bridge through an already-bound
+  // legacy data-set-theme control instead of creating a second theme engine.
   function applyUtilityTheme(next){
     if(!THEMES.includes(next)) return;
-    if(isMain && typeof window.setTheme==='function'){
-      try{
-        window.setTheme(next);
-        currentTheme=next;
-        applyTheme(next,{persist:false});
-        return;
-      }catch(_){}
+    if(isMain){
+      const bridge=[...document.querySelectorAll('[data-set-theme]')].find(btn=>btn.dataset.setTheme===next);
+      if(bridge){
+        try{
+          bridge.click();
+          currentTheme=next;
+          applyTheme(next,{persist:false});
+          return;
+        }catch(_){}
+      }
     }
     applyTheme(next);
   }
