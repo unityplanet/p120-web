@@ -82,8 +82,9 @@ html.p120-brand53-ready :is(.brand-button,.explore-brand,.creator-brand,.wp-bran
     min-height:44px;
   }
 
-  /* Explore carries both canonical locale/theme utilities and its own drawer
-     trigger. Compact those utilities without removing either capability. */
+  /* Explore carries canonical locale/theme utilities plus its drawer trigger.
+     At phone widths retain all capabilities while showing only the cross-locale
+     destination and converting the drawer label into a compact icon control. */
   html.p120-brand53-ready .explore-topbar .p120-brand53-tools{
     gap:4px!important;
     flex:0 0 auto;
@@ -114,6 +115,29 @@ html.p120-brand53-ready :is(.brand-button,.explore-brand,.creator-brand,.wp-bran
     content:'☰';
     font:500 18px/1 var(--p120-brand-sans);
     letter-spacing:0;
+  }
+
+  /* Why P-120 is composition-frozen. This is isolated header micro-polish only:
+     the brand already links home, so the legacy mobile home pill is redundant.
+     Keep one cross-locale action plus the canonical theme control. */
+  html.p120-brand53-ready .wp-header .wp-mobile-menu{
+    display:none!important;
+  }
+  html.p120-brand53-ready .wp-header .wp-header-tools{
+    min-width:0!important;
+    gap:5px!important;
+    margin-left:auto!important;
+  }
+  html.p120-brand53-ready .wp-header .p120-brand53-tools{
+    gap:4px!important;
+  }
+  html.p120-brand53-ready .wp-header .p120-brand53-language a[aria-current='page']{
+    display:none!important;
+  }
+  html.p120-brand53-ready .wp-header .p120-brand53-language a{
+    min-width:27px;
+    height:27px;
+    padding-inline:3px;
   }
 }
 
@@ -147,7 +171,8 @@ html.p120-brand53-ready :is(.brand-button,.explore-brand,.creator-brand,.wp-bran
     min-width:38px;
     padding-inline:6px;
   }
-  html.p120-brand53-ready .explore-topbar .p120-brand53-language a{
+  html.p120-brand53-ready .explore-topbar .p120-brand53-language a,
+  html.p120-brand53-ready .wp-header .p120-brand53-language a{
     min-width:25px;
     padding-inline:2px;
   }
@@ -156,21 +181,41 @@ html.p120-brand53-ready :is(.brand-button,.explore-brand,.creator-brand,.wp-bran
 CSS.write_text(css.rstrip() + css_append.rstrip() + '\n', encoding='utf-8')
 
 js = JS.read_text(encoding='utf-8')
-old = """      if(node.dataset.p120CanonicalBrand==='5.3') return;"""
-new = """      if(node.dataset.p120CanonicalBrand==='5.3'){
+old_brand = """      if(node.dataset.p120CanonicalBrand==='5.3') return;"""
+new_brand = """      if(node.dataset.p120CanonicalBrand==='5.3'){
         const descriptor=node.querySelector(':scope > .brand-lockup > .brand-sub');
         if(descriptor&&descriptor.textContent.trim()!==copy.descriptor) descriptor.textContent=copy.descriptor;
         if(node.tagName==='A') node.href=localeRoot(isEn);
         node.setAttribute('aria-label',isEn?'P-120 — home':'P-120 — на главную');
         return;
       }"""
-if old not in js:
+if old_brand not in js:
     raise SystemExit('Expected canonical-brand early-return authority not found; refusing unsafe patch')
-if js.count(old) != 1:
-    raise SystemExit(f'Expected one canonical-brand early-return, found {js.count(old)}')
-js = js.replace(old, new, 1)
+if js.count(old_brand) != 1:
+    raise SystemExit(f'Expected one canonical-brand early-return, found {js.count(old_brand)}')
+js = js.replace(old_brand, new_brand, 1)
+
+old_tools = """  function ensureTools(){
+    const inner=findHeaderInner();
+    if(!inner || inner.querySelector('[data-p120-brand53-tools]')) return;
+    const tpl=document.createElement('template'); tpl.innerHTML=toolsMarkup();"""
+new_tools = """  function ensureTools(){
+    const inner=findHeaderInner();
+    if(!inner || inner.querySelector('[data-p120-brand53-tools]')) return;
+    /* Science uses the same mature application header shell as Main and already
+       carries locale/theme/mobile utilities inside .topbar-tools. Injecting a
+       second canonical utility block creates a mobile second row, so preserve
+       the existing Science utility authority instead of duplicating it. */
+    if(pageKind==='science' && inner.querySelector('.topbar-tools')) return;
+    const tpl=document.createElement('template'); tpl.innerHTML=toolsMarkup();"""
+if old_tools not in js:
+    raise SystemExit('Expected ensureTools authority not found; refusing unsafe patch')
+if js.count(old_tools) != 1:
+    raise SystemExit(f'Expected one ensureTools authority, found {js.count(old_tools)}')
+js = js.replace(old_tools, new_tools, 1)
+
 JS.write_text(js, encoding='utf-8')
 
 print('PASS 2 controlled apply complete')
-print(' - p120-pass53-visual-corrections-v1.0.css: mobile descriptor authority appended')
-print(' - p120-brand-system-v1.0.js: canonical locale/aria reconciliation hardened')
+print(' - p120-pass53-visual-corrections-v1.0.css: mobile descriptor/header reconciliation appended')
+print(' - p120-brand-system-v1.0.js: canonical locale/aria + Science utility reconciliation hardened')
