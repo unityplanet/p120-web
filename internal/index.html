@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <meta name="referrer" content="no-referrer" />
+  <title>P-120 — Internal Cabinet</title>
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=ibm-plex-mono:400,500|ibm-plex-sans:300,400,500,600,700|noto-serif:500,600,700&display=swap" />
+  <style>
+    :root{--ink:#171715;--muted:#6c6b64;--line:#ded8cc;--paper:#f5efe4;--card:#fffaf2;--soft:#eee6da;--ok:#486455;--warn:#846440;--danger:#7a3b36;--shadow:0 24px 70px rgba(36,28,20,.08)}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(50rem 50rem at 100% 0,rgba(72,100,85,.08),transparent 60%),var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;min-width:320px}
+    header{position:sticky;top:0;z-index:10;border-top:3px solid var(--ink);border-bottom:1px solid var(--line);background:rgba(245,239,228,.92);backdrop-filter:blur(16px)}
+    .bar{max-width:1460px;margin:auto;padding:14px 26px;display:flex;gap:16px;align-items:center}.brand{font-family:"Noto Serif",serif;font-size:25px;font-weight:700}.sub{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.grow{flex:1}
+    main{max-width:1460px;margin:auto;padding:34px 26px 80px}.hero{padding:34px;border:1px solid var(--line);border-radius:24px;background:rgba(255,250,242,.92);box-shadow:var(--shadow)}
+    h1,h2,h3{font-family:"Noto Serif",serif;margin:0 0 12px}h1{font-size:clamp(38px,4vw,64px);letter-spacing:-.035em}h2{font-size:28px}.lead{color:#45423d;max-width:780px;line-height:1.55}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:18px}.card{grid-column:span 6;padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,250,242,.9);box-shadow:0 10px 30px rgba(36,28,20,.04)}.wide{grid-column:1/-1}.third{grid-column:span 4}
+    .meta{display:grid;grid-template-columns:160px 1fr;gap:9px 14px;font-size:13px}.meta b{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.06em;color:var(--muted)}
+    .badge{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.04em;background:#fff}.ok{color:var(--ok)}.warn{color:var(--warn)}.danger{color:var(--danger)}
+    button,.btn{appearance:none;border:1px solid var(--ink);background:var(--ink);color:white;border-radius:999px;padding:11px 16px;font-weight:700;cursor:pointer}.secondary{background:transparent;color:var(--ink);border-color:#bdb4a5}.danger-btn{background:transparent;color:var(--danger);border-color:#b99894}button:disabled{opacity:.4;cursor:not-allowed}
+    input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fffdf8;color:var(--ink);font:inherit}label{display:grid;gap:6px;font-size:12px;color:var(--muted)}.form{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:end}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:10px 8px;border-top:1px solid var(--line);vertical-align:top}th{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.mono{font-family:"IBM Plex Mono",monospace;font-size:11px}.muted{color:var(--muted)}.hidden{display:none!important}.status{margin-top:14px;padding:12px 14px;border-left:3px solid var(--ink);background:var(--soft);font-size:13px;white-space:pre-wrap}
+    @media(max-width:900px){.card,.third{grid-column:1/-1}.form{grid-template-columns:1fr 1fr}.meta{grid-template-columns:120px 1fr}}
+    @media(max-width:560px){main{padding:22px 14px 60px}.bar{padding:12px 14px}.hero,.card{padding:20px}.form{grid-template-columns:1fr}.meta{grid-template-columns:1fr}.meta b{margin-top:6px}}
+  </style>
+</head>
+<body>
+<header><div class="bar"><div class="brand">P-120</div><div class="sub">Internal Cabinet · PASS 1C</div><div class="grow"></div><span id="authBadge" class="badge">UNAUTHENTICATED</span><button id="signOut" class="secondary hidden">Выйти</button></div></header>
+<main>
+  <section id="loginView" class="hero">
+    <div class="sub">CONTROLLED ACCESS</div><h1>Internal Cabinet</h1>
+    <p class="lead">Вход только для заранее созданных внутренних аккаунтов P-120. Публичная регистрация здесь отключена; защищённые материалы не входят в статический HTML.</p>
+    <div class="form" style="max-width:720px;margin-top:24px"><label style="grid-column:span 3">Email<input id="email" type="email" autocomplete="email" placeholder="founder@example.com" /></label><button id="sendLink">Отправить Magic Link</button></div>
+    <div id="loginStatus" class="status hidden"></div>
+  </section>
+
+  <section id="cabinetView" class="hidden">
+    <div class="hero"><div class="sub">IDENTITY / CONTROL PLANE</div><h1>My P-120 · Internal</h1><p class="lead">Account layer управляет доступом и provenance. Measurement, scoring и raw response intake остаются отдельными защищёнными authority layers.</p></div>
+    <div class="grid">
+      <section class="card third"><h2>Identity</h2><div id="identityMeta" class="meta"></div></section>
+      <section class="card third"><h2>Access</h2><div id="accessMeta" class="meta"></div></section>
+      <section class="card third"><h2>Environment</h2><div class="meta"><b>PROJECT</b><span>p120-research</span><b>ENV</b><span>PRODUCTION</span><b>BOUNDARY</b><span>RLS / RPC / Private Storage</span></div></section>
+
+      <section class="card wide"><h2>Internal Resources</h2><div id="resources"></div></section>
+      <section class="card wide"><h2>My Alpha Sessions</h2><div id="sessions"></div></section>
+
+      <section id="founderControls" class="card wide hidden"><div class="sub">FOUNDER_ADMIN</div><h2>Founder Access Controls</h2>
+        <h3 style="margin-top:22px">Profiles</h3><div id="profiles"></div>
+        <h3 style="margin-top:28px">Grant entitlement</h3>
+        <div class="form"><label>User UUID<input id="entUser" /></label><label>Resource UUID<input id="entResource" placeholder="blank = global" /></label><label>Level<select id="entLevel"><option>RUN</option><option>VIEW</option><option>MANAGE</option></select></label><button id="grantEnt">Grant ALLOW</button></div>
+        <h3 style="margin-top:28px">Active entitlements</h3><div id="entitlements"></div>
+        <h3 style="margin-top:28px">Access audit</h3><div id="audit"></div>
+      </section>
+    </div>
+    <div id="cabinetStatus" class="status hidden"></div>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../p120-submission-config-v1.0.js"></script>
+<script src="./p120-internal-cabinet-v1.0.js"></script>
+</body>
+</html>
