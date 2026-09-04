@@ -1,0 +1,53 @@
+name: P120 Live E2E A1
+
+on:
+  push:
+    branches:
+      - p120-e2e-live-a1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Restore frozen worker bundle
+        shell: bash
+        run: |
+          cat .p120-e2e/a1/part00 .p120-e2e/a1/part01 .p120-e2e/a1/part02 .p120-e2e/a1/part03 .p120-e2e/a1/part04 .p120-e2e/a1/part05 > /tmp/p120_worker.b64
+          base64 -d /tmp/p120_worker.b64 > /tmp/p120_worker_bundle.tgz
+          echo "da7fc6c281318cac1a14efadf2b751cc5d3aff5f9220b8ce5a13d9b8c1b1e6bb  /tmp/p120_worker_bundle.tgz" | sha256sum -c -
+          mkdir runtime
+          tar -xzf /tmp/p120_worker_bundle.tgz -C runtime
+
+      - name: Install runtime dependency
+        run: python -m pip install "jsonschema>=4.20,<5"
+
+      - name: Run live P120 E2E
+        env:
+          P120_BRIDGE_URL: https://hvjgrpssjnnprazwhikn.supabase.co/functions/v1/p120-worker-bridge
+          P120_SUBMIT_URL: https://hvjgrpssjnnprazwhikn.supabase.co/functions/v1/p120-submit-e2e
+          P120_STATUS_URL: https://hvjgrpssjnnprazwhikn.supabase.co/functions/v1/p120-status
+          P120_WORKER_GATE: P120-WORKER-GATE-20260905
+          P120_SUBMIT_GATE: P120-SUBMIT-GATE-20260905
+          P120_SAFETY_SALT: P120-E2E-SYNTHETIC-SALT-20260905
+          P120_E2E_RUN: P120-E2E-LIVE-A1
+          P120_E2E_JOB_ID: JOB-E2E-LIVE-A1
+          P120_WORKER_ID: github-actions-p120-e2e-a1
+        run: python runtime/e2e_runner.py
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p120-live-e2e-a1
+          path: p120_e2e_summary.json
+          if-no-files-found: error
