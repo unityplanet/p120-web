@@ -28,7 +28,19 @@ jobs:
           npm install --silent playwright@1.55.0
           npx playwright install --with-deps chromium >/dev/null
       - name: Prepare hardened same-origin pre-load seed
-        run: sed -i 's#/.nojekyll#/robots.txt#g' qa/independent_mobile_ui_pass21_hardened.mjs
+        shell: bash
+        run: |
+          sed -i 's#/.nojekyll#/robots.txt#g' qa/independent_mobile_ui_pass21_hardened.mjs
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('qa/independent_mobile_ui_pass21_hardened.mjs')
+          s = p.read_text()
+          old = "localStorage.setItem(key,JSON.stringify(state));localStorage.setItem('p120_web_theme_v16',theme)"
+          new = "localStorage.setItem(key,JSON.stringify(state));localStorage.setItem('p120_web_theme_v16',theme);localStorage.setItem('p120_legal_acceptance_v1',JSON.stringify({schema:'p120.legal-acceptance.v1.0',notice_version:'P120-IP-SANDBOX-v1.0',rightsholder:'DEC',environment:'SANDBOX',acceptance_method:'audit_preseed',accepted_at:new Date().toISOString(),locale:state.sessionLocale||'audit'}))"
+          if old not in s:
+              raise SystemExit('seed patch anchor not found')
+          p.write_text(s.replace(old, new))
+          PY
       - name: Syntax check
         run: node --check qa/independent_mobile_ui_pass21_hardened.mjs
       - name: Start exact-source local server
