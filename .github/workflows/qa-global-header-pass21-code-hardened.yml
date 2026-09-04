@@ -1,0 +1,67 @@
+name: P120 WEB Global Header PASS 2.1 Hardened QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'p120-brand-system-v1.0.css'
+      - 'p120-brand-system-v1.0.js'
+      - 'p120-pass53-visual-corrections-v1.0.css'
+      - 'explore-system-v1.0.js'
+      - 'founder-route-v1.1.js'
+      - 'p120-legal-runtime-v1.0.js'
+      - 'index.html'
+      - 'en/index.html'
+      - 'science/**'
+      - 'en/science/**'
+      - 'system/**'
+      - 'en/system/**'
+      - 'extended/**'
+      - 'en/extended/**'
+      - 'together/**'
+      - 'en/together/**'
+      - 'creator/**'
+      - 'en/creator/**'
+      - 'why-p120/**'
+      - 'en/why-p120/**'
+      - 'intellectual-property/**'
+      - 'en/intellectual-property/**'
+      - 'terms/**'
+      - 'en/terms/**'
+      - 'privacy/**'
+      - 'en/privacy/**'
+      - 'qa/global_header_code_hardening_pass21.mjs'
+      - '.github/workflows/qa-global-header-pass21-code-hardened.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    name: Hardened source + runtime regression gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local production source
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-header-pass21-http.log 2>&1 &
+          sleep 2
+      - name: Run PASS 2.1 hardened QA
+        run: node qa/global_header_code_hardening_pass21.mjs
+      - name: Re-run PASS 1 original regression gate
+        run: node qa/global_header_brand_lockup_cleaning_pass1.mjs
+      - name: Upload PASS 2.1 evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: P120_WEB_GLOBAL_HEADER_PASS21_HARDENED_QA
+          path: |
+            qa-artifacts/header-code-pass21
+            qa-artifacts/header-lockup-pass1
+          retention-days: 30
