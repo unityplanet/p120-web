@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'qa/independent_mobile_ui_regression_audit.mjs'
+      - 'qa/independent_mobile_ui_regression_audit_v2.mjs'
       - '.github/workflows/qa-independent-mobile-ui-regression-audit.yml'
       - 'p120-mobile-primary-cta-pass2.css'
       - 'index.html'
@@ -33,14 +33,14 @@ jobs:
         run: |
           python3 -m http.server 4174 --bind 127.0.0.1 --directory .. >/tmp/p120-independent-mobile-audit.log 2>&1 &
           sleep 2
-      - name: Run independent mobile UI audit
+      - name: Run independent mobile UI audit v2
         env:
           P120_QA_BASE: http://127.0.0.1:4174/p120-web
-        run: node qa/independent_mobile_ui_regression_audit.mjs
+        run: node qa/independent_mobile_ui_regression_audit_v2.mjs
       - name: Upload independent evidence
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: P120_WEB_INDEPENDENT_MOBILE_UI_REGRESSION_AUDIT
-          path: qa-artifacts/independent-mobile-ui-audit
+          name: P120_WEB_INDEPENDENT_MOBILE_UI_REGRESSION_AUDIT_V2
+          path: qa-artifacts/independent-mobile-ui-audit-v2
           retention-days: 30
