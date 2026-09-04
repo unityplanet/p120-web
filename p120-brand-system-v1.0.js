@@ -129,7 +129,7 @@
 
   function staticNavMarkup(){
     const whyCurrent=pageKind==='why-p120'?' aria-current="page"':'';
-    return `<a class="p120-brand53-navitem" href="${homeAnchor('why-important')}">${copy.about}</a><a class="p120-brand53-navitem" href="${routeFor('why-p120')}"${whyCurrent}>${copy.why}</a><a class="p120-brand53-navitem" href="${homeAnchor('why-p120')}">${copy.unique}</a><a class="p120-brand53-navitem" href="${homeAnchor('what-p120-shows')}">${copy.shows}</a><a class="p120-brand53-navitem" href="${routeFor('science')}">${copy.science}</a>${megaMarkup()}`;
+    return `<a class="p120-brand53-navitem" href="${homeAnchor('why-important')}">${copy.about}</a><a class="p120-brand53-navitem" href="${routeFor('why-p120')}"${whyCurrent}>${copy.why}</a><a class="p120-brand53-navitem" href="${homeAnchor('why-p120')}">${copy.unique}</a><a class="p120-brand53-navitem" href="${homeAnchor('what-p120-shows')}">${copy.shows}</a><a class="p120-brand53-navitem" href="${homeAnchor('showcase')}">${copy.report}</a><a class="p120-brand53-navitem" href="${routeFor('science')}">${copy.science}</a>${megaMarkup()}`;
   }
 
   function patchNav(){
