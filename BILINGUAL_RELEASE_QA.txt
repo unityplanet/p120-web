@@ -16,7 +16,9 @@ External PDF routing RU/EN: PASS
 Public CSS production requests: 1 bundle
 Public presentation JS requests: 1 bundle
 Navigation Architecture: v2
-Reserved ecosystem routes: creator, together
+Chapter Navigation runtime: v1.6.0
+Mobile quick chapter surface: PATCH 1 / PASS 2
+Hamburger navigation: PRESERVED
 Mobile bottom navigation changes: NONE
 Web font stylesheet: non-render-blocking preload
 Localization runtime: debounced v1.1

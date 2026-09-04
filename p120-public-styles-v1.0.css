@@ -2676,7 +2676,7 @@ body[data-theme='graphite'] .science-page :is(
 
 
 /* === chapter-navigation-v1.0.css === */
-/* P-120 Web Editorial — Chapter Navigation v1.0
+/* P-120 Web Editorial — Chapter Navigation v1.6.0
    Presentation/navigation only. No measurement, scoring, questionnaire or report-engine changes. */
 
 :root{--chapter-nav-top:72px;--chapter-progress:20%}
@@ -2852,8 +2852,155 @@ body[data-theme='graphite'] .science-page :is(
 }
 .chapter-mobile-link.is-active>div>div{color:var(--ink)}
 
+/* PATCH 1 / PASS 2 — additive mobile quick-chapter surface.
+   The hamburger drawer and its existing chapter group remain independently available. */
+.chapter-mobile-quick{display:none}
+@media (max-width:820px){
+  .chapter-mobile-quick{
+    display:block;
+    position:fixed;
+    z-index:37;
+    right:max(10px,env(safe-area-inset-right));
+    bottom:calc(92px + env(safe-area-inset-bottom));
+    width:min(326px,calc(100vw - 20px - env(safe-area-inset-left) - env(safe-area-inset-right)));
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(8px);
+    pointer-events:none;
+    transition:opacity .20s ease,transform .22s ease,visibility .20s step-end;
+  }
+  html.chapter-mobile-quick-visible .chapter-mobile-quick{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+    pointer-events:auto;
+    transition:opacity .20s ease,transform .22s ease,visibility 0s step-start;
+  }
+  body.mobile-menu-open .chapter-mobile-quick{
+    opacity:0!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    transform:translateY(8px)!important;
+  }
+  .chapter-mobile-quick-trigger{
+    appearance:none;
+    min-height:46px;
+    max-width:100%;
+    margin-left:auto;
+    padding:8px 12px 8px 10px;
+    border:1px solid color-mix(in srgb,var(--line-strong,var(--line)) 84%,transparent);
+    border-radius:999px;
+    background:color-mix(in srgb,var(--paper) 92%,transparent);
+    color:var(--ink);
+    box-shadow:0 12px 30px rgba(18,18,16,.10),inset 0 1px 0 rgba(255,255,255,.34);
+    backdrop-filter:blur(18px) saturate(115%);
+    -webkit-backdrop-filter:blur(18px) saturate(115%);
+    display:grid;
+    grid-template-columns:30px minmax(0,1fr) 20px;
+    align-items:center;
+    gap:7px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:12px;
+    font-weight:720;
+    line-height:1.15;
+    text-align:left;
+  }
+  .chapter-mobile-quick-current-index{
+    width:30px;height:30px;
+    display:grid;place-items:center;
+    border:1px solid var(--line);
+    border-radius:999px;
+    color:var(--muted);
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.07em;
+    background:color-mix(in srgb,var(--soft) 68%,transparent);
+  }
+  .chapter-mobile-quick-current-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .chapter-mobile-quick-chevron{display:grid;place-items:center;color:var(--muted);font-size:13px;transition:transform .18s ease}
+  .chapter-mobile-quick.is-open .chapter-mobile-quick-chevron{transform:rotate(180deg)}
+  .chapter-mobile-quick-panel{
+    position:absolute;
+    right:0;
+    bottom:calc(100% + 8px);
+    width:100%;
+    padding:7px;
+    border:1px solid color-mix(in srgb,var(--line-strong,var(--line)) 84%,transparent);
+    border-radius:19px;
+    background:color-mix(in srgb,var(--paper) 95%,transparent);
+    box-shadow:0 18px 42px rgba(18,18,16,.14),inset 0 1px 0 rgba(255,255,255,.30);
+    backdrop-filter:blur(22px) saturate(118%);
+    -webkit-backdrop-filter:blur(22px) saturate(118%);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(7px) scale(.985);
+    transform-origin:bottom right;
+    pointer-events:none;
+    transition:opacity .16s ease,transform .18s ease,visibility .16s step-end;
+  }
+  .chapter-mobile-quick.is-open .chapter-mobile-quick-panel{
+    opacity:1;
+    visibility:visible;
+    transform:none;
+    pointer-events:auto;
+    transition:opacity .16s ease,transform .18s ease,visibility 0s step-start;
+  }
+  .chapter-mobile-quick-item{
+    appearance:none;
+    width:100%;
+    min-height:43px;
+    padding:7px 9px;
+    border:0;
+    border-radius:13px;
+    background:transparent;
+    color:var(--muted);
+    display:grid;
+    grid-template-columns:30px minmax(0,1fr);
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:12px;
+    font-weight:680;
+    line-height:1.2;
+    text-align:left;
+  }
+  .chapter-mobile-quick-item+.chapter-mobile-quick-item{margin-top:2px}
+  .chapter-mobile-quick-item-index{
+    width:28px;height:24px;
+    display:grid;place-items:center;
+    border:1px solid var(--line);
+    border-radius:999px;
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:.07em;
+    color:var(--muted);
+  }
+  .chapter-mobile-quick-item.is-active{
+    background:color-mix(in srgb,var(--soft) 66%,transparent);
+    color:var(--ink);
+  }
+  .chapter-mobile-quick-item.is-active .chapter-mobile-quick-item-index{
+    color:var(--ink);
+    border-color:var(--line-strong);
+    background:color-mix(in srgb,var(--paper) 72%,transparent);
+  }
+  .chapter-mobile-quick-item:focus-visible,
+  .chapter-mobile-quick-trigger:focus-visible{
+    outline:2px solid var(--focus-ring,var(--accent,var(--ok)));
+    outline-offset:2px;
+  }
+  body[data-theme="graphite"] .chapter-mobile-quick-trigger,
+  body[data-theme="graphite"] .chapter-mobile-quick-panel{
+    box-shadow:0 18px 42px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.06);
+  }
+}
+
 @media (prefers-reduced-motion:reduce){
-  .chapter-jump-nav,.chapter-jump-progress>i,.chapter-jump-button{transition:none!important}
+  .chapter-jump-nav,.chapter-jump-progress>i,.chapter-jump-button,
+  .chapter-mobile-quick,.chapter-mobile-quick-trigger,.chapter-mobile-quick-chevron,
+  .chapter-mobile-quick-panel,.chapter-mobile-quick-item{transition:none!important}
 }
 
 
