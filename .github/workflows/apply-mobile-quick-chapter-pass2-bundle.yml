@@ -1,0 +1,109 @@
+name: P120 WEB PATCH 1 PASS 2 Isolated Bundle Reconciliation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-mobile-quick-chapter-pass2-bundle.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconcile only Chapter Navigation section into generated bundles
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess, hashlib
+
+          BASE='cb0b50f56fc7c833ad472b4de0cdb9eb995295ed'
+          def show(path):
+              return subprocess.check_output(['git','show',f'{BASE}:{path}'],text=True)
+          def replace_section(bundle, marker, next_marker, source):
+              assert bundle.count(marker)==1, (marker,bundle.count(marker))
+              assert bundle.count(next_marker)==1, (next_marker,bundle.count(next_marker))
+              a=bundle.index(marker)
+              b=bundle.index(next_marker,a)
+              return bundle[:a]+marker+'\n'+source.rstrip()+'\n\n'+bundle[b:]
+          def h(s): return hashlib.sha256(s.encode()).hexdigest()
+          def cut(s,a,b): return s[s.index(a):s.index(b,s.index(a))]
+
+          chapter_js=Path('chapter-navigation-v1.0.js').read_text(encoding='utf-8')
+          chapter_css=Path('chapter-navigation-v1.0.css').read_text(encoding='utf-8')
+          assert 'Chapter Navigation v1.6.0' in chapter_js
+          assert 'p120-mobile-quick-chapters' in chapter_js
+          assert 'chapter-mobile-quick' in chapter_css
+
+          runtime=replace_section(
+              show('p120-public-runtime-v1.0.js'),
+              '/* === chapter-navigation-v1.0.js === */',
+              '/* === language-switch-v1.0.js === */',
+              chapter_js
+          )
+          styles=replace_section(
+              show('p120-public-styles-v1.0.css'),
+              '/* === chapter-navigation-v1.0.css === */',
+              '/* === language-switch-v1.0.css === */',
+              chapter_css
+          )
+          Path('p120-public-runtime-v1.0.js').write_text(runtime,encoding='utf-8')
+          Path('p120-public-styles-v1.0.css').write_text(styles,encoding='utf-8')
+
+          for f,prefix in [('index.html',''),('en/index.html','../')]:
+              s=show(f)
+              before=(
+                  h(cut(s,'window.P120_INSTRUMENT =','window.P120_SCIENCE=')),
+                  h(cut(s,'function renderPreflight(){','function render(){')),
+                  h(cut(s,'function renderMobileBottomNav(){','function renderMobileDrawer(){'))
+              )
+              s=s.replace(prefix+'p120-public-styles-v1.0.css?v=pub21',prefix+'p120-public-styles-v1.0.css?v=pub22')
+              s=s.replace(prefix+'p120-public-runtime-v1.0.js?v=pub21',prefix+'p120-public-runtime-v1.0.js?v=pub22')
+              assert s.count(prefix+'p120-public-styles-v1.0.css?v=pub22')==1
+              assert s.count(prefix+'p120-public-runtime-v1.0.js?v=pub22')==1
+              after=(
+                  h(cut(s,'window.P120_INSTRUMENT =','window.P120_SCIENCE=')),
+                  h(cut(s,'function renderPreflight(){','function render(){')),
+                  h(cut(s,'function renderMobileBottomNav(){','function renderMobileDrawer(){'))
+              )
+              assert before==after, f'{f}: frozen assessment blocks changed'
+              Path(f).write_text(s,encoding='utf-8')
+
+          qa=show('BILINGUAL_RELEASE_QA.txt')
+          anchor='Navigation Architecture: v2\n'
+          if anchor in qa:
+              qa=qa.replace(anchor,anchor+'Chapter Navigation runtime: v1.6.0\nMobile quick chapter surface: PATCH 1 / PASS 2\nHamburger navigation: PRESERVED\n',1)
+          Path('BILINGUAL_RELEASE_QA.txt').write_text(qa,encoding='utf-8')
+
+          assert runtime.count('/* === chapter-navigation-v1.0.js === */')==1
+          assert styles.count('/* === chapter-navigation-v1.0.css === */')==1
+          assert 'Chapter Navigation v1.6.0' in runtime
+          assert 'p120-mobile-quick-chapters' in runtime
+          assert 'body.mobile-menu-open .chapter-mobile-quick' in styles
+          print('PATCH 1 / PASS 2 isolated bundle reconciliation prepared')
+          PY
+
+      - name: Syntax and isolation checks
+        run: |
+          node --check chapter-navigation-v1.0.js
+          node --check p120-public-runtime-v1.0.js
+          git diff --check
+          git diff --stat
+
+      - name: Commit isolated production reconciliation
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html en/index.html BILINGUAL_RELEASE_QA.txt p120-public-runtime-v1.0.js p120-public-styles-v1.0.css
+          git commit -m 'P120 WEB PATCH 1 PASS 2: isolate mobile quick chapter production bundle'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
