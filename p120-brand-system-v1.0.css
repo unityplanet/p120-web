@@ -350,3 +350,14 @@ html.p120-brand53-ready .p120-legal-page .p120-brand53-header+*{scroll-margin-to
 @media(prefers-reduced-motion:reduce){
   html.p120-brand53-ready *,html.p120-brand53-ready *::before,html.p120-brand53-ready *::after{scroll-behavior:auto!important;transition-duration:.001ms!important;animation-duration:.001ms!important;animation-iteration-count:1!important}
 }
+
+/* PATCH 3 / PASS 2 — Main quick locale/theme utility parity.
+   Reuses canonical p120-brand53-tools; Main desktop composition remains unchanged. */
+html.p120-brand53-ready .p120-brand53-tools--main-quick{display:none}
+@media(max-width:820px){
+  html.p120-brand53-ready .topbar .p120-brand53-tools--main-quick{
+    display:flex;
+    margin-left:0;
+    flex:0 0 auto;
+  }
+}

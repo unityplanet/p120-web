@@ -156,26 +156,47 @@
     document.querySelectorAll('[data-p120-theme-label]').forEach(node=>node.textContent=themeLabel(currentTheme));
   }
 
+  // PATCH 3 / PASS 2 — Main quick utilities reuse the canonical theme authority
+  // while keeping Main's legacy render-local theme variable synchronized.
+  function applyUtilityTheme(next){
+    if(!THEMES.includes(next)) return;
+    if(isMain && typeof window.setTheme==='function'){
+      try{
+        window.setTheme(next);
+        currentTheme=next;
+        applyTheme(next,{persist:false});
+        return;
+      }catch(_){}
+    }
+    applyTheme(next);
+  }
+
   function toolsMarkup(){
     return `<div class="p120-brand53-tools" data-p120-brand53-tools><nav class="p120-brand53-language" aria-label="${copy.language}"><a href="${counterpart(false)}" lang="ru" ${!isEn?'aria-current="page"':''}>RU</a><a href="${counterpart(true)}" lang="en" ${isEn?'aria-current="page"':''}>EN</a></nav><details class="p120-brand53-theme"><summary aria-label="${copy.theme}"><span class="p120-brand53-theme-dot" aria-hidden="true"></span><span data-p120-theme-label>${themeLabel(currentTheme)}</span></summary><div class="p120-brand53-theme-popover">${THEMES.map(t=>`<button type="button" class="p120-brand53-theme-option" data-p120-theme="${t}" aria-pressed="false"><span class="p120-brand53-theme-swatch ${t}" aria-hidden="true"></span><span>${themeLabel(t)}</span></button>`).join('')}</div></details></div>`;
   }
 
-  function findHeaderInner(){return document.querySelector('.explore-topbar__inner,.creator-topbar__inner,.wp-header-inner,.p120-brand53-header__inner');}
+  function findHeaderInner(){return document.querySelector('.topbar-inner,.explore-topbar__inner,.creator-topbar__inner,.wp-header-inner,.p120-brand53-header__inner');}
   function ensureTools(){
-    if(isMain) return;
     const inner=findHeaderInner();
     if(!inner || inner.querySelector('[data-p120-brand53-tools]')) return;
     const tpl=document.createElement('template'); tpl.innerHTML=toolsMarkup();
     const tools=tpl.content.firstElementChild;
-    const anchor=inner.querySelector('.explore-menu-btn,.creator-tools,.wp-header-tools');
-    if(anchor?.classList.contains('wp-header-tools')) anchor.prepend(tools);
-    else if(anchor){
-      if(anchor.classList.contains('creator-tools')) anchor.classList.add('p120-brand53-legacy-tools');
-      inner.insertBefore(tools,anchor);
+    if(isMain){
+      const mainTools=inner.querySelector('.topbar-tools');
+      if(!mainTools) return;
+      tools.classList.add('p120-brand53-tools--main-quick');
+      mainTools.prepend(tools);
+    } else {
+      const anchor=inner.querySelector('.explore-menu-btn,.creator-tools,.wp-header-tools');
+      if(anchor?.classList.contains('wp-header-tools')) anchor.prepend(tools);
+      else if(anchor){
+        if(anchor.classList.contains('creator-tools')) anchor.classList.add('p120-brand53-legacy-tools');
+        inner.insertBefore(tools,anchor);
+      }
+      else inner.appendChild(tools);
     }
-    else inner.appendChild(tools);
     tools.querySelectorAll('[data-p120-theme]').forEach(btn=>btn.addEventListener('click',e=>{
-      e.preventDefault(); applyTheme(btn.dataset.p120Theme); tools.querySelector('.p120-brand53-theme')?.removeAttribute('open');
+      e.preventDefault(); applyUtilityTheme(btn.dataset.p120Theme); tools.querySelector('.p120-brand53-theme')?.removeAttribute('open');
     }));
     tools.querySelector('.p120-brand53-theme')?.addEventListener('toggle',e=>{
       if(e.currentTarget.open) closeMegaMenus();
@@ -372,6 +393,6 @@
     }).observe(document.body,{attributes:true,attributeFilter:['data-theme']});
   }
 
-  window.P120_BRAND_SYSTEM=Object.freeze({version:'5.3',revision:'5.3.2',themeKey:THEME_KEY,descriptor:copy.descriptor,brand:copy.brand,root:rootUrl.href,reconcile,getReconcileCount:()=>reconcileCount});
+  window.P120_BRAND_SYSTEM=Object.freeze({version:'5.3',revision:'5.3.3',themeKey:THEME_KEY,descriptor:copy.descriptor,brand:copy.brand,root:rootUrl.href,reconcile,getReconcileCount:()=>reconcileCount});
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
 })();
