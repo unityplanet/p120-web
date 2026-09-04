@@ -1,0 +1,283 @@
+/* P-120 CONTACT v1.0 — PASS 4 STATIC FRONTEND / TRANSPORT OFF
+   Visual/editorial contact surface only.
+   No submission, persistence, Supabase, email, analytics or respondent-data binding. */
+
+:root{
+  --contact-max:1480px;
+  --contact-danger:#8a4b43;
+  --contact-warn:#8b6b43;
+  --contact-focus:var(--p120-brand-focus,#2F7D78);
+}
+body[data-theme='graphite']{--contact-danger:#d89a91;--contact-warn:#d7b783}
+body[data-theme='museum']{--contact-danger:#87544d;--contact-warn:#8b6b43}
+
+.p120-contact-page{
+  margin:0;
+  min-width:320px;
+  min-height:100svh;
+  background:
+    radial-gradient(900px 520px at 82% 10%,color-mix(in srgb,var(--p120-brand-teal) 7%,transparent),transparent 60%),
+    var(--p120-brand-canvas);
+  color:var(--p120-brand-ink);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+.p120-contact-page *{box-sizing:border-box}
+.p120-contact-page a{color:inherit}
+.p120-contact-page button,.p120-contact-page input,.p120-contact-page textarea{font:inherit}
+
+.contact-skip-link{
+  position:fixed;left:14px;top:10px;z-index:1000;
+  transform:translateY(-180%);padding:9px 13px;border-radius:999px;
+  background:var(--p120-brand-ink);color:var(--p120-brand-surface)!important;
+  text-decoration:none;font:700 12px/1.2 "IBM Plex Sans",sans-serif;
+}
+.contact-skip-link:focus{transform:none}
+
+.contact-main{
+  width:min(var(--contact-max),calc(100% - 36px));
+  margin:0 auto;
+  padding:clamp(58px,7vw,112px) 0 clamp(72px,8vw,128px);
+}
+
+.contact-hero{
+  display:grid;
+  grid-template-columns:minmax(0,1.14fr) minmax(300px,.72fr);
+  gap:clamp(34px,6vw,92px);
+  align-items:end;
+  padding-bottom:clamp(46px,6vw,82px);
+  border-bottom:1px solid color-mix(in srgb,var(--p120-brand-line) 68%,transparent);
+}
+.contact-hero>*{min-width:0}
+.contact-kicker,.contact-section-label{
+  margin:0;
+  font:600 10px/1.35 "IBM Plex Mono",ui-monospace,monospace;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--p120-brand-teal-deep);
+}
+.contact-hero h1{
+  margin:16px 0 0;
+  max-width:900px;
+  font-family:"Noto Serif Display","Noto Serif",serif;
+  font-size:clamp(58px,8vw,118px);
+  font-weight:500;
+  line-height:.94;
+  letter-spacing:-.052em;
+}
+.contact-intro{
+  margin:0;
+  max-width:620px;
+  font-family:"Noto Serif",serif;
+  font-size:clamp(17px,1.3vw,21px);
+  line-height:1.66;
+  color:var(--p120-brand-ink-2);
+}
+
+.contact-workspace{
+  display:grid;
+  grid-template-columns:minmax(250px,.72fr) minmax(0,1.38fr);
+  gap:clamp(34px,6vw,92px);
+  align-items:start;
+  padding-top:clamp(42px,5.5vw,78px);
+}
+.contact-context{min-width:0;display:grid;gap:clamp(34px,5vw,66px);padding-top:8px}
+.contact-context__block h2,.contact-correspondence__head h2{
+  margin:12px 0 14px;
+  font-family:"Noto Serif Display","Noto Serif",serif;
+  font-size:clamp(30px,3.2vw,48px);
+  font-weight:500;
+  line-height:1.02;
+  letter-spacing:-.033em;
+}
+.contact-context__block>p:last-child,.contact-boundary p{
+  margin:0;
+  max-width:510px;
+  color:var(--p120-brand-ink-2);
+  font-size:14px;
+  line-height:1.72;
+}
+.contact-boundary{
+  padding:22px 0 2px 22px;
+  border-left:2px solid color-mix(in srgb,var(--p120-brand-bronze,#B39063) 78%,var(--p120-brand-line));
+}
+.contact-boundary .contact-section-label{margin-bottom:14px;color:var(--contact-warn)}
+.contact-boundary p+p{margin-top:12px}
+.contact-boundary strong{color:var(--p120-brand-ink);font-weight:650}
+
+.contact-correspondence{
+  min-width:0;
+  padding:clamp(26px,3.2vw,48px) clamp(24px,3.4vw,52px) clamp(30px,3.8vw,56px);
+  border:1px solid color-mix(in srgb,var(--p120-brand-line) 72%,transparent);
+  border-radius:26px;
+  background:color-mix(in srgb,var(--p120-brand-surface) 74%,transparent);
+  box-shadow:0 28px 78px color-mix(in srgb,var(--p120-brand-ink) 7%,transparent);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+body[data-theme='graphite'] .contact-correspondence{box-shadow:0 30px 90px rgba(0,0,0,.18)}
+.contact-correspondence__head{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:22px;
+  padding-bottom:24px;
+  border-bottom:1px solid color-mix(in srgb,var(--p120-brand-line) 62%,transparent);
+}
+.contact-correspondence__head h2{margin-bottom:0}
+.contact-offline-badge{
+  flex:0 0 auto;
+  border:1px solid color-mix(in srgb,var(--p120-brand-line) 70%,transparent);
+  border-radius:999px;
+  padding:7px 10px;
+  color:var(--p120-brand-ink-2);
+  background:color-mix(in srgb,var(--p120-brand-surface-soft) 68%,transparent);
+  font:600 9px/1 "IBM Plex Mono",ui-monospace,monospace;
+  letter-spacing:.10em;
+  white-space:nowrap;
+}
+
+.contact-form{margin-top:6px}
+.contact-field-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.contact-field{
+  min-width:0;
+  padding:24px 0 16px;
+  border-bottom:1px solid color-mix(in srgb,var(--p120-brand-line) 62%,transparent);
+  transition:border-color .16s ease,box-shadow .16s ease;
+}
+.contact-field:focus-within{
+  border-bottom-color:var(--contact-focus);
+  box-shadow:0 1px 0 var(--contact-focus);
+}
+.contact-field.is-invalid{border-bottom-color:var(--contact-danger);box-shadow:0 1px 0 color-mix(in srgb,var(--contact-danger) 72%,transparent)}
+.contact-field label{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  color:var(--p120-brand-ink);
+  font:650 12px/1.25 "IBM Plex Sans",sans-serif;
+}
+.contact-field label span{
+  color:var(--p120-brand-ink-2);
+  font:500 9px/1.2 "IBM Plex Mono",ui-monospace,monospace;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.contact-field input,.contact-field textarea{
+  width:100%;max-width:100%;
+  margin-top:9px;
+  padding:7px 0 4px;
+  border:0;
+  outline:0;
+  border-radius:0;
+  background:transparent;
+  color:var(--p120-brand-ink);
+  caret-color:var(--contact-focus);
+  font:400 17px/1.55 "IBM Plex Sans",sans-serif;
+}
+.contact-field textarea{display:block;min-height:210px;resize:vertical;line-height:1.62}
+.contact-field input::placeholder,.contact-field textarea::placeholder{color:color-mix(in srgb,var(--p120-brand-ink-2) 60%,transparent);opacity:1}
+.contact-field input:-webkit-autofill,.contact-field textarea:-webkit-autofill{-webkit-text-fill-color:var(--p120-brand-ink);box-shadow:0 0 0 1000px var(--p120-brand-surface) inset}
+.contact-field-error{
+  margin:7px 0 0;
+  color:var(--contact-danger);
+  font:600 11px/1.45 "IBM Plex Sans",sans-serif;
+}
+.contact-message-meta{min-height:20px;display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-top:6px}
+.contact-message-meta .contact-field-error{margin:0}
+.contact-message-meta [data-contact-counter]{margin-left:auto;color:var(--p120-brand-ink-2);font:500 9px/1.4 "IBM Plex Mono",ui-monospace,monospace;white-space:nowrap}
+
+.contact-transport-note{
+  display:grid;
+  grid-template-columns:10px minmax(0,1fr);
+  gap:14px;
+  margin-top:26px;
+  padding:18px 20px;
+  border:1px solid color-mix(in srgb,var(--p120-brand-line) 62%,transparent);
+  background:color-mix(in srgb,var(--p120-brand-surface-soft) 66%,transparent);
+}
+.contact-transport-note__mark{width:8px;height:8px;margin-top:5px;border-radius:50%;background:var(--p120-brand-bronze,#B39063)}
+.contact-transport-note strong{display:block;font-size:12px;font-weight:700}
+.contact-transport-note p{margin:5px 0 0;color:var(--p120-brand-ink-2);font-size:12px;line-height:1.55}
+.contact-privacy{margin:18px 0 0;color:var(--p120-brand-ink-2);font-size:11px;line-height:1.62}
+.contact-privacy a{text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--p120-brand-ink) 28%,transparent);font-weight:600}
+.contact-privacy a:is(:hover,:focus-visible){border-bottom-color:currentColor}
+
+.contact-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px}
+.contact-submit{
+  min-height:50px;
+  border:1px solid var(--p120-brand-ink);
+  border-radius:999px;
+  padding:13px 21px;
+  background:var(--p120-brand-ink);
+  color:var(--p120-brand-surface);
+  font:700 13px/1.2 "IBM Plex Sans",sans-serif;
+}
+.contact-submit:disabled{opacity:.48;cursor:not-allowed;filter:saturate(.76)}
+.contact-submit-state{color:var(--p120-brand-ink-2);font:550 10px/1.4 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.04em}
+
+.contact-field :is(input,textarea):focus-visible,
+.contact-privacy a:focus-visible{
+  outline:2px solid var(--contact-focus);
+  outline-offset:4px;
+}
+.contact-field :is(input,textarea):focus{outline:none}
+.contact-field :is(input,textarea):focus-visible{outline:none}
+
+@media(max-width:1080px){
+  .contact-main{padding-top:clamp(48px,7vw,76px)}
+  .contact-hero{grid-template-columns:minmax(0,1fr) minmax(280px,.82fr);gap:34px}
+  .contact-workspace{grid-template-columns:minmax(220px,.65fr) minmax(0,1.35fr);gap:36px}
+}
+
+@media(max-width:900px){
+  .contact-hero{grid-template-columns:1fr;gap:24px;align-items:start}
+  .contact-intro{max-width:760px}
+  .contact-workspace{grid-template-columns:1fr;gap:40px}
+  .contact-context{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;padding-top:0}
+  .contact-boundary{height:100%}
+}
+
+@media(max-width:720px){
+  .contact-main{width:min(100% - 30px,var(--contact-max));padding:44px 0 78px}
+  .contact-hero{padding-bottom:38px}
+  .contact-hero h1{font-size:clamp(52px,17vw,78px)}
+  .contact-intro{font-size:17px;line-height:1.58}
+  .contact-workspace{padding-top:36px;gap:34px}
+  .contact-context{grid-template-columns:1fr;gap:28px}
+  .contact-boundary{padding:19px 0 0 18px}
+  .contact-correspondence{padding:24px 20px 28px;border-radius:22px}
+  .contact-correspondence__head{gap:16px;padding-bottom:18px}
+  .contact-correspondence__head h2{font-size:36px}
+  .contact-field-grid{grid-template-columns:1fr;gap:0}
+  .contact-field{padding-top:21px}
+  .contact-field input,.contact-field textarea{font-size:16px}
+  .contact-field textarea{min-height:190px}
+  .contact-actions{align-items:stretch;flex-direction:column;gap:11px}
+  .contact-submit{width:100%;min-height:52px}
+  .contact-submit-state{text-align:center}
+}
+
+@media(max-width:430px){
+  .contact-main{width:calc(100% - 28px);padding-top:38px}
+  .contact-kicker,.contact-section-label{font-size:9px;letter-spacing:.115em}
+  .contact-hero h1{margin-top:13px;font-size:clamp(50px,16vw,67px)}
+  .contact-intro{font-size:16px}
+  .contact-context__block h2{font-size:32px}
+  .contact-context__block>p:last-child,.contact-boundary p{font-size:13px}
+  .contact-correspondence{padding:22px 16px 25px;border-radius:20px}
+  .contact-correspondence__head{align-items:flex-end}
+  .contact-correspondence__head h2{font-size:32px}
+  .contact-offline-badge{font-size:8px;padding:6px 8px}
+  .contact-field label{font-size:12px}
+  .contact-field label span{font-size:8px}
+  .contact-field textarea{min-height:180px}
+  .contact-transport-note{padding:16px 15px}
+}
+
+@media(max-width:359px){
+  .contact-main{width:calc(100% - 24px)}
+  .contact-correspondence{padding-inline:14px}
+  .contact-offline-badge{max-width:92px;white-space:normal;text-align:center;line-height:1.25}
+  .contact-message-meta{gap:10px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .p120-contact-page *, .p120-contact-page *::before, .p120-contact-page *::after{scroll-behavior:auto!important;transition-duration:.001ms!important;animation-duration:.001ms!important;animation-iteration-count:1!important}
+}
