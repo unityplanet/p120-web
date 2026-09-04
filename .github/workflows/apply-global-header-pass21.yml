@@ -20,6 +20,16 @@ jobs:
           fetch-depth: 0
       - name: Validate patcher syntax
         run: python3 -m py_compile qa/apply_global_header_pass21.py
+      - name: Normalize compact EN Explore header formatting
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          for rel in ('en/extended/index.html','en/together/index.html'):
+              p=Path(rel)
+              text=p.read_text(encoding='utf-8')
+              text=text.replace('<button class="explore-menu-btn"','\n    <button class="explore-menu-btn"',1)
+              p.write_text(text,encoding='utf-8')
+          PY
       - name: Apply deterministic PASS 2.1 patch
         run: python3 qa/apply_global_header_pass21.py
       - name: Validate diff
