@@ -1,0 +1,45 @@
+name: P120 WEB Mobile Session Resume PATCH 2 PASS 2 Apply
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/scripts/p120_patch2_pass2_session_resume_apply.py'
+      - '.github/workflows/apply-mobile-session-resume-patch2-pass2.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Apply bounded session-resume authority patch
+        run: python3 .github/scripts/p120_patch2_pass2_session_resume_apply.py
+      - name: Verify diff boundary
+        shell: bash
+        run: |
+          changed="$(git diff --name-only)"
+          echo "$changed"
+          test "$changed" = "p120-brand-system-v1.0.js"
+          ! grep -q "const SESSION_KEY = 'p120_web_prototype_v01';" p120-brand-system-v1.0.js
+          grep -q "p120_runtime_session_ru_v1" p120-brand-system-v1.0.js
+          grep -q "p120_runtime_session_en_v1" p120-brand-system-v1.0.js
+          grep -q "mobile-session-resume-v1.0.js" p120-brand-system-v1.0.js
+      - name: Commit controlled production change
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No production change required"
+            exit 0
+          fi
+          git config user.name "P-120 Controlled Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add p120-brand-system-v1.0.js
+          git commit -m "P120 WEB PATCH 2 PASS 2: reconcile mobile resume authority"
+          git push origin HEAD:main
