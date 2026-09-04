@@ -1,5 +1,6 @@
 name: P120 WEB Main Quick Locale Theme PATCH 3 PASS 2 QA
 
+# PATCH 3 permanent regression authority; hardened after drawer-close harness reconciliation.
 on:
   workflow_dispatch:
   push:
