@@ -158,3 +158,65 @@ html.p120-brand53-ready .creator-context{width:min(var(--p120-brand-stage),100%)
   .p120-site-footer__brand{grid-template-columns:50px minmax(0,1fr)}.p120-site-footer__mark{width:50px;height:50px}.p120-footer-brand{font-size:34px!important}
   .p120-site-footer__brandcopy small{font-size:12px}.p120-site-footer__chapters a{font-size:14px}.p120-legal-footer.p120-site-footer .p120-legal-footer__notice{font-size:14px}.p120-legal-footer.p120-site-footer .p120-legal-footer__links a{font-size:13px}.p120-legal-footer.p120-site-footer .p120-legal-footer__sandbox{font-size:10px!important}
 }
+
+/* --------------------------------------------------------------------------
+   E. MOBILE UI MICRO-CORRECTION / PASS 2.1
+   CTA-01A: canonical RU /system/ coverage without reopening header authority.
+   PROGRESS-01: separate session label and percentage as distinct semantic units.
+   -------------------------------------------------------------------------- */
+@media(max-width:820px){
+  /* RU canonical System did not load the dedicated PASS 2 CTA sheet. Keep the
+     same PASS 2.1 authority here, scoped only to that route. */
+  body[data-p120-page="system"][data-p120-locale="ru"] .mobile-bottom-nav button.cta,
+  body[data-p120-page="system"][data-p120-locale="ru"] .mobile-bottom-nav button.cta.active{
+    background:linear-gradient(135deg,#171715,color-mix(in srgb,#171715 74%,#4A8E89));
+    color:#fff;
+    box-shadow:0 16px 30px rgba(18,18,16,.16);
+  }
+  body[data-p120-page="system"][data-p120-locale="ru"] .mobile-bottom-nav button.cta .mobile-nav-icon,
+  body[data-p120-page="system"][data-p120-locale="ru"] .mobile-bottom-nav button.cta.active .mobile-nav-icon{
+    background:rgba(255,255,255,.14);
+    color:#fff;
+  }
+  body[data-p120-page="system"][data-p120-locale="ru"][data-theme="graphite"] .mobile-bottom-nav button.cta,
+  body[data-p120-page="system"][data-p120-locale="ru"][data-theme="graphite"] .mobile-bottom-nav button.cta.active{
+    background:linear-gradient(135deg,#58706C,#49635F);
+    color:#F5EFE5;
+    border-color:rgba(205,220,214,.22);
+    box-shadow:0 14px 32px rgba(0,0,0,.16),0 0 30px rgba(130,155,152,.08);
+  }
+  body[data-p120-page="system"][data-p120-locale="ru"][data-theme="graphite"] .mobile-bottom-nav button.cta .mobile-nav-icon,
+  body[data-p120-page="system"][data-p120-locale="ru"][data-theme="graphite"] .mobile-bottom-nav button.cta.active .mobile-nav-icon{
+    background:rgba(245,239,228,.12);
+    color:#F5EFE5;
+  }
+  body[data-p120-page="system"][data-p120-locale="ru"][data-theme="museum"] .mobile-bottom-nav button.cta,
+  body[data-p120-page="system"][data-p120-locale="ru"][data-theme="museum"] .mobile-bottom-nav button.cta.active{
+    background:linear-gradient(135deg,#2F756F,#255F5C);
+    color:#FFF9EC;
+    border-color:rgba(31,92,91,.54);
+    box-shadow:0 14px 32px rgba(31,92,91,.16),0 0 34px rgba(47,125,120,.10);
+  }
+  body[data-p120-page="system"][data-p120-locale="ru"][data-theme="museum"] .mobile-bottom-nav button.cta .mobile-nav-icon,
+  body[data-p120-page="system"][data-p120-locale="ru"][data-theme="museum"] .mobile-bottom-nav button.cta.active .mobile-nav-icon{
+    background:rgba(255,255,255,.12);
+    color:#FFF9EC;
+  }
+
+  /* Session progress: label and metric are intentionally stacked. The outer
+     meta row remains responsible for left/right alignment and the counter. */
+  .mobile-menu-progress-top > div:first-child{
+    min-width:0;
+    display:grid;
+    gap:4px;
+    align-content:end;
+  }
+  .mobile-menu-progress-top > div:first-child > span,
+  .mobile-menu-progress-top > div:first-child > strong{
+    display:block;
+  }
+  .mobile-menu-progress-top > span:last-child{
+    white-space:nowrap;
+    align-self:end;
+  }
+}
