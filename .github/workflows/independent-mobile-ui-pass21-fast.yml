@@ -1,0 +1,43 @@
+name: P120 WEB Independent Mobile UI PASS 2.1 Fast Matrix
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - audit/mobile-ui-pass21-ef6020a
+    paths:
+      - 'qa/independent_mobile_ui_pass21_fast.mjs'
+      - '.github/workflows/independent-mobile-ui-pass21-fast.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Optimized production CTA + progress matrix
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify exact implementation ancestor
+        run: git merge-base --is-ancestor ef6020afa0df6035bbbfe540a1ace815341589d4 HEAD
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Syntax check
+        run: node --check qa/independent_mobile_ui_pass21_fast.mjs
+      - name: Run optimized independent production matrix
+        env:
+          P120_LIVE_BASE: https://unityplanet.github.io/p120-web
+        run: node qa/independent_mobile_ui_pass21_fast.mjs
+      - name: Upload independent evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEB_INDEPENDENT_MOBILE_UI_PASS21_FAST_AUDIT
+          path: qa-artifacts/mobile-ui-pass21-independent-fast
+          retention-days: 30
