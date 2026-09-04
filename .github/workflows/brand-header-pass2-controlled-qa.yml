@@ -1,0 +1,82 @@
+name: P120 WEB Brand Header PASS 2 Controlled Apply and QA
+
+on:
+  push:
+    branches: [pass2-brand-header-reconciliation]
+    paths:
+      - '.github/scripts/p120_brand_header_pass2_apply.py'
+      - 'qa/p120_brand_header_pass2_qa.py'
+      - '.github/workflows/brand-header-pass2-controlled-qa.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  controlled-apply-and-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout controlled branch
+        uses: actions/checkout@v4
+        with:
+          ref: pass2-brand-header-reconciliation
+          fetch-depth: 0
+
+      - name: Apply bounded Brand/Header PASS 2 patch
+        run: python3 .github/scripts/p120_brand_header_pass2_apply.py
+
+      - name: Verify bounded source diff
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          python3 -m py_compile .github/scripts/p120_brand_header_pass2_apply.py qa/p120_brand_header_pass2_qa.py
+          mapfile -t changed < <(git diff --name-only | sort)
+          printf 'Changed files:\n%s\n' "${changed[*]}"
+          test "${#changed[@]}" -eq 2
+          test "${changed[0]}" = "p120-brand-system-v1.0.js"
+          test "${changed[1]}" = "p120-pass53-visual-corrections-v1.0.css"
+          grep -q 'F. BRAND / HEADER MOBILE LOCKUP RECONCILIATION / PASS 2' p120-pass53-visual-corrections-v1.0.css
+          grep -q "descriptor:'RESEARCH ARCHITECTURE'" p120-brand-system-v1.0.js
+          grep -q "descriptor:'ИССЛЕДОВАТЕЛЬСКАЯ АРХИТЕКТУРА'" p120-brand-system-v1.0.js
+          grep -q "node.setAttribute('aria-label',isEn?'P-120 — home':'P-120 — на главную')" p120-brand-system-v1.0.js
+
+      - name: Install browser QA runtime
+        run: |
+          python3 -m pip install --disable-pip-version-check playwright==1.55.0
+          python3 -m playwright install --with-deps chromium
+
+      - name: Start local static server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/p120-http.log 2>&1 &
+          echo $! > /tmp/p120-http.pid
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/p120-http.log
+          exit 1
+
+      - name: Run RU EN theme responsive Brand/Header matrix
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173
+        run: python3 qa/p120_brand_header_pass2_qa.py
+
+      - name: Upload PASS 2 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p120-brand-header-pass2-evidence
+          path: qa-artifacts/brand-header-pass2
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Commit only QA-passed production source changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'P-120 Controlled Automation'
+          git config user.email 'actions@users.noreply.github.com'
+          git add p120-brand-system-v1.0.js p120-pass53-visual-corrections-v1.0.css
+          git commit -m 'P120 WEB BRAND HEADER PASS 2: reconcile mobile architecture lockup'
+          git push origin HEAD:pass2-brand-header-reconciliation
