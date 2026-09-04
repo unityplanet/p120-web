@@ -1,0 +1,95 @@
+name: P120 WEB Contact Discoverability Idempotency Fix
+
+on:
+  push:
+    branches: [contact-discoverability-idempotency-fix]
+    paths:
+      - '.github/scripts/contact_discoverability_idempotency_fix.py'
+      - '.github/workflows/contact-discoverability-idempotency-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  lifecycle-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout corrective branch
+        uses: actions/checkout@v4
+        with:
+          ref: contact-discoverability-idempotency-fix
+          fetch-depth: 0
+
+      - name: Apply bounded idempotency correction
+        run: python3 .github/scripts/contact_discoverability_idempotency_fix.py
+
+      - name: Verify bounded source diff
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          mapfile -t changed < <(git diff --name-only)
+          printf 'Changed production files:\n%s\n' "${changed[*]}"
+          test "${#changed[@]}" -eq 1
+          test "${changed[0]}" = 'p120-brand-system-v1.0.js'
+          node --check p120-brand-system-v1.0.js
+          ! git diff | grep -E '^[-+].*staticNavMarkup' || true
+          grep -q "contact:'Contact'" p120-brand-system-v1.0.js
+          grep -q "contact:'Контакты'" p120-brand-system-v1.0.js
+          grep -q "revision:'5.3.3'" p120-brand-system-v1.0.js
+
+      - name: Install browser runtime
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start local production sources
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-idem-http.log 2>&1 &
+          python3 -m http.server 4174 --bind 127.0.0.1 --directory .. >/tmp/p120-idem-prefix-http.log 2>&1 &
+          sleep 2
+
+      - name: Re-run existing hardened Brand/Header lifecycle gate
+        run: node qa/global_header_code_hardening_pass21.mjs
+
+      - name: Verify Contact lifecycle stabilization
+        shell: bash
+        run: |
+          node <<'NODE'
+          const { chromium } = require('playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            for(const path of ['/', '/en/']){
+              const page=await browser.newPage({viewport:{width:390,height:844}});
+              await page.goto('http://127.0.0.1:4173'+path,{waitUntil:'domcontentloaded'});
+              await page.waitForFunction(()=>window.P120_BRAND_SYSTEM?.revision==='5.3.3');
+              await page.waitForTimeout(500);
+              const before=await page.evaluate(()=>window.P120_BRAND_SYSTEM.getReconcileCount());
+              await page.waitForTimeout(700);
+              const after=await page.evaluate(()=>window.P120_BRAND_SYSTEM.getReconcileCount());
+              if(after-before>1) throw new Error(`${path}: reconcile loop ${before} -> ${after}`);
+              const state=await page.evaluate(()=>({
+                footer:document.querySelectorAll('.p120-site-footer__service [data-p120-contact-discovery]').length,
+                drawer:document.querySelectorAll('.mobile-menu [data-p120-contact-discovery]').length,
+                bottom:[...document.querySelectorAll('.mobile-bottom-nav a,.mobile-bottom-nav button')].filter(x=>/contact|контакт/i.test(x.textContent||'')).length,
+                top:[...document.querySelectorAll('.topnav a,.topnav button')].filter(x=>/contact|контакт/i.test(x.textContent||'')).length,
+              }));
+              if(state.footer!==1||state.drawer!==1||state.bottom!==0||state.top!==0) throw new Error(`${path}: ${JSON.stringify(state)}`);
+              await page.close();
+            }
+            await browser.close();
+            console.log('CONTACT DISCOVERABILITY IDEMPOTENCY QA — PASS');
+          })().catch(err=>{console.error(err);process.exit(1)});
+          NODE
+
+      - name: Commit only QA-passed production correction
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'P-120 Controlled Automation'
+          git config user.email 'actions@users.noreply.github.com'
+          git add p120-brand-system-v1.0.js
+          git commit -m 'P120 WEB CONTACT DISCOVERABILITY: harden lifecycle idempotency'
+          git push origin HEAD:contact-discoverability-idempotency-fix
