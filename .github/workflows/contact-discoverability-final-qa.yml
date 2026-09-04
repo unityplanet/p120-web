@@ -1,0 +1,62 @@
+name: P120 WEB Contact Discoverability Final QA
+
+on:
+  push:
+    branches: [qa/contact-discoverability-final]
+    paths:
+      - 'qa/contact_discoverability_final_qa.py'
+      - '.github/workflows/contact-discoverability-final-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  final-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout final production-state branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify production source equals promoted main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          git diff --quiet d4b31793da85ab09f2827360ed00e19d20339935 -- p120-brand-system-v1.0.js
+          node --check p120-brand-system-v1.0.js
+          grep -q "revision:'5.3.2'" p120-brand-system-v1.0.js
+          grep -q "contact:'Contact'" p120-brand-system-v1.0.js
+          grep -q "contact:'Контакты'" p120-brand-system-v1.0.js
+          grep -q "homeAnchor('showcase')" p120-brand-system-v1.0.js
+
+      - name: Install Playwright
+        run: |
+          python3 -m pip install --disable-pip-version-check playwright==1.55.0
+          python3 -m playwright install --with-deps chromium
+
+      - name: Start local production source
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-contact-final-http.log 2>&1 &
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/p120-contact-final-http.log
+          exit 1
+
+      - name: Run final RU EN responsive discoverability matrix
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173
+        run: python3 qa/contact_discoverability_final_qa.py
+
+      - name: Upload final evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p120-contact-discoverability-final-evidence
+          path: qa-artifacts/contact-discoverability-final
+          if-no-files-found: warn
+          retention-days: 30
