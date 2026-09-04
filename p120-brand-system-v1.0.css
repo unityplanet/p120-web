@@ -347,9 +347,6 @@ html.p120-brand53-ready .p120-legal-page .p120-brand53-header+*{scroll-margin-to
   html.p120-brand53-ready .p120-brand53-language a{min-width:30px;height:28px;padding-inline:5px}
   html.p120-brand53-ready .p120-brand53-tools{gap:5px}
 }
-@media(max-width:480px){
-  html.p120-brand53-ready .brand-mark{display:none}
-}
 @media(prefers-reduced-motion:reduce){
   html.p120-brand53-ready *,html.p120-brand53-ready *::before,html.p120-brand53-ready *::after{scroll-behavior:auto!important;transition-duration:.001ms!important;animation-duration:.001ms!important;animation-iteration-count:1!important}
 }
