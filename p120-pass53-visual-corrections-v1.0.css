@@ -158,3 +158,15 @@ html.p120-brand53-ready .creator-context{width:min(var(--p120-brand-stage),100%)
   .p120-site-footer__brand{grid-template-columns:50px minmax(0,1fr)}.p120-site-footer__mark{width:50px;height:50px}.p120-footer-brand{font-size:34px!important}
   .p120-site-footer__brandcopy small{font-size:12px}.p120-site-footer__chapters a{font-size:14px}.p120-legal-footer.p120-site-footer .p120-legal-footer__notice{font-size:14px}.p120-legal-footer.p120-site-footer .p120-legal-footer__links a{font-size:13px}.p120-legal-footer.p120-site-footer .p120-legal-footer__sandbox{font-size:10px!important}
 }
+
+/* --------------------------------------------------------------------------
+   E. GLOBAL HEADER BRAND LOCKUP CLEANING / PASS 1
+   Keep the canonical orbit mark mounted at phone widths. PASS 5.3 formerly
+   hid .brand-mark below 480px after p120-brand53-ready was activated, which
+   caused a visible full-lockup -> text-only transition during page load.
+   -------------------------------------------------------------------------- */
+@media(max-width:480px){
+  html.p120-brand53-ready .brand-mark{
+    display:inline-block!important;
+  }
+}
