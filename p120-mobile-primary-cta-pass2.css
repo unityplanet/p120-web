@@ -8,6 +8,11 @@
    The primary mobile CTA keeps its theme-canonical surface when it also carries
    the generic navigation-state class .active. The .active state may add the
    existing state cue, but must never demote the CTA to an ordinary nav item.
+
+   PASS 2.1 micro-hardening:
+   Graphite and Museum leading gradient stops are slightly deepened so the
+   smallest CTA label/icon text maintains >=4.5:1 contrast at the lightest point
+   of each canonical gradient without changing CTA geometry or hierarchy.
 */
 
 @media (max-width:820px){
@@ -24,10 +29,10 @@
     color:#fff;
   }
 
-  /* Graphite authority — muted teal primary CTA. */
+  /* Graphite authority — contrast-hardened muted teal primary CTA. */
   body[data-theme="graphite"] .mobile-bottom-nav button.cta,
   body[data-theme="graphite"] .mobile-bottom-nav button.cta.active{
-    background:linear-gradient(135deg,#667F7B,#49635F);
+    background:linear-gradient(135deg,#58706C,#49635F);
     color:#F5EFE5;
     border-color:rgba(205,220,214,.22);
     box-shadow:0 14px 32px rgba(0,0,0,.16),0 0 30px rgba(130,155,152,.08);
@@ -38,10 +43,10 @@
     color:#F5EFE5;
   }
 
-  /* Museum authority — deep Museum Teal primary CTA. */
+  /* Museum authority — contrast-hardened deep Museum Teal primary CTA. */
   body[data-theme="museum"] .mobile-bottom-nav button.cta,
   body[data-theme="museum"] .mobile-bottom-nav button.cta.active{
-    background:linear-gradient(135deg,#337F79,#255F5C);
+    background:linear-gradient(135deg,#2F756F,#255F5C);
     color:#FFF9EC;
     border-color:rgba(31,92,91,.54);
     box-shadow:0 14px 32px rgba(31,92,91,.16),0 0 34px rgba(47,125,120,.10);
