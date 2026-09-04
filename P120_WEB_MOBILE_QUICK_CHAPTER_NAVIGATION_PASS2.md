@@ -2,7 +2,8 @@
 ## PATCH 1 / PASS 2 — IMPLEMENTATION RECORD
 
 **Document ID:** P120-WEB-MQN-P1-P2  
-**Status:** IMPLEMENTED / REGRESSION-GATE REQUIRED  
+**Status:** IMPLEMENTED / PRODUCTION BUNDLE RECONCILED / REGRESSION-GATE REQUIRED  
+**Production candidate SHA:** `09764f81d1b159c4bb17ac5c3a38a6e4970618e1`  
 **Scope class:** Mobile navigation presentation / additive access surface  
 **Scientific / measurement / scoring impact:** NONE  
 **Questionnaire / session persistence impact:** NONE  
@@ -33,6 +34,8 @@ Canonical chapter data remains five landmarks:
 5. Science / Наука
 
 No duplicate chapter registry, independent scroll engine or second active-state model is introduced.
+
+The Main production shell consumes the generated public bundles rather than the standalone Chapter Navigation source directly. PASS 2 therefore reconciles only the marked `chapter-navigation-v1.0.js` and `chapter-navigation-v1.0.css` sections into `p120-public-runtime-v1.0.js` and `p120-public-styles-v1.0.css`, with public bundle cache key `pub22`. Unrelated generated-bundle sections are preserved from the pre-pass production baseline.
 
 ## 3. Mobile quick-chapter behavior
 
@@ -78,5 +81,7 @@ This pass must not alter:
 ## 7. Regression gate
 
 Dedicated QA must cover RU and EN, widths 360 / 390 / 430 / 480, Ivory / Graphite / Museum, meaningful-scroll appearance, current-chapter synchronization, five chapter targets, picker open/close, hamburger coexistence, four-button bottom navigation preservation, horizontal overflow, desktop preservation and console/page errors.
+
+The gate also verifies that the generated public runtime and stylesheet contain exactly the current Chapter Navigation authority and that RU/EN public entries load the cache-busted `pub22` bundles exactly once.
 
 **Release rule:** PASS 2 may be closed only after the dedicated regression gate succeeds on the production tree and deployment evidence is available.
