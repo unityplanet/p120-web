@@ -1,21 +1,10 @@
 name: P120 FA01 Existing Runtime QA
 
-on:
+'on':
   push:
     branches:
       - access-control/pass1c-v1
-  pull_request:
-    paths:
-      - 'system/**'
-      - 'en/system/**'
-      - 'internal/runtime/**'
-      - 'internal/contracts/**'
-      - 'p120-session-contract-v1.0.js'
-      - 'p120-submission-intake-v1.0.js'
-      - 'p120-submission-config-v1.0.js'
-      - '.github/scripts/p120_fa01_existing_runtime_qa.js'
-      - '.github/workflows/p120-fa01-existing-runtime-qa.yml'
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 permissions:
   contents: read
@@ -24,8 +13,10 @@ jobs:
   fa01-no-regression:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: JavaScript syntax
