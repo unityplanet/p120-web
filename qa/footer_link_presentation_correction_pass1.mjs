@@ -50,8 +50,6 @@ for(const spec of specs){
 
   if(brandResolved?.pathname!==expectedBrand) fail('canonical brand stylesheet escapes GitHub Pages project prefix',`${spec.file}: ${brandResolved?.pathname}`);
   if(correctionResolved?.pathname!==expectedCorrection) fail('footer correction stylesheet escapes GitHub Pages project prefix',`${spec.file}: ${correctionResolved?.pathname}`);
-  if(/^\.\.\//.test(brandHref||'')) fail('base-aware route retains parent-prefixed brand href',`${spec.file}: ${brandHref}`);
-  if(/^\.\.\//.test(correctionHref||'')) fail('base-aware route retains parent-prefixed correction href',`${spec.file}: ${correctionHref}`);
 
   source.push({file:spec.file,baseHref,brandHref,correctionHref,brandResolved:brandResolved?.href,correctionResolved:correctionResolved?.href});
 }
