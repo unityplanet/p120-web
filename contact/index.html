@@ -46,29 +46,75 @@
 
   <main id="contact-main" class="contact-main">
     <section class="contact-hero" aria-labelledby="contact-title">
-      <div class="contact-hero__title"><p class="contact-kicker">P-120 · КОНТАКТ</p><h1 id="contact-title">Контакты</h1></div>
+      <div class="contact-hero__title">
+        <p class="contact-kicker">P-120 · КОНТАКТ</p>
+        <h1 id="contact-title">Контакты</h1>
+      </div>
       <p class="contact-intro">По вопросам о P-120, исследовательском сотрудничестве, прохождении системы, технической работе сайта, публикациях или партнёрстве можно написать через форму ниже. Для ответа достаточно указать действующий email и описать вопрос.</p>
     </section>
 
     <section class="contact-workspace" aria-label="Канал связи P-120">
       <aside class="contact-context">
-        <div class="contact-context__block"><p class="contact-section-label">КАНАЛ СВЯЗИ</p><h2>Написать в P-120</h2><p>Эта форма предназначена для общих вопросов и профессиональной связи. Она не является частью исследования и не должна использоваться для передачи результатов или ответов P-120.</p></div>
-        <div class="contact-boundary" role="note" aria-labelledby="contact-boundary-title"><p class="contact-section-label" id="contact-boundary-title">ГРАНИЦА ДАННЫХ</p><p><strong>Не отправляйте через эту форму</strong> результаты или ответы P-120, Participant ID, медицинскую информацию, сведения об интимной жизни, пароли, платёжные данные или другие конфиденциальные материалы.</p><p>Для общего обращения достаточно описать вопрос без персональных исследовательских данных.</p></div>
+        <div class="contact-context__block">
+          <p class="contact-section-label">КАНАЛ СВЯЗИ</p>
+          <h2>Написать в P-120</h2>
+          <p>Эта форма предназначена для общих вопросов и профессиональной связи. Она не является частью исследования и не должна использоваться для передачи результатов или ответов P-120.</p>
+        </div>
+        <div class="contact-boundary" role="note" aria-labelledby="contact-boundary-title">
+          <p class="contact-section-label" id="contact-boundary-title">ГРАНИЦА ДАННЫХ</p>
+          <p><strong>Не отправляйте через эту форму</strong> результаты или ответы P-120, Participant ID, медицинскую информацию, сведения об интимной жизни, пароли, платёжные данные или другие конфиденциальные материалы.</p>
+          <p>Для общего обращения достаточно описать вопрос без персональных исследовательских данных.</p>
+        </div>
       </aside>
 
       <section class="contact-correspondence" aria-labelledby="contact-form-title">
-        <div class="contact-correspondence__head"><div><p class="contact-section-label">CORRESPONDENCE · 01</p><h2 id="contact-form-title">Сообщение</h2></div><span class="contact-offline-badge">SECURE CHANNEL</span></div>
+        <div class="contact-correspondence__head">
+          <div><p class="contact-section-label">CORRESPONDENCE · 01</p><h2 id="contact-form-title">Сообщение</h2></div>
+          <span class="contact-offline-badge">SECURE CHANNEL</span>
+        </div>
+
         <form class="contact-form" data-p120-contact-form novalidate autocomplete="on" aria-describedby="contact-transport-note">
           <div class="contact-field-grid">
-            <div class="contact-field" data-contact-field="name"><label for="contact-name">Имя <span>необязательно</span></label><input id="contact-name" type="text" autocomplete="name" maxlength="80" placeholder="Как к вам обращаться" /><p class="contact-field-error" id="contact-name-error" hidden></p></div>
-            <div class="contact-field" data-contact-field="email"><label for="contact-email">Email <span>обязательно</span></label><input id="contact-email" type="email" autocomplete="email" inputmode="email" maxlength="254" required aria-describedby="contact-email-error" placeholder="name@example.com" /><p class="contact-field-error" id="contact-email-error" hidden>Укажите корректный email.</p></div>
+            <div class="contact-field" data-contact-field="name">
+              <label for="contact-name">Имя <span>необязательно</span></label>
+              <input id="contact-name" type="text" autocomplete="name" maxlength="80" placeholder="Как к вам обращаться" />
+              <p class="contact-field-error" id="contact-name-error" hidden></p>
+            </div>
+            <div class="contact-field" data-contact-field="email">
+              <label for="contact-email">Email <span>обязательно</span></label>
+              <input id="contact-email" type="email" autocomplete="email" inputmode="email" maxlength="254" required aria-describedby="contact-email-error" placeholder="name@example.com" />
+              <p class="contact-field-error" id="contact-email-error" hidden>Укажите корректный email.</p>
+            </div>
           </div>
-          <div class="contact-field" data-contact-field="subject"><label for="contact-subject">Тема обращения <span>обязательно</span></label><input id="contact-subject" type="text" autocomplete="off" minlength="3" maxlength="120" required aria-describedby="contact-subject-error" placeholder="Коротко обозначьте тему" /><p class="contact-field-error" id="contact-subject-error" hidden>Укажите тему обращения.</p></div>
-          <div class="contact-field contact-field--message" data-contact-field="message"><label for="contact-message">Сообщение <span>обязательно</span></label><textarea id="contact-message" rows="8" minlength="20" maxlength="5000" required aria-describedby="contact-message-error contact-message-counter" placeholder="Опишите ваш вопрос"></textarea><div class="contact-message-meta"><p class="contact-field-error" id="contact-message-error" hidden>Добавьте немного больше информации, чтобы мы могли понять вопрос.</p><span id="contact-message-counter" data-contact-counter>0 / 5000</span></div></div>
-          <div class="contact-honeypot" aria-hidden="true"><label for="contact-website">Website</label><input id="contact-website" type="text" tabindex="-1" autocomplete="off" data-contact-honeypot /></div>
-          <div class="contact-transport-note" id="contact-transport-note" role="note"><span class="contact-transport-note__mark" aria-hidden="true"></span><div><strong>Защищённая отправка подключена.</strong><p>Имя (если указано), email, тема и сообщение сохраняются в закрытом хранилище P-120 для обработки обращения. Срок хранения — до 90 дней. Ответы и результаты P-120 через эту форму не передавайте.</p></div></div>
+
+          <div class="contact-field" data-contact-field="subject">
+            <label for="contact-subject">Тема обращения <span>обязательно</span></label>
+            <input id="contact-subject" type="text" autocomplete="off" minlength="3" maxlength="120" required aria-describedby="contact-subject-error" placeholder="Коротко обозначьте тему" />
+            <p class="contact-field-error" id="contact-subject-error" hidden>Укажите тему обращения.</p>
+          </div>
+
+          <div class="contact-field contact-field--message" data-contact-field="message">
+            <label for="contact-message">Сообщение <span>обязательно</span></label>
+            <textarea id="contact-message" rows="8" minlength="20" maxlength="5000" required aria-describedby="contact-message-error contact-message-counter" placeholder="Опишите ваш вопрос"></textarea>
+            <div class="contact-message-meta"><p class="contact-field-error" id="contact-message-error" hidden>Добавьте немного больше информации, чтобы мы могли понять вопрос.</p><span id="contact-message-counter" data-contact-counter>0 / 5000</span></div>
+          </div>
+
+          <div class="contact-honeypot" aria-hidden="true">
+            <label for="contact-website">Website</label>
+            <input id="contact-website" type="text" tabindex="-1" autocomplete="off" data-contact-honeypot />
+          </div>
+
+          <div class="contact-transport-note" id="contact-transport-note" role="note">
+            <span class="contact-transport-note__mark" aria-hidden="true"></span>
+            <div><strong>Защищённая отправка подключена.</strong><p>Имя (если указано), email, тема и сообщение сохраняются в закрытом хранилище P-120 для обработки обращения. Срок хранения — до 90 дней. Ответы и результаты P-120 через эту форму не передавайте.</p></div>
+          </div>
+
           <p class="contact-privacy">Данные используются только для обработки обращения и ответа на него. Raw IP-адрес и браузерная телеметрия в запись сообщения не включаются; технические HMAC-маркеры используются только для краткоживущего rate limiting. Подробнее — в <a href="../privacy/">Политике конфиденциальности</a>.</p>
-          <div class="contact-actions"><button class="contact-submit" type="submit">Отправить сообщение</button><span class="contact-submit-state" data-contact-status aria-live="polite">Защищённый канал связи готов</span></div>
+
+          <div class="contact-actions">
+            <button class="contact-submit" type="submit">Отправить сообщение</button>
+            <span class="contact-submit-state" data-contact-status aria-live="polite">Защищённый канал связи готов</span>
+          </div>
         </form>
       </section>
     </section>
