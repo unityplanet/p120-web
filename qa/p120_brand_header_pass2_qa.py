@@ -70,7 +70,6 @@ with sync_playwright() as p:
                       const dr=descriptor?.getBoundingClientRect();
                       const mr=mark?.getBoundingClientRect();
                       const hr=header?.getBoundingClientRect();
-                      const ir=inner?.getBoundingClientRect();
                       const tr=tools?.getBoundingClientRect();
                       const ds=descriptor?getComputedStyle(descriptor):null;
                       const overlap = br && tr && Math.min(br.bottom,tr.bottom)>Math.max(br.top,tr.top)
@@ -86,13 +85,17 @@ with sync_playwright() as p:
                       });
                       const visibleChildOutOfViewport = childBounds.some(r => r.left < -1 || r.right > window.innerWidth + 1);
 
+                      const docWidth=document.documentElement.scrollWidth;
                       let withoutDescriptorHeight = hr?.height || 0;
-                      if(descriptor && header){
+                      let withoutDescriptorDocWidth = docWidth;
+                      if(descriptor){
                         const prev=descriptor.getAttribute('style');
                         descriptor.style.setProperty('display','none','important');
-                        withoutDescriptorHeight=header.getBoundingClientRect().height;
+                        void document.documentElement.offsetWidth;
+                        withoutDescriptorHeight=header?.getBoundingClientRect().height || 0;
+                        withoutDescriptorDocWidth=document.documentElement.scrollWidth;
                         if(prev===null) descriptor.removeAttribute('style'); else descriptor.setAttribute('style',prev);
-                        void header.offsetHeight;
+                        void document.documentElement.offsetWidth;
                       }
 
                       return {
@@ -108,13 +111,15 @@ with sync_playwright() as p:
                         headerHeight:hr?.height||0,
                         withoutDescriptorHeight,
                         descriptorHeightDelta:(hr?.height||0)-withoutDescriptorHeight,
+                        docWidth,
+                        withoutDescriptorDocWidth,
+                        descriptorDocWidthDelta:docWidth-withoutDescriptorDocWidth,
                         innerClientWidth:inner?.clientWidth||0,
                         innerScrollWidth:inner?.scrollWidth||0,
                         descriptorInsideHeader:!!(dr&&hr&&dr.left>=hr.left-1&&dr.right<=hr.right+1&&dr.top>=hr.top-1&&dr.bottom<=hr.bottom+1),
                         brandToolsOverlap:overlap,
                         visibleChildOutOfViewport,
                         childBounds,
-                        docWidth:document.documentElement.scrollWidth,
                         viewport:window.innerWidth,
                         aria:brand?.getAttribute('aria-label')||'',
                         theme:document.body?.dataset?.theme||'',
@@ -133,7 +138,7 @@ with sync_playwright() as p:
                         'descriptor-readable-floor': data['descriptorFontSize'] >= (6.2 if width <= 359 else 6.4 if width <= 430 else 6.9),
                         'descriptor-contained': data['descriptorInsideHeader'],
                         'brand-mark-visible': data['markWidth'] >= (30 if width <= 359 else 33 if width <= 430 else 35),
-                        'document-overflow': data['docWidth'] <= data['viewport'] + 1,
+                        'descriptor-document-growth': data['descriptorDocWidthDelta'] <= 1,
                         'visible-header-child-bounds': not data['visibleChildOutOfViewport'],
                         'brand-tools-overlap': data['brandToolsOverlap'] <= 1,
                         'descriptor-header-growth': data['descriptorHeightDelta'] <= 3,
@@ -145,8 +150,6 @@ with sync_playwright() as p:
                         if not ok:
                             fail(case, name, json.dumps({'data': data, 'early': early, 'late': late, 'console': console_errors}, ensure_ascii=False))
 
-                    # Capture governing root matrix plus narrow static routes where
-                    # control density is highest.
                     capture = width in (320, 360, 390, 430, 1366, 1920, 2560) and route in ('/', '/en/')
                     capture = capture or (width in (320,360,390,430) and route in ('/extended/','/en/extended/','/why-p120/','/en/why-p120/','/science/','/en/science/'))
                     if capture:
