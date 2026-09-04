@@ -42,8 +42,8 @@ html.p120-brand53-ready :is(.brand-button,.explore-brand,.creator-brand,.wp-bran
 }
 
 /* Phone geometry: retain the descriptor before sacrificing functional controls.
-   Main's duplicate quick theme icon is the first expendable control because the
-   canonical theme system remains available elsewhere; RU/EN remains visible. */
+   Main's duplicate quick theme icon is expendable because the full theme chooser
+   remains in the Main mobile drawer. Static Explore keeps its theme control. */
 @media(max-width:430px){
   html.p120-brand53-ready :is(.topbar-inner,.explore-topbar__inner,.creator-topbar__inner,.wp-header-inner,.p120-brand53-header__inner){
     padding-inline:12px!important;
@@ -81,6 +81,40 @@ html.p120-brand53-ready :is(.brand-button,.explore-brand,.creator-brand,.wp-bran
     min-width:44px;
     min-height:44px;
   }
+
+  /* Explore carries both canonical locale/theme utilities and its own drawer
+     trigger. Compact those utilities without removing either capability. */
+  html.p120-brand53-ready .explore-topbar .p120-brand53-tools{
+    gap:4px!important;
+    flex:0 0 auto;
+  }
+  html.p120-brand53-ready .explore-topbar .p120-brand53-language a{
+    min-width:27px;
+    height:27px;
+    padding-inline:3px;
+  }
+  html.p120-brand53-ready .explore-topbar .p120-brand53-language a[aria-current='page']{
+    display:none!important;
+  }
+  html.p120-brand53-ready .explore-topbar .explore-menu-btn{
+    display:inline-flex!important;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 44px;
+    width:44px;
+    min-width:44px;
+    height:44px;
+    min-height:44px;
+    margin-left:0!important;
+    padding:0!important;
+    font-size:0!important;
+    line-height:1!important;
+  }
+  html.p120-brand53-ready .explore-topbar .explore-menu-btn::before{
+    content:'☰';
+    font:500 18px/1 var(--p120-brand-sans);
+    letter-spacing:0;
+  }
 }
 
 /* Extreme narrow stress regime. Full wording is preserved; typography and
@@ -100,8 +134,8 @@ html.p120-brand53-ready :is(.brand-button,.explore-brand,.creator-brand,.wp-bran
   }
   html.p120-brand53-ready .brand{font-size:20px!important}
   html.p120-brand53-ready :is(.brand-button,.explore-brand,.creator-brand,.wp-brand,.p120-brand53-brand) .brand-sub{
-    font-size:6px!important;
-    letter-spacing:.07em!important;
+    font-size:6.25px!important;
+    letter-spacing:.065em!important;
   }
   html.p120-brand53-ready .topbar .p120-brand53-language a{
     min-width:25px;
@@ -112,6 +146,10 @@ html.p120-brand53-ready :is(.brand-button,.explore-brand,.creator-brand,.wp-bran
   html.p120-brand53-ready .topbar .progress-badge{
     min-width:38px;
     padding-inline:6px;
+  }
+  html.p120-brand53-ready .explore-topbar .p120-brand53-language a{
+    min-width:25px;
+    padding-inline:2px;
   }
 }
 '''
