@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout QA branch
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Verify PASS 4 source boundary
         shell: bash
