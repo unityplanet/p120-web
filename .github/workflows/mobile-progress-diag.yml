@@ -1,0 +1,21 @@
+name: P120 WEB Mobile Progress Diagnostic
+on:
+  workflow_dispatch:
+  push:
+    branches: [audit/mobile-ui-pass21-ef6020a]
+    paths:
+      - 'qa/mobile_progress_diag.mjs'
+      - '.github/workflows/mobile-progress-diag.yml'
+permissions:
+  contents: read
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - run: node qa/mobile_progress_diag.mjs
