@@ -1,0 +1,49 @@
+name: P120 WEB Mobile Session Resume PATCH 2 PASS 2 QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'p120-brand-system-v1.0.js'
+      - 'mobile-session-resume-v1.0.js'
+      - 'mobile-session-resume-v1.0.css'
+      - 'qa/mobile_session_resume_patch2_pass2.mjs'
+      - 'qa/pass3_session_contract_gate_v1.mjs'
+      - '.github/workflows/qa-mobile-session-resume-patch2-pass2.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    name: Mobile resume + session authority regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start production-prefix and PASS 3 local sites
+        run: |
+          python3 -m http.server 4174 --bind 127.0.0.1 --directory .. >/tmp/p120-patch2-project-prefix.log 2>&1 &
+          python3 -m http.server 4178 --bind 127.0.0.1 >/tmp/p120-patch2-pass3.log 2>&1 &
+          sleep 2
+      - name: Run PATCH 2 / PASS 2 mobile session resume gate
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/mobile_session_resume_patch2_pass2.mjs
+      - name: Re-run PASS 3 locale-isolated session contract gate
+        run: node qa/pass3_session_contract_gate_v1.mjs
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEB_MOBILE_SESSION_RESUME_PATCH2_PASS2_QA
+          path: |
+            qa-artifacts/mobile-session-resume-patch2-pass2
+            qa-evidence-pass3-session-contract-v1
+          retention-days: 30
