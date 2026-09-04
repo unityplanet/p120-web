@@ -34,10 +34,10 @@ jobs:
           test "${#changed[@]}" -eq 1
           test "${changed[0]}" = 'p120-brand-system-v1.0.js'
           node --check p120-brand-system-v1.0.js
-          ! git diff | grep -E '^[-+].*staticNavMarkup' || true
           grep -q "contact:'Contact'" p120-brand-system-v1.0.js
           grep -q "contact:'Контакты'" p120-brand-system-v1.0.js
-          grep -q "revision:'5.3.3'" p120-brand-system-v1.0.js
+          grep -q "revision:'5.3.2'" p120-brand-system-v1.0.js
+          grep -q "homeAnchor('showcase')" p120-brand-system-v1.0.js
 
       - name: Install browser runtime
         run: |
@@ -64,7 +64,7 @@ jobs:
             for(const path of ['/', '/en/']){
               const page=await browser.newPage({viewport:{width:390,height:844}});
               await page.goto('http://127.0.0.1:4173'+path,{waitUntil:'domcontentloaded'});
-              await page.waitForFunction(()=>window.P120_BRAND_SYSTEM?.revision==='5.3.3');
+              await page.waitForFunction(()=>window.P120_BRAND_SYSTEM?.revision==='5.3.2');
               await page.waitForTimeout(500);
               const before=await page.evaluate(()=>window.P120_BRAND_SYSTEM.getReconcileCount());
               await page.waitForTimeout(700);
