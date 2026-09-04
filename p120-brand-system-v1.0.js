@@ -34,18 +34,22 @@
     if (!document.querySelector('link[data-p120-brand-system]')) {
       const link=document.createElement('link');
       link.rel='stylesheet';
-      link.href=new URL('p120-brand-system-v1.0.css?v=53',rootUrl).href;
+      link.href=new URL('p120-brand-system-v1.0.css?v=532',rootUrl).href;
       link.dataset.p120BrandSystem='5.3';
       document.head.appendChild(link);
     }
     if (!document.querySelector('link[data-p120-pass53-visual-corrections]')) {
       const correction=document.createElement('link');
       correction.rel='stylesheet';
-      correction.href=new URL('p120-pass53-visual-corrections-v1.0.css?v=531',rootUrl).href;
-      correction.dataset.p120Pass53VisualCorrections='5.3.1';
+      correction.href=new URL('p120-pass53-visual-corrections-v1.0.css?v=532',rootUrl).href;
+      correction.dataset.p120Pass53VisualCorrections='5.3.2';
       document.head.appendChild(correction);
     }
   }
+
+  // PASS 2.1: install the canonical styles as soon as the runtime executes,
+  // not after DOMContentLoaded. Static governed routes already load the same files.
+  ensureCss();
 
   function kind(){
     const p=location.pathname.toLowerCase();
@@ -70,11 +74,21 @@
     return `<span class="brand-mark" aria-hidden="true"><span class="brand-orbit"></span><span class="brand-node brand-node-a"></span><span class="brand-node brand-node-b"></span></span><span class="brand-lockup"><span class="brand">P-120</span><span class="brand-sub">${copy.descriptor}</span></span>`;
   }
 
+  function hasCanonicalBrandMarkup(node){
+    const mark=node.querySelector(':scope > .brand-mark');
+    const lockup=node.querySelector(':scope > .brand-lockup');
+    return !!(mark&&lockup&&mark.querySelector(':scope > .brand-orbit')&&mark.querySelector(':scope > .brand-node-a')&&mark.querySelector(':scope > .brand-node-b')&&lockup.querySelector(':scope > .brand')&&lockup.querySelector(':scope > .brand-sub'));
+  }
+
   function patchBrand(){
     const nodes=document.querySelectorAll('.brand-button,.explore-brand,.creator-brand,.wp-brand,.p120-brand53-brand');
     nodes.forEach(node=>{
       if(node.dataset.p120CanonicalBrand==='5.3') return;
-      node.innerHTML=brandMarkup();
+      if(!hasCanonicalBrandMarkup(node)) node.innerHTML=brandMarkup();
+      else {
+        const descriptor=node.querySelector(':scope > .brand-lockup > .brand-sub');
+        if(descriptor&&descriptor.textContent.trim()!==copy.descriptor) descriptor.textContent=copy.descriptor;
+      }
       node.classList.add('p120-brand53-brand');
       node.dataset.p120CanonicalBrand='5.3';
       if(node.tagName==='A') node.href=localeRoot(isEn);
@@ -206,9 +220,10 @@
       info.className='p120-resume53__copy';
       rail.prepend(info);
     }
-    info.innerHTML=isEn
+    const nextInfo=isEn
       ? `<div class="p120-resume53__topline"><span class="p120-resume53__state">Saved research</span><span class="p120-resume53__progress">${percent}% complete</span></div><div class="p120-resume53__module">Segment ${String(moduleIndex+1).padStart(2,'0')} / ${String(instrument.modules.length).padStart(2,'0')} · ${safeText(module.name)} · ${safeText(module.title)}</div><div class="p120-resume53__meta"><span>Next · <strong>question ${moduleItemIndex+1} of ${moduleItems.length}</strong></span><span>Instrument · <strong>P-120</strong></span><span class="p120-resume53__session">Session · ${safeText(sessionId)}</span></div>`
       : `<div class="p120-resume53__topline"><span class="p120-resume53__state">Сохранённое исследование</span><span class="p120-resume53__progress">${percent}% пройдено</span></div><div class="p120-resume53__module">Сегмент ${String(moduleIndex+1).padStart(2,'0')} / ${String(instrument.modules.length).padStart(2,'0')} · ${safeText(module.name)} · ${safeText(module.title)}</div><div class="p120-resume53__meta"><span>Следующий · <strong>вопрос ${moduleItemIndex+1} из ${moduleItems.length}</strong></span><span>Инструмент · <strong>P-120</strong></span><span class="p120-resume53__session">Сессия · ${safeText(sessionId)}</span></div>`;
+    if(info.innerHTML!==nextInfo) info.innerHTML=nextInfo;
 
     const resume=rail.querySelector('#editorialResume');
     const restart=rail.querySelector('#homeRestart');
@@ -292,9 +307,11 @@
   }
 
   let running=false;
+  let reconcileCount=0;
   function reconcile(){
     if(running) return; running=true;
     try{
+      reconcileCount++;
       ensureLegalHeader();
       patchHeaderClasses();
       patchBrand();
@@ -311,18 +328,32 @@
     } finally {running=false;}
   }
 
+  const RECONCILE_SELECTOR='.brand-button,.explore-brand,.creator-brand,.wp-brand,.p120-brand53-brand,.topnav,.explore-mainnav,.creator-nav,.wp-nav,.explore-topbar,.creator-topbar,.wp-header,.p120-brand53-header,.editorial-resume-rail,[data-p120-legal-footer]';
+  function touchesReconcileSurface(node){
+    if(!(node instanceof Element)) return false;
+    return node.matches(RECONCILE_SELECTOR)||!!node.querySelector(RECONCILE_SELECTOR);
+  }
+  function mutationNeedsReconcile(mutations){
+    return mutations.some(m=>[...m.addedNodes,...m.removedNodes].some(touchesReconcileSurface));
+  }
+  let reconcileQueued=false;
+  function queueReconcile(){
+    if(reconcileQueued) return;
+    reconcileQueued=true;
+    requestAnimationFrame(()=>{reconcileQueued=false;reconcile();});
+  }
+
   function start(){
-    ensureCss();
     bindGlobalInteractions();
     applyTheme(currentTheme,{persist:false});
     reconcile();
-    if(document.body) new MutationObserver(()=>requestAnimationFrame(reconcile)).observe(document.body,{childList:true,subtree:true});
+    if(document.body) new MutationObserver(mutations=>{if(mutationNeedsReconcile(mutations))queueReconcile();}).observe(document.body,{childList:true,subtree:true});
     if(document.body) new MutationObserver(()=>{
       const t=document.body.dataset.theme;
       if(THEMES.includes(t)&&t!==currentTheme){currentTheme=t;try{localStorage.setItem(THEME_KEY,t);}catch(_){} reconcile();}
     }).observe(document.body,{attributes:true,attributeFilter:['data-theme']});
   }
 
-  window.P120_BRAND_SYSTEM=Object.freeze({version:'5.3',revision:'5.3.1',themeKey:THEME_KEY,descriptor:copy.descriptor,brand:copy.brand,root:rootUrl.href,reconcile});
+  window.P120_BRAND_SYSTEM=Object.freeze({version:'5.3',revision:'5.3.2',themeKey:THEME_KEY,descriptor:copy.descriptor,brand:copy.brand,root:rootUrl.href,reconcile,getReconcileCount:()=>reconcileCount});
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
 })();

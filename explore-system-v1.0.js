@@ -84,7 +84,7 @@
   function addThemeControl(){
     if(!pageKind)return;
     const inner=document.querySelector('.explore-topbar__inner');
-    if(!inner||inner.querySelector('.explore-theme-menu'))return;
+    if(!inner||inner.querySelector('.explore-theme-menu')||inner.querySelector('[data-p120-brand53-tools]'))return;
     const details=document.createElement('details');
     details.className='explore-theme-menu';
     details.innerHTML=`<summary aria-label="${isEn?'Colour theme':'Цветовая тема'}"><span class="explore-theme-dot" aria-hidden="true"></span><span data-explore-theme-label>${themeLabel(theme)}</span></summary><div class="explore-theme-popover">${THEMES.map(themeOptionMarkup).join('')}</div>`;
@@ -120,7 +120,7 @@
   function addLanguageSwitch(){
     if(!pageKind)return;
     const inner=document.querySelector('.explore-topbar__inner');
-    if(!inner||inner.querySelector('.explore-lang-switch'))return;
+    if(!inner||inner.querySelector('.explore-lang-switch')||inner.querySelector('[data-p120-brand53-tools]'))return;
     const root=projectRoot();
     const ru=`${root}${pageKind}/`;
     const en=`${root}en/${pageKind}/`;
@@ -194,7 +194,7 @@
   if(document.querySelector('script[data-p120-brand-system-loader]') || window.P120_BRAND_SYSTEM) return;
   const base=document.currentScript?.src||document.baseURI;
   const script=document.createElement('script');
-  script.src=new URL('p120-brand-system-v1.0.js?v=53',base).href;
+  script.src=new URL('p120-brand-system-v1.0.js?v=532',base).href;
   script.async=false;
   script.dataset.p120BrandSystemLoader='5.3';
   document.head.appendChild(script);

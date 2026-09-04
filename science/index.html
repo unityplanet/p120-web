@@ -1081,7 +1081,6 @@ body[data-theme='museum'] .topbar .badge{background:rgba(255,255,255,.04)}
   .compact-theme-switch .theme-switch-label{width:100%}
 }
 @media(max-width:620px){
-  .brand-mark{display:none}
   .navlink{padding:8px 10px;font-size:11px}
   .topbar-tools .desktop-only{display:none}
 }
@@ -2507,6 +2506,11 @@ body[data-theme='museum'] :is(.dark-statement,.showcase-cover){border-color:var(
 body[data-theme='graphite'] .p120-dedicated-science-lang,body[data-theme='museum'] .p120-dedicated-science-lang{background:rgba(255,255,255,.04)}
 @media(max-width:720px){.p120-dedicated-science-lang{margin-left:auto}.p120-dedicated-science-lang a{min-width:28px}.topbar-tools .badge.desktop-only{display:none!important}}
 </style>
+
+  <!-- P120 GLOBAL HEADER PASS 2.1 — canonical first-paint authority -->
+  <link rel="stylesheet" href="../p120-brand-system-v1.0.css?v=532" data-p120-brand-system="5.3" />
+  <link rel="stylesheet" href="../p120-pass53-visual-corrections-v1.0.css?v=532" data-p120-pass53-visual-corrections="5.3.2" />
+  <script data-p120-brand-bootstrap="5.3.2">document.documentElement.classList.add('p120-brand53-ready')</script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Перейти к основному содержанию</a>
@@ -3457,15 +3461,15 @@ function shell(content,{sidebar=true,home=false}={}){
   const showSave=state.startedAt || hasProgress();
   const showProgress=hasProgress();
   return `<div class="shell screen-${esc(state.screen)}">
-    <header class="topbar mobile-ux-topbar">
-      <div class="topbar-inner refined-topbar mobile-refined-topbar">
+    <header class="topbar mobile-ux-topbar p120-brand53-header">
+      <div class="topbar-inner refined-topbar mobile-refined-topbar p120-brand53-header__inner">
         <div class="brand-cluster">
-          <button class="brand-button" data-home aria-label="P-120 — главное меню">
+          <button class="brand-button p120-brand53-brand" data-p120-canonical-brand="5.3" data-home aria-label="P-120 — главное меню">
             <span class="brand-mark" aria-hidden="true"><span class="brand-orbit"></span><span class="brand-node brand-node-a"></span><span class="brand-node brand-node-b"></span></span>
             <span class="brand-lockup"><span class="brand">P-120</span><span class="brand-sub">исследовательская архитектура</span></span>
           </button>
         </div>
-        <nav class="topnav" aria-label="Главная навигация">
+        <nav class="topnav p120-brand53-nav" data-p120-canonical-nav="5.3" aria-label="Главная навигация">
           <button class="navlink" data-nav="why-important">О P-120</button>
           <button class="navlink navlink-origin" data-why-origin>Почему P-120?</button>
           <button class="navlink" data-nav="why-p120">Уникальность</button>
