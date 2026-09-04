@@ -5,31 +5,41 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="robots" content="noindex,nofollow,noarchive" />
   <meta name="referrer" content="no-referrer" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.bunny.net; font-src https://fonts.bunny.net; connect-src 'self' https://hvjgrpssjnnprazwhikn.supabase.co; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'" />
-  <title>P-120 — Controlled Runtime</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.bunny.net; font-src https://fonts.bunny.net; connect-src 'self' https://hvjgrpssjnnprazwhikn.supabase.co; img-src 'self' data:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'" />
+  <title>P-120 — Founder Alpha Controlled Runtime</title>
   <link rel="stylesheet" href="https://fonts.bunny.net/css?family=ibm-plex-mono:400,500|ibm-plex-sans:300,400,500,600,700|noto-serif:500,600,700&display=swap" />
   <style>
     :root{--ink:#171715;--muted:#6c6b64;--line:#ded8cc;--paper:#f5efe4;--card:#fffaf2;--soft:#eee6da;--ok:#486455;--warn:#846440;--danger:#7a3b36;--shadow:0 24px 70px rgba(36,28,20,.08)}
-    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;min-width:320px}header{border-top:3px solid var(--ink);border-bottom:1px solid var(--line);background:rgba(245,239,228,.95)}
-    .bar{max-width:1280px;margin:auto;padding:14px 22px;display:flex;align-items:center;gap:14px}.brand{font-family:"Noto Serif",serif;font-size:24px;font-weight:700}.sub{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.11em;color:var(--muted);text-transform:uppercase}.grow{flex:1}
-    main{max-width:1280px;margin:auto;padding:28px 22px 80px}.card{padding:clamp(22px,4vw,48px);border:1px solid var(--line);border-radius:24px;background:var(--card);box-shadow:var(--shadow)}h1,h2{font-family:"Noto Serif",serif}h1{font-size:clamp(38px,4vw,62px);letter-spacing:-.035em;margin:8px 0 16px}.muted{color:var(--muted)}.mono{font-family:"IBM Plex Mono",monospace}.status{padding:14px 16px;border-left:3px solid var(--ink);background:var(--soft);white-space:pre-wrap}.ok{color:var(--ok)}.warn{color:var(--warn)}.danger{color:var(--danger)}
-    button{appearance:none;border:1px solid var(--ink);background:var(--ink);color:white;border-radius:999px;padding:12px 18px;font-weight:700;cursor:pointer}.secondary{background:transparent;color:var(--ink);border-color:#bdb4a5}.hidden{display:none!important}.question{font-family:"Noto Serif",serif;font-size:clamp(28px,3vw,46px);line-height:1.2;margin:30px 0}.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}.choice{border-radius:14px;min-height:58px}.choice.selected{outline:3px solid rgba(23,23,21,.18)}.row{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.progress{height:5px;background:#e2dbcf;border-radius:999px;overflow:hidden;margin:16px 0 4px}.progress>div{height:100%;background:var(--ink)}.meta{font-size:12px;color:var(--muted)}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;min-width:320px}header{position:sticky;top:0;z-index:20;border-top:3px solid var(--ink);border-bottom:1px solid var(--line);background:rgba(245,239,228,.95);backdrop-filter:blur(16px)}
+    .bar{max-width:1680px;margin:auto;padding:12px 22px;display:flex;align-items:center;gap:14px}.brand{font-family:"Noto Serif",serif;font-size:24px;font-weight:700}.sub{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.11em;color:var(--muted);text-transform:uppercase}.grow{flex:1}
+    main{max-width:1680px;margin:auto;padding:20px 22px 70px}.card{padding:clamp(22px,3vw,42px);border:1px solid var(--line);border-radius:22px;background:var(--card);box-shadow:var(--shadow)}h1,h2,h3{font-family:"Noto Serif",serif}h1{font-size:clamp(36px,4vw,60px);letter-spacing:-.035em;margin:8px 0 16px}.muted{color:var(--muted)}.mono{font-family:"IBM Plex Mono",monospace}.status{padding:13px 15px;border-left:3px solid var(--ink);background:var(--soft);white-space:pre-wrap;font-size:13px}.ok{color:var(--ok)}.warn{color:var(--warn)}.danger{color:var(--danger)}
+    button{appearance:none;border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:999px;padding:11px 17px;font-weight:700;cursor:pointer}.secondary{background:transparent;color:var(--ink);border-color:#bdb4a5}.hidden{display:none!important}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}.runtime-shell{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#fff;min-height:78vh;box-shadow:var(--shadow)}iframe{display:block;width:100%;height:calc(100svh - 125px);min-height:720px;border:0;background:#f6f4ed}.side{display:grid;gap:14px;position:sticky;top:84px}.side .card{padding:20px;box-shadow:none}label{display:grid;gap:6px;font-size:12px;color:var(--muted);margin-top:10px}select,textarea,input{width:100%;border:1px solid var(--line);border-radius:11px;background:#fffdf8;color:var(--ink);padding:10px 11px;font:inherit}textarea{min-height:104px;resize:vertical}.context{font:500 11px/1.45 "IBM Plex Mono",monospace;word-break:break-all;color:var(--muted);padding:10px;background:var(--soft);border-radius:10px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    @media(max-width:1080px){.layout{grid-template-columns:1fr}.side{position:static;grid-template-columns:1fr 1fr}.side .card:last-child{grid-column:1/-1}iframe{height:78svh;min-height:640px}}
+    @media(max-width:620px){main{padding:14px 10px 50px}.bar{padding:10px 12px}.layout{gap:10px}.side{grid-template-columns:1fr}.side .card:last-child{grid-column:auto}.card{padding:18px;border-radius:16px}.runtime-shell{border-radius:16px}iframe{height:80svh;min-height:580px}}
   </style>
 </head>
 <body>
-<header><div class="bar"><div class="brand">P-120</div><div class="sub">Controlled Internal Runtime · PASS 1D</div><div class="grow"></div><button id="back" class="secondary">Cabinet</button></div></header>
+<header><div class="bar"><div class="brand">P-120</div><div class="sub">Founder Alpha · Existing Runtime Adapter</div><div class="grow"></div><button id="back" class="secondary">Cabinet</button></div></header>
 <main>
-  <section id="gate" class="card"><div class="sub">FAIL-CLOSED LOADER</div><h1>Verifying access and package authority</h1><div id="gateStatus" class="status">Initialising…</div></section>
-  <section id="runner" class="card hidden">
-    <div class="row"><div><div class="sub" id="moduleLabel">INTERNAL</div><div class="meta mono" id="sessionMeta"></div></div><div class="meta" id="counter"></div></div>
-    <div class="progress"><div id="progressFill" style="width:0"></div></div>
-    <div id="question" class="question"></div><div id="compare" class="hidden"></div><div id="choices" class="choices"></div>
-    <div class="row" style="margin-top:24px"><button id="prev" class="secondary">Назад</button><button id="next" disabled>Далее</button></div>
+  <section id="gate" class="card"><div class="sub">FAIL-CLOSED AUTHORITY GATE</div><h1>Verifying Founder Alpha runtime</h1><p class="muted">Access → private package → canonical /system/ source → exact frozen-180 parity → source/build provenance.</p><div id="gateStatus" class="status">Initialising…</div></section>
+  <section id="runtimeLayout" class="layout hidden">
+    <div class="runtime-shell"><iframe id="systemFrame" title="P-120 Founder Alpha questionnaire" referrerpolicy="no-referrer"></iframe></div>
+    <aside class="side">
+      <section class="card"><div class="sub">CONTROL STATUS</div><h3>Runtime authority</h3><div id="runtimeStatus" class="status">Waiting…</div></section>
+      <section id="feedbackPanel" class="card hidden"><div class="sub">SEPARATE REVIEW NAMESPACE</div><h3>Founder feedback</h3><p class="muted">Review notes are stored separately and never overwrite measurement responses.</p><div id="feedbackContext" class="context">SESSION</div>
+        <label>Category<select id="feedbackCategory"><option>WORDING</option><option>USABILITY</option><option>SCIENTIFIC</option><option>EMOTIONAL</option><option>TECHNICAL</option><option>OTHER</option></select></label>
+        <label>Severity<select id="feedbackSeverity"><option>NOTE</option><option>LOW</option><option>MEDIUM</option><option>HIGH</option><option>BLOCKER</option></select></label>
+        <label>Note<textarea id="feedbackNote" maxlength="4000"></textarea></label>
+        <label>Proposed action<input id="feedbackAction" maxlength="2000" /></label>
+        <div class="actions"><button id="saveFeedback">Save feedback</button></div>
+      </section>
+      <section id="completePanel" class="card hidden"><div class="sub">COMPLETE</div><h3>Stored + bound</h3><div id="completeMeta" class="context"></div><p class="muted">Participant-facing scoring and report generation remain disabled for Founder Alpha.</p></section>
+    </aside>
   </section>
-  <section id="complete" class="card hidden luxury-results-hero"><div class="sub">COMPLETE</div><h1>Response package ready</h1><p class="muted">Raw pseudonymous response transport remains governed by the existing P-120 submission intake. Account binding is performed separately using Participant ID + payload SHA-256.</p><div id="completeStatus" class="status">Preparing submission…</div></section>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4"></script>
 <script src="../../p120-submission-config-v1.0.js"></script>
-<script src="./p120-internal-runtime-v1.0.js"></script>
+<script src="./p120-alpha-system-adapter-v1.0.js"></script>
 </body>
 </html>
