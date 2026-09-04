@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p120.fa01.extension-package.schema.v1",
+  "title": "P-120 Founder Alpha-01 private extension package",
+  "description": "Public-safe contract only. Exact candidate wording remains in private storage. The frozen 180 are loaded from the canonical /system/ runtime and are not duplicated in this package.",
+  "type": "object",
+  "required": ["schema", "locale", "candidate_scoring", "manifest", "modules", "items"],
+  "properties": {
+    "schema": {"const": "p120.fa01.extension-package.v1"},
+    "locale": {"const": "ru"},
+    "candidate_scoring": {"const": false},
+    "manifest": {
+      "type": "object",
+      "required": ["corpus_id", "corpus_version", "base_item_count", "extension_item_count", "main_item_count", "runtime_build_sha", "base_runtime_sha256", "base_instrument_sha256", "extension_payload_sha256", "rpe_mode", "life_main_temporal_mode", "candidate_scoring", "source_authorities"],
+      "properties": {
+        "corpus_id": {"type": "string", "minLength": 1},
+        "corpus_version": {"type": "string", "minLength": 1},
+        "base_item_count": {"const": 180},
+        "extension_item_count": {"const": 73},
+        "main_item_count": {"const": 253},
+        "runtime_build_sha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "base_runtime_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "base_instrument_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "extension_payload_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "rpe_mode": {"const": "DEFERRED"},
+        "life_main_temporal_mode": {"const": "T3"},
+        "candidate_scoring": {"const": false},
+        "source_authorities": {
+          "type": "object",
+          "required": ["COM12", "MOT12", "SELF12", "LIFE_T3"],
+          "additionalProperties": false,
+          "properties": {
+            "COM12": {"$ref": "#/$defs/sourceAuthority"},
+            "MOT12": {"$ref": "#/$defs/sourceAuthority"},
+            "SELF12": {"$ref": "#/$defs/sourceAuthority"},
+            "LIFE_T3": {"$ref": "#/$defs/sourceAuthority"}
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "modules": {
+      "type": "array", "minItems": 4, "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "title", "intro", "alpha_role"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1, "maxLength": 128},
+          "name": {"type": "string", "minLength": 1},
+          "title": {"type": "string", "minLength": 1},
+          "intro": {"type": "string"},
+          "count": {"type": "integer", "minimum": 1},
+          "alpha_role": {"enum": ["COM12", "MOT12", "SELF12", "LIFE_T3"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "items": {
+      "type": "array", "minItems": 73, "maxItems": 73,
+      "items": {
+        "type": "object",
+        "required": ["id", "module", "type", "text", "choices", "candidate_scoring", "scope_class", "source_version"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1, "maxLength": 128},
+          "module": {"type": "string", "minLength": 1, "maxLength": 128},
+          "type": {"enum": ["likert", "comparative", "single_choice"]},
+          "text": {"type": "string", "minLength": 1},
+          "optionA": {"type": "string"},
+          "optionB": {"type": "string"},
+          "candidate_scoring": {"const": false},
+          "scope_class": {"type": "string", "pattern": "^[A-Za-z0-9_:-]{1,64}$"},
+          "source_version": {"type": "string", "minLength": 1, "maxLength": 128},
+          "temporal_mode": {"enum": ["MAIN", "T3"]},
+          "eligibility_state": {"enum": ["ELIGIBLE", "INELIGIBLE", "UNKNOWN", "NOT_ASSESSED"]},
+          "choices": {
+            "type": "array", "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["value", "label", "response_state"],
+              "properties": {
+                "value": {"type": "string"},
+                "label": {"type": "string"},
+                "response_state": {"enum": ["ANSWERED", "NOT_APPLICABLE", "NO_EXPERIENCE", "PREFER_NOT_ANSWER", "UNKNOWN"]}
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "$defs": {
+    "sourceAuthority": {
+      "type": "object",
+      "required": ["version", "sha256"],
+      "properties": {
+        "version": {"type": "string", "minLength": 1, "maxLength": 128},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "document_id": {"type": "string"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
