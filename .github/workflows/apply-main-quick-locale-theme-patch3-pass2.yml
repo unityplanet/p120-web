@@ -13,22 +13,22 @@ permissions:
 
 jobs:
   apply:
-    name: Apply bounded Main utility parity correction
+    name: Preserve frozen brand revision after bounded utility correction
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Apply PATCH 3 / PASS 2 production correction
+      - name: Preserve frozen revision authority
         run: python3 .github/scripts/p120_patch3_pass2_main_quick_tools_apply.py
       - name: Verify bounded production diff
         run: |
           git diff --check
           git status --short
-          test "$(git diff --name-only | sort | tr '\n' ' ')" = "p120-brand-system-v1.0.css p120-brand-system-v1.0.js "
-      - name: Commit production correction
+          test "$(git diff --name-only | sort | tr '\n' ' ')" = "p120-brand-system-v1.0.js "
+      - name: Commit revision-preservation correction
         run: |
           git config user.name 'P-120 Controlled Automation'
           git config user.email 'actions@users.noreply.github.com'
-          git add p120-brand-system-v1.0.js p120-brand-system-v1.0.css
-          git commit -m 'P120 WEB PATCH 3 PASS 2: expose canonical Main locale theme utilities'
+          git add p120-brand-system-v1.0.js
+          git commit -m 'P120 WEB PATCH 3 PASS 2: preserve frozen brand revision authority'
           git push origin HEAD:main
