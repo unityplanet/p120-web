@@ -27,6 +27,7 @@ add('STATIC / Main header inner is explicit utility target',brand.includes("docu
 add('STATIC / Main insertion targets topbar-tools',brand.includes("const mainTools=inner.querySelector('.topbar-tools')"));
 add('STATIC / Main quick class installed',brand.includes("tools.classList.add('p120-brand53-tools--main-quick')"));
 add('STATIC / canonical utility theme bridge present',brand.includes('function applyUtilityTheme(next)'));
+add('STATIC / Main utility bridge delegates to bound data-set-theme control',brand.includes("document.querySelectorAll('[data-set-theme]')")&&brand.includes('bridge.click()'));
 add('STATIC / frozen brand revision preserved',brand.includes("revision:'5.3.2'"));
 add('STATIC / canonical theme key unchanged',brand.includes("const THEME_KEY = 'p120_web_theme_v16'"));
 add('STATIC / Main quick CSS phone-bounded',brandCss.includes('.p120-brand53-tools--main-quick{display:none}')&&brandCss.includes('@media(max-width:820px)'));
@@ -105,12 +106,13 @@ for(const route of routes){
         body:document.body.dataset.theme,
         stored:localStorage.getItem('p120_web_theme_v16'),
         quickPressed:document.querySelector(`.p120-brand53-tools--main-quick [data-p120-theme="${t}"]`)?.getAttribute('aria-pressed')||'',
-        mainSetTheme:typeof window.setTheme,
+        bridgeControls:document.querySelectorAll('[data-set-theme]').length,
+        bridgeActive:document.querySelectorAll(`[data-set-theme="${t}"].active`).length,
         quickOpen:document.querySelector('.p120-brand53-tools--main-quick .p120-brand53-theme')?.open||false
       }),target);
       add(`${prefix} / quick theme changes canonical body + persistence`,switched.body===target&&switched.stored===target,{switched});
       add(`${prefix} / quick theme aria state synchronized`,switched.quickPressed==='true',{pressed:switched.quickPressed});
-      add(`${prefix} / Main theme authority bridge available`,switched.mainSetTheme==='function',{type:switched.mainSetTheme});
+      add(`${prefix} / Main closure-local theme authority bridge available`,switched.bridgeControls>=3&&switched.bridgeActive>=1,{bridgeControls:switched.bridgeControls,bridgeActive:switched.bridgeActive});
       add(`${prefix} / theme popover closes after selection`,switched.quickOpen===false);
 
       await page.locator('[data-mobile-menu]').click();
@@ -118,8 +120,6 @@ for(const route of routes){
       add(`${prefix} / hamburger drawer remains functional`,await page.locator('body.mobile-menu-open').count()===1);
       add(`${prefix} / hamburger retains theme controls`,await page.locator('.mobile-menu [data-set-theme]').count()===3,{count:await page.locator('.mobile-menu [data-set-theme]').count()});
       add(`${prefix} / hamburger theme state synchronized`,await page.locator(`.mobile-menu [data-set-theme="${target}"].active`).count()===1);
-      // Existing drawer/header stacking makes the visible X sit under the sticky header at this geometry;
-      // the canonical hamburger toggle is the existing reliable close path and is what PATCH 3 must preserve.
       await page.locator('[data-mobile-menu]').click();
       await page.waitForTimeout(60);
       add(`${prefix} / hamburger toggle closes drawer`,await page.locator('body.mobile-menu-open').count()===0);
