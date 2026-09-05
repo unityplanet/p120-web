@@ -14,6 +14,7 @@ COPY report_00.b64 /tmp/report_00.b64
 COPY report_01.b64 /tmp/report_01.b64
 COPY report_02.b64 /tmp/report_02.b64
 COPY interp_00.b64 /tmp/p120_worker_interpretation.b64
+COPY compat_patch.py /tmp/compat_patch.py
 RUN set -eux; \
     base64 -d --ignore-garbage /tmp/p120_worker_bundle.b64 > /tmp/p120_worker_partial.tgz; \
     mkdir -p /app; \
@@ -33,6 +34,8 @@ RUN set -eux; \
     base64 -d /tmp/p120_worker_interpretation.b64 > /tmp/p120_worker_interpretation.tgz; \
     echo 'fa5fd4a51ef9bd2e9860fa83acaa19443769b9c8977ad4366c9cdfd08c8509a3  /tmp/p120_worker_interpretation.tgz' | sha256sum -c -; \
     tar -xzf /tmp/p120_worker_interpretation.tgz -C /app; \
+    python /tmp/compat_patch.py; \
+    python -m py_compile /app/e2e_runner.py; \
     echo '=== P120 E2E PACKAGING MANIFEST START ==='; \
     find /app -maxdepth 7 -type f | sort; \
     echo '=== P120 E2E PACKAGING MANIFEST END ==='; \
@@ -62,7 +65,7 @@ RUN set -eux; \
       /app/baseline_v0.7/registries/semantic-alignment-registry.v0.7.json; do \
         if [ -f "$f" ]; then echo "PACKAGING_ASSERT PASS $f"; else echo "PACKAGING_ASSERT FAIL $f"; exit 41; fi; \
     done; \
-    rm -f /tmp/p120_worker_*.b64 /tmp/p120_worker_*.tgz /tmp/tail_*.b64 /tmp/control_*.b64 /tmp/report_*.b64; \
+    rm -f /tmp/p120_worker_*.b64 /tmp/p120_worker_*.tgz /tmp/tail_*.b64 /tmp/control_*.b64 /tmp/report_*.b64 /tmp/compat_patch.py; \
     pip install --no-cache-dir "jsonschema>=4.20,<5"
 ENV PYTHONUNBUFFERED=1
 CMD ["python","e2e_runner.py"]
