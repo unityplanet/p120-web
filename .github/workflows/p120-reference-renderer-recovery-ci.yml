@@ -1,0 +1,57 @@
+name: P120 Reference Renderer Recovery CI
+on:
+  push:
+    branches:
+      - 'p120/reference-renderer-reissue'
+permissions:
+  contents: read
+jobs:
+  recover-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Recover renderer payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd reference_renderer
+          python - <<'PY'
+          from pathlib import Path
+          import gzip,bz2,lzma,zipfile,tarfile,io
+          p=Path('p120_reference_renderer.payload')
+          raw=p.read_bytes()
+          out=None
+          if raw.startswith(b'\x1f\x8b'):
+              out=gzip.decompress(raw)
+          elif raw.startswith(b'BZh'):
+              out=bz2.decompress(raw)
+          elif raw.startswith(b'\xfd7zXZ'):
+              out=lzma.decompress(raw)
+          elif raw.startswith(b'PK\x03\x04'):
+              z=zipfile.ZipFile(io.BytesIO(raw)); names=[n for n in z.namelist() if n.endswith('.py')]; assert names; out=z.read(names[0])
+          else:
+              try: out=raw.decode('utf-8').encode('utf-8')
+              except UnicodeDecodeError: pass
+          if out is None:
+              try:
+                  t=tarfile.open(fileobj=io.BytesIO(raw)); names=[n for n in t.getnames() if n.endswith('.py')]; assert names; out=t.extractfile(names[0]).read()
+              except Exception: pass
+          assert out is not None, f'unsupported payload magic={raw[:16].hex()}'
+          out.decode('utf-8')
+          Path('p120_reference_renderer.py').write_bytes(out)
+          print('RECOVERED_BYTES',len(out))
+          PY
+          python -m py_compile p120_reference_renderer.py
+      - name: Contract tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd reference_renderer
+          python tests/test_reference_renderer.py
+      - name: Upload recovered source
+        uses: actions/upload-artifact@v4
+        with:
+          name: p120-reference-renderer-recovered-source
+          path: reference_renderer/p120_reference_renderer.py
+          retention-days: 1

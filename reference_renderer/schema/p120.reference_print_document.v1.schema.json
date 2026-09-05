@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p120.reference_print_document.v1",
+  "type": "object",
+  "required": [
+    "schema_id",
+    "schema_version",
+    "architecture_id",
+    "report_id",
+    "publication_authorization",
+    "language",
+    "title",
+    "pages"
+  ],
+  "properties": {
+    "schema_id": {
+      "const": "p120.reference_print_document"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "architecture_id": {
+      "const": "P120-REP-ARCH-001/v1.0"
+    },
+    "report_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9][A-Z0-9._:-]{2,63}$"
+    },
+    "publication_authorization": {
+      "enum": [
+        "FULL",
+        "EXPERT_ONLY",
+        "NO_PUBLICATION"
+      ]
+    },
+    "language": {
+      "enum": [
+        "ru",
+        "en"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 180
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "object",
+        "required": [
+          "page_class"
+        ],
+        "properties": {
+          "page_class": {
+            "enum": [
+              "cover",
+              "how_to_read",
+              "executive_portrait",
+              "profile_module",
+              "cross_layer",
+              "limitations",
+              "technical_appendix"
+            ]
+          },
+          "heading": {
+            "type": "string"
+          },
+          "kicker": {
+            "type": "string"
+          },
+          "intro": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "blocks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "element_id",
+                "source_state",
+                "source_ids"
+              ],
+              "properties": {
+                "element_id": {
+                  "type": "string"
+                },
+                "evidence_class": {
+                  "enum": [
+                    "L1",
+                    "L2",
+                    "L3",
+                    "L4",
+                    null
+                  ]
+                },
+                "source_state": {
+                  "enum": [
+                    "available",
+                    "partial",
+                    "missing",
+                    "not_applicable",
+                    "not_exposed",
+                    "insufficient_coverage"
+                  ]
+                },
+                "source_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "title": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "visible_state": {
+                  "type": "string"
+                },
+                "numeric_value": {
+                  "type": [
+                    "number",
+                    "integer",
+                    "null"
+                  ]
+                },
+                "unit": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "maxItems": 64
+    }
+  },
+  "additionalProperties": false
+}

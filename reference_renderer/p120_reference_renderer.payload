@@ -1,0 +1,197 @@
+from __future__ import annotations
+
+import argparse
+import builtins
+import hashlib
+import html
+import json
+import re
+from pathlib import Path
+from typing import Any, Dict, List, Mapping, Sequence
+
+from weasyprint import HTML
+from weasyprint.text.fonts import FontConfiguration
+
+RENDERER_ID = "p120.reference_pdf_renderer"
+RENDERER_VERSION = "1.0.0"
+RENDERER_BACKEND = "WeasyPrint 68 / HTML-CSS Paged Media / tagged PDF"
+PRINT_SCHEMA_ID = "p120.reference_print_document"
+PRINT_SCHEMA_VERSION = "1.0.0"
+ARCHITECTURE_ID = "P120-REP-ARCH-001/v1.0"
+
+FONT_PINS = {
+    "IBMPlexMono-Regular.ttf": "7c6fbddca4b700be918f5f6183d9bd4464fa427fe435f0b480d77fe2bb8c5a43",
+    "IBMPlexSans-Italic.ttf": "a9c6ef9942c49e49d11e11a6dacc0b3a087978757e9b22a06b8ac22a6400fb15",
+    "IBMPlexSans-Light.ttf": "2218b5f3f1fc9d3a793343f45c3be5ee7eae9584a7a52391bb8cf2d37622b3e0",
+    "IBMPlexSans-LightItalic.ttf": "54ad6d58d163b6b1f850fcbab3c46a1ed6c1ec3050524abb904c076a52c6bb1a",
+    "IBMPlexSans-Regular.ttf": "975dcda37d80f038dcd143c22e33ca2d97a0cc5a929aace1c749153b0fe1afa5",
+    "IBMPlexSans-SemiBold.ttf": "a20caf8286023a6a7a85e40b1d2a4ae9fc3e3b1f9eda8f4c542dd4986af67bb1",
+    "NotoSerifDisplay-Regular.ttf": "8b45c367c7c6a4a1d82f132464b7f1aa8ff092df06602522b981daf1da64d927",
+    "Prata-Regular.ttf": "3b2b880737be3bda5f03554297b758516876157c88f9e3b3bae8fa1fc96a2c2c",
+}
+
+FONT_ROLE_FILES = {
+    "display": "NotoSerifDisplay-Regular.ttf",
+    "heading": "Prata-Regular.ttf",
+    "body": "IBMPlexSans-Regular.ttf",
+    "body_light": "IBMPlexSans-Light.ttf",
+    "body_italic": "IBMPlexSans-Italic.ttf",
+    "body_light_italic": "IBMPlexSans-LightItalic.ttf",
+    "label": "IBMPlexSans-SemiBold.ttf",
+    "mono": "IBMPlexMono-Regular.ttf",
+}
+
+ALLOWED_AUTH = {"FULL", "EXPERT_ONLY", "NO_PUBLICATION"}
+ALLOWED_EVIDENCE = {"L1", "L2", "L3", "L4"}
+ALLOWED_STATES = {"available", "partial", "missing", "not_applicable", "not_exposed", "insufficient_coverage"}
+ALLOWED_PAGE_CLASSES = {
+    "cover", "how_to_read", "executive_portrait", "profile_module",
+    "cross_layer", "limitations", "technical_appendix",
+}
+SANITIZED_ID_RE = re.compile(r"^[A-Z0-9][A-Z0-9._:-]{2,63}$")
+INTERNAL_ID_RE = re.compile(r"\b(?:CLM|SYN|BLK|BR|JOB|RHO|RLD|RPK)-[A-Za-z0-9._:-]+\b")
+EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.I)
+PHONE_RE = re.compile(r"(?<!\d)(?:\+?\d[\s().-]*){9,}(?!\d)")
+
+GRAPHITE = "#202526"
+MUTED = "#5D6869"
+TEAL = "#3F7475"
+TEAL_LIGHT = "#EAF1F0"
+STONE = "#D8D4CD"
+STONE_LIGHT = "#F3F1ED"
+
+
+class ReferenceRenderError(Exception):
+    pass
+
+
+def canonical_json_bytes(value: Any) -> bytes:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+
+
+def sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _require(cond: bool, message: str) -> None:
+    if not cond:
+        raise ReferenceRenderError(message)
+
+
+def _assert_no_sensitive_visible_text(text: str, where: str) -> None:
+    _require(not EMAIL_RE.search(text), f"visible email-like content forbidden at {where}")
+    _require(not PHONE_RE.search(text), f"visible phone-like content forbidden at {where}")
+    _require(not INTERNAL_ID_RE.search(text), f"visible internal routing identifier forbidden at {where}")
+
+
+def validate_print_document(doc: Mapping[str, Any]) -> Dict[str, Any]:
+    _require(doc.get("schema_id") == PRINT_SCHEMA_ID, "unexpected print schema_id")
+    _require(doc.get("schema_version") == PRINT_SCHEMA_VERSION, "unexpected print schema_version")
+    _require(doc.get("architecture_id") == ARCHITECTURE_ID, "unexpected architecture_id")
+    auth = doc.get("publication_authorization")
+    _require(auth in ALLOWED_AUTH, "unknown publication_authorization")
+    _require(auth != "NO_PUBLICATION", "NO_PUBLICATION cannot be rendered")
+    language = doc.get("language")
+    _require(language in {"ru", "en"}, "unsupported language")
+    report_id = doc.get("report_id")
+    _require(isinstance(report_id, str) and SANITIZED_ID_RE.fullmatch(report_id), "report_id must be sanitized")
+    title = doc.get("title")
+    _require(isinstance(title, str) and 2 <= len(title) <= 180, "invalid title")
+    _assert_no_sensitive_visible_text(title, "title")
+
+    pages = doc.get("pages")
+    _require(isinstance(pages, list) and pages, "pages must be a non-empty array")
+    _require(pages[0].get("page_class") == "cover", "first page class must be cover")
+    present = {p.get("page_class") for p in pages}
+    missing_classes = ALLOWED_PAGE_CLASSES - present
+    _require(not missing_classes, f"reference document missing page classes: {sorted(missing_classes)}")
+
+    seen_elements: set[str] = set()
+    trace_rows = []
+    for pi, page in enumerate(pages):
+        pclass = page.get("page_class")
+        _require(pclass in ALLOWED_PAGE_CLASSES, f"unknown page_class at {pi}: {pclass}")
+        for field in ("heading", "intro", "subtitle", "note", "kicker"):
+            value = page.get(field)
+            if value is not None:
+                _require(isinstance(value, str), f"page {field} must be string at {pi}")
+                _assert_no_sensitive_visible_text(value, f"pages[{pi}].{field}")
+        fields = page.get("fields", [])
+        _require(isinstance(fields, list), f"fields must be array at page {pi}")
+        for fi, row in enumerate(fields):
+            _require(isinstance(row, list) and len(row) == 2, f"invalid technical field at {pi}/{fi}")
+            for ci, value in enumerate(row):
+                _require(isinstance(value, str), f"technical field value must be string at {pi}/{fi}/{ci}")
+                _assert_no_sensitive_visible_text(value, f"pages[{pi}].fields[{fi}][{ci}]")
+
+        blocks = page.get("blocks", [])
+        _require(isinstance(blocks, list), f"blocks must be array at page {pi}")
+        for bi, block in enumerate(blocks):
+            eid = block.get("element_id")
+            _require(isinstance(eid, str) and SANITIZED_ID_RE.fullmatch(eid), f"invalid element_id at {pi}/{bi}")
+            _require(eid not in seen_elements, f"duplicate element_id: {eid}")
+            seen_elements.add(eid)
+            evidence = block.get("evidence_class")
+            _require(evidence in ALLOWED_EVIDENCE or evidence is None, f"invalid evidence_class at {eid}")
+            state = block.get("source_state", "available")
+            _require(state in ALLOWED_STATES, f"invalid source_state at {eid}")
+            if evidence in {"L1", "L2"}:
+                _require("source_state" in block, f"{evidence} requires explicit source_state at {eid}")
+            if evidence in {"L3", "L4"}:
+                _require(block.get("numeric_value") is None, f"{evidence} cannot carry numeric_value at {eid}")
+            if state in {"missing", "not_applicable", "not_exposed", "insufficient_coverage"}:
+                _require(block.get("numeric_value") is None, f"missing-like state cannot carry numeric_value at {eid}")
+            if block.get("numeric_value") is not None:
+                _require(isinstance(block.get("numeric_value"), (int, float)) and not isinstance(block.get("numeric_value"), bool), f"numeric_value must be numeric at {eid}")
+            for key in ("title", "text", "visible_state", "unit"):
+                val = block.get(key)
+                if val is not None:
+                    _require(isinstance(val, str), f"{key} must be string at {eid}")
+                    _assert_no_sensitive_visible_text(val, f"pages[{pi}].blocks[{bi}].{{key}}")
+            source_ids = block.get("source_ids", [])
+            _require(isinstance(source_ids, list), f"source_ids must be array at {eid}")
+            for sid in source_ids:
+                _require(isinstance(sid, str) and 2 <= len(sid) <= 96, f"invalid source_id at {eid}")
+                trace_rows.append({"element_id": eid, "source_id": sid, "evidence_class": evidence, "source_state": state})
+    return {"valid": True, "page_count": len(pages), "trace_rows": trace_rows}
+
+
+def verify_font_binaries(font_dir: Path) -> Dict[str, str]:
+    _require(font_dir.is_dir(), "font directory missing")
+    out = {}
+    for name, expected in FONT_PINS.items():
+        p=font_dir/name
+        _require(p.is_file(), f"canonical font missing: {name}")
+        observed = sha256_file(p)
+        _require(observed == expected, f"font sha256 mismatch: {name}")
+        out[name] = observed
+    return out
+
+
+def _e(value: Any) -> str:
+    return html.escape(str(value), quote=True)
+
+def _label_text(evidence: str | None, language: str) -> str:
+    if language == "ru":
+        return {"L1": "L1 Â· Ð˜Ð·Ð¼ÐµÑ€ÐµÐ½Ð¾", "L2": "L2 Â· Ð’Ñ‹Ð²ÐµÐ´ÐµÐ½Ð¾ Ð¿Ð¾ Ð¿Ñ€Ð°Ð²Ð¸Ð»Ñƒ", "L3": "L3 Â· Ð˜Ð½Ñ‚ÐµÑ€Ð¿Ñ€ÐµÑ‚Ð°Ñ†Ð¸Ñ", "L4": "L4 Â· Ð˜ÑÑÐ»ÐµÐ´Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒÑÐºÐ¾Ðµ", None: "Ð¡Ð¾ÑÑ‚Ð¾ÑÐ½Ð¸Ðµ"}[evidence]
+    return {"L1": "L1 Â· Measured", "L2": "L2 Â· Derived", "L3": "L3 Â· Interpretive", "Làˆè€‰0Ðƒ
+ÜáÁ±½É…Ñ½Éäˆ°9½¹”è€‰MÑ…Ñ”‰õm•Ù¥‘•¹•t(()‘•˜}ÍÑ…Ñ•}Ñ•áÐ¡ÍÑ…Ñ”èÍÑÈ°±…¹Õ…”èÍÑÈ¤€´øÍÑÈè(€€€¥˜±…¹Õ…”€ôô€‰ÉÔˆè(€€€€€€€É•ÑÕÉ¸ì(€€€€€€€€€€€€‰…Ù…¥±…‰±”ˆè€‹BcFFFFB÷BãBèƒBÓBûFFFBÿB×Bôˆ°€‰Á…ÉÑ¥…°ˆè€‹BBûBëFF/FBãBÔƒFBÃFFBãFB÷BûBÔˆ°(€€€€€€€€€€€€‰µ¥ÍÍ¥¹œˆè€‹BwB×FƒBÓBÃB÷B÷F/Fˆ°€‰¹½Ñ}…ÁÁ±¥…‰±”ˆè€‹BwBÔƒBÿFBãBóB×B÷BãBóBøˆ°(€€€€€€€€€€€€‰¹½Ñ}•áÁ½Í•ˆè€‹BwBÔƒBÿFB×BÓF+F?BËBïF?BÿBûFF0ˆ°€‰¥¹ÍÕ™™¥¥•¹Ñ}½Ù•É…”ˆè€‹BwB×BÓBûFFBÃFBûFB÷BûBÔƒBÿBûBëFF/FBãBÔˆ°(€€€€€€€õmÍÑ…Ñ•t(€€€É•ÑÕÉ¸ì‰…Ù…¥±…‰±”ˆè€‰M½ÕÉ”…Ù…¥±…‰±”ˆ°€‰Á…ÉÑ¥…°ˆè€‰A…ÉÑ¥…°½Ù•É…”ˆ°€‰µ¥ÍÍ¥¹œˆè€‰9¼‘…Ñ„ˆ°€‰¹½Ñ}…ÁÁ±¥…‰±”ˆè€‰9½Ð…ÁÁ±¥…‰±”ˆ°€‰¹½Ñ}•áÁ½Í•ˆè€‰9½Ð•áÁ½Í•ˆ°€‰¥¹ÍÕ™™¥¥•¹Ñ}½Ù•É…”ˆè€‰%¹ÍÕ™™¥¥•¹Ð½Ù•É…”‰õmÍÑ…Ñ•t()‘•˜}­¥­•È¡Á…•}±…ÍÌèÍÑÈ°¥¹‘•àè¥¹Ð°±…¹Õ…”èÍÑÈ¤€´øÍÑÈè(€€€¥˜±…¹Õ…”€ôô€‰ÉÔˆè(€€€€€€€±…‰•±Ì€ôì(€€€€€€€€€€€€‰½Ù•Èˆè€‹B‹BcB‹BBlˆ°€‰¡½Ý}Ñ½}É•…ˆè€‹BkBCBhƒBŸBcB‹BCB‹B°ˆ°€‰•á•ÕÑ¥Ù•}Á½ÉÑÉ…¥Ðˆè€‹BkB{BƒB{B‹BkBcBdƒBB{BƒB‹BƒBWBˆˆ°(€€€€€€€€€€€€‰ÁÉ½™¥±•}µ½‘Õ±”ˆè€‹BsB{BSBBoB°ƒBFB{B“BcBoB¼ˆ°€‰É½ÍÍ}±…å•Èˆè€‹BsBWB[BBƒB{BKBwBWBKBCB¼ƒBcBwB‹BWBOBƒBCB›BcB¼ˆ°(€€€€€€€€€€€€‰±¥µ¥Ñ…Ñ¥½¹Ìˆè€‹B{BOBƒBCBwBcBŸBWBwBcB¼ˆ°€‰Ñ•¡¹¥…±}…ÁÁ•¹‘¥àˆè€‹B‹BWB—BwBcBŸBWB‡BkB{BWBBƒBcBoB{B[BWBwBcBdˆ°(€€€€€€€ô(€€€€€€€É•ÑÕÉ¸˜‰í¥¹‘•à¬ÄèÀÉ‘ôƒ
+Üí±…‰•±ÍmÁ…•}±…ÍÍuôˆ(€€€É•ÑÕÉ¸˜‰í¥¹‘•à¬ÄèÀÉ‘ôƒ
+ÜíÁ…•}±…ÍÌ¹É•Á±…” |œ°€œ€œ¤¹ÕÁÁ•È ¥ôˆ()‘•˜}‰±½­}Ñ½}¡Ñµ°¡‰±½¬è5…ÁÁ¥¹mÍÑÈ°¹åt°±…¹Õ…”èÍÑÈ¤€´øÍÑÈè(€€€•Ø€ô‰±½¬¹•Ð ‰•Ù¥‘•¹•}±…ÍÌˆ¤(€€€ÍÑ…Ñ”€ô‰±½¬¹•Ð ‰Í½ÕÉ•}ÍÑ…Ñ”ˆ°€‰…Ù…¥±…‰±”ˆ¤(€€€±…‰•°€ô}±…‰•±}Ñ•áÐ¡•Ø°±…¹Õ…”¤(€€€Ñ¥Ñ±”€ô‰±½¬¹•Ð ‰Ñ¥Ñ±”ˆ¤½È€ˆˆ(€€€Ñ•áÐ€ô‰±½¬¹•Ð ‰Ñ•áÐˆ¤½È€ˆˆ(€€€Ù¥Í¥‰±•}ÍÑ…Ñ”€ô‰±½¬¹•Ð ‰É¥Í¥‰±•}ÍÑ…Ñ”ˆ¤½È}ÍÑ…Ñ•}Ñ•áÐ¡ÍÑ…Ñ”°±…¹Õ…”¤(€€€¹Õµ•É¥Œ€ô‰±½¬¹•Ð ‰¹Õµ•É¥}Ù…±Õ”ˆ¤(€€€Õ¹¥Ð€ô‰±½¬¹•Ð ‰Õ¹¥Ò"’÷"" ¢çVÖW&–5ö‡FÖÂÒ" ¢–bçVÖW&–2—2æ÷BæöæS ¢çVÖW&–5ö‡FÖÂÒbsÆF—b6Æ73Ò&çVÖW&–2#çµöR†b'¶çVÖW&–7Ò·Væ—GÒ"ç7G&—‚’—ÓÂöF—câp¢6Ç2Òb&&Æö6²Ub×¶Wb÷"w7FFRwÒ7FFR×·7FFWÒ ¢&WGW&â€¢bsÆ'F–6ÆR6Æ73Ò'¶6Ç7Ò"FFÖVÆVÖVçBÖ–CÒ'µöR†&Æö6µ²&VÆVÖVçEö–B%Ò—Ò#âp¢bsÆF—b6Æ73Ò&Wf–FVæ6RÖÆ&VÂ#çµöR†Æ&VÂ—ÓÂöF—câp¢bsÆƒ3çµöR‡F—FÆR—ÓÂöƒ3ç¶çVÖW&–5ö‡FÖÇÒp¢bsÇçµöR‡FW‡B—ÓÂ÷ãÆF—b6Æ73Ò'7FFRÖÆ&VÂ#çµöR‡f—6–&ÆU÷7FFR—ÓÂöF—câp¢cÂö'F–6Ãâp¢ ¦FVbö772†Fö3¢Ö–æu·7G"Âç•ÒÂföçEöF—#¢F‚’Óâ7G# ¢fBÒföçEöF—"ç&W6öÇfR‚¢FVbW&Â†æÖS¢7G"’Óâ7G# ¢&WGW&â†fBöæÖR’æ5÷W&’‚¢&WGW&âbrrp¤föçBÖf6R·²föçBÖfÖ–Ç“¢%#æ÷FôF—7Æ’#²7&3¢W&Â‚'·W&Â„dôåEõ$ôÄUôd”ÄU5²vF—7Æ’uÒ—Ò"’f÷&ÖB‚'G'VWG—R"“²föçB×vV–v‡C¢C²×Ð¤föçBÖf6R·²föçBÖfÖ–Ç“¢%#&F#²7&3¢W&Â‚'·W&Â„dôåEõ$ôÄUôd”ÄU5²v†VF–æruÒ—Ò"’f÷&ÖB‚'G'VWG—R"“²föçB×vV–v‡C¢C²×Ð¤föçBÖf6R·²föçBÖfÖ–Ç“¢%#ÆW‚#²7&3¢W&Â‚'·W&Â„dôåEõ$ôÄUôd”ÄU5²v&öG’uÒ—Ò"’f÷&ÖB‚'G'VWG—R"“²föçB×vV–v‡C¢C²×Ð¤föçBÖf6R·²föçBÖfÖ–Ç“¢%#ÆW„Æ–v‡B#²7&3¢W&Â‚'·W&Â„dôåEõ$ôÄUôd”ÄU5²v&öG•öÆ–v‡BuÒ—Ò"’f÷&ÖB‚'G'VWG—R"“²föçB×vV–v‡C¢3²×Ð¤föçBÖf6R·²föçBÖfÖ–Ç“¢%#ÆW„—FÆ–2#²7&3¢W&Â‚'·W&Â„dôåEõ$ôÄUôd”ÄU5²v&öG•ö—FÆ–2uÒ—Ò"’f÷&ÖB‚'G'VWG—R"“²föçB×7G–ÆS¢—FÆ–3²föçB×vV–v‡C¢C²×Ð¤föçBÖf6R·²föçBÖfÖ–Ç“¢%#ÆW„Æ–v‡D—FÆ–2#²7&3¢W&Â‚'·W&Â„dôåEõ$ôÄUôd”ÄU5²v&öG•öÆ–v‡Eö—FÆ–2uÒ—Ò"’f÷&ÖB‚'G'VWG—R"“²föçB×7G–ÆS¢—FÆ–3²föçB×vV–v‡C¢3²×Ð¤föçBÖf6R·²föçBÖfÖ–Ç“¢%#ÆW…6VÖ”&öÆB#²7&3¢W&Â‚'·W&Â„dôåEõ$ôÄUôd”ÄU5²vÆ&VÂuÒ—Ò"’f÷&ÖB‚'G'VWG—R"“²föçB×vV–v‡C¢c²×Ð¤föçBÖf6R·²föçBÖfÖ–Ç“¢%#ÆW„Ööæò#²7&3¢W&Â‚'·W&Â„dôåEõ$ôÄUôd”ÄU5²vÖöæòuÒ—Ò"’f÷&ÖB‚'G'VWG—R"“²föçB×vV–v‡C¢C²×Ð ¤vR·²6—¦S¢C²Ö&v–ã¢–ÖÒ…´„ÄEóEÓ†ÖÒvÖÓ²&÷GFöÒÖ6VçFW"·²6öçFVçC¢%#+r"6÷VçFW"‡vR’"ò"6÷VçFW"‡vW2“²föçBÖfÖ–Ç“¢%#ÆW„Ööæò#²föçB×6—¦S¢rã'C²6öÆ÷#¢3sssss²×Ò×Ð¢¢·²&÷‚×6—¦–æs¢&÷&FW"Ö&÷ƒ²×Ð¦‡FÖÂÂ&öG’·²Ö&v–ã¢²FF–æs¢²×Ð¦&öG’·²föçBÖfÖ–Ç“¢%#ÆW‚#²föçB×6—¦S¢ã'C²Æ–æRÖ†V–v‡C¢ãC#²6öÆ÷#¢´u$„•DWÓ²&6¶w&÷VæC¢4dddddc²×Ð¢ç&W÷'B×vR·²vRÖ'&V²ÖgFW#¢Çv—3²Ö–âÖ†V–v‡C¢#SFÖÓ²÷6—F–öã¢&VÆF—fS²×Ð¢ç&W÷'B×vS¦Æ7BÖ6†–ÆB·²vRÖ'&V²ÖgFW#¢WFó²×Ð¢æ¶–6¶W"·²föçBÖfÖ–Ç“¢%#ÆW…6VÖ”&öÆB#²föçB×6—¦S¢‚ã'C²ÆWGFW"×76–æs¢ã†VÓ²FW‡B×G&ç6f÷&Ó¢WW&66S²6öÆ÷#¢µDTÇÓ²Ö&v–âÖ&÷GFöÓ¢#'C²×Ð¦ƒ·²föçBÖfÖ–Ç“¢%#æ÷FôF—7Æ’#²föçB×vV–v‡C¢C²föçB×6—¦S¢3C²Æ–æRÖ†V–v‡C¢ãs²Ö&v–ã¢GB²6öÆ÷#¢´u$„•DWÓ²×Ð¦ƒ"·²föçBÖfÖ–Ç“¢%#&F#²föçB×vV–v‡C¢C²föçB×6—¦S¢wC²Æ–æRÖ†V–v‡C¢ã#S²Ö&v–ã¢B²6öÆ÷#¢´u$„•DWÓ²×Ð¦ƒ2·²föçBÖfÖ–Ç“¢%#ÆW…6VÖ”&öÆB#²föçB×vV–v‡C¢c²föçB×6—¦S¢ã'C²Ö&v–ã¢WB²×Ð§·²Ö&v–ã¢wB²×Ð¢æ–çG&ò·²föçBÖfÖ–Ç“¢%#ÆW„Æ–v‡B#²föçB×6—¦S¢ã'C²Æ–æRÖ†V–v‡C¢ãS²Ö‚×v–GFƒ¢SÖÓ²Ö&v–âÖ&÷GFöÓ¢gC²×Ð¢æ&Æö6²·²Ö&v–ã¢B²FF–æs¢—BB‡B'C²'&V²Ö–ç6–FS¢fö–C²×Ð¢æWf–FVæ6RÖÆ&VÂ·²föçBÖfÖ–Ç“¢%#ÆW…6VÖ”&öÆB#²föçB×6—¦S¢rã—C²ÆWGFW"×76–æs¢ãfVÓ²6öÆ÷#¢´ÕUDTGÓ²Ö&v–âÖ&÷GFöÓ¢gC²×Ð¢æWbÔÃ·²&÷&FW"ÖÆVgC¢"ãgB6öÆ–BµDTÇÓ²&6¶w&÷VæC¢4dddddc²×Ð¢æWbÔÃ"·²&÷&FW"ÖÆVgC¢ã'B6öÆ–BµDTÇÓ²&÷&FW"×F÷¢ãgB6öÆ–Bµ5DôäWÓ²&6¶w&÷VæC¢4dddddc²×Ð¢æWbÔÃ2·²&÷&FW"ÖÆVgC¢ã'B6öÆ–Bµ5DôäWÓ²&6¶w&÷VæC¢µ5DôäUôÄ”t…GÓ²×Ð¢æWbÔÃB·²&÷&FW#¢ã'B6öÆ–Bµ5DôäWÓ²&6¶w&÷VæC¢4dddddc²×Ð¢æWbÔÃB·²föçBÖfÖ–Ç“¢%#ÆW„Æ–v‡D—FÆ–2#²×Ð¢æWb×7FFR·²&÷&FW"ÖÆVgC¢ã'B6öÆ–Bµ5DôäWÓ²&6¶w&÷VæC¢4dddddc²×Ð¢ç7FFRÖÖ—76–ærÂç7FFRÖæ÷EöÆ–6&ÆRÂç7FFRÖæ÷EöW‡÷6VBÂç7FFRÖ–ç7Vff–6–VçEö6÷fW&vR·²&÷&FW"×7G–ÆS¢F6†VC²×Ð¢ç7FFRÖÆ&VÂ·²föçBÖfÖ–Ç“¢%#ÆW„Æ–v‡B#²föçB×6—¦S¢‚ã'C²6öÆ÷#¢´ÕUDTGÓ²Ö&v–â×F÷¢gC²×Ð¢æçVÖW&–2·²föçBÖfÖ–Ç“¢%#ÆW…6VÖ”&öÆB#²föçB×6—¦S¢wC²6öÆ÷#¢µDTÇÓ²Ö&v–ã¢'BgB²×Ð¢æf–VÆG2·²v–GFƒ¢S²&÷&FW"Ö6öÆÆ6S¢6öÆÆ6S²Ö&v–â×F÷¢C²föçB×6—¦S¢‚ãWC²×Ð¢æf–VÆG2F‚Âæf–VÆG2FB·²&÷&FW"×F÷¢ãgB6öÆ–Bµ5DôäWÓ²FF–æs¢gBGBgB²fW'F–6ÂÖÆ–vã¢F÷²FW‡BÖÆ–vã¢ÆVgC²×Ð¢æf–VÆG2F‚·²v–GFƒ¢3RS²föçBÖfÖ–Ç“¢%#ÆW…6VÖ”&öÆB#²föçB×vV–v‡C¢c²×Ð¢æ&6‚Öæ÷FR·²÷6—F–öã¢'6öÇWFS²&÷GFöÓ¢fÖÓ²ÆVgC¢²föçBÖfÖ–Ç“¢%#ÆW„Ööæò#²föçB×6—¦S¢bã‡C²6öÆ÷#¢´ÕUDTGÓ²×Ð¢æ6÷fW"·²FF–ær×F÷¢#ÖÓ²×Ð¢æ6÷fW"ƒ·²föçB×6—¦S¢C'C²Ö&v–â×F÷¢#ÖÓ²Ö&v–âÖ&÷GFöÓ¢'C²×Ð¢æ6÷fW"æ–çG&ò·²föçB×6—¦S¢BãWC²Ö‚×v–GFƒ¢#VÖÓ²Ö&v–âÖ&÷GFöÓ¢#GC²×Ð¢æ6÷fW"æf–VÆG2·²Ö‚×v–GFƒ¢ÖÓ²×Ð¤ÖVF–&–çB·²¢¢·²×vV&¶—B×&–çBÖ6öÆ÷"ÖF§W7C¢W†7C²&–çBÖ6öÆ÷"ÖF§W7C¢W†7C²×Ò×Ð¢rrp ¦FVb'V–ÆEö‡FÖÅöFö7VÖVçB†Fö3¢Ö–æu·7G"Âç•ÒÂföçEöF—#¢F‚’Óâ7G# ¢ÆæwVvRÒFö5²&ÆæwVvR%Ð¢vW5ö‡FÖÂÒµÐ¢f÷"–G‚Â–âVçVÖW&FR†Fö5²'vW2%Ò“ ¢6Æ72Ò²'vUö6Æ72%Ð¢¶–6¶W"ÒævWB‚&¶–6¶W""’÷"ö¶–6¶W"‡6Æ72Â–G‚ÂÆæwVvR¢†VF–ærÒcÆƒçµöR‡ævWB‚&†VF–ær"’÷"Fö5²'F—FÆR%Ò—ÓÂöƒâ–b6Æ72ÓÒ&6÷fW""VÇ6RcÆƒ#çµöR‡ævWB‚&†VF–ær"’÷"Fö5²'F—FÆR%Ò—ÓÂöƒ#à¢–çG&õ÷FW‡BÒævWB‚&–çG&ò"’÷"ævWB‚'7V'F—FÆR"’÷"ævWB‚&æ÷FR"’÷"" ¢–çG&òÒbsÇ6Æ73Ò&–çG&ò#çµöR†–çG&õ÷FW‡B—ÓÂ÷âr–b–çG&õ÷FW‡BVÇ6R" ¢&öG’Ò" ¢–b6Æ72ÓÒ&6÷fW"# ¢f–VÆG2Ò°¢‚$”B	Í	í
+-
+}	]
+"–bÆæwVvRÓÒ''R"VÇ6R%$Uõ%B”B"ÂFö5²'&W÷'Eö–B%Ò’À¢‚-
+ý	}
+½	¢"–bÆæwVvRÓÒ''R"VÇ6R$ÄäuTtR"ÂÆæwVvRçWW"‚’’À¢‚-	ý
+=		½		­	
+m	B¼ˆ¥˜±…¹Õ…”€ôô€‰ÉÔˆ•±Í”€‰AU	1%Q%=8ˆ°‘½l‰ÁÕ‰±¥…Ñ¥½¹}…ÕÑ¡½É¥é…Ñ¥½¸‰t¤°(€€€€€€€€€€€€€€€€ ‹BƒBWBwBSBWBƒBWB€ˆ¥˜±…¹Õ…”€ôô€‰ÉÔˆ•±Í”€‰I9IHˆ°˜‰íI9II}%ô€¼íI9I}YIM%=9ôˆ¤°(€€€€€€€€€€€t(€€€€€€€€€€€É½ÝÌ€ômt(€€€€€€€€€€€™½È¥‘á}É½Ü°€¡„°ˆ¤¥¸•¹Õµ•É…Ñ”¡™¥•±‘Ì¤è(€€€€€€€€€€€€€€€ÍÑ…‰±•}¡•…‘•É}¥€ô˜‰½Ù•Èµí¥‘á}É½Ü¬ÄèÀÉ‘ôˆ(€€€€€€€€€€€€€€€É½ÝÌ¹…ÁÁ•¹¡˜œñÑÈøñÑ Í½Á”ô‰É½Üˆ‘…Ñ„µÀÄÈÀµÑ µ¥ô‰íÍÑ…‰±•}¡•…‘•É}¥‘ôˆùí}”¡„¥ôð½Ñ øñÑùí}”¡ˆ¥ôð½Ñøð½ÑÈøœ¤(€€€€€€€€€€€‰½‘ä€ô€œñÑ…‰±”±…ÍÌô‰™¥•±‘ÌˆøñÑ‰½‘äøœ€¬€ˆˆ¹©½¥¸¡É½ÝÌ¤€¬€œð½Ñ‰½‘äøð½Ñ…‰±”øœ(€€€€€€€•±¥˜Á±…ÍÌ€ôô€‰Ñ•¡¹¥…±}…ÁÁ•¹‘¥àˆè(€€€€€€€€€€€É½ÝÌ€ômt(€€€€€€€€€€€™½È¥‘á}É½Ü°É½Ü¥¸•¹Õµ•É…Ñ”¡À¹•Ð ‰™¥•±‘Ìˆ°mt¤¤è(€€€€€€€€€€€€€€€ÍÑ…‰±•}¡•…‘•É}¥€ô˜‰Ñ• µí¥‘á}É½Ü¬ÄèÀÉ‘ôˆ(€€€€€€€€€€€€€€€É½ÝÌ¹…ÁÁ•¹¡˜œñÑÈøñÑ Í½Á”ô‰É½Üˆ‘…Ñ„µÀÄÈÀµÑ µ¥ô‰íÍÑ…‰±•}¡•…‘•É}¥‘ôˆùí}”¡É½ÝlÁt¥ôð½Ñ øñÑùí}”¡É½ÝlÅt¥ôð½Ñøð½ÑÈøœ¤(€€€€€€€€€€€¥˜É½ÝÌè(€€€€€€€€€€€€€€€‰½‘ä€ô€œñÑ…‰±”±…ÍÌô‰™¥•±‘ÌˆøñÑ‰½‘äøœ€¬€ˆˆ¹©½¥¸¡É½ÝÌ¤€¬€œð½Ñ‰½‘äøð½Ñ…‰±”øœ(€€€€€€€‰±½­Ì€ô€ˆˆ¹©½¥¸¡}‰±½­}Ñ½}¡Ñµ°¡‰±½¬°±…¹Õ…”¤™½È‰±½¬¥¸À¹•Ð ‰‰±½­Ìˆ°mt¤¤(€€€€€€€Á…•Í}¡Ñµ°¹…ÁÁ•¹ (€€€€€€€€€€€˜œñÍ•Ñ¥½¸±…ÍÌô‰É•Á½ÉÐµÁ…”ì‰½Ù•Èˆ¥˜Á±…ÍÌ€ôô€‰½Ù•Èˆ•±Í”€ˆ‰ôˆ‘…Ñ„µÁ…”µ±…ÍÌô‰í}”¡Á±…ÍÌ¥ôˆøœ(€€€€€€€€€€€˜œñ‘¥Ø±…ÍÌô‰­¥­•Èˆùí}”¡­¥­•È¥ôð½‘¥Øùí¡•…‘¥¹õí¥¹ÑÉ½õí‰½‘åõí‰±½­Íôœ(€€€€€€€€€€€˜œñÀ±…ÍÌô‰…É µ¹½Ñ”ˆùí}” ‰@ÄÈÀƒ
+ÜƒBGB×BïBÃF<ƒBÿB×FBÃFB÷BÃF<ƒFB×BÓBÃBëFBãF<ˆ¥˜±…¹Õ…”€ôô€‰ÉÔˆ•±Í”€‰@ÄÈÀƒ
+Ü]¡¥Ñ”AÉ¥¹Ð‘¥Ñ¥½¸ˆ¥ôð½Àøð½Í•Ñ¥½¸øœ(€€€€€€€€¤((€€€ÍÌ€ô}ÍÌ¡‘½Œ°™½¹Ñ}‘¥È¤(€€€É•ÑÕÉ¸˜œœð…‘½ÑåÁ”¡Ñµ°ø(ñ¡Ñµ°±…¹œô‰í}”¡±…¹Õ…”¥ôˆø(ñ¡•…ø(ñµ•Ñ„¡…ÉÍ•Ðô‰ÕÑ˜´àˆø(ñµ•Ñ„¹…µ”ô‰…ÕÑ¡½Èˆ½¹Ñ•¹Ðô‰@´ÄÈÀI•Í•…É MåÍÑ•´ˆø(ñµ•Ñ„¹…µ”ô‰•¹•É…Ñ½Èˆ½¹Ñ•¹Ðô‰í}”¡I9II}%¥ô½í}”¡I9II}YIM%=8¥ôˆø(ñÑ¥Ñ±”ùí}”¡‘½lÑ¥Ñ±”t¥ôð½Ñ¥Ñ±”ø(ñÍÑå±”ùíÍÍôð½ÍÑå±”ø(ð½¡•…ø(ñ‰½‘äùìœœ¹©½¥¸¡Á…•Í}¡Ñµ°¥ôð½‰½‘äø(ð½¡Ñµ°øœœœ(()‘•˜}Á‘™}Á½ÍÑ™±¥¡Ð¡½ÕÑÁÕÑ}Á‘˜èA…Ñ °•áÁ•Ñ•‘}Á…•Ìè¥¹Ð¤€´ø¥ÑmÍÑÈ°¹åtè(€€€¥µÁ½ÉÐ™¥Ñè(€€€Á‘˜€ô™¥Ñè¹½Á•¸¡ÍÑÈ¡½ÕÑÁÕÑ}Á‘˜¤¤(€€€Á…•}½Õ¹Ð€ôÁ‘˜¹Á…•}½Õ¹Ð(€€€Í¥é•Ì€ôl¡É½Õ¹¡À¹É•Ð¹Ý¥‘Ñ °€È¤°É½Õ¹¡À¹É•Ð¹¡•¥¡Ð°€È¤¤™½ÈÀ¥¸Á‘™t(€€€Ù¥Í¥‰±•}Ñ•áÐ€ô€‰q¸ˆ¹©½¥¸¡À¹•Ñ}Ñ•áÐ ‰Ñ•áÐˆ¤™½ÈÀ¥¸Á‘˜¤(€€€™½¹ÑÌèÍ•ÑmÍÑÉt€ôÍ•Ð ¤(€€€™½ÈÁ…”¥¸Á‘˜è(€€€€€€€™½ÈÉ½Ü¥¸Á…”¹•Ñ}™½¹ÑÌ¡™Õ±°õQÉÕ”¤è(€€€€€€€€€€€€ŒÑÕÁ±”èáÉ•˜°•áÐ°ÑåÁ”°‰…Í•™½¹Ð°¹…µ”°•¹½‘¥¹œ°€¸¸¸(€€€€€€€€€€€™½¹ÑÌ¹…‘¡ÍÑÈ¡É½ÝlÍt¤¤(€€€Ñ½Œ€ôÁ‘˜¹•Ñ}Ñ½Œ¡Í¥µÁ±”õQÉÕ”¤(€€€…Ñ…±½}áÉ•˜€ôÁ‘˜¹Á‘™}…Ñ…±½œ ¤(€€€…Ñ…±½œ€ôÁ‘˜¹áÉ•™}½‰©•Ð¡…Ñ…±½}áÉ•˜°½µÁÉ•ÍÍ•õ…±Í”¤(€€€áµÀ€ôÁ‘˜¹•Ñ}áµ±}µ•Ñ…‘…Ñ„ ¤½È€ˆˆ(€€€ÍÑÉÕÑ}Ñ…ÌèÍ•ÑmÍÑÉt€ôÍ•Ð ¤(€€€™½ÈáÉ•˜¥¸É…¹” Ä°Á‘˜¹áÉ•™}±•¹Ñ  ¤¤è(€€€€€€€ÑÉäè(€€€€€€€€€€€½‰¨€ôÁ‘˜¹áÉ•™}½‰©•Ð¡áÉ•˜°½µÁÉ•ÍÍ•õ…±Í”¤(€€€€€€€•á•ÁÐá•ÁÑ¥½¸è(€€€€€€€€€€€½¹Ñ¥¹Õ”(€€€€€€€µ…Ñ €ôÉ”¹Í•…É ¡Èˆ½L€¼¡mµi„µèÀ´åt¬¤ˆ°½‰¨¤(€€€€€€€¥˜µ…Ñ è(€€€€€€€€€€€ÍÑÉÕÑ}Ñ…Ì¹…‘¡µ…Ñ ¹É½ÕÀ Ä¤¤(€€€Á‘˜¹±½Í” ¤(€€€}É•ÅÕ¥É”¡Á…•}½Õ¹Ð€ôô•áÁ•Ñ•‘}Á…•Ì°˜‰Á…”½Õ¹Ð‘É¥™ÐèíÁ…•}½Õ¹Ñô€„ôí•áÁ•Ñ•‘}Á…•Íôˆ¤(€€€™½È¤°€¡Ü° ¤¥¸•¹Õµ•É…Ñ”¡Í¥é•Ì°ÍÑ…ÉÐôÄ¤è(€€€€€€€}É•ÅÕ¥É”¡…‰Ì¡Ü€´€ÔäÔ¸Èà¤€ð€À¸à…¹…‰Ì¡ €´€àÐÄ¸àä¤€ð€À¸à°˜‰¹½¸µÐÁ…”…Ðí¥ôèíÝõáí¡ôˆ¤(€€€}…ÍÍ•ÉÑ}¹½}Í•¹Í¥Ñ¥Ù•}Ù¥Í¥‰±•}Ñ•áÐ¡Ù¥Í¥‰±•}Ñ•áÐ°€‰É•¹‘•É•AÙ¥Í¥‰±”Ñ•áÐˆ¤((€€€…±±½Ý•‘}™½¹Ñ}¹…µ•Ì€ôì‰@ÄÈÁ9½Ñ½¥ÍÁ±…äˆ°€‰@ÄÈÁAÉ…Ñ„ˆ°€‰@ÄÈÁA±•àˆ°€‰@ÄÈÁA±•á1¥¡Ðˆ°€‰@ÄÈÁA±•á1¥¡Ñ%Ñ…±¥Œˆ°€‰@ÄÈÁA±•áM•µ¥	½±ˆ°€‰@ÄÈÁA±•á5½¹¼ˆ°€‰@ÄÈÁA±•á%Ñ…±¥Œ‰ô(€€€½‰Í•ÉÙ•‘}™½¹Ñ}¹…µ•Ì€ôí¹…µ”¹ÍÁ±¥Ð ˆ¬ˆ°€Ä¥l´Åt™½È¹…µ”¥¸™½¹ÑÍô(€€€}É•ÅÕ¥É”¡½‰Í•ÉÙ•‘}™½¹Ñ}¹…µ•Ì€ðô…±±½Ý•‘}™½¹Ñ}¹…µ•Ì°˜‰¹½¸µ…¹½¹¥…°A™½¹ÐÉ•Í½ÕÉ”èíÍ½ÉÑ•¡½‰Í•ÉÙ•‘}™½¹Ñ}¹…µ•Ì€´…±±½Ý•‘}™½¹Ñ}¹…µ•Ì¥ôˆ¤(€€€Ñ…•€ô€ˆ½MÑÉÕÑQÉ••I½½Ðˆ¥¸…Ñ…±½œ…¹€ˆ½5…É­%¹™¼ˆ¥¸…Ñ…±½œ…¹€ˆ½5…É­•ÑÉÕ”ˆ¥¸…Ñ…±½œ(€€€Á‘™Õ„Ä€ô€Á‘™Õ…¥éÁ…ÉÐôˆÄˆœ¥¸áµÀ(€€€±…¹}½¬€ô˜ˆ½1…¹€¡ìÉÔœ¥˜€ÉÔœ¥¸…Ñ…±½œ•±Í”€•¸ô¤ˆ¥¸…Ñ…±½œ½È€ˆ½1…¹€¡ÉÔ¤ˆ¥¸…Ñ…±½œ½È€ˆ½1…¹€¡•¸¤ˆ¥¸…Ñ…±½œ(€€€}É•ÅÕ¥É”¡Ñ…•°€‰AÑ…¥¹œ½ÍÑÉÕÑÕÉ”ÑÉ•”µ¥ÍÍ¥¹œˆ¤(€€€}É•ÅÕ¥É”¡Á‘™Õ„Ä°€‰A½U´Äa5@¥‘•¹Ñ¥™¥…Ñ¥½¸µ¥ÍÍ¥¹œˆ¤(€€€}É•ÅÕ¥É”¡±…¹}½¬°€‰A‘½Õµ•¹Ð±…¹Õ…”µ¥ÍÍ¥¹œˆ¤(€€€}É•ÅÕ¥É” ‰½Õµ•¹Ðˆ¥¸ÍÑÉÕÑ}Ñ…Ì…¹€ ‰ Äˆ¥¸ÍÑÉÕÑ}Ñ…Ì½È€‰ Èˆ¥¸ÍÑÉÕÑ}Ñ…Ì¤…¹€‰@ˆ¥¸ÍÑÉÕÑ}Ñ…Ì°€‰Í•µ…¹Ñ¥ŒÍÑÉÕÑÕÉ”Ñ…Ì¥¹½µÁ±•Ñ”ˆ¤(€€€É•ÑÕÉ¸ì(€€€€€€€€‰Á…•}½Õ¹ÐˆèÁ…•}½Õ¹Ð°(€€€€€€€€‰Á…•}Í¥é•Í}ÁÐˆèÍ¥é•Ì°(€€€€€€€€‰Á‘™}™½¹Ñ}É•Í½ÕÉ•ÌˆèÍ½ÉÑ•¡™½¹ÑÌ¤°(€€€€€€€€‰‰½½­µ…É­}½Õ¹Ðˆè±•¸¡Ñ½Œ¤°(€€€€€€€€‰Ù¥Í¥‰±•}Ñ•áÑ}Í¡„ÈÔØˆèÍ¡„ÈÔÙ}‰åÑ•Ì¡Ù¥Í¥‰±•}Ñ•áÐ¹•¹½‘” ‰ÕÑ˜´àˆ¤¤°(€€€€€€€€‰Ñ…•‘}Á‘˜ˆèÑ…•°(€€€€€€€€‰Á‘™Õ„Å}¥‘•¹Ñ¥™¥•ˆèÁ‘™Õ„Ä°(€€€€€€€€‰‘½Õµ•¹Ñ}±…¹Õ…•}ÁÉ•Í•¹Ðˆè±…¹}½¬°(€€€€€€€€‰ÍÑÉÕÑÕÉ•}Ñ…ÌˆèÍ½ÉÑ•¡ÍÑÉÕÑ}Ñ…Ì¤°(€€€ô(()‘•˜É•¹‘•É}É•™•É•¹•}‘½Õµ•¹Ð¡‘½Œè5…ÁÁ¥¹mÍÑÈ°¹åt°½ÕÑÁÕÑ}Á‘˜èA…Ñ °™½¹Ñ}‘¥ÈèA…Ñ °µ…¹¥™•ÍÑ}Á…Ñ èA…Ñ ð9½¹”€ô9½¹”°¡Ñµ±}‘•‰Õ}Á…Ñ èA…Ñ ð9½¹”€ô9½¹”¤€´ø¥ÑmÍÑÈ°¹åtè(€€€Ù…±¥‘…Ñ¥½¸€ôÙ…±¥‘…Ñ•}ÁÉ¥¹Ñ}‘½Õµ•¹Ð¡‘½Œ¤(€€€™½¹ÑÌ€ôÙ•É¥™å}™½¹Ñ}‰¥¹…É¥•Ì¡™½¹Ñ}‘¥È¤(€€€½ÕÑÁÕÑ}Á‘˜¹Á…É•¹Ð¹µ­‘¥È¡Á…É•¹ÑÌõQÉÕ”°•á¥ÍÑ}½¬õQÉÕ”¤(€€€Í½ÕÉ•}¡Ñµ°€ô‰Õ¥±‘}¡Ñµ±}‘½Õµ•¹Ð¡‘½Œ°™½¹Ñ}‘¥È¤(€€€¥¹ÁÕÑ}Í¡„€ôÍ¡„ÈÔÙ}‰åÑ•Ì¡…¹½¹¥…±}©Í½¹}‰åÑ•Ì¡‘½Œ¤¤(€€€¥˜¡Ñµ±}‘•‰Õ}Á…Ñ è(€€€€€€€¡Ñµ±}‘•‰Õ}Á…Ñ ¹Á…É•¹Ð¹µ­‘¥È¡Á…É•¹ÑÌõQÉÕ”°•á¥ÍÑ}½¬õQÉÕ”¤(€€€€€€€¡Ñµ±}‘•‰Õ}Á…Ñ ¹ÝÉ¥Ñ•}Ñ•áÐ¡Í½ÕÉ•}¡Ñµ°°•¹½‘¥¹œô‰ÕÑ˜´àˆ¤((€€€€Œ]•…ÍåAÉ¥¹Ð€Øà…ÍÍ½¥…Ñ•ÌQ ½QÍÑÉÕÑÕÉ”Ñ…ÌÕÍ¥¹œAåÑ¡½¸ÌÁÉ½•ÍÌµ±½…°(€€€€Œ½‰©•Ð¥ ¤°Ý¡¥ µ…­•Ì½Ñ¡•ÉÝ¥Í”¥‘•¹Ñ¥…°A½U‰Õ¥±‘Ì‰åÑ”µ‘¥™™•É•¹Ð¸(€€€€Œ=ÕÈ•¹•É…Ñ•Q •±•µ•¹ÑÌ…ÉÉäÍÑ…‰±”‘…Ñ„µÀÄÈÀµÑ µ¥Ù…±Õ•ÌìÑ¡¥Ì…‘…ÁÑ•È(€€€€Œµ…ÁÌ½¹±äÑ¡½Í”Ñ…‰±”µ¡•…‘•È‰½á•ÌÑ¼‘•Ñ•Éµ¥¹¥ÍÑ¥Œ¥¹Ñ••ÉÌÝ¡¥±”ÁÉ•Í•ÉÙ¥¹œ(€€€€Œ¹…Ñ¥Ù”¥ ¤‰•¡…Ù¥½È™½È•Ù•Éä½Ñ¡•È½‰©•Ð¸Y•ÉÍ¥½¸¥ÌÁ¥¹¹•¥¸É•ÅÕ¥É•µ•¹ÑÌ¸(€€€¥µÁ½ÉÐÝ•…ÍåÁÉ¥¹Ð¹Á‘˜¹Ñ…Ì…ÌÝ•…Íå}Ñ…Ì(€€€‘•˜}ÍÑ…‰±•}Ñ…}¥¡‰½à¤è(€€€€€€€•±•µ•¹Ð€ô•Ñ…ÑÑÈ¡‰½à°€‰•±•µ•¹Ðˆ°9½¹”¤(€€€€€€€¥˜•±•µ•¹Ð¥Ì¹½Ð9½¹”è(€€€€€€€€€€€­•ä€ô•±•µ•¹Ð¹…ÑÑÉ¥ˆ¹•Ð ‰‘…Ñ„µÀÄÈÀµÑ µ¥ˆ¤(€€€€€€€€€€€¥˜­•äè(€€€€€€€€€€€€€€€É•ÑÕÉ¸¥¹Ð¹™É½µ}‰åÑ•Ì¡¡…Í¡±¥ˆ¹Í¡„ÈÔØ¡­•ä¹•¹½‘” ‰ÕÑ˜´àˆ¤¤¹‘¥•ÍÐ ¥lèát°€‰‰¥œˆ¤(€€€€€€€É•ÑÕÉ¸‰Õ¥±Ñ¥¹Ì¹¥¡‰½à¤((€€€ÁÉ•Ù¥½ÕÍ}Ñ…}¥€ô•Ñ…ÑÑÈ¡Ý•…Íå}Ñ…Ì°€‰¥ˆ°9½¹”¤(€€€Ý•…Íå}Ñ…Ì¹¥€ô}ÍÑ…‰±•}Ñ…}¥(€€€ÑÉäè(€€€€€€€™½¹Ñ}½¹™¥œ€ô½¹Ñ½¹™¥ÕÉ…Ñ¥½¸ ¤(€€€€€€€!Q50¡ÍÑÉ¥¹œõÍ½ÕÉ•}¡Ñµ°°‰…Í•}ÕÉ°õÍÑÈ¡A…Ñ ¹Ý ¤¤¤¹ÝÉ¥Ñ•}Á‘˜ (€€€€€€€€€€€ÍÑÈ¡½ÕÑÁÕÑ}Á‘˜¤°(€€€€€€€€€€€™½¹Ñ}½¹™¥œõ™½¹Ñ}½¹™¥œ°(€€€€€€€€€€€Á‘™}Ñ…ÌõQÉÕ”°(€€€€€€€€€€€Á‘™}Ù…É¥…¹Ðô‰Á‘˜½Õ„´Äˆ°(€€€€€€€€€€€™Õ±±}™½¹ÑÌõQÉÕ”°(€€€€€€€€€€€ÁÉ•Í•¹Ñ…Ñ¥½¹…±}¡¥¹ÑÌõ…±Í”°(€€€€€€€€€€€Á‘™}¥‘•¹Ñ¥™¥•Èõ‰åÑ•Ì¹™É½µ¡•à¡¥¹ÁÕÑ}Í¡„¤°(€€€€€€€€¤(€€€™¥¹…±±äè(€€€€€€€¥˜ÁÉ•Ù¥½ÕÍ}Ñ…}¥¥Ì9½¹”è(€€€€€€€€€€€‘•±…ÑÑÈ¡Ý•…Íå}Ñ…Ì°€‰¥ˆ¤(€€€€€€€•±Í”è(€€€€€€€€€€€Ý•…Íå}Ñ…Ì¹¥€ôÁÉ•Ù¥½ÕÍ}Ñ…}¥(€€€}É•ÅÕ¥É”¡½ÕÑÁÕÑ}Á‘˜¹¥Í}™¥±” ¤…¹½ÕÑÁÕÑ}Á‘˜¹ÍÑ…Ð ¤¹ÍÑ}Í¥é”€ø€ÄÀÀÀ°€‰É•¹‘•É•ÈÁÉ½‘Õ•¹¼ÕÍ…‰±”Aˆ¤((€€€Á½ÍÐ€ô}Á‘™}Á½ÍÑ™±¥¡Ð¡½ÕÑÁÕÑ}Á‘˜°•áÁ•Ñ•‘}Á…•Ìõ±•¸¡‘½l‰Á…•Ì‰t¤¤(€€€½ÕÑÁÕÑ}Í¡„€ôÍ¡„ÈÔÙ}™¥±”¡½ÕÑÁÕÑ}Á‘˜¤(€€€µ…¹¥™•ÍÐ€ôì(€€€€€€€€‰Í¡•µ…}¥ˆè€‰ÀÄÈÀ¹É•™•É•¹•}É•¹‘•É}µ…¹¥™•ÍÐˆ°(€€€€€€€€‰Í¡•µ…}Ù•ÉÍ¥½¸ˆè€ˆÄ¸À¸Àˆ°(€€€€€€€€‰É•¹‘•É•É}¥ˆèI9II}%°(€€€€€€€€‰É•¹‘•É•É}Ù•ÉÍ¥½¸ˆèI9II}YIM%=8°(€€€€€€€€‰É•¹‘•É•É}‰…­•¹ˆèI9II}	-9°(€€€€€€€€‰…É¡¥Ñ•ÑÕÉ•}¥ˆè‘½Œ¹•Ð ‰…É¡¥Ñ•ÑÕÉ•}¥ˆ¤°(€€€€€€€€‰É•Á½ÉÑ}¥ˆè‘½l‰É•Á½ÉÑ}¥‰t°(€€€€€€€€‰ÁÕ‰±¥…Ñ¥½¹}…ÕÑ¡½É¥é…Ñ¥½¸ˆè‘½l‰ÁÕ‰±¥…Ñ¥½¹}…ÕÑ¡½É¥é…Ñ¥½¸‰t°(€€€€€€€€‰±…¹Õ…”ˆè‘½l‰±…¹Õ…”‰t°(€€€€€€€€‰¥¹ÁÕÑ}Í¡„ÈÔØˆè¥¹ÁÕÑ}Í¡„°(€€€€€€€€‰½ÕÑÁÕÑ}Á‘™}Í¡„ÈÔØˆè½ÕÑÁÕÑ}Í¡„°(€€€€€€€€‰½ÕÑÁÕÑ}Á‘™}‰åÑ•Ìˆè½ÕÑÁÕÑ}Á‘˜¹ÍÑ…Ð ¤¹ÍÑ}Í¥é”°(€€€€€€€€¨©Á½ÍÐ°(€€€€€€€€‰™½¹Ñ}‰¥¹…Éå}Í¡„ÈÔØˆè™½¹ÑÌ°(€€€€€€€€‰ÑÉ…•}É½ÝÌˆèÙ…±¥‘…Ñ¥½¹l‰ÑÉ…•}É½ÝÌ‰t°(€€€€€€€€‰Ù¥Í¥‰±•}¥¹Ñ•É¹…±}¥‘Ìˆè…±Í”°(€€€€€€€€‰…•ÍÍ¥‰¥±¥Ñå}ÁÉ½™¥±”ˆè€‰A½U´ÄÑ…•½ÕÑÁÕÐˆ°(€€€ô(€€€µ…¹¥™•ÍÑl‰½¹Ñ•¹Ñ}Í¡„ÈÔØ‰t€ôÍ¡„ÈÔÙ}‰åÑ•Ì¡…¹½¹¥…±}©Í½¹}‰åÑ•Ì¡µ…¹¥™•ÍÐ¤¤(€€€¥˜µ…¹¥™•ÍÑ}Á…Ñ è(€€€€€€€µ…¹¥™•ÍÑ}Á…Ñ ¹Á…É•¹Ð¹µ­‘¥È¡Á…É•¹ÑÌõQÉÕ”°•á¥ÍÑ}½¬õQÉÕ”¤(€€€€€€€µ…¹¥™•ÍÑ}Á…Ñ ¹ÝÉ¥Ñ•}Ñ•áÐ¡©Í½¸¹‘ÕµÁÌ¡µ…¹¥™•ÍÐ°•¹ÍÕÉ•}…Í¥¤õ…±Í”°¥¹‘•¹ÐôÈ¤€¬€‰q¸ˆ°•¹½‘¥¹œô‰ÕÑ˜´àˆ¤(€€€É•ÑÕÉ¸µ…¹¥™•ÍÐ(()‘•˜µ…¥¸¡…ÉØèM•ÅÕ•¹•mÍÑÉtð9½¹”€ô9½¹”¤€´ø¥¹Ðè(€€€…À€ô…ÉÁ…ÉÍ”¹ÉÕµ•¹ÑA…ÉÍ•È¡‘•ÍÉ¥ÁÑ¥½¸ô‰@ÄÈÀ‘•Ñ•Éµ¥¹¥ÍÑ¥Œ]¡¥Ñ”AÉ¥¹ÐÉ•™•É•¹”AÉ•¹‘•É•Èˆ¤(€€€…À¹…‘‘}…ÉÕµ•¹Ð ‰¥¹ÁÕÑ}©Í½¸ˆ°ÑåÁ”õA…Ñ ¤(€€€…À¹…‘‘}…ÉÕµ•¹Ð ‰½ÕÑÁÕÑ}Á‘˜ˆ°ÑåÁ”õA…Ñ ¤(€€€…À¹…‘‘}…ÉÕµ•¹Ð ˆ´µ™½¹Ðµ‘¥Èˆ°ÑåÁ”õA…Ñ °É•ÅÕ¥É•õQÉÕ”¤(€€€…À¹…‘‘}…ÉÕµ•¹Ð ˆ´µµ…¹¥™•ÍÐˆ°ÑåÁ”õA…Ñ ¤(€€€…À¹…‘‘}…ÉÕµ•¹Ð ˆ´µ¡Ñµ°µ‘•‰Õœˆ°ÑåÁ”õA…Ñ ¤(€€€…ÉÌ€ô…À¹Á…ÉÍ•}…ÉÌ¡…ÉØ¤(€€€‘½Œ€ô©Í½¸¹±½…‘Ì¡…ÉÌ¹¥¹ÁÕÑ}©Í½¸¹É•…‘}Ñ•áÐ¡•¹½‘¥¹œô‰ÕÑ˜´àˆ¤¤(€€€µ…¹¥™•ÍÐ€ôÉ•¹‘•É}É•™•É•¹•}‘½Õµ•¹Ð¡‘½Œ°…ÉÌ¹½ÕÑÁÕÑ}Á‘˜°…ÉÌ¹™½¹Ñ}‘¥È°…ÉÌ¹µ…¹¥™•ÍÐ°…ÉÌ¹¡Ñµ±}‘•‰Õœ¤(€€€ÁÉ¥¹Ð¡©Í½¸¹‘ÕµÁÌ¡ì‰½¬ˆèQÉÕ”°€‰¡•¬ˆè€‰@ÄÈÁ}II9}I9II}XÄˆ°€‰µ…¹¥™•ÍÐˆèµ…¹¥™•ÍÑô°•¹ÍÕÉ•}…Í¥¤õ…±Í”°Í•Á…É…Ñ½ÉÌô ˆ°ˆ°€ˆèˆ¤¤¤(€€€É•ÑÕÉ¸€À(()¥˜}}¹…µ•}|€ôô€‰}}µ…¥¹}|ˆè(€€€É…¥Í”MåÍÑ•µá¥Ð¡µ…¥¸ ¤¤
