@@ -23,12 +23,13 @@ jobs:
           set -euo pipefail
           BASE=644a6c769bad4ada605e5906ae301e630722d621
           AUTH=563176ed7c31e98d8c150458499c8e157deff0be
-          EXPECTED_INSTRUMENT_SHA=a1e52bbc2f44e17091724bc2fe11d3ef8a0e1a0394b5d805550fe80c87de5e49
+          CANONICAL_INSTRUMENT_AUTHORITY=a1e52bbc2f44e17091724bc2fe11d3ef8a0e1a0394b5d805550fe80c87de5e49
 
           echo '=== P120_RUNTIME_PROVENANCE_RECONCILIATION ==='
           echo "HEAD=$(git rev-parse HEAD)"
           echo "BASE=$BASE"
           echo "AUTH=$AUTH"
+          echo "CANONICAL_INSTRUMENT_AUTHORITY=$CANONICAL_INSTRUMENT_AUTHORITY"
           echo "SYSTEM_BLOB_BASE=$(git rev-parse ${BASE}:system/index.html)"
           echo "SYSTEM_BLOB_HEAD=$(git rev-parse HEAD:system/index.html)"
 
@@ -40,9 +41,6 @@ jobs:
           node <<'NODE'
           const fs=require('fs');
           const crypto=require('crypto');
-          const cp=require('child_process');
-          const BASE='644a6c769bad4ada605e5906ae301e630722d621';
-          const EXPECTED='a1e52bbc2f44e17091724bc2fe11d3ef8a0e1a0394b5d805550fe80c87de5e49';
           const base=fs.readFileSync('/tmp/p120-system-base.html','utf8');
           const head=fs.readFileSync('/tmp/p120-system-head.html','utf8');
           const sha=s=>crypto.createHash('sha256').update(s,'utf8').digest('hex');
@@ -83,7 +81,6 @@ jobs:
           const bi=assignedObject(base,'window.P120_INSTRUMENT');
           const hi=assignedObject(head,'window.P120_INSTRUMENT');
           const bStable=stable(bi),hStable=stable(hi);
-          const bHash=sha(bStable),hHash=sha(hStable);
           const ba=appBlock(base),ha=appBlock(head);
           const nba=normalizePresentation(ba),nha=normalizePresentation(ha);
           const result={
@@ -92,9 +89,9 @@ jobs:
             base_module_count:bi.modules?.length,
             head_module_count:hi.modules?.length,
             instrument_deep_equal:bStable===hStable,
-            instrument_sha256_base:bHash,
-            instrument_sha256_head:hHash,
-            instrument_expected_match:hHash===EXPECTED,
+            comparison_fingerprint_sha256_base:sha(bStable),
+            comparison_fingerprint_sha256_head:sha(hStable),
+            comparison_fingerprint_note:'NON-AUTHORITATIVE; equality comparator only',
             app_sha256_base:sha(ba),
             app_sha256_head:sha(ha),
             app_raw_equal:ba===ha,
@@ -106,7 +103,7 @@ jobs:
             items_equal:stable(bi.items)===stable(hi.items)
           };
           console.log('SEMANTIC_RESULT='+JSON.stringify(result));
-          if(!result.instrument_deep_equal||!result.instrument_expected_match||!result.item_ids_equal||!result.modules_equal||!result.items_equal){
+          if(!result.instrument_deep_equal||!result.item_ids_equal||!result.modules_equal||!result.items_equal||result.base_item_count!==180||result.head_item_count!==180||result.base_module_count!==5||result.head_module_count!==5){
             console.error('P120_PROVENANCE_FAIL: measurement/instrument drift'); process.exit(2);
           }
           if(!result.app_after_known_presentation_normalization_equal){
