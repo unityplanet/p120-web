@@ -1,0 +1,51 @@
+name: P120 Runtime Provenance Canonical Instrument Gate
+
+on:
+  push:
+    branches:
+      - audit/runtime-provenance-reconcile-20260905
+
+permissions:
+  contents: read
+
+jobs:
+  canonical-instrument:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify adapter-exact canonical instrument authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=644a6c769bad4ada605e5906ae301e630722d621
+          EXPECTED=a1e52bbc2f44e17091724bc2fe11d3ef8a0e1a0394b5d805550fe80c87de5e49
+          git show "${BASE}:system/index.html" > /tmp/base.html
+          cp system/index.html /tmp/head.html
+          node <<'NODE'
+          const fs=require('fs'),crypto=require('crypto');
+          const expected='a1e52bbc2f44e17091724bc2fe11d3ef8a0e1a0394b5d805550fe80c87de5e49';
+          const sha=s=>crypto.createHash('sha256').update(s,'utf8').digest('hex');
+          function assignedObject(html,name){
+            const tok=name+' = ',t=html.indexOf(tok),start=html.indexOf('{',t+tok.length);
+            if(t<0||start<0) throw new Error('assignment_missing');
+            let dep=0,str=false,esc=false;
+            for(let i=start;i<html.length;i++){
+              const c=html[i];
+              if(str){if(esc){esc=false;continue}if(c==='\\'){esc=true;continue}if(c==='"')str=false;continue}
+              if(c==='"'){str=true;continue}
+              if(c==='{')dep++;
+              if(c==='}'&&--dep===0)return JSON.parse(html.slice(start,i+1));
+            }
+            throw new Error('assignment_unterminated');
+          }
+          const base=assignedObject(fs.readFileSync('/tmp/base.html','utf8'),'window.P120_INSTRUMENT');
+          const head=assignedObject(fs.readFileSync('/tmp/head.html','utf8'),'window.P120_INSTRUMENT');
+          const baseHash=sha(JSON.stringify({modules:base.modules,items:base.items}));
+          const headHash=sha(JSON.stringify({modules:head.modules,items:head.items}));
+          console.log(JSON.stringify({base_item_count:base.items.length,head_item_count:head.items.length,base_module_count:base.modules.length,head_module_count:head.modules.length,base_instrument_sha256:baseHash,head_instrument_sha256:headHash,expected_authority:expected,base_matches_authority:baseHash===expected,head_matches_authority:headHash===expected}));
+          if(base.items.length!==180||head.items.length!==180||base.modules.length!==5||head.modules.length!==5)process.exit(2);
+          if(baseHash!==expected||headHash!==expected||baseHash!==headHash)process.exit(3);
+          NODE
+          echo P120_CANONICAL_INSTRUMENT_AUTHORITY=PASS
