@@ -1,0 +1,40 @@
+name: P120 FA01 Apply Srcdoc Bridge Correction
+
+on:
+  push:
+    branches:
+      - audit/fa01-respondent-render-20260905
+    paths:
+      - .github/workflows/p120-fa01-apply-srcdoc-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply-correction:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply one-character script-close correction
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('internal/runtime/p120-alpha-system-adapter-v1.0.js')
+          s=p.read_text(encoding='utf-8')
+          old=r'<\\/script>'
+          new=r'<\/script>'
+          n=s.count(old)
+          if n != 1:
+              raise SystemExit(f'expected exactly one malformed bridge close marker, found {n}')
+          p.write_text(s.replace(old,new,1),encoding='utf-8')
+          print('P120_FA01_SRCDOC_BRIDGE_CLOSE_CORRECTED=1')
+          PY
+          git diff --check
+          git diff -- internal/runtime/p120-alpha-system-adapter-v1.0.js
+      - name: Commit controlled correction
+        run: |
+          git config user.name 'P120 Controlled Automation'
+          git config user.email '57597994+unityplanet@users.noreply.github.com'
+          git add internal/runtime/p120-alpha-system-adapter-v1.0.js
+          git commit -m 'P120 FA01: correct injected bridge script closure'
+          git push origin HEAD:audit/fa01-respondent-render-20260905
