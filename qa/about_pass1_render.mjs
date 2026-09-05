@@ -55,10 +55,14 @@ try{
       await page.keyboard.press('Escape');
       add(`${s.name}.mobileMenuEscape`,await page.locator('[data-about-drawer].is-open').count()===0);
     } else if(s.w>=1440){
-      const graphite=page.locator('[data-p120-theme="graphite"]').first();
+      const theme=page.locator('.p120-brand53-theme').first();
+      const summary=theme.locator('summary');
+      await summary.click();
+      const graphite=theme.locator('[data-p120-theme="graphite"]');
       await graphite.click();
       add(`${s.name}.themeGraphite`,await page.locator('body').getAttribute('data-theme')==='graphite');
-      const museum=page.locator('[data-p120-theme="museum"]').first();
+      await summary.click();
+      const museum=theme.locator('[data-p120-theme="museum"]');
       await museum.click();
       add(`${s.name}.themeMuseum`,await page.locator('body').getAttribute('data-theme')==='museum');
     }
