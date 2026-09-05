@@ -1,5 +1,6 @@
 from pathlib import Path
 import ast
+import json
 
 p=Path('/app/e2e_runner.py')
 s=p.read_text(encoding='utf-8')
@@ -29,3 +30,24 @@ patched=patched.replace(transport_needle,transport_replacement)
 ast.parse(patched)
 p.write_text(patched,encoding='utf-8')
 print(f'P120_COMPAT_PATCH PASS parameter={source_arg} explicit types + SYN enum + analytical partition codec')
+
+# Diagnostic inventory of canonical schema regex constraints in packaged runtime.
+# Only literal regex strings are emitted; no prompts, respondent data or outputs.
+patterns=set()
+for root in [Path('/app/p120_interpretation'),Path('/app/p120_report'),Path('/app/p120_release')]:
+    if not root.exists():
+        continue
+    for py in root.rglob('*.py'):
+        try:
+            t=ast.parse(py.read_text(encoding='utf-8'))
+        except Exception:
+            continue
+        for n in ast.walk(t):
+            if isinstance(n, ast.Dict):
+                for k,v in zip(n.keys,n.values):
+                    if isinstance(k,ast.Constant) and k.value=='pattern' and isinstance(v,ast.Constant) and isinstance(v.value,str):
+                        patterns.add(v.value)
+print('=== P120 CANONICAL PATTERN INVENTORY START ===')
+for value in sorted(patterns):
+    print(value)
+print('=== P120 CANONICAL PATTERN INVENTORY END ===')
