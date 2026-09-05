@@ -22,3 +22,16 @@ patched=s.replace(needle,replacement)
 ast.parse(patched)
 p.write_text(patched,encoding='utf-8')
 print(f'P120_COMPAT_PATCH PASS parameter={source_arg} explicit enum/const types + SYN transport enum')
+
+# Build-time diagnostic only. No prompts, respondent data or provider output are printed.
+# Reveal the transport wrapper implementation around the schema-conversion call so the
+# next compatibility patch can be source-exact rather than guessed.
+lines=patched.splitlines()
+target=next((i for i,line in enumerate(lines) if 'fmt["schema"] = _schema_compat(fmt["schema"])' in line),None)
+if target is None:
+    raise SystemExit('P120_TRANSPORT_DIAGNOSTIC_TARGET_NOT_FOUND')
+lo=max(0,target-18); hi=min(len(lines),target+42)
+print('=== P120 TRANSPORT WRAPPER DIAGNOSTIC START ===')
+for idx in range(lo,hi):
+    print(f'{idx+1:04d}: {lines[idx]}')
+print('=== P120 TRANSPORT WRAPPER DIAGNOSTIC END ===')
