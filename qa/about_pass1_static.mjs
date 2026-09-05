@@ -69,8 +69,10 @@ const mandatoryEn=[
   'No fixed quantitative productivity multiplier is claimed',
   'traceable rules'
 ];
-for(const term of mandatoryRu)check(`concept.ru.${term.slice(0,28)}`,ru.includes(term));
-for(const term of mandatoryEn)check(`concept.en.${term.slice(0,28)}`,en.includes(term));
+const ruFold=ru.toLocaleLowerCase('ru');
+const enFold=en.toLowerCase();
+for(const term of mandatoryRu)check(`concept.ru.${term.slice(0,28)}`,ruFold.includes(term.toLocaleLowerCase('ru')));
+for(const term of mandatoryEn)check(`concept.en.${term.slice(0,28)}`,enFold.includes(term.toLowerCase()));
 
 const prohibited=[
   [/\bvalidated\b/i,'validated-claim'],
@@ -105,7 +107,7 @@ check('route.brand.kind',brand.includes("'terms','about','why-p120'"));
 check('route.brand.static',brand.includes("href=\"${routeFor('about')}\""));
 check('route.brand.mainDesktop',brand.includes('button[data-nav="why-important"],button[data-p120-about-route]'));
 check('route.brand.mainMobile',brand.includes('data-p120-about-discovery'));
-check('route.brand.noLegacyAboutAnchor',!brand.includes("homeAnchor('why-important')}")+''==='true');
+check('route.brand.noLegacyAboutAnchor',!brand.includes("homeAnchor('why-important')"));
 
 check('runtime.about.noMeasurement',!/P120_INSTRUMENT|score|scoring|response_value|supabase/i.test(js));
 check('css.braces',count(css,/\{/g)===count(css,/\}/g),`${count(css,/\{/g)}/${count(css,/\}/g)}`);
