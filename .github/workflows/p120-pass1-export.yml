@@ -1,0 +1,36 @@
+name: P120 PASS1 Handoff Export
+on:
+  push:
+    branches:
+      - 'p120/pass1-synthetic-e2e'
+    paths:
+      - '.github/workflows/p120-pass1-export.yml'
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Fetch fixed immutable PASS1 handoff
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL='https://hvjgrpssjnnprazwhikn.supabase.co/functions/v1/p120-pass1-export-7e56b51649512b47f0c5e633'
+          curl --fail-with-body --silent --show-error --max-time 60 "$URL" -o pass1_handoff_export.json
+          python - <<'PY'
+          import json
+          d=json.load(open('pass1_handoff_export.json',encoding='utf-8'))
+          assert d.get('ok') is True, d
+          r=d['record']
+          assert r['render_handoff_id']=='RHO-939EB6A6AA71F32CDE05'
+          assert r['renderer_profile_id']=='white_print_v1'
+          assert r['handoff_json']['print_document']['report_id']=='RPT-PASS1-ASTRA-001'
+          print('P120_PASS1_HANDOFF_EXPORT_ASSERTIONS=PASS')
+          PY
+          sha256sum pass1_handoff_export.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p120-pass1-handoff-export
+          path: pass1_handoff_export.json
+          retention-days: 1
