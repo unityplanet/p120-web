@@ -1,0 +1,73 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-SRC",
+  "pass": "WEB-SCIENCE EXT PASS 4",
+  "version": "v0.2",
+  "date": "2026-09-06",
+  "status": "SOURCE_AND_STATUS_RECONCILIATION__CONTROLLED_DRAFT__CURRENT_BASELINE",
+  "supersedes_for_active_work": "P120_WEBSCI_EXT_PASS4_source_status_reconciliation_v0.1.json",
+  "repository_baseline": {
+    "repository": "unityplanet/p120-web",
+    "branch": "main",
+    "commit_sha": "67d2ae422e422be20eae6bb086c51adf7de173bb",
+    "pages_deployment": "SUCCESS"
+  },
+  "scope": "Scientific Base content activation only. No measurement, scoring, questionnaire, respondent-session, persistence or report-calculation mutation.",
+  "governing_positioning": {
+    "external_science": "Published literature, empirical studies, existing research constructs, theoretical models and measurement precedents form the external scientific foundation.",
+    "internal_methodological_evidence": "P-120 separately records internal construct-boundary, ownership, redundancy, item-level, information-gain, scope/exposure, safety/privacy, computational-contract and cross-module verification of its own architecture.",
+    "validation_boundary": "Internal scientific-methodological, computational and cross-module verification is not empirical psychometric validation on respondent samples.",
+    "system_principle": "Independent layers remain separate; cross-layer synthesis is join-after-measurement and does not create an Extended Total or universal compatibility score.",
+    "module_admission_principle": "A new module is retained only if it addresses an independent measurement question and has a defensible path to incremental information beyond neighboring layers."
+  },
+  "authority_classes": [
+    {"authority_id":"SCI-MEAS","class":"SCIENTIFIC_MEASUREMENT_AUTHORITIES","role":"Construct, item, scoring, validation, safety/privacy and module scientific substance","precedence":1},
+    {"authority_id":"EXTSYS","class":"EXT_SYS_CROSS_MODULE_AUTHORITIES","role":"Coverage, ownership, redundancy, discriminant boundaries, information gain and research-only bridge governance","precedence":2},
+    {"authority_id":"WEBSCI","class":"WEB_SCIENCE_ARCHITECTURE","role":"Scientific Base information architecture, publication visibility, routing, registry and renderer boundaries","precedence":3},
+    {"authority_id":"SCI-POS","class":"SCIENTIFIC_POSITIONING","role":"System-level explanation of external science versus P-120 integration architecture and internal verification","precedence":4},
+    {"authority_id":"TERM-PUB","class":"TERMINOLOGY_AND_PUBLICATION_GOVERNANCE","role":"Canonical terminology, localization, documentation and presentation; cannot strengthen science claims","precedence":5}
+  ],
+  "authorities": [
+    {"authority_id":"WEBSCI-1","document":"WEB-SCIENCE EXT PASS 1","version":"v0.1","role":"Scientific Base information architecture / publication governance","state":"CONTROLLED"},
+    {"authority_id":"WEBSCI-2","document":"WEB-SCIENCE EXT PASS 2","version":"v0.2","role":"Source-reconciled registry / publication-gate model","state":"CONTROLLED"},
+    {"authority_id":"WEBSCI-PROD","document":"P120-WEBSCI-PROD-MIG-001 production registry","version":"v1.0","role":"Current production Scientific Base registry/runtime contract","state":"PRODUCTION_RUNTIME_AUTHORITY__CONTENT_REFRESH_NOT_IMPLIED"},
+    {"authority_id":"EXTSYS-1-4","document":"EXT-SYS PASS 1-4 lineage","version":"controlled lineage","role":"Cross-module ownership, redundancy, discriminant and co-validation governance","state":"DESK_RECONCILIATION_CONTROLLED__HUMAN_EVIDENCE_SEPARATE"},
+    {"authority_id":"RPE-10","document":"RPE-MOD PASS 10","version":"v1.1","role":"Optional-module placement and publication/fielding boundary","state":"PROGRAMME_COMPLETE__FIELDING_HOLD"},
+    {"authority_id":"SCI-POS-20260906","document":"P-120 Scientific Base governing scientific positioning","version":"controlled formulation / 2026-09-06","role":"Explains scientific foundation, authorial integration architecture, internal verification and validation boundary","state":"GOVERNING_POSITIONING__NO_STATUS_UPGRADE"},
+    {"authority_id":"TERM-ARCH-8","document":"Architecture / About the System PASS 8 Terminology Register","version":"v0.8","role":"Lexical authority only; may normalize wording but cannot create scientific claims","state":"CLOSED_CONTROLLED_SEALED"},
+    {"authority_id":"DOC-STD-3.2","document":"P120 Internal Documentation Standard + Publication Design Book","version":"v3.2","role":"Controlled documentation/publication production authority; scientific substance remains subordinate to scientific authorities","state":"CONTROLLED_EFFECTIVE_PRODUCTION_RELEASE_SEALED"}
+  ],
+  "modules": [
+    {"module_id":"SAT-24","family":"CORE","development_state":"FROZEN_FOR_PILOT","public_current":"published","pass4_rule":"PRESERVE_CURRENT_CORE","claim_boundary":"No new scoring/normative/clinical claim through PASS 4."},
+    {"module_id":"P-72","family":"CORE","development_state":"FROZEN_SOURCE","public_current":"published","pass4_rule":"PRESERVE_CURRENT_CORE","claim_boundary":"Research-candidate status unchanged."},
+    {"module_id":"P-72D","family":"CORE","development_state":"FROZEN_FOR_PILOT","public_current":"published","pass4_rule":"PRESERVE_CURRENT_CORE","claim_boundary":"No new scoring/normative claim through PASS 4."},
+    {"module_id":"AO-12","family":"CORE","development_state":"FROZEN_FOR_PILOT","public_current":"published","pass4_rule":"PRESERVE_CURRENT_CORE","claim_boundary":"Dimensional research layer; no diagnostic or normative claim."},
+    {"module_id":"SOMA-24","family":"CORE","development_state":"FROZEN_FOR_PILOT","public_current":"published","pass4_rule":"PRESERVE_CURRENT_CORE","claim_boundary":"Bodily response is not consent; no diagnostic/normative claim."},
+    {"module_id":"COM-12","family":"EXTENDED","development_state":"FIELD_EXECUTION_READY","empirical_state":"COGNITIVE_FIELD_EVIDENCE_PENDING","public_current":"summary_only","pass4_rule":"ACTIVATE_DEVELOPMENT_RECORD_WITH_CLAIM_CEILING"},
+    {"module_id":"MOT-12","family":"EXTENDED","development_state":"PASS_TO_EXECUTION__24_ITEM_COGNITIVE_CANDIDATE","empirical_state":"EXPERT_AND_COGNITIVE_EVIDENCE_PENDING","public_current":"summary_only","pass4_rule":"ACTIVATE_DEVELOPMENT_RECORD_WITH_CLAIM_CEILING"},
+    {"module_id":"SELF-12","family":"EXTENDED","development_state":"FIELD_EXECUTION_OPEN__21_ITEM_COGNITIVE_CANDIDATE","empirical_state":"EXPERT_AND_COGNITIVE_EVIDENCE_PENDING","public_current":"summary_only","pass4_rule":"ACTIVATE_DEVELOPMENT_RECORD_WITH_CLAIM_CEILING"},
+    {"module_id":"RPE-MOD","family":"EXTENDED","development_state":"OPTIONAL_EXTENDED__FIELDING_HOLD","empirical_state":"NOT_PSYCHOMETRICALLY_VALIDATED","public_current":"summary_only","pass4_rule":"PRESERVE_MINIMAL_ROLE_STATUS_BOUNDARY__NO_DETAILED_PUBLIC_ACTIVATION_WITHOUT_SOURCE_AUTHORITY"},
+    {"module_id":"LIFE-12/18","family":"OUTCOMES","development_state":"FIELD_EXECUTION_READY__TEMPORAL_CANDIDATE","empirical_state":"COGNITIVE_FIELD_EVIDENCE_PENDING","public_current":"summary_only","pass4_rule":"ACTIVATE_OUTCOME_ARCHITECTURE_WITHOUT_CAUSAL_LANGUAGE"}
+  ],
+  "cross_layer": {
+    "authority": "EXT-SYS controlled lineage",
+    "default_state": "RESEARCH_ONLY_UNBOUND",
+    "join_after_measurement": true,
+    "current_public_ceiling": "Architecture, distinctions, research questions, repeated observations only when source records support them, explicit uncertainty and prohibited-inference boundaries.",
+    "human_evidence_rule": "Human/cognitive/cross-check evidence is tracked separately from psychometric validation; repeated cross-check observations do not automatically authorize a validation claim.",
+    "prohibited": ["P-120 Extended Total","Agency Total","Repair Total","Validation Total","Embodiment Total","Wellness Total","one-person compatibility percentage","unsupported causal inference"]
+  },
+  "source_reconciliation_state": {
+    "baseline_gate": "PASS",
+    "stage_1_public_safe_corpus": "RECOVERED_ON_CURRENT_MAIN_BASELINE",
+    "requires_next_deep_extraction": [
+      "module-level literature/source registers for COM-12",
+      "module-level literature/source registers for MOT-12",
+      "module-level literature/source registers for SELF-12",
+      "module-level literature/source registers for LIFE-12/18",
+      "RPE-MOD source/evidence/publication-boundary companions",
+      "EXT-SYS machine ledgers for collision groups, contrasts, cross-check observations and validation plan",
+      "Core global 45-reference corpus mapping into the expanded cross-module evidence registry"
+    ]
+  }
+}
