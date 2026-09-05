@@ -1,7 +1,7 @@
 FROM python:3.13-slim
 WORKDIR /app
 COPY p120_worker_bundle.b64 /tmp/p120_worker_bundle.b64
-COPY chunk00.b64 /tmp/tail_00.b64
+COPY tail_00.b64 /tmp/tail_00.b64
 COPY tail_01.b64 /tmp/tail_01.b64
 COPY tail_02.b64 /tmp/tail_02.b64
 COPY tail_03.b64 /tmp/tail_03.b64
