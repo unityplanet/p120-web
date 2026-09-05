@@ -1,0 +1,61 @@
+name: P120 Actions Governance QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/**'
+      - '.github/P120_ACTIONS_GOVERNANCE.md'
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+      - '.github/P120_ACTIONS_GOVERNANCE.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  least-privilege:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enforce P-120 Actions least privilege
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          wf = Path('.github/workflows')
+          allow = {'p120-en-system-build-v0.4.yml'}
+          writes = []
+          pushes = []
+          violations = []
+
+          for p in sorted(wf.glob('*.yml')):
+              text = p.read_text(encoding='utf-8')
+              if re.search(r'(?m)^\s*contents:\s*write\s*$', text):
+                  writes.append(p.name)
+              if re.search(r'(?m)^\s*git\s+push\b', text):
+                  pushes.append(p.name)
+              if 'pull_request_target:' in text:
+                  violations.append(f'{p.name}: pull_request_target prohibited')
+              if re.search(r'(?m)^\s*(pages|id-token):\s*write\s*$', text):
+                  violations.append(f'{p.name}: deployment write authority not approved here')
+
+          if set(writes) != allow:
+              violations.append(f'contents:write mismatch observed={writes} expected={sorted(allow)}')
+          if set(pushes) != allow:
+              violations.append(f'git push mismatch observed={pushes} expected={sorted(allow)}')
+
+          print(f'P120_ACTIONS_WORKFLOW_COUNT={len(list(wf.glob("*.yml")))}')
+          print(f'P120_ACTIONS_CONTENTS_WRITE={writes}')
+          print(f'P120_ACTIONS_GIT_PUSH={pushes}')
+
+          if violations:
+              print('\n'.join('VIOLATION: ' + v for v in violations))
+              raise SystemExit(1)
+          print('P120_SEC_GH_02_GOVERNANCE=PASS')
+          PY
