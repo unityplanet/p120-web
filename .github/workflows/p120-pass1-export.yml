@@ -1,4 +1,4 @@
-name: P120 PASS1 Handoff Export
+name: P120 PASS1 Final RU Handoff Export
 on:
   push:
     branches:
@@ -12,25 +12,33 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Fetch fixed immutable PASS1 handoff
+      - name: Fetch fixed immutable PASS1 final RU handoff
         shell: bash
         run: |
           set -euo pipefail
           URL='https://hvjgrpssjnnprazwhikn.supabase.co/functions/v1/p120-pass1-export-7e56b51649512b47f0c5e633'
-          curl --fail-with-body --silent --show-error --max-time 60 "$URL" -o pass1_handoff_export.json
+          curl --fail-with-body --silent --show-error --max-time 60 "$URL" -o pass1_final_ru_handoff_export.json
           python - <<'PY'
           import json
-          d=json.load(open('pass1_handoff_export.json',encoding='utf-8'))
+          d=json.load(open('pass1_final_ru_handoff_export.json',encoding='utf-8'))
           assert d.get('ok') is True, d
           r=d['record']
-          assert r['render_handoff_id']=='RHO-939EB6A6AA71F32CDE05'
-          assert r['renderer_profile_id']=='white_print_v1'
-          assert r['handoff_json']['print_document']['report_id']=='RPT-PASS1-ASTRA-001'
-          print('P120_PASS1_HANDOFF_EXPORT_ASSERTIONS=PASS')
+          assert r['render_handoff_id']=='RHO-ACB122E62755A3CAECFD', r
+          assert r['renderer_profile_id']=='white_print_v1', r
+          assert r['channel']=='pdf', r
+          assert r['language']=='ru', r
+          assert r['theme']=='white_print', r
+          assert r['content_sha256']=='5f8c8391615a5ce055491b0fa3be212bf1e2ef9d8bc374986b364bbc2b58c93e', r
+          h=r['handoff_json']
+          assert h['print_document']['report_id']=='RPT-PASS1-ASTRA-001', h
+          assert h['publication_authorization']=='EXPERT_ONLY', h
+          assert h['generation_response_id']=='resp_090da1f8f664a3c2016a9c81f2cac487d2be76bc7679dd090c', h
+          assert h['alignment_response_id']=='resp_090691450a7bda7a016a9c82073fb487d29301ce02aef65a38', h
+          print('P120_PASS1_FINAL_RU_HANDOFF_EXPORT_ASSERTIONS=PASS')
           PY
-          sha256sum pass1_handoff_export.json
+          sha256sum pass1_final_ru_handoff_export.json
       - uses: actions/upload-artifact@v4
         with:
-          name: p120-pass1-handoff-export
-          path: pass1_handoff_export.json
+          name: p120-pass1-final-ru-handoff-export
+          path: pass1_final_ru_handoff_export.json
           retention-days: 1
