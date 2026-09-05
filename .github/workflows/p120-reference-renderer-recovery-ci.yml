@@ -31,8 +31,14 @@ jobs:
           elif raw.startswith(b'PK\x03\x04'):
               z=zipfile.ZipFile(io.BytesIO(raw)); names=[n for n in z.namelist() if n.endswith('.py')]; assert names; out=z.read(names[0])
           else:
-              try: out=raw.decode('utf-8').encode('utf-8')
-              except UnicodeDecodeError: pass
+              for enc in ('utf-8','cp1251'):
+                  try:
+                      text=raw.decode(enc)
+                      out=text.encode('utf-8')
+                      print('SOURCE_ENCODING',enc)
+                      break
+                  except UnicodeDecodeError:
+                      pass
           if out is None:
               try:
                   t=tarfile.open(fileobj=io.BytesIO(raw)); names=[n for n in t.getnames() if n.endswith('.py')]; assert names; out=t.extractfile(names[0]).read()
