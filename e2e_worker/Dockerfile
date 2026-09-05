@@ -13,6 +13,7 @@ COPY control_03.b64 /tmp/control_03.b64
 COPY report_00.b64 /tmp/report_00.b64
 COPY report_01.b64 /tmp/report_01.b64
 COPY report_02.b64 /tmp/report_02.b64
+COPY interp_00.b64 /tmp/p120_worker_interpretation.b64
 RUN set -eux; \
     base64 -d --ignore-garbage /tmp/p120_worker_bundle.b64 > /tmp/p120_worker_partial.tgz; \
     mkdir -p /app; \
@@ -29,6 +30,9 @@ RUN set -eux; \
     base64 -d /tmp/p120_worker_report.b64 > /tmp/p120_worker_report.tgz; \
     echo '3f2662dcbb04dde73e6cde51e7912670e736d028f1172d1b96a1d7c8494830bd  /tmp/p120_worker_report.tgz' | sha256sum -c -; \
     tar -xzf /tmp/p120_worker_report.tgz -C /app; \
+    base64 -d /tmp/p120_worker_interpretation.b64 > /tmp/p120_worker_interpretation.tgz; \
+    echo 'fa5fd4a51ef9bd2e9860fa83acaa19443769b9c8977ad4366c9cdfd08c8509a3  /tmp/p120_worker_interpretation.tgz' | sha256sum -c -; \
+    tar -xzf /tmp/p120_worker_interpretation.tgz -C /app; \
     echo '=== P120 E2E PACKAGING MANIFEST START ==='; \
     find /app -maxdepth 7 -type f | sort; \
     echo '=== P120 E2E PACKAGING MANIFEST END ==='; \
@@ -36,7 +40,14 @@ RUN set -eux; \
       /app/e2e_runner.py \
       /app/runtime_service/pipeline.py \
       /app/p120_engine/engine.py \
+      /app/p120_interpretation/claims.py \
+      /app/p120_interpretation/definitions.py \
+      /app/p120_interpretation/evidence.py \
+      /app/p120_interpretation/payload.py \
       /app/p120_interpretation/runtime.py \
+      /app/p120_interpretation/schema.py \
+      /app/p120_interpretation/util.py \
+      /app/p120_interpretation/validator.py \
       /app/p120_report/composer.py \
       /app/p120_report/writer.py \
       /app/p120_report/validator.py \
