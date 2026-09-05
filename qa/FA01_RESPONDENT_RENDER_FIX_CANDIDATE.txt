@@ -1,0 +1,3 @@
+P120 FA01 respondent render correction verification trigger.
+No production or scientific content change.
+Candidate adapter correction commit: 00a561ca68a7c23bd889ff0fc2791f5ffa7eb67c
