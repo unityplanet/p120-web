@@ -1,0 +1,30 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-CONTENT",
+  "version": "v0.1",
+  "date": "2026-09-04",
+  "status": "SCIENTIFIC_CONTENT_MODEL__CONTROLLED_DRAFT",
+  "design_rule": "Use existing Scientific Base visual grammar. PASS 4 adds content/data objects, not a new design system.",
+  "content_object_schema": {
+    "module_id": "string",
+    "base_id": "CORE|EXTENDED|OUTCOMES|METHODS|LIBRARY",
+    "measurement_question": {"ru": "string", "en": "string"},
+    "scientific_role": {"ru": "string", "en": "string"},
+    "construct_architecture": [{"code": "string", "label_ru": "string", "label_en": "string", "state": "CORE|LIMITED|CHALLENGE|AUXILIARY|RESEARCH_ONLY"}],
+    "does_not_measure": ["string"],
+    "development_history": [{"stage": "string", "verdict": "string", "public_note_ru": "string", "public_note_en": "string"}],
+    "internal_verification": [{"type": "BOUNDARY|REDUNDANCY|ITEM_AUDIT|OWNERSHIP|INFORMATION_GAIN|SCOPE_EXPOSURE|COGNITIVE_ARCHITECTURE|SAFETY_PRIVACY", "state": "PASS|CONTROLLED|PENDING|HOLD", "claim": "string"}],
+    "ownership_boundaries": [{"neighbor": "module_or_construct", "distinction_ru": "string", "distinction_en": "string", "evidence_state": "CONCEPTUAL|COGNITIVE_PLANNED|EMPIRICAL_PENDING"}],
+    "current_evidence_state": {"development": "string", "empirical": "string", "psychometric": "string"},
+    "next_gate": "string",
+    "limitations": [{"ru": "string", "en": "string"}],
+    "source_bindings": [{"source_id": "string", "authority": "string", "role": "string"}],
+    "publication": {"visibility": "published|summary_only|roadmap|hidden", "claim_ceiling": "string", "suppressed_fields": ["string"]}
+  },
+  "system_objects": {
+    "evidence_domains": ["EXTERNAL_SCIENTIFIC_FOUNDATION", "P120_INTERNAL_METHODOLOGICAL_EVIDENCE", "EMPIRICAL_VALIDATION_EVIDENCE"],
+    "cross_layer_record_fields": ["source_module", "target_module", "distinction", "ownership_rule", "desk_state", "planned_human_test", "empirical_state", "public_claim_ceiling"],
+    "library_binding_fields": ["reference_id", "citation", "doi", "evidence_domain", "module_ids", "construct_codes", "evidence_role", "claim_level", "development_gate"]
+  },
+  "rendering_rule": "Renderer must consume public-safe projections only; internal item wording, scoring keys, thresholds, sensitive high-risk details and restricted adjudication records remain outside the public payload."
+}

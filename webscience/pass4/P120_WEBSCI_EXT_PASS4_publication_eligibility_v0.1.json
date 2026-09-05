@@ -1,0 +1,33 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PUB",
+  "version": "v0.1",
+  "date": "2026-09-04",
+  "status": "PUBLICATION_ELIGIBILITY_MATRIX__CONTROLLED_DRAFT",
+  "rule": "Publication visibility is independent from internal development maturity. The web layer may only project claims already authorized by source authorities; a stricter module-specific source publication boundary overrides a more permissive generic web visibility state.",
+  "levels": {
+    "published": "Full currently authorized public scientific detail.",
+    "summary_only": "Role, construct territory, development history, internal verification methods, current evidence state, limitations and source bindings may be shown only to the extent separately allowed by the module source authority; unstable factor/scoring/normative detail remains suppressed.",
+    "roadmap": "Future research direction only.",
+    "hidden": "No public rendering."
+  },
+  "module_eligibility": [
+    {"module_id":"SAT-24","visibility":"published","allowed":["current Core scientific content","construct role","existing evidence map","validation state"],"forbidden":["new scoring claims","normative/clinical claims"]},
+    {"module_id":"P-72","visibility":"published","allowed":["current Core scientific content","construct role","existing evidence map","validation state"],"forbidden":["new scoring claims","normative/clinical claims"]},
+    {"module_id":"P-72D","visibility":"published","allowed":["current Core scientific content","construct role","existing evidence map","validation state"],"forbidden":["new scoring claims","normative/clinical claims"]},
+    {"module_id":"AO-12","visibility":"published","allowed":["current Core scientific content","construct role","existing evidence map","validation state"],"forbidden":["new diagnostic claims","normative/clinical claims"]},
+    {"module_id":"SOMA-24","visibility":"published","allowed":["current Core scientific content","construct role","existing evidence map","validation state"],"forbidden":["new scoring claims","normative/clinical claims"]},
+    {"module_id":"COM-12","visibility":"summary_only","allowed":["measurement question","candidate E/R/N/P architecture explicitly labelled candidate","32→24 development history","item-level audit domains","field-readiness state","ownership boundaries","C1-C3 validation plan","limitations","source bindings"],"forbidden":["confirmed factor structure","production scoring","participant interpretation","validated/standardized claims"]},
+    {"module_id":"MOT-12","visibility":"summary_only","allowed":["measurement question","candidate motive territories explicitly labelled candidate","36→24 development history","MOT-V challenge status","ownership boundaries","expert/CVI/cognitive architecture","limitations","source bindings"],"forbidden":["confirmed factor structure","MOT Total","healthy/unhealthy classification","production scoring","validated/standardized claims"]},
+    {"module_id":"SELF-12","visibility":"summary_only","allowed":["measurement question","5 CORE + 2 LIMITED candidate architecture","29→21 development history","PSD/SBA limited status","ownership boundaries","expert/cognitive execution state","limitations","source bindings"],"forbidden":["SELF Total","confirmed factor structure","norms","participant interpretation","validated/standardized claims"]},
+    {"module_id":"RPE-MOD","visibility":"summary_only","source_override":"RPE PASS 10 states NO_PUBLICATION_PREPILOT / no respondent-facing scientific report at the current stage. PASS 4 therefore preserves only the already-live minimal role/status/boundary summary and does not activate construct-family detail without a separate publication authority.","allowed":["existing minimal optional-Extended role summary","independent-measurement / join-only principle","fielding hold","adult opt-in / safety/privacy boundary","source-authority citation"],"forbidden":["detailed RPE construct-family publication","operational high-risk detail","capacity/escalation content","research-only fantasy detail","public scoring/norms","respondent scientific interpretation","validated claims"]},
+    {"module_id":"LIFE-12/18","visibility":"summary_only","allowed":["outcome/spillover role","6 CORE + CCO auxiliary architecture","temporal T0/T1/T3 logic","30→24 development history","field-readiness state","non-causal boundary","source bindings"],"forbidden":["LIFE Total","causal attribution","single-sitting flattening","production scoring","validated claims"]}
+  ],
+  "system_eligibility": {
+    "external_scientific_foundation": "published",
+    "internal_architecture_verification": "published_with_methodological_label",
+    "cross_layer_synergy": "research_only_summary",
+    "empirical_psychometric_validation": "future_evidence_only",
+    "dyadic": "hidden_until_separate_gate"
+  }
+}
