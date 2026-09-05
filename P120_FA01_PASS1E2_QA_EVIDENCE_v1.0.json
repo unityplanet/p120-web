@@ -1,0 +1,53 @@
+{
+  "schema": "p120.fa01.pass1e2.qa-evidence.v1",
+  "pass": "FOUNDER ALPHA-01 PASS 1E.2",
+  "status": "PASS_CLOSED",
+  "runtime_authority": {
+    "commit_sha": "88a19227e18469793f578e75e5efad84e2a8bbd5",
+    "base_runtime_sha256": "f9861b3fcda1213073fc1fea245ca913776e2e0dc75ca1dcf54515d3a1f963c2",
+    "base_instrument_sha256": "a1e52bbc2f44e17091724bc2fe11d3ef8a0e1a0394b5d805550fe80c87de5e49",
+    "protected_package_sha256": "baadd454bf6dad5078ebab23620685dca5278f95cda7ec3118ae2227626c4354",
+    "extension_payload_sha256": "004ef39cd280b6fade611da15393763609d0a766c5e48a3f39216609651722b6"
+  },
+  "corpus": {
+    "base_frozen_items": 180,
+    "extension_main_items": 73,
+    "main_items": 253,
+    "modules": 9,
+    "rpe_mode": "DEFERRED",
+    "life_main_temporal_mode": "T3",
+    "candidate_scoring": false
+  },
+  "browser_qa": {
+    "method": "EXACT_ADAPTER_SRCDOC_PLAYWRIGHT_DIAGNOSTIC",
+    "github_actions_run_id": 33963862587,
+    "job_id": 101300355399,
+    "conclusion": "success",
+    "rendered_item_count": 253,
+    "rendered_module_count": 9,
+    "page_errors": 0,
+    "console_errors": 0,
+    "alpha_bridge_present": true
+  },
+  "db_e2e": {
+    "method": "ROLLBACK_ONLY_AUTH_ANON_AUTH_LIFECYCLE",
+    "conclusion": "PASS",
+    "final_status_before_rollback": "SUBMITTED",
+    "meta_records_synced": 2,
+    "founder_feedback_records": 1,
+    "rollback_verified": true,
+    "persisted_synthetic_rows_after_rollback": 0
+  },
+  "access": {
+    "founder_profile": "FOUNDER_ADMIN_ACTIVE",
+    "founder_run_entitlement": "ACTIVE_ALLOW_RUN",
+    "resource_state": "INTERNAL_ALPHA",
+    "resource_launchable": true
+  },
+  "decision": {
+    "human_go": "AUTHORIZED",
+    "first_human_action": "REAL_FOUNDER_RENDER_RETEST_AND_NEW_SESSION",
+    "next_gate": "FA01-RU-01_FOUNDER_EXECUTION_EVIDENCE_CAPTURE",
+    "scientific_measurement_delta": "NONE"
+  }
+}
