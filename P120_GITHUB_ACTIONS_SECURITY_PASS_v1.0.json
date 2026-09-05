@@ -3,18 +3,29 @@
   "control": "SEC-GH-02",
   "version": "1.0",
   "date": "2026-09-05",
-  "status": "PASS_PENDING_POST_MERGE_QA",
+  "status": "PASS",
+  "closure": {
+    "retirement_merge_commit": "f9e12e543cb672952808187ada08c09dca782d6b",
+    "post_merge_generated_route_commit": "59043f45e2d58eae393aeedd4ce33e0766d79b6c",
+    "governance_qa_fix_commit": "31a8fe36d44d81de31050b0335ba826492ae6a2a",
+    "governance_qa_run_id": 33983813642,
+    "governance_qa_conclusion": "success",
+    "pages_regression_run_id": 33983812737,
+    "pages_regression_conclusion": "success"
+  },
   "baseline": {
     "contents_write_workflows": 44,
     "git_push_workflows": 44
   },
-  "decision": {
-    "retire_historical_self_mutating_workflows": 43,
+  "final_authority": {
+    "historical_self_mutating_workflows_retired": 43,
+    "cleanup_harness_retired": true,
     "temporary_write_allowlist": [
       "p120-en-system-build-v0.4.yml"
     ],
     "temporary_writer_scope": "job-level contents: write only",
-    "governance_qa": "p120-actions-governance-qa.yml"
+    "governance_qa": "p120-actions-governance-qa.yml",
+    "governance_rule": ".github/P120_ACTIONS_GOVERNANCE.md"
   },
   "retired": [
     "apply-v171b-visual-layer.yml",
@@ -64,5 +75,6 @@
   "cleanup_harness_retired": "p120-actions-governance-cleanup-v1.yml",
   "measurement_scoring_impact": "NONE",
   "respondent_wording_impact": "NONE",
-  "deployed_site_asset_impact": "NONE"
+  "deployed_site_asset_impact": "NONE",
+  "controlled_exception": "The sole remaining repository writer is the active EN native-route materializer. Remove this exception when EN route generation is frozen or moved to a non-self-mutating release process."
 }
