@@ -1,0 +1,105 @@
+{
+  "schema": "p120.fa01.pass1f.closure-evidence.v1",
+  "pass": "FOUNDER ALPHA-01 PASS 1F",
+  "title": "Full Process Reconciliation & Pre-Execution Production Integrity",
+  "document_status": "CONTROLLED",
+  "gate_outcome": "PASS_CLOSED",
+  "date": "2026-09-05",
+  "production_baseline": "954a6cea27395698453561e43fbdbe0ca09dec26",
+  "historical_chain": {
+    "pass1c": "PRESERVED_FOUNDATION",
+    "pass1d": "PRESERVED_SECURITY_FOUNDATION_PASS",
+    "pass1e": "PRESERVED_HOLD_CR_REQUIRED",
+    "pass1e1": "INTERMEDIATE_SUBSTANTIAL_IMPLEMENTATION_NOT_RETROACTIVELY_CLOSED",
+    "auth_corrective_closure": "PRESERVED",
+    "pass1e2": "VALID_PASS_CLOSED",
+    "pass1f": "PASS_CLOSED"
+  },
+  "founder": {
+    "auth_users_total": 1,
+    "confirmed": true,
+    "role": "FOUNDER_ADMIN",
+    "profile_status": "ACTIVE",
+    "active_run_entitlements": 1,
+    "result": "PASS"
+  },
+  "resource": {
+    "resource_key": "founder-alpha-core-v1",
+    "release_state": "INTERNAL_ALPHA",
+    "is_launchable": true,
+    "runtime_build_sha": "88a19227e18469793f578e75e5efad84e2a8bbd5",
+    "base_runtime_sha256": "f9861b3fcda1213073fc1fea245ca913776e2e0dc75ca1dcf54515d3a1f963c2",
+    "base_instrument_sha256": "a1e52bbc2f44e17091724bc2fe11d3ef8a0e1a0394b5d805550fe80c87de5e49",
+    "content_sha256": "baadd454bf6dad5078ebab23620685dca5278f95cda7ec3118ae2227626c4354",
+    "main_item_count": 253,
+    "rpe_mode": "DEFERRED",
+    "life_main_temporal_mode": "T3",
+    "candidate_scoring": false,
+    "result": "PASS"
+  },
+  "runtime_non_drift": {
+    "alpha_adapter_blob_sha": "6906cba13be344795ea831ab29dbf9eb10ac2e90",
+    "cabinet_blob_sha": "94b7fb36057ce7211b0d2757d279fca930f3b984",
+    "ru_system_blob_sha": "ad95e98eeb8b6ec228ed221d54fdc31d550caf6e",
+    "result": "PASS"
+  },
+  "findings_resolution": {
+    "P1F-01": {
+      "initial_severity": "P0",
+      "domain": "GITHUB_ACTIONS_GOVERNANCE",
+      "correction": "RETIRED_UNAUTHORIZED_ONE_SHOT_RENDERER_REPOSITORY_WRITER",
+      "allowlist_weakened": false,
+      "branch_governance_run": 33985199777,
+      "branch_governance_conclusion": "success",
+      "production_governance_run": 33985280177,
+      "production_governance_conclusion": "success",
+      "result": "RESOLVED_PASS"
+    },
+    "P1F-02": {
+      "initial_severity": "HIGH",
+      "domain": "MIGRATION_TRACEABILITY",
+      "correction_artifact": "P120_FA01_PASS1F_MIGRATION_HISTORY_ATTESTATION_v1.0.md",
+      "method": "LIVE_VERSION_NAME_STATEMENT_SHA256_NON_REPLAY_ATTESTATION",
+      "pass1e2_live_version": "20260905124737",
+      "pass1e2_repository_alias": "20260905124500",
+      "http_extension_installed_final": false,
+      "result": "RESOLVED_PASS"
+    },
+    "P1F-03": {
+      "domain": "REAL_BROWSER_EXECUTION",
+      "classification": "NEXT_GATE_BOUNDARY",
+      "browser_execution_claimed_by_pass1f": false,
+      "result": "DEFERRED_TO_FA01_RU_01"
+    }
+  },
+  "intake_compatibility": {
+    "method": "ROLLBACK_ONLY_ANON_253_RECORD_PAYLOAD_INSERT",
+    "coverage_total": 253,
+    "payload_bytes": 29597,
+    "insert_result": "PASS",
+    "rollback_result": "PASS",
+    "persisted_probe_rows": 0,
+    "result": "PASS"
+  },
+  "data_state": {
+    "assessment_sessions": 2,
+    "submissions": 0,
+    "founder_feedback": 0,
+    "controlled_historical_sessions_reusable": false,
+    "result": "PASS"
+  },
+  "production_checks": {
+    "actions_governance_run": 33985280177,
+    "actions_governance_conclusion": "success",
+    "pages_run": 33985279116,
+    "pages_conclusion": "success",
+    "result": "PASS"
+  },
+  "scientific_measurement_delta": "NONE",
+  "decision": {
+    "pass1f": "PASS_CLOSED",
+    "human_execution": "REAUTHORIZED_FOR_NEXT_GATE_ONLY",
+    "next_gate": "FA01-RU-01_FOUNDER_EXECUTION_EVIDENCE_CAPTURE",
+    "first_execution_session_rule": "CREATE_NEW_SESSION_DO_NOT_REUSE_CONTROLLED_HISTORICAL_SESSIONS"
+  }
+}
