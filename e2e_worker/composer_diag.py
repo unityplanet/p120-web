@@ -7,6 +7,10 @@ FILES = [
     Path('/app/p120_interpretation/schema.py'),
     Path('/app/p120_interpretation/runtime.py'),
     Path('/app/p120_interpretation/validator.py'),
+    Path('/app/p120_interpretation/payload.py'),
+    Path('/app/runtime_service/provider_facade.py'),
+    Path('/app/runtime_service/pipeline.py'),
+    Path('/app/providers/openai_responses.py'),
 ]
 
 print('=== P120 REPORT-PLAN DIAGNOSTIC START ===')
@@ -16,16 +20,17 @@ for path in FILES:
     tree = ast.parse(text)
     lines = text.splitlines()
 
-    # Print function inventory and exact bodies for relevant analytical/report functions.
     for node in ast.walk(tree):
         if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
             print(f'FUNCTION_NAME {node.name}')
-            if any(token in node.name.lower() for token in ('schema','analytical','validate','compose','report_plan','publication')):
+            if any(token in node.name.lower() for token in (
+                'schema','analytical','validate','compose','report_plan','publication',
+                'provider','request','payload','pipeline','interpret','run_full'
+            )):
                 end = getattr(node, 'end_lineno', node.lineno)
                 print(f'--- FUNCTION {node.name} lines {node.lineno}-{end} ---')
                 print('\n'.join(lines[node.lineno-1:end]))
 
-    # Print assignments whose names or values control report sizing / synthesis structure.
     for node in tree.body:
         names=[]
         if isinstance(node, ast.Assign):
@@ -39,6 +44,9 @@ for path in FILES:
             print('\n'.join(lines[node.lineno-1:end]))
 
     for i, line in enumerate(lines, 1):
-        if any(token in line for token in ('max_blocks','synthesis_units','maxItems','minItems','report_mode','selected_claim_ids','omitted_claim_ids')):
+        if any(token in line for token in (
+            'max_blocks','synthesis_units','maxItems','minItems','report_mode',
+            'selected_claim_ids','omitted_claim_ids','metadata','input','text','format'
+        )):
             print(f'LINE {i}: {line}')
 print('=== P120 REPORT-PLAN DIAGNOSTIC END ===')
