@@ -33,6 +33,7 @@ jobs:
           writes = []
           pushes = []
           violations = []
+          prohibited_trigger = 'pull_request' + '_target:'
 
           for p in sorted(wf.glob('*.yml')):
               text = p.read_text(encoding='utf-8')
@@ -40,8 +41,8 @@ jobs:
                   writes.append(p.name)
               if re.search(r'(?m)^\s*git\s+push\b', text):
                   pushes.append(p.name)
-              if 'pull_request_target:' in text:
-                  violations.append(f'{p.name}: pull_request_target prohibited')
+              if prohibited_trigger in text:
+                  violations.append(f'{p.name}: prohibited privileged PR trigger')
               if re.search(r'(?m)^\s*(pages|id-token):\s*write\s*$', text):
                   violations.append(f'{p.name}: deployment write authority not approved here')
 
