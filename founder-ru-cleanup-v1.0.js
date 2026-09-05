@@ -14,3 +14,15 @@
   const mo=new MutationObserver(()=>{if(apply())mo.disconnect()});
   mo.observe(document.documentElement,{childList:true,subtree:true});
 })();
+
+/* Conceptual Entry PASS 2.5 — controlled RU Founder bridge loader. */
+(() => {
+  'use strict';
+  if(!/^ru$/i.test(document.documentElement.lang||''))return;
+  if(!/\/creator\/(?:index\.html)?$/i.test(location.pathname))return;
+  if(document.querySelector('script[data-founder-origin-boundary-loader]'))return;
+  const s=document.createElement('script');
+  s.src='../founder-ru-conceptual-boundary-v1.0.js?v=cec25';
+  s.dataset.founderOriginBoundaryLoader='P2.5-RU-v1.0';
+  document.head.appendChild(s);
+})();
