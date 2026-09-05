@@ -1,0 +1,38 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-EVIDENCE-MANIFEST",
+  "version": "v0.3",
+  "date": "2026-09-06",
+  "gate": "Deep Source & Evidence Extraction / Scientific Library Reconciliation / Evidence Binding",
+  "gate_status": "PASS_CLOSED_WITH_DECLARED_GAPS",
+  "overall_pass4_status": "OPEN_CONTINUE",
+  "repository": "unityplanet/p120-web",
+  "production_baseline": "67d2ae422e422be20eae6bb086c51adf7de173bb",
+  "working_branch": "web-science-ext-pass4-reconciled",
+  "artifacts": [
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_deep_source_extraction_v0.3.json","role":"module/source extraction and evidence-state reconciliation"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_scientific_library_reconciliation_v0.3.json","role":"45-reference global library reconciliation plus evidence-role/module tags"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_evidence_bindings_v0.3.json","role":"claim-to-source/evidence/publication-ceiling bindings"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_evidence_gap_register_v0.3.json","role":"controlled source/evidence gaps and non-substitution rules"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_EVIDENCE_GATE_REPORT_v0.3.md","role":"gate report"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_EVIDENCE_DECISION_RECORD_v0.3.md","role":"decision record"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_EVIDENCE_MANIFEST_v0.3.json","role":"lightweight gate package manifest"},
+    {"path":"webscience/pass4/README.md","role":"rolling PASS 4 status and next-gate authority"}
+  ],
+  "source_inputs": [
+    "P120 WEB-SCIENCE EXT PASS 1 v0.1",
+    "P120 WEB-SCIENCE EXT PASS 2 v0.2 and 45-reference registry",
+    "Scientific Concept Paper RU/EN v1.2",
+    "COM v0.7/v0.8 controlled lineage",
+    "MOT v0.4/v0.5 controlled lineage",
+    "SELF PASS 5/PASS 6/PASS 7 lineage",
+    "LIFE PASS 5/PASS 6 lineage",
+    "RPE PASS 9/PASS 10 v1.1 lineage",
+    "EXT-SYS ownership/redundancy/information-gain/cross-check governance",
+    "Founder Alpha exact source-binding evidence"
+  ],
+  "library_counts": {"references":45,"doi_links":44,"unique_doi":44},
+  "declared_gaps": ["full SELF external evidence ledger", "full LIFE external evidence ledger", "exact latest EXT-SYS machine ledgers", "RPE detailed public publication authority"],
+  "no_change": ["measurement", "scoring", "thresholds", "questionnaire", "sessions", "persistence", "report_calculation", "visual_design", "production_runtime", "main_branch"],
+  "next_gate": "WEB-SCIENCE EXT PASS 4 — Extended / Outcomes Final Scientific Content Population & Cross-Layer Evidence Adjudication"
+}
