@@ -14,7 +14,7 @@
   const THEMES = ['ivory','graphite','museum'];
   const copy = isEn ? {
     descriptor:'RESEARCH ARCHITECTURE',
-    about:'About P-120', why:'Why P-120?', unique:'What makes it different', shows:'What it shows', report:'Report', science:'Scientific Base', explore:'Explore',
+    about:'About P-120', aboutNote:'System and architecture', why:'Why P-120?', unique:'What makes it different', shows:'What it shows', report:'Report', science:'Scientific Base', explore:'Explore',
     exploreTitle:'Explore P-120', map:'Project map', story:'Story of P-120', next:'Next',
     whyNote:'Origin of the name and the idea', creator:'From the Creator', creatorNote:'The personal context behind P-120',
     deeper:'Go deeper', deeperNote:'Extended Research Set · optional research', together:'Together?', togetherNote:'Dyadic research layer · relationship research',
@@ -23,7 +23,7 @@
     brand:'P-120 — Research Architecture'
   } : {
     descriptor:'ИССЛЕДОВАТЕЛЬСКАЯ АРХИТЕКТУРА',
-    about:'О P-120', why:'Почему P-120?', unique:'Уникальность', shows:'Что покажет', report:'Отчёт', science:'Научная база', explore:'Исследовать',
+    about:'О P-120', aboutNote:'Система и её архитектура', why:'Почему P-120?', unique:'Уникальность', shows:'Что покажет', report:'Отчёт', science:'Научная база', explore:'Исследовать',
     exploreTitle:'Исследовать P-120', map:'Карта проекта', story:'История P-120', next:'Дальше',
     whyNote:'Происхождение названия и самой идеи', creator:'От создателя', creatorNote:'Личный контекст появления P-120',
     deeper:'Хотите глубже?', deeperNote:'Система углублённых исследований', together:'Мы вместе?', togetherNote:'Исследование пары',
@@ -135,12 +135,38 @@
 
   function directText(node){return [...node.childNodes].filter(n=>n.nodeType===Node.TEXT_NODE).map(n=>n.textContent||'').join('').trim();}
   function patchAboutRoutes(){
+    const href=routeFor('about');
     document.querySelectorAll('a').forEach(link=>{
       if(directText(link)!==copy.about) return;
-      link.href=routeFor('about');
+      link.href=href;
       if(pageKind==='about') link.setAttribute('aria-current','page');
       else if(link.getAttribute('aria-current')==='page') link.removeAttribute('aria-current');
     });
+    if(!isPublicMain) return;
+    document.querySelectorAll('button[data-nav="why-important"],button[data-p120-about-route]').forEach(btn=>{
+      btn.removeAttribute('data-nav');
+      btn.dataset.p120AboutRoute=href;
+      btn.onclick=e=>{e.preventDefault();location.href=href;};
+    });
+    const menu=document.querySelector('.mobile-menu');
+    const group=menu?.querySelector('.mobile-menu-body > .mobile-menu-group');
+    if(!group) return;
+    let action=group.querySelector('[data-p120-about-discovery]');
+    if(!action){
+      action=document.createElement('button');
+      action.type='button';
+      action.className='mobile-menu-action';
+      action.dataset.p120AboutDiscovery='5.3';
+      action.innerHTML='<div><div></div><small></small></div>';
+      const home=group.querySelector('[data-home]');
+      if(home) home.insertAdjacentElement('afterend',action); else group.prepend(action);
+    }
+    const title=action.querySelector(':scope > div > div');
+    const note=action.querySelector(':scope > div > small');
+    if(title&&title.textContent!==copy.about) title.textContent=copy.about;
+    if(note&&note.textContent!==copy.aboutNote) note.textContent=copy.aboutNote;
+    action.setAttribute('aria-label',`${copy.about} — ${copy.aboutNote}`);
+    action.onclick=e=>{e.preventDefault();location.href=href;};
   }
 
   function patchNav(){
