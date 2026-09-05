@@ -1,28 +1,55 @@
 /* P-120 Internal Cabinet v1.0
-   PASS 1C control plane. No measurement/scoring/respondent-item authority lives here.
+   PASS 1D control plane + explicit PKCE callback authority.
+   No measurement/scoring/respondent-item authority lives here.
 */
 (() => {
   'use strict';
   const cfg = window.P120_SUBMISSION_CONFIG || {};
   if (!window.supabase || !cfg.projectUrl || !cfg.publishableKey) throw new Error('P120 internal config unavailable');
   const sb = window.supabase.createClient(cfg.projectUrl, cfg.publishableKey, {
-    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'pkce' }
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false, flowType: 'pkce' }
   });
   const $ = id => document.getElementById(id);
   const loginView=$('loginView'), cabinetView=$('cabinetView'), authBadge=$('authBadge'), signOut=$('signOut');
-  let currentUser=null, currentProfile=null;
+  let currentUser=null, currentProfile=null, authBootstrapped=false;
   const esc = v => String(v ?? '').replace(/[&<>"']/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
   const status = (id,msg,kind='') => { const el=$(id); el.textContent=msg; el.classList.remove('hidden'); el.className='status '+kind; };
   const hideStatus = id => $(id).classList.add('hidden');
   const dt = v => v ? new Date(v).toLocaleString() : '—';
   const short = v => v ? String(v).slice(0,8)+'…' : '—';
 
+  function cleanAuthCallbackUrl(){
+    const url=new URL(location.href);
+    ['code','error','error_code','error_description'].forEach(k=>url.searchParams.delete(k));
+    history.replaceState({},document.title,url.pathname+(url.search?url.search:'')+(url.hash?url.hash:''));
+  }
+
+  async function completePkceCallback(){
+    const url=new URL(location.href);
+    const callbackError=url.searchParams.get('error_description')||url.searchParams.get('error');
+    if(callbackError){
+      cleanAuthCallbackUrl();
+      status('loginStatus','Magic Link callback отклонён: '+callbackError,'danger');
+      return;
+    }
+    const code=url.searchParams.get('code');
+    if(!code) return;
+    const {error}=await sb.auth.exchangeCodeForSession(code);
+    if(error){
+      cleanAuthCallbackUrl();
+      status('loginStatus','PKCE session exchange не завершён: '+error.message,'danger');
+      return;
+    }
+    cleanAuthCallbackUrl();
+  }
+
   async function sendLink(){
     hideStatus('loginStatus');
     const email=$('email').value.trim();
     if(!email) return status('loginStatus','Введите email.','warn');
-    const redirect = new URL('./', location.href).href;
-    const {error}=await sb.auth.signInWithOtp({email,options:{shouldCreateUser:false,emailRedirectTo:redirect}});
+    const redirectUrl=new URL('./',location.href);
+    redirectUrl.search=''; redirectUrl.hash='';
+    const {error}=await sb.auth.signInWithOtp({email,options:{shouldCreateUser:false,emailRedirectTo:redirectUrl.href}});
     if(error) return status('loginStatus','Вход не разрешён или Magic Link не отправлен: '+error.message,'danger');
     status('loginStatus','Magic Link отправлен. Откройте письмо на этом устройстве.','ok');
   }
@@ -141,8 +168,17 @@
     try{ await enterCabinet(); }catch(err){ status('cabinetStatus','Cabinet load failed: '+(err.message||err),'danger'); }
   }
 
+  async function bootstrapAuth(){
+    try{ await completePkceCallback(); }
+    catch(err){ status('loginStatus','Auth callback processing failed: '+(err.message||err),'danger'); }
+    finally{
+      authBootstrapped=true;
+      await refreshAuth();
+    }
+  }
+
   $('sendLink').addEventListener('click',sendLink); $('grantEnt').addEventListener('click',grantEntitlement);
   signOut.addEventListener('click',async()=>{await sb.auth.signOut(); location.reload();});
-  sb.auth.onAuthStateChange(()=>setTimeout(refreshAuth,0));
-  refreshAuth();
+  sb.auth.onAuthStateChange(()=>{ if(authBootstrapped) setTimeout(refreshAuth,0); });
+  bootstrapAuth();
 })();
