@@ -1,0 +1,36 @@
+name: P120 Reference Renderer Runtime Introspection
+
+on:
+  push:
+    paths:
+      - '.github/workflows/p120-reference-renderer-introspect.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  introspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build current E2E worker image
+        run: docker build -t p120-e2e-current -f e2e_worker/Dockerfile e2e_worker
+      - name: Extract renderer/report runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          cid=$(docker create p120-e2e-current)
+          trap 'docker rm -f "$cid" >/dev/null 2>&1 || true' EXIT
+          docker cp "$cid":/app/p120_release out/p120_release
+          docker cp "$cid":/app/p120_report out/p120_report
+          docker cp "$cid":/app/e2e_runner.py out/e2e_runner.py
+          find out -type f -print0 | sort -z | xargs -0 sha256sum > out/SHA256.txt
+          find out -maxdepth 4 -type f | sort
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p120-reference-renderer-runtime-introspection
+          path: out
+          if-no-files-found: error
+          retention-days: 1
