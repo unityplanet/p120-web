@@ -55,7 +55,7 @@
 
   function kind(){
     const p=location.pathname.toLowerCase();
-    for(const k of ['intellectual-property','privacy','terms','why-p120','creator','extended','together','science','contact']){
+    for(const k of ['intellectual-property','privacy','terms','about','why-p120','creator','extended','together','science','contact']){
       if(p.includes(`/${k}/`)) return k;
     }
     return 'main';
@@ -128,13 +128,25 @@
   }
 
   function staticNavMarkup(){
+    const aboutCurrent=pageKind==='about'?' aria-current="page"':'';
     const whyCurrent=pageKind==='why-p120'?' aria-current="page"':'';
-    return `<a class="p120-brand53-navitem" href="${homeAnchor('why-important')}">${copy.about}</a><a class="p120-brand53-navitem" href="${routeFor('why-p120')}"${whyCurrent}>${copy.why}</a><a class="p120-brand53-navitem" href="${homeAnchor('why-p120')}">${copy.unique}</a><a class="p120-brand53-navitem" href="${homeAnchor('what-p120-shows')}">${copy.shows}</a><a class="p120-brand53-navitem" href="${homeAnchor('showcase')}">${copy.report}</a><a class="p120-brand53-navitem" href="${routeFor('science')}">${copy.science}</a>${megaMarkup()}`;
+    return `<a class="p120-brand53-navitem" href="${routeFor('about')}"${aboutCurrent}>${copy.about}</a><a class="p120-brand53-navitem" href="${routeFor('why-p120')}"${whyCurrent}>${copy.why}</a><a class="p120-brand53-navitem" href="${homeAnchor('why-p120')}">${copy.unique}</a><a class="p120-brand53-navitem" href="${homeAnchor('what-p120-shows')}">${copy.shows}</a><a class="p120-brand53-navitem" href="${homeAnchor('showcase')}">${copy.report}</a><a class="p120-brand53-navitem" href="${routeFor('science')}">${copy.science}</a>${megaMarkup()}`;
+  }
+
+  function directText(node){return [...node.childNodes].filter(n=>n.nodeType===Node.TEXT_NODE).map(n=>n.textContent||'').join('').trim();}
+  function patchAboutRoutes(){
+    document.querySelectorAll('a').forEach(link=>{
+      if(directText(link)!==copy.about) return;
+      link.href=routeFor('about');
+      if(pageKind==='about') link.setAttribute('aria-current','page');
+      else if(link.getAttribute('aria-current')==='page') link.removeAttribute('aria-current');
+    });
   }
 
   function patchNav(){
     if(isMain){
       document.querySelectorAll('.topnav').forEach(nav=>nav.classList.add('p120-brand53-nav'));
+      patchAboutRoutes();
       return;
     }
     document.querySelectorAll('.explore-mainnav,.creator-nav,.wp-nav,.p120-brand53-nav').forEach(nav=>{
@@ -143,6 +155,7 @@
       nav.classList.add('p120-brand53-nav');
       nav.dataset.p120CanonicalNav='5.3';
     });
+    patchAboutRoutes();
   }
 
   function themeLabel(t){return t==='ivory'?copy.light:t==='graphite'?copy.graphite:copy.museum;}
@@ -426,6 +439,7 @@
       patchHeaderClasses();
       patchBrand();
       patchNav();
+      patchAboutRoutes();
       patchLanguageRoutes();
       ensureTools();
       patchDescriptor();
