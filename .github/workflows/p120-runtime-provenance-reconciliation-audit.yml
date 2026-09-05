@@ -1,0 +1,138 @@
+name: P120 Runtime Provenance Reconciliation Audit
+
+on:
+  push:
+    branches:
+      - audit/runtime-provenance-reconcile-20260905
+
+permissions:
+  contents: read
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Runtime provenance reconciliation
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=644a6c769bad4ada605e5906ae301e630722d621
+          AUTH=563176ed7c31e98d8c150458499c8e157deff0be
+          EXPECTED_INSTRUMENT_SHA=a1e52bbc2f44e17091724bc2fe11d3ef8a0e1a0394b5d805550fe80c87de5e49
+
+          echo '=== P120_RUNTIME_PROVENANCE_RECONCILIATION ==='
+          echo "HEAD=$(git rev-parse HEAD)"
+          echo "BASE=$BASE"
+          echo "AUTH=$AUTH"
+          echo "SYSTEM_BLOB_BASE=$(git rev-parse ${BASE}:system/index.html)"
+          echo "SYSTEM_BLOB_HEAD=$(git rev-parse HEAD:system/index.html)"
+
+          git show "${BASE}:system/index.html" > /tmp/p120-system-base.html
+          cp system/index.html /tmp/p120-system-head.html
+          echo "SYSTEM_SHA256_BASE=$(sha256sum /tmp/p120-system-base.html | awk '{print $1}')"
+          echo "SYSTEM_SHA256_HEAD=$(sha256sum /tmp/p120-system-head.html | awk '{print $1}')"
+
+          node <<'NODE'
+          const fs=require('fs');
+          const crypto=require('crypto');
+          const cp=require('child_process');
+          const BASE='644a6c769bad4ada605e5906ae301e630722d621';
+          const EXPECTED='a1e52bbc2f44e17091724bc2fe11d3ef8a0e1a0394b5d805550fe80c87de5e49';
+          const base=fs.readFileSync('/tmp/p120-system-base.html','utf8');
+          const head=fs.readFileSync('/tmp/p120-system-head.html','utf8');
+          const sha=s=>crypto.createHash('sha256').update(s,'utf8').digest('hex');
+          function assignedObject(html,name){
+            const tok=name+' = ',t=html.indexOf(tok),start=html.indexOf('{',t+tok.length);
+            if(t<0||start<0) throw new Error('assignment_missing:'+name);
+            let dep=0,str=false,esc=false;
+            for(let i=start;i<html.length;i++){
+              const c=html[i];
+              if(str){if(esc){esc=false;continue}if(c==='\\'){esc=true;continue}if(c==='"')str=false;continue}
+              if(c==='"'){str=true;continue}
+              if(c==='{')dep++;
+              if(c==='}'&&--dep===0) return JSON.parse(html.slice(start,i+1));
+            }
+            throw new Error('assignment_unterminated:'+name);
+          }
+          function stable(v){
+            if(v===null||typeof v!=='object') return JSON.stringify(v);
+            if(Array.isArray(v)) return '['+v.map(stable).join(',')+']';
+            return '{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+stable(v[k])).join(',')+'}';
+          }
+          function appBlock(html){
+            const marker='<!-- inlined: app.js -->';
+            const p=html.indexOf(marker); if(p<0) throw new Error('app_marker_missing');
+            const op=html.indexOf('<script>',p),cl=html.indexOf('</script>',op);
+            if(op<0||cl<0) throw new Error('app_block_missing');
+            return html.slice(op+8,cl);
+          }
+          function normalizePresentation(app){
+            return app
+              .replaceAll(' p120-brand53-header__inner','')
+              .replaceAll(' p120-brand53-header','')
+              .replaceAll(' p120-brand53-brand','')
+              .replaceAll(' data-p120-canonical-brand="5.3"','')
+              .replaceAll(' p120-brand53-nav','')
+              .replaceAll(' data-p120-canonical-nav="5.3"','');
+          }
+          const bi=assignedObject(base,'window.P120_INSTRUMENT');
+          const hi=assignedObject(head,'window.P120_INSTRUMENT');
+          const bStable=stable(bi),hStable=stable(hi);
+          const bHash=sha(bStable),hHash=sha(hStable);
+          const ba=appBlock(base),ha=appBlock(head);
+          const nba=normalizePresentation(ba),nha=normalizePresentation(ha);
+          const result={
+            base_item_count:bi.items?.length,
+            head_item_count:hi.items?.length,
+            base_module_count:bi.modules?.length,
+            head_module_count:hi.modules?.length,
+            instrument_deep_equal:bStable===hStable,
+            instrument_sha256_base:bHash,
+            instrument_sha256_head:hHash,
+            instrument_expected_match:hHash===EXPECTED,
+            app_sha256_base:sha(ba),
+            app_sha256_head:sha(ha),
+            app_raw_equal:ba===ha,
+            app_after_known_presentation_normalization_equal:nba===nha,
+            app_normalized_sha256_base:sha(nba),
+            app_normalized_sha256_head:sha(nha),
+            item_ids_equal:JSON.stringify(bi.items.map(x=>x.id))===JSON.stringify(hi.items.map(x=>x.id)),
+            modules_equal:stable(bi.modules)===stable(hi.modules),
+            items_equal:stable(bi.items)===stable(hi.items)
+          };
+          console.log('SEMANTIC_RESULT='+JSON.stringify(result));
+          if(!result.instrument_deep_equal||!result.instrument_expected_match||!result.item_ids_equal||!result.modules_equal||!result.items_equal){
+            console.error('P120_PROVENANCE_FAIL: measurement/instrument drift'); process.exit(2);
+          }
+          if(!result.app_after_known_presentation_normalization_equal){
+            console.error('P120_PROVENANCE_FAIL: app drift exceeds known presentation-only delta'); process.exit(3);
+          }
+          NODE
+
+          echo '=== DEPENDENCY_IDENTITY ==='
+          for f in p120-session-contract-v1.0.js p120-submission-config-v1.0.js p120-submission-intake-v1.0.js; do
+            b=$(git rev-parse "${BASE}:$f")
+            h=$(git rev-parse "HEAD:$f")
+            echo "$f BASE_BLOB=$b HEAD_BLOB=$h EQUAL=$([ "$b" = "$h" ] && echo true || echo false)"
+            test "$b" = "$h"
+          done
+
+          for f in internal/runtime/index.html internal/runtime/p120-alpha-system-adapter-v1.0.js; do
+            a=$(git rev-parse "${AUTH}:$f")
+            h=$(git rev-parse "HEAD:$f")
+            echo "$f AUTH_BLOB=$a HEAD_BLOB=$h EQUAL=$([ "$a" = "$h" ] && echo true || echo false)"
+            test "$a" = "$h"
+          done
+
+          echo '=== SYSTEM_COMMITS_AFTER_FREEZE ==='
+          git log --format='%H|%ad|%s' --date=iso-strict "${BASE}..HEAD" -- system/index.html
+
+          echo '=== SYSTEM_DIFF_AFTER_FREEZE ==='
+          git diff --unified=2 "$BASE" HEAD -- system/index.html
+
+          echo 'P120_RUNTIME_PROVENANCE_RECONCILIATION=PASS_PRESENTATION_ONLY_DRIFT'
