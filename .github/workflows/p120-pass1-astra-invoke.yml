@@ -1,0 +1,35 @@
+name: P120 PASS1 Astra Invoke
+on:
+  push:
+    branches:
+      - 'p120/pass1-synthetic-e2e'
+    paths:
+      - '.github/workflows/p120-pass1-astra-invoke.yml'
+permissions:
+  contents: read
+jobs:
+  invoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Invoke fixed PASS1 Astra harness
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL='https://hvjgrpssjnnprazwhikn.supabase.co/functions/v1/p120-pass1-astra-780dcbe76c232a9b24cc802f'
+          curl --fail-with-body --silent --show-error --max-time 780 "$URL" -o result.json
+          cat result.json
+          python - <<'PY'
+          import json
+          d=json.load(open('result.json',encoding='utf-8'))
+          assert d.get('ok') is True, d
+          assert d.get('check')=='P120_SYNTHETIC_E2E_REPORT_GENERATION_PASS1', d
+          assert d.get('model_requested')=='gpt-6-astra', d
+          assert d.get('model_returned')=='gpt-6-astra', d
+          assert d.get('overall_verdict')=='aligned', d
+          assert d.get('publication_authorization')=='EXPERT_ONLY', d
+          assert d.get('render_handoff_id')=='RHO-939EB6A6AA71F32CDE05', d
+          assert d.get('release_decision_id')=='RLD-2D6F00B940A94E9FED72', d
+          assert int(d.get('generated_blocks',0)) >= 12, d
+          print('P120_PASS1_ASTRA_INVOCATION_ASSERTIONS=PASS')
+          PY
