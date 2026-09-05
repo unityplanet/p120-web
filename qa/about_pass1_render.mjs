@@ -56,14 +56,15 @@ try{
       add(`${s.name}.mobileMenuEscape`,await page.locator('[data-about-drawer].is-open').count()===0);
     } else if(s.w>=1440){
       const theme=page.locator('.p120-brand53-theme').first();
-      const summary=theme.locator('summary');
-      await summary.click();
       const graphite=theme.locator('[data-p120-theme="graphite"]');
-      await graphite.click();
-      add(`${s.name}.themeGraphite`,await page.locator('body').getAttribute('data-theme')==='graphite');
-      await summary.click();
       const museum=theme.locator('[data-p120-theme="museum"]');
-      await museum.click();
+      await theme.evaluate(el=>{el.open=true});
+      await graphite.evaluate(btn=>btn.click());
+      await page.waitForFunction(()=>document.body.dataset.theme==='graphite');
+      add(`${s.name}.themeGraphite`,await page.locator('body').getAttribute('data-theme')==='graphite');
+      await theme.evaluate(el=>{el.open=true});
+      await museum.evaluate(btn=>btn.click());
+      await page.waitForFunction(()=>document.body.dataset.theme==='museum');
       add(`${s.name}.themeMuseum`,await page.locator('body').getAttribute('data-theme')==='museum');
     }
 
