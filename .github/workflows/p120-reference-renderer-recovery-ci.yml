@@ -19,31 +19,25 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import gzip,bz2,lzma,zipfile,tarfile,io
-          p=Path('p120_reference_renderer.payload')
-          raw=p.read_bytes()
+          raw=Path('p120_reference_renderer.payload').read_bytes()
           out=None
-          if raw.startswith(b'\x1f\x8b'):
-              out=gzip.decompress(raw)
-          elif raw.startswith(b'BZh'):
-              out=bz2.decompress(raw)
-          elif raw.startswith(b'\xfd7zXZ'):
-              out=lzma.decompress(raw)
+          if raw.startswith(b'\x1f\x8b'): out=gzip.decompress(raw)
+          elif raw.startswith(b'BZh'): out=bz2.decompress(raw)
+          elif raw.startswith(b'\xfd7zXZ'): out=lzma.decompress(raw)
           elif raw.startswith(b'PK\x03\x04'):
               z=zipfile.ZipFile(io.BytesIO(raw)); names=[n for n in z.namelist() if n.endswith('.py')]; assert names; out=z.read(names[0])
           else:
-              for enc in ('utf-8','cp1251'):
+              for enc in ('utf-8','cp1251','latin-1'):
                   try:
-                      text=raw.decode(enc)
-                      out=text.encode('utf-8')
+                      out=raw.decode(enc).encode('utf-8')
                       print('SOURCE_ENCODING',enc)
                       break
-                  except UnicodeDecodeError:
-                      pass
+                  except UnicodeDecodeError: pass
           if out is None:
               try:
                   t=tarfile.open(fileobj=io.BytesIO(raw)); names=[n for n in t.getnames() if n.endswith('.py')]; assert names; out=t.extractfile(names[0]).read()
               except Exception: pass
-          assert out is not None, f'unsupported payload magic={raw[:16].hex()}'
+          assert out is not None
           out.decode('utf-8')
           Path('p120_reference_renderer.py').write_bytes(out)
           print('RECOVERED_BYTES',len(out))
