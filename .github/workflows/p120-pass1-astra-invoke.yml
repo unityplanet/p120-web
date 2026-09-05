@@ -17,11 +17,16 @@ jobs:
         run: |
           set -euo pipefail
           URL='https://hvjgrpssjnnprazwhikn.supabase.co/functions/v1/p120-pass1-astra-780dcbe76c232a9b24cc802f'
-          curl --fail-with-body --silent --show-error --max-time 780 "$URL" -o result.json
+          HTTP=$(curl --silent --show-error --max-time 780 -w '%{http_code}' "$URL" -o result.json)
+          echo "HTTP=$HTTP"
           cat result.json
-          python - <<'PY'
-          import json
+          echo
+          python - "$HTTP" <<'PY'
+          import json,sys
+          http=int(sys.argv[1])
           d=json.load(open('result.json',encoding='utf-8'))
+          if http < 200 or http >= 300:
+              raise SystemExit(f'P120_PASS1_HTTP_FAIL={http} error={d.get("error")}')
           assert d.get('ok') is True, d
           assert d.get('check')=='P120_SYNTHETIC_E2E_REPORT_GENERATION_PASS1', d
           assert d.get('model_requested')=='gpt-6-astra', d
