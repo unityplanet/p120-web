@@ -1,0 +1,151 @@
+{
+  "schema": "p120.fa01.pass1f.reconciliation-evidence.v1",
+  "pass": "FOUNDER ALPHA-01 PASS 1F",
+  "title": "Full Process Reconciliation & Pre-Execution Production Integrity",
+  "document_status": "REVIEWED",
+  "gate_outcome": "HOLD",
+  "date": "2026-09-05",
+  "baseline": {
+    "production_main_sha": "c703f9c41debd6e2ed1ed311687013a61f618b03",
+    "last_formally_closed_readiness_gate": "PASS 1E.2",
+    "pass1e2_closure_commit": "0d82e3508dd7ed4449caca9d9b3daacc6a6842c8",
+    "validated_runtime_authority_commit": "88a19227e18469793f578e75e5efad84e2a8bbd5",
+    "post_pass1e2_commits_ahead": 13,
+    "post_pass1e2_commits_behind": 0
+  },
+  "authority_chain": [
+    {"gate":"PASS 1C","historical_state":"FOUNDATION_COMPLETE_ACTIVATION_HOLD","reconciled_state":"PRESERVED"},
+    {"gate":"PASS 1D","historical_state":"SECURITY_FOUNDATION_PASS_ACTIVATION_HOLD","reconciled_state":"PRESERVED"},
+    {"gate":"PASS 1E","historical_state":"HOLD_CR_REQUIRED","reconciled_state":"PRESERVED_NON_PASS"},
+    {"gate":"PASS 1E.1","historical_state":"SUBSTANTIALLY_IMPLEMENTED_NOT_INDEPENDENTLY_FORMALLY_CLOSED","reconciled_state":"INTERMEDIATE_CONTROL_STAGE"},
+    {"gate":"AUTH_CORRECTIVE_CLOSURE","historical_state":"PKCE_CALLBACK_CORRECTED_FOUNDER_CONFIRMED","reconciled_state":"PRESERVED"},
+    {"gate":"PASS 1E.2","historical_state":"PASS_CLOSED_HUMAN_GO_AUTHORIZED","reconciled_state":"VALID_HISTORICAL_CLOSURE"},
+    {"gate":"PASS 1F","historical_state":null,"reconciled_state":"HOLD"}
+  ],
+  "founder": {
+    "auth_users_total": 1,
+    "user_id": "f3dd0255-5a93-4bd8-94a8-2eb829482a67",
+    "email": "unityplanet@gmail.com",
+    "email_confirmed_at": "2026-09-05T00:16:55.758714+00:00",
+    "role": "FOUNDER_ADMIN",
+    "profile_status": "ACTIVE",
+    "entitlement_effect": "ALLOW",
+    "entitlement_access_level": "RUN",
+    "entitlement_status": "ACTIVE",
+    "result": "PASS"
+  },
+  "resource": {
+    "resource_key": "founder-alpha-core-v1",
+    "resource_id": "cbc99c47-0fce-41ab-8906-6b7cbce2b2b4",
+    "release_state": "INTERNAL_ALPHA",
+    "release_version": "FA-P1",
+    "run_type": "FOUNDER_ALPHA",
+    "runtime_key": "founder-alpha-runtime-v1",
+    "is_launchable": true,
+    "runtime_build_sha": "88a19227e18469793f578e75e5efad84e2a8bbd5",
+    "base_runtime_sha256": "f9861b3fcda1213073fc1fea245ca913776e2e0dc75ca1dcf54515d3a1f963c2",
+    "base_instrument_sha256": "a1e52bbc2f44e17091724bc2fe11d3ef8a0e1a0394b5d805550fe80c87de5e49",
+    "protected_package_sha256": "baadd454bf6dad5078ebab23620685dca5278f95cda7ec3118ae2227626c4354",
+    "extension_payload_sha256": "004ef39cd280b6fade611da15393763609d0a766c5e48a3f39216609651722b6",
+    "storage_bucket": "p120-internal-resources",
+    "storage_object_path": "founder-alpha/fa01-ru-01/p120-fa01-extension-package-v1.0.json",
+    "storage_object_bytes": 176174,
+    "main_item_count": 253,
+    "base_frozen_item_count": 180,
+    "extension_main_item_count": 73,
+    "rpe_mode": "DEFERRED",
+    "life_main_temporal_mode": "T3",
+    "candidate_scoring": false,
+    "result": "PASS"
+  },
+  "runtime_non_drift": {
+    "alpha_adapter_blob_sha": {
+      "authority": "6906cba13be344795ea831ab29dbf9eb10ac2e90",
+      "current": "6906cba13be344795ea831ab29dbf9eb10ac2e90"
+    },
+    "cabinet_blob_sha": {
+      "authority": "94b7fb36057ce7211b0d2757d279fca930f3b984",
+      "current": "94b7fb36057ce7211b0d2757d279fca930f3b984"
+    },
+    "ru_system_blob_sha": {
+      "authority": "ad95e98eeb8b6ec228ed221d54fdc31d550caf6e",
+      "current": "ad95e98eeb8b6ec228ed221d54fdc31d550caf6e"
+    },
+    "result": "PASS"
+  },
+  "data_state": {
+    "assessment_sessions": 2,
+    "submissions": 0,
+    "founder_feedback": 0,
+    "controlled_sessions": [
+      {"session_id":"e8ec9146-d52c-42ba-a896-7fffa8919bfb","status":"CREATED","participant_id":null,"submission_id":null,"reuse":"PROHIBITED"},
+      {"session_id":"6dac528d-3af6-4cbe-be5f-ad67e8e47646","status":"CREATED","participant_id":null,"submission_id":null,"reuse":"PROHIBITED"}
+    ],
+    "real_response_data_cleanliness": "PASS"
+  },
+  "post_closure_intake_compatibility": {
+    "method": "ROLLBACK_ONLY_ANON_253_RECORD_PAYLOAD_INSERT",
+    "coverage_total": 253,
+    "payload_bytes": 29597,
+    "insert_inside_transaction": "PASS",
+    "rollback": "PASS",
+    "persisted_probe_rows_after_rollback": 0,
+    "result": "PASS"
+  },
+  "production": {
+    "pages_run_id": 33984030352,
+    "pages_conclusion": "success",
+    "actions_governance_run_id": 33984031111,
+    "actions_governance_job_id": 101354195362,
+    "actions_governance_conclusion": "failure"
+  },
+  "findings": [
+    {
+      "id": "P1F-01",
+      "severity": "P0",
+      "domain": "GITHUB_ACTIONS_GOVERNANCE",
+      "state": "BLOCKING",
+      "evidence": {
+        "contents_write_observed": ["p120-en-system-build-v0.4.yml","p120-reference-renderer-source-deploy.yml"],
+        "git_push_observed": ["p120-en-system-build-v0.4.yml","p120-reference-renderer-source-deploy.yml"],
+        "controlled_expected_allowlist": ["p120-en-system-build-v0.4.yml"]
+      },
+      "required_disposition": "REMOVE_OR_REDESIGN_UNAUTHORIZED_RENDERER_WRITE_WORKFLOW_WITHOUT_WEAKENING_GOVERNANCE"
+    },
+    {
+      "id": "P1F-02",
+      "severity": "HIGH",
+      "domain": "MIGRATION_TRACEABILITY",
+      "state": "BLOCKING_FOR_FULL_RECONCILIATION",
+      "evidence": {
+        "repository_pass1e2_migration_version": "20260905124500",
+        "live_pass1e2_migration_version": "20260905124737",
+        "live_operational_migrations_not_fully_mirrored": true,
+        "live_sql_statements_recoverable": true
+      },
+      "required_disposition": "CONTROLLED_REPOSITORY_LIVE_MIGRATION_HISTORY_MAPPING_ATTESTATION_NO_DUPLICATE_REAPPLICATION"
+    },
+    {
+      "id": "P1F-03",
+      "severity": "EXECUTION_BOUNDARY",
+      "domain": "REAL_BROWSER_EVIDENCE",
+      "state": "PENDING_NEXT_HUMAN_GATE",
+      "evidence": {"browser_connector_connected": false},
+      "required_disposition": "NEW_REAL_FOUNDER_SESSION_AND_BROWSER_EVIDENCE_AT_OR_BEFORE_FA01_RU_01"
+    }
+  ],
+  "scientific_measurement_delta": "NONE",
+  "decision": {
+    "pass1f": "HOLD",
+    "human_execution": "RE_HOLD_PENDING_PASS1F_CLOSURE",
+    "may_collect_new_founder_responses": false,
+    "required_next_actions": [
+      "CLOSE_P1F_01",
+      "CLOSE_P1F_02",
+      "RERUN_CURRENT_HEAD_GOVERNANCE_AND_DEPLOYMENT_CHECKS",
+      "REVERIFY_AUTH_RESOURCE_PACKAGE_DATA_AND_RUNTIME_BLOBS",
+      "CLOSE_PASS1F",
+      "ONLY_THEN_START_NEW_FA01_RU_01_SESSION"
+    ]
+  }
+}
