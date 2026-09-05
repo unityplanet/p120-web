@@ -5,8 +5,8 @@
   "date": "2026-09-05",
   "status": "PASS",
   "closure": {
-    "retirement_merge_commit": "f9e12e543cb672952808187ada08c09dca782d6b",
-    "post_merge_generated_route_commit": "59043f45e2d58eae393aeedd4ce33e0766d79b6c",
+    "retirement_merge_commit": "f9bf2b3f0cff1c67876f696d6409868544ffe9ba",
+    "post_merge_generated_route_commit": "59043f45f7b7f0f87eb05ee4d150ead64c6c4295",
     "governance_qa_fix_commit": "31a8fe36d44d81de31050b0335ba826492ae6a2a",
     "governance_qa_run_id": 33983813642,
     "governance_qa_conclusion": "success",
