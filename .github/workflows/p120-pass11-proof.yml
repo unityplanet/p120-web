@@ -1,0 +1,35 @@
+name: P120 PASS 11 Fixed Storage Proof
+
+on:
+  push:
+    paths:
+      - '.github/workflows/p120-pass11-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  pass11-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Invoke byte-locked PASS 11 proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL='https://hvjgrpssjnnprazwhikn.supabase.co/functions/v1/p120-pass11-pdf-upload'
+          BODY="$(curl --fail --silent --show-error --max-time 30 "$URL")"
+          printf '%s\n' "$BODY"
+          export BODY
+          python3 - <<'PY'
+          import json, os
+          x=json.loads(os.environ['BODY'])
+          assert x.get('ok') is True, x
+          assert x.get('check') == 'P120_PASS11_FIXED_PRIVATE_PDF_PROOF', x
+          assert x.get('bucket_private') is True, x
+          assert x.get('stored_sha256') == '45d158a5cc2409feb326fd1e2178ff60dca1c1d4f915cbdeab72ba36e8b5b473', x
+          assert x.get('stored_bytes') == 2384, x
+          assert x.get('signed_url_created') is True, x
+          assert x.get('signed_url_ttl_seconds') == 300, x
+          print('P120_PASS11_GITHUB_RUNNER_ASSERTIONS=PASS')
+          PY
