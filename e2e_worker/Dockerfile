@@ -22,20 +22,26 @@ RUN set -eux; \
     base64 -d /tmp/p120_worker_control.b64 > /tmp/p120_worker_control.tgz; \
     echo '7e0e3124ccc43a0badc47fdd95aac595e99ffc6b372e9c1aaae7361e0cf2b426  /tmp/p120_worker_control.tgz' | sha256sum -c -; \
     tar -xzf /tmp/p120_worker_control.tgz -C /app; \
-    test -f /app/e2e_runner.py; \
-    test -f /app/runtime_service/pipeline.py; \
-    test -f /app/p120_engine/engine.py; \
-    test -f /app/p120_interpretation/runtime.py; \
-    test -f /app/p120_report/composer.py; \
-    test -f /app/p120_release/release.py; \
-    test -f /app/providers/openai_responses.py; \
-    test -f /app/prompts/analytical-pass.developer.v0.5.txt; \
-    test -f /app/prompts/human-language.developer.v0.6.txt; \
-    test -f /app/prompts/literary.developer.v0.6.txt; \
-    test -f /app/prompts/semantic-alignment.developer.v0.7.txt; \
-    test -f /app/baseline_v0.7/baseline_v0.6/baseline_v0.5/registries/model-routing-registry.v0.5.json; \
-    test -f /app/baseline_v0.7/baseline_v0.6/registries/report-writer-routing-registry.v0.6.json; \
-    test -f /app/baseline_v0.7/registries/semantic-alignment-registry.v0.7.json; \
+    echo '=== P120 E2E PACKAGING MANIFEST START ==='; \
+    find /app -maxdepth 7 -type f | sort; \
+    echo '=== P120 E2E PACKAGING MANIFEST END ==='; \
+    for f in \
+      /app/e2e_runner.py \
+      /app/runtime_service/pipeline.py \
+      /app/p120_engine/engine.py \
+      /app/p120_interpretation/runtime.py \
+      /app/p120_report/composer.py \
+      /app/p120_release/release.py \
+      /app/providers/openai_responses.py \
+      /app/prompts/analytical-pass.developer.v0.5.txt \
+      /app/prompts/human-language.developer.v0.6.txt \
+      /app/prompts/literary.developer.v0.6.txt \
+      /app/prompts/semantic-alignment.developer.v0.7.txt \
+      /app/baseline_v0.7/baseline_v0.6/baseline_v0.5/registries/model-routing-registry.v0.5.json \
+      /app/baseline_v0.7/baseline_v0.6/registries/report-writer-routing-registry.v0.6.json \
+      /app/baseline_v0.7/registries/semantic-alignment-registry.v0.7.json; do \
+        if [ -f "$f" ]; then echo "PACKAGING_ASSERT PASS $f"; else echo "PACKAGING_ASSERT FAIL $f"; exit 41; fi; \
+    done; \
     rm -f /tmp/p120_worker_*.b64 /tmp/p120_worker_*.tgz /tmp/tail_*.b64 /tmp/control_*.b64; \
     pip install --no-cache-dir "jsonschema>=4.20,<5"
 ENV PYTHONUNBUFFERED=1
