@@ -1,0 +1,74 @@
+name: P120 About P-120 Implementation PASS 1 QA
+
+on:
+  pull_request:
+    paths:
+      - 'about/**'
+      - 'en/about/**'
+      - 'p120-brand-system-v1.0.js'
+      - 'qa/about_pass1_*.mjs'
+      - '.github/workflows/p120-about-pass1-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  derivative-and-render-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: JavaScript syntax preflight
+        run: |
+          node --check p120-brand-system-v1.0.js
+          node --check about/about-p120-v1.0.js
+          node --check qa/about_pass1_static.mjs
+          node --check qa/about_pass1_render.mjs
+
+      - name: Derivative conformance and link gate
+        run: node qa/about_pass1_static.mjs
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start GitHub Pages project-subpath QA server
+        shell: bash
+        run: |
+          cd ..
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-about-pass1.log 2>&1 & echo $! >/tmp/p120-about-pass1.pid
+          sleep 2
+          curl -fsS http://127.0.0.1:4173/p120-web/about/ >/dev/null
+          curl -fsS http://127.0.0.1:4173/p120-web/en/about/ >/dev/null
+
+      - name: About RU/EN responsive render regression
+        env:
+          P120_BASE_URL: http://127.0.0.1:4173/p120-web/
+        run: node qa/about_pass1_render.mjs
+
+      - name: Existing sitewide header code-integrity regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173/p120-web
+        run: node qa/global_header_code_integrity_pass2.mjs
+
+      - name: Existing sitewide header hardening regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173/p120-web
+        run: node qa/global_header_code_hardening_pass21.mjs
+
+      - name: Upload controlled QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_ABOUT_IMPLEMENTATION_PASS1_QA
+          path: |
+            qa-evidence-about-pass1/
+            qa-artifacts/header-code-pass2/
+            qa-artifacts/header-code-pass21/
+          retention-days: 30
