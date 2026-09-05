@@ -1,0 +1,164 @@
+{
+  "schema": "p120.about.implementation_pass1.release_manifest.v1",
+  "document_id": "P120-WEB-ABOUT-IMP1-MANIFEST-001",
+  "version": "1.0",
+  "date": "2026-09-05",
+  "status": "CLOSED_GREEN_CONTROLLED_CANDIDATE_RELEASE_HELD",
+  "release_authorized": false,
+  "production_deployed": false,
+  "repository": "unityplanet/p120-web",
+  "branch": "feat/about-p120-pass1",
+  "pull_request": {
+    "number": 18,
+    "title": "IMPLEMENTATION PASS 1 — About P-120 controlled derivative",
+    "state_at_closure": "open",
+    "draft_at_closure": true,
+    "merged_at_closure": false
+  },
+  "authority_dependency": {
+    "id": "P120-ARCH-SYS-001-PASS10",
+    "name": "Architecture / About the System final master reconciliation / authority freeze",
+    "required_before_merge": true,
+    "status_in_this_package": "PENDING_EXTERNAL_GATE"
+  },
+  "baseline": {
+    "base_sha": "67d2ae422e422be20eae6bb086c51adf7de173bb",
+    "validated_implementation_head": "35f64ce45e948340fa2aace14137b2ef13536860",
+    "commits_ahead": 12,
+    "commits_behind": 0,
+    "implementation_changed_files": 8,
+    "implementation_additions": 740,
+    "implementation_deletions": 4
+  },
+  "public_routes": [
+    "/about/",
+    "/en/about/"
+  ],
+  "implementation_files": [
+    {
+      "path": ".github/workflows/p120-about-pass1-qa.yml",
+      "status": "ADDED",
+      "change_class": "QA_GOVERNANCE"
+    },
+    {
+      "path": "about/about-p120-v1.0.css",
+      "status": "ADDED",
+      "change_class": "PRESENTATION"
+    },
+    {
+      "path": "about/about-p120-v1.0.js",
+      "status": "ADDED",
+      "change_class": "INTERACTION_SHELL"
+    },
+    {
+      "path": "about/index.html",
+      "status": "ADDED",
+      "change_class": "PUBLIC_DERIVATIVE_RU"
+    },
+    {
+      "path": "en/about/index.html",
+      "status": "ADDED",
+      "change_class": "PUBLIC_DERIVATIVE_EN"
+    },
+    {
+      "path": "p120-brand-system-v1.0.js",
+      "status": "MODIFIED",
+      "change_class": "SHARED_NAVIGATION_ROUTING"
+    },
+    {
+      "path": "qa/about_pass1_render.mjs",
+      "status": "ADDED",
+      "change_class": "QA"
+    },
+    {
+      "path": "qa/about_pass1_static.mjs",
+      "status": "ADDED",
+      "change_class": "QA"
+    }
+  ],
+  "closure_package_files": [
+    "P120_ABOUT_IMPLEMENTATION_PASS1_CLOSURE_RECONCILIATION_v1.0.md",
+    "P120_ABOUT_IMPLEMENTATION_PASS1_PASS_REPORT_v1.0.md",
+    "P120_ABOUT_IMPLEMENTATION_PASS1_DECISION_RECORD_v1.0.md",
+    "P120_ABOUT_IMPLEMENTATION_PASS1_CHANGE_DELTA_v1.0.md",
+    "P120_ABOUT_IMPLEMENTATION_PASS1_QA_REPORT_v1.0.md",
+    "P120_ABOUT_IMPLEMENTATION_PASS1_RELEASE_MANIFEST_v1.0.json",
+    "P120_ABOUT_IMPLEMENTATION_PASS1_REPRODUCIBILITY_v1.0.json",
+    "P120_ABOUT_IMPLEMENTATION_PASS1_PACKAGE_INDEX_v1.0.md"
+  ],
+  "qa": {
+    "dedicated_workflow": {
+      "name": "P120 About P-120 Implementation PASS 1 QA",
+      "run_id": 33992013876,
+      "run_number": 4,
+      "conclusion": "success"
+    },
+    "actions_governance": {
+      "name": "P120 Actions Governance QA",
+      "run_id": 33992013878,
+      "run_number": 11,
+      "conclusion": "success"
+    },
+    "checks": {
+      "syntax_preflight": "PASS",
+      "derivative_conformance": {
+        "passed": 164,
+        "total": 164,
+        "failures": 0
+      },
+      "responsive_render": {
+        "passed": 84,
+        "total": 84,
+        "failures": 0
+      },
+      "shared_header_code_integrity": {
+        "status": "PASS_WITH_HARDENING_NOTES",
+        "blocking_findings": 0,
+        "runtime_cases": 16
+      },
+      "shared_header_hardening": {
+        "status": "PASS",
+        "source_routes": 20,
+        "route_viewport_cases": 40,
+        "saved_session_idempotency_cases": 1,
+        "failures": 0
+      }
+    },
+    "artifact": {
+      "id": 9976935681,
+      "name": "P120_ABOUT_IMPLEMENTATION_PASS1_QA",
+      "size_bytes": 12878784,
+      "file_count": 54,
+      "digest": "sha256:a7e7d70aae8c63582c86417972d97ccf86381b697c8228ba48a31e61a725e327",
+      "retention_days": 30
+    }
+  },
+  "change_declaration": {
+    "about_public_content": "NEW",
+    "about_presentation": "NEW",
+    "public_navigation_behavior": "CHANGED",
+    "shared_brand_navigation_runtime": "ROUTING_ONLY_CHANGE",
+    "qa_infrastructure": "NEW",
+    "measurement": "NONE",
+    "scoring": "NONE",
+    "thresholds": "NONE",
+    "item_content_ids_order": "NONE",
+    "evidence_status_model": "NONE",
+    "scientific_status": "RESEARCH_CANDIDATE_UNCHANGED",
+    "safety_privacy": "NONE",
+    "respondent_data_persistence": "NONE",
+    "auth_rls_supabase": "NONE",
+    "report_calculation_interpretation": "NONE",
+    "why_p120_narrative": "NONE",
+    "creator_narrative": "NONE",
+    "scientific_base_content": "NONE",
+    "system_questionnaire_runtime_source": "NONE",
+    "governance_ontology": "NONE"
+  },
+  "final_disposition": {
+    "technical_pass": "CLOSED_GREEN",
+    "derivative": "CONTROLLED_CANDIDATE",
+    "merge": "NOT_AUTHORIZED_PENDING_PASS10",
+    "production": "UNCHANGED"
+  }
+}
