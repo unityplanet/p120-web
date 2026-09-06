@@ -1,0 +1,56 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4F-DELTA-LEDGER",
+  "version": "v1.0",
+  "date": "2026-09-06",
+  "baseline": "cd71bf494f72090e0a81cfd3702fd6049ab89bb0",
+  "entries": [
+    {
+      "stage": "PASS 4A",
+      "delta": "public-safe RU/EN projection + 25-reference extension projection",
+      "scientific_status_upgrade": false,
+      "runtime_delta": false
+    },
+    {
+      "stage": "PASS 4B",
+      "delta": "controlled Science renderer activation",
+      "scientific_status_upgrade": false,
+      "runtime_delta": true
+    },
+    {
+      "stage": "PASS 4C",
+      "delta": "Core-45 / Global-70 unified library + explicit Core identity rule",
+      "scientific_status_upgrade": false,
+      "runtime_delta": true
+    },
+    {
+      "stage": "PASS 4D",
+      "delta": "claim-boundary and semantic-parity QA only",
+      "scientific_status_upgrade": false,
+      "runtime_delta": false
+    },
+    {
+      "stage": "PASS 4E",
+      "delta": "presentation-only responsive/typography correction + hardened visual QA",
+      "scientific_status_upgrade": false,
+      "runtime_delta": false,
+      "presentation_delta": true
+    },
+    {
+      "stage": "PASS 4F",
+      "delta": "closure reconciliation records and QA only",
+      "scientific_status_upgrade": false,
+      "runtime_delta": false,
+      "presentation_delta": false
+    }
+  ],
+  "final_current_state": {
+    "publication_projection_sha256": "2621ae1317b0161f3c3a819f79b2b874dfd9ba6e0c32e2d7ecb580841114758d",
+    "global_library_projection_sha256": "a32623e1b058d3658ae0f3afbb1e6fdc4b3503a6132634ecc1868b6e335d146a",
+    "global70_integrated_sha256": "af1fede5aeb36f2e4dc11fb55ad0f31fe5a74e2bd59fa9a0bb1aa7d405e8bdf8",
+    "pass4b_renderer_sha256": "3a97e8838c73c56913b2cda03a5ea12afc579b1b085440b946ef800f2adbcc7b",
+    "pass4c_library_runtime_sha256": "c8dd6b1c88706a2bb0c879099f5db0f87b2401b11fb5ca493037480781833425",
+    "pass4e_visual_sha256": "d2fac104c534f0ea90e77d207887557afa8abd2ce246ac4f85c7f8ddbad48aeb"
+  },
+  "unresolved_delta_count": 0
+}

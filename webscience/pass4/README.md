@@ -168,3 +168,7 @@ The next stage projects v0.4 content into the existing Scientific Base presentat
 
 ## PASS 4E closure — 2026-09-06
 `PASS / CLOSED / CONTROLLED / v0.9` — final 70-state RU/EN browser, responsive and typography QA completed over the sealed PASS 4A–4D Science stack. The final gate includes automated narrow-view Science subnavigation label containment after manual visual reconciliation, plus controlled package-ledger verification. Scientific content remains unchanged. Next active stage: **PASS 4F — Closure Reconciliation**.
+
+
+## PASS 4F closure — 2026-09-06
+`PASS / CLOSED / CONTROLLED / v1.0` — PASS 4A–4E authority chain, historical/current SHA dispositions, final public claim ceiling and no-change boundaries reconciled with zero unresolved delta. Parent WEB-SCIENCE EXT PASS 4 remains **OPEN**. Next and only authorized stage: **PASS 4G — Mandatory Full PASS Package / Final PASS 4 Sealing**.
