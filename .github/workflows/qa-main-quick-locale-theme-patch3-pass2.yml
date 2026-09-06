@@ -1,14 +1,22 @@
 name: P120 WEB Main Quick Locale Theme PATCH 3 PASS 2 QA
 
-# PATCH 3 permanent regression authority; hardened after drawer-close harness reconciliation.
+# PATCH 3 permanent regression authority; reconciled with PASS 5.3.1 phone presentation authority.
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'p120-brand-system-v1.0.js'
+      - 'p120-brand-system-v1.0.css'
+      - 'p120-pass53-visual-corrections-v1.0.css'
+      - 'qa/main_quick_locale_theme_patch3_pass2_reconciled.mjs'
+      - '.github/workflows/qa-main-quick-locale-theme-patch3-pass2.yml'
   push:
     branches: [main]
     paths:
       - 'p120-brand-system-v1.0.js'
       - 'p120-brand-system-v1.0.css'
-      - 'qa/main_quick_locale_theme_patch3_pass2.mjs'
+      - 'p120-pass53-visual-corrections-v1.0.css'
+      - 'qa/main_quick_locale_theme_patch3_pass2_reconciled.mjs'
       - 'qa/mobile_quick_chapter_navigation_pass2.mjs'
       - 'qa/mobile_session_resume_patch2_pass2.mjs'
       - 'qa/global_header_code_hardening_pass21.mjs'
@@ -36,10 +44,10 @@ jobs:
           python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-patch3-root.log 2>&1 &
           python3 -m http.server 4174 --bind 127.0.0.1 --directory .. >/tmp/p120-patch3-prefix.log 2>&1 &
           sleep 2
-      - name: Run PATCH 3 / PASS 2 Main quick locale-theme gate
+      - name: Run reconciled PATCH 3 / PASS 2 Main quick locale-theme gate
         env:
           P120_QA_BASE: http://127.0.0.1:4174/p120-web
-        run: node qa/main_quick_locale_theme_patch3_pass2.mjs
+        run: node qa/main_quick_locale_theme_patch3_pass2_reconciled.mjs
       - name: Re-run PATCH 1 mobile quick chapter gate
         env:
           P120_QA_BASE: http://127.0.0.1:4174/p120-web
@@ -66,7 +74,7 @@ jobs:
         with:
           name: P120_WEB_MAIN_QUICK_LOCALE_THEME_PATCH3_PASS2_QA
           path: |
-            qa-artifacts/main-quick-locale-theme-patch3-pass2
+            qa-artifacts/main-quick-locale-theme-patch3-pass2-reconciled
             qa-artifacts/mobile-quick-chapters-pass2
             qa-artifacts/mobile-session-resume-patch2-pass2
             qa-artifacts/header-code-pass21
