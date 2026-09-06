@@ -3,8 +3,8 @@
 
 **Document code:** P120-WEB-ABOUT-IMP1-PKG-001  
 **Version:** 1.0  
-**Date:** 2026-09-05  
-**Package status:** COMPLETE / CONTROLLED / RELEASE-HELD  
+**Date:** 2026-09-06  
+**Package status:** COMPLETE / CONTROLLED / RELEASE-PROMOTION AUTHORIZED  
 
 ## 1. Package completeness
 
@@ -23,19 +23,42 @@ Mandatory closure package components:
 
 **Package completeness: 8 / 8 COMPLETE.**
 
-## 2. Technical validation authority
+## 2. Source-authority binding
 
-Validated implementation head:
+`P120-ARCH-SYS-001 v1.0` completed:
 
-`35f64ce45e948340fa2aace14137b2ef13536860`
+**PASS 10 — Final Reconciliation / Freeze Recommendation**
 
-Dedicated final QA run:
+Final state:
 
-`33992013876` — **SUCCESS**
+- `PASS / CLOSED / CONTROLLED / SEALED`;
+- `FREEZE APPROVED`;
+- `FROZEN / CANONICAL SYSTEM AUTHORITY / EFFECTIVE`;
+- final source package SHA-256: `7e389b53a4575df2f3214a3050d029134562d9e9a19514230ecdc51822a22dcd`;
+- controlled source files: `63`.
 
-Actions Governance QA:
+The former source-authority hold is therefore **CLEARED**.
 
-`33992013878` — **SUCCESS**
+## 3. Executable source-authority gate
+
+The implementation branch contains:
+
+- `qa/about_pass1_source_authority_gate.json`;
+- `qa/about_pass1_source_authority_gate.mjs`.
+
+The dedicated About workflow now verifies PASS 10 authority before running derivative, render and shared-header regressions.
+
+## 4. Final pre-merge validation
+
+Validated release-gate head:
+
+`001d7e2e27a2a97ade7550748b812666bafc2f0f`
+
+Dedicated current-head QA:
+
+`34020768075` / run #17 — **SUCCESS**
+
+Actions Governance QA in the same release sequence — **SUCCESS**.
 
 Evidence artifact:
 
@@ -43,42 +66,48 @@ Evidence artifact:
 
 Artifact ID:
 
-`9976935681`
+`9985428175`
 
 Digest:
 
-`sha256:a7e7d70aae8c63582c86417972d97ccf86381b697c8228ba48a31e61a725e327`
+`sha256:c76468e8358cf6ea6d5903e244d1e65082c5340ff38ff0694f4701c114180561`
 
-## 3. Mandatory acceptance summary
+The subsequent closure/index updates are governance-only and introduce no runtime/content/measurement/scoring mutation. Production safety remains subject to the required post-merge regression.
 
+## 5. Mandatory acceptance summary
+
+- PASS 10 source-authority gate: **PASS**.
 - Technical implementation: **PASS / CLOSED / GREEN**.
-- Derivative conformance: **164 / 164 PASS**.
-- Responsive/render QA: **84 / 84 PASS**.
+- Derivative conformance: **PASS**.
+- Responsive/render QA: **PASS**.
 - Shared-header code-integrity: **0 blockers**.
-- Shared-header hardening: **PASS / 40 route-viewports / 0 failures**.
+- Shared-header hardening: **PASS / 0 failures**.
 - Actions governance: **PASS**.
 - Measurement/scoring mutation: **NONE**.
 - Protected Why/Creator/Science/System source-content mutation: **NONE**.
 - Public About content: **NEW**.
 - Public navigation behaviour: **CHANGED intentionally**.
-- Production deployment: **NONE**.
+- Production deployment: **PENDING**.
 
-## 4. Release gate
+## 6. Release gate
 
-This package closes the implementation PASS but does not authorize merge.
+All pre-merge authority and technical gates are satisfied.
 
-**Required next authority:** `P120-ARCH-SYS-001 PASS 10`.
+**MERGE AUTHORIZATION: GRANTED.**
 
-Until PASS 10 is closed:
+Required next controlled sequence:
 
-- PR #18 remains draft;
-- PR #18 remains open;
-- PR #18 remains unmerged;
-- production remains unchanged.
+1. mark PR #18 ready;
+2. merge to `main`;
+3. verify GitHub Pages deployment;
+4. execute post-merge production regression / route verification;
+5. issue production closure package.
 
-## 5. Final package status
+## 7. Final package status
 
 **IMPLEMENTATION PASS 1 PACKAGE: COMPLETE**  
 **TECHNICAL STATUS: CLOSED / GREEN**  
-**DERIVATIVE STATUS: CONTROLLED CANDIDATE**  
-**RELEASE STATUS: HELD PENDING PASS 10**
+**SOURCE AUTHORITY: PASS 10 FROZEN / BOUND**  
+**DERIVATIVE STATUS: RELEASE-PROMOTION AUTHORIZED**  
+**MERGE: AUTHORIZED**  
+**PRODUCTION: PENDING MERGE / DEPLOYMENT / POST-MERGE REGRESSION**
