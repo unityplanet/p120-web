@@ -11,6 +11,10 @@ Q=E/'P120_WEBSCI_EXT_PASS4_PASS4E_BROWSER_TYPOGRAPHY_QA_RESULT_v0.9.json'
 qa=json.loads(Q.read_text())
 if qa.get('status')!='PASS' or qa.get('checks_failed')!=0:
     raise SystemExit('PASS 4E browser/typography evidence is not fully PASS')
+if qa.get('checks_total')!=952 or qa.get('checks_passed')!=952:
+    raise SystemExit(f"PASS 4E final check cardinality mismatch: {qa.get('checks_passed')}/{qa.get('checks_total')}")
+if not any('Science subnav labels remain contained' in x.get('id','') for x in qa.get('checks',[])):
+    raise SystemExit('PASS 4E final subnav containment assertion is missing')
 (W/Q.name).write_bytes(Q.read_bytes())
 
 diagnostic=json.loads((W/'P120_WEBSCI_EXT_PASS4_PASS4E_DIAGNOSTIC_FINDINGS_v0.9.json').read_text())
@@ -24,6 +28,9 @@ summary={
   'viewports':['320x800','390x844','768x1024','1024x900','1440x1000','1920x1080','2560x1440'],
   'bases':['CORE','EXTENDED','OUTCOMES','METHODS','LIBRARY'],
   'diagnostic_blocker_count':5,
+  'post_gate_manual_visual_finding_count':1,
+  'manual_visual_spotcheck_reconciled':True,
+  'mobile_subnav_label_containment_asserted':True,
   'browser_typography_checks_total':qa['checks_total'],'browser_typography_checks_passed':qa['checks_passed'],'browser_typography_checks_failed':qa['checks_failed'],
   'upstream_regressions':{'PASS4A_projection':'2970/2970 PASS','PASS4C_global70':'88/88 PASS','PASS4D_static':'448/448 PASS','PASS4D_browser':'448/448 PASS'},
   'scope':'BROWSER_RESPONSIVE_TYPOGRAPHY_SCIENCE_QA',
@@ -63,18 +70,26 @@ PASS 4E adds `p120-webscience-pass4e-visual-v0.9.css` through an exact additive 
 - establishes a 12px narrow-phone floor for selected reader-facing scientific prose;
 - preserves bottom-navigation reachability with dedicated Science bottom clearance.
 
+## Post-gate manual visual reconciliation
+A manual review of the generated narrow-screen evidence identified one additional presentation defect that the first numerical gate did not capture: on RU 320px and EN 390px Science views, horizontally compressed subnavigation pills could keep the page within the viewport while their labels visually collided. This finding did **not** change scientific content or evidence state, but it prevented final sealing.
+
+The final correction makes mobile/tablet Science subnavigation a non-shrinking horizontally scrollable pill row and preserves each label inside its own control. The automated gate was extended with a per-state label-containment and adjacent-overlap assertion, so this defect can no longer pass merely because document-level horizontal overflow is zero.
+
 ## Final browser / responsive / typography gate
-The final gate re-runs the complete **70-state matrix** and verifies document containment, canonical font inventory and computed-family use, real-weight conformance, IBM Plex Mono technical notation, critical H2 clipping, Global-70 chip containment, responsive control targets, mobile prose floor, paragraph leading, sticky geometry, fixed-bottom-navigation reachability and runtime-error absence.
+The final gate re-runs the complete **70-state matrix** and verifies document containment, canonical font inventory and computed-family use, real-weight conformance, IBM Plex Mono technical notation, critical H2 clipping, Global-70 chip containment, responsive control targets, **Science subnavigation label containment**, mobile prose floor, paragraph leading, sticky geometry, fixed-bottom-navigation reachability and runtime-error absence.
 
 Result: **{qa['checks_passed']}/{qa['checks_total']} PASS; failed = {qa['checks_failed']}**.
 
 Upstream scientific and integration regressions were also re-run unchanged: PASS 4A projection 2970/2970; PASS 4C Global-70 browser 88/88; PASS 4D static 448/448; PASS 4D rendered parity 448/448.
 
+## Package seal control
+The final package builder excludes `PACKAGE_CONTENT_SHA256SUMS.txt` from its own checksum set, verifies every listed package file, verifies ZIP integrity and verifies the external ZIP sidecar before artifact publication. This closes the earlier self-reference defect in the package checksum ledger without changing any scientific or presentation content.
+
 ## No-change declaration
 Scientific content = NONE · Evidence-state upgrade = NONE · Measurement = NONE · Scoring = NONE · Thresholds = NONE · Respondent sessions = NONE · Persistence = NONE · Report calculations = NONE · Production main = NONE.
 
 ## Verdict
-**PASS / RESPONSIVE SCIENCE MATRIX CONTROLLED / TYPOGRAPHY CONFORMANCE ESTABLISHED / GLOBAL-70 NARROW-VIEW CONTAINMENT ESTABLISHED / NO SCIENTIFIC STATUS UPGRADE.**
+**PASS / RESPONSIVE SCIENCE MATRIX CONTROLLED / TYPOGRAPHY CONFORMANCE ESTABLISHED / GLOBAL-70 NARROW-VIEW CONTAINMENT ESTABLISHED / MANUAL VISUAL RECONCILIATION CLOSED / NO SCIENTIFIC STATUS UPGRADE.**
 
 Next authorized gate: **WEB-SCIENCE EXT PASS 4F — Closure Reconciliation**.
 '''
@@ -92,8 +107,10 @@ decision=f'''# P-120 WEB-SCIENCE EXT PASS 4E — Decision Record
 5. Require technical Science identifiers to use IBM Plex Mono where explicitly bound by PASS 4E.
 6. Require responsive containment at 320–2560px, including Global-70 long-role metadata and narrow Russian headings.
 7. Require 44px Science interaction targets on mobile/tablet and readable narrow-phone narrative typography.
-8. Do not merge to production main in PASS 4E.
-9. Advance to PASS 4F — Closure Reconciliation.
+8. Require mobile/tablet Science subnavigation labels to remain individually contained with no adjacent visual collision; controlled horizontal scrolling is authorized for the pill row.
+9. Require final package checksum ledgers to exclude self-reference and pass independent post-build verification.
+10. Do not merge to production main in PASS 4E.
+11. Advance to PASS 4F — Closure Reconciliation.
 '''
 (W/'P120_WEBSCI_EXT_PASS4_PASS4E_DECISION_v0.9.md').write_text(decision)
 
@@ -107,6 +124,8 @@ delta='''# P-120 WEB-SCIENCE EXT PASS 4E — Controlled Delta / Changelog
 - exact additive PASS 4E stylesheet loader appended after the sealed PASS 4C library runtime.
 - 70-state browser / responsive / typography QA gate.
 - diagnostic 70-state visual probe and controlled diagnostic provenance record.
+- per-state Science subnavigation label-containment and adjacent-overlap assertion after manual visual reconciliation.
+- independent post-build package checksum verification.
 
 ## Corrected
 - 320px Global-70 long evidence-role chip containment.
@@ -116,6 +135,8 @@ delta='''# P-120 WEB-SCIENCE EXT PASS 4E — Controlled Delta / Changelog
 - mobile/tablet Science subnavigation, Library filter and DOI touch-target sizing.
 - narrow-phone reader-facing scientific prose floor.
 - fixed mobile-bottom-navigation content clearance.
+- post-gate manual visual finding: mobile/tablet Science subnavigation pills are non-shrinking and horizontally scrollable, preventing RU/EN label collision.
+- package checksum ledger self-reference eliminated; ledger is verified before and after ZIP creation.
 
 ## Explicitly unchanged
 Scientific projection · evidence states · claims · Core-45 · REF-046..070 extension · Global-70 identities · RPE publication suppression · DYADIC visibility · measurement · scoring · thresholds · respondent sessions · persistence · report calculations · production main.
@@ -140,7 +161,9 @@ manifest={
  'status':'PASS4E_CLOSED_CONTROLLED','branch':BRANCH,'baseline_commit':BASE,
  'production_main_mutated':False,'production_merge':'NOT_PERFORMED','scientific_content_mutated':False,
  'measurement_mutated':False,'scoring_mutated':False,'thresholds_mutated':False,
- 'responsive_matrix_states':70,'diagnostic_blockers_corrected':5,
+ 'responsive_matrix_states':70,'diagnostic_blockers_corrected':5,'post_gate_manual_visual_findings_corrected':1,
+ 'manual_visual_spotcheck_reconciled':True,'mobile_subnav_label_collision_corrected':True,'mobile_subnav_label_containment_asserted':True,
+ 'package_ledger_self_reference_prevented':True,'package_post_build_verification_required':True,
  'typography_conformance_established':True,'global70_narrow_view_containment_established':True,
  'presentation_correction_layer':'p120-webscience-pass4e-visual-v0.9.css',
  'diagnostic_provenance':{'run_id':diagnostic['github_actions_run_id'],'artifact_id':diagnostic['github_artifact_id'],'artifact_sha256':diagnostic['github_artifact_sha256']},
@@ -153,7 +176,11 @@ manifest={
 readme=W/'README.md'
 text=readme.read_text()
 marker='## PASS 4E closure — 2026-09-06'
-if marker not in text:
-    text += f'''\n\n{marker}\n`PASS / CLOSED / CONTROLLED / v0.9` — 70-state RU/EN browser, responsive and typography QA completed over the sealed PASS 4A–4D Science stack. A scoped presentation-only correction layer establishes narrow-phone containment, real-weight typography, technical Mono binding and mobile/tablet interaction targets without changing scientific content. Next active stage: **PASS 4F — Closure Reconciliation**.\n'''
-    readme.write_text(text)
+entry=f'''{marker}\n`PASS / CLOSED / CONTROLLED / v0.9` — final 70-state RU/EN browser, responsive and typography QA completed over the sealed PASS 4A–4D Science stack. The final gate includes automated narrow-view Science subnavigation label containment after manual visual reconciliation, plus controlled package-ledger verification. Scientific content remains unchanged. Next active stage: **PASS 4F — Closure Reconciliation**.\n'''
+if marker in text:
+    before=text.split(marker,1)[0].rstrip()
+    text=before+'\n\n'+entry
+else:
+    text=text.rstrip()+'\n\n'+entry
+readme.write_text(text)
 print(json.dumps(summary,ensure_ascii=False,indent=2))
