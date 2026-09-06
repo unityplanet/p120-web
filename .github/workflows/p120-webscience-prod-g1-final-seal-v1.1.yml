@@ -1,0 +1,242 @@
+name: P120 WEB-SCIENCE PROD-G1 Final Closure Seal v1.1
+
+on:
+  push:
+    branches:
+      - 'web-science-prod-g1-final-closure-reconciled'
+      - 'main'
+    paths:
+      - 'qa/webscience_prod_g1_live_smoke_v1.0.mjs'
+      - 'qa/webscience_prod_g1_actions_governance_gate_v1.0.py'
+      - '.github/scripts/p120_webscience_prod_g1_closure.py'
+      - '.github/workflows/p120-webscience-prod-g1-live-smoke.yml'
+      - '.github/workflows/p120-webscience-prod-g1-final-seal.yml'
+      - '.github/workflows/p120-webscience-prod-g1-final-seal-v1.1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  final-seal-v1-1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      P120_PRODUCTION_BASE: https://unityplanet.github.io/p120-web/
+      P120_PRODUCTION_CONTENT_HEAD: 69aa0142c3b6b3dc70c89c2200888d69777909fd
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify reconciled closure scope and authority topology
+        shell: bash
+        run: |
+          set -euo pipefail
+          PROD="$P120_PRODUCTION_CONTENT_HEAD"
+          SEALED='d095cae40b33da2118e5090be2a2c837205d8b64'
+          git merge-base --is-ancestor "$PROD" HEAD
+          git merge-base --is-ancestor "$SEALED" HEAD
+          python3 - <<'PY'
+          import os,subprocess
+          prod=os.environ['P120_PRODUCTION_CONTENT_HEAD']
+          allowed={
+            'qa/webscience_prod_g1_live_smoke_v1.0.mjs',
+            'qa/webscience_prod_g1_actions_governance_gate_v1.0.py',
+            '.github/scripts/p120_webscience_prod_g1_closure.py',
+            '.github/workflows/p120-webscience-prod-g1-live-smoke.yml',
+            '.github/workflows/p120-webscience-prod-g1-final-seal.yml',
+            '.github/workflows/p120-webscience-prod-g1-final-seal-v1.1.yml',
+          }
+          changed=set(filter(None,subprocess.check_output(['git','diff','--name-only',prod,'HEAD'],text=True).splitlines()))
+          unexpected=sorted(changed-allowed)
+          print('reconciled closure delta files:',sorted(changed))
+          if unexpected: raise SystemExit('PROD-G1 reconciled closure scope violation: '+', '.join(unexpected))
+          PY
+          git diff --check
+
+      - name: Run sealed-authority reconciliation
+        run: python3 qa/webscience_prod_g1_reconciliation_gate_v1.0.py
+
+      - name: Run production boundary gate
+        run: python3 qa/webscience_prod_g1_postmerge_gate_v1.0.py
+
+      - name: Run deployment-path invariant reconciliation
+        run: python3 qa/webscience_prod_g1_deployment_path_baseline_reconciliation_v1.0.py
+
+      - name: Run machine-readable Actions governance gate
+        run: python3 qa/webscience_prod_g1_actions_governance_gate_v1.0.py
+
+      - name: Run PASS4A publication projection gate
+        run: node qa/webscience_pass4a_projection_gate_v0.5.mjs
+
+      - name: Re-materialize Global70 and require byte identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEFORE=$(sha256sum webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json | awk '{print $1}')
+          node qa/webscience_pass4c_materialize_global_library_v0.7.mjs
+          AFTER=$(sha256sum webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json | awk '{print $1}')
+          test "$BEFORE" = "$AFTER"
+          test "$AFTER" = 'af1fede5aeb36f2e4dc11fb55ad0f31fe5a74e2bd59fa9a0bb1aa7d405e8bdf8'
+
+      - name: Run PASS4D static claim/parity gate
+        run: node qa/webscience_pass4d_claim_boundary_static_gate_v0.8.mjs
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Run project-subpath deployment browser gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd ..
+          python3 -m http.server 4179 --bind 127.0.0.1 >/tmp/p120-prod-g1-project-http.log 2>&1 &
+          PID=$!
+          cd p120-web
+          trap 'kill '$PID' 2>/dev/null || true' EXIT
+          sleep 2
+          curl -fsS 'http://127.0.0.1:4179/p120-web/science/' >/dev/null
+          node qa/pass4a_deployment_path_gate.mjs
+          kill $PID
+          trap - EXIT
+
+      - name: Start local production-equivalent server
+        shell: bash
+        run: |
+          python3 -m http.server 4179 --bind 127.0.0.1 >/tmp/p120-prod-g1-final-http.log 2>&1 &
+          echo $! >/tmp/p120-prod-g1-final-http.pid
+          sleep 2
+          curl -fsS 'http://127.0.0.1:4179/science/' >/dev/null
+          curl -fsS 'http://127.0.0.1:4179/en/science/' >/dev/null
+
+      - name: Run Scientific Base production QA
+        run: node qa/scientific_base_production_gate_v1.mjs
+
+      - name: Run PASS4C Global70 browser QA
+        run: node qa/webscience_pass4c_library_gate_v0.7.mjs
+
+      - name: Run PASS4D rendered parity QA
+        run: node qa/webscience_pass4d_claim_boundary_browser_gate_v0.8.mjs
+
+      - name: Run PASS4E responsive typography QA
+        run: node qa/webscience_pass4e_browser_typography_gate_v0.9.mjs
+
+      - name: Stop local server
+        if: always()
+        shell: bash
+        run: |
+          if test -f /tmp/p120-prod-g1-final-http.pid; then kill "$(cat /tmp/p120-prod-g1-final-http.pid)" 2>/dev/null || true; fi
+
+      - name: Run public GitHub Pages live QA
+        run: node qa/webscience_prod_g1_live_smoke_v1.0.mjs
+
+      - name: Re-run production boundary after all QA
+        run: python3 qa/webscience_prod_g1_postmerge_gate_v1.0.py
+
+      - name: Bind closure generator to reconciled production-content head
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import os
+          p=Path('.github/scripts/p120_webscience_prod_g1_closure.py')
+          text=p.read_text()
+          old="PRODUCTION_CONTENT_HEAD='83bc0829d5d7371eedc9e810259f29b1c35b696c'"
+          new=f"PRODUCTION_CONTENT_HEAD='{os.environ['P120_PRODUCTION_CONTENT_HEAD']}'"
+          if old not in text and new not in text: raise SystemExit('closure generator production-head binding not found')
+          p.write_text(text.replace(old,new))
+          print(new)
+          PY
+
+      - name: Generate mandatory P120 closure records
+        run: python3 .github/scripts/p120_webscience_prod_g1_closure.py
+
+      - name: Assemble reconciled closure package
+        shell: bash
+        run: |
+          set -euo pipefail
+          PKG='_package/P120_WEBSCI_PROD_G1_v1.1'
+          rm -rf _package
+          mkdir -p "$PKG"/{RECORDS,QA,AUTHORITY,GOVERNANCE,REPRODUCIBILITY,RELEASE_CONTROL}
+          cp -a _release/P120_WEBSCI_PROD_G1_v1.0/. "$PKG/RECORDS/"
+          cp -a qa-evidence-webscience-prod-g1 "$PKG/QA/SEALED_RECONCILIATION"
+          cp -a qa-evidence-webscience-prod-g1-postmerge "$PKG/QA/POSTMERGE_BOUNDARY"
+          cp -a qa-evidence-webscience-prod-g1-deployment-path-reconcile "$PKG/QA/DEPLOYMENT_INVARIANTS"
+          cp -a qa-evidence-webscience-prod-g1-actions "$PKG/QA/ACTIONS_GOVERNANCE"
+          cp -a qa-evidence-pass4a "$PKG/QA/DEPLOYMENT_BROWSER"
+          cp -a qa-evidence-science-production-v1 "$PKG/QA/SCIENTIFIC_BASE"
+          cp -a qa-evidence-webscience-pass4c "$PKG/QA/PASS4C_BROWSER"
+          cp -a qa-evidence-webscience-pass4d "$PKG/QA/PASS4D"
+          cp -a qa-evidence-webscience-pass4e "$PKG/QA/PASS4E"
+          cp -a qa-evidence-webscience-prod-g1-live "$PKG/QA/LIVE_PRODUCTION"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_MANIFEST_v1.1.json "$PKG/AUTHORITY/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_STATUS_RECORD_v1.1.json "$PKG/AUTHORITY/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_AUTHORITY_INDEX_v1.1.json "$PKG/AUTHORITY/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json "$PKG/AUTHORITY/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json "$PKG/AUTHORITY/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json "$PKG/AUTHORITY/"
+          cp P120_GITHUB_ACTIONS_SECURITY_PASS_v1.0.json "$PKG/GOVERNANCE/"
+          cp P120_GITHUB_ACTIONS_SECURITY_RECONCILIATION_v1.1.json "$PKG/GOVERNANCE/"
+          cp .github/P120_ACTIONS_GOVERNANCE.md "$PKG/GOVERNANCE/"
+          cp webscience/production/P120_WEBSCI_PROD_G1_SCIENTIFIC_BASE_BASELINE_RECONCILIATION_v1.0.json "$PKG/GOVERNANCE/"
+          cp webscience/production/P120_WEBSCI_PROD_G1_SCIENTIFIC_BASE_BASELINE_RECONCILIATION_DECISION_v1.0.md "$PKG/GOVERNANCE/"
+          cp webscience/production/P120_WEBSCI_PROD_G1_GOVERNANCE_AND_DEPLOYMENT_PATH_RECONCILIATION_DECISION_v1.0.md "$PKG/GOVERNANCE/"
+          cp webscience/production/P120_WEBSCI_PROD_G1_IMPACT_LEDGER_v1.0.json "$PKG/GOVERNANCE/"
+          cp qa/webscience_prod_g1_live_smoke_v1.0.mjs "$PKG/REPRODUCIBILITY/"
+          cp qa/webscience_prod_g1_actions_governance_gate_v1.0.py "$PKG/REPRODUCIBILITY/"
+          cp .github/scripts/p120_webscience_prod_g1_closure.py "$PKG/REPRODUCIBILITY/"
+          cp .github/workflows/p120-webscience-prod-g1-final-seal-v1.1.yml "$PKG/REPRODUCIBILITY/"
+          printf 'P-120 WEB-SCIENCE PROD-G1 reconciled package seal control\nPACKAGE_CONTENT_SHA256SUMS.txt is intentionally excluded from its own checksum set.\nScientific/content delta from package sealing: NONE.\nClosure HEAD: %s\nProduction content head: %s\n' "$(git rev-parse HEAD)" "$P120_PRODUCTION_CONTENT_HEAD" > "$PKG/RELEASE_CONTROL/PACKAGE_SEAL_AUDIT.txt"
+          (cd "$PKG" && find . -type f ! -path './RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt' -print0 | sort -z | xargs -0 sha256sum > RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt)
+          (cd "$PKG" && sha256sum -c RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt)
+
+      - name: Build sealed ZIP and sidecar
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP='P120_WEBSCI_PROD_G1_v1.1_PASS_PACKAGE_FINAL.zip'
+          rm -f "$ZIP" "$ZIP.sha256"
+          (cd _package/P120_WEBSCI_PROD_G1_v1.1 && zip -qr "$GITHUB_WORKSPACE/$ZIP" .)
+          sha256sum "$ZIP" > "$ZIP.sha256"
+          cat "$ZIP.sha256"
+
+      - name: Independent post-build package verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP='P120_WEBSCI_PROD_G1_v1.1_PASS_PACKAGE_FINAL.zip'
+          unzip -t "$ZIP"
+          EXPECTED=$(awk '{print $1}' "$ZIP.sha256")
+          ACTUAL=$(sha256sum "$ZIP" | awk '{print $1}')
+          test "$EXPECTED" = "$ACTUAL"
+          rm -rf /tmp/p120-prod-g1-seal-check
+          mkdir -p /tmp/p120-prod-g1-seal-check
+          unzip -q "$ZIP" -d /tmp/p120-prod-g1-seal-check
+          (cd /tmp/p120-prod-g1-seal-check && sha256sum -c RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt)
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('/tmp/p120-prod-g1-seal-check')
+          status=json.loads((root/'RECORDS/P120_WEBSCI_PROD_G1_FINAL_STATUS_RECORD_v1.0.json').read_text())
+          manifest=json.loads((root/'RECORDS/P120_WEBSCI_PROD_G1_MANIFEST_v1.0.json').read_text())
+          live=json.loads((root/'QA/LIVE_PRODUCTION/P120_WEBSCI_PROD_G1_LIVE_SMOKE_v1.0.json').read_text())
+          assert status['status']=='CLOSED_CONTROLLED_SEALED_ACTIVE_IN_PRODUCTION'
+          assert manifest['unresolved_delta_count']==0
+          assert live['status']=='PASS' and live['checks_passed']==140 and live['checks_failed']==0
+          print('P120_PROD_G1_POST_BUILD_SEAL_V1_1=PASS')
+          PY
+
+      - name: Upload final reconciled sealed package
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_PROD_G1_v1.1_PASS_PACKAGE_FINAL
+          path: |
+            P120_WEBSCI_PROD_G1_v1.1_PASS_PACKAGE_FINAL.zip
+            P120_WEBSCI_PROD_G1_v1.1_PASS_PACKAGE_FINAL.zip.sha256
+          if-no-files-found: error
+          retention-days: 90
