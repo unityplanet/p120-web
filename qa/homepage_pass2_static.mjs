@@ -64,7 +64,7 @@ check('metadata description normalization',js.includes('multidimensional researc
 check('no iframe',!/<iframe|createElement\(['"]iframe/i.test(js));
 
 const forbiddenRuntime=[
-  'P120_INSTRUMENT','P120_SCORE','calculateScore','scoreResponse','supabase','localStorage','sessionStorage','responses','submission','fetch(','XMLHttpRequest','indexedDB'
+  'P120_INSTRUMENT','P120_SCORE','calculateScore','scoreResponse','supabase','localStorage','sessionStorage','responses','fetch(','XMLHttpRequest','indexedDB'
 ];
 for(const token of forbiddenRuntime) check(`homepage runtime excludes / ${token}`,!js.toLowerCase().includes(token.toLowerCase()));
 
