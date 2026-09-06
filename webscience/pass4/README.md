@@ -166,6 +166,5 @@ The next stage projects v0.4 content into the existing Scientific Base presentat
 ## PASS 4D closure — 2026-09-06
 `PASS / CLOSED / CONTROLLED / v0.8` — adversarial claim-boundary and RU/EN semantic-parity QA completed over the sealed PASS 4A–4C public Science stack. No scientific content or evidence state was upgraded. Next active stage: **PASS 4E — Browser / Responsive / Typography Science QA**.
 
-
 ## PASS 4E closure — 2026-09-06
-`PASS / CLOSED / CONTROLLED / v0.9` — 70-state RU/EN browser, responsive and typography QA completed over the sealed PASS 4A–4D Science stack. A scoped presentation-only correction layer establishes narrow-phone containment, real-weight typography, technical Mono binding and mobile/tablet interaction targets without changing scientific content. Next active stage: **PASS 4F — Closure Reconciliation**.
+`PASS / CLOSED / CONTROLLED / v0.9` — final 70-state RU/EN browser, responsive and typography QA completed over the sealed PASS 4A–4D Science stack. The final gate includes automated narrow-view Science subnavigation label containment after manual visual reconciliation, plus controlled package-ledger verification. Scientific content remains unchanged. Next active stage: **PASS 4F — Closure Reconciliation**.

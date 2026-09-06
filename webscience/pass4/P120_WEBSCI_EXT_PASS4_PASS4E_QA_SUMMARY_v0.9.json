@@ -25,8 +25,11 @@
     "LIBRARY"
   ],
   "diagnostic_blocker_count": 5,
-  "browser_typography_checks_total": 882,
-  "browser_typography_checks_passed": 882,
+  "post_gate_manual_visual_finding_count": 1,
+  "manual_visual_spotcheck_reconciled": true,
+  "mobile_subnav_label_containment_asserted": true,
+  "browser_typography_checks_total": 952,
+  "browser_typography_checks_passed": 952,
   "browser_typography_checks_failed": 0,
   "upstream_regressions": {
     "PASS4A_projection": "2970/2970 PASS",

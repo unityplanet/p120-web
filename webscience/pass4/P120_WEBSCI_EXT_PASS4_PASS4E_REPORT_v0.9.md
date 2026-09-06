@@ -29,17 +29,25 @@ PASS 4E adds `p120-webscience-pass4e-visual-v0.9.css` through an exact additive 
 - establishes a 12px narrow-phone floor for selected reader-facing scientific prose;
 - preserves bottom-navigation reachability with dedicated Science bottom clearance.
 
-## Final browser / responsive / typography gate
-The final gate re-runs the complete **70-state matrix** and verifies document containment, canonical font inventory and computed-family use, real-weight conformance, IBM Plex Mono technical notation, critical H2 clipping, Global-70 chip containment, responsive control targets, mobile prose floor, paragraph leading, sticky geometry, fixed-bottom-navigation reachability and runtime-error absence.
+## Post-gate manual visual reconciliation
+A manual review of the generated narrow-screen evidence identified one additional presentation defect that the first numerical gate did not capture: on RU 320px and EN 390px Science views, horizontally compressed subnavigation pills could keep the page within the viewport while their labels visually collided. This finding did **not** change scientific content or evidence state, but it prevented final sealing.
 
-Result: **882/882 PASS; failed = 0**.
+The final correction makes mobile/tablet Science subnavigation a non-shrinking horizontally scrollable pill row and preserves each label inside its own control. The automated gate was extended with a per-state label-containment and adjacent-overlap assertion, so this defect can no longer pass merely because document-level horizontal overflow is zero.
+
+## Final browser / responsive / typography gate
+The final gate re-runs the complete **70-state matrix** and verifies document containment, canonical font inventory and computed-family use, real-weight conformance, IBM Plex Mono technical notation, critical H2 clipping, Global-70 chip containment, responsive control targets, **Science subnavigation label containment**, mobile prose floor, paragraph leading, sticky geometry, fixed-bottom-navigation reachability and runtime-error absence.
+
+Result: **952/952 PASS; failed = 0**.
 
 Upstream scientific and integration regressions were also re-run unchanged: PASS 4A projection 2970/2970; PASS 4C Global-70 browser 88/88; PASS 4D static 448/448; PASS 4D rendered parity 448/448.
+
+## Package seal control
+The final package builder excludes `PACKAGE_CONTENT_SHA256SUMS.txt` from its own checksum set, verifies every listed package file, verifies ZIP integrity and verifies the external ZIP sidecar before artifact publication. This closes the earlier self-reference defect in the package checksum ledger without changing any scientific or presentation content.
 
 ## No-change declaration
 Scientific content = NONE · Evidence-state upgrade = NONE · Measurement = NONE · Scoring = NONE · Thresholds = NONE · Respondent sessions = NONE · Persistence = NONE · Report calculations = NONE · Production main = NONE.
 
 ## Verdict
-**PASS / RESPONSIVE SCIENCE MATRIX CONTROLLED / TYPOGRAPHY CONFORMANCE ESTABLISHED / GLOBAL-70 NARROW-VIEW CONTAINMENT ESTABLISHED / NO SCIENTIFIC STATUS UPGRADE.**
+**PASS / RESPONSIVE SCIENCE MATRIX CONTROLLED / TYPOGRAPHY CONFORMANCE ESTABLISHED / GLOBAL-70 NARROW-VIEW CONTAINMENT ESTABLISHED / MANUAL VISUAL RECONCILIATION CLOSED / NO SCIENTIFIC STATUS UPGRADE.**
 
 Next authorized gate: **WEB-SCIENCE EXT PASS 4F — Closure Reconciliation**.

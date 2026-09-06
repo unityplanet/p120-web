@@ -10,5 +10,7 @@
 5. Require technical Science identifiers to use IBM Plex Mono where explicitly bound by PASS 4E.
 6. Require responsive containment at 320–2560px, including Global-70 long-role metadata and narrow Russian headings.
 7. Require 44px Science interaction targets on mobile/tablet and readable narrow-phone narrative typography.
-8. Do not merge to production main in PASS 4E.
-9. Advance to PASS 4F — Closure Reconciliation.
+8. Require mobile/tablet Science subnavigation labels to remain individually contained with no adjacent visual collision; controlled horizontal scrolling is authorized for the pill row.
+9. Require final package checksum ledgers to exclude self-reference and pass independent post-build verification.
+10. Do not merge to production main in PASS 4E.
+11. Advance to PASS 4F — Closure Reconciliation.

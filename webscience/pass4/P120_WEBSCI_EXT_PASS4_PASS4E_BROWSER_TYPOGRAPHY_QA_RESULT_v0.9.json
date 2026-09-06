@@ -4,8 +4,8 @@
   "version": "v0.9",
   "date": "2026-09-06",
   "status": "PASS",
-  "checks_total": 882,
-  "checks_passed": 882,
+  "checks_total": 952,
+  "checks_passed": 952,
   "checks_failed": 0,
   "matrix": {
     "locales": [
@@ -88,6 +88,12 @@
       "sample": []
     },
     {
+      "id": "ru-narrow320-CORE: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-narrow320-CORE: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -158,6 +164,12 @@
       "sample": []
     },
     {
+      "id": "ru-narrow320-EXTENDED: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-narrow320-EXTENDED: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -172,7 +184,7 @@
     {
       "id": "ru-narrow320-EXTENDED: sticky topbar/subnav overlap bounded",
       "pass": true,
-      "overlap": 5
+      "overlap": 0
     },
     {
       "id": "ru-narrow320-OUTCOMES: document horizontal overflow",
@@ -228,6 +240,12 @@
       "sample": []
     },
     {
+      "id": "ru-narrow320-OUTCOMES: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-narrow320-OUTCOMES: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -242,7 +260,7 @@
     {
       "id": "ru-narrow320-OUTCOMES: sticky topbar/subnav overlap bounded",
       "pass": true,
-      "overlap": 5
+      "overlap": 0
     },
     {
       "id": "ru-narrow320-METHODS: document horizontal overflow",
@@ -298,6 +316,12 @@
       "sample": []
     },
     {
+      "id": "ru-narrow320-METHODS: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-narrow320-METHODS: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -312,7 +336,7 @@
     {
       "id": "ru-narrow320-METHODS: sticky topbar/subnav overlap bounded",
       "pass": true,
-      "overlap": 5
+      "overlap": 0
     },
     {
       "id": "ru-narrow320-LIBRARY: document horizontal overflow",
@@ -366,6 +390,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "ru-narrow320-LIBRARY: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "ru-narrow320-LIBRARY: mobile narrative floor",
@@ -473,6 +503,12 @@
       "sample": []
     },
     {
+      "id": "ru-mobile390-CORE: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-mobile390-CORE: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -541,6 +577,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "ru-mobile390-EXTENDED: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "ru-mobile390-EXTENDED: mobile narrative floor",
@@ -613,6 +655,12 @@
       "sample": []
     },
     {
+      "id": "ru-mobile390-OUTCOMES: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-mobile390-OUTCOMES: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -683,6 +731,12 @@
       "sample": []
     },
     {
+      "id": "ru-mobile390-METHODS: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-mobile390-METHODS: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -751,6 +805,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "ru-mobile390-LIBRARY: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "ru-mobile390-LIBRARY: mobile narrative floor",
@@ -858,6 +918,12 @@
       "sample": []
     },
     {
+      "id": "ru-tablet768-CORE: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-tablet768-CORE: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -926,6 +992,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "ru-tablet768-EXTENDED: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "ru-tablet768-EXTENDED: mobile narrative floor",
@@ -998,6 +1070,12 @@
       "sample": []
     },
     {
+      "id": "ru-tablet768-OUTCOMES: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-tablet768-OUTCOMES: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -1012,7 +1090,7 @@
     {
       "id": "ru-tablet768-OUTCOMES: sticky topbar/subnav overlap bounded",
       "pass": true,
-      "overlap": 3.6103515625
+      "overlap": 0
     },
     {
       "id": "ru-tablet768-METHODS: document horizontal overflow",
@@ -1068,6 +1146,12 @@
       "sample": []
     },
     {
+      "id": "ru-tablet768-METHODS: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-tablet768-METHODS: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -1082,7 +1166,7 @@
     {
       "id": "ru-tablet768-METHODS: sticky topbar/subnav overlap bounded",
       "pass": true,
-      "overlap": 5.8856201171875
+      "overlap": 0
     },
     {
       "id": "ru-tablet768-LIBRARY: document horizontal overflow",
@@ -1138,6 +1222,12 @@
       "sample": []
     },
     {
+      "id": "ru-tablet768-LIBRARY: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-tablet768-LIBRARY: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -1152,7 +1242,7 @@
     {
       "id": "ru-tablet768-LIBRARY: sticky topbar/subnav overlap bounded",
       "pass": true,
-      "overlap": 6
+      "overlap": 0
     },
     {
       "id": "ru-tablet768-LIBRARY: last Science content remains reachable above fixed mobile nav",
@@ -1243,6 +1333,12 @@
       "sample": []
     },
     {
+      "id": "ru-tablet1024-CORE: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-tablet1024-CORE: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -1311,6 +1407,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "ru-tablet1024-EXTENDED: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "ru-tablet1024-EXTENDED: mobile narrative floor",
@@ -1383,6 +1485,12 @@
       "sample": []
     },
     {
+      "id": "ru-tablet1024-OUTCOMES: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-tablet1024-OUTCOMES: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -1453,6 +1561,12 @@
       "sample": []
     },
     {
+      "id": "ru-tablet1024-METHODS: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-tablet1024-METHODS: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -1521,6 +1635,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "ru-tablet1024-LIBRARY: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "ru-tablet1024-LIBRARY: mobile narrative floor",
@@ -1606,6 +1726,12 @@
       "sample": []
     },
     {
+      "id": "ru-desktop1440-CORE: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-desktop1440-CORE: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -1674,6 +1800,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "ru-desktop1440-EXTENDED: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "ru-desktop1440-EXTENDED: mobile narrative floor",
@@ -1746,6 +1878,12 @@
       "sample": []
     },
     {
+      "id": "ru-desktop1440-OUTCOMES: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-desktop1440-OUTCOMES: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -1816,6 +1954,12 @@
       "sample": []
     },
     {
+      "id": "ru-desktop1440-METHODS: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-desktop1440-METHODS: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -1884,6 +2028,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "ru-desktop1440-LIBRARY: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "ru-desktop1440-LIBRARY: mobile narrative floor",
@@ -1969,6 +2119,12 @@
       "sample": []
     },
     {
+      "id": "ru-hd1920-CORE: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-hd1920-CORE: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -2037,6 +2193,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "ru-hd1920-EXTENDED: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "ru-hd1920-EXTENDED: mobile narrative floor",
@@ -2109,6 +2271,12 @@
       "sample": []
     },
     {
+      "id": "ru-hd1920-OUTCOMES: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-hd1920-OUTCOMES: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -2179,6 +2347,12 @@
       "sample": []
     },
     {
+      "id": "ru-hd1920-METHODS: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-hd1920-METHODS: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -2247,6 +2421,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "ru-hd1920-LIBRARY: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "ru-hd1920-LIBRARY: mobile narrative floor",
@@ -2332,6 +2512,12 @@
       "sample": []
     },
     {
+      "id": "ru-uhd2560-CORE: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-uhd2560-CORE: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -2400,6 +2586,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "ru-uhd2560-EXTENDED: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "ru-uhd2560-EXTENDED: mobile narrative floor",
@@ -2472,6 +2664,12 @@
       "sample": []
     },
     {
+      "id": "ru-uhd2560-OUTCOMES: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-uhd2560-OUTCOMES: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -2542,6 +2740,12 @@
       "sample": []
     },
     {
+      "id": "ru-uhd2560-METHODS: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "ru-uhd2560-METHODS: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -2610,6 +2814,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "ru-uhd2560-LIBRARY: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "ru-uhd2560-LIBRARY: mobile narrative floor",
@@ -2695,6 +2905,12 @@
       "sample": []
     },
     {
+      "id": "en-narrow320-CORE: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-narrow320-CORE: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -2763,6 +2979,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "en-narrow320-EXTENDED: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "en-narrow320-EXTENDED: mobile narrative floor",
@@ -2835,6 +3057,12 @@
       "sample": []
     },
     {
+      "id": "en-narrow320-OUTCOMES: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-narrow320-OUTCOMES: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -2905,6 +3133,12 @@
       "sample": []
     },
     {
+      "id": "en-narrow320-METHODS: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-narrow320-METHODS: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -2973,6 +3207,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "en-narrow320-LIBRARY: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "en-narrow320-LIBRARY: mobile narrative floor",
@@ -3080,6 +3320,12 @@
       "sample": []
     },
     {
+      "id": "en-mobile390-CORE: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-mobile390-CORE: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -3148,6 +3394,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "en-mobile390-EXTENDED: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "en-mobile390-EXTENDED: mobile narrative floor",
@@ -3220,6 +3472,12 @@
       "sample": []
     },
     {
+      "id": "en-mobile390-OUTCOMES: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-mobile390-OUTCOMES: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -3290,6 +3548,12 @@
       "sample": []
     },
     {
+      "id": "en-mobile390-METHODS: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-mobile390-METHODS: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -3304,7 +3568,7 @@
     {
       "id": "en-mobile390-METHODS: sticky topbar/subnav overlap bounded",
       "pass": true,
-      "overlap": 0
+      "overlap": 5
     },
     {
       "id": "en-mobile390-LIBRARY: document horizontal overflow",
@@ -3358,6 +3622,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "en-mobile390-LIBRARY: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "en-mobile390-LIBRARY: mobile narrative floor",
@@ -3465,6 +3735,12 @@
       "sample": []
     },
     {
+      "id": "en-tablet768-CORE: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-tablet768-CORE: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -3533,6 +3809,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "en-tablet768-EXTENDED: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "en-tablet768-EXTENDED: mobile narrative floor",
@@ -3605,6 +3887,12 @@
       "sample": []
     },
     {
+      "id": "en-tablet768-OUTCOMES: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-tablet768-OUTCOMES: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -3675,6 +3963,12 @@
       "sample": []
     },
     {
+      "id": "en-tablet768-METHODS: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-tablet768-METHODS: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -3743,6 +4037,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "en-tablet768-LIBRARY: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "en-tablet768-LIBRARY: mobile narrative floor",
@@ -3850,6 +4150,12 @@
       "sample": []
     },
     {
+      "id": "en-tablet1024-CORE: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-tablet1024-CORE: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -3918,6 +4224,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "en-tablet1024-EXTENDED: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "en-tablet1024-EXTENDED: mobile narrative floor",
@@ -3990,6 +4302,12 @@
       "sample": []
     },
     {
+      "id": "en-tablet1024-OUTCOMES: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-tablet1024-OUTCOMES: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -4060,6 +4378,12 @@
       "sample": []
     },
     {
+      "id": "en-tablet1024-METHODS: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-tablet1024-METHODS: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -4128,6 +4452,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "en-tablet1024-LIBRARY: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "en-tablet1024-LIBRARY: mobile narrative floor",
@@ -4213,6 +4543,12 @@
       "sample": []
     },
     {
+      "id": "en-desktop1440-CORE: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-desktop1440-CORE: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -4281,6 +4617,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "en-desktop1440-EXTENDED: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "en-desktop1440-EXTENDED: mobile narrative floor",
@@ -4353,6 +4695,12 @@
       "sample": []
     },
     {
+      "id": "en-desktop1440-OUTCOMES: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-desktop1440-OUTCOMES: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -4423,6 +4771,12 @@
       "sample": []
     },
     {
+      "id": "en-desktop1440-METHODS: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-desktop1440-METHODS: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -4491,6 +4845,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "en-desktop1440-LIBRARY: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "en-desktop1440-LIBRARY: mobile narrative floor",
@@ -4576,6 +4936,12 @@
       "sample": []
     },
     {
+      "id": "en-hd1920-CORE: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-hd1920-CORE: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -4644,6 +5010,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "en-hd1920-EXTENDED: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "en-hd1920-EXTENDED: mobile narrative floor",
@@ -4716,6 +5088,12 @@
       "sample": []
     },
     {
+      "id": "en-hd1920-OUTCOMES: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-hd1920-OUTCOMES: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -4786,6 +5164,12 @@
       "sample": []
     },
     {
+      "id": "en-hd1920-METHODS: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-hd1920-METHODS: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -4854,6 +5238,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "en-hd1920-LIBRARY: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "en-hd1920-LIBRARY: mobile narrative floor",
@@ -4939,6 +5329,12 @@
       "sample": []
     },
     {
+      "id": "en-uhd2560-CORE: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-uhd2560-CORE: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -5007,6 +5403,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "en-uhd2560-EXTENDED: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "en-uhd2560-EXTENDED: mobile narrative floor",
@@ -5079,6 +5481,12 @@
       "sample": []
     },
     {
+      "id": "en-uhd2560-OUTCOMES: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-uhd2560-OUTCOMES: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -5149,6 +5557,12 @@
       "sample": []
     },
     {
+      "id": "en-uhd2560-METHODS: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
+    },
+    {
       "id": "en-uhd2560-METHODS: mobile narrative floor",
       "pass": true,
       "count": 0,
@@ -5217,6 +5631,12 @@
       "pass": true,
       "count": 0,
       "sample": []
+    },
+    {
+      "id": "en-uhd2560-LIBRARY: Science subnav labels remain contained",
+      "pass": true,
+      "labelFailures": [],
+      "adjacentOverlap": []
     },
     {
       "id": "en-uhd2560-LIBRARY: mobile narrative floor",
