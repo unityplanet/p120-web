@@ -1,0 +1,87 @@
+{
+  "schema": "p120.homepage.implementation_pass2.release_manifest.v1",
+  "document_id": "P120-WEB-HOME-IMP2-MANIFEST-001",
+  "version": "1.0",
+  "date": "2026-09-06",
+  "status": "CLOSED_GREEN_PRE_MERGE",
+  "release_authorized": true,
+  "production_deployed": false,
+  "repository": "unityplanet/p120-web",
+  "branch": "feat/homepage-architecture-pass2",
+  "pull_request": 20,
+  "derivative_mode": "CONTROLLED_COMPRESSION",
+  "source_authority": {
+    "document_id": "P120-ARCH-SYS-001",
+    "version": "v1.0",
+    "pass10_status": "PASS / CLOSED / CONTROLLED / SEALED",
+    "freeze_decision": "FREEZE APPROVED",
+    "authority_state": "FROZEN / CANONICAL SYSTEM AUTHORITY / EFFECTIVE",
+    "package_sha256": "7e389b53a4575df2f3214a3050d029134562d9e9a19514230ecdc51822a22dcd",
+    "pass8_terminology": "BOUND",
+    "pass9_derivative_mapping": "BOUND"
+  },
+  "baseline": {
+    "entry_sha": "8437e51b7b862851180e69c4b20ac2741e3bc01e",
+    "validated_implementation_sha": "482b5a245cc66ebb3d18ad07fb07568ab5c74399",
+    "closure_docs_after_validated_head_are_governance_only": true
+  },
+  "implementation_files": [
+    "homepage/homepage-architecture-pass2.js",
+    "homepage/homepage-architecture-pass2.css",
+    "mobile-session-resume-v1.0.js",
+    "qa/homepage_pass2_source_authority_gate.json",
+    "qa/homepage_pass2_source_authority_gate.mjs",
+    "qa/homepage_pass2_static.mjs",
+    "qa/homepage_pass2_render.mjs",
+    ".github/workflows/p120-homepage-pass2-qa.yml"
+  ],
+  "qa": {
+    "dedicated_run_id": 34023617103,
+    "conclusion": "success",
+    "source_authority_checks": "19/19 PASS",
+    "static_checks": "91/91 PASS",
+    "homepage_render_checks": "172/172 PASS",
+    "pass53_postpass3_checks": "144/144 PASS",
+    "about_topology_checks": "77/77 PASS",
+    "main_quick_theme_checks": "191/191 PASS",
+    "mobile_resume_checks": "363/363 PASS",
+    "header_integrity": "PASS_WITH_HARDENING_NOTES / 0 blockers",
+    "header_hardening": "PASS / 0 failures",
+    "actions_governance_run_id": 34023617124,
+    "actions_governance": "success",
+    "artifact": {
+      "name": "P120_HOMEPAGE_IMPLEMENTATION_PASS2_QA",
+      "id": 9986426081,
+      "size_bytes": 66254298,
+      "sha256": "2133f330cdd0ce1857e98bf03ec7cd18449d7ef08bf115b79e907bbe86f95ef2",
+      "retention_days": 30
+    }
+  },
+  "change_declaration": {
+    "homepage_public_narrative": "CONTROLLED_COMPRESSION_ADDED",
+    "homepage_presentation": "MINOR_ADDITIVE",
+    "homepage_metadata": "RUNTIME_NORMALIZATION",
+    "main_presentation_loader": "PRESENTATION_ONLY_EXTENSION",
+    "qa_infrastructure": "NEW",
+    "measurement": "NONE",
+    "scoring": "NONE",
+    "thresholds": "NONE",
+    "item_content_ids_order": "NONE",
+    "scientific_status": "RESEARCH_CANDIDATE_UNCHANGED",
+    "safety_privacy": "NONE",
+    "respondent_data_persistence": "NONE",
+    "supabase_rls_auth": "NONE",
+    "report_calculation_interpretation": "NONE",
+    "why_p120_narrative_composition": "NONE",
+    "creator_narrative": "NONE",
+    "scientific_base_content": "NONE",
+    "system_questionnaire_runtime_source": "NONE",
+    "governance_ontology": "NONE",
+    "about_narrative": "NONE"
+  },
+  "final_disposition": {
+    "implementation_pass": "CLOSED_GREEN",
+    "merge": "AUTHORIZED",
+    "production": "PENDING_MERGE_DEPLOYMENT_LIVE_POST_MERGE_CLOSURE"
+  }
+}
