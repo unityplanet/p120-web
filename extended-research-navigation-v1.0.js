@@ -202,3 +202,17 @@
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
+
+/* P-120 WEB — RU Conceptual Entry PASS 2.5 loader.
+   Root editorial surface only; implementation lives in a separately versioned presentation adapter. */
+(() => {
+  'use strict';
+  if(!/^ru$/i.test(document.documentElement.lang||'')) return;
+  const p=location.pathname.replace(/\/index\.html$/i,'/');
+  if(/\/(?:en|system|creator|why-p120|science|extended|together)\//i.test(p)) return;
+  if(document.querySelector('script[data-p120-ru-conceptual-entry]')) return;
+  const s=document.createElement('script');
+  s.src='p120-ru-conceptual-entry-v1.0.js?v=cec25';
+  s.dataset.p120RuConceptualEntry='P2.5-RU-v1.0';
+  document.head.appendChild(s);
+})();
