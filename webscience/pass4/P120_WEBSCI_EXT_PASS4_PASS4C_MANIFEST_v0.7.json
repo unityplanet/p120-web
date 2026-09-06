@@ -1,0 +1,56 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4C-MANIFEST",
+  "version": "v0.7",
+  "date": "2026-09-06",
+  "status": "PASS4C_CLOSED_CONTROLLED",
+  "branch": "web-science-ext-pass4c-global-library-integration",
+  "baseline_commit": "9d07a3a047ce4b9a61b6f307e3f791fcdfabaff4",
+  "production_main_mutated": false,
+  "production_merge": "NOT_PERFORMED",
+  "core45_mutated": false,
+  "global70_integrated": true,
+  "files": [
+    {
+      "path": "p120-webscience-pass4b-renderer-v0.6.js",
+      "sha256": "3a97e8838c73c56913b2cda03a5ea12afc579b1b085440b946ef800f2adbcc7b"
+    },
+    {
+      "path": "p120-webscience-pass4c-library-v0.7.js",
+      "sha256": "902a124ac0f41b7de5a5f33b67780cb232350d836aaa5d1a918f4f81439e2a4d"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json",
+      "sha256": "af1fede5aeb36f2e4dc11fb55ad0f31fe5a74e2bd59fa9a0bb1aa7d405e8bdf8"
+    },
+    {
+      "path": "qa/webscience_pass4c_materialize_global_library_v0.7.mjs",
+      "sha256": "c3df2acf060443f4c18927e1807a0f2d6cbc7777f02241ca7bba5eb0266f8f29"
+    },
+    {
+      "path": "qa/webscience_pass4c_core45_probe_v0.7.mjs",
+      "sha256": "4f3841e1a2537f19d2dce2060dd32a92e910cc0611083eb6c23e0aaeb0521c2a"
+    },
+    {
+      "path": "qa/webscience_pass4c_library_gate_v0.7.mjs",
+      "sha256": "3b10007500c8c8cbc71ce4c19e3c5fa7bbc95e5100adf00f0f425404f504f2cd"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_RESULT_v0.7.json",
+      "sha256": "6a98d66a7f1db4758ee4dadf339926351e1eac0756dc7ec2a4a5e778d1ec55f8"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_SUMMARY_v0.7.json",
+      "sha256": "66ad98a996c516ccacb5367a981198cc4651edc78e14131f32a7e97a1bde241a"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_REPORT_v0.7.md",
+      "sha256": "9b428e90335804d3adc537388c4b7a4a93f68990823046876cc48c9aa3c626e2"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_DECISION_v0.7.md",
+      "sha256": "a896e47ed82b99277994fc0652e5f6e54265db3fb7b7912f9588cf6162279bbe"
+    }
+  ],
+  "next_gate": "PASS 4D — Claim-Boundary & RU/EN Parity QA"
+}

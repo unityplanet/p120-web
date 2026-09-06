@@ -158,3 +158,6 @@ The next stage projects v0.4 content into the existing Scientific Base presentat
 **Global Library:** 25-reference extension renders separately; unified Core-45 / Global-70 integration remains PASS 4C.
 
 **Next gate:** WEB-SCIENCE EXT PASS 4C — Core-45 / Global-70 Library Integration.
+
+## PASS 4C closure — 2026-09-06
+`PASS / CLOSED / CONTROLLED / v0.7` — Core-45 identity is preserved and integrated with REF-046..REF-070 into a deduplicated, navigable Global-70 library. Core per-reference roles were not inferred because the frozen source contains citation/DOI identity only. Production main remains untouched. Next active stage: **PASS 4D — Claim-Boundary & RU/EN Parity QA**.

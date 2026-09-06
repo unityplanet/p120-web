@@ -335,3 +335,19 @@
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
+
+/* WEB-SCIENCE EXT PASS 4C — controlled Global-70 library loader.
+   PASS 4B renderer above remains unchanged except for this exact additive loader. */
+(()=>{
+  'use strict';
+  const dedicated=/(?:^|\/)(?:en\/)?science\/?(?:index\.html)?$/i.test(location.pathname);
+  if(!dedicated)return;
+  if(document.querySelector('[data-p120-webscience-pass4c-loader]'))return;
+  const owner=document.currentScript;
+  const ownerUrl=owner?.src||new URL('p120-webscience-pass4b-renderer-v0.6.js',location.href).href;
+  const script=document.createElement('script');
+  script.src=new URL('p120-webscience-pass4c-library-v0.7.js?v=websci4c07',ownerUrl).href;
+  script.async=false;
+  script.dataset.p120WebsciencePass4cLoader='v0.7';
+  document.head.appendChild(script);
+})();
