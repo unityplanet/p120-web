@@ -1,0 +1,105 @@
+name: P120 Web Design Reconciliation PASS 3A.1
+
+on:
+  push:
+    branches:
+      - work/web-design-pass3a1-post-pass1i-hgcga
+  pull_request:
+    paths:
+      - 'p120-visual-grammar-v1.0.css'
+      - 'p120-instrument-shell-v1.0.css'
+      - 'P120_HGCGA_DESIGN_UNIFICATION_INPUT_PASS1I_FREEZE.md'
+      - 'P120_WEB_DESIGN_RECONCILIATION_PASS3A1*.md'
+      - 'qa/web_design_reconciliation_pass3a1_gate.mjs'
+      - '.github/workflows/p120-web-design-reconciliation-pass3a1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pass3a1-contract:
+    name: PASS 3A.1 PASS 1I HG-CGA baseline freeze gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Node version
+        run: node --version
+
+      - name: Run PASS 3A.1 gate
+        run: node qa/web_design_reconciliation_pass3a1_gate.mjs
+
+      - name: Upload PASS 3A.1 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEB_DESIGN_PASS3A1_QA
+          path: qa-evidence-web-design-pass3a1/
+          retention-days: 30
+
+  inherited-browser-regression:
+    name: PASS 3A.1 inherited browser / header regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start local production and GitHub-Pages-prefix sites
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-pass3a1-root.log 2>&1 &
+          python3 -m http.server 4174 --bind 127.0.0.1 --directory .. >/tmp/p120-pass3a1-prefix.log 2>&1 &
+          sleep 2
+
+      - name: Main quick locale-theme regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/main_quick_locale_theme_patch3_pass2_reconciled.mjs
+
+      - name: Mobile quick chapter regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/mobile_quick_chapter_navigation_pass2.mjs
+
+      - name: Mobile session resume regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/mobile_session_resume_patch2_pass2.mjs
+
+      - name: Frozen Global Header PASS 2.1 regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173
+        run: node qa/global_header_code_hardening_pass21.mjs
+
+      - name: Original Global Header PASS 1 regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173
+        run: node qa/global_header_brand_lockup_cleaning_pass1.mjs
+
+      - name: Footer presentation regression under project prefix
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/footer_link_presentation_correction_pass1.mjs
+
+      - name: Upload inherited browser regression evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEB_DESIGN_PASS3A1_BROWSER_REGRESSION
+          path: |
+            qa-artifacts/main-quick-locale-theme-patch3-pass2-reconciled
+            qa-artifacts/mobile-quick-chapters-pass2
+            qa-artifacts/mobile-session-resume-patch2-pass2
+            qa-artifacts/header-code-pass21
+            qa-artifacts/header-lockup-pass1
+            qa-artifacts/footer-link-correction-pass1
+          retention-days: 30
