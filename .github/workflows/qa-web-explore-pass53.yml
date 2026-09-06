@@ -1,6 +1,12 @@
 name: WEB-EXPLORE PASS 5.3 Brand Unification QA
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'p120-brand-system-v1.0.js'
+      - 'qa/pass53_postpass3_visual_reconciliation.mjs'
+      - 'qa/pass53_brand_unification_about_reconciled.mjs'
+      - '.github/workflows/qa-web-explore-pass53.yml'
   push:
     branches: [main]
     paths:
@@ -17,8 +23,8 @@ on:
       - 'explore-system-v1.0.js'
       - 'p120-legal-runtime-v1.0.js'
       - 'qa/pass53_brand_unification.mjs'
-      - 'qa/pass53_1_visual_corrections.mjs'
-      - 'qa/pass53_2_main_execution_corrections.mjs'
+      - 'qa/pass53_postpass3_visual_reconciliation.mjs'
+      - 'qa/pass53_brand_unification_about_reconciled.mjs'
       - 'qa/global_header_brand_lockup_cleaning_pass1.mjs'
       - '.github/workflows/qa-web-explore-pass53.yml'
       - 'P120_WEB_PASS5.3_BRAND_UNIFICATION_IMPLEMENTATION.md'
@@ -46,13 +52,15 @@ jobs:
           test -f extended-research-navigation-v1.0.js
           test -f extended-chapter-navigation-reconciliation-v1.0.js
           test -f science-navigation-reconciliation-v1.0.js
-          test -f qa/pass53_1_visual_corrections.mjs
-          test -f qa/pass53_2_main_execution_corrections.mjs
+          test -f qa/pass53_postpass3_visual_reconciliation.mjs
+          test -f qa/pass53_brand_unification_about_reconciled.mjs
           test -f qa/global_header_brand_lockup_cleaning_pass1.mjs
           node --check chapter-navigation-v1.0.js
           node --check extended-research-navigation-v1.0.js
           node --check extended-chapter-navigation-reconciliation-v1.0.js
           node --check science-navigation-reconciliation-v1.0.js
+          node --check qa/pass53_postpass3_visual_reconciliation.mjs
+          node --check qa/pass53_brand_unification_about_reconciled.mjs
           node --check qa/global_header_brand_lockup_cleaning_pass1.mjs
           grep -q "P120_BRAND_SYSTEM" founder-route-v1.1.js
           grep -q "P120_PASS532" founder-route-v1.1.js
@@ -68,7 +76,10 @@ jobs:
           grep -q "p120_web_theme_v16" p120-brand-system-v1.0.js
           grep -q "ИССЛЕДОВАТЕЛЬСКАЯ АРХИТЕКТУРА" p120-brand-system-v1.0.js
           grep -q "RESEARCH ARCHITECTURE" p120-brand-system-v1.0.js
-          grep -q "p120_web_prototype_v01" p120-brand-system-v1.0.js
+          # Runtime Reconciliation PASS 3 superseded the historical shared respondent
+          # key in shared navigation code. Assert the current locale-isolated authority.
+          grep -q "p120_runtime_session_ru_v1" p120-brand-system-v1.0.js
+          grep -q "p120_runtime_session_en_v1" p120-brand-system-v1.0.js
           ! grep -Eq '@media\(max-width:480px\)[[:space:]]*\{[[:space:]]*html\.p120-brand53-ready \.brand-mark\{display:none\}' p120-brand-system-v1.0.css
           # Frozen Why P-120 body sources are deliberately outside the mutation set.
           git diff HEAD^ --name-only 2>/dev/null | grep -Eq '^(why-p120/index\.html|why-p120/why-p120\.css|why-p120/why-p120\.js)$' && {
@@ -115,12 +126,10 @@ jobs:
         run: |
           python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-pass53-http.log 2>&1 &
           sleep 2
-      - name: Run PASS 5.3.2 main execution correction QA
-        run: node qa/pass53_2_main_execution_corrections.mjs
-      - name: Run PASS 5.3 visual functional accessibility QA
-        run: node qa/pass53_brand_unification.mjs
-      - name: Run PASS 5.3.1 screenshot-driven correction QA
-        run: node qa/pass53_1_visual_corrections.mjs
+      - name: Run PASS 5.3 post-PASS3 visual/session reconciliation QA
+        run: node qa/pass53_postpass3_visual_reconciliation.mjs
+      - name: Run PASS 5.3 historical suite with About-route authority reconciliation
+        run: node qa/pass53_brand_unification_about_reconciled.mjs
       - name: Upload controlled QA evidence
         uses: actions/upload-artifact@v4
         if: always()
@@ -128,6 +137,6 @@ jobs:
           name: P120_WEB_PASS53_QA_EVIDENCE
           path: |
             qa-artifacts/pass53
-            qa-artifacts/pass53-1
-            qa-artifacts/pass53-2
+            qa-artifacts/pass53-postpass3
+            qa-artifacts/pass53-about-reconciliation
           retention-days: 30
