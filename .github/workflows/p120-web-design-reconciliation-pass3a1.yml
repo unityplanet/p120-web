@@ -1,0 +1,42 @@
+name: P120 Web Design Reconciliation PASS 3A.1
+
+on:
+  push:
+    branches:
+      - work/web-design-pass3a1-post-pass1i-hgcga
+  pull_request:
+    paths:
+      - 'p120-visual-grammar-v1.0.css'
+      - 'p120-instrument-shell-v1.0.css'
+      - 'P120_HGCGA_DESIGN_UNIFICATION_INPUT_PASS1I_FREEZE.md'
+      - 'P120_WEB_DESIGN_RECONCILIATION_PASS3A1*.md'
+      - 'qa/web_design_reconciliation_pass3a1_gate.mjs'
+      - '.github/workflows/p120-web-design-reconciliation-pass3a1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pass3a1-contract:
+    name: PASS 3A.1 PASS 1I HG-CGA baseline freeze gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Node version
+        run: node --version
+
+      - name: Run PASS 3A.1 gate
+        run: node qa/web_design_reconciliation_pass3a1_gate.mjs
+
+      - name: Upload PASS 3A.1 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEB_DESIGN_PASS3A1_QA
+          path: qa-evidence-web-design-pass3a1/
+          retention-days: 30
