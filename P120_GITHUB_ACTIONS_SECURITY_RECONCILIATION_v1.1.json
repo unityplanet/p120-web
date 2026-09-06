@@ -1,0 +1,97 @@
+{
+  "schema": "p120.security.github_actions_reconciliation.v1",
+  "control": "SEC-GH-02",
+  "version": "1.1",
+  "date": "2026-09-06",
+  "status": "RECONCILED_CANDIDATE_PENDING_MAIN_MERGE_AND_POST_MERGE_QA",
+  "triggering_context": "WEB-SCIENCE PROD-G1 production activation reconciliation",
+  "historical_authority": {
+    "security_pass": "P120_GITHUB_ACTIONS_SECURITY_PASS_v1.0.json",
+    "governance_rule_before_reconciliation": ".github/P120_ACTIONS_GOVERNANCE.md v1.0",
+    "temporary_write_allowlist": [
+      "p120-en-system-build-v0.4.yml"
+    ]
+  },
+  "detected_failure": {
+    "workflow": "P120 Actions Governance QA",
+    "run_id": 34027356934,
+    "job_id": 101470596291,
+    "conclusion": "failure",
+    "workflow_count": 53,
+    "contents_write_observed": [
+      "p120-en-system-build-v0.4.yml",
+      "p120-webscience-pass4a-seal.yml",
+      "p120-webscience-pass4b-seal.yml",
+      "p120-webscience-pass4c-seal.yml",
+      "p120-webscience-pass4d-seal.yml",
+      "p120-webscience-pass4e-seal.yml",
+      "p120-webscience-pass4f-seal.yml",
+      "p120-webscience-pass4g-final-seal.yml"
+    ],
+    "git_push_observed": [
+      "p120-en-system-build-v0.4.yml",
+      "p120-webscience-pass4a-seal.yml",
+      "p120-webscience-pass4b-seal.yml",
+      "p120-webscience-pass4c-seal.yml",
+      "p120-webscience-pass4d-seal.yml",
+      "p120-webscience-pass4e-seal.yml",
+      "p120-webscience-pass4f-seal.yml",
+      "p120-webscience-pass4g-final-seal.yml"
+    ],
+    "classification": "POST_SEAL_EXECUTABLE_SURFACE_DRIFT_FROM_SEC_GH_02_ALLOWLIST",
+    "runtime_or_scientific_breach": false
+  },
+  "pass4_authority": {
+    "manifest": "webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_MANIFEST_v1.1.json",
+    "manifest_status": "WEBSCI_EXT_PASS4_CLOSED_CONTROLLED_SEALED",
+    "unresolved_delta_count": 0,
+    "production_activation": "SEPARATE_GATE_REQUIRED"
+  },
+  "decision": {
+    "expand_active_write_allowlist": false,
+    "retire_post_seal_science_writers": true,
+    "retired_workflows": [
+      "p120-webscience-pass4a-seal.yml",
+      "p120-webscience-pass4b-seal.yml",
+      "p120-webscience-pass4c-seal.yml",
+      "p120-webscience-pass4d-seal.yml",
+      "p120-webscience-pass4e-seal.yml",
+      "p120-webscience-pass4f-seal.yml",
+      "p120-webscience-pass4g-final-seal.yml"
+    ],
+    "remaining_active_writer": "p120-en-system-build-v0.4.yml",
+    "historical_provenance_preserved_in_git": true,
+    "sealed_evidence_reopened": false
+  },
+  "deployment_path_reconciliation_evidence": {
+    "branch_head_before_writer_retirement": "be03c6c7008841bf43afc9a3b3800ab868c808cc",
+    "workflow_run": 34027483670,
+    "invariant_checks": "39/39 PASS",
+    "project_subpath_browser_checks": "82/82 PASS",
+    "artifact_id": 9987532063,
+    "artifact_digest": "sha256:35a661bd8a30a69a218f021dae0105ffed6e98aa26a1afc46b58e95437580a49"
+  },
+  "impact": {
+    "scientific_content_mutated": false,
+    "measurement_mutated": false,
+    "scoring_mutated": false,
+    "thresholds_mutated": false,
+    "respondent_wording_mutated": false,
+    "respondent_session_mutated": false,
+    "persistence_mutated": false,
+    "report_calculation_mutated": false,
+    "supabase_mutated": false,
+    "production_science_asset_mutated": false,
+    "ci_cd_executable_surface_reduced": true
+  },
+  "closure_requirements": [
+    "Actions Governance QA PASS on final reconciliation PR head",
+    "PASS 4A Deployment Path Gate remains PASS on final reconciliation PR head or exact functional tree",
+    "controlled PR merge to main",
+    "Actions Governance QA PASS on merged main",
+    "Scientific Base Production QA PASS on merged main",
+    "WEB-SCIENCE PROD-G1 post-merge verification PASS on merged main",
+    "live GitHub Pages RU/EN Science smoke PASS",
+    "final PROD-G1 closure package sealed and independently verified"
+  ]
+}
