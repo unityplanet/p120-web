@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'p120-brand-system-v1.0.js'
+      - 'qa/pass53_postpass3_visual_reconciliation.mjs'
       - '.github/workflows/qa-web-explore-pass53.yml'
   push:
     branches: [main]
@@ -21,8 +22,7 @@ on:
       - 'explore-system-v1.0.js'
       - 'p120-legal-runtime-v1.0.js'
       - 'qa/pass53_brand_unification.mjs'
-      - 'qa/pass53_1_visual_corrections.mjs'
-      - 'qa/pass53_2_main_execution_corrections.mjs'
+      - 'qa/pass53_postpass3_visual_reconciliation.mjs'
       - 'qa/global_header_brand_lockup_cleaning_pass1.mjs'
       - '.github/workflows/qa-web-explore-pass53.yml'
       - 'P120_WEB_PASS5.3_BRAND_UNIFICATION_IMPLEMENTATION.md'
@@ -50,13 +50,13 @@ jobs:
           test -f extended-research-navigation-v1.0.js
           test -f extended-chapter-navigation-reconciliation-v1.0.js
           test -f science-navigation-reconciliation-v1.0.js
-          test -f qa/pass53_1_visual_corrections.mjs
-          test -f qa/pass53_2_main_execution_corrections.mjs
+          test -f qa/pass53_postpass3_visual_reconciliation.mjs
           test -f qa/global_header_brand_lockup_cleaning_pass1.mjs
           node --check chapter-navigation-v1.0.js
           node --check extended-research-navigation-v1.0.js
           node --check extended-chapter-navigation-reconciliation-v1.0.js
           node --check science-navigation-reconciliation-v1.0.js
+          node --check qa/pass53_postpass3_visual_reconciliation.mjs
           node --check qa/global_header_brand_lockup_cleaning_pass1.mjs
           grep -q "P120_BRAND_SYSTEM" founder-route-v1.1.js
           grep -q "P120_PASS532" founder-route-v1.1.js
@@ -122,12 +122,10 @@ jobs:
         run: |
           python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-pass53-http.log 2>&1 &
           sleep 2
-      - name: Run PASS 5.3.2 main execution correction QA
-        run: node qa/pass53_2_main_execution_corrections.mjs
+      - name: Run PASS 5.3 post-PASS3 visual/session reconciliation QA
+        run: node qa/pass53_postpass3_visual_reconciliation.mjs
       - name: Run PASS 5.3 visual functional accessibility QA
         run: node qa/pass53_brand_unification.mjs
-      - name: Run PASS 5.3.1 screenshot-driven correction QA
-        run: node qa/pass53_1_visual_corrections.mjs
       - name: Upload controlled QA evidence
         uses: actions/upload-artifact@v4
         if: always()
@@ -135,6 +133,5 @@ jobs:
           name: P120_WEB_PASS53_QA_EVIDENCE
           path: |
             qa-artifacts/pass53
-            qa-artifacts/pass53-1
-            qa-artifacts/pass53-2
+            qa-artifacts/pass53-postpass3
           retention-days: 30
