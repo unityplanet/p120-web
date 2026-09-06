@@ -1,0 +1,121 @@
+{
+  "schema": "p120.about.implementation_pass1.reproducibility.v1",
+  "document_id": "P120-WEB-ABOUT-IMP1-REPRO-001",
+  "version": "1.0",
+  "date": "2026-09-05",
+  "repository": "unityplanet/p120-web",
+  "branch": "feat/about-p120-pass1",
+  "baseline_sha": "67d2ae422e422be20eae6bb086c51adf7de173bb",
+  "validated_implementation_head": "35f64ce45e948340fa2aace14137b2ef13536860",
+  "pull_request": 18,
+  "reference_ci_run": 33992013876,
+  "reference_ci_job": 101375809643,
+  "reference_actions_governance_run": 33992013878,
+  "environment": {
+    "runner": "ubuntu-latest",
+    "observed_os": "Ubuntu 24.04.4 LTS",
+    "observed_node": "v22.23.2",
+    "playwright": "1.55.0",
+    "browser": "Chromium installed by playwright"
+  },
+  "preconditions": [
+    "Checkout the validated implementation head or PR #18 merge test ref.",
+    "Run from repository root unless a step explicitly changes directory.",
+    "Do not substitute production deployment evidence for the local project-subpath QA server; PASS 1 is not deployed."
+  ],
+  "commands": [
+    {
+      "id": "syntax",
+      "command": "node --check p120-brand-system-v1.0.js && node --check about/about-p120-v1.0.js && node --check qa/about_pass1_static.mjs && node --check qa/about_pass1_render.mjs",
+      "expected": "exit 0"
+    },
+    {
+      "id": "static_conformance",
+      "command": "node qa/about_pass1_static.mjs",
+      "expected": {
+        "verdict": "PASS",
+        "checks": 164,
+        "failures": []
+      }
+    },
+    {
+      "id": "install_playwright",
+      "command": "npm init -y >/dev/null 2>&1 && npm install --silent playwright@1.55.0 && npx playwright install --with-deps chromium",
+      "expected": "exit 0"
+    },
+    {
+      "id": "project_subpath_server",
+      "command": "cd .. && python3 -m http.server 4173 --bind 127.0.0.1",
+      "expected_routes": [
+        "http://127.0.0.1:4173/p120-web/about/",
+        "http://127.0.0.1:4173/p120-web/en/about/"
+      ]
+    },
+    {
+      "id": "about_render",
+      "environment": {
+        "P120_BASE_URL": "http://127.0.0.1:4173/p120-web/"
+      },
+      "command": "node qa/about_pass1_render.mjs",
+      "expected": {
+        "verdict": "PASS",
+        "checks": 84,
+        "failures": []
+      }
+    },
+    {
+      "id": "shared_header_integrity",
+      "environment": {
+        "P120_QA_BASE": "http://127.0.0.1:4173/p120-web"
+      },
+      "command": "node qa/global_header_code_integrity_pass2.mjs",
+      "expected": {
+        "status": "PASS_WITH_HARDENING_NOTES",
+        "blocking_findings": 0,
+        "runtime_cases": 16
+      }
+    },
+    {
+      "id": "shared_header_hardening",
+      "environment": {
+        "P120_QA_BASE": "http://127.0.0.1:4173/p120-web"
+      },
+      "command": "node qa/global_header_code_hardening_pass21.mjs",
+      "expected": {
+        "status": "PASS",
+        "source_routes": 20,
+        "route_viewport_cases": 40,
+        "saved_session_idempotency_cases": 1,
+        "failures": 0
+      }
+    }
+  ],
+  "render_matrix": [
+    {"locale": "ru", "width": 390, "height": 844},
+    {"locale": "en", "width": 390, "height": 844},
+    {"locale": "ru", "width": 768, "height": 1024},
+    {"locale": "en", "width": 768, "height": 1024},
+    {"locale": "ru", "width": 1440, "height": 1000},
+    {"locale": "en", "width": 1440, "height": 1000},
+    {"locale": "ru", "width": 2560, "height": 1440},
+    {"locale": "en", "width": 2560, "height": 1440}
+  ],
+  "evidence": {
+    "artifact_name": "P120_ABOUT_IMPLEMENTATION_PASS1_QA",
+    "artifact_id": 9976935681,
+    "artifact_digest": "sha256:a7e7d70aae8c63582c86417972d97ccf86381b697c8228ba48a31e61a725e327",
+    "artifact_size_bytes": 12878784,
+    "artifact_file_count": 54,
+    "evidence_directories": [
+      "qa-evidence-about-pass1/",
+      "qa-artifacts/header-code-pass2/",
+      "qa-artifacts/header-code-pass21/"
+    ]
+  },
+  "expected_final_state": {
+    "technical_implementation": "CLOSED_GREEN",
+    "release": "HELD_PENDING_PASS10",
+    "pull_request": "DRAFT_OPEN_NOT_MERGED",
+    "production": "UNCHANGED"
+  }
+}
