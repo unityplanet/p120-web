@@ -18,7 +18,7 @@
   ],
   "protected_authority": {
     "historical_executable_registry": "P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json",
-    "historical_executable_registry_sha256": "38b706b38fa10d0e7c4db46bd03c4eb870a643829bfa146114c780e44c188e51a",
+    "historical_executable_registry_sha256": "38b706b38f8f19f60c5917874b8371661340bb0cf30059fe9a7de98d16251f5e",
     "runtime": "p120-scientific-base-runtime-v1.0.js",
     "science_routes": ["science/index.html", "en/science/index.html"],
     "pass4_manifest": "webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_MANIFEST_v1.1.json"
