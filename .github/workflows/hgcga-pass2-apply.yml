@@ -1,0 +1,64 @@
+name: HG-CGA PASS2 controlled integration
+
+on:
+  push:
+    branches:
+      - feat/hgcga-web-implementation-pass2
+    paths:
+      - .github/workflows/hgcga-pass2-apply.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout review branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/hgcga-web-implementation-pass2
+          fetch-depth: 0
+
+      - name: Apply controlled global-navigation patch
+        run: python tools/hgcga_pass2_navigation_patch.py
+
+      - name: Syntax verification
+        run: |
+          node --check p120-brand-system-v1.0.js
+          node --check navigation-architecture-v2.js
+          node --check p120-public-runtime-v1.0.js
+          node --check research/how-we-decide/how-we-decide-v0.2.js
+
+      - name: Structural PASS2 assertions
+        shell: python
+        run: |
+          from pathlib import Path
+          checks = {
+              'p120-brand-system-v1.0.js': ['decisionResearch', 'Исследование решений', 'Decision research'],
+              'navigation-architecture-v2.js': ['decisionResearch', "href:'research/how-we-decide/'"],
+              'p120-public-runtime-v1.0.js': ['decisionResearch', "href:'research/how-we-decide/'"],
+              'research/how-we-decide/index.html': ['Эмпирическая эффективность системы не установлена.', 'HUMAN-GOVERNED'],
+              'en/research/how-we-decide/index.html': ['The empirical effectiveness of the system has not been established.', 'HUMAN-GOVERNED'],
+          }
+          failed=[]
+          for path, needles in checks.items():
+              text=Path(path).read_text(encoding='utf-8')
+              for needle in needles:
+                  if needle not in text:
+                      failed.append(f'{path}: missing {needle!r}')
+          if failed:
+              raise SystemExit('\n'.join(failed))
+          print('PASS2 structural assertions: PASS')
+
+      - name: Commit integrated runtime authority
+        run: |
+          if git diff --quiet; then
+            echo 'No integration delta produced.'
+            exit 0
+          fi
+          git config user.name 'p120-governance-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add p120-brand-system-v1.0.js navigation-architecture-v2.js p120-public-runtime-v1.0.js
+          git commit -m 'Apply HG-CGA PASS2 global navigation wiring [skip ci]'
+          git push origin HEAD:feat/hgcga-web-implementation-pass2
