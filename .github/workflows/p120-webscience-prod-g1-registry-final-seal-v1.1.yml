@@ -1,0 +1,136 @@
+name: P120 WEB-SCIENCE PROD-G1.1 Registry Final Seal
+
+on:
+  push:
+    branches:
+      - 'web-science-prod-g1-registry-final-closure'
+      - 'main'
+    paths:
+      - 'webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_FINAL_*'
+      - 'qa/webscience_prod_g1_registry_final_seal_gate_v1.1.py'
+      - '.github/scripts/p120_webscience_prod_g1_registry_final_closure.py'
+      - '.github/workflows/p120-webscience-prod-g1-registry-final-seal-v1.1.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_FINAL_*'
+      - 'qa/webscience_prod_g1_registry_final_seal_gate_v1.1.py'
+      - '.github/scripts/p120_webscience_prod_g1_registry_final_closure.py'
+      - '.github/workflows/p120-webscience-prod-g1-registry-final-seal-v1.1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  final-seal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify closure-only scope and final evidence
+        run: python3 qa/webscience_prod_g1_registry_final_seal_gate_v1.1.py
+
+      - name: Re-run inherited PROD-G1 production boundary
+        run: python3 qa/webscience_prod_g1_postmerge_gate_v1.0.py
+
+      - name: Re-run PASS4A publication projection authority
+        run: node qa/webscience_pass4a_projection_gate_v0.5.mjs
+
+      - name: Require no tracked mutation from read-only QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --exit-code -- . \
+            ':!qa-evidence-webscience-prod-g1-registry-final-seal' \
+            ':!qa-evidence-webscience-prod-g1-postmerge'
+          git diff --check
+
+      - name: Generate runtime-bound final closure records
+        run: python3 .github/scripts/p120_webscience_prod_g1_registry_final_closure.py
+
+      - name: Assemble controlled final-seal package
+        shell: bash
+        run: |
+          set -euo pipefail
+          PKG='_package/P120_WEBSCI_PROD_G1_REGISTRY_v1.1'
+          rm -rf _package
+          mkdir -p "$PKG"/{RECORDS,GOVERNANCE,AUTHORITY,QA,REPRODUCIBILITY,RELEASE_CONTROL}
+          cp -a _release/P120_WEBSCI_PROD_G1_REGISTRY_v1.1/. "$PKG/RECORDS/"
+          cp webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_RECONCILIATION_REPORT_v1.1.md "$PKG/GOVERNANCE/"
+          cp webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_RECONCILIATION_DECISION_v1.1.md "$PKG/GOVERNANCE/"
+          cp webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_RECONCILIATION_MANIFEST_v1.1.json "$PKG/GOVERNANCE/"
+          cp webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_FINAL_EVIDENCE_v1.1.json "$PKG/GOVERNANCE/"
+          cp webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_FINAL_EXACT_DELTA_v1.1.json "$PKG/GOVERNANCE/"
+          cp webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_FINAL_RECONCILIATION_v1.1.md "$PKG/GOVERNANCE/"
+          cp webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_FINAL_SEAL_MANIFEST_v1.1.json "$PKG/GOVERNANCE/"
+          cp P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json "$PKG/AUTHORITY/"
+          cp P120_WEBSCI_PRODUCTION_registry_v1.1_2026-09-06.json "$PKG/AUTHORITY/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_MANIFEST_v1.1.json "$PKG/AUTHORITY/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_AUTHORITY_INDEX_v1.1.json "$PKG/AUTHORITY/"
+          cp -a qa-evidence-webscience-prod-g1-registry-final-seal "$PKG/QA/FINAL_SEAL"
+          cp -a qa-evidence-webscience-prod-g1-postmerge "$PKG/QA/PROD_G1_BOUNDARY"
+          cp qa/webscience_prod_g1_registry_final_seal_gate_v1.1.py "$PKG/REPRODUCIBILITY/"
+          cp qa/webscience_prod_g1_registry_reconciliation_gate_v1.1.py "$PKG/REPRODUCIBILITY/"
+          cp qa/webscience_prod_g1_postmerge_gate_v1.0.py "$PKG/REPRODUCIBILITY/"
+          cp .github/scripts/p120_webscience_prod_g1_registry_final_closure.py "$PKG/REPRODUCIBILITY/"
+          cp .github/workflows/p120-webscience-prod-g1-registry-final-seal-v1.1.yml "$PKG/REPRODUCIBILITY/"
+          printf 'P-120 WEB-SCIENCE PROD-G1.1 Registry Final Seal\nBranch: %s\nClosure HEAD: %s\nRegistry activation head: cf11a176bb0db87aec046d5694c302285b275f90\nScientific/runtime mutation from final seal: NONE\nPACKAGE_CONTENT_SHA256SUMS.txt is excluded from its own checksum set.\n' "$GITHUB_REF_NAME" "$(git rev-parse HEAD)" > "$PKG/RELEASE_CONTROL/PACKAGE_SEAL_AUDIT.txt"
+          (cd "$PKG" && find . -type f ! -path './RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt' -print0 | sort -z | xargs -0 sha256sum > RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt)
+          (cd "$PKG" && sha256sum -c RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt)
+
+      - name: Build ZIP and SHA-256 sidecar
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP='P120_WEBSCI_PROD_G1_REGISTRY_v1.1_FINAL_SEAL_PACKAGE.zip'
+          rm -f "$ZIP" "$ZIP.sha256"
+          (cd _package/P120_WEBSCI_PROD_G1_REGISTRY_v1.1 && zip -qr "$GITHUB_WORKSPACE/$ZIP" .)
+          sha256sum "$ZIP" > "$ZIP.sha256"
+          cat "$ZIP.sha256"
+
+      - name: Independent post-build package verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP='P120_WEBSCI_PROD_G1_REGISTRY_v1.1_FINAL_SEAL_PACKAGE.zip'
+          unzip -t "$ZIP"
+          EXPECTED=$(awk '{print $1}' "$ZIP.sha256")
+          ACTUAL=$(sha256sum "$ZIP" | awk '{print $1}')
+          test "$EXPECTED" = "$ACTUAL"
+          rm -rf /tmp/p120-registry-final-seal
+          mkdir -p /tmp/p120-registry-final-seal
+          unzip -q "$ZIP" -d /tmp/p120-registry-final-seal
+          (cd /tmp/p120-registry-final-seal && sha256sum -c RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt)
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          root=Path('/tmp/p120-registry-final-seal')
+          status=json.loads((root/'RECORDS/P120_WEBSCI_PROD_G1_REGISTRY_FINAL_STATUS_v1.1.json').read_text())
+          manifest=json.loads((root/'RECORDS/P120_WEBSCI_PROD_G1_REGISTRY_FINAL_MANIFEST_v1.1.json').read_text())
+          qa=json.loads((root/'QA/FINAL_SEAL/P120_WEBSCI_PROD_G1_REGISTRY_FINAL_SEAL_QA_v1.1.json').read_text())
+          assert qa['status']=='PASS' and qa['checks_failed']==0
+          assert manifest['unresolved_delta_count']==0 and manifest['public_ceiling_unchanged'] is True
+          assert status['registry_activation_head']=='cf11a176bb0db87aec046d5694c302285b275f90'
+          if os.environ.get('GITHUB_REF_NAME')=='main':
+              assert status['status']=='CLOSED_CONTROLLED_SEALED'
+              assert status['phase']=='POSTMERGE_FINAL_PRODUCTION_SEAL'
+          else:
+              assert status['status']=='PREMERGE_FINAL_SEAL_PASS_CANDIDATE'
+              assert status['phase']=='PREMERGE_FINAL_SEAL_CANDIDATE'
+          print('P120_PROD_G1_REGISTRY_FINAL_PACKAGE_VERIFY=PASS')
+          PY
+
+      - name: Upload final-seal package
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_PROD_G1_REGISTRY_v1.1_FINAL_SEAL_PACKAGE
+          path: |
+            P120_WEBSCI_PROD_G1_REGISTRY_v1.1_FINAL_SEAL_PACKAGE.zip
+            P120_WEBSCI_PROD_G1_REGISTRY_v1.1_FINAL_SEAL_PACKAGE.zip.sha256
+          if-no-files-found: error
+          retention-days: 90
