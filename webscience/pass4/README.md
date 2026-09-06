@@ -161,3 +161,7 @@ The next stage projects v0.4 content into the existing Scientific Base presentat
 
 ## PASS 4C closure — 2026-09-06
 `PASS / CLOSED / CONTROLLED / v0.7` — Core-45 identity is preserved and integrated with REF-046..REF-070 into a deduplicated, navigable Global-70 library. Core per-reference roles were not inferred because the frozen source contains citation/DOI identity only. Production main remains untouched. Next active stage: **PASS 4D — Claim-Boundary & RU/EN Parity QA**.
+
+
+## PASS 4D closure — 2026-09-06
+`PASS / CLOSED / CONTROLLED / v0.8` — adversarial claim-boundary and RU/EN semantic-parity QA completed over the sealed PASS 4A–4C public Science stack. No scientific content or evidence state was upgraded. Next active stage: **PASS 4E — Browser / Responsive / Typography Science QA**.

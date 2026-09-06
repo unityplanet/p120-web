@@ -1,0 +1,5443 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4D-BROWSER-QA",
+  "version": "v0.8",
+  "date": "2026-09-06",
+  "status": "PASS",
+  "checks_total": 448,
+  "checks_passed": 448,
+  "checks_failed": 0,
+  "checks": [
+    {
+      "name": "ru-desktop: positioning title rendered",
+      "pass": true,
+      "detail": {
+        "value": "Научная основа и собственная измерительная архитектура P-120"
+      }
+    },
+    {
+      "name": "ru-desktop: positioning external_scientific_foundation rendered",
+      "pass": true,
+      "detail": {
+        "value": "Опубликованная научная литература, эмпирические исследования, существующие исследовательские конструкты, теоретические модели и измерительные прецеденты образуют внешнюю научную основу P-120."
+      }
+    },
+    {
+      "name": "ru-desktop: positioning integration_architecture rendered",
+      "pass": true,
+      "detail": {
+        "value": "P-120 использует собственную интеграционную архитектуру: соседние процессы разграничиваются и измеряются независимо, после чего их результаты могут совместно рассматриваться без сведения к единому суммарному показателю."
+      }
+    },
+    {
+      "name": "ru-desktop: positioning internal_verification_boundary rendered",
+      "pass": true,
+      "detail": {
+        "value": "Внутренняя научно-методологическая, вычислительная и межмодульная проверка архитектуры является отдельным классом доказательств и не равна эмпирической психометрической валидации на выборках респондентов."
+      }
+    },
+    {
+      "name": "ru-desktop: positioning module_admission_principle rendered",
+      "pass": true,
+      "detail": {
+        "value": "Новый модуль сохраняется только тогда, когда он отвечает на самостоятельный измерительный вопрос и имеет защищаемый путь к дополнительной информации сверх соседних слоёв."
+      }
+    },
+    {
+      "name": "ru-desktop: measurement/scoring/threshold/session boundaries",
+      "pass": true,
+      "detail": {
+        "rules": {
+          "renderer_consumes_public_safe_fields_only": true,
+          "source_scientific_objects_remain_upstream": true,
+          "ru_en_semantic_parity_required": true,
+          "core_scientific_content_preserved": true,
+          "measurement_mutation_allowed": false,
+          "scoring_mutation_allowed": false,
+          "threshold_mutation_allowed": false,
+          "session_storage_access": "PROHIBITED",
+          "normative_or_diagnostic_claims_allowed": false,
+          "join_after_independent_measurement": true,
+          "extended_total_allowed": false,
+          "dyadic_public_activation": false,
+          "rpe_detailed_public_activation": false
+        }
+      }
+    },
+    {
+      "name": "ru-desktop: Extended module identity parity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "COM-12",
+          "MOT-12",
+          "SELF-12",
+          "RPE-MOD"
+        ],
+        "expected": [
+          "COM-12",
+          "MOT-12",
+          "SELF-12",
+          "RPE-MOD"
+        ]
+      }
+    },
+    {
+      "name": "ru-desktop: COM-12 card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "ru-desktop: COM-12 name canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Эротическая коммуникация"
+      }
+    },
+    {
+      "name": "ru-desktop: COM-12 question canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Как человек выражает, получает, уточняет, согласовывает и восстанавливает сексуально или эротически значимую коммуникацию?"
+      }
+    },
+    {
+      "name": "ru-desktop: COM-12 role canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Отдельный процессуальный слой межличностной эротической коммуникации. Он не подменяет мотивацию, привязанность, внутреннее авторство выбора, содержание предпочтений или последующие исходы."
+      }
+    },
+    {
+      "name": "ru-desktop: COM-12 development canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Пул из 32 элементов сокращён до 24-элементного когнитивного кандидата; поэлементный критический аудит, разграничение владения измерительными территориями и протокол C1/C2/C3 подготовлены на уровне архитектуры. Фактические наблюдения в поле остаются обязательными до решения о заморозке."
+      }
+    },
+    {
+      "name": "ru-desktop: COM-12 ceiling canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Допустимы кандидатная архитектура, история разработки, методы внутренней проверки, выбранные научные источники и текущий этап полевой проверки. Не допускаются подтверждённая факторная структура, общий показатель COM, производственный расчёт баллов, нормы, диагностика или классификация валидности согласия."
+      }
+    },
+    {
+      "name": "ru-desktop: COM-12 summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "ru-desktop: COM-12 E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "ru-desktop: COM-12 construct code identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "COM-E",
+          "COM-R",
+          "COM-N",
+          "COM-P"
+        ],
+        "expected": [
+          "COM-E",
+          "COM-R",
+          "COM-N",
+          "COM-P"
+        ]
+      }
+    },
+    {
+      "name": "ru-desktop: COM-12 reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-046",
+          "REF-047",
+          "REF-048",
+          "REF-049",
+          "REF-025"
+        ],
+        "expected": [
+          "REF-046",
+          "REF-047",
+          "REF-048",
+          "REF-049",
+          "REF-025"
+        ]
+      }
+    },
+    {
+      "name": "ru-desktop: MOT-12 card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "ru-desktop: MOT-12 name canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Сексуальная мотивация"
+      }
+    },
+    {
+      "name": "ru-desktop: MOT-12 question canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Почему — ради какого ожидаемого психологического результата — человек выбирает сексуально или эротически значимую близость?"
+      }
+    },
+    {
+      "name": "ru-desktop: MOT-12 role canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Слой причин выбора близости, отделённый от силы желания, триггеров активации, поведения, коммуникационной способности, самоотношения и последующих состояний."
+      }
+    },
+    {
+      "name": "ru-desktop: MOT-12 development canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "После аудита доказательной базы и границ сформирован контролируемый пул из 36 элементов, затем 24-элементный когнитивный кандидат и трассируемый резерв из 12 элементов. Экспертная проверка, CVI и когнитивная программа готовы к исполнению; M-V остаётся спорной территорией, требующей отдельной проверки."
+      }
+    },
+    {
+      "name": "ru-desktop: MOT-12 ceiling canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Допустимы только кандидатные мотивационные территории и история разработки. Не допускаются общий показатель MOT, деление мотивов на здоровые и нездоровые, подтверждённая факторная модель, производственный расчёт баллов или заявление о психометрической валидности."
+      }
+    },
+    {
+      "name": "ru-desktop: MOT-12 summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "ru-desktop: MOT-12 E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "ru-desktop: MOT-12 construct code identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "M-H",
+          "M-C",
+          "M-P",
+          "M-K",
+          "M-A",
+          "M-O",
+          "M-V",
+          "M0"
+        ],
+        "expected": [
+          "M-H",
+          "M-C",
+          "M-P",
+          "M-K",
+          "M-A",
+          "M-O",
+          "M-V",
+          "M0"
+        ]
+      }
+    },
+    {
+      "name": "ru-desktop: MOT-12 reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-050",
+          "REF-051",
+          "REF-052",
+          "REF-053",
+          "REF-003",
+          "REF-040"
+        ],
+        "expected": [
+          "REF-050",
+          "REF-051",
+          "REF-052",
+          "REF-053",
+          "REF-003",
+          "REF-040"
+        ]
+      }
+    },
+    {
+      "name": "ru-desktop: SELF-12 card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "ru-desktop: SELF-12 name canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Отношение к себе как к сексуальному субъекту"
+      }
+    },
+    {
+      "name": "ru-desktop: SELF-12 question canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Как человек переживает, оценивает и авторизует себя как сексуального субъекта?"
+      }
+    },
+    {
+      "name": "ru-desktop: SELF-12 role canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Слой сексуального самоотношения, не сводимый к общей самооценке, образу тела, коммуникации, мотивации, привязанности, телесной чувствительности или предпочтениям."
+      }
+    },
+    {
+      "name": "ru-desktop: SELF-12 development canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Широкая карта из 12 территорий после сокращения и согласования владения измерительными территориями сведена к кандидатной архитектуре 5 CORE + 2 LIMITED и 21-элементному когнитивному кандидату. Экспертная проверка, CVI и когнитивная программа остаются зависимыми от фактических данных."
+      }
+    },
+    {
+      "name": "ru-desktop: SELF-12 ceiling canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Допустимы кандидатная архитектура 5 CORE + 2 LIMITED, история разработки, границы и выбранные научные источники. Не допускаются общий показатель SELF, подтверждённая семифакторная модель, нормы или интерпретация результата участника."
+      }
+    },
+    {
+      "name": "ru-desktop: SELF-12 summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "ru-desktop: SELF-12 E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "ru-desktop: SELF-12 construct code identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "SRG",
+          "DPL",
+          "SAA",
+          "SSC",
+          "SSH",
+          "PSD",
+          "SBA"
+        ],
+        "expected": [
+          "SRG",
+          "DPL",
+          "SAA",
+          "SSC",
+          "SSH",
+          "PSD",
+          "SBA"
+        ]
+      }
+    },
+    {
+      "name": "ru-desktop: SELF-12 reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-054",
+          "REF-055",
+          "REF-056",
+          "REF-057",
+          "REF-058",
+          "REF-059",
+          "REF-060"
+        ],
+        "expected": [
+          "REF-054",
+          "REF-055",
+          "REF-056",
+          "REF-057",
+          "REF-058",
+          "REF-059",
+          "REF-060"
+        ]
+      }
+    },
+    {
+      "name": "ru-desktop: RPE-MOD card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "ru-desktop: RPE-MOD name canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Специализированные координаты предпочтений и вознаграждения"
+      }
+    },
+    {
+      "name": "ru-desktop: RPE-MOD question canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Могут ли специфические координаты предпочтений и вознаграждения добавлять информацию, не дублируя активацию, телесный отклик, коммуникацию, самоотношение или исходы?"
+      }
+    },
+    {
+      "name": "ru-desktop: RPE-MOD role canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Опциональный специализированный слой предпочтений и координат вознаграждения под отдельными правилами безопасности, конфиденциальности и публикации."
+      }
+    },
+    {
+      "name": "ru-desktop: RPE-MOD development canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "На текущем этапе публично разрешены только минимальная роль, статус, границы, приостановка полевого применения и принцип независимого измерения с последующим совместным чтением."
+      }
+    },
+    {
+      "name": "ru-desktop: RPE-MOD ceiling canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Только существующее минимальное публичное резюме роли, статуса и границ. Детальные семейства конструктов, операционные детали повышенного риска, расчёт баллов, нормы, архетипы и интерпретация для респондента остаются скрыты до отдельного разрешения на публикацию RPE."
+      }
+    },
+    {
+      "name": "ru-desktop: RPE-MOD summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "ru-desktop: RPE-MOD E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "NOT_PROJECTED",
+          "E1": "CONTROLLED",
+          "E2": "NOT_ESTABLISHED_FOR_PUBLIC_CLAIMS",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "ru-desktop: RPE detail suppression marker",
+      "pass": true,
+      "detail": {
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "name": "ru-desktop: RPE constructs absent",
+      "pass": true,
+      "detail": {
+        "constructs": []
+      }
+    },
+    {
+      "name": "ru-desktop: RPE references absent",
+      "pass": true,
+      "detail": {
+        "refs": []
+      }
+    },
+    {
+      "name": "ru-desktop-extended: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "ru-desktop: LIFE only outcome",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "LIFE-12/18"
+        ]
+      }
+    },
+    {
+      "name": "ru-desktop: LIFE name canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Интеграция близости с остальной жизнью"
+      }
+    },
+    {
+      "name": "ru-desktop: LIFE question canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Какие более широкие аффективные, энергетические, когнитивные, восстановительные, вовлекающие или смысловые состояния наблюдаются вокруг и после близости?"
+      }
+    },
+    {
+      "name": "ru-desktop: LIFE role canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Отдельный слой исходов и переноса в другие сферы жизни. LIFE измеряет наблюдаемые последующие состояния, а не психосексуальную черту и не причинный эффект близости."
+      }
+    },
+    {
+      "name": "ru-desktop: LIFE development canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Первичная карта из 12 целевых исходов сокращена до 8 территорий, доступных респонденту, и до 6 CORE + CCO в ограниченной/вспомогательной роли; GLS вынесен во внешний сопоставительный показатель. Временные режимы T0/T1, недавнего паттерна и глобального внешнего сопоставления не взаимозаменяемы; LIFE-18 остаётся предпочтительной глубиной разработки."
+      }
+    },
+    {
+      "name": "ru-desktop: LIFE ceiling canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Допустимы кандидатная архитектура исходов и внешние сопоставительные инструменты только с языком ковариации и временной ассоциации. Не допускаются LIFE Total, причинная атрибуция, обещания продуктивности или здоровья и подтверждённая факторная модель."
+      }
+    },
+    {
+      "name": "ru-desktop: LIFE construct identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "PAU",
+          "NAL",
+          "SV",
+          "SLP",
+          "WSE",
+          "MLS",
+          "CCO",
+          "GLS"
+        ]
+      }
+    },
+    {
+      "name": "ru-desktop: LIFE reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-061",
+          "REF-062",
+          "REF-063",
+          "REF-064",
+          "REF-065",
+          "REF-066",
+          "REF-067",
+          "REF-068"
+        ]
+      }
+    },
+    {
+      "name": "ru-desktop: LIFE E3/E4 withheld",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "ru-desktop-outcomes: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "ru-desktop: E0-E4 structural parity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "E0",
+          "E1",
+          "E2",
+          "E3",
+          "E4"
+        ]
+      }
+    },
+    {
+      "name": "ru-desktop: E0 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Внешняя научная основа"
+      }
+    },
+    {
+      "name": "ru-desktop: E0 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Опубликованные исследования, модели, конструкты и измерительные прецеденты, относящиеся к измеряемой территории."
+      }
+    },
+    {
+      "name": "ru-desktop: E0 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Валидацию интегрированной архитектуры P-120."
+      }
+    },
+    {
+      "name": "ru-desktop: E1 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Внутренняя проверка архитектуры"
+      }
+    },
+    {
+      "name": "ru-desktop: E1 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Проверки границ конструктов, владения измерительной территорией, избыточности, элементов, информационного прироста, границ применимости и доступности, безопасности, вычислительных контрактов и межмодульной непротиворечивости."
+      }
+    },
+    {
+      "name": "ru-desktop: E1 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Надёжность, факторную валидность, нормы или популяционную обобщаемость."
+      }
+    },
+    {
+      "name": "ru-desktop: E2 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Человеческие когнитивные и контрольные наблюдения"
+      }
+    },
+    {
+      "name": "ru-desktop: E2 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Фактические наблюдения понимания, различения или прохождения, используемые для проверки гипотез разработки."
+      }
+    },
+    {
+      "name": "ru-desktop: E2 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Завершённую психометрическую валидацию или внешнюю репликацию."
+      }
+    },
+    {
+      "name": "ru-desktop: E3 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Психометрическая валидация"
+      }
+    },
+    {
+      "name": "ru-desktop: E3 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Количественные данные выборок респондентов о надёжности, факторной структуре, дискриминантной и инкрементальной валидности, стабильности, инвариантности и иных явно проверяемых свойствах."
+      }
+    },
+    {
+      "name": "ru-desktop: E3 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Независимую внешнюю репликацию, если она отдельно не установлена."
+      }
+    },
+    {
+      "name": "ru-desktop: E4 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Внешняя репликация"
+      }
+    },
+    {
+      "name": "ru-desktop: E4 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Независимо воспроизведённые результаты в рамках отдельно определённой процедуры репликации."
+      }
+    },
+    {
+      "name": "ru-desktop: E4 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Текущее состояние какого-либо модуля по умолчанию."
+      }
+    },
+    {
+      "name": "ru-desktop: cross-layer statement rendered",
+      "pass": true,
+      "detail": {
+        "value": "P-120 не объединяет слои в единый суммарный показатель. Система заранее разделяет соседние процессы и формулирует проверяемые межслойные вопросы: добавляет ли совместное чтение независимых координат информацию сверх каждого слоя по отдельности. На текущем этапе это исследовательская программа, а не доказанная межмодульная валидность."
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ structural parity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "CLQ-01",
+          "CLQ-02",
+          "CLQ-03",
+          "CLQ-04",
+          "CLQ-05",
+          "CLQ-06",
+          "CLQ-07",
+          "CLQ-08",
+          "CLQ-09",
+          "CLQ-10"
+        ]
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-01 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Активация и мотивация"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-01 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Могут ли активация, её временная устойчивость и причины выбора близости расходиться?"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-02 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Авторство выбора и коммуникация"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-02 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Может ли внутреннее авторство сексуального выбора отличаться от способности сообщать и согласовывать этот выбор?"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-03 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Инициатива, агентность и мотив"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-03 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Могут ли эротическая инициатива, внутреннее авторство и мотив различаться у одного человека?"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-04 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Восстановление после напряжения"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-04 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Различимы ли эротическое повторное вовлечение, восстановление коммуникации и последующий когнитивный перенос при пересекающихся временных окнах?"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-05 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Привязанность и коммуникация"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-05 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Добавляет ли эротическая коммуникация информацию после того, как известен контекст привязанности и безопасности?"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-06 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Самоотношение и поиск подтверждения"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-06 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Отличается ли устойчивое сексуальное самоотношение от выбора близости ради подтверждения и от успокоения системы привязанности?"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-07 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Телесный отклик и оценочная сосредоточенность на себе"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-07 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Может ли высокая чувствительность к телесным сигналам сосуществовать с выраженной оценочной сосредоточенностью на себе?"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-08 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Мотив и последующий исход"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-08 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Отличается ли выбор близости ради регуляции состояния от состояния, которое затем фактически наблюдается?"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-09 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Эротическая динамика и более широкая жизнь"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-09 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Как изменения эротической и реляционной системы после события связаны с аффектом, жизненной энергией, сном, вовлечённостью и смыслом?"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-10 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Предпочтение и другие слои"
+      }
+    },
+    {
+      "name": "ru-desktop: CLQ-10 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Добавляют ли специфические координаты предпочтений и вознаграждения информацию после независимого измерения активации, телесного отклика, коммуникации и исходов?"
+      }
+    },
+    {
+      "name": "ru-desktop: cross-layer states withheld",
+      "pass": true,
+      "detail": {
+        "state": {
+          "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+          "empirical_incremental_validity": "NOT_ESTABLISHED",
+          "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+          "causal_cross_layer_effects": "NOT_AUTHORIZED"
+        }
+      }
+    },
+    {
+      "name": "ru-desktop-methods: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "ru-desktop: Global70 visible",
+      "pass": true,
+      "detail": {
+        "all": 70,
+        "core": 45,
+        "ext": 25
+      }
+    },
+    {
+      "name": "ru-desktop: REF-001..070 continuous",
+      "pass": true,
+      "detail": {
+        "first": "REF-001",
+        "last": "REF-070"
+      }
+    },
+    {
+      "name": "ru-desktop: native Core bibliography hidden only in integrated Library",
+      "pass": true,
+      "detail": {
+        "oldCoreHidden": true
+      }
+    },
+    {
+      "name": "ru-desktop: no inferred Core evidence roles",
+      "pass": true,
+      "detail": {
+        "coreRoleLeak": false
+      }
+    },
+    {
+      "name": "ru-desktop: Library validity boundary rendered",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "ru-desktop: no horizontal overflow in Library",
+      "pass": true,
+      "detail": {
+        "overflow": 0
+      }
+    },
+    {
+      "name": "ru-desktop-library: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "ru-desktop: storage isolation",
+      "pass": true,
+      "detail": {
+        "l": "LOCAL-4D",
+        "s": "SESSION-4D"
+      }
+    },
+    {
+      "name": "ru-desktop: no runtime errors",
+      "pass": true,
+      "detail": {
+        "errors": []
+      }
+    },
+    {
+      "name": "ru-mobile: positioning title rendered",
+      "pass": true,
+      "detail": {
+        "value": "Научная основа и собственная измерительная архитектура P-120"
+      }
+    },
+    {
+      "name": "ru-mobile: positioning external_scientific_foundation rendered",
+      "pass": true,
+      "detail": {
+        "value": "Опубликованная научная литература, эмпирические исследования, существующие исследовательские конструкты, теоретические модели и измерительные прецеденты образуют внешнюю научную основу P-120."
+      }
+    },
+    {
+      "name": "ru-mobile: positioning integration_architecture rendered",
+      "pass": true,
+      "detail": {
+        "value": "P-120 использует собственную интеграционную архитектуру: соседние процессы разграничиваются и измеряются независимо, после чего их результаты могут совместно рассматриваться без сведения к единому суммарному показателю."
+      }
+    },
+    {
+      "name": "ru-mobile: positioning internal_verification_boundary rendered",
+      "pass": true,
+      "detail": {
+        "value": "Внутренняя научно-методологическая, вычислительная и межмодульная проверка архитектуры является отдельным классом доказательств и не равна эмпирической психометрической валидации на выборках респондентов."
+      }
+    },
+    {
+      "name": "ru-mobile: positioning module_admission_principle rendered",
+      "pass": true,
+      "detail": {
+        "value": "Новый модуль сохраняется только тогда, когда он отвечает на самостоятельный измерительный вопрос и имеет защищаемый путь к дополнительной информации сверх соседних слоёв."
+      }
+    },
+    {
+      "name": "ru-mobile: measurement/scoring/threshold/session boundaries",
+      "pass": true,
+      "detail": {
+        "rules": {
+          "renderer_consumes_public_safe_fields_only": true,
+          "source_scientific_objects_remain_upstream": true,
+          "ru_en_semantic_parity_required": true,
+          "core_scientific_content_preserved": true,
+          "measurement_mutation_allowed": false,
+          "scoring_mutation_allowed": false,
+          "threshold_mutation_allowed": false,
+          "session_storage_access": "PROHIBITED",
+          "normative_or_diagnostic_claims_allowed": false,
+          "join_after_independent_measurement": true,
+          "extended_total_allowed": false,
+          "dyadic_public_activation": false,
+          "rpe_detailed_public_activation": false
+        }
+      }
+    },
+    {
+      "name": "ru-mobile: Extended module identity parity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "COM-12",
+          "MOT-12",
+          "SELF-12",
+          "RPE-MOD"
+        ],
+        "expected": [
+          "COM-12",
+          "MOT-12",
+          "SELF-12",
+          "RPE-MOD"
+        ]
+      }
+    },
+    {
+      "name": "ru-mobile: COM-12 card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "ru-mobile: COM-12 name canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Эротическая коммуникация"
+      }
+    },
+    {
+      "name": "ru-mobile: COM-12 question canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Как человек выражает, получает, уточняет, согласовывает и восстанавливает сексуально или эротически значимую коммуникацию?"
+      }
+    },
+    {
+      "name": "ru-mobile: COM-12 role canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Отдельный процессуальный слой межличностной эротической коммуникации. Он не подменяет мотивацию, привязанность, внутреннее авторство выбора, содержание предпочтений или последующие исходы."
+      }
+    },
+    {
+      "name": "ru-mobile: COM-12 development canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Пул из 32 элементов сокращён до 24-элементного когнитивного кандидата; поэлементный критический аудит, разграничение владения измерительными территориями и протокол C1/C2/C3 подготовлены на уровне архитектуры. Фактические наблюдения в поле остаются обязательными до решения о заморозке."
+      }
+    },
+    {
+      "name": "ru-mobile: COM-12 ceiling canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Допустимы кандидатная архитектура, история разработки, методы внутренней проверки, выбранные научные источники и текущий этап полевой проверки. Не допускаются подтверждённая факторная структура, общий показатель COM, производственный расчёт баллов, нормы, диагностика или классификация валидности согласия."
+      }
+    },
+    {
+      "name": "ru-mobile: COM-12 summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "ru-mobile: COM-12 E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "ru-mobile: COM-12 construct code identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "COM-E",
+          "COM-R",
+          "COM-N",
+          "COM-P"
+        ],
+        "expected": [
+          "COM-E",
+          "COM-R",
+          "COM-N",
+          "COM-P"
+        ]
+      }
+    },
+    {
+      "name": "ru-mobile: COM-12 reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-046",
+          "REF-047",
+          "REF-048",
+          "REF-049",
+          "REF-025"
+        ],
+        "expected": [
+          "REF-046",
+          "REF-047",
+          "REF-048",
+          "REF-049",
+          "REF-025"
+        ]
+      }
+    },
+    {
+      "name": "ru-mobile: MOT-12 card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "ru-mobile: MOT-12 name canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Сексуальная мотивация"
+      }
+    },
+    {
+      "name": "ru-mobile: MOT-12 question canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Почему — ради какого ожидаемого психологического результата — человек выбирает сексуально или эротически значимую близость?"
+      }
+    },
+    {
+      "name": "ru-mobile: MOT-12 role canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Слой причин выбора близости, отделённый от силы желания, триггеров активации, поведения, коммуникационной способности, самоотношения и последующих состояний."
+      }
+    },
+    {
+      "name": "ru-mobile: MOT-12 development canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "После аудита доказательной базы и границ сформирован контролируемый пул из 36 элементов, затем 24-элементный когнитивный кандидат и трассируемый резерв из 12 элементов. Экспертная проверка, CVI и когнитивная программа готовы к исполнению; M-V остаётся спорной территорией, требующей отдельной проверки."
+      }
+    },
+    {
+      "name": "ru-mobile: MOT-12 ceiling canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Допустимы только кандидатные мотивационные территории и история разработки. Не допускаются общий показатель MOT, деление мотивов на здоровые и нездоровые, подтверждённая факторная модель, производственный расчёт баллов или заявление о психометрической валидности."
+      }
+    },
+    {
+      "name": "ru-mobile: MOT-12 summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "ru-mobile: MOT-12 E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "ru-mobile: MOT-12 construct code identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "M-H",
+          "M-C",
+          "M-P",
+          "M-K",
+          "M-A",
+          "M-O",
+          "M-V",
+          "M0"
+        ],
+        "expected": [
+          "M-H",
+          "M-C",
+          "M-P",
+          "M-K",
+          "M-A",
+          "M-O",
+          "M-V",
+          "M0"
+        ]
+      }
+    },
+    {
+      "name": "ru-mobile: MOT-12 reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-050",
+          "REF-051",
+          "REF-052",
+          "REF-053",
+          "REF-003",
+          "REF-040"
+        ],
+        "expected": [
+          "REF-050",
+          "REF-051",
+          "REF-052",
+          "REF-053",
+          "REF-003",
+          "REF-040"
+        ]
+      }
+    },
+    {
+      "name": "ru-mobile: SELF-12 card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "ru-mobile: SELF-12 name canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Отношение к себе как к сексуальному субъекту"
+      }
+    },
+    {
+      "name": "ru-mobile: SELF-12 question canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Как человек переживает, оценивает и авторизует себя как сексуального субъекта?"
+      }
+    },
+    {
+      "name": "ru-mobile: SELF-12 role canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Слой сексуального самоотношения, не сводимый к общей самооценке, образу тела, коммуникации, мотивации, привязанности, телесной чувствительности или предпочтениям."
+      }
+    },
+    {
+      "name": "ru-mobile: SELF-12 development canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Широкая карта из 12 территорий после сокращения и согласования владения измерительными территориями сведена к кандидатной архитектуре 5 CORE + 2 LIMITED и 21-элементному когнитивному кандидату. Экспертная проверка, CVI и когнитивная программа остаются зависимыми от фактических данных."
+      }
+    },
+    {
+      "name": "ru-mobile: SELF-12 ceiling canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Допустимы кандидатная архитектура 5 CORE + 2 LIMITED, история разработки, границы и выбранные научные источники. Не допускаются общий показатель SELF, подтверждённая семифакторная модель, нормы или интерпретация результата участника."
+      }
+    },
+    {
+      "name": "ru-mobile: SELF-12 summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "ru-mobile: SELF-12 E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "ru-mobile: SELF-12 construct code identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "SRG",
+          "DPL",
+          "SAA",
+          "SSC",
+          "SSH",
+          "PSD",
+          "SBA"
+        ],
+        "expected": [
+          "SRG",
+          "DPL",
+          "SAA",
+          "SSC",
+          "SSH",
+          "PSD",
+          "SBA"
+        ]
+      }
+    },
+    {
+      "name": "ru-mobile: SELF-12 reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-054",
+          "REF-055",
+          "REF-056",
+          "REF-057",
+          "REF-058",
+          "REF-059",
+          "REF-060"
+        ],
+        "expected": [
+          "REF-054",
+          "REF-055",
+          "REF-056",
+          "REF-057",
+          "REF-058",
+          "REF-059",
+          "REF-060"
+        ]
+      }
+    },
+    {
+      "name": "ru-mobile: RPE-MOD card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "ru-mobile: RPE-MOD name canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Специализированные координаты предпочтений и вознаграждения"
+      }
+    },
+    {
+      "name": "ru-mobile: RPE-MOD question canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Могут ли специфические координаты предпочтений и вознаграждения добавлять информацию, не дублируя активацию, телесный отклик, коммуникацию, самоотношение или исходы?"
+      }
+    },
+    {
+      "name": "ru-mobile: RPE-MOD role canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Опциональный специализированный слой предпочтений и координат вознаграждения под отдельными правилами безопасности, конфиденциальности и публикации."
+      }
+    },
+    {
+      "name": "ru-mobile: RPE-MOD development canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "На текущем этапе публично разрешены только минимальная роль, статус, границы, приостановка полевого применения и принцип независимого измерения с последующим совместным чтением."
+      }
+    },
+    {
+      "name": "ru-mobile: RPE-MOD ceiling canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Только существующее минимальное публичное резюме роли, статуса и границ. Детальные семейства конструктов, операционные детали повышенного риска, расчёт баллов, нормы, архетипы и интерпретация для респондента остаются скрыты до отдельного разрешения на публикацию RPE."
+      }
+    },
+    {
+      "name": "ru-mobile: RPE-MOD summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "ru-mobile: RPE-MOD E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "NOT_PROJECTED",
+          "E1": "CONTROLLED",
+          "E2": "NOT_ESTABLISHED_FOR_PUBLIC_CLAIMS",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "ru-mobile: RPE detail suppression marker",
+      "pass": true,
+      "detail": {
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "name": "ru-mobile: RPE constructs absent",
+      "pass": true,
+      "detail": {
+        "constructs": []
+      }
+    },
+    {
+      "name": "ru-mobile: RPE references absent",
+      "pass": true,
+      "detail": {
+        "refs": []
+      }
+    },
+    {
+      "name": "ru-mobile-extended: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "ru-mobile: LIFE only outcome",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "LIFE-12/18"
+        ]
+      }
+    },
+    {
+      "name": "ru-mobile: LIFE name canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Интеграция близости с остальной жизнью"
+      }
+    },
+    {
+      "name": "ru-mobile: LIFE question canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Какие более широкие аффективные, энергетические, когнитивные, восстановительные, вовлекающие или смысловые состояния наблюдаются вокруг и после близости?"
+      }
+    },
+    {
+      "name": "ru-mobile: LIFE role canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Отдельный слой исходов и переноса в другие сферы жизни. LIFE измеряет наблюдаемые последующие состояния, а не психосексуальную черту и не причинный эффект близости."
+      }
+    },
+    {
+      "name": "ru-mobile: LIFE development canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Первичная карта из 12 целевых исходов сокращена до 8 территорий, доступных респонденту, и до 6 CORE + CCO в ограниченной/вспомогательной роли; GLS вынесен во внешний сопоставительный показатель. Временные режимы T0/T1, недавнего паттерна и глобального внешнего сопоставления не взаимозаменяемы; LIFE-18 остаётся предпочтительной глубиной разработки."
+      }
+    },
+    {
+      "name": "ru-mobile: LIFE ceiling canonical ru",
+      "pass": true,
+      "detail": {
+        "value": "Допустимы кандидатная архитектура исходов и внешние сопоставительные инструменты только с языком ковариации и временной ассоциации. Не допускаются LIFE Total, причинная атрибуция, обещания продуктивности или здоровья и подтверждённая факторная модель."
+      }
+    },
+    {
+      "name": "ru-mobile: LIFE construct identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "PAU",
+          "NAL",
+          "SV",
+          "SLP",
+          "WSE",
+          "MLS",
+          "CCO",
+          "GLS"
+        ]
+      }
+    },
+    {
+      "name": "ru-mobile: LIFE reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-061",
+          "REF-062",
+          "REF-063",
+          "REF-064",
+          "REF-065",
+          "REF-066",
+          "REF-067",
+          "REF-068"
+        ]
+      }
+    },
+    {
+      "name": "ru-mobile: LIFE E3/E4 withheld",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "ru-mobile-outcomes: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "ru-mobile: E0-E4 structural parity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "E0",
+          "E1",
+          "E2",
+          "E3",
+          "E4"
+        ]
+      }
+    },
+    {
+      "name": "ru-mobile: E0 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Внешняя научная основа"
+      }
+    },
+    {
+      "name": "ru-mobile: E0 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Опубликованные исследования, модели, конструкты и измерительные прецеденты, относящиеся к измеряемой территории."
+      }
+    },
+    {
+      "name": "ru-mobile: E0 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Валидацию интегрированной архитектуры P-120."
+      }
+    },
+    {
+      "name": "ru-mobile: E1 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Внутренняя проверка архитектуры"
+      }
+    },
+    {
+      "name": "ru-mobile: E1 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Проверки границ конструктов, владения измерительной территорией, избыточности, элементов, информационного прироста, границ применимости и доступности, безопасности, вычислительных контрактов и межмодульной непротиворечивости."
+      }
+    },
+    {
+      "name": "ru-mobile: E1 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Надёжность, факторную валидность, нормы или популяционную обобщаемость."
+      }
+    },
+    {
+      "name": "ru-mobile: E2 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Человеческие когнитивные и контрольные наблюдения"
+      }
+    },
+    {
+      "name": "ru-mobile: E2 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Фактические наблюдения понимания, различения или прохождения, используемые для проверки гипотез разработки."
+      }
+    },
+    {
+      "name": "ru-mobile: E2 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Завершённую психометрическую валидацию или внешнюю репликацию."
+      }
+    },
+    {
+      "name": "ru-mobile: E3 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Психометрическая валидация"
+      }
+    },
+    {
+      "name": "ru-mobile: E3 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Количественные данные выборок респондентов о надёжности, факторной структуре, дискриминантной и инкрементальной валидности, стабильности, инвариантности и иных явно проверяемых свойствах."
+      }
+    },
+    {
+      "name": "ru-mobile: E3 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Независимую внешнюю репликацию, если она отдельно не установлена."
+      }
+    },
+    {
+      "name": "ru-mobile: E4 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Внешняя репликация"
+      }
+    },
+    {
+      "name": "ru-mobile: E4 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Независимо воспроизведённые результаты в рамках отдельно определённой процедуры репликации."
+      }
+    },
+    {
+      "name": "ru-mobile: E4 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Текущее состояние какого-либо модуля по умолчанию."
+      }
+    },
+    {
+      "name": "ru-mobile: cross-layer statement rendered",
+      "pass": true,
+      "detail": {
+        "value": "P-120 не объединяет слои в единый суммарный показатель. Система заранее разделяет соседние процессы и формулирует проверяемые межслойные вопросы: добавляет ли совместное чтение независимых координат информацию сверх каждого слоя по отдельности. На текущем этапе это исследовательская программа, а не доказанная межмодульная валидность."
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ structural parity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "CLQ-01",
+          "CLQ-02",
+          "CLQ-03",
+          "CLQ-04",
+          "CLQ-05",
+          "CLQ-06",
+          "CLQ-07",
+          "CLQ-08",
+          "CLQ-09",
+          "CLQ-10"
+        ]
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-01 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Активация и мотивация"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-01 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Могут ли активация, её временная устойчивость и причины выбора близости расходиться?"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-02 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Авторство выбора и коммуникация"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-02 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Может ли внутреннее авторство сексуального выбора отличаться от способности сообщать и согласовывать этот выбор?"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-03 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Инициатива, агентность и мотив"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-03 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Могут ли эротическая инициатива, внутреннее авторство и мотив различаться у одного человека?"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-04 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Восстановление после напряжения"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-04 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Различимы ли эротическое повторное вовлечение, восстановление коммуникации и последующий когнитивный перенос при пересекающихся временных окнах?"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-05 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Привязанность и коммуникация"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-05 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Добавляет ли эротическая коммуникация информацию после того, как известен контекст привязанности и безопасности?"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-06 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Самоотношение и поиск подтверждения"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-06 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Отличается ли устойчивое сексуальное самоотношение от выбора близости ради подтверждения и от успокоения системы привязанности?"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-07 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Телесный отклик и оценочная сосредоточенность на себе"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-07 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Может ли высокая чувствительность к телесным сигналам сосуществовать с выраженной оценочной сосредоточенностью на себе?"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-08 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Мотив и последующий исход"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-08 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Отличается ли выбор близости ради регуляции состояния от состояния, которое затем фактически наблюдается?"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-09 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Эротическая динамика и более широкая жизнь"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-09 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Как изменения эротической и реляционной системы после события связаны с аффектом, жизненной энергией, сном, вовлечённостью и смыслом?"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-10 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Предпочтение и другие слои"
+      }
+    },
+    {
+      "name": "ru-mobile: CLQ-10 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Добавляют ли специфические координаты предпочтений и вознаграждения информацию после независимого измерения активации, телесного отклика, коммуникации и исходов?"
+      }
+    },
+    {
+      "name": "ru-mobile: cross-layer states withheld",
+      "pass": true,
+      "detail": {
+        "state": {
+          "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+          "empirical_incremental_validity": "NOT_ESTABLISHED",
+          "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+          "causal_cross_layer_effects": "NOT_AUTHORIZED"
+        }
+      }
+    },
+    {
+      "name": "ru-mobile-methods: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "ru-mobile: Global70 visible",
+      "pass": true,
+      "detail": {
+        "all": 70,
+        "core": 45,
+        "ext": 25
+      }
+    },
+    {
+      "name": "ru-mobile: REF-001..070 continuous",
+      "pass": true,
+      "detail": {
+        "first": "REF-001",
+        "last": "REF-070"
+      }
+    },
+    {
+      "name": "ru-mobile: native Core bibliography hidden only in integrated Library",
+      "pass": true,
+      "detail": {
+        "oldCoreHidden": true
+      }
+    },
+    {
+      "name": "ru-mobile: no inferred Core evidence roles",
+      "pass": true,
+      "detail": {
+        "coreRoleLeak": false
+      }
+    },
+    {
+      "name": "ru-mobile: Library validity boundary rendered",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "ru-mobile: no horizontal overflow in Library",
+      "pass": true,
+      "detail": {
+        "overflow": 0
+      }
+    },
+    {
+      "name": "ru-mobile-library: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "ru-mobile: storage isolation",
+      "pass": true,
+      "detail": {
+        "l": "LOCAL-4D",
+        "s": "SESSION-4D"
+      }
+    },
+    {
+      "name": "ru-mobile: no runtime errors",
+      "pass": true,
+      "detail": {
+        "errors": []
+      }
+    },
+    {
+      "name": "en-desktop: positioning title rendered",
+      "pass": true,
+      "detail": {
+        "value": "Scientific foundation and P-120's own measurement architecture"
+      }
+    },
+    {
+      "name": "en-desktop: positioning external_scientific_foundation rendered",
+      "pass": true,
+      "detail": {
+        "value": "Published scientific literature, empirical studies, existing research constructs, theoretical models and measurement precedents form the external scientific foundation of P-120."
+      }
+    },
+    {
+      "name": "en-desktop: positioning integration_architecture rendered",
+      "pass": true,
+      "detail": {
+        "value": "P-120 uses its own integrative architecture: neighboring processes are separated and measured independently, after which their results may be read jointly without collapsing them into a single total."
+      }
+    },
+    {
+      "name": "en-desktop: positioning internal_verification_boundary rendered",
+      "pass": true,
+      "detail": {
+        "value": "Internal scientific-methodological, computational and cross-module verification of the architecture is a separate evidence class and is not equivalent to empirical psychometric validation in respondent samples."
+      }
+    },
+    {
+      "name": "en-desktop: positioning module_admission_principle rendered",
+      "pass": true,
+      "detail": {
+        "value": "A new module is retained only when it addresses an independent measurement question and has a defensible path to incremental information beyond neighboring layers."
+      }
+    },
+    {
+      "name": "en-desktop: measurement/scoring/threshold/session boundaries",
+      "pass": true,
+      "detail": {
+        "rules": {
+          "renderer_consumes_public_safe_fields_only": true,
+          "source_scientific_objects_remain_upstream": true,
+          "ru_en_semantic_parity_required": true,
+          "core_scientific_content_preserved": true,
+          "measurement_mutation_allowed": false,
+          "scoring_mutation_allowed": false,
+          "threshold_mutation_allowed": false,
+          "session_storage_access": "PROHIBITED",
+          "normative_or_diagnostic_claims_allowed": false,
+          "join_after_independent_measurement": true,
+          "extended_total_allowed": false,
+          "dyadic_public_activation": false,
+          "rpe_detailed_public_activation": false
+        }
+      }
+    },
+    {
+      "name": "en-desktop: Extended module identity parity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "COM-12",
+          "MOT-12",
+          "SELF-12",
+          "RPE-MOD"
+        ],
+        "expected": [
+          "COM-12",
+          "MOT-12",
+          "SELF-12",
+          "RPE-MOD"
+        ]
+      }
+    },
+    {
+      "name": "en-desktop: COM-12 card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-desktop: COM-12 name canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Erotic Communication Architecture"
+      }
+    },
+    {
+      "name": "en-desktop: COM-12 question canonical en",
+      "pass": true,
+      "detail": {
+        "value": "How does a person express, receive, clarify, negotiate and repair sexually or erotically meaningful communication?"
+      }
+    },
+    {
+      "name": "en-desktop: COM-12 role canonical en",
+      "pass": true,
+      "detail": {
+        "value": "A distinct interpersonal erotic-communication process layer. It does not substitute for motivation, attachment, internal authorship of choice, preference content or downstream outcomes."
+      }
+    },
+    {
+      "name": "en-desktop: COM-12 development canonical en",
+      "pass": true,
+      "detail": {
+        "value": "A 32-item development pool was reduced to a 24-item Cognitive Candidate; item-level red-team, ownership firewalls and the C1/C2/C3 protocol are controlled at architecture level. Actual field observations remain required before freeze adjudication."
+      }
+    },
+    {
+      "name": "en-desktop: COM-12 ceiling canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Candidate architecture, development history, verification methods, selected evidence anchors and the current field gate may be shown. Confirmed factor structure, a COM Total, production scoring, norms, diagnosis or consent-validity classification are not authorized."
+      }
+    },
+    {
+      "name": "en-desktop: COM-12 summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "en-desktop: COM-12 E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "en-desktop: COM-12 construct code identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "COM-E",
+          "COM-R",
+          "COM-N",
+          "COM-P"
+        ],
+        "expected": [
+          "COM-E",
+          "COM-R",
+          "COM-N",
+          "COM-P"
+        ]
+      }
+    },
+    {
+      "name": "en-desktop: COM-12 reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-046",
+          "REF-047",
+          "REF-048",
+          "REF-049",
+          "REF-025"
+        ],
+        "expected": [
+          "REF-046",
+          "REF-047",
+          "REF-048",
+          "REF-049",
+          "REF-025"
+        ]
+      }
+    },
+    {
+      "name": "en-desktop: MOT-12 card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-desktop: MOT-12 name canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Sexual Motivation Architecture"
+      }
+    },
+    {
+      "name": "en-desktop: MOT-12 question canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Why — for what anticipated psychological result — does a person choose sexual or erotically significant intimacy?"
+      }
+    },
+    {
+      "name": "en-desktop: MOT-12 role canonical en",
+      "pass": true,
+      "detail": {
+        "value": "A layer of reasons for choosing intimacy, separated from desire strength, activation triggers, behavior, communication ability, self-relation and downstream states."
+      }
+    },
+    {
+      "name": "en-desktop: MOT-12 development canonical en",
+      "pass": true,
+      "detail": {
+        "value": "After evidence/boundary audit, a 36-item controlled pool was reduced to a 24-item Cognitive Candidate plus a 12-item traceable reserve. Expert, CVI and cognitive programmes are ready for execution; M-V remains a challenge territory."
+      }
+    },
+    {
+      "name": "en-desktop: MOT-12 ceiling canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Candidate motive territories and development evidence only. No MOT Total, healthy/unhealthy motive classification, confirmed factor model, production scoring or psychometric-validity claim."
+      }
+    },
+    {
+      "name": "en-desktop: MOT-12 summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "en-desktop: MOT-12 E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "en-desktop: MOT-12 construct code identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "M-H",
+          "M-C",
+          "M-P",
+          "M-K",
+          "M-A",
+          "M-O",
+          "M-V",
+          "M0"
+        ],
+        "expected": [
+          "M-H",
+          "M-C",
+          "M-P",
+          "M-K",
+          "M-A",
+          "M-O",
+          "M-V",
+          "M0"
+        ]
+      }
+    },
+    {
+      "name": "en-desktop: MOT-12 reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-050",
+          "REF-051",
+          "REF-052",
+          "REF-053",
+          "REF-003",
+          "REF-040"
+        ],
+        "expected": [
+          "REF-050",
+          "REF-051",
+          "REF-052",
+          "REF-053",
+          "REF-003",
+          "REF-040"
+        ]
+      }
+    },
+    {
+      "name": "en-desktop: SELF-12 card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-desktop: SELF-12 name canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Sexual Self-Relation Architecture"
+      }
+    },
+    {
+      "name": "en-desktop: SELF-12 question canonical en",
+      "pass": true,
+      "detail": {
+        "value": "How does a person experience, evaluate and author themselves as a sexual subject?"
+      }
+    },
+    {
+      "name": "en-desktop: SELF-12 role canonical en",
+      "pass": true,
+      "detail": {
+        "value": "A sexual self-relation layer that is not reducible to general self-esteem, body image, communication, motivation, attachment, embodied sensitivity or preferences."
+      }
+    },
+    {
+      "name": "en-desktop: SELF-12 development canonical en",
+      "pass": true,
+      "detail": {
+        "value": "A broad 12-territory landscape was pruned and ownership-adjudicated into a 5 CORE + 2 LIMITED candidate architecture and a 21-item Cognitive Candidate. Expert/CVI/cognitive execution remains evidence-gated."
+      }
+    },
+    {
+      "name": "en-desktop: SELF-12 ceiling canonical en",
+      "pass": true,
+      "detail": {
+        "value": "The 5 CORE + 2 LIMITED candidate architecture, development record, boundaries and selected evidence anchors may be shown. No SELF Total, confirmed seven-factor model, norms or participant interpretation."
+      }
+    },
+    {
+      "name": "en-desktop: SELF-12 summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "en-desktop: SELF-12 E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "en-desktop: SELF-12 construct code identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "SRG",
+          "DPL",
+          "SAA",
+          "SSC",
+          "SSH",
+          "PSD",
+          "SBA"
+        ],
+        "expected": [
+          "SRG",
+          "DPL",
+          "SAA",
+          "SSC",
+          "SSH",
+          "PSD",
+          "SBA"
+        ]
+      }
+    },
+    {
+      "name": "en-desktop: SELF-12 reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-054",
+          "REF-055",
+          "REF-056",
+          "REF-057",
+          "REF-058",
+          "REF-059",
+          "REF-060"
+        ],
+        "expected": [
+          "REF-054",
+          "REF-055",
+          "REF-056",
+          "REF-057",
+          "REF-058",
+          "REF-059",
+          "REF-060"
+        ]
+      }
+    },
+    {
+      "name": "en-desktop: RPE-MOD card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-desktop: RPE-MOD name canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Specialized Preference / Reward Architecture"
+      }
+    },
+    {
+      "name": "en-desktop: RPE-MOD question canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Can specific preference/reward coordinates add information without duplicating activation, embodied response, communication, self-relation or outcomes?"
+      }
+    },
+    {
+      "name": "en-desktop: RPE-MOD role canonical en",
+      "pass": true,
+      "detail": {
+        "value": "An optional specialized preference/reward layer under separate safety/privacy and publication governance."
+      }
+    },
+    {
+      "name": "en-desktop: RPE-MOD development canonical en",
+      "pass": true,
+      "detail": {
+        "value": "At the current stage only the minimal role, status, boundaries, fielding hold and independent-measurement/later-join principle are public."
+      }
+    },
+    {
+      "name": "en-desktop: RPE-MOD ceiling canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Existing minimal role/status/boundary summary only. Detailed construct families, high-risk operational detail, scoring, norms, archetypes and respondent-facing interpretation remain suppressed until a separate RPE publication authority exists."
+      }
+    },
+    {
+      "name": "en-desktop: RPE-MOD summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "en-desktop: RPE-MOD E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "NOT_PROJECTED",
+          "E1": "CONTROLLED",
+          "E2": "NOT_ESTABLISHED_FOR_PUBLIC_CLAIMS",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "en-desktop: RPE detail suppression marker",
+      "pass": true,
+      "detail": {
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "name": "en-desktop: RPE constructs absent",
+      "pass": true,
+      "detail": {
+        "constructs": []
+      }
+    },
+    {
+      "name": "en-desktop: RPE references absent",
+      "pass": true,
+      "detail": {
+        "refs": []
+      }
+    },
+    {
+      "name": "en-desktop-extended: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "en-desktop-extended: reader-facing PASS4 surfaces contain no Cyrillic",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-desktop: LIFE only outcome",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "LIFE-12/18"
+        ]
+      }
+    },
+    {
+      "name": "en-desktop: LIFE name canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Intimacy-Life Integration / Relationship-to-Life Spillover"
+      }
+    },
+    {
+      "name": "en-desktop: LIFE question canonical en",
+      "pass": true,
+      "detail": {
+        "value": "What broader affective, energetic, cognitive, restorative, engagement or meaning-related states are observed around and after intimacy?"
+      }
+    },
+    {
+      "name": "en-desktop: LIFE role canonical en",
+      "pass": true,
+      "detail": {
+        "value": "A separate outcome/spillover layer. LIFE measures observed downstream states, not a psychosexual trait and not a causal effect of intimacy."
+      }
+    },
+    {
+      "name": "en-desktop: LIFE development canonical en",
+      "pass": true,
+      "detail": {
+        "value": "A 12-target outcome landscape was reduced to 8 respondent-facing territories and 6 CORE + CCO limited/auxiliary, with GLS externalized. Event/daily T0/T1, recent-pattern and global/external-anchor modes are not interchangeable; LIFE-18 remains the preferred developmental depth."
+      }
+    },
+    {
+      "name": "en-desktop: LIFE ceiling canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Candidate outcome architecture and external comparators with covariation/temporal-association wording only. No LIFE Total, causal attribution, productivity or health-outcome promise, or confirmed factor model."
+      }
+    },
+    {
+      "name": "en-desktop: LIFE construct identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "PAU",
+          "NAL",
+          "SV",
+          "SLP",
+          "WSE",
+          "MLS",
+          "CCO",
+          "GLS"
+        ]
+      }
+    },
+    {
+      "name": "en-desktop: LIFE reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-061",
+          "REF-062",
+          "REF-063",
+          "REF-064",
+          "REF-065",
+          "REF-066",
+          "REF-067",
+          "REF-068"
+        ]
+      }
+    },
+    {
+      "name": "en-desktop: LIFE E3/E4 withheld",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "en-desktop-outcomes: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "en-desktop-outcomes: reader-facing PASS4 surfaces contain no Cyrillic",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-desktop: E0-E4 structural parity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "E0",
+          "E1",
+          "E2",
+          "E3",
+          "E4"
+        ]
+      }
+    },
+    {
+      "name": "en-desktop: E0 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "External scientific foundation"
+      }
+    },
+    {
+      "name": "en-desktop: E0 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Published research, models, constructs and measurement precedents relevant to the measurement territory."
+      }
+    },
+    {
+      "name": "en-desktop: E0 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Validation of the integrated P-120 architecture."
+      }
+    },
+    {
+      "name": "en-desktop: E1 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Internal architecture verification"
+      }
+    },
+    {
+      "name": "en-desktop: E1 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Construct-boundary, ownership, redundancy, item-level, information-gain, scope/exposure, safety, computational-contract and cross-module verification."
+      }
+    },
+    {
+      "name": "en-desktop: E1 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Reliability, factor validity, norms or population generalizability."
+      }
+    },
+    {
+      "name": "en-desktop: E2 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Human cognitive or cross-check evidence"
+      }
+    },
+    {
+      "name": "en-desktop: E2 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Evidence-bearing comprehension, discrimination or field observations used to adjudicate development hypotheses."
+      }
+    },
+    {
+      "name": "en-desktop: E2 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Completed psychometric validation or external replication."
+      }
+    },
+    {
+      "name": "en-desktop: E3 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Psychometric validation"
+      }
+    },
+    {
+      "name": "en-desktop: E3 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Quantitative respondent-sample evidence addressing reliability, factor structure, discriminant/incremental validity, stability, invariance or other explicitly tested properties."
+      }
+    },
+    {
+      "name": "en-desktop: E3 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Independent external replication unless separately established."
+      }
+    },
+    {
+      "name": "en-desktop: E4 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "External replication"
+      }
+    },
+    {
+      "name": "en-desktop: E4 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Independently reproduced evidence under a separately defined replication authority."
+      }
+    },
+    {
+      "name": "en-desktop: E4 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "A default state of any current module."
+      }
+    },
+    {
+      "name": "en-desktop: cross-layer statement rendered",
+      "pass": true,
+      "detail": {
+        "value": "P-120 does not collapse its layers into a single total. It separates neighboring processes in advance and formulates testable cross-layer questions: does joint reading of independent coordinates add information beyond each layer alone? At the current stage this is a research programme, not demonstrated cross-module validity."
+      }
+    },
+    {
+      "name": "en-desktop: CLQ structural parity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "CLQ-01",
+          "CLQ-02",
+          "CLQ-03",
+          "CLQ-04",
+          "CLQ-05",
+          "CLQ-06",
+          "CLQ-07",
+          "CLQ-08",
+          "CLQ-09",
+          "CLQ-10"
+        ]
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-01 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Activation and motivation"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-01 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Can activation level, temporal durability and reasons for choosing intimacy dissociate?"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-02 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Choice authorship and communication"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-02 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Can internal authorship of a sexual choice differ from the ability to communicate and negotiate that choice?"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-03 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Initiative, agency and motive"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-03 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Can erotic initiative, internal authorship and motive differ within the same person?"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-04 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Recovery after disruption"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-04 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Are erotic re-engagement, communication repair and downstream cognitive carryover distinguishable despite overlapping time windows?"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-05 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Attachment and communication"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-05 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Does sexual/erotic communication add information after attachment/security context is known?"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-06 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Self-relation and validation seeking"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-06 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Is standing sexual self-appraisal distinguishable from choosing intimacy for validation and from attachment reassurance?"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-07 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Embodied response and self-consciousness"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-07 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Can embodied signal sensitivity coexist with strong evaluative sexual self-focus?"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-08 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Motive and downstream outcome"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-08 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Is choosing intimacy to regulate a state distinct from the downstream state later observed?"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-09 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Erotic dynamics and broader life functioning"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-09 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "How are post-event erotic/relational changes associated with broader affect, vitality, sleep, engagement and meaning states?"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-10 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Preference and other layers"
+      }
+    },
+    {
+      "name": "en-desktop: CLQ-10 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Do preference/reward coordinates add information after activation, embodied response, communication and outcomes are measured independently?"
+      }
+    },
+    {
+      "name": "en-desktop: cross-layer states withheld",
+      "pass": true,
+      "detail": {
+        "state": {
+          "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+          "empirical_incremental_validity": "NOT_ESTABLISHED",
+          "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+          "causal_cross_layer_effects": "NOT_AUTHORIZED"
+        }
+      }
+    },
+    {
+      "name": "en-desktop-methods: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "en-desktop-methods: reader-facing PASS4 surfaces contain no Cyrillic",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-desktop: Global70 visible",
+      "pass": true,
+      "detail": {
+        "all": 70,
+        "core": 45,
+        "ext": 25
+      }
+    },
+    {
+      "name": "en-desktop: REF-001..070 continuous",
+      "pass": true,
+      "detail": {
+        "first": "REF-001",
+        "last": "REF-070"
+      }
+    },
+    {
+      "name": "en-desktop: native Core bibliography hidden only in integrated Library",
+      "pass": true,
+      "detail": {
+        "oldCoreHidden": true
+      }
+    },
+    {
+      "name": "en-desktop: no inferred Core evidence roles",
+      "pass": true,
+      "detail": {
+        "coreRoleLeak": false
+      }
+    },
+    {
+      "name": "en-desktop: Library validity boundary rendered",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-desktop: no horizontal overflow in Library",
+      "pass": true,
+      "detail": {
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-desktop-library: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "en-desktop-library: reader-facing PASS4 surfaces contain no Cyrillic",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-desktop: storage isolation",
+      "pass": true,
+      "detail": {
+        "l": "LOCAL-4D",
+        "s": "SESSION-4D"
+      }
+    },
+    {
+      "name": "en-desktop: no runtime errors",
+      "pass": true,
+      "detail": {
+        "errors": []
+      }
+    },
+    {
+      "name": "en-mobile: positioning title rendered",
+      "pass": true,
+      "detail": {
+        "value": "Scientific foundation and P-120's own measurement architecture"
+      }
+    },
+    {
+      "name": "en-mobile: positioning external_scientific_foundation rendered",
+      "pass": true,
+      "detail": {
+        "value": "Published scientific literature, empirical studies, existing research constructs, theoretical models and measurement precedents form the external scientific foundation of P-120."
+      }
+    },
+    {
+      "name": "en-mobile: positioning integration_architecture rendered",
+      "pass": true,
+      "detail": {
+        "value": "P-120 uses its own integrative architecture: neighboring processes are separated and measured independently, after which their results may be read jointly without collapsing them into a single total."
+      }
+    },
+    {
+      "name": "en-mobile: positioning internal_verification_boundary rendered",
+      "pass": true,
+      "detail": {
+        "value": "Internal scientific-methodological, computational and cross-module verification of the architecture is a separate evidence class and is not equivalent to empirical psychometric validation in respondent samples."
+      }
+    },
+    {
+      "name": "en-mobile: positioning module_admission_principle rendered",
+      "pass": true,
+      "detail": {
+        "value": "A new module is retained only when it addresses an independent measurement question and has a defensible path to incremental information beyond neighboring layers."
+      }
+    },
+    {
+      "name": "en-mobile: measurement/scoring/threshold/session boundaries",
+      "pass": true,
+      "detail": {
+        "rules": {
+          "renderer_consumes_public_safe_fields_only": true,
+          "source_scientific_objects_remain_upstream": true,
+          "ru_en_semantic_parity_required": true,
+          "core_scientific_content_preserved": true,
+          "measurement_mutation_allowed": false,
+          "scoring_mutation_allowed": false,
+          "threshold_mutation_allowed": false,
+          "session_storage_access": "PROHIBITED",
+          "normative_or_diagnostic_claims_allowed": false,
+          "join_after_independent_measurement": true,
+          "extended_total_allowed": false,
+          "dyadic_public_activation": false,
+          "rpe_detailed_public_activation": false
+        }
+      }
+    },
+    {
+      "name": "en-mobile: Extended module identity parity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "COM-12",
+          "MOT-12",
+          "SELF-12",
+          "RPE-MOD"
+        ],
+        "expected": [
+          "COM-12",
+          "MOT-12",
+          "SELF-12",
+          "RPE-MOD"
+        ]
+      }
+    },
+    {
+      "name": "en-mobile: COM-12 card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-mobile: COM-12 name canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Erotic Communication Architecture"
+      }
+    },
+    {
+      "name": "en-mobile: COM-12 question canonical en",
+      "pass": true,
+      "detail": {
+        "value": "How does a person express, receive, clarify, negotiate and repair sexually or erotically meaningful communication?"
+      }
+    },
+    {
+      "name": "en-mobile: COM-12 role canonical en",
+      "pass": true,
+      "detail": {
+        "value": "A distinct interpersonal erotic-communication process layer. It does not substitute for motivation, attachment, internal authorship of choice, preference content or downstream outcomes."
+      }
+    },
+    {
+      "name": "en-mobile: COM-12 development canonical en",
+      "pass": true,
+      "detail": {
+        "value": "A 32-item development pool was reduced to a 24-item Cognitive Candidate; item-level red-team, ownership firewalls and the C1/C2/C3 protocol are controlled at architecture level. Actual field observations remain required before freeze adjudication."
+      }
+    },
+    {
+      "name": "en-mobile: COM-12 ceiling canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Candidate architecture, development history, verification methods, selected evidence anchors and the current field gate may be shown. Confirmed factor structure, a COM Total, production scoring, norms, diagnosis or consent-validity classification are not authorized."
+      }
+    },
+    {
+      "name": "en-mobile: COM-12 summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "en-mobile: COM-12 E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "en-mobile: COM-12 construct code identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "COM-E",
+          "COM-R",
+          "COM-N",
+          "COM-P"
+        ],
+        "expected": [
+          "COM-E",
+          "COM-R",
+          "COM-N",
+          "COM-P"
+        ]
+      }
+    },
+    {
+      "name": "en-mobile: COM-12 reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-046",
+          "REF-047",
+          "REF-048",
+          "REF-049",
+          "REF-025"
+        ],
+        "expected": [
+          "REF-046",
+          "REF-047",
+          "REF-048",
+          "REF-049",
+          "REF-025"
+        ]
+      }
+    },
+    {
+      "name": "en-mobile: MOT-12 card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-mobile: MOT-12 name canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Sexual Motivation Architecture"
+      }
+    },
+    {
+      "name": "en-mobile: MOT-12 question canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Why — for what anticipated psychological result — does a person choose sexual or erotically significant intimacy?"
+      }
+    },
+    {
+      "name": "en-mobile: MOT-12 role canonical en",
+      "pass": true,
+      "detail": {
+        "value": "A layer of reasons for choosing intimacy, separated from desire strength, activation triggers, behavior, communication ability, self-relation and downstream states."
+      }
+    },
+    {
+      "name": "en-mobile: MOT-12 development canonical en",
+      "pass": true,
+      "detail": {
+        "value": "After evidence/boundary audit, a 36-item controlled pool was reduced to a 24-item Cognitive Candidate plus a 12-item traceable reserve. Expert, CVI and cognitive programmes are ready for execution; M-V remains a challenge territory."
+      }
+    },
+    {
+      "name": "en-mobile: MOT-12 ceiling canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Candidate motive territories and development evidence only. No MOT Total, healthy/unhealthy motive classification, confirmed factor model, production scoring or psychometric-validity claim."
+      }
+    },
+    {
+      "name": "en-mobile: MOT-12 summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "en-mobile: MOT-12 E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "en-mobile: MOT-12 construct code identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "M-H",
+          "M-C",
+          "M-P",
+          "M-K",
+          "M-A",
+          "M-O",
+          "M-V",
+          "M0"
+        ],
+        "expected": [
+          "M-H",
+          "M-C",
+          "M-P",
+          "M-K",
+          "M-A",
+          "M-O",
+          "M-V",
+          "M0"
+        ]
+      }
+    },
+    {
+      "name": "en-mobile: MOT-12 reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-050",
+          "REF-051",
+          "REF-052",
+          "REF-053",
+          "REF-003",
+          "REF-040"
+        ],
+        "expected": [
+          "REF-050",
+          "REF-051",
+          "REF-052",
+          "REF-053",
+          "REF-003",
+          "REF-040"
+        ]
+      }
+    },
+    {
+      "name": "en-mobile: SELF-12 card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-mobile: SELF-12 name canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Sexual Self-Relation Architecture"
+      }
+    },
+    {
+      "name": "en-mobile: SELF-12 question canonical en",
+      "pass": true,
+      "detail": {
+        "value": "How does a person experience, evaluate and author themselves as a sexual subject?"
+      }
+    },
+    {
+      "name": "en-mobile: SELF-12 role canonical en",
+      "pass": true,
+      "detail": {
+        "value": "A sexual self-relation layer that is not reducible to general self-esteem, body image, communication, motivation, attachment, embodied sensitivity or preferences."
+      }
+    },
+    {
+      "name": "en-mobile: SELF-12 development canonical en",
+      "pass": true,
+      "detail": {
+        "value": "A broad 12-territory landscape was pruned and ownership-adjudicated into a 5 CORE + 2 LIMITED candidate architecture and a 21-item Cognitive Candidate. Expert/CVI/cognitive execution remains evidence-gated."
+      }
+    },
+    {
+      "name": "en-mobile: SELF-12 ceiling canonical en",
+      "pass": true,
+      "detail": {
+        "value": "The 5 CORE + 2 LIMITED candidate architecture, development record, boundaries and selected evidence anchors may be shown. No SELF Total, confirmed seven-factor model, norms or participant interpretation."
+      }
+    },
+    {
+      "name": "en-mobile: SELF-12 summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "en-mobile: SELF-12 E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "en-mobile: SELF-12 construct code identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "SRG",
+          "DPL",
+          "SAA",
+          "SSC",
+          "SSH",
+          "PSD",
+          "SBA"
+        ],
+        "expected": [
+          "SRG",
+          "DPL",
+          "SAA",
+          "SSC",
+          "SSH",
+          "PSD",
+          "SBA"
+        ]
+      }
+    },
+    {
+      "name": "en-mobile: SELF-12 reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-054",
+          "REF-055",
+          "REF-056",
+          "REF-057",
+          "REF-058",
+          "REF-059",
+          "REF-060"
+        ],
+        "expected": [
+          "REF-054",
+          "REF-055",
+          "REF-056",
+          "REF-057",
+          "REF-058",
+          "REF-059",
+          "REF-060"
+        ]
+      }
+    },
+    {
+      "name": "en-mobile: RPE-MOD card exists",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-mobile: RPE-MOD name canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Specialized Preference / Reward Architecture"
+      }
+    },
+    {
+      "name": "en-mobile: RPE-MOD question canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Can specific preference/reward coordinates add information without duplicating activation, embodied response, communication, self-relation or outcomes?"
+      }
+    },
+    {
+      "name": "en-mobile: RPE-MOD role canonical en",
+      "pass": true,
+      "detail": {
+        "value": "An optional specialized preference/reward layer under separate safety/privacy and publication governance."
+      }
+    },
+    {
+      "name": "en-mobile: RPE-MOD development canonical en",
+      "pass": true,
+      "detail": {
+        "value": "At the current stage only the minimal role, status, boundaries, fielding hold and independent-measurement/later-join principle are public."
+      }
+    },
+    {
+      "name": "en-mobile: RPE-MOD ceiling canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Existing minimal role/status/boundary summary only. Detailed construct families, high-risk operational detail, scoring, norms, archetypes and respondent-facing interpretation remain suppressed until a separate RPE publication authority exists."
+      }
+    },
+    {
+      "name": "en-mobile: RPE-MOD summary_only marker",
+      "pass": true,
+      "detail": {
+        "visibility": "summary_only"
+      }
+    },
+    {
+      "name": "en-mobile: RPE-MOD E3/E4 withheld in source",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "NOT_PROJECTED",
+          "E1": "CONTROLLED",
+          "E2": "NOT_ESTABLISHED_FOR_PUBLIC_CLAIMS",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "en-mobile: RPE detail suppression marker",
+      "pass": true,
+      "detail": {
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "name": "en-mobile: RPE constructs absent",
+      "pass": true,
+      "detail": {
+        "constructs": []
+      }
+    },
+    {
+      "name": "en-mobile: RPE references absent",
+      "pass": true,
+      "detail": {
+        "refs": []
+      }
+    },
+    {
+      "name": "en-mobile-extended: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "en-mobile-extended: reader-facing PASS4 surfaces contain no Cyrillic",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-mobile: LIFE only outcome",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "LIFE-12/18"
+        ]
+      }
+    },
+    {
+      "name": "en-mobile: LIFE name canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Intimacy-Life Integration / Relationship-to-Life Spillover"
+      }
+    },
+    {
+      "name": "en-mobile: LIFE question canonical en",
+      "pass": true,
+      "detail": {
+        "value": "What broader affective, energetic, cognitive, restorative, engagement or meaning-related states are observed around and after intimacy?"
+      }
+    },
+    {
+      "name": "en-mobile: LIFE role canonical en",
+      "pass": true,
+      "detail": {
+        "value": "A separate outcome/spillover layer. LIFE measures observed downstream states, not a psychosexual trait and not a causal effect of intimacy."
+      }
+    },
+    {
+      "name": "en-mobile: LIFE development canonical en",
+      "pass": true,
+      "detail": {
+        "value": "A 12-target outcome landscape was reduced to 8 respondent-facing territories and 6 CORE + CCO limited/auxiliary, with GLS externalized. Event/daily T0/T1, recent-pattern and global/external-anchor modes are not interchangeable; LIFE-18 remains the preferred developmental depth."
+      }
+    },
+    {
+      "name": "en-mobile: LIFE ceiling canonical en",
+      "pass": true,
+      "detail": {
+        "value": "Candidate outcome architecture and external comparators with covariation/temporal-association wording only. No LIFE Total, causal attribution, productivity or health-outcome promise, or confirmed factor model."
+      }
+    },
+    {
+      "name": "en-mobile: LIFE construct identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "PAU",
+          "NAL",
+          "SV",
+          "SLP",
+          "WSE",
+          "MLS",
+          "CCO",
+          "GLS"
+        ]
+      }
+    },
+    {
+      "name": "en-mobile: LIFE reference identity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "REF-061",
+          "REF-062",
+          "REF-063",
+          "REF-064",
+          "REF-065",
+          "REF-066",
+          "REF-067",
+          "REF-068"
+        ]
+      }
+    },
+    {
+      "name": "en-mobile: LIFE E3/E4 withheld",
+      "pass": true,
+      "detail": {
+        "evidence": {
+          "E0": "BOUND",
+          "E1": "CONTROLLED",
+          "E2": "PENDING",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "name": "en-mobile-outcomes: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "en-mobile-outcomes: reader-facing PASS4 surfaces contain no Cyrillic",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-mobile: E0-E4 structural parity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "E0",
+          "E1",
+          "E2",
+          "E3",
+          "E4"
+        ]
+      }
+    },
+    {
+      "name": "en-mobile: E0 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "External scientific foundation"
+      }
+    },
+    {
+      "name": "en-mobile: E0 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Published research, models, constructs and measurement precedents relevant to the measurement territory."
+      }
+    },
+    {
+      "name": "en-mobile: E0 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Validation of the integrated P-120 architecture."
+      }
+    },
+    {
+      "name": "en-mobile: E1 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Internal architecture verification"
+      }
+    },
+    {
+      "name": "en-mobile: E1 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Construct-boundary, ownership, redundancy, item-level, information-gain, scope/exposure, safety, computational-contract and cross-module verification."
+      }
+    },
+    {
+      "name": "en-mobile: E1 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Reliability, factor validity, norms or population generalizability."
+      }
+    },
+    {
+      "name": "en-mobile: E2 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Human cognitive or cross-check evidence"
+      }
+    },
+    {
+      "name": "en-mobile: E2 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Evidence-bearing comprehension, discrimination or field observations used to adjudicate development hypotheses."
+      }
+    },
+    {
+      "name": "en-mobile: E2 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Completed psychometric validation or external replication."
+      }
+    },
+    {
+      "name": "en-mobile: E3 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "Psychometric validation"
+      }
+    },
+    {
+      "name": "en-mobile: E3 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Quantitative respondent-sample evidence addressing reliability, factor structure, discriminant/incremental validity, stability, invariance or other explicitly tested properties."
+      }
+    },
+    {
+      "name": "en-mobile: E3 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "Independent external replication unless separately established."
+      }
+    },
+    {
+      "name": "en-mobile: E4 label rendered",
+      "pass": true,
+      "detail": {
+        "value": "External replication"
+      }
+    },
+    {
+      "name": "en-mobile: E4 meaning rendered",
+      "pass": true,
+      "detail": {
+        "value": "Independently reproduced evidence under a separately defined replication authority."
+      }
+    },
+    {
+      "name": "en-mobile: E4 non-claim rendered",
+      "pass": true,
+      "detail": {
+        "value": "A default state of any current module."
+      }
+    },
+    {
+      "name": "en-mobile: cross-layer statement rendered",
+      "pass": true,
+      "detail": {
+        "value": "P-120 does not collapse its layers into a single total. It separates neighboring processes in advance and formulates testable cross-layer questions: does joint reading of independent coordinates add information beyond each layer alone? At the current stage this is a research programme, not demonstrated cross-module validity."
+      }
+    },
+    {
+      "name": "en-mobile: CLQ structural parity",
+      "pass": true,
+      "detail": {
+        "dom": [
+          "CLQ-01",
+          "CLQ-02",
+          "CLQ-03",
+          "CLQ-04",
+          "CLQ-05",
+          "CLQ-06",
+          "CLQ-07",
+          "CLQ-08",
+          "CLQ-09",
+          "CLQ-10"
+        ]
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-01 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Activation and motivation"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-01 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Can activation level, temporal durability and reasons for choosing intimacy dissociate?"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-02 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Choice authorship and communication"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-02 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Can internal authorship of a sexual choice differ from the ability to communicate and negotiate that choice?"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-03 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Initiative, agency and motive"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-03 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Can erotic initiative, internal authorship and motive differ within the same person?"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-04 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Recovery after disruption"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-04 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Are erotic re-engagement, communication repair and downstream cognitive carryover distinguishable despite overlapping time windows?"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-05 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Attachment and communication"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-05 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Does sexual/erotic communication add information after attachment/security context is known?"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-06 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Self-relation and validation seeking"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-06 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Is standing sexual self-appraisal distinguishable from choosing intimacy for validation and from attachment reassurance?"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-07 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Embodied response and self-consciousness"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-07 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Can embodied signal sensitivity coexist with strong evaluative sexual self-focus?"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-08 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Motive and downstream outcome"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-08 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Is choosing intimacy to regulate a state distinct from the downstream state later observed?"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-09 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Erotic dynamics and broader life functioning"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-09 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "How are post-event erotic/relational changes associated with broader affect, vitality, sleep, engagement and meaning states?"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-10 theme rendered",
+      "pass": true,
+      "detail": {
+        "value": "Preference and other layers"
+      }
+    },
+    {
+      "name": "en-mobile: CLQ-10 question rendered",
+      "pass": true,
+      "detail": {
+        "value": "Do preference/reward coordinates add information after activation, embodied response, communication and outcomes are measured independently?"
+      }
+    },
+    {
+      "name": "en-mobile: cross-layer states withheld",
+      "pass": true,
+      "detail": {
+        "state": {
+          "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+          "empirical_incremental_validity": "NOT_ESTABLISHED",
+          "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+          "causal_cross_layer_effects": "NOT_AUTHORIZED"
+        }
+      }
+    },
+    {
+      "name": "en-mobile-methods: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "en-mobile-methods: reader-facing PASS4 surfaces contain no Cyrillic",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-mobile: Global70 visible",
+      "pass": true,
+      "detail": {
+        "all": 70,
+        "core": 45,
+        "ext": 25
+      }
+    },
+    {
+      "name": "en-mobile: REF-001..070 continuous",
+      "pass": true,
+      "detail": {
+        "first": "REF-001",
+        "last": "REF-070"
+      }
+    },
+    {
+      "name": "en-mobile: native Core bibliography hidden only in integrated Library",
+      "pass": true,
+      "detail": {
+        "oldCoreHidden": true
+      }
+    },
+    {
+      "name": "en-mobile: no inferred Core evidence roles",
+      "pass": true,
+      "detail": {
+        "coreRoleLeak": false
+      }
+    },
+    {
+      "name": "en-mobile: Library validity boundary rendered",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-mobile: no horizontal overflow in Library",
+      "pass": true,
+      "detail": {
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-mobile-library: no affirmative forbidden claim phrases",
+      "pass": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "en-mobile-library: reader-facing PASS4 surfaces contain no Cyrillic",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-mobile: storage isolation",
+      "pass": true,
+      "detail": {
+        "l": "LOCAL-4D",
+        "s": "SESSION-4D"
+      }
+    },
+    {
+      "name": "en-mobile: no runtime errors",
+      "pass": true,
+      "detail": {
+        "errors": []
+      }
+    },
+    {
+      "name": "desktop: RU/EN Extended structural signature identical",
+      "pass": true,
+      "detail": {
+        "ru": {
+          "modules": [
+            {
+              "id": "COM-12",
+              "constructs": [
+                "COM-E",
+                "COM-R",
+                "COM-N",
+                "COM-P"
+              ],
+              "refs": [
+                "REF-046",
+                "REF-047",
+                "REF-048",
+                "REF-049",
+                "REF-025"
+              ],
+              "visibility": "summary_only"
+            },
+            {
+              "id": "MOT-12",
+              "constructs": [
+                "M-H",
+                "M-C",
+                "M-P",
+                "M-K",
+                "M-A",
+                "M-O",
+                "M-V",
+                "M0"
+              ],
+              "refs": [
+                "REF-050",
+                "REF-051",
+                "REF-052",
+                "REF-053",
+                "REF-003",
+                "REF-040"
+              ],
+              "visibility": "summary_only"
+            },
+            {
+              "id": "SELF-12",
+              "constructs": [
+                "SRG",
+                "DPL",
+                "SAA",
+                "SSC",
+                "SSH",
+                "PSD",
+                "SBA"
+              ],
+              "refs": [
+                "REF-054",
+                "REF-055",
+                "REF-056",
+                "REF-057",
+                "REF-058",
+                "REF-059",
+                "REF-060"
+              ],
+              "visibility": "summary_only"
+            },
+            {
+              "id": "RPE-MOD",
+              "constructs": [],
+              "refs": [],
+              "visibility": "summary_only"
+            }
+          ]
+        },
+        "en": {
+          "modules": [
+            {
+              "id": "COM-12",
+              "constructs": [
+                "COM-E",
+                "COM-R",
+                "COM-N",
+                "COM-P"
+              ],
+              "refs": [
+                "REF-046",
+                "REF-047",
+                "REF-048",
+                "REF-049",
+                "REF-025"
+              ],
+              "visibility": "summary_only"
+            },
+            {
+              "id": "MOT-12",
+              "constructs": [
+                "M-H",
+                "M-C",
+                "M-P",
+                "M-K",
+                "M-A",
+                "M-O",
+                "M-V",
+                "M0"
+              ],
+              "refs": [
+                "REF-050",
+                "REF-051",
+                "REF-052",
+                "REF-053",
+                "REF-003",
+                "REF-040"
+              ],
+              "visibility": "summary_only"
+            },
+            {
+              "id": "SELF-12",
+              "constructs": [
+                "SRG",
+                "DPL",
+                "SAA",
+                "SSC",
+                "SSH",
+                "PSD",
+                "SBA"
+              ],
+              "refs": [
+                "REF-054",
+                "REF-055",
+                "REF-056",
+                "REF-057",
+                "REF-058",
+                "REF-059",
+                "REF-060"
+              ],
+              "visibility": "summary_only"
+            },
+            {
+              "id": "RPE-MOD",
+              "constructs": [],
+              "refs": [],
+              "visibility": "summary_only"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "desktop: RU/EN Outcomes structural signature identical",
+      "pass": true,
+      "detail": {
+        "ru": {
+          "modules": [
+            {
+              "id": "LIFE-12/18",
+              "constructs": [
+                "PAU",
+                "NAL",
+                "SV",
+                "SLP",
+                "WSE",
+                "MLS",
+                "CCO",
+                "GLS"
+              ],
+              "refs": [
+                "REF-061",
+                "REF-062",
+                "REF-063",
+                "REF-064",
+                "REF-065",
+                "REF-066",
+                "REF-067",
+                "REF-068"
+              ],
+              "visibility": "summary_only"
+            }
+          ]
+        },
+        "en": {
+          "modules": [
+            {
+              "id": "LIFE-12/18",
+              "constructs": [
+                "PAU",
+                "NAL",
+                "SV",
+                "SLP",
+                "WSE",
+                "MLS",
+                "CCO",
+                "GLS"
+              ],
+              "refs": [
+                "REF-061",
+                "REF-062",
+                "REF-063",
+                "REF-064",
+                "REF-065",
+                "REF-066",
+                "REF-067",
+                "REF-068"
+              ],
+              "visibility": "summary_only"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "desktop: RU/EN Methods structural signature identical",
+      "pass": true,
+      "detail": {
+        "ru": {
+          "ladder": [
+            "E0",
+            "E1",
+            "E2",
+            "E3",
+            "E4"
+          ],
+          "questions": [
+            "CLQ-01",
+            "CLQ-02",
+            "CLQ-03",
+            "CLQ-04",
+            "CLQ-05",
+            "CLQ-06",
+            "CLQ-07",
+            "CLQ-08",
+            "CLQ-09",
+            "CLQ-10"
+          ]
+        },
+        "en": {
+          "ladder": [
+            "E0",
+            "E1",
+            "E2",
+            "E3",
+            "E4"
+          ],
+          "questions": [
+            "CLQ-01",
+            "CLQ-02",
+            "CLQ-03",
+            "CLQ-04",
+            "CLQ-05",
+            "CLQ-06",
+            "CLQ-07",
+            "CLQ-08",
+            "CLQ-09",
+            "CLQ-10"
+          ]
+        }
+      }
+    },
+    {
+      "name": "desktop: RU/EN Library structural signature identical",
+      "pass": true,
+      "detail": {
+        "ru": {
+          "count": 70,
+          "core": 45,
+          "ext": 25,
+          "ids": [
+            "REF-001",
+            "REF-002",
+            "REF-003",
+            "REF-004",
+            "REF-005",
+            "REF-006",
+            "REF-007",
+            "REF-008",
+            "REF-009",
+            "REF-010",
+            "REF-011",
+            "REF-012",
+            "REF-013",
+            "REF-014",
+            "REF-015",
+            "REF-016",
+            "REF-017",
+            "REF-018",
+            "REF-019",
+            "REF-020",
+            "REF-021",
+            "REF-022",
+            "REF-023",
+            "REF-024",
+            "REF-025",
+            "REF-026",
+            "REF-027",
+            "REF-028",
+            "REF-029",
+            "REF-030",
+            "REF-031",
+            "REF-032",
+            "REF-033",
+            "REF-034",
+            "REF-035",
+            "REF-036",
+            "REF-037",
+            "REF-038",
+            "REF-039",
+            "REF-040",
+            "REF-041",
+            "REF-042",
+            "REF-043",
+            "REF-044",
+            "REF-045",
+            "REF-046",
+            "REF-047",
+            "REF-048",
+            "REF-049",
+            "REF-050",
+            "REF-051",
+            "REF-052",
+            "REF-053",
+            "REF-054",
+            "REF-055",
+            "REF-056",
+            "REF-057",
+            "REF-058",
+            "REF-059",
+            "REF-060",
+            "REF-061",
+            "REF-062",
+            "REF-063",
+            "REF-064",
+            "REF-065",
+            "REF-066",
+            "REF-067",
+            "REF-068",
+            "REF-069",
+            "REF-070"
+          ]
+        },
+        "en": {
+          "count": 70,
+          "core": 45,
+          "ext": 25,
+          "ids": [
+            "REF-001",
+            "REF-002",
+            "REF-003",
+            "REF-004",
+            "REF-005",
+            "REF-006",
+            "REF-007",
+            "REF-008",
+            "REF-009",
+            "REF-010",
+            "REF-011",
+            "REF-012",
+            "REF-013",
+            "REF-014",
+            "REF-015",
+            "REF-016",
+            "REF-017",
+            "REF-018",
+            "REF-019",
+            "REF-020",
+            "REF-021",
+            "REF-022",
+            "REF-023",
+            "REF-024",
+            "REF-025",
+            "REF-026",
+            "REF-027",
+            "REF-028",
+            "REF-029",
+            "REF-030",
+            "REF-031",
+            "REF-032",
+            "REF-033",
+            "REF-034",
+            "REF-035",
+            "REF-036",
+            "REF-037",
+            "REF-038",
+            "REF-039",
+            "REF-040",
+            "REF-041",
+            "REF-042",
+            "REF-043",
+            "REF-044",
+            "REF-045",
+            "REF-046",
+            "REF-047",
+            "REF-048",
+            "REF-049",
+            "REF-050",
+            "REF-051",
+            "REF-052",
+            "REF-053",
+            "REF-054",
+            "REF-055",
+            "REF-056",
+            "REF-057",
+            "REF-058",
+            "REF-059",
+            "REF-060",
+            "REF-061",
+            "REF-062",
+            "REF-063",
+            "REF-064",
+            "REF-065",
+            "REF-066",
+            "REF-067",
+            "REF-068",
+            "REF-069",
+            "REF-070"
+          ]
+        }
+      }
+    },
+    {
+      "name": "mobile: RU/EN Extended structural signature identical",
+      "pass": true,
+      "detail": {
+        "ru": {
+          "modules": [
+            {
+              "id": "COM-12",
+              "constructs": [
+                "COM-E",
+                "COM-R",
+                "COM-N",
+                "COM-P"
+              ],
+              "refs": [
+                "REF-046",
+                "REF-047",
+                "REF-048",
+                "REF-049",
+                "REF-025"
+              ],
+              "visibility": "summary_only"
+            },
+            {
+              "id": "MOT-12",
+              "constructs": [
+                "M-H",
+                "M-C",
+                "M-P",
+                "M-K",
+                "M-A",
+                "M-O",
+                "M-V",
+                "M0"
+              ],
+              "refs": [
+                "REF-050",
+                "REF-051",
+                "REF-052",
+                "REF-053",
+                "REF-003",
+                "REF-040"
+              ],
+              "visibility": "summary_only"
+            },
+            {
+              "id": "SELF-12",
+              "constructs": [
+                "SRG",
+                "DPL",
+                "SAA",
+                "SSC",
+                "SSH",
+                "PSD",
+                "SBA"
+              ],
+              "refs": [
+                "REF-054",
+                "REF-055",
+                "REF-056",
+                "REF-057",
+                "REF-058",
+                "REF-059",
+                "REF-060"
+              ],
+              "visibility": "summary_only"
+            },
+            {
+              "id": "RPE-MOD",
+              "constructs": [],
+              "refs": [],
+              "visibility": "summary_only"
+            }
+          ]
+        },
+        "en": {
+          "modules": [
+            {
+              "id": "COM-12",
+              "constructs": [
+                "COM-E",
+                "COM-R",
+                "COM-N",
+                "COM-P"
+              ],
+              "refs": [
+                "REF-046",
+                "REF-047",
+                "REF-048",
+                "REF-049",
+                "REF-025"
+              ],
+              "visibility": "summary_only"
+            },
+            {
+              "id": "MOT-12",
+              "constructs": [
+                "M-H",
+                "M-C",
+                "M-P",
+                "M-K",
+                "M-A",
+                "M-O",
+                "M-V",
+                "M0"
+              ],
+              "refs": [
+                "REF-050",
+                "REF-051",
+                "REF-052",
+                "REF-053",
+                "REF-003",
+                "REF-040"
+              ],
+              "visibility": "summary_only"
+            },
+            {
+              "id": "SELF-12",
+              "constructs": [
+                "SRG",
+                "DPL",
+                "SAA",
+                "SSC",
+                "SSH",
+                "PSD",
+                "SBA"
+              ],
+              "refs": [
+                "REF-054",
+                "REF-055",
+                "REF-056",
+                "REF-057",
+                "REF-058",
+                "REF-059",
+                "REF-060"
+              ],
+              "visibility": "summary_only"
+            },
+            {
+              "id": "RPE-MOD",
+              "constructs": [],
+              "refs": [],
+              "visibility": "summary_only"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "mobile: RU/EN Outcomes structural signature identical",
+      "pass": true,
+      "detail": {
+        "ru": {
+          "modules": [
+            {
+              "id": "LIFE-12/18",
+              "constructs": [
+                "PAU",
+                "NAL",
+                "SV",
+                "SLP",
+                "WSE",
+                "MLS",
+                "CCO",
+                "GLS"
+              ],
+              "refs": [
+                "REF-061",
+                "REF-062",
+                "REF-063",
+                "REF-064",
+                "REF-065",
+                "REF-066",
+                "REF-067",
+                "REF-068"
+              ],
+              "visibility": "summary_only"
+            }
+          ]
+        },
+        "en": {
+          "modules": [
+            {
+              "id": "LIFE-12/18",
+              "constructs": [
+                "PAU",
+                "NAL",
+                "SV",
+                "SLP",
+                "WSE",
+                "MLS",
+                "CCO",
+                "GLS"
+              ],
+              "refs": [
+                "REF-061",
+                "REF-062",
+                "REF-063",
+                "REF-064",
+                "REF-065",
+                "REF-066",
+                "REF-067",
+                "REF-068"
+              ],
+              "visibility": "summary_only"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "mobile: RU/EN Methods structural signature identical",
+      "pass": true,
+      "detail": {
+        "ru": {
+          "ladder": [
+            "E0",
+            "E1",
+            "E2",
+            "E3",
+            "E4"
+          ],
+          "questions": [
+            "CLQ-01",
+            "CLQ-02",
+            "CLQ-03",
+            "CLQ-04",
+            "CLQ-05",
+            "CLQ-06",
+            "CLQ-07",
+            "CLQ-08",
+            "CLQ-09",
+            "CLQ-10"
+          ]
+        },
+        "en": {
+          "ladder": [
+            "E0",
+            "E1",
+            "E2",
+            "E3",
+            "E4"
+          ],
+          "questions": [
+            "CLQ-01",
+            "CLQ-02",
+            "CLQ-03",
+            "CLQ-04",
+            "CLQ-05",
+            "CLQ-06",
+            "CLQ-07",
+            "CLQ-08",
+            "CLQ-09",
+            "CLQ-10"
+          ]
+        }
+      }
+    },
+    {
+      "name": "mobile: RU/EN Library structural signature identical",
+      "pass": true,
+      "detail": {
+        "ru": {
+          "count": 70,
+          "core": 45,
+          "ext": 25,
+          "ids": [
+            "REF-001",
+            "REF-002",
+            "REF-003",
+            "REF-004",
+            "REF-005",
+            "REF-006",
+            "REF-007",
+            "REF-008",
+            "REF-009",
+            "REF-010",
+            "REF-011",
+            "REF-012",
+            "REF-013",
+            "REF-014",
+            "REF-015",
+            "REF-016",
+            "REF-017",
+            "REF-018",
+            "REF-019",
+            "REF-020",
+            "REF-021",
+            "REF-022",
+            "REF-023",
+            "REF-024",
+            "REF-025",
+            "REF-026",
+            "REF-027",
+            "REF-028",
+            "REF-029",
+            "REF-030",
+            "REF-031",
+            "REF-032",
+            "REF-033",
+            "REF-034",
+            "REF-035",
+            "REF-036",
+            "REF-037",
+            "REF-038",
+            "REF-039",
+            "REF-040",
+            "REF-041",
+            "REF-042",
+            "REF-043",
+            "REF-044",
+            "REF-045",
+            "REF-046",
+            "REF-047",
+            "REF-048",
+            "REF-049",
+            "REF-050",
+            "REF-051",
+            "REF-052",
+            "REF-053",
+            "REF-054",
+            "REF-055",
+            "REF-056",
+            "REF-057",
+            "REF-058",
+            "REF-059",
+            "REF-060",
+            "REF-061",
+            "REF-062",
+            "REF-063",
+            "REF-064",
+            "REF-065",
+            "REF-066",
+            "REF-067",
+            "REF-068",
+            "REF-069",
+            "REF-070"
+          ]
+        },
+        "en": {
+          "count": 70,
+          "core": 45,
+          "ext": 25,
+          "ids": [
+            "REF-001",
+            "REF-002",
+            "REF-003",
+            "REF-004",
+            "REF-005",
+            "REF-006",
+            "REF-007",
+            "REF-008",
+            "REF-009",
+            "REF-010",
+            "REF-011",
+            "REF-012",
+            "REF-013",
+            "REF-014",
+            "REF-015",
+            "REF-016",
+            "REF-017",
+            "REF-018",
+            "REF-019",
+            "REF-020",
+            "REF-021",
+            "REF-022",
+            "REF-023",
+            "REF-024",
+            "REF-025",
+            "REF-026",
+            "REF-027",
+            "REF-028",
+            "REF-029",
+            "REF-030",
+            "REF-031",
+            "REF-032",
+            "REF-033",
+            "REF-034",
+            "REF-035",
+            "REF-036",
+            "REF-037",
+            "REF-038",
+            "REF-039",
+            "REF-040",
+            "REF-041",
+            "REF-042",
+            "REF-043",
+            "REF-044",
+            "REF-045",
+            "REF-046",
+            "REF-047",
+            "REF-048",
+            "REF-049",
+            "REF-050",
+            "REF-051",
+            "REF-052",
+            "REF-053",
+            "REF-054",
+            "REF-055",
+            "REF-056",
+            "REF-057",
+            "REF-058",
+            "REF-059",
+            "REF-060",
+            "REF-061",
+            "REF-062",
+            "REF-063",
+            "REF-064",
+            "REF-065",
+            "REF-066",
+            "REF-067",
+            "REF-068",
+            "REF-069",
+            "REF-070"
+          ]
+        }
+      }
+    }
+  ],
+  "failures": [],
+  "snapshots": {
+    "ru-desktop": {
+      "extended": {
+        "modules": [
+          {
+            "id": "COM-12",
+            "constructs": [
+              "COM-E",
+              "COM-R",
+              "COM-N",
+              "COM-P"
+            ],
+            "refs": [
+              "REF-046",
+              "REF-047",
+              "REF-048",
+              "REF-049",
+              "REF-025"
+            ],
+            "visibility": "summary_only"
+          },
+          {
+            "id": "MOT-12",
+            "constructs": [
+              "M-H",
+              "M-C",
+              "M-P",
+              "M-K",
+              "M-A",
+              "M-O",
+              "M-V",
+              "M0"
+            ],
+            "refs": [
+              "REF-050",
+              "REF-051",
+              "REF-052",
+              "REF-053",
+              "REF-003",
+              "REF-040"
+            ],
+            "visibility": "summary_only"
+          },
+          {
+            "id": "SELF-12",
+            "constructs": [
+              "SRG",
+              "DPL",
+              "SAA",
+              "SSC",
+              "SSH",
+              "PSD",
+              "SBA"
+            ],
+            "refs": [
+              "REF-054",
+              "REF-055",
+              "REF-056",
+              "REF-057",
+              "REF-058",
+              "REF-059",
+              "REF-060"
+            ],
+            "visibility": "summary_only"
+          },
+          {
+            "id": "RPE-MOD",
+            "constructs": [],
+            "refs": [],
+            "visibility": "summary_only"
+          }
+        ]
+      },
+      "outcomes": {
+        "modules": [
+          {
+            "id": "LIFE-12/18",
+            "constructs": [
+              "PAU",
+              "NAL",
+              "SV",
+              "SLP",
+              "WSE",
+              "MLS",
+              "CCO",
+              "GLS"
+            ],
+            "refs": [
+              "REF-061",
+              "REF-062",
+              "REF-063",
+              "REF-064",
+              "REF-065",
+              "REF-066",
+              "REF-067",
+              "REF-068"
+            ],
+            "visibility": "summary_only"
+          }
+        ]
+      },
+      "methods": {
+        "ladder": [
+          "E0",
+          "E1",
+          "E2",
+          "E3",
+          "E4"
+        ],
+        "questions": [
+          "CLQ-01",
+          "CLQ-02",
+          "CLQ-03",
+          "CLQ-04",
+          "CLQ-05",
+          "CLQ-06",
+          "CLQ-07",
+          "CLQ-08",
+          "CLQ-09",
+          "CLQ-10"
+        ]
+      },
+      "library": {
+        "count": 70,
+        "core": 45,
+        "ext": 25,
+        "ids": [
+          "REF-001",
+          "REF-002",
+          "REF-003",
+          "REF-004",
+          "REF-005",
+          "REF-006",
+          "REF-007",
+          "REF-008",
+          "REF-009",
+          "REF-010",
+          "REF-011",
+          "REF-012",
+          "REF-013",
+          "REF-014",
+          "REF-015",
+          "REF-016",
+          "REF-017",
+          "REF-018",
+          "REF-019",
+          "REF-020",
+          "REF-021",
+          "REF-022",
+          "REF-023",
+          "REF-024",
+          "REF-025",
+          "REF-026",
+          "REF-027",
+          "REF-028",
+          "REF-029",
+          "REF-030",
+          "REF-031",
+          "REF-032",
+          "REF-033",
+          "REF-034",
+          "REF-035",
+          "REF-036",
+          "REF-037",
+          "REF-038",
+          "REF-039",
+          "REF-040",
+          "REF-041",
+          "REF-042",
+          "REF-043",
+          "REF-044",
+          "REF-045",
+          "REF-046",
+          "REF-047",
+          "REF-048",
+          "REF-049",
+          "REF-050",
+          "REF-051",
+          "REF-052",
+          "REF-053",
+          "REF-054",
+          "REF-055",
+          "REF-056",
+          "REF-057",
+          "REF-058",
+          "REF-059",
+          "REF-060",
+          "REF-061",
+          "REF-062",
+          "REF-063",
+          "REF-064",
+          "REF-065",
+          "REF-066",
+          "REF-067",
+          "REF-068",
+          "REF-069",
+          "REF-070"
+        ]
+      }
+    },
+    "ru-mobile": {
+      "extended": {
+        "modules": [
+          {
+            "id": "COM-12",
+            "constructs": [
+              "COM-E",
+              "COM-R",
+              "COM-N",
+              "COM-P"
+            ],
+            "refs": [
+              "REF-046",
+              "REF-047",
+              "REF-048",
+              "REF-049",
+              "REF-025"
+            ],
+            "visibility": "summary_only"
+          },
+          {
+            "id": "MOT-12",
+            "constructs": [
+              "M-H",
+              "M-C",
+              "M-P",
+              "M-K",
+              "M-A",
+              "M-O",
+              "M-V",
+              "M0"
+            ],
+            "refs": [
+              "REF-050",
+              "REF-051",
+              "REF-052",
+              "REF-053",
+              "REF-003",
+              "REF-040"
+            ],
+            "visibility": "summary_only"
+          },
+          {
+            "id": "SELF-12",
+            "constructs": [
+              "SRG",
+              "DPL",
+              "SAA",
+              "SSC",
+              "SSH",
+              "PSD",
+              "SBA"
+            ],
+            "refs": [
+              "REF-054",
+              "REF-055",
+              "REF-056",
+              "REF-057",
+              "REF-058",
+              "REF-059",
+              "REF-060"
+            ],
+            "visibility": "summary_only"
+          },
+          {
+            "id": "RPE-MOD",
+            "constructs": [],
+            "refs": [],
+            "visibility": "summary_only"
+          }
+        ]
+      },
+      "outcomes": {
+        "modules": [
+          {
+            "id": "LIFE-12/18",
+            "constructs": [
+              "PAU",
+              "NAL",
+              "SV",
+              "SLP",
+              "WSE",
+              "MLS",
+              "CCO",
+              "GLS"
+            ],
+            "refs": [
+              "REF-061",
+              "REF-062",
+              "REF-063",
+              "REF-064",
+              "REF-065",
+              "REF-066",
+              "REF-067",
+              "REF-068"
+            ],
+            "visibility": "summary_only"
+          }
+        ]
+      },
+      "methods": {
+        "ladder": [
+          "E0",
+          "E1",
+          "E2",
+          "E3",
+          "E4"
+        ],
+        "questions": [
+          "CLQ-01",
+          "CLQ-02",
+          "CLQ-03",
+          "CLQ-04",
+          "CLQ-05",
+          "CLQ-06",
+          "CLQ-07",
+          "CLQ-08",
+          "CLQ-09",
+          "CLQ-10"
+        ]
+      },
+      "library": {
+        "count": 70,
+        "core": 45,
+        "ext": 25,
+        "ids": [
+          "REF-001",
+          "REF-002",
+          "REF-003",
+          "REF-004",
+          "REF-005",
+          "REF-006",
+          "REF-007",
+          "REF-008",
+          "REF-009",
+          "REF-010",
+          "REF-011",
+          "REF-012",
+          "REF-013",
+          "REF-014",
+          "REF-015",
+          "REF-016",
+          "REF-017",
+          "REF-018",
+          "REF-019",
+          "REF-020",
+          "REF-021",
+          "REF-022",
+          "REF-023",
+          "REF-024",
+          "REF-025",
+          "REF-026",
+          "REF-027",
+          "REF-028",
+          "REF-029",
+          "REF-030",
+          "REF-031",
+          "REF-032",
+          "REF-033",
+          "REF-034",
+          "REF-035",
+          "REF-036",
+          "REF-037",
+          "REF-038",
+          "REF-039",
+          "REF-040",
+          "REF-041",
+          "REF-042",
+          "REF-043",
+          "REF-044",
+          "REF-045",
+          "REF-046",
+          "REF-047",
+          "REF-048",
+          "REF-049",
+          "REF-050",
+          "REF-051",
+          "REF-052",
+          "REF-053",
+          "REF-054",
+          "REF-055",
+          "REF-056",
+          "REF-057",
+          "REF-058",
+          "REF-059",
+          "REF-060",
+          "REF-061",
+          "REF-062",
+          "REF-063",
+          "REF-064",
+          "REF-065",
+          "REF-066",
+          "REF-067",
+          "REF-068",
+          "REF-069",
+          "REF-070"
+        ]
+      }
+    },
+    "en-desktop": {
+      "extended": {
+        "modules": [
+          {
+            "id": "COM-12",
+            "constructs": [
+              "COM-E",
+              "COM-R",
+              "COM-N",
+              "COM-P"
+            ],
+            "refs": [
+              "REF-046",
+              "REF-047",
+              "REF-048",
+              "REF-049",
+              "REF-025"
+            ],
+            "visibility": "summary_only"
+          },
+          {
+            "id": "MOT-12",
+            "constructs": [
+              "M-H",
+              "M-C",
+              "M-P",
+              "M-K",
+              "M-A",
+              "M-O",
+              "M-V",
+              "M0"
+            ],
+            "refs": [
+              "REF-050",
+              "REF-051",
+              "REF-052",
+              "REF-053",
+              "REF-003",
+              "REF-040"
+            ],
+            "visibility": "summary_only"
+          },
+          {
+            "id": "SELF-12",
+            "constructs": [
+              "SRG",
+              "DPL",
+              "SAA",
+              "SSC",
+              "SSH",
+              "PSD",
+              "SBA"
+            ],
+            "refs": [
+              "REF-054",
+              "REF-055",
+              "REF-056",
+              "REF-057",
+              "REF-058",
+              "REF-059",
+              "REF-060"
+            ],
+            "visibility": "summary_only"
+          },
+          {
+            "id": "RPE-MOD",
+            "constructs": [],
+            "refs": [],
+            "visibility": "summary_only"
+          }
+        ]
+      },
+      "outcomes": {
+        "modules": [
+          {
+            "id": "LIFE-12/18",
+            "constructs": [
+              "PAU",
+              "NAL",
+              "SV",
+              "SLP",
+              "WSE",
+              "MLS",
+              "CCO",
+              "GLS"
+            ],
+            "refs": [
+              "REF-061",
+              "REF-062",
+              "REF-063",
+              "REF-064",
+              "REF-065",
+              "REF-066",
+              "REF-067",
+              "REF-068"
+            ],
+            "visibility": "summary_only"
+          }
+        ]
+      },
+      "methods": {
+        "ladder": [
+          "E0",
+          "E1",
+          "E2",
+          "E3",
+          "E4"
+        ],
+        "questions": [
+          "CLQ-01",
+          "CLQ-02",
+          "CLQ-03",
+          "CLQ-04",
+          "CLQ-05",
+          "CLQ-06",
+          "CLQ-07",
+          "CLQ-08",
+          "CLQ-09",
+          "CLQ-10"
+        ]
+      },
+      "library": {
+        "count": 70,
+        "core": 45,
+        "ext": 25,
+        "ids": [
+          "REF-001",
+          "REF-002",
+          "REF-003",
+          "REF-004",
+          "REF-005",
+          "REF-006",
+          "REF-007",
+          "REF-008",
+          "REF-009",
+          "REF-010",
+          "REF-011",
+          "REF-012",
+          "REF-013",
+          "REF-014",
+          "REF-015",
+          "REF-016",
+          "REF-017",
+          "REF-018",
+          "REF-019",
+          "REF-020",
+          "REF-021",
+          "REF-022",
+          "REF-023",
+          "REF-024",
+          "REF-025",
+          "REF-026",
+          "REF-027",
+          "REF-028",
+          "REF-029",
+          "REF-030",
+          "REF-031",
+          "REF-032",
+          "REF-033",
+          "REF-034",
+          "REF-035",
+          "REF-036",
+          "REF-037",
+          "REF-038",
+          "REF-039",
+          "REF-040",
+          "REF-041",
+          "REF-042",
+          "REF-043",
+          "REF-044",
+          "REF-045",
+          "REF-046",
+          "REF-047",
+          "REF-048",
+          "REF-049",
+          "REF-050",
+          "REF-051",
+          "REF-052",
+          "REF-053",
+          "REF-054",
+          "REF-055",
+          "REF-056",
+          "REF-057",
+          "REF-058",
+          "REF-059",
+          "REF-060",
+          "REF-061",
+          "REF-062",
+          "REF-063",
+          "REF-064",
+          "REF-065",
+          "REF-066",
+          "REF-067",
+          "REF-068",
+          "REF-069",
+          "REF-070"
+        ]
+      }
+    },
+    "en-mobile": {
+      "extended": {
+        "modules": [
+          {
+            "id": "COM-12",
+            "constructs": [
+              "COM-E",
+              "COM-R",
+              "COM-N",
+              "COM-P"
+            ],
+            "refs": [
+              "REF-046",
+              "REF-047",
+              "REF-048",
+              "REF-049",
+              "REF-025"
+            ],
+            "visibility": "summary_only"
+          },
+          {
+            "id": "MOT-12",
+            "constructs": [
+              "M-H",
+              "M-C",
+              "M-P",
+              "M-K",
+              "M-A",
+              "M-O",
+              "M-V",
+              "M0"
+            ],
+            "refs": [
+              "REF-050",
+              "REF-051",
+              "REF-052",
+              "REF-053",
+              "REF-003",
+              "REF-040"
+            ],
+            "visibility": "summary_only"
+          },
+          {
+            "id": "SELF-12",
+            "constructs": [
+              "SRG",
+              "DPL",
+              "SAA",
+              "SSC",
+              "SSH",
+              "PSD",
+              "SBA"
+            ],
+            "refs": [
+              "REF-054",
+              "REF-055",
+              "REF-056",
+              "REF-057",
+              "REF-058",
+              "REF-059",
+              "REF-060"
+            ],
+            "visibility": "summary_only"
+          },
+          {
+            "id": "RPE-MOD",
+            "constructs": [],
+            "refs": [],
+            "visibility": "summary_only"
+          }
+        ]
+      },
+      "outcomes": {
+        "modules": [
+          {
+            "id": "LIFE-12/18",
+            "constructs": [
+              "PAU",
+              "NAL",
+              "SV",
+              "SLP",
+              "WSE",
+              "MLS",
+              "CCO",
+              "GLS"
+            ],
+            "refs": [
+              "REF-061",
+              "REF-062",
+              "REF-063",
+              "REF-064",
+              "REF-065",
+              "REF-066",
+              "REF-067",
+              "REF-068"
+            ],
+            "visibility": "summary_only"
+          }
+        ]
+      },
+      "methods": {
+        "ladder": [
+          "E0",
+          "E1",
+          "E2",
+          "E3",
+          "E4"
+        ],
+        "questions": [
+          "CLQ-01",
+          "CLQ-02",
+          "CLQ-03",
+          "CLQ-04",
+          "CLQ-05",
+          "CLQ-06",
+          "CLQ-07",
+          "CLQ-08",
+          "CLQ-09",
+          "CLQ-10"
+        ]
+      },
+      "library": {
+        "count": 70,
+        "core": 45,
+        "ext": 25,
+        "ids": [
+          "REF-001",
+          "REF-002",
+          "REF-003",
+          "REF-004",
+          "REF-005",
+          "REF-006",
+          "REF-007",
+          "REF-008",
+          "REF-009",
+          "REF-010",
+          "REF-011",
+          "REF-012",
+          "REF-013",
+          "REF-014",
+          "REF-015",
+          "REF-016",
+          "REF-017",
+          "REF-018",
+          "REF-019",
+          "REF-020",
+          "REF-021",
+          "REF-022",
+          "REF-023",
+          "REF-024",
+          "REF-025",
+          "REF-026",
+          "REF-027",
+          "REF-028",
+          "REF-029",
+          "REF-030",
+          "REF-031",
+          "REF-032",
+          "REF-033",
+          "REF-034",
+          "REF-035",
+          "REF-036",
+          "REF-037",
+          "REF-038",
+          "REF-039",
+          "REF-040",
+          "REF-041",
+          "REF-042",
+          "REF-043",
+          "REF-044",
+          "REF-045",
+          "REF-046",
+          "REF-047",
+          "REF-048",
+          "REF-049",
+          "REF-050",
+          "REF-051",
+          "REF-052",
+          "REF-053",
+          "REF-054",
+          "REF-055",
+          "REF-056",
+          "REF-057",
+          "REF-058",
+          "REF-059",
+          "REF-060",
+          "REF-061",
+          "REF-062",
+          "REF-063",
+          "REF-064",
+          "REF-065",
+          "REF-066",
+          "REF-067",
+          "REF-068",
+          "REF-069",
+          "REF-070"
+        ]
+      }
+    }
+  }
+}
