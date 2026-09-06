@@ -1,0 +1,171 @@
+name: P120 WEB-SCIENCE PASS 4G Evidence-Complete Package Reseal
+
+on:
+  push:
+    branches:
+      - 'web-science-ext-pass4g-package-reseal'
+    paths:
+      - '.github/workflows/p120-webscience-pass4g-package-complete-reseal.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reseal-pass4g-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify exact sealed authority remains untouched
+        shell: bash
+        run: |
+          set -euo pipefail
+          AUTH='d095cae40b33da2118e5090be2a2c837205d8b64'
+          git merge-base --is-ancestor "$AUTH" HEAD
+          git diff --quiet "$AUTH" HEAD -- \
+            science/index.html en/science/index.html \
+            p120-scientific-base-runtime-v1.0.js \
+            p120-webscience-pass4b-renderer-v0.6.js \
+            p120-webscience-pass4c-library-v0.7.js \
+            p120-webscience-pass4e-visual-v0.9.css \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_MANIFEST_v1.1.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_STATUS_RECORD_v1.1.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_PACKAGE_INDEX_v1.1.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_SHA256SUMS_v1.1.txt
+
+      - name: Re-run static and reproducibility gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          node qa/webscience_pass4a_projection_gate_v0.5.mjs
+          node qa/webscience_pass4c_materialize_global_library_v0.7.mjs
+          git diff --exit-code -- webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json
+          node qa/webscience_pass4d_claim_boundary_static_gate_v0.8.mjs
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start local P-120 site
+        run: |
+          python3 -m http.server 4179 --bind 127.0.0.1 >/tmp/p120-pass4g-reseal-http.log 2>&1 &
+          sleep 2
+          curl -fsS 'http://127.0.0.1:4179/science/' >/dev/null
+          curl -fsS 'http://127.0.0.1:4179/en/science/' >/dev/null
+
+      - name: Reproduce browser and reconciliation evidence
+        run: |
+          node qa/webscience_pass4c_library_gate_v0.7.mjs
+          node qa/webscience_pass4d_claim_boundary_browser_gate_v0.8.mjs
+          node qa/webscience_pass4e_browser_typography_gate_v0.9.mjs
+          python3 qa/webscience_pass4f_closure_reconciliation_gate_v1.0.py
+          python3 qa/webscience_pass4g_final_seal_gate_v1.1.py
+
+      - name: Verify raw evidence bundle completeness
+        shell: bash
+        run: |
+          set -euo pipefail
+          for d in qa-evidence-webscience-pass4c qa-evidence-webscience-pass4d qa-evidence-webscience-pass4e qa-evidence-webscience-pass4f qa-evidence-webscience-pass4g; do
+            test -d "$d"
+          done
+          C=$(find qa-evidence-webscience-pass4c -type f -name '*.png' | wc -l)
+          D=$(find qa-evidence-webscience-pass4d -type f -name '*.png' | wc -l)
+          E=$(find qa-evidence-webscience-pass4e -type f -name '*.png' | wc -l)
+          test "$C" -ge 1
+          test "$D" -ge 1
+          test "$E" -ge 9
+          echo "PASS4C screenshots=$C PASS4D screenshots=$D PASS4E screenshots=$E"
+
+      - name: Build evidence-complete final sealed package
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='P120_WEBSCI_EXT_PASS4_v1.1_FINAL_SEALED_PACKAGE_COMPLETE'
+          mkdir -p "$ROOT/RELEASE_CONTROL" "$ROOT/EVIDENCE"
+          python3 - <<'PY'
+          import json, shutil
+          from pathlib import Path
+          root=Path('P120_WEBSCI_EXT_PASS4_v1.1_FINAL_SEALED_PACKAGE_COMPLETE')
+          idx=json.loads(Path('webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_PACKAGE_INDEX_v1.1.json').read_text())
+          for srcs in idx['files']:
+              src=Path(srcs); dst=root/srcs
+              dst.parent.mkdir(parents=True,exist_ok=True)
+              shutil.copy2(src,dst)
+          for name in ['qa-evidence-webscience-pass4c','qa-evidence-webscience-pass4d','qa-evidence-webscience-pass4e','qa-evidence-webscience-pass4f','qa-evidence-webscience-pass4g']:
+              shutil.copytree(name,root/'EVIDENCE'/name)
+          PY
+          python3 - <<'PY'
+          import json, pathlib, hashlib
+          root=pathlib.Path('P120_WEBSCI_EXT_PASS4_v1.1_FINAL_SEALED_PACKAGE_COMPLETE')
+          counts={}
+          for d in (root/'EVIDENCE').iterdir():
+              counts[d.name]={'files':sum(1 for p in d.rglob('*') if p.is_file()),'png':sum(1 for p in d.rglob('*.png'))}
+          rec={
+            'standard':'P120','document_id':'P120-WEBSCI-EXT-004-PASS4G-PACKAGE-RESEAL','version':'v1.1','date':'2026-09-06',
+            'sealed_authority_commit':'d095cae40b33da2118e5090be2a2c837205d8b64',
+            'operation':'PACKAGE_ONLY_EVIDENCE_COMPLETENESS_RESEAL',
+            'reason':'Initial full ZIP contained sealed QA records but omitted raw browser screenshot evidence from the final reproduction run.',
+            'scientific_authority_mutated':False,'runtime_mutated':False,'presentation_mutated':False,'production_merge':'NOT_PERFORMED',
+            'prior_package_disposition':'SUPERSEDED_BY_EVIDENCE_COMPLETE_RESEAL',
+            'evidence_counts':counts,
+            'final_status':'CLOSED_CONTROLLED_SEALED'
+          }
+          (root/'RELEASE_CONTROL'/'PACKAGE_RESEAL_RECORD_v1.1.json').write_text(json.dumps(rec,ensure_ascii=False,indent=2)+'\n')
+          PY
+          printf '%s\n' \
+            'Repository: unityplanet/p120-web' \
+            'Sealed authority commit: d095cae40b33da2118e5090be2a2c837205d8b64' \
+            'Operation: package-only evidence-completeness reseal' \
+            'Scientific/runtime/presentation authority: unchanged' \
+            'Production merge: NOT PERFORMED' \
+            > "$ROOT/RELEASE_CONTROL/REPOSITORY_PROVENANCE.txt"
+          (cd "$ROOT" && find . -type f ! -path './RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt' -print0 | sort -z | xargs -0 sha256sum > RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt)
+          zip -qr "${ROOT}.zip" "$ROOT"
+          sha256sum "${ROOT}.zip" > "${ROOT}.zip.sha256"
+
+      - name: Independent verification of evidence-complete package
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='P120_WEBSCI_EXT_PASS4_v1.1_FINAL_SEALED_PACKAGE_COMPLETE'
+          ZIP="${ROOT}.zip"
+          unzip -t "$ZIP" >/tmp/pass4g-complete-zip-test.txt
+          test "$(cut -d' ' -f1 "${ZIP}.sha256")" = "$(sha256sum "$ZIP" | cut -d' ' -f1)"
+          rm -rf /tmp/pass4g_complete_verify && mkdir -p /tmp/pass4g_complete_verify
+          unzip -q "$ZIP" -d /tmp/pass4g_complete_verify
+          cd "/tmp/pass4g_complete_verify/$ROOT"
+          sha256sum -c RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt
+          sha256sum -c webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_SHA256SUMS_v1.1.txt
+          python3 - <<'PY'
+          import json, pathlib
+          W=pathlib.Path('webscience/pass4')
+          s=json.loads((W/'P120_WEBSCI_EXT_PASS4_FINAL_STATUS_RECORD_v1.1.json').read_text())
+          m=json.loads((W/'P120_WEBSCI_EXT_PASS4_FINAL_MANIFEST_v1.1.json').read_text())
+          q=json.loads((W/'P120_WEBSCI_EXT_PASS4_PASS4G_QA_SUMMARY_v1.1.json').read_text())
+          r=json.loads(pathlib.Path('RELEASE_CONTROL/PACKAGE_RESEAL_RECORD_v1.1.json').read_text())
+          assert s['status']=='CLOSED_CONTROLLED_SEALED'
+          assert m['status']=='WEBSCI_EXT_PASS4_CLOSED_CONTROLLED_SEALED' and m['unresolved_delta_count']==0
+          assert q['status']=='PASS' and q['checks_failed']==0
+          assert r['operation']=='PACKAGE_ONLY_EVIDENCE_COMPLETENESS_RESEAL' and r['scientific_authority_mutated'] is False
+          assert r['evidence_counts']['qa-evidence-webscience-pass4e']['png']>=9
+          assert sum(1 for p in pathlib.Path('EVIDENCE').rglob('*.png'))>=11
+          print('evidence-complete independent verification: PASS',r['evidence_counts'])
+          PY
+
+      - name: Upload evidence-complete final sealed package
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_EXT_PASS4_v1.1_FINAL_SEALED_PACKAGE_COMPLETE
+          path: |
+            P120_WEBSCI_EXT_PASS4_v1.1_FINAL_SEALED_PACKAGE_COMPLETE.zip
+            P120_WEBSCI_EXT_PASS4_v1.1_FINAL_SEALED_PACKAGE_COMPLETE.zip.sha256
+          if-no-files-found: error
