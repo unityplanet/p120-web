@@ -4,9 +4,10 @@
 **Document code:** P120-WEB-HOME-IMP2C-CONTRAST-001  
 **Version:** 1.0  
 **Date:** 2026-09-06  
-**Status:** CORRECTION CANDIDATE / QA REQUIRED  
+**Status:** CORRECTION CANDIDATE / FULL QA GREEN / CURRENT-BASE RECONCILIATION RUNNING  
 **Parent implementation:** Homepage Implementation PASS 2  
-**Production baseline:** `194bdf274f1a6012ef6c2e4b4f31e5f44b472055`
+**Original production baseline:** `194bdf274f1a6012ef6c2e4b4f31e5f44b472055`  
+**Latest concurrent main observed before final current-base rerun:** `9bd3c1366f69f02617612169ffbd69ebcf8f5100`
 
 ## 1. Finding
 
@@ -36,18 +37,46 @@ No RU/EN narrative copy, routing, measurement, scoring, respondent state, About,
 - architecture headline contrast ratio >= 4.5;
 - architecture body effective contrast ratio >= 4.5, including element opacity;
 - Graphite panel background luminance remains dark;
-- Graphite headline luminance remains light.
+- Graphite headline luminance remains light;
+- CSS color parsing covers both `rgb()/rgba()` and Chromium `color(srgb ...)` computed styles.
 
-This converts the visually discovered failure mode into a permanent release gate.
+The static delta firewall is also reconciled so PR-scope authorization is evaluated from the current merge-base rather than a historical release baseline; frozen source-authority hashes remain independently enforced.
 
-## 4. Governance disposition
+This converts both the visual failure mode and the stale-baseline QA failure mode into permanent release gates.
 
-Homepage PASS 2 remains the parent implementation. This correction is a controlled subordinate corrective pass and does not reopen the frozen Architecture narrative authority.
+## 4. Verified pre-merge evidence
+
+Workflow run `34026960111` on branch head `98e7c9a70e26ba53e8db91e04f3df9000920dda2` completed **SUCCESS**.
+
+All blocking stages passed:
+
+1. JavaScript syntax preflight;
+2. frozen source-authority gate;
+3. controlled-compression static gate;
+4. existing build/static conformance;
+5. Homepage responsive/render regression including contrast assertions;
+6. PASS 5.3 post-PASS3 visual/session reconciliation;
+7. PASS 5.3 current About-route topology reconciliation;
+8. Main locale/theme regression;
+9. mobile chapter regression;
+10. mobile session-resume regression;
+11. global header integrity;
+12. global header hardening;
+13. footer presentation regression.
+
+A concurrent Scientific Base production reconciliation subsequently advanced `main`. This did not modify Homepage PASS 2 authority, but P-120 release discipline requires one final PR run against the current combined base before merge. This document update intentionally triggers that reconciliation run.
+
+## 5. Governance disposition
+
+Homepage PASS 2 remains the parent implementation. PASS 2C is a controlled subordinate corrective pass and does not reopen the frozen Architecture narrative authority.
+
+`HOME-P2-VIS-001` is **CORRECTED IN CANDIDATE** but is not CLOSED at production level until the current-base run, merge, deployment and live-production verification complete.
 
 Production sealing remains **HOLD** until:
 
-1. PASS 2C local/full regression is green;
+1. current-base PASS 2C full regression is green;
 2. the correction is merged;
-3. GitHub Pages deploys the corrected main SHA;
+3. GitHub Pages deploys the corrected final `main` SHA;
 4. live production contrast and full Homepage closure QA are green;
-5. final Production Closure package is issued and sealed.
+5. final Production Closure package is issued with manifest, SHA-256 and reproducibility record;
+6. final status is recorded as `PASS / CLOSED / CONTROLLED / SEALED`.
