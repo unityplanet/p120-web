@@ -1,0 +1,69 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-PROD-G1-REGISTRY-FINAL-EVIDENCE",
+  "version": "v1.1",
+  "date": "2026-09-06",
+  "registry_activation_head": "cf11a176bb0db87aec046d5694c302285b275f90",
+  "sealed_science_authority": "d095cae40b33da2118e5090be2a2c837205d8b64",
+  "status": "POSTMERGE_EVIDENCE_COMPLETE",
+  "premerge": {
+    "candidate_head": "6271c97a984db66e822fc323b57ea66bd929fcfa",
+    "registry_qa": {"checks_passed": 62, "checks_failed": 0},
+    "prod_g1_boundary": {"checks_passed": 31, "checks_failed": 0},
+    "pass4a_projection": {"checks_passed": 2970, "checks_failed": 0},
+    "qa_artifact_id": 9990632746,
+    "qa_artifact_digest": "sha256:e83bed9377a083095040b8943bd138e8aef12782f98d05e88304e7c82602de23"
+  },
+  "merge": {
+    "pull_request": 29,
+    "merge_commit": "cf11a176bb0db87aec046d5694c302285b275f90",
+    "merge_method": "merge",
+    "base_before_merge": "0c9a7bdc7470dcc9eb1223ebfc15bb5bcc6f94b4"
+  },
+  "postmerge": {
+    "registry_reconciliation": {
+      "run_id": 34037744613,
+      "conclusion": "success",
+      "artifact_id": 9990701492,
+      "artifact_digest": "sha256:8c2f488f5213c005f01f2b0b220fa870dd8b3e01daae4f732fc40f90d76d5108"
+    },
+    "actions_governance": {
+      "run_id": 34037744596,
+      "conclusion": "success"
+    },
+    "pages_deployment": {
+      "run_id": 34037744158,
+      "conclusion": "success"
+    },
+    "prod_g1_full_postmerge_verification": {
+      "run_id": 34037744605,
+      "conclusion": "success",
+      "artifact_id": 9990721128,
+      "artifact_digest": "sha256:1df151fe3859ebf6c746678ee68b7e214853b192220b82783d85a79fe94ea0de"
+    },
+    "scientific_base_production_qa": {
+      "run_id": 34037744585,
+      "conclusion": "success",
+      "artifact_id": 9990727985,
+      "artifact_digest": "sha256:eb514a063345eeb8122808d8344c2d2e66a209a5e42d6bae8e72a24f05e1fb88"
+    },
+    "pass4a_deployment_path": {
+      "run_id": 34037744604,
+      "conclusion": "success",
+      "artifact_id": 9990716972,
+      "artifact_digest": "sha256:5ea12ca0dd701a7f4d6076e55f747485d1c8d016d9c439f3505f83a5036bf767"
+    }
+  },
+  "protected_executable_registry_sha256": "38b706b38f8f19f60c5917874b8371661340bb0cf30059fe9a7de98d16251f5e",
+  "unresolved_delta_count": 0,
+  "scientific_status_upgrade": false,
+  "runtime_mutated": false,
+  "science_routes_mutated": false,
+  "measurement_mutated": false,
+  "scoring_mutated": false,
+  "thresholds_mutated": false,
+  "respondent_state_mutated": false,
+  "persistence_mutated": false,
+  "report_calculation_mutated": false,
+  "supabase_mutated": false
+}
