@@ -49,12 +49,18 @@ jobs:
             const isMain=path==='/'||path==='/en/';
             const isScience=path.endsWith('/science/');
             const isResearch=path.endsWith('/research/how-we-decide/');
-            if(isMain || isScience){
+            if(isMain){
               const decision=page.locator('[data-ecosystem-route="decisionResearch"]');
-              check(await decision.count()===1,`${label} ${path} decision research exists in ecosystem DOM`);
-              check((await decision.getAttribute('aria-disabled'))!=='true',`${label} ${path} decision research active`);
+              const n=await decision.count();
+              check(n===1,`${label} ${path} decision research exists in ecosystem DOM`);
+              if(n) check((await decision.getAttribute('aria-disabled'))!=='true',`${label} ${path} decision research active`);
               const mobileDecision=page.locator('[data-ecosystem-mobile="decisionResearch"]');
               check(await mobileDecision.count()===1,`${label} ${path} decision research exists in mobile ecosystem DOM`);
+            } else if(isScience){
+              // Science intentionally retains its mature application-header authority.
+              // Global research discovery is therefore asserted through the unified chapter navigation.
+              const chapterLink=page.locator('.p120-site-footer__chapters a[href*="research/how-we-decide"]');
+              check(await chapterLink.count()===1,`${label} ${path} unified research chapter route exists`);
             } else if(!isResearch){
               const navCard=page.locator('.p120-brand53-mega-card[href*="research/how-we-decide"]');
               check(await navCard.count()===1,`${label} ${path} global research mega-card exists`);
