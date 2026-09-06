@@ -1,6 +1,6 @@
 /* P-120 WEB — Mobile Session Resume v1.0
    PATCH 2 / PASS 2. Read-only public resume affordance.
-   Homepage PASS 2 adds a Main-only presentation loader; session authority is unchanged.
+   Homepage Design Reconciliation PASS 4 uses the existing Main-only presentation-loader seam; session authority is unchanged.
    No measurement, scoring, questionnaire, report, submission or respondent-session writes. */
 (()=>{
   'use strict';
@@ -33,14 +33,14 @@
   let observer=null;
   let frame=0;
 
-  function ensureHomepagePass2(){
+  function ensureHomepagePass4(){
     if(!isPublicMain) return;
-    if(window.P120HomepageArchitecturePass2?.version==='1.0') return;
-    if(document.querySelector('script[data-p120-homepage-pass2-loader]')) return;
+    if(window.P120HomepageDesignPass4?.version==='1.0') return;
+    if(document.querySelector('script[data-p120-homepage-pass4-loader]')) return;
     const script=document.createElement('script');
-    script.src=new URL('homepage/homepage-architecture-pass2.js?v=1',rootUrl).href;
+    script.src=new URL('homepage/homepage-design-reconciliation-pass4.js?v=1',rootUrl).href;
     script.defer=true;
-    script.dataset.p120HomepagePass2Loader='1.0';
+    script.dataset.p120HomepagePass4Loader='1.0';
     document.head.appendChild(script);
   }
 
@@ -161,7 +161,7 @@
 
   function start(){
     if(!isPublicMain) return;
-    ensureHomepagePass2();
+    ensureHomepagePass4();
     ensureCss();
     const root=document.getElementById('app')||document.body;
     observer=new MutationObserver(schedule);
