@@ -18,6 +18,8 @@
   .ref-num,
   .doi-link,
   .internal-list span,
+  .formula-card>span,
+  .construct-boundary,
   .p120-pass4b-label,
   .p120-pass4c-filter
 ){font-weight:600!important}
@@ -63,8 +65,13 @@
 }
 .science-page .p120-pass4c-citation{overflow-wrap:anywhere}
 
-/* Desktop scholarly subnavigation still retains a measurable interaction floor. */
+/* Desktop scholarly controls retain a measurable interaction floor. */
 .science-page .science-subnav a{min-height:24px}
+.science-page :is(.ref-item .doi-link,.p120-pass4c-ref .doi-link){
+  min-height:24px;
+  display:inline-flex;
+  align-items:center;
+}
 
 /* Touch target conformance for mobile/tablet. Desktop keeps compact scholarly navigation. */
 @media(max-width:1023px){
@@ -79,8 +86,6 @@
   .science-page :is(.ref-item .doi-link,.p120-pass4c-ref .doi-link){
     min-height:44px;
     min-width:44px;
-    display:inline-flex;
-    align-items:center;
     justify-content:center;
     padding:8px 10px;
   }
