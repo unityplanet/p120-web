@@ -73,14 +73,30 @@
   align-items:center;
 }
 
-/* Touch target conformance for mobile/tablet. Desktop keeps compact scholarly navigation. */
+/* Touch target and label-containment conformance for mobile/tablet. */
 @media(max-width:1023px){
+  .science-page .science-subnav{
+    display:flex;
+    flex-wrap:nowrap;
+    gap:8px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    overscroll-behavior-inline:contain;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .science-page .science-subnav::-webkit-scrollbar{display:none}
   .science-page .science-subnav a{
+    flex:0 0 auto;
+    width:auto;
     min-height:44px;
     min-width:44px;
+    padding-inline:12px;
     display:inline-flex;
     align-items:center;
     justify-content:center;
+    white-space:nowrap;
+    overflow:visible;
   }
   .science-page .p120-pass4c-filter{min-height:44px;min-width:44px}
   .science-page :is(.ref-item .doi-link,.p120-pass4c-ref .doi-link){
