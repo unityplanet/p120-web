@@ -56,12 +56,16 @@ try{
         add(`${prefix} / Escape closes mobile drawer`,await page.locator('[data-about-drawer].is-open').count()===0);
       }else{
         const theme=page.locator('.p120-brand53-theme').first();
-        const summary=theme.locator('summary');
-        await summary.click();
+        // The option popover intentionally closes after each selection. Open the
+        // native <details> deterministically before every option click so this
+        // live probe tests theme behaviour rather than pointer/toggle timing.
+        await theme.evaluate(el=>{el.open=true;});
         await theme.locator('[data-p120-theme="graphite"]').click();
+        await page.waitForFunction(()=>document.body.dataset.theme==='graphite',null,{timeout:5000});
         add(`${prefix} / Graphite theme applies`,await page.locator('body').getAttribute('data-theme')==='graphite');
-        await summary.click();
+        await theme.evaluate(el=>{el.open=true;});
         await theme.locator('[data-p120-theme="museum"]').click();
+        await page.waitForFunction(()=>document.body.dataset.theme==='museum',null,{timeout:5000});
         add(`${prefix} / Museum theme restores`,await page.locator('body').getAttribute('data-theme')==='museum');
       }
 
