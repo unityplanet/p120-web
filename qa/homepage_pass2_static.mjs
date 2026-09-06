@@ -4,7 +4,7 @@ import path from 'node:path';
 import {execFileSync} from 'node:child_process';
 
 const ROOT=path.resolve(import.meta.dirname,'..');
-const BASE='8437e51b7b862851180e69c4b20ac2741e3bc01e';
+const AUTHORITY_BASE='8437e51b7b862851180e69c4b20ac2741e3bc01e';
 const out=path.join(ROOT,'qa-evidence-homepage-pass2');
 fs.mkdirSync(out,{recursive:true});
 const failures=[];
@@ -104,22 +104,35 @@ for(const [p,expected] of Object.entries(protectedBlobs)){
   check(`protected blob unchanged / ${p}`,actual===expected,actual);
 }
 
-const changed=git('diff','--name-only',`${BASE}...HEAD`).split(/\r?\n/).filter(Boolean);
+// The repository evolves through independent controlled workstreams. Scope the
+// delta firewall to the current PR against its live base, or to the immediately
+// preceding main state on push. The frozen authority baseline remains separately
+// bound above through content/source checks; it is not a valid forever-diff root.
+let deltaBase='';
+if(process.env.GITHUB_BASE_REF){
+  deltaBase=`origin/${process.env.GITHUB_BASE_REF}`;
+}else if(process.env.P120_HOMEPAGE_DELTA_BASE){
+  deltaBase=process.env.P120_HOMEPAGE_DELTA_BASE;
+}else{
+  try{deltaBase=git('rev-parse','HEAD^1');}catch{deltaBase=AUTHORITY_BASE;}
+}
+check('delta base resolves',!!deltaBase,deltaBase);
+const changed=git('diff','--name-only',`${deltaBase}...HEAD`).split(/\r?\n/).filter(Boolean);
 const allowed=p=>[
   'homepage/',
   'qa/homepage_pass2_',
-  '.github/workflows/p120-homepage-pass2-qa.yml',
+  '.github/workflows/p120-homepage-pass2-',
   'mobile-session-resume-v1.0.js',
   'P120_HOMEPAGE_IMPLEMENTATION_PASS2_'
 ].some(prefix=>p.startsWith(prefix));
 for(const p of changed) check(`authorized delta / ${p}`,allowed(p),p);
-check('root homepage source unchanged',!changed.includes('index.html'));
-check('EN homepage source unchanged',!changed.includes('en/index.html'));
-check('Why frozen sources untouched',!changed.some(p=>p.startsWith('why-p120/')||p.startsWith('en/why-p120/')));
-check('measurement/localization sources untouched',!changed.some(p=>p.startsWith('localization/')));
-check('Supabase untouched',!changed.some(p=>p.startsWith('supabase/')));
+check('root homepage source unchanged in current delta',!changed.includes('index.html'));
+check('EN homepage source unchanged in current delta',!changed.includes('en/index.html'));
+check('Why frozen sources untouched in current delta',!changed.some(p=>p.startsWith('why-p120/')||p.startsWith('en/why-p120/')));
+check('measurement/localization sources untouched in current delta',!changed.some(p=>p.startsWith('localization/')));
+check('Supabase untouched in current delta',!changed.some(p=>p.startsWith('supabase/')));
 
-const result={schema:'p120.homepage.implementation_pass2.static.v1',baseline:BASE,generated_at:new Date().toISOString(),changed_files:changed,checks,failures,verdict:failures.length?'FAIL':'PASS'};
+const result={schema:'p120.homepage.implementation_pass2.static.v2',authority_baseline:AUTHORITY_BASE,delta_base:deltaBase,generated_at:new Date().toISOString(),changed_files:changed,checks,failures,verdict:failures.length?'FAIL':'PASS'};
 fs.writeFileSync(path.join(out,'static.json'),JSON.stringify(result,null,2));
-console.log(JSON.stringify({verdict:result.verdict,checks:checks.length,failures},null,2));
+console.log(JSON.stringify({verdict:result.verdict,deltaBase,checks:checks.length,failures},null,2));
 if(failures.length) process.exit(1);

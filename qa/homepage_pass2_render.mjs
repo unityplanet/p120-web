@@ -57,6 +57,39 @@ try{
       add(`${prefix} / canonical description`,route.id==='ru'?desc.includes('многомерная исследовательская архитектура'):desc.includes('multidimensional research architecture'),{description:desc});
       const theme=await page.locator('body').getAttribute('data-theme');
       add(`${prefix} / requested theme preserved`,theme===vp.theme,{theme,expected:vp.theme});
+
+      const contrast=await panel.evaluate(el=>{
+        const rgb=s=>{
+          const value=String(s||'').trim();
+          let m=value.match(/rgba?\(\s*(-?\d+(?:\.\d+)?)\s*[, ]+\s*(-?\d+(?:\.\d+)?)\s*[, ]+\s*(-?\d+(?:\.\d+)?)/i);
+          if(m)return [+m[1],+m[2],+m[3]];
+          m=value.match(/color\(\s*srgb\s+(-?\d*\.?\d+)\s+(-?\d*\.?\d+)\s+(-?\d*\.?\d+)(?:\s*\/\s*-?\d*\.?\d+)?\s*\)/i);
+          if(m)return [+m[1]*255,+m[2]*255,+m[3]*255];
+          return null;
+        };
+        const lum=c=>{const f=v=>{v=Math.max(0,Math.min(255,v))/255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4};return .2126*f(c[0])+.7152*f(c[1])+.0722*f(c[2])};
+        const ratio=(a,b)=>{const x=lum(a),y=lum(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+        const blend=(fg,bg,a)=>fg.map((v,i)=>v*a+bg[i]*(1-a));
+        const p=getComputedStyle(el), d=getComputedStyle(el.querySelector('.p120-homepage-pass2__display')), b=getComputedStyle(el.querySelector('.p120-homepage-pass2__body'));
+        const bg=rgb(p.backgroundColor), dc=rgb(d.color), bc=rgb(b.color);
+        if(!bg||!dc||!bc)return {background:p.backgroundColor,display:d.color,body:b.color,displayRatio:0,bodyRatio:0,parser:'UNRESOLVED'};
+        const bodyOpacity=Math.max(0,Math.min(1,Number.parseFloat(b.opacity)||1));
+        return {
+          background:p.backgroundColor,display:d.color,body:b.color,bodyOpacity,
+          displayRatio:ratio(dc,bg),
+          bodyRatio:ratio(blend(bc,bg,bodyOpacity),bg),
+          backgroundLuminance:lum(bg),displayLuminance:lum(dc),
+          parser:'RESOLVED'
+        };
+      });
+      add(`${prefix} / contrast colors parsed`,contrast.parser==='RESOLVED',contrast);
+      add(`${prefix} / architecture headline contrast >= 4.5`,contrast.displayRatio>=4.5,contrast);
+      add(`${prefix} / architecture body effective contrast >= 4.5`,contrast.bodyRatio>=4.5,contrast);
+      if(vp.theme==='graphite'){
+        add(`${prefix} / Graphite panel surface remains dark`,contrast.backgroundLuminance<0.15,contrast);
+        add(`${prefix} / Graphite headline remains light`,contrast.displayLuminance>0.65,contrast);
+      }
+
       const geom=await page.evaluate(()=>({sw:Math.max(document.documentElement.scrollWidth,document.body.scrollWidth),cw:document.documentElement.clientWidth,sh:document.documentElement.scrollHeight,ih:innerHeight}));
       add(`${prefix} / no horizontal overflow`,geom.sw<=geom.cw+2,geom);
       add(`${prefix} / substantive homepage remains`,geom.sh>geom.ih*3,geom);
@@ -64,7 +97,6 @@ try{
       add(`${prefix} / core chapter targets preserved`,await page.locator('#two-systems,#showcase,#science-foundation').count()===3,{count:await page.locator('#two-systems,#showcase,#science-foundation').count()});
       add(`${prefix} / no console or page errors`,errors.length===0,{errors});
 
-      // Idempotency under reconciliation and a benign Main rerender mutation.
       await page.evaluate(()=>{
         window.P120HomepageArchitecturePass2?.reconcile();
         window.P120HomepageArchitecturePass2?.reconcile();
@@ -94,7 +126,6 @@ try{
     }
   }
 
-  // Support-route isolation: the Homepage derivative must not leak to About.
   for(const route of [{id:'ru-about',path:'/about/'},{id:'en-about',path:'/en/about/'}]){
     const context=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'reduce'});
     const page=await context.newPage();
