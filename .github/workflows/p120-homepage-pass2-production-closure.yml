@@ -1,0 +1,78 @@
+name: P120 Homepage PASS 2 Production Closure QA
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'qa/homepage_pass2_production_closure_live.mjs'
+      - '.github/workflows/p120-homepage-pass2-production-closure.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'qa/homepage_pass2_production_closure_live.mjs'
+      - '.github/workflows/p120-homepage-pass2-production-closure.yml'
+
+permissions:
+  contents: read
+  deployments: read
+
+jobs:
+  live-production-closure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      P120_PRODUCTION_BASE: https://unityplanet.github.io/p120-web/
+      P120_EXPECTED_PRODUCTION_SHA: ${{ github.event_name == 'push' && github.sha || '194bdf274f1a6012ef6c2e4b4f31e5f44b472055' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify GitHub Pages deployment lineage
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p qa-artifacts/homepage-pass2-production-closure-live
+          python3 - <<'PY'
+          import json, os, time, urllib.request
+          expected=os.environ['P120_EXPECTED_PRODUCTION_SHA']
+          repo=os.environ['GITHUB_REPOSITORY']
+          token=os.environ['GH_TOKEN']
+          url=f'https://api.github.com/repos/{repo}/deployments?environment=github-pages&per_page=30'
+          observed=[]
+          matching=[]
+          for attempt in range(48):
+              req=urllib.request.Request(url,headers={'Authorization':f'Bearer {token}','Accept':'application/vnd.github+json','User-Agent':'p120-homepage-pass2-production-closure'})
+              with urllib.request.urlopen(req,timeout=30) as r:
+                  rows=json.load(r)
+              observed=[x.get('sha') for x in rows]
+              matching=[x for x in rows if x.get('sha')==expected]
+              with open('qa-artifacts/homepage-pass2-production-closure-live/deployments.json','w',encoding='utf-8') as f:
+                  json.dump(rows,f,indent=2)
+              if matching:
+                  break
+              print(f'Waiting for Pages deployment {expected}; attempt {attempt+1}/48; observed={observed[:6]}')
+              time.sleep(5)
+          if not matching:
+              raise SystemExit(f'Expected GitHub Pages deployment SHA not found: {expected}; observed={observed[:12]}')
+          record={'expected_sha':expected,'matching_deployment_ids':[x.get('id') for x in matching],'verdict':'PASS'}
+          with open('qa-artifacts/homepage-pass2-production-closure-live/deployment-lineage.json','w',encoding='utf-8') as f:
+              json.dump(record,f,indent=2)
+          print('PASS: deployment lineage contains', expected)
+          PY
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Live RU/EN Homepage PASS 2 production regression
+        run: node qa/homepage_pass2_production_closure_live.mjs
+
+      - name: Upload production closure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_HOMEPAGE_PASS2_PRODUCTION_CLOSURE_QA
+          path: qa-artifacts/homepage-pass2-production-closure-live/
+          retention-days: 30
