@@ -18,9 +18,10 @@ function extractScience(file){
   const start=html.indexOf(marker);
   if(start<0)throw new Error(`${file}: P120_SCIENCE marker missing`);
   const bodyStart=start+marker.length;
-  const end=html.indexOf(';</script>',bodyStart);
-  if(end<0)throw new Error(`${file}: P120_SCIENCE terminator missing`);
-  return JSON.parse(html.slice(bodyStart,end));
+  const tail=html.slice(bodyStart);
+  const end=/;\s*<\/script>/i.exec(tail);
+  if(!end)throw new Error(`${file}: P120_SCIENCE terminator missing`);
+  return JSON.parse(tail.slice(0,end.index).trim());
 }
 const ru=extractScience(CORE_RU);
 const en=extractScience(CORE_EN);
