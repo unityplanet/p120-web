@@ -19,6 +19,18 @@
   color:inherit;
   isolation:isolate;
 }
+/*
+   Graphite correction / PASS 2C.
+   The surrounding Main scene owns a light local --surface token even while the
+   global Graphite theme uses light text. Pin this derivative card to the
+   Graphite canvas/ink authority so foreground and surface polarity cannot
+   collapse to light-on-light.
+*/
+body[data-theme="graphite"] .p120-homepage-pass2{
+  --hp2-line:color-mix(in srgb,var(--ink-primary,#F4F1EB) 18%,transparent);
+  --hp2-surface:color-mix(in srgb,var(--canvas-elevated,#211f1c) 96%,transparent);
+  color:var(--ink-primary,#F4F1EB);
+}
 .p120-homepage-pass2__copy{min-width:0}
 .p120-homepage-pass2__eyebrow{
   margin:0 0 13px;
