@@ -45,7 +45,7 @@ ck('activation merge runtime exact sealed authority',sealed is not None and acti
 # The only authorized baseline evolution is an additive PASS 4B loader after the
 # previously accepted Core runtime. No bytes inside the legacy Core are changed.
 old_core=old.rstrip(b'\n') if old else b''
-expected_marker=b'\n\n/* WEB-SCIENCE EXT PASS 4B — controlled publication-renderer loader.'
+expected_marker='\n\n/* WEB-SCIENCE EXT PASS 4B — controlled publication-renderer loader.'.encode('utf-8')
 ck('sealed runtime preserves complete legacy Core prefix',bool(old_core) and sealed is not None and sealed.startswith(old_core+expected_marker))
 if sealed is not None and old_core:
     suffix=sealed[len(old_core):]
