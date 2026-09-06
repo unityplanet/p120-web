@@ -164,3 +164,29 @@
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
+
+/* WEB-SCIENCE EXT PASS 4E — controlled Science visual QA stylesheet loader.
+   PASS 4C library logic above remains unchanged except for this exact additive loader. */
+(()=>{
+  'use strict';
+  const dedicated=/(?:^|\/)(?:en\/)?science\/?(?:index\.html)?$/i.test(location.pathname);
+  if(!dedicated)return;
+  if(document.querySelector('[data-p120-webscience-pass4e-loader]'))return;
+  const owner=document.currentScript;
+  const ownerUrl=owner?.src||new URL('p120-webscience-pass4c-library-v0.7.js',location.href).href;
+  const link=document.createElement('link');
+  link.rel='stylesheet';
+  link.href=new URL('p120-webscience-pass4e-visual-v0.9.css?v=websci4e09',ownerUrl).href;
+  link.dataset.p120WebsciencePass4eLoader='v0.9';
+  link.addEventListener('load',()=>{
+    document.documentElement.dataset.p120WebsciencePass4e='visual-v0.9';
+    document.documentElement.dataset.p120WebsciencePass4eStatus='pass';
+    dispatchEvent(new CustomEvent('p120:webscience-pass4e-ready',{detail:{pass:true,version:'0.9'}}));
+  },{once:true});
+  link.addEventListener('error',()=>{
+    document.documentElement.dataset.p120WebsciencePass4eStatus='fail';
+    console.error('[P120 WEB-SCIENCE PASS 4E] visual stylesheet load failed');
+    dispatchEvent(new CustomEvent('p120:webscience-pass4e-ready',{detail:{pass:false,version:'0.9'}}));
+  },{once:true});
+  document.head.appendChild(link);
+})();

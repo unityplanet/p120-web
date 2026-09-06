@@ -1,0 +1,5251 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4E-BROWSER-TYPOGRAPHY-QA",
+  "version": "v0.9",
+  "date": "2026-09-06",
+  "status": "PASS",
+  "checks_total": 882,
+  "checks_passed": 882,
+  "checks_failed": 0,
+  "matrix": {
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "viewports": [
+      "narrow320",
+      "mobile390",
+      "tablet768",
+      "tablet1024",
+      "desktop1440",
+      "hd1920",
+      "uhd2560"
+    ],
+    "bases": [
+      "CORE",
+      "EXTENDED",
+      "OUTCOMES",
+      "METHODS",
+      "LIBRARY"
+    ]
+  },
+  "checks": [
+    {
+      "id": "ru-narrow320: PASS 4E stylesheet ready",
+      "pass": true
+    },
+    {
+      "id": "ru-narrow320-CORE: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-narrow320-CORE: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-narrow320-CORE: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-narrow320-CORE: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-CORE: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-CORE: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-CORE: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-narrow320-CORE: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-CORE: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-CORE: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-CORE: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-CORE: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-narrow320-EXTENDED: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-narrow320-EXTENDED: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-narrow320-EXTENDED: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-narrow320-EXTENDED: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-EXTENDED: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-EXTENDED: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-EXTENDED: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-narrow320-EXTENDED: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-EXTENDED: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-EXTENDED: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-EXTENDED: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-EXTENDED: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 5
+    },
+    {
+      "id": "ru-narrow320-OUTCOMES: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-narrow320-OUTCOMES: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-narrow320-OUTCOMES: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-narrow320-OUTCOMES: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-OUTCOMES: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-OUTCOMES: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-OUTCOMES: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-narrow320-OUTCOMES: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-OUTCOMES: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-OUTCOMES: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-OUTCOMES: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-OUTCOMES: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 5
+    },
+    {
+      "id": "ru-narrow320-METHODS: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-narrow320-METHODS: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-narrow320-METHODS: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-narrow320-METHODS: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-METHODS: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-METHODS: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-METHODS: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-narrow320-METHODS: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-METHODS: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-METHODS: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-METHODS: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-METHODS: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 5
+    },
+    {
+      "id": "ru-narrow320-LIBRARY: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-narrow320-LIBRARY: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-narrow320-LIBRARY: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-narrow320-LIBRARY: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-LIBRARY: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-LIBRARY: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-LIBRARY: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-narrow320-LIBRARY: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-LIBRARY: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-LIBRARY: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-LIBRARY: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-narrow320-LIBRARY: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 5
+    },
+    {
+      "id": "ru-narrow320-LIBRARY: last Science content remains reachable above fixed mobile nav",
+      "pass": true,
+      "nav": {
+        "x": 8,
+        "y": 717,
+        "width": 304,
+        "height": 75,
+        "top": 717,
+        "right": 312,
+        "bottom": 792,
+        "left": 8
+      },
+      "last": {
+        "x": 8,
+        "y": -959.046875,
+        "width": 304,
+        "height": 837.890625,
+        "top": -959.046875,
+        "right": 312,
+        "bottom": -121.15625,
+        "left": 8
+      },
+      "maxScroll": 43151,
+      "scrollY": 43151
+    },
+    {
+      "id": "ru-narrow320: no runtime/page errors",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "ru-mobile390: PASS 4E stylesheet ready",
+      "pass": true
+    },
+    {
+      "id": "ru-mobile390-CORE: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-mobile390-CORE: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-mobile390-CORE: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-mobile390-CORE: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-CORE: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-CORE: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-CORE: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-mobile390-CORE: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-CORE: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-CORE: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-CORE: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-CORE: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-mobile390-EXTENDED: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-mobile390-EXTENDED: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-mobile390-EXTENDED: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-mobile390-EXTENDED: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-EXTENDED: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-EXTENDED: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-EXTENDED: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-mobile390-EXTENDED: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-EXTENDED: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-EXTENDED: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-EXTENDED: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-EXTENDED: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-mobile390-OUTCOMES: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-mobile390-OUTCOMES: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-mobile390-OUTCOMES: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-mobile390-OUTCOMES: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-OUTCOMES: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-OUTCOMES: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-OUTCOMES: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-mobile390-OUTCOMES: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-OUTCOMES: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-OUTCOMES: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-OUTCOMES: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-OUTCOMES: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-mobile390-METHODS: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-mobile390-METHODS: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-mobile390-METHODS: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-mobile390-METHODS: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-METHODS: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-METHODS: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-METHODS: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-mobile390-METHODS: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-METHODS: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-METHODS: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-METHODS: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-METHODS: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-mobile390-LIBRARY: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-mobile390-LIBRARY: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-mobile390-LIBRARY: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-mobile390-LIBRARY: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-LIBRARY: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-LIBRARY: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-LIBRARY: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-mobile390-LIBRARY: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-LIBRARY: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-LIBRARY: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-LIBRARY: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-mobile390-LIBRARY: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 5
+    },
+    {
+      "id": "ru-mobile390-LIBRARY: last Science content remains reachable above fixed mobile nav",
+      "pass": true,
+      "nav": {
+        "x": 8,
+        "y": 761,
+        "width": 374,
+        "height": 75,
+        "top": 761,
+        "right": 382,
+        "bottom": 836,
+        "left": 8
+      },
+      "last": {
+        "x": 8,
+        "y": -709.609375,
+        "width": 374,
+        "height": 725.09375,
+        "top": -709.609375,
+        "right": 382,
+        "bottom": 15.484375,
+        "left": 8
+      },
+      "maxScroll": 36990,
+      "scrollY": 36990
+    },
+    {
+      "id": "ru-mobile390: no runtime/page errors",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "ru-tablet768: PASS 4E stylesheet ready",
+      "pass": true
+    },
+    {
+      "id": "ru-tablet768-CORE: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-tablet768-CORE: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-tablet768-CORE: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-tablet768-CORE: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-CORE: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-CORE: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-CORE: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-tablet768-CORE: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-CORE: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-CORE: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-CORE: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-CORE: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-tablet768-EXTENDED: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-tablet768-EXTENDED: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-tablet768-EXTENDED: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-tablet768-EXTENDED: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-EXTENDED: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-EXTENDED: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-EXTENDED: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-tablet768-EXTENDED: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-EXTENDED: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-EXTENDED: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-EXTENDED: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-EXTENDED: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-tablet768-OUTCOMES: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-tablet768-OUTCOMES: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-tablet768-OUTCOMES: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-tablet768-OUTCOMES: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-OUTCOMES: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-OUTCOMES: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-OUTCOMES: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-tablet768-OUTCOMES: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-OUTCOMES: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-OUTCOMES: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-OUTCOMES: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-OUTCOMES: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 3.6103515625
+    },
+    {
+      "id": "ru-tablet768-METHODS: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-tablet768-METHODS: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-tablet768-METHODS: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-tablet768-METHODS: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-METHODS: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-METHODS: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-METHODS: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-tablet768-METHODS: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-METHODS: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-METHODS: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-METHODS: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-METHODS: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 5.8856201171875
+    },
+    {
+      "id": "ru-tablet768-LIBRARY: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-tablet768-LIBRARY: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-tablet768-LIBRARY: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-tablet768-LIBRARY: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-LIBRARY: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-LIBRARY: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-LIBRARY: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-tablet768-LIBRARY: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-LIBRARY: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-LIBRARY: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-LIBRARY: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet768-LIBRARY: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 6
+    },
+    {
+      "id": "ru-tablet768-LIBRARY: last Science content remains reachable above fixed mobile nav",
+      "pass": true,
+      "nav": {
+        "x": 10,
+        "y": 933,
+        "width": 748,
+        "height": 81,
+        "top": 933,
+        "right": 758,
+        "bottom": 1014,
+        "left": 10
+      },
+      "last": {
+        "x": 12,
+        "y": 12.8125,
+        "width": 744,
+        "height": 478.796875,
+        "top": 12.8125,
+        "right": 756,
+        "bottom": 491.609375,
+        "left": 12
+      },
+      "maxScroll": 22702,
+      "scrollY": 22702
+    },
+    {
+      "id": "ru-tablet768: no runtime/page errors",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "ru-tablet1024: PASS 4E stylesheet ready",
+      "pass": true
+    },
+    {
+      "id": "ru-tablet1024-CORE: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-tablet1024-CORE: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-tablet1024-CORE: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-tablet1024-CORE: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-CORE: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-CORE: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-CORE: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-tablet1024-CORE: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-CORE: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-CORE: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-CORE: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-CORE: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-tablet1024-EXTENDED: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-tablet1024-EXTENDED: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-tablet1024-EXTENDED: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-tablet1024-EXTENDED: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-EXTENDED: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-EXTENDED: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-EXTENDED: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-tablet1024-EXTENDED: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-EXTENDED: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-EXTENDED: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-EXTENDED: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-EXTENDED: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-tablet1024-OUTCOMES: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-tablet1024-OUTCOMES: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-tablet1024-OUTCOMES: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-tablet1024-OUTCOMES: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-OUTCOMES: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-OUTCOMES: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-OUTCOMES: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-tablet1024-OUTCOMES: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-OUTCOMES: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-OUTCOMES: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-OUTCOMES: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-OUTCOMES: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-tablet1024-METHODS: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-tablet1024-METHODS: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-tablet1024-METHODS: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-tablet1024-METHODS: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-METHODS: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-METHODS: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-METHODS: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-tablet1024-METHODS: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-METHODS: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-METHODS: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-METHODS: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-METHODS: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-tablet1024-LIBRARY: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-tablet1024-LIBRARY: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-tablet1024-LIBRARY: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-tablet1024-LIBRARY: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-LIBRARY: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-LIBRARY: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-LIBRARY: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-tablet1024-LIBRARY: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-LIBRARY: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-LIBRARY: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-LIBRARY: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-tablet1024-LIBRARY: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-tablet1024-LIBRARY: mobile bottom navigation reachability n/a",
+      "pass": true
+    },
+    {
+      "id": "ru-tablet1024: no runtime/page errors",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "ru-desktop1440: PASS 4E stylesheet ready",
+      "pass": true
+    },
+    {
+      "id": "ru-desktop1440-CORE: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-desktop1440-CORE: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-desktop1440-CORE: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-desktop1440-CORE: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-CORE: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-CORE: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-CORE: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-desktop1440-CORE: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-CORE: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-CORE: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-CORE: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-CORE: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-desktop1440-EXTENDED: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-desktop1440-EXTENDED: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-desktop1440-EXTENDED: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-desktop1440-EXTENDED: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-EXTENDED: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-EXTENDED: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-EXTENDED: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-desktop1440-EXTENDED: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-EXTENDED: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-EXTENDED: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-EXTENDED: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-EXTENDED: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-desktop1440-OUTCOMES: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-desktop1440-OUTCOMES: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-desktop1440-OUTCOMES: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-desktop1440-OUTCOMES: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-OUTCOMES: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-OUTCOMES: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-OUTCOMES: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-desktop1440-OUTCOMES: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-OUTCOMES: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-OUTCOMES: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-OUTCOMES: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-OUTCOMES: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-desktop1440-METHODS: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-desktop1440-METHODS: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-desktop1440-METHODS: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-desktop1440-METHODS: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-METHODS: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-METHODS: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-METHODS: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-desktop1440-METHODS: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-METHODS: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-METHODS: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-METHODS: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-METHODS: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-desktop1440-LIBRARY: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-desktop1440-LIBRARY: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-desktop1440-LIBRARY: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-desktop1440-LIBRARY: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-LIBRARY: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-LIBRARY: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-LIBRARY: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-desktop1440-LIBRARY: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-LIBRARY: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-LIBRARY: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-LIBRARY: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-desktop1440-LIBRARY: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-desktop1440-LIBRARY: mobile bottom navigation reachability n/a",
+      "pass": true
+    },
+    {
+      "id": "ru-desktop1440: no runtime/page errors",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "ru-hd1920: PASS 4E stylesheet ready",
+      "pass": true
+    },
+    {
+      "id": "ru-hd1920-CORE: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-hd1920-CORE: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-hd1920-CORE: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-hd1920-CORE: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-CORE: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-CORE: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-CORE: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-hd1920-CORE: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-CORE: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-CORE: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-CORE: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-CORE: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-hd1920-EXTENDED: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-hd1920-EXTENDED: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-hd1920-EXTENDED: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-hd1920-EXTENDED: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-EXTENDED: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-EXTENDED: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-EXTENDED: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-hd1920-EXTENDED: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-EXTENDED: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-EXTENDED: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-EXTENDED: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-EXTENDED: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-hd1920-OUTCOMES: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-hd1920-OUTCOMES: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-hd1920-OUTCOMES: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-hd1920-OUTCOMES: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-OUTCOMES: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-OUTCOMES: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-OUTCOMES: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-hd1920-OUTCOMES: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-OUTCOMES: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-OUTCOMES: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-OUTCOMES: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-OUTCOMES: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-hd1920-METHODS: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-hd1920-METHODS: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-hd1920-METHODS: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-hd1920-METHODS: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-METHODS: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-METHODS: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-METHODS: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-hd1920-METHODS: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-METHODS: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-METHODS: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-METHODS: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-METHODS: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-hd1920-LIBRARY: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-hd1920-LIBRARY: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-hd1920-LIBRARY: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-hd1920-LIBRARY: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-LIBRARY: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-LIBRARY: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-LIBRARY: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-hd1920-LIBRARY: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-LIBRARY: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-LIBRARY: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-LIBRARY: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-hd1920-LIBRARY: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-hd1920-LIBRARY: mobile bottom navigation reachability n/a",
+      "pass": true
+    },
+    {
+      "id": "ru-hd1920: no runtime/page errors",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "ru-uhd2560: PASS 4E stylesheet ready",
+      "pass": true
+    },
+    {
+      "id": "ru-uhd2560-CORE: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-uhd2560-CORE: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-uhd2560-CORE: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-uhd2560-CORE: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-CORE: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-CORE: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-CORE: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-uhd2560-CORE: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-CORE: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-CORE: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-CORE: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-CORE: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-uhd2560-EXTENDED: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-uhd2560-EXTENDED: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-uhd2560-EXTENDED: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-uhd2560-EXTENDED: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-EXTENDED: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-EXTENDED: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-EXTENDED: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-uhd2560-EXTENDED: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-EXTENDED: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-EXTENDED: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-EXTENDED: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-EXTENDED: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-uhd2560-OUTCOMES: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-uhd2560-OUTCOMES: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-uhd2560-OUTCOMES: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-uhd2560-OUTCOMES: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-OUTCOMES: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-OUTCOMES: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-OUTCOMES: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-uhd2560-OUTCOMES: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-OUTCOMES: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-OUTCOMES: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-OUTCOMES: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-OUTCOMES: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-uhd2560-METHODS: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-uhd2560-METHODS: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-uhd2560-METHODS: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-uhd2560-METHODS: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-METHODS: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-METHODS: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-METHODS: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-uhd2560-METHODS: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-METHODS: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-METHODS: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-METHODS: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-METHODS: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "ru-uhd2560-LIBRARY: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "ru-uhd2560-LIBRARY: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "ru-uhd2560-LIBRARY: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "ru-uhd2560-LIBRARY: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-LIBRARY: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-LIBRARY: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-LIBRARY: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "ru-uhd2560-LIBRARY: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-LIBRARY: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-LIBRARY: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-LIBRARY: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "ru-uhd2560-LIBRARY: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 5
+    },
+    {
+      "id": "ru-uhd2560-LIBRARY: mobile bottom navigation reachability n/a",
+      "pass": true
+    },
+    {
+      "id": "ru-uhd2560: no runtime/page errors",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "en-narrow320: PASS 4E stylesheet ready",
+      "pass": true
+    },
+    {
+      "id": "en-narrow320-CORE: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-narrow320-CORE: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-narrow320-CORE: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-narrow320-CORE: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-CORE: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-CORE: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-CORE: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-narrow320-CORE: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-CORE: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-CORE: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-CORE: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-CORE: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-narrow320-EXTENDED: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-narrow320-EXTENDED: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-narrow320-EXTENDED: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-narrow320-EXTENDED: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-EXTENDED: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-EXTENDED: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-EXTENDED: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-narrow320-EXTENDED: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-EXTENDED: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-EXTENDED: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-EXTENDED: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-EXTENDED: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-narrow320-OUTCOMES: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-narrow320-OUTCOMES: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-narrow320-OUTCOMES: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-narrow320-OUTCOMES: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-OUTCOMES: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-OUTCOMES: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-OUTCOMES: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-narrow320-OUTCOMES: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-OUTCOMES: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-OUTCOMES: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-OUTCOMES: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-OUTCOMES: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-narrow320-METHODS: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-narrow320-METHODS: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-narrow320-METHODS: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-narrow320-METHODS: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-METHODS: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-METHODS: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-METHODS: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-narrow320-METHODS: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-METHODS: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-METHODS: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-METHODS: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-METHODS: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-narrow320-LIBRARY: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-narrow320-LIBRARY: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-narrow320-LIBRARY: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-narrow320-LIBRARY: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-LIBRARY: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-LIBRARY: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-LIBRARY: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-narrow320-LIBRARY: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-LIBRARY: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-LIBRARY: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-LIBRARY: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-narrow320-LIBRARY: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 5
+    },
+    {
+      "id": "en-narrow320-LIBRARY: last Science content remains reachable above fixed mobile nav",
+      "pass": true,
+      "nav": {
+        "x": 8,
+        "y": 717,
+        "width": 304,
+        "height": 75,
+        "top": 717,
+        "right": 312,
+        "bottom": 792,
+        "left": 8
+      },
+      "last": {
+        "x": 8,
+        "y": -701.421875,
+        "width": 304,
+        "height": 704.09375,
+        "top": -701.421875,
+        "right": 312,
+        "bottom": 2.671875,
+        "left": 8
+      },
+      "maxScroll": 40417,
+      "scrollY": 40417
+    },
+    {
+      "id": "en-narrow320: no runtime/page errors",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "en-mobile390: PASS 4E stylesheet ready",
+      "pass": true
+    },
+    {
+      "id": "en-mobile390-CORE: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-mobile390-CORE: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-mobile390-CORE: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-mobile390-CORE: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-CORE: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-CORE: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-CORE: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-mobile390-CORE: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-CORE: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-CORE: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-CORE: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-CORE: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-mobile390-EXTENDED: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-mobile390-EXTENDED: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-mobile390-EXTENDED: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-mobile390-EXTENDED: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-EXTENDED: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-EXTENDED: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-EXTENDED: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-mobile390-EXTENDED: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-EXTENDED: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-EXTENDED: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-EXTENDED: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-EXTENDED: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-mobile390-OUTCOMES: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-mobile390-OUTCOMES: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-mobile390-OUTCOMES: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-mobile390-OUTCOMES: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-OUTCOMES: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-OUTCOMES: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-OUTCOMES: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-mobile390-OUTCOMES: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-OUTCOMES: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-OUTCOMES: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-OUTCOMES: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-OUTCOMES: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-mobile390-METHODS: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-mobile390-METHODS: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-mobile390-METHODS: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-mobile390-METHODS: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-METHODS: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-METHODS: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-METHODS: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-mobile390-METHODS: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-METHODS: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-METHODS: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-METHODS: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-METHODS: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-mobile390-LIBRARY: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-mobile390-LIBRARY: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-mobile390-LIBRARY: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-mobile390-LIBRARY: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-LIBRARY: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-LIBRARY: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-LIBRARY: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-mobile390-LIBRARY: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-LIBRARY: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-LIBRARY: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-LIBRARY: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-mobile390-LIBRARY: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 5
+    },
+    {
+      "id": "en-mobile390-LIBRARY: last Science content remains reachable above fixed mobile nav",
+      "pass": true,
+      "nav": {
+        "x": 8,
+        "y": 761,
+        "width": 374,
+        "height": 75,
+        "top": 761,
+        "right": 382,
+        "bottom": 836,
+        "left": 8
+      },
+      "last": {
+        "x": 8,
+        "y": -503.609375,
+        "width": 374,
+        "height": 603.59375,
+        "top": -503.609375,
+        "right": 382,
+        "bottom": 99.984375,
+        "left": 8
+      },
+      "maxScroll": 35549,
+      "scrollY": 35549
+    },
+    {
+      "id": "en-mobile390: no runtime/page errors",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "en-tablet768: PASS 4E stylesheet ready",
+      "pass": true
+    },
+    {
+      "id": "en-tablet768-CORE: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-tablet768-CORE: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-tablet768-CORE: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-tablet768-CORE: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-CORE: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-CORE: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-CORE: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-tablet768-CORE: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-CORE: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-CORE: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-CORE: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-CORE: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-tablet768-EXTENDED: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-tablet768-EXTENDED: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-tablet768-EXTENDED: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-tablet768-EXTENDED: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-EXTENDED: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-EXTENDED: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-EXTENDED: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-tablet768-EXTENDED: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-EXTENDED: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-EXTENDED: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-EXTENDED: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-EXTENDED: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-tablet768-OUTCOMES: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-tablet768-OUTCOMES: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-tablet768-OUTCOMES: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-tablet768-OUTCOMES: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-OUTCOMES: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-OUTCOMES: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-OUTCOMES: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-tablet768-OUTCOMES: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-OUTCOMES: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-OUTCOMES: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-OUTCOMES: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-OUTCOMES: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-tablet768-METHODS: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-tablet768-METHODS: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-tablet768-METHODS: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-tablet768-METHODS: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-METHODS: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-METHODS: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-METHODS: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-tablet768-METHODS: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-METHODS: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-METHODS: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-METHODS: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-METHODS: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-tablet768-LIBRARY: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-tablet768-LIBRARY: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-tablet768-LIBRARY: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-tablet768-LIBRARY: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-LIBRARY: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-LIBRARY: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-LIBRARY: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-tablet768-LIBRARY: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-LIBRARY: Science controls meet 44px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-LIBRARY: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-LIBRARY: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet768-LIBRARY: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-tablet768-LIBRARY: last Science content remains reachable above fixed mobile nav",
+      "pass": true,
+      "nav": {
+        "x": 10,
+        "y": 933,
+        "width": 748,
+        "height": 81,
+        "top": 933,
+        "right": 758,
+        "bottom": 1014,
+        "left": 10
+      },
+      "last": {
+        "x": 12,
+        "y": 74.59375,
+        "width": 744,
+        "height": 457.796875,
+        "top": 74.59375,
+        "right": 756,
+        "bottom": 532.390625,
+        "left": 12
+      },
+      "maxScroll": 21540,
+      "scrollY": 21540
+    },
+    {
+      "id": "en-tablet768: no runtime/page errors",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "en-tablet1024: PASS 4E stylesheet ready",
+      "pass": true
+    },
+    {
+      "id": "en-tablet1024-CORE: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-tablet1024-CORE: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-tablet1024-CORE: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-tablet1024-CORE: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-CORE: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-CORE: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-CORE: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-tablet1024-CORE: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-CORE: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-CORE: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-CORE: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-CORE: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-tablet1024-EXTENDED: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-tablet1024-EXTENDED: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-tablet1024-EXTENDED: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-tablet1024-EXTENDED: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-EXTENDED: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-EXTENDED: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-EXTENDED: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-tablet1024-EXTENDED: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-EXTENDED: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-EXTENDED: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-EXTENDED: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-EXTENDED: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-tablet1024-OUTCOMES: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-tablet1024-OUTCOMES: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-tablet1024-OUTCOMES: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-tablet1024-OUTCOMES: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-OUTCOMES: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-OUTCOMES: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-OUTCOMES: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-tablet1024-OUTCOMES: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-OUTCOMES: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-OUTCOMES: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-OUTCOMES: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-OUTCOMES: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-tablet1024-METHODS: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-tablet1024-METHODS: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-tablet1024-METHODS: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-tablet1024-METHODS: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-METHODS: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-METHODS: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-METHODS: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-tablet1024-METHODS: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-METHODS: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-METHODS: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-METHODS: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-METHODS: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-tablet1024-LIBRARY: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-tablet1024-LIBRARY: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-tablet1024-LIBRARY: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-tablet1024-LIBRARY: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-LIBRARY: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-LIBRARY: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-LIBRARY: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-tablet1024-LIBRARY: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-LIBRARY: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-LIBRARY: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-LIBRARY: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-tablet1024-LIBRARY: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-tablet1024-LIBRARY: mobile bottom navigation reachability n/a",
+      "pass": true
+    },
+    {
+      "id": "en-tablet1024: no runtime/page errors",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "en-desktop1440: PASS 4E stylesheet ready",
+      "pass": true
+    },
+    {
+      "id": "en-desktop1440-CORE: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-desktop1440-CORE: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-desktop1440-CORE: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-desktop1440-CORE: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-CORE: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-CORE: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-CORE: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-desktop1440-CORE: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-CORE: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-CORE: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-CORE: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-CORE: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-desktop1440-EXTENDED: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-desktop1440-EXTENDED: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-desktop1440-EXTENDED: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-desktop1440-EXTENDED: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-EXTENDED: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-EXTENDED: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-EXTENDED: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-desktop1440-EXTENDED: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-EXTENDED: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-EXTENDED: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-EXTENDED: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-EXTENDED: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-desktop1440-OUTCOMES: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-desktop1440-OUTCOMES: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-desktop1440-OUTCOMES: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-desktop1440-OUTCOMES: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-OUTCOMES: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-OUTCOMES: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-OUTCOMES: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-desktop1440-OUTCOMES: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-OUTCOMES: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-OUTCOMES: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-OUTCOMES: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-OUTCOMES: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-desktop1440-METHODS: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-desktop1440-METHODS: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-desktop1440-METHODS: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-desktop1440-METHODS: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-METHODS: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-METHODS: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-METHODS: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-desktop1440-METHODS: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-METHODS: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-METHODS: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-METHODS: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-METHODS: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-desktop1440-LIBRARY: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-desktop1440-LIBRARY: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-desktop1440-LIBRARY: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-desktop1440-LIBRARY: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-LIBRARY: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-LIBRARY: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-LIBRARY: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-desktop1440-LIBRARY: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-LIBRARY: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-LIBRARY: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-LIBRARY: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-desktop1440-LIBRARY: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-desktop1440-LIBRARY: mobile bottom navigation reachability n/a",
+      "pass": true
+    },
+    {
+      "id": "en-desktop1440: no runtime/page errors",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "en-hd1920: PASS 4E stylesheet ready",
+      "pass": true
+    },
+    {
+      "id": "en-hd1920-CORE: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-hd1920-CORE: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-hd1920-CORE: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-hd1920-CORE: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-CORE: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-CORE: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-CORE: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-hd1920-CORE: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-CORE: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-CORE: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-CORE: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-CORE: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-hd1920-EXTENDED: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-hd1920-EXTENDED: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-hd1920-EXTENDED: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-hd1920-EXTENDED: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-EXTENDED: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-EXTENDED: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-EXTENDED: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-hd1920-EXTENDED: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-EXTENDED: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-EXTENDED: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-EXTENDED: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-EXTENDED: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-hd1920-OUTCOMES: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-hd1920-OUTCOMES: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-hd1920-OUTCOMES: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-hd1920-OUTCOMES: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-OUTCOMES: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-OUTCOMES: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-OUTCOMES: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-hd1920-OUTCOMES: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-OUTCOMES: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-OUTCOMES: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-OUTCOMES: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-OUTCOMES: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-hd1920-METHODS: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-hd1920-METHODS: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-hd1920-METHODS: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-hd1920-METHODS: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-METHODS: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-METHODS: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-METHODS: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-hd1920-METHODS: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-METHODS: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-METHODS: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-METHODS: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-METHODS: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-hd1920-LIBRARY: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-hd1920-LIBRARY: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-hd1920-LIBRARY: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-hd1920-LIBRARY: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-LIBRARY: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-LIBRARY: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-LIBRARY: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-hd1920-LIBRARY: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-LIBRARY: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-LIBRARY: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-LIBRARY: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-hd1920-LIBRARY: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-hd1920-LIBRARY: mobile bottom navigation reachability n/a",
+      "pass": true
+    },
+    {
+      "id": "en-hd1920: no runtime/page errors",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "en-uhd2560: PASS 4E stylesheet ready",
+      "pass": true
+    },
+    {
+      "id": "en-uhd2560-CORE: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-uhd2560-CORE: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-uhd2560-CORE: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-uhd2560-CORE: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-CORE: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-CORE: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-CORE: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-uhd2560-CORE: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-CORE: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-CORE: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-CORE: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-CORE: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-uhd2560-EXTENDED: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-uhd2560-EXTENDED: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-uhd2560-EXTENDED: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-uhd2560-EXTENDED: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-EXTENDED: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-EXTENDED: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-EXTENDED: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-uhd2560-EXTENDED: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-EXTENDED: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-EXTENDED: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-EXTENDED: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-EXTENDED: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 0
+    },
+    {
+      "id": "en-uhd2560-OUTCOMES: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-uhd2560-OUTCOMES: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-uhd2560-OUTCOMES: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-uhd2560-OUTCOMES: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-OUTCOMES: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-OUTCOMES: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-OUTCOMES: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-uhd2560-OUTCOMES: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-OUTCOMES: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-OUTCOMES: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-OUTCOMES: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-OUTCOMES: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 5
+    },
+    {
+      "id": "en-uhd2560-METHODS: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-uhd2560-METHODS: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-uhd2560-METHODS: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-uhd2560-METHODS: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-METHODS: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-METHODS: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-METHODS: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-uhd2560-METHODS: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-METHODS: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-METHODS: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-METHODS: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-METHODS: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 5
+    },
+    {
+      "id": "en-uhd2560-LIBRARY: document horizontal overflow",
+      "pass": true,
+      "overflow": 0
+    },
+    {
+      "id": "en-uhd2560-LIBRARY: canonical font inventory declared",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "id": "en-uhd2560-LIBRARY: used canonical web fonts available",
+      "pass": true,
+      "plexSans": true,
+      "plexSans600": true,
+      "notoSerif": true,
+      "mono": true
+    },
+    {
+      "id": "en-uhd2560-LIBRARY: no prohibited computed font families",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-LIBRARY: no synthetic IBM Plex Sans weights",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-LIBRARY: technical notation uses IBM Plex Mono",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-LIBRARY: critical H2 has no intrinsic clipping",
+      "pass": true,
+      "overflow": []
+    },
+    {
+      "id": "en-uhd2560-LIBRARY: Global-70 metadata chips fit",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-LIBRARY: Science controls meet 24px target",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-LIBRARY: mobile narrative floor",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-LIBRARY: narrative line-height >= 1.30",
+      "pass": true,
+      "count": 0,
+      "sample": []
+    },
+    {
+      "id": "en-uhd2560-LIBRARY: sticky topbar/subnav overlap bounded",
+      "pass": true,
+      "overlap": 5
+    },
+    {
+      "id": "en-uhd2560-LIBRARY: mobile bottom navigation reachability n/a",
+      "pass": true
+    },
+    {
+      "id": "en-uhd2560: no runtime/page errors",
+      "pass": true,
+      "errors": []
+    }
+  ],
+  "failures": [],
+  "scope": "BROWSER_RESPONSIVE_TYPOGRAPHY_SCIENCE_QA",
+  "scientific_content_mutated": false
+}
