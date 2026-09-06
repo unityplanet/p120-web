@@ -9,6 +9,14 @@ on:
       - '.github/workflows/qa-web-explore-pass53.yml'
       - '.github/workflows/qa-main-quick-locale-theme-patch3-pass2.yml'
       - 'qa/main_quick_locale_theme_patch3_pass2_reconciled.mjs'
+  push:
+    branches: [main]
+    paths:
+      - 'qa/about_production_closure_live.mjs'
+      - '.github/workflows/p120-about-production-closure.yml'
+      - '.github/workflows/qa-web-explore-pass53.yml'
+      - '.github/workflows/qa-main-quick-locale-theme-patch3-pass2.yml'
+      - 'qa/main_quick_locale_theme_patch3_pass2_reconciled.mjs'
 
 permissions:
   contents: read
@@ -20,7 +28,7 @@ jobs:
     timeout-minutes: 30
     env:
       P120_PRODUCTION_BASE: https://unityplanet.github.io/p120-web/
-      P120_EXPECTED_PRODUCTION_SHA: aa2d101f8bd0dcb12b033df8643756da8a6f22a1
+      P120_EXPECTED_PRODUCTION_SHA: ${{ github.event_name == 'push' && github.sha || 'aa2d101f8bd0dcb12b033df8643756da8a6f22a1' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -30,22 +38,30 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p qa-artifacts/about-production-closure-live
-          curl -fsSL \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/deployments?environment=github-pages&per_page=10" \
-            > qa-artifacts/about-production-closure-live/deployments.json
           python3 - <<'PY'
-          import json, os, sys
-          p='qa-artifacts/about-production-closure-live/deployments.json'
-          rows=json.load(open(p,encoding='utf-8'))
+          import json, os, time, urllib.request
           expected=os.environ['P120_EXPECTED_PRODUCTION_SHA']
-          matching=[r for r in rows if r.get('sha')==expected]
+          repo=os.environ['GITHUB_REPOSITORY']
+          token=os.environ['GH_TOKEN']
+          url=f'https://api.github.com/repos/{repo}/deployments?environment=github-pages&per_page=20'
+          observed=[]
+          matching=[]
+          for attempt in range(36):
+              req=urllib.request.Request(url,headers={'Authorization':f'Bearer {token}','Accept':'application/vnd.github+json','User-Agent':'p120-production-closure'})
+              with urllib.request.urlopen(req,timeout=30) as r:
+                  rows=json.load(r)
+              observed=[x.get('sha') for x in rows]
+              matching=[x for x in rows if x.get('sha')==expected]
+              with open('qa-artifacts/about-production-closure-live/deployments.json','w',encoding='utf-8') as f:
+                  json.dump(rows,f,indent=2)
+              if matching:
+                  break
+              print(f'Waiting for Pages deployment {expected}; attempt {attempt+1}/36; observed={observed[:5]}')
+              time.sleep(5)
           if not matching:
-              print('Expected GitHub Pages deployment SHA not found:',expected,file=sys.stderr)
-              print('Observed:',[r.get('sha') for r in rows],file=sys.stderr)
-              raise SystemExit(1)
-          json.dump({'expected_sha':expected,'matching_deployment_ids':[r.get('id') for r in matching],'verdict':'PASS'},open('qa-artifacts/about-production-closure-live/deployment-lineage.json','w'),indent=2)
+              raise SystemExit(f'Expected GitHub Pages deployment SHA not found: {expected}; observed={observed[:10]}')
+          with open('qa-artifacts/about-production-closure-live/deployment-lineage.json','w',encoding='utf-8') as f:
+              json.dump({'expected_sha':expected,'matching_deployment_ids':[x.get('id') for x in matching],'verdict':'PASS'},f,indent=2)
           print('PASS: deployment lineage contains', expected)
           PY
 
