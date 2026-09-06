@@ -19,7 +19,6 @@ const screenshotCases=new Set([
 const checks=[],failures=[];
 function check(id,pass,detail={}){const row={id,pass:Boolean(pass),...detail};checks.push(row);if(!pass){failures.push(row);console.error('FAIL',id,detail);}return Boolean(pass);}
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-const visible=(s)=>s.display!=='none'&&s.visibility!=='hidden'&&parseFloat(s.opacity||'1')>0;
 
 async function waitReady(page,label){
   try{
@@ -30,7 +29,17 @@ async function waitReady(page,label){
       document.documentElement.dataset.p120WebsciencePass4eStatus==='pass'&&
       Boolean(document.querySelector('link[data-p120-webscience-pass4e-loader="v0.9"]')),
       null,{timeout:20000});
-    await page.evaluate(()=>document.fonts.ready);
+    await page.evaluate(async()=>{
+      await document.fonts.ready;
+      const en=document.documentElement.lang?.toLowerCase().startsWith('en');
+      const serifSample=en?'Scientific Base':'Научная база';
+      await Promise.all([
+        document.fonts.load('400 16px "IBM Plex Sans"','P-120 Evidence'),
+        document.fonts.load('600 16px "IBM Plex Sans"','Evidence status'),
+        document.fonts.load('600 24px "Noto Serif"',serifSample),
+        document.fonts.load('400 14px "IBM Plex Mono"','REF-070')
+      ]);
+    });
     check(`${label}: PASS 4E stylesheet ready`,true);return true;
   }catch(error){
     const diag=await page.evaluate(()=>({
@@ -87,10 +96,12 @@ async function inspect(page){
     const stickyOverlap=topbar&&subnav?Math.max(0,topbar.bottom-subnav.top):0;
     const fontsHref=[...document.querySelectorAll('link[href*="fonts.bunny.net"]')].map(x=>x.href).join(' ');
     const inventory=['ibm-plex-mono','ibm-plex-sans','noto-serif','noto-serif-display','prata'].filter(x=>!fontsHref.toLowerCase().includes(x));
+    const en=document.documentElement.lang?.toLowerCase().startsWith('en');
+    const serifSample=en?'Scientific Base':'Научная база';
     const usedFontAvailability={
       plexSans:document.fonts.check('400 16px "IBM Plex Sans"','P-120 Evidence'),
       plexSans600:document.fonts.check('600 16px "IBM Plex Sans"','Evidence status'),
-      notoSerif:document.fonts.check('600 24px "Noto Serif"','Scientific Base Научная база'),
+      notoSerif:document.fonts.check('600 24px "Noto Serif"',serifSample),
       mono:technical.length?document.fonts.check('400 14px "IBM Plex Mono"','REF-070'):true
     };
     const mobileNav=document.querySelector('.mobile-bottom-nav');
