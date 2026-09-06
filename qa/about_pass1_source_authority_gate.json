@@ -17,7 +17,20 @@
     "pass10_final_master_authority": "BOUND",
     "material_correction_required_for_about": false,
     "release_hold_due_to_source_authority": "CLEARED",
+    "decision_record": "P120_ABOUT_IMPLEMENTATION_PASS1_DECISION_RECORD_v1.0.md",
+    "decision_record_status": "MERGE AUTHORIZED",
     "remaining_release_gate": "CURRENT-HEAD CI + CONTROLLED MERGE + PRODUCTION REGRESSION"
+  },
+  "release_stage": {
+    "state": "MERGE-READY AFTER GREEN CURRENT-HEAD CI",
+    "production_state": "NOT YET CLOSED",
+    "required_next_actions": [
+      "mark PR #18 ready",
+      "controlled merge to main",
+      "verify GitHub Pages deployment",
+      "run post-merge production regression",
+      "issue production closure package"
+    ]
   },
   "no_change_from_source_freeze": {
     "measurement": true,
