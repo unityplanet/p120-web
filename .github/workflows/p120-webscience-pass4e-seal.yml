@@ -93,6 +93,14 @@ jobs:
       - name: Run PASS 4E browser responsive typography gate
         run: node qa/webscience_pass4e_browser_typography_gate_v0.9.mjs
 
+      - name: Persist PASS 4E gate diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_EXT_PASS4E_v0.9_GATE_DIAGNOSTIC
+          path: qa-evidence-webscience-pass4e/
+          if-no-files-found: warn
+
       - name: Build controlled PASS 4E closure records
         run: python3 .github/scripts/p120_webscience_pass4e_closure.py
 
