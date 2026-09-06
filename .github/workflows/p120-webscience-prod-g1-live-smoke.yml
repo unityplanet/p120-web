@@ -1,0 +1,37 @@
+name: P120 WEB-SCIENCE PROD-G1 Live Production Smoke
+
+on:
+  push:
+    branches:
+      - 'web-science-prod-g1-final-closure'
+    paths:
+      - 'qa/webscience_prod_g1_live_smoke_v1.0.mjs'
+      - '.github/workflows/p120-webscience-prod-g1-live-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-production-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      P120_PRODUCTION_BASE: https://unityplanet.github.io/p120-web/
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Verify public GitHub Pages RU/EN Science
+        run: node qa/webscience_prod_g1_live_smoke_v1.0.mjs
+      - name: Upload live production evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_PROD_G1_LIVE_SMOKE
+          path: qa-evidence-webscience-prod-g1-live/
+          if-no-files-found: error
+          retention-days: 90
