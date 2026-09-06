@@ -15,7 +15,7 @@
   },
   "source_lineage": {
     "historical_executable_registry": "P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json",
-    "historical_executable_registry_sha256": "38b706b38fa10d0e7c4db46bd03c4eb870a643829bfa146114c780e44c188e51a",
+    "historical_executable_registry_sha256": "38b706b38f8f19f60c5917874b8371661340bb0cf30059fe9a7de98d16251f5e",
     "sealed_science_authority_commit": "d095cae40b33da2118e5090be2a2c837205d8b64",
     "prod_g1_final_production_head": "0c9a7bdc7470dcc9eb1223ebfc15bb5bcc6f94b4",
     "rule": "The v1.0 registry remains the frozen executable registry consumed by the sealed Scientific Base runtime. v1.1 reconciles governance and production-state metadata only."
