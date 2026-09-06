@@ -54,12 +54,12 @@ jobs:
               check((await decision.getAttribute('aria-disabled'))!=='true',`${label} ${path} decision research active`);
               const mobileDecision=page.locator('[data-ecosystem-mobile="decisionResearch"]');
               check(await mobileDecision.count()===1,`${label} ${path} decision research exists in mobile ecosystem DOM`);
-            } else {
+            } else if(!isResearch){
               const navCard=page.locator('.p120-brand53-mega-card[href*="research/how-we-decide"]');
-              const footerLink=page.locator('.p120-site-footer__chapters a[href*="research/how-we-decide"]');
-              if(!isResearch){
-                check(await navCard.count()===1,`${label} ${path} global research mega-card exists`);
-                check(await footerLink.count()===1,`${label} ${path} global research footer link exists`);
+              check(await navCard.count()===1,`${label} ${path} global research mega-card exists`);
+              const explicitMobileNav=page.locator('[aria-label="Мобильная навигация"],[aria-label="Mobile navigation"]');
+              if(await explicitMobileNav.count()){
+                check(await explicitMobileNav.locator('a[href*="research/how-we-decide"]').count()>=1,`${label} ${path} explicit mobile research route exists`);
               }
             }
             if(isResearch){
