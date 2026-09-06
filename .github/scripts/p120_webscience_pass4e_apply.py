@@ -3,7 +3,7 @@ import hashlib
 
 TARGET=Path('p120-webscience-pass4c-library-v0.7.js')
 EXPECTED='902a124ac0f41b7de5a5f33b67780cb232350d836aaa5d1a918f4f81439e2a4d'
-MARK="data.p120WebsciencePass4eLoader='v0.9'"
+MARK="link.dataset.p120WebsciencePass4eLoader='v0.9'"
 BLOCK=r'''
 
 /* WEB-SCIENCE EXT PASS 4E — controlled Science visual QA stylesheet loader.
