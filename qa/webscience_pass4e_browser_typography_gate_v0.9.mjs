@@ -87,6 +87,17 @@ async function inspect(page){
       .filter(isVisible).map(el=>{const r=el.getBoundingClientRect();return {text:(el.textContent||'').trim().slice(0,80),cls:el.className||'',w:r.width,h:r.height};});
     const targetMin=vw<=1023?44:24;
     const targetFailures=targets.filter(x=>x.w<targetMin-0.5||x.h<targetMin-0.5);
+    const subnavLinks=[...document.querySelectorAll('.science-page .science-subnav a')].filter(isVisible).map(el=>{
+      const s=getComputedStyle(el),r=el.getBoundingClientRect();
+      return {text:(el.textContent||'').trim().slice(0,100),sw:el.scrollWidth,cw:el.clientWidth,left:r.left,right:r.right,top:r.top,bottom:r.bottom,whiteSpace:s.whiteSpace,flexShrink:s.flexShrink};
+    });
+    const subnavLabelFailures=subnavLinks.filter(x=>x.sw>x.cw+1||(vw<=1023&&(x.whiteSpace!=='nowrap'||Math.abs(parseFloat(x.flexShrink)||0)>0.001)));
+    const subnavAdjacentOverlap=[];
+    for(let i=1;i<subnavLinks.length;i++){
+      const a=subnavLinks[i-1],b=subnavLinks[i];
+      const vertical=Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top);
+      if(vertical>1&&b.left<a.right-0.5)subnavAdjacentOverlap.push({previous:a.text,current:b.text,previousRight:a.right,currentLeft:b.left,verticalOverlap:vertical});
+    }
     const narrativeSelectors=['.plain-layer p','.practical-card p','.life-card p','.construct-card p','.construct-boundary','.boundary-pair p','.validation-copy p','.hypothesis p','.science-callout p','.ref-item','.internal-list p','.p120-pass4b-module p','.p120-pass4b-positioning-card p','.p120-pass4c-citation'];
     const narrative=[...document.querySelectorAll(narrativeSelectors.map(x=>`.science-page ${x}`).join(','))].filter(isVisible).map(el=>{const s=getComputedStyle(el),f=parseFloat(s.fontSize),l=parseFloat(s.lineHeight);return {text:(el.textContent||'').trim().slice(0,80),cls:el.className||'',f,l,ratio:f&&l?l/f:null};});
     const tiny=vw<=520?narrative.filter(x=>x.f<11.95):[];
@@ -106,7 +117,7 @@ async function inspect(page){
     };
     const mobileNav=document.querySelector('.mobile-bottom-nav');
     const mobileNavRect=mobileNav&&isVisible(mobileNav)?mobileNav.getBoundingClientRect():null;
-    return {vw,docOverflow,forbidden,synthetic,technicalCount:technical.length,technicalWrong,criticalH2,h2Overflow,chipCount:chips.length,chipOverflow,targets,targetMin,targetFailures,narrative,tiny,lowLeading,stickyOverlap,inventory,usedFontAvailability,mobileNav:mobileNavRect?{top:mobileNavRect.top,bottom:mobileNavRect.bottom,height:mobileNavRect.height}:null};
+    return {vw,docOverflow,forbidden,synthetic,technicalCount:technical.length,technicalWrong,criticalH2,h2Overflow,chipCount:chips.length,chipOverflow,targets,targetMin,targetFailures,subnavLinks,subnavLabelFailures,subnavAdjacentOverlap,narrative,tiny,lowLeading,stickyOverlap,inventory,usedFontAvailability,mobileNav:mobileNavRect?{top:mobileNavRect.top,bottom:mobileNavRect.bottom,height:mobileNavRect.height}:null};
   });
 }
 
@@ -157,13 +168,13 @@ try{
           check(`${label}: critical H2 has no intrinsic clipping`,x.h2Overflow.length===0,{overflow:x.h2Overflow});
           check(`${label}: Global-70 metadata chips fit`,x.chipOverflow.length===0,{count:x.chipOverflow.length,sample:x.chipOverflow.slice(0,5)});
           check(`${label}: Science controls meet ${x.targetMin}px target`,x.targetFailures.length===0,{count:x.targetFailures.length,sample:x.targetFailures.slice(0,8)});
+          check(`${label}: Science subnav labels remain contained`,x.subnavLabelFailures.length===0&&x.subnavAdjacentOverlap.length===0,{labelFailures:x.subnavLabelFailures.slice(0,8),adjacentOverlap:x.subnavAdjacentOverlap.slice(0,8)});
           check(`${label}: mobile narrative floor`,x.tiny.length===0,{count:x.tiny.length,sample:x.tiny.slice(0,8)});
           check(`${label}: narrative line-height >= 1.30`,x.lowLeading.length===0,{count:x.lowLeading.length,sample:x.lowLeading.slice(0,8)});
           check(`${label}: sticky topbar/subnav overlap bounded`,x.stickyOverlap<=6.1,{overlap:x.stickyOverlap});
           const key=`${locale}-${viewportName}-${base}`;
           if(screenshotCases.has(key)){
-            const panel=base==='CORE'?page.locator('.science-page').first():page.locator('#p120-science-active-base');
-            if(await panel.count())await panel.screenshot({path:path.join(SHOTS,`${key}.png`)}).catch(async()=>page.screenshot({path:path.join(SHOTS,`${key}.png`),fullPage:false}));
+            await page.screenshot({path:path.join(SHOTS,`${key}.png`),fullPage:false});
           }
         }
         await setBase(page,'LIBRARY');
