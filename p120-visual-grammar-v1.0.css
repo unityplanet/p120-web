@@ -69,6 +69,11 @@ html[data-p120-page-kind="extended"]{--p120-family-kind:explore}
 [data-p120-family="dyadic"],
 html[data-p120-page-kind="together"]{--p120-family-kind:dyadic}
 
+/* PASS 3A reconciliation delta: HG-CGA is a public derived-research surface.
+   The marker is semantic only; route-local composition remains locally owned. */
+[data-p120-family="derived-research"],
+html[data-p120-page-kind="research/how-we-decide"]{--p120-family-kind:derived-research}
+
 [data-p120-family="system"],
 body[data-p120-page="system"]{--p120-family-kind:system}
 
