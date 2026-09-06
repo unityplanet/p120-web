@@ -3,26 +3,57 @@
 
 **Document code:** P120-WEB-ABOUT-IMP1-DR-001  
 **Version:** 1.0  
-**Date:** 2026-09-05  
-**Decision status:** CONTROLLED / EFFECTIVE FOR IMPLEMENTATION CLOSURE  
+**Date:** 2026-09-06  
+**Decision status:** CONTROLLED / EFFECTIVE FOR RELEASE PROMOTION  
 
 ## Decision
 
-Close Implementation PASS 1 as **GREEN at the technical implementation layer**, while retaining the About P-120 derivative as a **controlled candidate** and holding merge/release pending Architecture / About the System PASS 10.
+Implementation PASS 1 remains **CLOSED / GREEN** at the technical layer. The former source-authority release hold is now cleared because `P120-ARCH-SYS-001 v1.0` completed **PASS 10 — Final Reconciliation / Freeze Recommendation** with status `PASS / CLOSED / CONTROLLED / SEALED`, decision `FREEZE APPROVED`, and authority state `FROZEN / CANONICAL SYSTEM AUTHORITY / EFFECTIVE`.
 
-## Rationale
+The About P-120 derivative is therefore authorized to proceed from controlled candidate to **controlled merge and production-release verification**, subject to a green current-head QA run and post-merge production regression.
 
-The implementation has met its technical, derivative-conformance and regression obligations:
+## Source-authority binding
 
-- RU and EN About routes exist as separate first-class surfaces;
-- the page preserves the intended system-level explanatory role;
-- the shared public navigation now points About to the dedicated route rather than the legacy Main anchor;
-- dedicated conformance and render QA is fully green;
-- existing shared-header integrity and hardening gates are green/non-blocking;
-- Actions governance is green;
-- protected scientific/measurement/respondent source surfaces were not modified.
+Final PASS 10 package SHA-256:
 
-However, implementation authority and source narrative authority are different layers. PASS 10 remains the designated source-authority freeze and therefore retains precedence over final release.
+`7e389b53a4575df2f3214a3050d029134562d9e9a19514230ecdc51822a22dcd`
+
+Controlled source package files: `63`.
+
+The implementation branch now contains an executable source-authority gate:
+
+- `qa/about_pass1_source_authority_gate.json`
+- `qa/about_pass1_source_authority_gate.mjs`
+
+The dedicated workflow requires this PASS 10 gate to pass before derivative/render regressions proceed.
+
+## Current-head release QA
+
+Validated branch head:
+
+`b130e5fa782dbfeecfa7fea2a5479a9a66ea3245`
+
+Dedicated workflow:
+
+- `P120 About P-120 Implementation PASS 1 QA`
+- run `34020619512`
+- run number `#15`
+- conclusion: **SUCCESS**
+
+Release QA evidence:
+
+- PASS 10 frozen source-authority gate: **PASS**;
+- derivative conformance and local links: **PASS**;
+- responsive/render regression: **PASS**;
+- shared-header code-integrity regression: **PASS / 0 blocking findings**;
+- shared-header hardening regression: **PASS / 0 failures**;
+- Actions Governance QA: **SUCCESS**.
+
+Evidence artifact:
+
+- `P120_ABOUT_IMPLEMENTATION_PASS1_QA`
+- artifact ID `9985385180`
+- digest `sha256:c407fce0fec3972138b4c31b40c94531d89684efe2530afc95d4683deb4512f8`
 
 ## Explicit adjudications
 
@@ -42,7 +73,7 @@ The Main-page section remains part of the homepage narrative, but the global Abo
 
 **SEPARATE AUTHORITIES / COMPLEMENTARY ROLES.**
 
-Why P-120 retains origin/rationale narrative authority. About P-120 carries system/architecture explanation. Implementation PASS 1 must not merge these roles.
+Why P-120 retains origin/rationale narrative authority. About P-120 carries system/architecture explanation. Implementation PASS 1 does not merge these roles.
 
 ### D04 — From the Creator relationship
 
@@ -80,27 +111,40 @@ Founder-governed computational research environment may explicitly acknowledge m
 
 No fixed `×100`, `hundreds of times`, or other quantitative productivity multiplier may be presented as established without a defined metric and evidence.
 
-### D10 — Release disposition
+### D10 — Source-authority release hold
 
-**HOLD.**
+**CLEARED.**
 
-Technical PASS closure does not convert PR #18 into merge-ready production work. PASS 10 remains mandatory before merge/release authorization.
+PASS 10 is complete and frozen. No material About correction is required by the final source reconciliation.
+
+### D11 — Merge disposition
+
+**AUTHORIZED AFTER GREEN CURRENT-HEAD QA.**
+
+The current-head release QA is green. PR #18 may be marked ready and merged under controlled release procedure.
+
+### D12 — Production disposition
+
+**NOT YET CLOSED.**
+
+Production closure requires successful merge, GitHub Pages deployment, and post-merge production regression/route verification.
 
 ## Reopen conditions
 
 Implementation PASS 1 may be reopened only for one of the following:
 
-1. PASS 10 issues a controlled correction affecting the About derivative;
-2. a reproducible implementation/render/navigation defect is discovered;
-3. a shared-runtime regression attributable to this delta is demonstrated;
-4. a governance/safety/scientific overclaim is identified in the derivative.
+1. a reproducible implementation/render/navigation defect is discovered;
+2. a shared-runtime regression attributable to this delta is demonstrated;
+3. a governance/safety/scientific overclaim is identified in the derivative;
+4. `P120-ARCH-SYS-001` is formally reopened and issues a new controlled source correction affecting About.
 
 Pure preference changes or unrelated site redesign are not valid reasons to reopen this PASS.
 
 ## Final decision
 
 **TECHNICAL IMPLEMENTATION: ACCEPTED / CLOSED**  
-**DERIVATIVE: CONTROLLED CANDIDATE**  
-**MERGE: NOT YET AUTHORIZED**  
-**PRODUCTION: UNCHANGED**  
-**NEXT AUTHORITY GATE: P120-ARCH-SYS-001 PASS 10**
+**SOURCE AUTHORITY: PASS 10 FROZEN / BOUND**  
+**DERIVATIVE: RELEASE-PROMOTION AUTHORIZED**  
+**MERGE: AUTHORIZED**  
+**PRODUCTION: PENDING MERGE / DEPLOYMENT / POST-MERGE REGRESSION**  
+**NEXT GATE: ABOUT P-120 RELEASE PROMOTION & PRODUCTION CLOSURE**
