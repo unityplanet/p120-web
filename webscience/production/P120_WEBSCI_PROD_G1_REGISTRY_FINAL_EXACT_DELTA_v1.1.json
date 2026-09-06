@@ -1,0 +1,45 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-PROD-G1-REGISTRY-FINAL-EXACT-DELTA",
+  "version": "v1.1",
+  "date": "2026-09-06",
+  "baseline_before_registry_reconciliation": "0c9a7bdc7470dcc9eb1223ebfc15bb5bcc6f94b4",
+  "registry_activation_merge": "cf11a176bb0db87aec046d5694c302285b275f90",
+  "sealed_science_authority": "d095cae40b33da2118e5090be2a2c837205d8b64",
+  "production_delta": {
+    "added_governance_registry": "P120_WEBSCI_PRODUCTION_registry_v1.1_2026-09-06.json",
+    "added_registry_qa": "qa/webscience_prod_g1_registry_reconciliation_gate_v1.1.py",
+    "added_registry_governance_records": [
+      "webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_RECONCILIATION_REPORT_v1.1.md",
+      "webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_RECONCILIATION_DECISION_v1.1.md",
+      "webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_RECONCILIATION_MANIFEST_v1.1.json"
+    ],
+    "added_registry_workflow": ".github/workflows/p120-webscience-prod-g1-registry-reconciliation-v1.1.yml",
+    "deleted_files": [],
+    "modified_preexisting_science_runtime_files": []
+  },
+  "historical_executable_registry": {
+    "path": "P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json",
+    "disposition": "IMMUTABLE / CURRENT EXECUTABLE INPUT FOR SEALED RUNTIME",
+    "sha256": "38b706b38f8f19f60c5917874b8371661340bb0cf30059fe9a7de98d16251f5e"
+  },
+  "governance_registry": {
+    "path": "P120_WEBSCI_PRODUCTION_registry_v1.1_2026-09-06.json",
+    "disposition": "CURRENT PRODUCTION GOVERNANCE REGISTRY",
+    "runtime_input": false
+  },
+  "semantic_delta": "Production-state metadata reconciled from historical migration-candidate state to actual closed/sealed production state. No scientific or executable Science semantics changed.",
+  "mutation_flags": {
+    "scientific_content": false,
+    "runtime": false,
+    "science_routes": false,
+    "measurement": false,
+    "scoring": false,
+    "thresholds": false,
+    "respondent_state": false,
+    "persistence": false,
+    "report_calculation": false,
+    "supabase": false
+  },
+  "unresolved_delta_count": 0
+}
