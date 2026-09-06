@@ -1,0 +1,270 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-MODULES",
+  "version": "v0.1",
+  "date": "2026-09-04",
+  "status": "SOURCE_RECONCILED_MODULE_CONTENT__CONTROLLED_DRAFT__NOT_PRODUCTION",
+  "claim_boundary": "All architecture labels below are development-stage/candidate unless a source explicitly freezes the corresponding role. Internal verification does not equal empirical psychometric validation.",
+  "modules": [
+    {
+      "module_id": "COM-12",
+      "base_id": "EXTENDED",
+      "measurement_question": {
+        "ru": "Как человек выражает, получает, уточняет, согласовывает и восстанавливает сексуально или эротически значимую коммуникацию?",
+        "en": "How does a person express, receive, clarify, negotiate and repair sexually or erotically meaningful communication?"
+      },
+      "scientific_role": {
+        "ru": "COM-12 изолирует межличностную операцию коммуникации от мотивации, привязанности, внутреннего чувства агентности, содержания предпочтений и downstream-исходов.",
+        "en": "COM-12 isolates the interpersonal communication operation from motivation, attachment, internal agency, preference content and downstream outcomes."
+      },
+      "construct_architecture": [
+        {"code":"COM-E","label_ru":"Выразительная ясность и раскрытие","label_en":"Expressive Clarity & Disclosure","state":"CANDIDATE"},
+        {"code":"COM-R","label_ru":"Восприимчивое слушание и уточнение","label_en":"Receptive Listening & Clarification","state":"CANDIDATE"},
+        {"code":"COM-N","label_ru":"Согласование различий и границ","label_en":"Difference & Boundary Negotiation","state":"CANDIDATE"},
+        {"code":"COM-P","label_ru":"Восстановление и возвращение к коммуникации","label_en":"Repair & Re-engagement","state":"CANDIDATE"}
+      ],
+      "does_not_measure": ["sexual desire strength","erotic activation","sexual motivation","sexual self-worth","attachment security itself","embodied erotic awareness","partner quality","relationship satisfaction","consent validity","general social communication ability","sexual preference content","LIFE outcomes"],
+      "development_history": [
+        {"stage":"initial item development","verdict":"32-item development pool","public_note_ru":"Исходный пул был построен шире предполагаемой короткой формы, чтобы допустить конкуренцию и удаление контаминированных формулировок.","public_note_en":"The initial pool was intentionally broader than the intended short form so contaminated or redundant content could compete and be removed."},
+        {"stage":"v0.3","verdict":"32 → 24 cognitive candidate / PASS FOR CONTINUED DEVELOPMENT","public_note_ru":"Item-level аудит проверял чистоту конструкта, double-barreling, поведенческую доступность, partner contamination, overlap с P-120, социальную желательность, response-process clarity и N/A burden.","public_note_en":"Item-level review examined construct purity, double-barreling, behavioral accessibility, partner contamination, P-120 overlap, social desirability, response-process clarity and N/A burden."},
+        {"stage":"v0.4-v0.6","verdict":"expert/content-validity architecture + controlled freeze preparation","public_note_ru":"Были определены экспертная оценка, CVI-архитектура, когнитивные failure codes и предварительные Tier A/B/C роли; Tier A не является финальным COM-12.","public_note_en":"Expert review, CVI architecture, cognitive failure codes and preliminary Tier A/B/C roles were defined; Tier A is not a final COM-12."},
+        {"stage":"v0.7-v0.8","verdict":"FIELD EXECUTION PROTOCOL READY / EVIDENCE PENDING","public_note_ru":"C1 comprehension, C2 construct discrimination и C3 full-form/burden/sensitive-flow процедуры готовы; реальные field observations ещё не заменены симуляцией и требуются для следующего freeze adjudication.","public_note_en":"C1 comprehension, C2 construct discrimination and C3 full-form/burden/sensitive-flow procedures are ready; real field observations remain required before freeze adjudication."}
+      ],
+      "internal_verification": [
+        {"type":"ITEM_AUDIT","state":"PASS","claim":"32-item pool reduced to a 24-item cognitive candidate through explicit item-level red-team criteria."},
+        {"type":"BOUNDARY","state":"CONTROLLED","claim":"E/R/N/P candidate domains have explicit hard boundaries and are not treated as confirmed factors."},
+        {"type":"OWNERSHIP","state":"CONTROLLED","claim":"EXT-SYS firewalls distinguish COM-N from SELF-SAA, COM-P from P-72D erotic re-engagement, COM-P from LIFE-CCO, and COM operations from AO/MOT/RPE ownership."},
+        {"type":"COGNITIVE_ARCHITECTURE","state":"PASS_FOR_EXECUTION","claim":"C1-C2-C3 field execution and evidence adjudication protocol is controlled; observations remain pending."}
+      ],
+      "ownership_boundaries": [
+        {"neighbor":"SELF-SAA","distinction_ru":"SELF-SAA — внутреннее авторство сексуального выбора; COM-N — способность сообщать и согласовывать этот выбор с другим человеком.","distinction_en":"SELF-SAA concerns internal authorship of sexual choices; COM-N concerns communicating and negotiating those choices with another person.","evidence_state":"COGNITIVE_PLANNED"},
+        {"neighbor":"P-72D erotic repair","distinction_ru":"Восстановление эротического вовлечения после нарушения не равно возвращению к коммуникации после сексуального недопонимания или напряжения.","distinction_en":"Restoration of erotic engagement after disruption is not the same as returning to communication after sexual misunderstanding or tension.","evidence_state":"COGNITIVE_PLANNED"},
+        {"neighbor":"AO","distinction_ru":"Привязанность регулирует security/threat; COM измеряет коммуникационный процесс. Attachment insecurity может влиять на коммуникацию, но не определяет COM-конструкт.","distinction_en":"Attachment regulates security/threat; COM measures the communication process. Attachment insecurity may influence communication but does not define the COM construct.","evidence_state":"COGNITIVE_PLANNED"},
+        {"neighbor":"MOT","distinction_ru":"MOT отвечает, почему человек выбирает близость; COM — как он выражает, получает и согласовывает сексуально значимую информацию.","distinction_en":"MOT asks why intimacy is chosen; COM asks how sexually meaningful information is expressed, received and negotiated.","evidence_state":"CONCEPTUAL"}
+      ],
+      "current_evidence_state": {"development":"FIELD_EXECUTION_READY","empirical":"COGNITIVE_FIELD_EVIDENCE_PENDING","psychometric":"NOT_VALIDATED"},
+      "next_gate": "COM-12 v0.9 only after actual C1/C2/C3 evidence: Post-Field Evidence Consolidation & Pilot Candidate Freeze Adjudication.",
+      "limitations": [
+        {"ru":"E/R/N/P — кандидатная архитектура, а не подтверждённые факторы.","en":"E/R/N/P are candidate domains, not confirmed factors."},
+        {"ru":"Производственный scoring, norms и participant interpretation не разрешены.","en":"Production scoring, norms and participant interpretation are not authorized."},
+        {"ru":"Когнитивная готовность протокола не является доказательством reliability или validity.","en":"Cognitive protocol readiness is not evidence of reliability or psychometric validity."}
+      ],
+      "source_bindings": [
+        {"source_id":"COM-008","authority":"P120-EXT-COM-008 / v0.8","role":"field execution and evidence-adjudication authority"},
+        {"source_id":"COM-HANDOFF","authority":"controlled COM continuation record","role":"development history, candidate domains and ownership firewalls"},
+        {"source_id":"EXTSYS-004","authority":"P120-EXTSYS-004 / PASS 4 v0.4","role":"cross-module ownership and co-validation governance"}
+      ],
+      "publication": {"visibility":"summary_only","claim_ceiling":"candidate architecture + development/verification record; no empirical validity claim","suppressed_fields":["exact item wording","production scoring","norms","participant labels","restricted adjudication details"]}
+    },
+    {
+      "module_id": "MOT-12",
+      "base_id": "EXTENDED",
+      "measurement_question": {
+        "ru": "Почему — ради какого ожидаемого психологического результата — человек выбирает сексуально или эротически значимую близость?",
+        "en": "Why — for what anticipated psychological result — does a person choose sexual or erotically significant intimacy?"
+      },
+      "scientific_role": {
+        "ru": "MOT-12 отделяет причины выбора близости от силы желания, триггеров активации, поведения, привязанности, коммуникационной способности, самооценки и downstream-исходов.",
+        "en": "MOT-12 separates reasons for choosing intimacy from desire strength, activation triggers, behavior, attachment, communication ability, self-appraisal and downstream outcomes."
+      },
+      "construct_architecture": [
+        {"code":"M-H","label_ru":"Гедоническая / усилительная мотивация","label_en":"Hedonic / Enhancement","state":"CANDIDATE"},
+        {"code":"M-C","label_ru":"Связь / близость","label_en":"Connection / Intimacy","state":"CANDIDATE"},
+        {"code":"M-P","label_ru":"Отклик на партнёра / communal motive","label_en":"Partner-Responsive / Communal","state":"CANDIDATE"},
+        {"code":"M-K","label_ru":"Coping / регуляция аффекта","label_en":"Coping / Affect Regulation","state":"CANDIDATE"},
+        {"code":"M-A","label_ru":"Избегание негативных последствий / защита отношений","label_en":"Avoidance / Relationship Protection","state":"CANDIDATE"},
+        {"code":"M-O","label_ru":"Обязанность / controlled compliance","label_en":"Obligation / Controlled Compliance","state":"CANDIDATE_HIGH_OVERLAP"},
+        {"code":"M-V","label_ru":"Подтверждение желанности / contingent self-worth","label_en":"Validation / Contingent Self-Worth","state":"CHALLENGE_CONDITIONAL"},
+        {"code":"M0","label_ru":"Низкая доступность мотива / automaticity","label_en":"Low Motive Access / Amotivation / Automaticity","state":"AUXILIARY"}
+      ],
+      "does_not_measure": ["sexual desire strength","erotic activation triggers","sexual preference content","attachment security","communication competence","sexual self-worth","relationship satisfaction","consent validity","sexual functioning","frequency","LIFE outcomes"],
+      "development_history": [
+        {"stage":"v0.1-v0.2","verdict":"evidence/boundary audit + construct red-team PASS","public_note_ru":"Было зафиксировано desire ≠ activation ≠ motivation ≠ behavior; после red-team добавлен отдельный coping/affect-regulation territory и введены cross-cutting metadata.","public_note_en":"The programme established desire ≠ activation ≠ motivation ≠ behavior; red-team work added a distinct coping/affect-regulation territory and cross-cutting metadata."},
+        {"stage":"v0.3","verdict":"36-item controlled initial pool","public_note_ru":"Широкий development pool сохранил конкурирующие motive families и relationship-contextual scope.","public_note_en":"A broad development pool preserved competing motive families under relationship-contextual scope."},
+        {"stage":"v0.4","verdict":"36 → 24 cognitive candidate + 12 reserve / PASS","public_note_ru":"Item-by-item red-team атаковал чистоту, redundancy, desire/P-72/P-72D/AO/COM/SELF/LIFE contamination, social/moral desirability, scope, consent reinterpretation и N/A risk.","public_note_en":"Item-by-item red-team examined purity, redundancy, desire/P-72/P-72D/AO/COM/SELF/LIFE contamination, social/moral desirability, scope, consent reinterpretation and N/A risk."},
+        {"stage":"v0.5","verdict":"PASS TO EXECUTION / PRE-PILOT ACCEPTANCE GATE NOT YET EXECUTED","public_note_ru":"Определены blinded expert review, CVI, cognitive interview, direct contrasts и kill/merge adjudication; реальные expert ratings и respondent observations ещё требуются.","public_note_en":"Blinded expert review, CVI, cognitive interviews, direct contrasts and kill/merge adjudication are defined; real expert ratings and respondent observations remain required."}
+      ],
+      "internal_verification": [
+        {"type":"BOUNDARY","state":"PASS","claim":"Desire, activation, motivation and behavior are explicitly separated in the development architecture."},
+        {"type":"ITEM_AUDIT","state":"PASS","claim":"36 initial items were reduced to a 24-item cognitive candidate with a 12-item traceable desk reserve."},
+        {"type":"INFORMATION_GAIN","state":"CONTROLLED","claim":"Each candidate family is required to add information after its nearest P-120 owner is known; MOT-V has no short-form entitlement and remains a challenge construct."},
+        {"type":"COGNITIVE_ARCHITECTURE","state":"PASS_FOR_EXECUTION","claim":"Expert/CVI/cognitive discrimination programme is controlled; empirical content-validity and response-process evidence remain pending."}
+      ],
+      "ownership_boundaries": [
+        {"neighbor":"P-72 / P-72D","distinction_ru":"P-72/P-72D описывают WHAT activates и HOW activation changes; MOT-H/Exploration спрашивает WHY человек выбирает опыт.","distinction_en":"P-72/P-72D describe WHAT activates and HOW activation changes; MOT-H/Exploration asks WHY the person chooses the experience.","evidence_state":"COGNITIVE_PLANNED"},
+        {"neighbor":"AO","distinction_ru":"MOT-C — цель искать/выражать близость; AO — standing attachment/security regulation.","distinction_en":"MOT-C is a goal to seek/express closeness; AO is standing attachment/security regulation.","evidence_state":"COGNITIVE_PLANNED"},
+        {"neighbor":"SELF","distinction_ru":"MOT-V — использование близости как средства получить подтверждение; SELF-PSD/SRG/SSH — более устойчивое самоотношение и самооценка.","distinction_en":"MOT-V uses intimacy to obtain validation; SELF-PSD/SRG/SSH concern standing self-appraisal and self-relation.","evidence_state":"COGNITIVE_PLANNED"},
+        {"neighbor":"LIFE","distinction_ru":"MOT-K — почему человек вступает в близость ради изменения состояния; LIFE — какое downstream-состояние наблюдается после/вокруг близости.","distinction_en":"MOT-K asks why intimacy is chosen to regulate state; LIFE asks what downstream state is observed around/after intimacy.","evidence_state":"CONCEPTUAL"}
+      ],
+      "current_evidence_state": {"development":"PASS_TO_EXECUTION__24_ITEM_COGNITIVE_CANDIDATE","empirical":"EXPERT_AND_COGNITIVE_EVIDENCE_PENDING","psychometric":"NOT_VALIDATED"},
+      "next_gate": "MOT-12 v0.6 — Expert Content-Validity & Cognitive Field Execution / Evidence Adjudication.",
+      "limitations": [
+        {"ru":"Candidate families не являются подтверждённой factor structure.","en":"Candidate families are not a confirmed factor structure."},
+        {"ru":"MOT-V остаётся conditional/challenge и может быть удалён при отсутствии incremental value после SELF + AO.","en":"MOT-V remains conditional/challenge content and may be dropped if it adds no incremental value after SELF + AO."},
+        {"ru":"MOT Total и healthy/unhealthy motivation classification запрещены.","en":"A MOT Total and healthy/unhealthy motivation classification are prohibited."}
+      ],
+      "source_bindings": [
+        {"source_id":"MOT-005","authority":"P120-EXT-MOT-005 / v0.5","role":"current pre-pilot architecture and exact next gate"},
+        {"source_id":"MOT-HANDOFF","authority":"controlled MOT continuation record","role":"PASS1-4 development lineage and construct states"},
+        {"source_id":"EXTSYS-004","authority":"P120-EXTSYS-004 / PASS 4 v0.4","role":"system ownership and empirical co-validation handoff"}
+      ],
+      "publication": {"visibility":"summary_only","claim_ceiling":"candidate motive architecture + development/verification record; no confirmed factors or scoring","suppressed_fields":["exact item wording","production scoring","norms","participant labels","restricted adjudication details"]}
+    },
+    {
+      "module_id": "SELF-12",
+      "base_id": "EXTENDED",
+      "measurement_question": {
+        "ru": "Как человек переживает, оценивает и авторствует себя как сексуального субъекта?",
+        "en": "How does a person experience, evaluate and author themselves as a sexual subject?"
+      },
+      "scientific_role": {
+        "ru": "SELF-12 измеряет sexual self-relation как отдельный слой, не превращая его в general self-esteem, body-image, communication, attachment, motivation, embodied awareness или preference scale.",
+        "en": "SELF-12 measures sexual self-relation as a distinct layer without turning it into general self-esteem, body image, communication, attachment, motivation, embodied awareness or preference measurement."
+      },
+      "construct_architecture": [
+        {"code":"SRG","label_ru":"Sexual Self-Regard / Acceptance","label_en":"Sexual Self-Regard / Acceptance","state":"CORE_CANDIDATE"},
+        {"code":"DPL","label_ru":"Desire & Pleasure Legitimacy","label_en":"Desire & Pleasure Legitimacy","state":"CORE_CANDIDATE"},
+        {"code":"SAA","label_ru":"Sexual Agency / Autonomy","label_en":"Sexual Agency / Autonomy","state":"CORE_CANDIDATE"},
+        {"code":"SSC","label_ru":"Sexual Self-Consciousness","label_en":"Sexual Self-Consciousness","state":"CORE_CANDIDATE"},
+        {"code":"SSH","label_ru":"Sexual Shame","label_en":"Sexual Shame","state":"CORE_CANDIDATE"},
+        {"code":"PSD","label_ru":"Perceived Sexual Desirability","label_en":"Perceived Sexual Desirability","state":"LIMITED"},
+        {"code":"SBA","label_ru":"Sexual Body Appraisal","label_en":"Sexual Body Appraisal","state":"LIMITED"}
+      ],
+      "does_not_measure": ["general self-esteem","general body image","sexual communication ability","attachment","motivation","embodied awareness","sexual preference","global sexual competence"],
+      "development_history": [
+        {"stage":"PASS 1","verdict":"12-territory evidence landscape / PASS","public_note_ru":"Начальный landscape был намеренно широким и включал self-regard, legitimacy, agency, self-efficacy, self-consciousness, shame, desirability, body/genital image, self-knowledge и authenticity territories.","public_note_en":"The initial landscape was intentionally broad, spanning self-regard, legitimacy, agency, self-efficacy, self-consciousness, shame, desirability, body/genital image, self-knowledge and authenticity territories."},
+        {"stage":"PASS 2-3","verdict":"12 → 7 respondent-facing candidates / candidate architecture PASS","public_note_ru":"Self-efficacy был demoted, acceptance/pride merged into SRG, self-knowledge transferred to research reserve, authenticity retained only as derived bridge; 5 CORE + PSD/SBA LIMITED remained for development.","public_note_en":"Self-efficacy was demoted, acceptance/pride merged into SRG, self-knowledge transferred to research reserve, and authenticity retained only as a derived bridge; 5 CORE + PSD/SBA LIMITED remained for development."},
+        {"stage":"PASS 4-5","verdict":"29 initial items → 21 cognitive candidates + 8 reserve","public_note_ru":"Desk-stage item competition preserved explicit boundary probes rather than removing every overlap-sensitive item.","public_note_en":"Desk-stage item competition preserved explicit boundary probes rather than removing every overlap-sensitive item."},
+        {"stage":"PASS 6-7","verdict":"PASS TO EXECUTION / FIELD EXECUTION OPEN / EVIDENCE PENDING","public_note_ru":"Expert/CVI/C1-C3 architecture and ten direct discrimination territories are controlled; PASS 7 cannot close without real expert and respondent records.","public_note_en":"Expert/CVI/C1-C3 architecture and ten direct discrimination territories are controlled; PASS 7 cannot close without real expert and respondent records."}
+      ],
+      "internal_verification": [
+        {"type":"BOUNDARY","state":"PASS","claim":"Broad initial territory was pruned through explicit ownership adjudication to 5 CORE candidate dimensions plus 2 LIMITED candidates."},
+        {"type":"ITEM_AUDIT","state":"PASS","claim":"29-item desk bank was reduced to 21 cognitive candidates with 8 traceable reserve items."},
+        {"type":"OWNERSHIP","state":"CONTROLLED","claim":"Ten direct red-team contrasts test SELF against COM, P-72D, SOMA, AO, MOT and RPE ownership."},
+        {"type":"INFORMATION_GAIN","state":"CONTROLLED","claim":"PSD and SBA carry stricter information-gain requirements and default toward demotion/drop if distinctness is weak."},
+        {"type":"COGNITIVE_ARCHITECTURE","state":"FIELD_EXECUTION_OPEN","claim":"Execution system is complete, but expert content-validity and respondent response-process evidence remain pending."}
+      ],
+      "ownership_boundaries": [
+        {"neighbor":"COM-N","distinction_ru":"SELF-SAA — субъективное авторство/владение выбором; COM-N — способность сообщать и согласовывать этот выбор.","distinction_en":"SELF-SAA concerns subjective authorship/ownership of choice; COM-N concerns communicating and negotiating that choice.","evidence_state":"COGNITIVE_PLANNED"},
+        {"neighbor":"SOMA","distinction_ru":"SELF-SSC — self-monitoring/self-consciousness; SOMA — awareness/differentiation собственного телесного эротического ответа.","distinction_en":"SELF-SSC concerns sexual self-monitoring/self-consciousness; SOMA concerns awareness/differentiation of embodied erotic response.","evidence_state":"COGNITIVE_PLANNED"},
+        {"neighbor":"AO","distinction_ru":"SELF-SSH — shame/negative sexual-self evaluation; AO — attachment threat/security regulation.","distinction_en":"SELF-SSH concerns shame/negative sexual-self evaluation; AO concerns attachment threat/security regulation.","evidence_state":"COGNITIVE_PLANNED"},
+        {"neighbor":"MOT-V","distinction_ru":"SELF-PSD — baseline appraisal собственной желанности; MOT-V — выбор близости ради получения подтверждения желанности.","distinction_en":"SELF-PSD is baseline appraisal of desirability; MOT-V is choosing intimacy to obtain validation of desirability.","evidence_state":"COGNITIVE_PLANNED"},
+        {"neighbor":"SOMA / RPE-MOD","distinction_ru":"SELF-SBA — собственная sexual body appraisal; SOMA измеряет embodied response, RPE — специфические physical/reward preferences.","distinction_en":"SELF-SBA is appraisal of one's own sexual body; SOMA measures embodied response and RPE measures specific physical/reward preferences.","evidence_state":"COGNITIVE_PLANNED"}
+      ],
+      "current_evidence_state": {"development":"FIELD_EXECUTION_OPEN__21_ITEM_COGNITIVE_CANDIDATE","empirical":"EXPERT_AND_COGNITIVE_EVIDENCE_PENDING","psychometric":"NOT_VALIDATED"},
+      "next_gate": "Close SELF-12 PASS 7 only after real expert E1/E2 and respondent C1-C3 evidence; later pilot-candidate freeze is conditional on that gate.",
+      "limitations": [
+        {"ru":"5 CORE + 2 LIMITED — development architecture, не подтверждённая factor structure.","en":"5 CORE + 2 LIMITED is a development architecture, not a confirmed factor structure."},
+        {"ru":"PSD и SBA остаются LIMITED и могут быть demoted/dropped.","en":"PSD and SBA remain LIMITED and may be demoted/dropped."},
+        {"ru":"SELF Total, Agency Total и Validation Total запрещены.","en":"SELF Total, Agency Total and Validation Total are prohibited."}
+      ],
+      "source_bindings": [
+        {"source_id":"SELF-005","authority":"P120-EXT-SELF-005 / PASS 5 v0.5","role":"exact 21-item cognitive candidate and 8-item reserve lineage"},
+        {"source_id":"SELF-006","authority":"P120-EXT-SELF-006 / PASS 6 v0.6","role":"construct dictionary, expert/CVI/cognitive architecture and ten contrasts"},
+        {"source_id":"SELF-007","authority":"P120-EXT-SELF-007 / PASS 7 v0.7","role":"field execution package; empirical gate remains open"},
+        {"source_id":"EXTSYS-004","authority":"P120-EXTSYS-004 / PASS 4 v0.4","role":"system ownership and co-validation governance"}
+      ],
+      "publication": {"visibility":"summary_only","claim_ceiling":"candidate architecture + controlled execution readiness; no empirical content-validity/factor claim","suppressed_fields":["exact item wording","scoring","norms","participant interpretation","restricted adjudication details"]}
+    },
+    {
+      "module_id": "LIFE-12/18",
+      "base_id": "OUTCOMES",
+      "measurement_question": {
+        "ru": "Какие более широкие аффективные, энергетические, когнитивные, восстановительные, деятельностные или смысловые состояния наблюдаются вокруг и после интимного опыта?",
+        "en": "What broader affective, energetic, cognitive, restorative, engagement or meaning-related states are observed around and after intimacy?"
+      },
+      "scientific_role": {
+        "ru": "LIFE — отдельный outcome/spillover layer. Он измеряет downstream-состояния во времени, а не причину вступления в близость, не psychosexual trait и не причинный эффект интимности.",
+        "en": "LIFE is a separate outcome/spillover layer. It measures downstream states over time, not motives for intimacy, psychosexual traits or a causal effect of intimacy."
+      },
+      "construct_architecture": [
+        {"code":"PAU","label_ru":"Positive Affective Uplift","label_en":"Positive Affective Uplift","state":"CORE_CANDIDATE"},
+        {"code":"NAL","label_ru":"Negative Affective Load","label_en":"Negative Affective Load","state":"CORE_CANDIDATE"},
+        {"code":"SV","label_ru":"Subjective Vitality","label_en":"Subjective Vitality","state":"CORE_CANDIDATE"},
+        {"code":"SLP","label_ru":"Sleep Quality / Initiation","label_en":"Sleep Quality / Initiation","state":"CORE_CANDIDATE"},
+        {"code":"WSE","label_ru":"Work / Study Engagement","label_en":"Work / Study Engagement","state":"CORE_CANDIDATE"},
+        {"code":"MLS","label_ru":"Meaning / Life Significance","label_en":"Meaning / Life Significance","state":"CORE_CANDIDATE"},
+        {"code":"CCO","label_ru":"Cognitive Carryover","label_en":"Cognitive Carryover","state":"LIMITED_AUXILIARY"},
+        {"code":"GLS","label_ru":"Global Life Satisfaction","label_en":"Global Life Satisfaction","state":"EXTERNALIZED_ANCHOR"}
+      ],
+      "does_not_measure": ["erotic activation","sexual motivation","attachment style","communication capacity","sexual self-relation","sexual preference","clinical functioning","relationship satisfaction as core","causal effect of sex/intimacy"],
+      "development_history": [
+        {"stage":"PASS 1","verdict":"12-target outcome landscape / PASS","public_note_ru":"Первичный landscape включал affect, vitality, cognition, sleep/restoration, social/work engagement, meaning, global satisfaction, distress и relationship climate.","public_note_en":"The initial landscape included affect, vitality, cognition, sleep/restoration, social/work engagement, meaning, global satisfaction, distress and relationship climate."},
+        {"stage":"PASS 2-3","verdict":"12 → 8 respondent territories → 6 CORE + CCO auxiliary; GLS externalized","public_note_ru":"Relationship satisfaction была передана dyadic/relationship architecture, distress — внешнему валидатору, social openness — reserve/external; EXT-SYS затем externalized GLS.","public_note_en":"Relationship satisfaction was transferred to dyadic/relationship architecture, distress to an external validator, social openness to reserve/external; EXT-SYS later externalized GLS."},
+        {"stage":"PASS 4-5","verdict":"30 initial temporal items → 24 temporal cognitive candidates","public_note_ru":"Кандидаты разнесены по temporal modes и проходят boundary/redundancy competition; LIFE-12 не форсируется до empirical reduction.","public_note_en":"Candidates are separated by temporal mode and undergo boundary/redundancy competition; LIFE-12 is not forced before empirical reduction."},
+        {"stage":"PASS 6","verdict":"FIELD EXECUTION READY / EMPIRICAL EVIDENCE PENDING","public_note_ru":"T0/T1/T3 C1-C2-C3 execution system готов; отсутствие реальных respondent records не заменяется синтетическими данными.","public_note_en":"The T0/T1/T3 C1-C2-C3 execution system is ready; absent respondent records are not replaced with synthetic data."}
+      ],
+      "internal_verification": [
+        {"type":"BOUNDARY","state":"PASS","claim":"Outcome territories were pruned and separated from motivation, attachment, communication, SELF, SOMA, P-72D and RPE ownership."},
+        {"type":"TEMPORAL_SCOPE","state":"CONTROLLED","claim":"T0 immediate/same-day, T1 next-day and T3 recent-pattern modes are distinct administration objects and cannot be silently flattened."},
+        {"type":"ITEM_AUDIT","state":"PASS","claim":"A 30-item temporal source bank was reduced to 24 cognitive candidates with explicit causal-attribution and overlap controls."},
+        {"type":"SCOPE_EXPOSURE","state":"CONTROLLED","claim":"Event/opportunity/role eligibility and N/A states are required so lack of exposure is not interpreted as a low outcome."},
+        {"type":"COGNITIVE_ARCHITECTURE","state":"PASS_FOR_EXECUTION","claim":"Field protocol is ready; actual response-process evidence remains pending."}
+      ],
+      "ownership_boundaries": [
+        {"neighbor":"MOT-K","distinction_ru":"MOT-K — почему близость выбирается ради изменения состояния; LIFE — какое состояние наблюдается downstream.","distinction_en":"MOT-K asks why intimacy is chosen to change state; LIFE asks what state is observed downstream.","evidence_state":"CONCEPTUAL"},
+        {"neighbor":"AO","distinction_ru":"AO — attachment/security regulation; LIFE-NAL/CCO — более широкие downstream affect/cognition states.","distinction_en":"AO concerns attachment/security regulation; LIFE-NAL/CCO concern broader downstream affect/cognition states.","evidence_state":"COGNITIVE_PLANNED"},
+        {"neighbor":"COM-P","distinction_ru":"COM-P — способность возобновить коммуникацию; LIFE-CCO — продолжительность когнитивного carryover/rumination.","distinction_en":"COM-P is capacity to reopen communication; LIFE-CCO is persistence of cognitive carryover/rumination.","evidence_state":"COGNITIVE_PLANNED"},
+        {"neighbor":"SOMA","distinction_ru":"SOMA — embodied erotic response; LIFE-SV/SLP — общая vitality/sleep downstream.","distinction_en":"SOMA concerns embodied erotic response; LIFE-SV/SLP concern general downstream vitality/sleep.","evidence_state":"CONCEPTUAL"},
+        {"neighbor":"P-72D","distinction_ru":"Совпадающее временное окно не делает post-event erotic dynamics и broader life outcomes одним конструктом.","distinction_en":"A shared time window does not make post-event erotic dynamics and broader life outcomes the same construct.","evidence_state":"COGNITIVE_PLANNED"}
+      ],
+      "current_evidence_state": {"development":"FIELD_EXECUTION_READY__24_TEMPORAL_COGNITIVE_CANDIDATES","empirical":"COGNITIVE_FIELD_EVIDENCE_PENDING","psychometric":"NOT_VALIDATED"},
+      "next_gate": "Execute controlled LIFE C1→C2→C3 cycle; pilot-candidate freeze preparation is conditional on a later evidence-bearing gate.",
+      "limitations": [
+        {"ru":"6 CORE — development architecture, не подтверждённая six-factor model.","en":"The 6 CORE dimensions are a development architecture, not a confirmed six-factor model."},
+        {"ru":"CCO остаётся LIMITED/AUXILIARY; GLS externalized.","en":"CCO remains LIMITED/AUXILIARY; GLS is externalized."},
+        {"ru":"LIFE не может использовать causal language и не имеет LIFE Total.","en":"LIFE cannot use causal language and has no LIFE Total."},
+        {"ru":"T0/T1/T3 нельзя сворачивать в одну generic administration.","en":"T0/T1/T3 cannot be collapsed into one generic administration."}
+      ],
+      "source_bindings": [
+        {"source_id":"LIFE-005","authority":"P120-EXT-LIFE-005 / PASS 5 v0.5","role":"exact 24 temporal cognitive candidate lineage"},
+        {"source_id":"LIFE-006","authority":"P120-EXT-LIFE-006 / PASS 6 v0.6","role":"field execution, temporal-mode and evidence-state authority"},
+        {"source_id":"EXTSYS-003","authority":"P120-EXTSYS-003 / PASS 3 v0.3","role":"CCO information-gain and GLS externalization decisions"},
+        {"source_id":"EXTSYS-004","authority":"P120-EXTSYS-004 / PASS 4 v0.4","role":"cross-module co-validation governance"}
+      ],
+      "publication": {"visibility":"summary_only","claim_ceiling":"candidate outcome architecture + temporal/development record; no causal or psychometric validity claim","suppressed_fields":["exact item wording","scoring","causal attribution","norms","participant outcome labels"]}
+    },
+    {
+      "module_id": "RPE-MOD",
+      "base_id": "EXTENDED",
+      "measurement_question": {
+        "ru": "Какие специфические физические и reward-based предпочтения могут быть измерены как отдельные координаты, не смешиваясь с активацией, embodied response, коммуникацией, мотивацией или outcomes?",
+        "en": "Which specific physical and reward-based preferences can be measured as distinct coordinates without collapsing into activation, embodied response, communication, motivation or outcomes?"
+      },
+      "scientific_role": {
+        "ru": "RPE-MOD сохранён как добровольный 18+ optional Extended layer. Его функция — отдельная preference/reward architecture; значения других модулей присоединяются только после независимого измерения.",
+        "en": "RPE-MOD is retained as a voluntary adult-only optional Extended layer. Its role is a distinct preference/reward architecture; other module outputs are joined only after independent measurement."
+      },
+      "construct_architecture": [],
+      "construct_publication_note": "Detailed RPE construct-family publication is withheld in PASS 4 because PASS 10 retains NO_PUBLICATION_PREPILOT / no respondent-facing scientific report at the current stage. The internal architecture remains controlled and available to governance, not public rendering.",
+      "does_not_measure": ["P-120 Core activation","SOMA embodied awareness/response","COM communication competence","MOT reasons for intimacy","LIFE outcomes","dyadic fit itself"],
+      "development_history": [
+        {"stage":"PASS 1-10","verdict":"ORIGINAL ARCHITECTURE PROGRAMME COMPLETE","public_note_ru":"Широкая исходная идея была последовательно расширена, атакована, сокращена и safety-constrained; PASS 10 закрепил placement и ownership, но не psychometric validity, final wording, norms или field release.","public_note_en":"The broad initial concept was progressively expanded, attacked, pruned and safety-constrained; PASS 10 freezes placement and ownership, not psychometric validity, final wording, norms or field release."},
+        {"stage":"PASS 10","verdict":"OPTIONAL EXTENDED MODULE / FIELDING HOLD","public_note_ru":"Интеграция в Core и scored migration в SOMA отвергнуты; отдельный optional/adaptive placement признан наиболее защищающим construct distinctness, burden и privacy.","public_note_en":"Core integration and scored migration into SOMA were rejected; separate optional/adaptive placement best preserves construct distinctness, burden and privacy."}
+      ],
+      "internal_verification": [
+        {"type":"OWNERSHIP","state":"PASS","claim":"PASS 10 freezes RPE placement as a distinct optional Extended layer while preserving existing Core/SOMA/SAT/AO/COM/MOT/SELF/LIFE/Dyadic ownership."},
+        {"type":"INFORMATION_GAIN","state":"CONTROLLED","claim":"No duplicate measurement operation is retained merely because surface topics overlap; join-only use is preferred where another module already owns the construct."},
+        {"type":"SAFETY_PRIVACY","state":"CONTROLLED","claim":"Adult opt-in, adaptive burden, no unnecessary high-risk operational detail and minimum-join/privacy constraints are part of the architecture."}
+      ],
+      "ownership_boundaries": [
+        {"neighbor":"SOMA","distinction_ru":"RPE — stimulus/preference/reward geometry; SOMA — embodied response/awareness. Сходство темы тела не означает одинаковую measurement operation.","distinction_en":"RPE concerns stimulus/preference/reward geometry; SOMA concerns embodied response/awareness. Shared body-related language does not imply the same measurement operation.","evidence_state":"CONCEPTUAL"},
+        {"neighbor":"COM","distinction_ru":"Предпочтение не равно способности обсуждать или согласовывать предпочтение.","distinction_en":"A preference is not the same as the ability to communicate or negotiate that preference.","evidence_state":"CONCEPTUAL"},
+        {"neighbor":"LIFE","distinction_ru":"Предпочтение не равно пользе или downstream-исходу; связь допустима только как последующий research bridge.","distinction_en":"Preference is not benefit or a downstream outcome; any relation is a later research bridge only.","evidence_state":"CONCEPTUAL"}
+      ],
+      "current_evidence_state": {"development":"ARCHITECTURE_PROGRAMME_COMPLETE__FIELDING_HOLD","empirical":"HUMAN_FIELDING_NOT_AUTHORIZED_BY_PASS10","psychometric":"NOT_VALIDATED"},
+      "next_gate": "No public construct-detail activation or respondent scientific report until a separate RPE publication/field evidence authority permits it.",
+      "limitations": [
+        {"ru":"PASS 10 не является psychometric validation и не разрешает norms, cutoffs, diagnostic labels или archetypes.","en":"PASS 10 is not psychometric validation and authorizes no norms, cutoffs, diagnostic labels or archetypes."},
+        {"ru":"Detailed construct-family content остаётся внутренним до отдельного publication gate.","en":"Detailed construct-family content remains internal pending a separate publication gate."},
+        {"ru":"Global RPE Total запрещён.","en":"A global RPE Total is prohibited."}
+      ],
+      "source_bindings": [
+        {"source_id":"RPE-011","authority":"P120-EXT-RPE-011 / PASS 10 v1.1","role":"final placement, ownership, publication/fielding and zero-redundancy authority"},
+        {"source_id":"RPE-010","authority":"RPE PASS 9 / v1.0","role":"safety/ethics/privacy ceiling"},
+        {"source_id":"EXTSYS-004","authority":"P120-EXTSYS-004 / PASS 4 v0.4","role":"cross-module co-validation governance"}
+      ],
+      "publication": {"visibility":"summary_only","claim_ceiling":"preserve existing minimal role/status/boundary only; detailed architecture withheld by stricter RPE source authority","suppressed_fields":["detailed construct-family list","exact item wording","scoring","norms","research-only content","high-risk operational detail","respondent scientific interpretation"]}
+    }
+  ]
+}

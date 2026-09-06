@@ -1,0 +1,73 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-FINAL-MANIFEST",
+  "version": "v1.1",
+  "date": "2026-09-06",
+  "status": "WEBSCI_EXT_PASS4_CLOSED_CONTROLLED_SEALED",
+  "branch": "web-science-ext-pass4g-final-sealing",
+  "baseline_pass4f_closure": "1155a78646a314e3693aa7b247e667b86507a1d4",
+  "production_main_mutated": false,
+  "production_merge": "NOT_PERFORMED",
+  "production_activation": "SEPARATE_GATE_REQUIRED",
+  "scientific_content_mutated": false,
+  "references_mutated": false,
+  "measurement_mutated": false,
+  "scoring_mutated": false,
+  "thresholds_mutated": false,
+  "renderer_mutated": false,
+  "presentation_mutated": false,
+  "authority_chain_reconciled": true,
+  "unresolved_delta_count": 0,
+  "authorized_supersession_count": 2,
+  "public_ceiling_unchanged": true,
+  "global_library_contract": {
+    "core": 45,
+    "extension": 25,
+    "global": 70
+  },
+  "recorded_upstream_gate_assertions": 5223,
+  "pass4g_checks": {
+    "passed": 95,
+    "total": 95,
+    "failed": 0
+  },
+  "mandatory_full_package_required": true,
+  "independent_post_build_verification_required": true,
+  "core_final_records": [
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4G_FINAL_SEAL_QA_RESULT_v1.1.json",
+      "sha256": "e1291e1ed5b3a2c24248a73dc53deef763098b557f38e221a9fa7a384ae49a95"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4G_QA_SUMMARY_v1.1.json",
+      "sha256": "0563bb776caee1146b3a080071c5d880c6288ebd14c1110b258c305267dfd70a"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_STATUS_RECORD_v1.1.json",
+      "sha256": "73599e251dbb7e192be9ef66572d2216662c5d79b18d1782987fdef46b611da4"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_AUTHORITY_INDEX_v1.1.json",
+      "sha256": "32316da35625409be52ada8cd1713518823aa62832e00e7a2f04d96196c66c44"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_REPRODUCIBILITY_RECORD_v1.1.json",
+      "sha256": "74e0e1fd3bc6b9c0fb852b509114ee88a789a41ea867b98181f92023a904e854"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4G_REPORT_v1.1.md",
+      "sha256": "17b42755355fbf140a4340f19cbb8bfdc0891acd644a60273486b69f53e667fc"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4G_DECISION_v1.1.md",
+      "sha256": "2507dce10c09fd61618b774fdad7172d2d3611765452f85b9576b746358a87b1"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_PACKAGE_INDEX_v1.1.json",
+      "sha256": "7caa5c61c082cf6379182b04fcd320aa89010a0a2ab2c174694a309b835a9d45"
+    }
+  ],
+  "package_index_sha256": "7caa5c61c082cf6379182b04fcd320aa89010a0a2ab2c174694a309b835a9d45",
+  "internal_sha_ledger": "webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_SHA256SUMS_v1.1.txt",
+  "reopen_rule": "No in-place mutation after final seal; use a new controlled gate."
+}

@@ -1,0 +1,134 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4D-CLAIM-MATRIX",
+  "version": "v0.8",
+  "date": "2026-09-06",
+  "status": "PASS",
+  "rule": "Boundary claims are assessed against sealed PASS 4A/4C source authorities; no scientific status is upgraded by this QA.",
+  "claims": [
+    {
+      "id": "CB-01",
+      "title": "E1 is explicitly not empirical psychometric validation",
+      "pass": true,
+      "authority": "system_positioning.internal_verification_boundary"
+    },
+    {
+      "id": "CB-02",
+      "title": "E1 does not claim reliability/factor validity/norms/generalizability",
+      "pass": true,
+      "authority": "evidence_ladder.E1.does_not_mean"
+    },
+    {
+      "id": "CB-03",
+      "title": "All public Extended/Outcomes modules keep E3/E4 NOT_ESTABLISHED",
+      "pass": true,
+      "authority": "modules[*].evidence_state",
+      "states": [
+        {
+          "id": "COM-12",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        },
+        {
+          "id": "MOT-12",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        },
+        {
+          "id": "SELF-12",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        },
+        {
+          "id": "RPE-MOD",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        },
+        {
+          "id": "LIFE-12/18",
+          "E3": "NOT_ESTABLISHED",
+          "E4": "NOT_ESTABLISHED"
+        }
+      ]
+    },
+    {
+      "id": "CB-04",
+      "title": "Cross-layer empirical validity remains not established and causal/synergy claims unauthorized",
+      "pass": true,
+      "authority": "cross_layer.empirical_state",
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "CB-05",
+      "title": "Cross-layer public statement says research programme, not demonstrated validity",
+      "pass": true,
+      "authority": "cross_layer.system_statement"
+    },
+    {
+      "id": "CB-06",
+      "title": "RPE detailed constructs and reference payload remain suppressed",
+      "pass": true,
+      "authority": "modules[RPE-MOD]"
+    },
+    {
+      "id": "CB-07",
+      "title": "DYADIC remains hidden",
+      "pass": true,
+      "authority": "bases[DYADIC]"
+    },
+    {
+      "id": "CB-08",
+      "title": "COM ceiling rejects factor confirmation, total, production scoring, norms, diagnosis and consent-validity classification",
+      "pass": true,
+      "authority": "modules[COM-12].publication_ceiling"
+    },
+    {
+      "id": "CB-09",
+      "title": "MOT ceiling rejects total and healthy/unhealthy motive classification",
+      "pass": true,
+      "authority": "modules[MOT-12].publication_ceiling"
+    },
+    {
+      "id": "CB-10",
+      "title": "SELF ceiling rejects confirmed seven-factor model, norms and participant-level interpretation",
+      "pass": true,
+      "authority": "modules[SELF-12].publication_ceiling"
+    },
+    {
+      "id": "CB-11",
+      "title": "LIFE ceiling rejects total, causal attribution, productivity/health promises and confirmed factor model",
+      "pass": true,
+      "authority": "modules[LIFE-12/18].publication_ceiling"
+    },
+    {
+      "id": "CB-12",
+      "title": "Library count is explicitly not a validity metric",
+      "pass": true,
+      "authority": "global_library_projection.claim_boundary"
+    },
+    {
+      "id": "CB-13",
+      "title": "Integrated Core roles are not inferred",
+      "pass": true,
+      "authority": "global_library_integrated.binding_model"
+    },
+    {
+      "id": "CB-14",
+      "title": "Global library preserves 45/25/70 identity contract",
+      "pass": true,
+      "authority": "global_library_integrated.contract"
+    },
+    {
+      "id": "CB-15",
+      "title": "Extension evidence-role metadata remains canonical technical identifiers",
+      "pass": true,
+      "authority": "global_library_projection.references[*].role",
+      "role_count": 25
+    }
+  ]
+}

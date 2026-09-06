@@ -1,0 +1,134 @@
+name: P120 WEB-SCIENCE PROD-G1 Controlled Production Activation Pre-Merge
+
+on:
+  push:
+    branches:
+      - 'web-science-production-activation-gate1'
+    paths:
+      - 'qa/webscience_prod_g1_candidate_gate_v1.0.py'
+      - 'qa/webscience_prod_g1_reconciliation_gate_v1.0.py'
+      - 'qa/webscience_prod_g1_postmerge_gate_v1.0.py'
+      - '.github/workflows/p120-webscience-production-g1-premerge.yml'
+      - '.github/workflows/p120-webscience-production-g1-postmerge.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  premerge-candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Pin sealed Science authority and current production baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          SEALED='d095cae40b33da2118e5090be2a2c837205d8b64'
+          MAIN='194bdf274f1a6012ef6c2e4b4f31e5f44b472055'
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$MAIN"
+          git merge-base --is-ancestor "$SEALED" HEAD
+          git diff --quiet "$SEALED" HEAD -- \
+            science/index.html en/science/index.html \
+            p120-scientific-base-runtime-v1.0.js \
+            p120-webscience-pass4b-renderer-v0.6.js \
+            p120-webscience-pass4c-library-v0.7.js \
+            p120-webscience-pass4e-visual-v0.9.css \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_MANIFEST_v1.1.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_STATUS_RECORD_v1.1.json
+
+      - name: Build exact main plus sealed-Science merge candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          ACT_HEAD="$GITHUB_SHA"
+          git config user.name 'P120 Production Gate'
+          git config user.email '57597994+unityplanet@users.noreply.github.com'
+          git switch -C prod-candidate origin/main
+          git merge --no-ff --no-commit "$ACT_HEAD"
+          echo "candidate based on $(git rev-parse origin/main) with activation head $ACT_HEAD"
+          git diff --cached --name-only origin/main > /tmp/p120-prod-g1-changed.txt
+          cat /tmp/p120-prod-g1-changed.txt
+
+      - name: Run production candidate boundary and sealed reconciliation gates
+        run: |
+          python3 -m py_compile qa/webscience_prod_g1_candidate_gate_v1.0.py
+          python3 -m py_compile qa/webscience_prod_g1_reconciliation_gate_v1.0.py
+          python3 -m py_compile qa/webscience_prod_g1_postmerge_gate_v1.0.py
+          python3 qa/webscience_prod_g1_candidate_gate_v1.0.py
+          python3 qa/webscience_prod_g1_reconciliation_gate_v1.0.py
+
+      - name: Re-run PASS 4A publication projection gate
+        run: node qa/webscience_pass4a_projection_gate_v0.5.mjs
+
+      - name: Re-materialize Global-70 and require zero working-tree delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEFORE=$(sha256sum webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json | awk '{print $1}')
+          node qa/webscience_pass4c_materialize_global_library_v0.7.mjs
+          AFTER=$(sha256sum webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json | awk '{print $1}')
+          test "$BEFORE" = "$AFTER"
+          test "$AFTER" = 'af1fede5aeb36f2e4dc11fb55ad0f31fe5a74e2bd59fa9a0bb1aa7d405e8bdf8'
+
+      - name: Re-run PASS 4D static claim-boundary parity gate
+        run: node qa/webscience_pass4d_claim_boundary_static_gate_v0.8.mjs
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start merged-candidate site
+        run: |
+          python3 -m http.server 4179 --bind 127.0.0.1 >/tmp/p120-prod-g1-http.log 2>&1 &
+          sleep 2
+          curl -fsS 'http://127.0.0.1:4179/' >/dev/null
+          curl -fsS 'http://127.0.0.1:4179/en/' >/dev/null
+          curl -fsS 'http://127.0.0.1:4179/science/' >/dev/null
+          curl -fsS 'http://127.0.0.1:4179/en/science/' >/dev/null
+
+      - name: Re-run PASS 4C Global-70 browser regression
+        run: node qa/webscience_pass4c_library_gate_v0.7.mjs
+
+      - name: Re-run PASS 4D rendered claim/parity regression
+        run: node qa/webscience_pass4d_claim_boundary_browser_gate_v0.8.mjs
+
+      - name: Re-run PASS 4E responsive typography regression
+        run: node qa/webscience_pass4e_browser_typography_gate_v0.9.mjs
+
+      - name: Reconcile immutable sealed PASS 4 after browser regressions
+        run: python3 qa/webscience_prod_g1_reconciliation_gate_v1.0.py
+
+      - name: Re-run production candidate boundary gate after regressions
+        run: python3 qa/webscience_prod_g1_candidate_gate_v1.0.py
+
+      - name: Verify no unauthorized worktree mutation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          test "$(sha256sum p120-webscience-pass4b-renderer-v0.6.js | awk '{print $1}')" = '3a97e8838c73c56913b2cda03a5ea12afc579b1b085440b946ef800f2adbcc7b'
+          test "$(sha256sum p120-webscience-pass4c-library-v0.7.js | awk '{print $1}')" = 'c8dd6b1c88706a2bb0c879099f5db0f87b2401b11fb5ca493037480781833425'
+          test "$(sha256sum p120-webscience-pass4e-visual-v0.9.css | awk '{print $1}')" = 'd2fac104c534f0ea90e77d207887557afa8abd2ce246ac4f85c7f8ddbad48aeb'
+
+      - name: Upload controlled pre-merge evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_PROD_G1_PREMERGE_EVIDENCE
+          path: |
+            qa-evidence-webscience-prod-g1/
+            qa-evidence-webscience-pass4c/
+            qa-evidence-webscience-pass4d/
+            qa-evidence-webscience-pass4e/
+          if-no-files-found: error
+          retention-days: 90

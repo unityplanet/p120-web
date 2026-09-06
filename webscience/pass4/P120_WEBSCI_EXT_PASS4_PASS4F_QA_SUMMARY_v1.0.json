@@ -1,0 +1,30 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4F-QA-SUMMARY",
+  "version": "v1.0",
+  "date": "2026-09-06",
+  "status": "PASS",
+  "reconciliation_checks_total": 119,
+  "reconciliation_checks_passed": 119,
+  "reconciliation_checks_failed": 0,
+  "upstream_authorities": {
+    "PASS4A": "2970/2970 PASS",
+    "PASS4B": "198/198 PASS",
+    "PASS4C": "88/88 PASS",
+    "PASS4D_static": "448/448 PASS",
+    "PASS4D_browser": "448/448 PASS",
+    "PASS4E": "952/952 PASS"
+  },
+  "authority_chain": "CONSISTENT",
+  "historical_hash_disposition": "RECONCILED_WITH_EXPLICIT_SUPERSESSION_ONLY",
+  "current_public_ceiling": "UNCHANGED",
+  "scientific_content_mutated": false,
+  "measurement_mutated": false,
+  "scoring_mutated": false,
+  "thresholds_mutated": false,
+  "renderer_mutated": false,
+  "presentation_mutated": false,
+  "production_merge": "NOT_PERFORMED",
+  "parent_pass4_status": "OPEN_PENDING_PASS4G",
+  "next_gate": "PASS 4G — Mandatory Full PASS Package / Final PASS 4 Sealing"
+}

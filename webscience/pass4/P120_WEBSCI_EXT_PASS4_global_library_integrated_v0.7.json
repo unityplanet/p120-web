@@ -1,0 +1,891 @@
+{
+  "standard": "P120",
+  "schema_id": "P120-WEBSCI-GLOBAL-LIBRARY-INTEGRATED-001",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4C-GLOBAL-LIBRARY",
+  "version": "v0.7",
+  "date": "2026-09-06",
+  "status": "CONTROLLED_CORE45_GLOBAL70_LIBRARY_INTEGRATION__PASS4C",
+  "production_state": "NOT_MERGED_TO_MAIN",
+  "source_authorities": {
+    "core": "window.P120_SCIENCE.references frozen Core array",
+    "extension": "P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json"
+  },
+  "contract": {
+    "core_reference_count": 45,
+    "extension_reference_count": 25,
+    "global_reference_count": 70,
+    "core_id_range": "REF-001..REF-045",
+    "extension_id_range": "REF-046..REF-070",
+    "core_array_mutated": false,
+    "core_identity_assignment": "REF-ID assigned by frozen Core array order; source citation/DOI unchanged",
+    "count_is_not_validity_metric": true
+  },
+  "identity": {
+    "core_ru_sha256": "88b32a1c323f113c51f4656939da80c96f48463d656b0d2b08c365a32b0682bb",
+    "core_en_sha256": "88b32a1c323f113c51f4656939da80c96f48463d656b0d2b08c365a32b0682bb",
+    "core_ru_en_identity_match": true,
+    "global_identity_sha256": "1bcc6545d65867a5e3960abde7cd2702142cbe31701d854b87fc633c5ee0f225"
+  },
+  "binding_model": {
+    "core": "Citation/DOI identity only because no per-reference module/role binding exists in the frozen Core source object.",
+    "extension": "Preserve source-authorized module and evidence-role bindings from PASS 4.",
+    "no_inferred_core_roles": true
+  },
+  "deduplication": {
+    "doi_duplicate_pairs": [],
+    "citation_duplicate_pairs": [],
+    "non_null_doi_count": 69,
+    "unique_non_null_doi_count": 69,
+    "global_reference_identity_unique": true
+  },
+  "navigation_contract": {
+    "unified_list": true,
+    "filters": [
+      "ALL",
+      "CORE45",
+      "PASS4_EXTENSION",
+      "COM-12",
+      "MOT-12",
+      "SELF-12",
+      "LIFE-12/18",
+      "METHODS",
+      "EXT-SYS"
+    ],
+    "text_search": true,
+    "reference_deep_link_query": "ref",
+    "no_persistence": true
+  },
+  "references": [
+    {
+      "id": "REF-001",
+      "source_layer": "CORE45",
+      "source_index": 0,
+      "citation": "American Educational Research Association, American Psychological Association, & National Council on Measurement in Education. (2014). Standards for Educational and Psychological Testing. AERA.",
+      "doi": null,
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-002",
+      "source_layer": "CORE45",
+      "source_index": 1,
+      "citation": "Andrade, J., May, J., Deeprose, C., Baugh, S.-J., & Ganis, G. (2014). Assessing vividness of mental imagery: The Plymouth Sensory Imagery Questionnaire. British Journal of Psychology, 105(4), 547-563.",
+      "doi": "10.1111/bjop.12050",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-003",
+      "source_layer": "CORE45",
+      "source_index": 2,
+      "citation": "Balzarini, R. N., Muise, A., Dobson, K., Kohut, T., Raposo, S., & Campbell, L. (2021). The detriments of unmet sexual ideals and buffering effect of sexual communal strength. Journal of Personality and Social Psychology, 120(6), 1521-1550.",
+      "doi": "10.1037/pspi0000323",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-004",
+      "source_layer": "CORE45",
+      "source_index": 3,
+      "citation": "Birnbaum, G. E., Reis, H. T., Mizrahi, M., Kanat-Maymon, Y., Sass, O., & Granovski-Milner, C. (2016). Intimately connected: The importance of partner responsiveness for experiencing sexual desire. Journal of Personality and Social Psychology, 111(4), 530-546.",
+      "doi": "10.1037/pspi0000069",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-005",
+      "source_layer": "CORE45",
+      "source_index": 4,
+      "citation": "Blumenstock, S. M. (2024). Romantic attachment and sexual desire: The role of desire target. Journal of Sex Research, 61(2), 313-323.",
+      "doi": "10.1080/00224499.2023.2223205",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-006",
+      "source_layer": "CORE45",
+      "source_index": 5,
+      "citation": "Boateng, G. O., Neilands, T. B., Frongillo, E. A., Melgar-Quinonez, H. R., & Young, S. L. (2018). Best practices for developing and validating scales for health, social, and behavioral research. Frontiers in Public Health, 6, 149.",
+      "doi": "10.3389/fpubh.2018.00149",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-007",
+      "source_layer": "CORE45",
+      "source_index": 6,
+      "citation": "Bonemei, R., Costantino, A. I., Battistel, I., & Rivolta, D. (2018). The perception of (naked only) bodies and faceless heads relies on holistic processing: Evidence from the inversion effect. British Journal of Psychology, 109(2), 232-243.",
+      "doi": "10.1111/bjop.12271",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-008",
+      "source_layer": "CORE45",
+      "source_index": 7,
+      "citation": "Bouchard, K. N., Cormier, M., Huberman, J. S., & Rosen, N. O. (2023). Sexual script flexibility and sexual well-being in long-term couples: A dyadic longitudinal study. Journal of Sexual Medicine, 20(7), 945-954.",
+      "doi": "10.1093/jsxmed/qdad067",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-009",
+      "source_layer": "CORE45",
+      "source_index": 8,
+      "citation": "Brown, A., & Maydeu-Olivares, A. (2013). How IRT can solve problems of ipsative data in forced-choice questionnaires. Psychological Methods, 18(1), 36-52.",
+      "doi": "10.1037/a0030641",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-010",
+      "source_layer": "CORE45",
+      "source_index": 9,
+      "citation": "Chivers, M. L., Seto, M. C., Lalumiere, M. L., Laan, E., & Grimbos, T. (2010). Agreement of self-reported and genital measures of sexual arousal in men and women: A meta-analysis. Archives of Sexual Behavior, 39(1), 5-56.",
+      "doi": "10.1007/s10508-009-9556-9",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-011",
+      "source_layer": "CORE45",
+      "source_index": 10,
+      "citation": "de Oliveira, L., Carvalho, J., & Nobre, P. (2021). A systematic review on sexual boredom. Journal of Sexual Medicine, 18(3), 565-581.",
+      "doi": "10.1016/j.jsxm.2020.12.019",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-012",
+      "source_layer": "CORE45",
+      "source_index": 11,
+      "citation": "de Oliveira, L., Stulhofer, A., Tafro, A., Carvalho, J., & Nobre, P. (2023). Sexual boredom and sexual desire in long-term relationships: A latent profile analysis. Journal of Sexual Medicine, 20(1), 14-21.",
+      "doi": "10.1093/jsxmed/qdac018",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-013",
+      "source_layer": "CORE45",
+      "source_index": 12,
+      "citation": "Dewitte, M., Carvalho, J., Corona, G., Limoncin, E., Pascoal, P., Reisman, Y., & Stulhofer, A. (2020). Sexual desire discrepancy: A position statement of the European Society for Sexual Medicine. Sexual Medicine, 8(2), 121-131.",
+      "doi": "10.1016/j.esxm.2020.02.008",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-014",
+      "source_layer": "CORE45",
+      "source_index": 13,
+      "citation": "Fraley, R. C., Heffernan, M. E., Vicary, A. M., & Brumbaugh, C. C. (2011). The Experiences in Close Relationships-Relationship Structures Questionnaire. Psychological Assessment, 23(3), 615-625.",
+      "doi": "10.1037/a0022898",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-015",
+      "source_layer": "CORE45",
+      "source_index": 14,
+      "citation": "Fraley, R. C., Waller, N. G., & Brennan, K. A. (2000). An item response theory analysis of self-report measures of adult attachment. Journal of Personality and Social Psychology, 78(2), 350-365.",
+      "doi": "10.1037/0022-3514.78.2.350",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-016",
+      "source_layer": "CORE45",
+      "source_index": 15,
+      "citation": "Gallace, A., & Spence, C. (2010). The science of interpersonal touch: An overview. Neuroscience & Biobehavioral Reviews, 34(2), 246-259.",
+      "doi": "10.1016/j.neubiorev.2008.10.004",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-017",
+      "source_layer": "CORE45",
+      "source_index": 16,
+      "citation": "Gauvin, S. E. M., & Pukall, C. F. (2018). The SexFlex Scale: A measure of sexual script flexibility when approaching sexual problems in a relationship. Journal of Sex & Marital Therapy, 44(4), 382-397.",
+      "doi": "10.1080/0092623x.2017.1405304",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-018",
+      "source_layer": "CORE45",
+      "source_index": 17,
+      "citation": "Handy, A. B., & Meston, C. M. (2016). Interoceptive awareness moderates the relationship between perceived and physiological genital arousal in women. Journal of Sexual Medicine, 13(12), 1907-1914.",
+      "doi": "10.1016/j.jsxm.2016.09.018",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-019",
+      "source_layer": "CORE45",
+      "source_index": 18,
+      "citation": "Hugill, N., Fink, B., & Neave, N. (2010). The role of human body movements in mate selection. Evolutionary Psychology, 8(1), 66-89.",
+      "doi": "10.1177/147470491000800107",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-020",
+      "source_layer": "CORE45",
+      "source_index": 19,
+      "citation": "Jakubiak, B. K., & Feeney, B. C. (2017). Affectionate touch to promote relational, psychological, and physical well-being in adulthood: A theoretical model and review. Personality and Social Psychology Review, 21(3), 228-252.",
+      "doi": "10.1177/1088868316650307",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-021",
+      "source_layer": "CORE45",
+      "source_index": 20,
+      "citation": "Janssen, E., Vorst, H., Finn, P., & Bancroft, J. (2002). The Sexual Inhibition (SIS) and Sexual Excitation (SES) Scales: I. Journal of Sex Research, 39(2), 114-126.",
+      "doi": "10.1080/00224490209552130",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-022",
+      "source_layer": "CORE45",
+      "source_index": 21,
+      "citation": "Kalichman, S. C., & Rompa, D. (1995). Sexual sensation seeking and sexual compulsivity scales: Reliability, validity, and predicting HIV risk behavior. Journal of Personality Assessment, 65(3), 586-601.",
+      "doi": "10.1207/s15327752jpa6503_16",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-023",
+      "source_layer": "CORE45",
+      "source_index": 22,
+      "citation": "Kenny, D. A., & Ledermann, T. (2010). Detecting, measuring, and testing dyadic patterns in the actor-partner interdependence model. Journal of Family Psychology, 24(3), 359-366.",
+      "doi": "10.1037/a0019651",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-024",
+      "source_layer": "CORE45",
+      "source_index": 23,
+      "citation": "Krishnamurti, T., & Loewenstein, G. (2012). The Partner-Specific Sexual Liking and Sexual Wanting Scale: Psychometric properties. Archives of Sexual Behavior, 41(2), 467-476.",
+      "doi": "10.1007/s10508-011-9785-6",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-025",
+      "source_layer": "CORE45",
+      "source_index": 24,
+      "citation": "MacNeil, S., & Byers, E. S. (2009). Role of sexual self-disclosure in the sexual satisfaction of long-term heterosexual couples. Journal of Sex Research, 46(1), 3-14.",
+      "doi": "10.1080/00224490802398399",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-026",
+      "source_layer": "CORE45",
+      "source_index": 25,
+      "citation": "Mark, K. P., & Lasslo, J. A. (2018). Maintaining sexual desire in long-term relationships: A systematic review and conceptual model. Journal of Sex Research, 55(4-5), 563-581.",
+      "doi": "10.1080/00224499.2018.1437592",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-027",
+      "source_layer": "CORE45",
+      "source_index": 26,
+      "citation": "McLeod, S., Berry, K., Hodgson, C., & Wearden, A. (2020). Attachment and social support in romantic dyads: A systematic review. Journal of Clinical Psychology, 76(1), 59-101.",
+      "doi": "10.1002/jclp.22868",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-028",
+      "source_layer": "CORE45",
+      "source_index": 27,
+      "citation": "Mehling, W. E., Acree, M., Stewart, A., Silas, J., & Jones, A. (2018). The Multidimensional Assessment of Interoceptive Awareness, Version 2 (MAIA-2). PLOS ONE, 13(12), e0208034.",
+      "doi": "10.1371/journal.pone.0208034",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-029",
+      "source_layer": "CORE45",
+      "source_index": 28,
+      "citation": "Meltzer, A. L., Makhanova, A., Hicks, L. L., French, J. E., McNulty, J. K., & Bradbury, T. N. (2017). Quantifying the sexual afterglow. Psychological Science, 28(5), 587-598.",
+      "doi": "10.1177/0956797617691361",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-030",
+      "source_layer": "CORE45",
+      "source_index": 29,
+      "citation": "Muise, A., Harasymchuk, C., Day, L. C., Bacev-Giles, C., Gere, J., & Impett, E. A. (2019). Broadening your horizons: Self-expanding activities promote desire and satisfaction in established romantic relationships. Journal of Personality and Social Psychology, 116(2), 237-258.",
+      "doi": "10.1037/pspi0000148",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-031",
+      "source_layer": "CORE45",
+      "source_index": 30,
+      "citation": "Muise, A., Impett, E. A., Kogan, A., & Desmarais, S. (2013). Keeping the spark alive: Being motivated to meet a partner's sexual needs sustains sexual desire in long-term romantic relationships. Social Psychological and Personality Science, 4(3), 267-273.",
+      "doi": "10.1177/1948550612457185",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-032",
+      "source_layer": "CORE45",
+      "source_index": 31,
+      "citation": "Peloquin, K., Brassard, A., Lafontaine, M.-F., & Shaver, P. R. (2014). Sexuality examined through the lens of attachment theory: Attachment, caregiving, and sexual satisfaction. Journal of Sex Research, 51(5), 561-576.",
+      "doi": "10.1080/00224499.2012.757281",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-033",
+      "source_layer": "CORE45",
+      "source_index": 32,
+      "citation": "Putnick, D. L., & Bornstein, M. H. (2016). Measurement invariance conventions and reporting. Developmental Review, 41, 71-90.",
+      "doi": "10.1016/j.dr.2016.06.004",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-034",
+      "source_layer": "CORE45",
+      "source_index": 33,
+      "citation": "Reed, C. L., Stone, V. E., Bozova, S., & Tanaka, J. (2003). The body-inversion effect. Psychological Science, 14(4), 302-308.",
+      "doi": "10.1111/1467-9280.14431",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-035",
+      "source_layer": "CORE45",
+      "source_index": 34,
+      "citation": "Reed, C. L., Stone, V. E., Grubb, J. D., & McGoldrick, J. E. (2006). Turning configural processing upside down: Part and whole body postures. Journal of Experimental Psychology: Human Perception and Performance, 32(1), 73-87.",
+      "doi": "10.1037/0096-1523.32.1.73",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-036",
+      "source_layer": "CORE45",
+      "source_index": 35,
+      "citation": "Rupp, H. A., & Wallen, K. (2008). Sex differences in response to visual sexual stimuli: A review. Archives of Sexual Behavior, 37(2), 206-218.",
+      "doi": "10.1007/s10508-007-9217-9",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-037",
+      "source_layer": "CORE45",
+      "source_index": 36,
+      "citation": "Saarinen, A., Harjunen, V. J., Jasinskaja-Lahti, I., Jaaskelainen, I. P., & Ravaja, N. (2021). Social touch experience in different contexts: A review. Neuroscience & Biobehavioral Reviews, 131, 360-372.",
+      "doi": "10.1016/j.neubiorev.2021.09.027",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-038",
+      "source_layer": "CORE45",
+      "source_index": 37,
+      "citation": "Schirmer, A., Croy, I., & Ackerley, R. (2023). What are C-tactile afferents and how do they relate to 'affective touch'? Neuroscience & Biobehavioral Reviews, 151, 105236.",
+      "doi": "10.1016/j.neubiorev.2023.105236",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-039",
+      "source_layer": "CORE45",
+      "source_index": 38,
+      "citation": "Schlotz, W., Wallot, S., Omigie, D., Masucci, M. D., Hoelzmann, S. C., & Vessel, E. A. (2021). The Aesthetic Responsiveness Assessment (AReA). Psychology of Aesthetics, Creativity, and the Arts, 15(4), 682-696.",
+      "doi": "10.1037/aca0000348",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-040",
+      "source_layer": "CORE45",
+      "source_index": 39,
+      "citation": "Shoikhedbrod, A., Harasymchuk, C., Impett, E. A., & Muise, A. (2026). When a partner supports your sexual autonomy. Personality and Social Psychology Bulletin, 52(2), 381-399.",
+      "doi": "10.1177/01461672241279099",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-041",
+      "source_layer": "CORE45",
+      "source_index": 40,
+      "citation": "Silvia, P. J., Rodriguez-Boerwinkle, R. M., Awa, K. N., Zabelina, D. L., & Christensen, A. P. (2025). Evaluating the structure of the AReA with bootstrap exploratory graph analysis. Empirical Studies of the Arts, 43(1), 550-564.",
+      "doi": "10.1177/02762374241259935",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-042",
+      "source_layer": "CORE45",
+      "source_index": 41,
+      "citation": "Stefanou, C., & McCabe, M. P. (2012). Adult attachment and sexual functioning: A review of past research. Journal of Sexual Medicine, 9(10), 2499-2507.",
+      "doi": "10.1111/j.1743-6109.2012.02843.x",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-043",
+      "source_layer": "CORE45",
+      "source_index": 42,
+      "citation": "Toledano, R., & Pfaus, J. (2006). The Sexual Arousal and Desire Inventory (SADI): A multidimensional scale to assess subjective sexual arousal and desire. Journal of Sexual Medicine, 3(5), 853-877.",
+      "doi": "10.1111/j.1743-6109.2006.00293.x",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-044",
+      "source_layer": "CORE45",
+      "source_index": 43,
+      "citation": "Trotter, P. D., McGlone, F., Reniers, R. L. E. P., & Deakin, J. F. W. (2018). Construction and validation of the Touch Experiences and Attitudes Questionnaire (TEAQ). Journal of Nonverbal Behavior, 42(4), 379-416.",
+      "doi": "10.1007/s10919-018-0281-8",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-045",
+      "source_layer": "CORE45",
+      "source_index": 44,
+      "citation": "Williams, M. N., & Apicella, C. L. (2023). A test of multimodal communication in humans using 881 judgements of physical, vocal, and olfactory attractiveness. Heliyon, 9(6), e16895.",
+      "doi": "10.1016/j.heliyon.2023.e16895",
+      "modules": [],
+      "role": null,
+      "binding_state": "SOURCE_NATIVE_CITATION_DOI_ONLY",
+      "identity_rule": "FROZEN_CORE_ARRAY_ORDER"
+    },
+    {
+      "id": "REF-046",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 0,
+      "citation": "Mallory, A. B. (2022). Dimensions of couples' sexual communication, relationship satisfaction, and sexual satisfaction: A meta-analysis. Journal of Family Psychology, 36(3), 358–371.",
+      "doi": "10.1037/fam0000946",
+      "modules": [
+        "COM-12"
+      ],
+      "role": "META_ANALYTIC_COMMUNICATION_CONTEXT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-047",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 1,
+      "citation": "Mallory, A. B., Stanton, A. M., & Handy, A. B. (2019). Couples' sexual communication and dimensions of sexual function: A meta-analysis. The Journal of Sex Research, 56(7), 882–898.",
+      "doi": "10.1080/00224499.2019.1568375",
+      "modules": [
+        "COM-12"
+      ],
+      "role": "META_ANALYTIC_COMMUNICATION_FUNCTION_CONTEXT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-048",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 2,
+      "citation": "Moazami, S., Ashley, M., Czechowski, K., Courtice, E. L., & Shaughnessy, K. (2023). The Sexual Communication Scale (SeCS). The Journal of Sex Research, 60(1), 71–90.",
+      "doi": "10.1080/00224499.2022.2129558",
+      "modules": [
+        "COM-12"
+      ],
+      "role": "SEXUAL_COMMUNICATION_MEASUREMENT_PRECEDENT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-049",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 3,
+      "citation": "Morokoff, P. J., Quina, K., Harlow, L. L., Whitmire, L., Grimley, D. M., Gibson, P. R., & Burkholder, G. J. (1997). Sexual Assertiveness Scale (SAS) for women: Development and validation. Journal of Personality and Social Psychology, 73(4), 790–804.",
+      "doi": "10.1037/0022-3514.73.4.790",
+      "modules": [
+        "COM-12",
+        "SELF-12"
+      ],
+      "role": "SEXUAL_ASSERTIVENESS_BOUNDARY_COMPARATOR",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-050",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 4,
+      "citation": "Meston, C. M., & Buss, D. M. (2007). Why humans have sex. Archives of Sexual Behavior, 36(4), 477–507.",
+      "doi": "10.1007/s10508-007-9175-2",
+      "modules": [
+        "MOT-12"
+      ],
+      "role": "SEXUAL_MOTIVE_TAXONOMY_PRECEDENT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-051",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 5,
+      "citation": "Impett, E. A., Peplau, L. A., & Gable, S. L. (2005). Approach and avoidance sexual motives: Implications for personal and interpersonal well-being. Personal Relationships, 12(4), 465–482.",
+      "doi": "10.1111/j.1475-6811.2005.00126.x",
+      "modules": [
+        "MOT-12",
+        "LIFE-12/18"
+      ],
+      "role": "APPROACH_AVOIDANCE_MOTIVE_CONTEXT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-052",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 6,
+      "citation": "Impett, E. A., Strachman, A., Finkel, E. J., & Gable, S. L. (2008). Maintaining sexual desire in intimate relationships: The importance of approach goals. Journal of Personality and Social Psychology, 94(5), 808–823.",
+      "doi": "10.1037/0022-3514.94.5.808",
+      "modules": [
+        "MOT-12",
+        "P-72D"
+      ],
+      "role": "APPROACH_GOALS_DESIRE_MAINTENANCE_CONTEXT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-053",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 7,
+      "citation": "Muise, A., & Impett, E. A. (2016). Applying theories of communal motivation to sexuality. Social and Personality Psychology Compass, 10(8), 455–467.",
+      "doi": "10.1111/spc3.12261",
+      "modules": [
+        "MOT-12"
+      ],
+      "role": "SEXUAL_COMMUNAL_MOTIVATION_REVIEW",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-054",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 8,
+      "citation": "Andersen, B. L., & Cyranowski, J. M. (1994). Women's sexual self-schema. Journal of Personality and Social Psychology, 67(6), 1079–1100.",
+      "doi": "10.1037/0022-3514.67.6.1079",
+      "modules": [
+        "SELF-12"
+      ],
+      "role": "SEXUAL_SELF_SCHEMA_PRECEDENT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-055",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 9,
+      "citation": "Snell, W. E., Jr., Fisher, T. D., & Walters, A. S. (1993). The Multidimensional Sexuality Questionnaire: An objective self-report measure of psychological tendencies associated with human sexuality. Sexual Abuse: A Journal of Research and Treatment, 6(1), 27–55.",
+      "doi": "10.1177/107906329300600102",
+      "modules": [
+        "SELF-12",
+        "MOT-12",
+        "COM-12"
+      ],
+      "role": "MULTIDIMENSIONAL_SEXUAL_SELF_MEASUREMENT_PRECEDENT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-056",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 10,
+      "citation": "Horne, S., & Zimmer-Gembeck, M. J. (2006). The Female Sexual Subjectivity Inventory: Development and validation of a multidimensional inventory for late adolescents and emerging adults. Psychology of Women Quarterly, 30(2), 125–138.",
+      "doi": "10.1111/j.1471-6402.2006.00276.x",
+      "modules": [
+        "SELF-12"
+      ],
+      "role": "SEXUAL_SUBJECTIVITY_MEASUREMENT_PRECEDENT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-057",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 11,
+      "citation": "Vickberg, S. M. J., & Deaux, K. (2005). Measuring the dimensions of women's sexuality: The Women's Sexual Self-Concept Scale. Sex Roles, 53, 361–369.",
+      "doi": "10.1007/s11199-005-6759-y",
+      "modules": [
+        "SELF-12"
+      ],
+      "role": "SEXUAL_SELF_CONCEPT_MEASUREMENT_PRECEDENT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-058",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 12,
+      "citation": "van Lankveld, J. J. D. M., Geijen, W. E. H., & Sykora, H. (2008). The sexual self-consciousness scale: Psychometric properties. Archives of Sexual Behavior, 37(6), 925–933.",
+      "doi": "10.1007/s10508-007-9253-5",
+      "modules": [
+        "SELF-12",
+        "SOMA-24"
+      ],
+      "role": "SEXUAL_SELF_CONSCIOUSNESS_COMPARATOR",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-059",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 13,
+      "citation": "Ashley, M., Drouin, S., & Shaughnessy, K. (2024). Measuring sexual self-concept: A methodological review. Psychology & Sexuality, 15(2), 254–277.",
+      "doi": "10.1080/19419899.2023.2246494",
+      "modules": [
+        "SELF-12",
+        "METHODS"
+      ],
+      "role": "SEXUAL_SELF_CONCEPT_METHOD_REVIEW",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-060",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 14,
+      "citation": "Ferrer-Urbina, R., Sepúlveda-Páez, G. L., Henríquez, D.-T., et al. (2019). Development and validity evidence of the multidimensional scale of sexual self-concept in a Spanish-speaking context. Psicologia: Reflexão e Crítica, 32, 22.",
+      "doi": "10.1186/s41155-019-0136-1",
+      "modules": [
+        "SELF-12",
+        "METHODS"
+      ],
+      "role": "SEXUAL_SELF_CONCEPT_VALIDITY_INVARIANCE_PRECEDENT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-061",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 15,
+      "citation": "Kashdan, T. B., Goodman, F. R., Stiksma, M., Milius, C. R., & McKnight, P. E. (2018). Sexuality leads to boosts in mood and meaning in life with no evidence for the reverse direction: A daily diary investigation. Emotion, 18(4), 563–576.",
+      "doi": "10.1037/emo0000324",
+      "modules": [
+        "LIFE-12/18"
+      ],
+      "role": "DAILY_SEXUALITY_AFFECT_MEANING_CONTEXT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-062",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 16,
+      "citation": "Oesterling, C. F., Borg, C., Juhola, E., & Lancel, M. (2023). The influence of sexual activity on sleep: A diary study. Journal of Sleep Research, 32(4), e13814.",
+      "doi": "10.1111/jsr.13814",
+      "modules": [
+        "LIFE-12/18"
+      ],
+      "role": "SEXUAL_ACTIVITY_SLEEP_DIARY_CONTEXT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-063",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 17,
+      "citation": "Lastella, M., Miller, D. J., Montero, A., Sprajcer, M., Ferguson, S. A., Browne, M., & Vincent, G. E. (2025). Sleep on it: A pilot study exploring the impact of sexual activity on sleep outcomes in cohabiting couples. Sleep Health, 11(2), 198–205.",
+      "doi": "10.1016/j.sleh.2024.11.004",
+      "modules": [
+        "LIFE-12/18"
+      ],
+      "role": "SEXUAL_ACTIVITY_OBJECTIVE_SLEEP_PILOT_CONTEXT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-064",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 18,
+      "citation": "Ryan, R. M., & Frederick, C. (1997). On energy, personality, and health: Subjective vitality as a dynamic reflection of well-being. Journal of Personality, 65(3), 529–565.",
+      "doi": "10.1111/j.1467-6494.1997.tb00326.x",
+      "modules": [
+        "LIFE-12/18"
+      ],
+      "role": "SUBJECTIVE_VITALITY_MEASUREMENT_PRECEDENT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-065",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 19,
+      "citation": "Watson, D., Clark, L. A., & Tellegen, A. (1988). Development and validation of brief measures of positive and negative affect: The PANAS scales. Journal of Personality and Social Psychology, 54(6), 1063–1070.",
+      "doi": "10.1037/0022-3514.54.6.1063",
+      "modules": [
+        "LIFE-12/18"
+      ],
+      "role": "POSITIVE_NEGATIVE_AFFECT_MEASUREMENT_PRECEDENT",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-066",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 20,
+      "citation": "Buysse, D. J., Reynolds, C. F., III, Monk, T. H., Berman, S. R., & Kupfer, D. J. (1989). The Pittsburgh Sleep Quality Index: A new instrument for psychiatric practice and research. Psychiatry Research, 28(2), 193–213.",
+      "doi": "10.1016/0165-1781(89)90047-4",
+      "modules": [
+        "LIFE-12/18"
+      ],
+      "role": "SLEEP_QUALITY_EXTERNAL_COMPARATOR",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-067",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 21,
+      "citation": "Schaufeli, W. B., Bakker, A. B., & Salanova, M. (2006). The measurement of work engagement with a short questionnaire: A cross-national study. Educational and Psychological Measurement, 66(4), 701–716.",
+      "doi": "10.1177/0013164405282471",
+      "modules": [
+        "LIFE-12/18"
+      ],
+      "role": "WORK_ENGAGEMENT_EXTERNAL_COMPARATOR",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-068",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 22,
+      "citation": "Steger, M. F., Frazier, P., Oishi, S., & Kaler, M. (2006). The Meaning in Life Questionnaire: Assessing the presence of and search for meaning in life. Journal of Counseling Psychology, 53(1), 80–93.",
+      "doi": "10.1037/0022-0167.53.1.80",
+      "modules": [
+        "LIFE-12/18"
+      ],
+      "role": "MEANING_IN_LIFE_EXTERNAL_COMPARATOR",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-069",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 23,
+      "citation": "Hunsley, J., & Meyer, G. J. (2003). The incremental validity of psychological testing and assessment: Conceptual, methodological, and statistical issues. Psychological Assessment, 15(4), 446–455.",
+      "doi": "10.1037/1040-3590.15.4.446",
+      "modules": [
+        "METHODS",
+        "EXT-SYS"
+      ],
+      "role": "INCREMENTAL_VALIDITY_METHODS",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    },
+    {
+      "id": "REF-070",
+      "source_layer": "PASS4_EXTENSION",
+      "source_index": 24,
+      "citation": "Smith, G. T., Fischer, S., & Fister, S. M. (2003). Incremental validity principles in test construction. Psychological Assessment, 15(4), 467–477.",
+      "doi": "10.1037/1040-3590.15.4.467",
+      "modules": [
+        "METHODS",
+        "EXT-SYS"
+      ],
+      "role": "INCREMENTAL_VALIDITY_TEST_CONSTRUCTION",
+      "binding_state": "SOURCE_AUTHORIZED_MODULE_ROLE_BINDING",
+      "identity_rule": "PASS4_CONTROLLED_REFERENCE_ID"
+    }
+  ],
+  "next_gate": "WEB-SCIENCE EXT PASS 4D — Claim-Boundary & RU/EN Parity QA"
+}

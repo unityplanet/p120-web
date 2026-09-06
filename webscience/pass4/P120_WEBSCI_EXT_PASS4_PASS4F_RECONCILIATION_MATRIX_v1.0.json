@@ -1,0 +1,88 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4F-RECONCILIATION-MATRIX",
+  "version": "v1.0",
+  "date": "2026-09-06",
+  "status": "RECONCILED",
+  "parent_pass4_status": "OPEN_PENDING_PASS4G",
+  "dimensions": {
+    "scientific_authority": {
+      "state": "CONSISTENT",
+      "source": "PASS 4A projection + pre-4A adjudication",
+      "upgrade_in_PASS4F": false
+    },
+    "evidence_ladder": {
+      "state": "CONSISTENT",
+      "levels": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "E1_equals_empirical_validation": false
+    },
+    "library_contract": {
+      "state": "CONSISTENT",
+      "core": 45,
+      "extension": 25,
+      "global": 70,
+      "count_is_validity_metric": false
+    },
+    "module_publication": {
+      "state": "CONSISTENT",
+      "modules": [
+        "COM-12",
+        "MOT-12",
+        "SELF-12",
+        "RPE-MOD",
+        "LIFE-12/18"
+      ],
+      "mode": "summary_only"
+    },
+    "RPE": {
+      "state": "CONSISTENT",
+      "detail": "SUPPRESSED"
+    },
+    "DYADIC": {
+      "state": "CONSISTENT",
+      "visibility": "HIDDEN"
+    },
+    "cross_layer": {
+      "state": "CONSISTENT",
+      "discriminant_validity": "NOT_ESTABLISHED",
+      "incremental_validity": "NOT_ESTABLISHED",
+      "validated_synergy": "NOT_AUTHORIZED",
+      "causal_effects": "NOT_AUTHORIZED"
+    },
+    "renderer": {
+      "state": "CONSISTENT",
+      "activation": "CONTROLLED_BRANCH_PRE_PRODUCTION",
+      "production_merge": "NOT_PERFORMED"
+    },
+    "ru_en_claim_parity": {
+      "state": "PASS",
+      "authority": "PASS 4D"
+    },
+    "browser_responsive_typography": {
+      "state": "PASS",
+      "authority": "PASS 4E",
+      "matrix_states": 70,
+      "checks": "952/952"
+    },
+    "measurement_scoring_thresholds": {
+      "state": "UNCHANGED",
+      "measurement": false,
+      "scoring": false,
+      "thresholds": false
+    },
+    "respondent_session_persistence_report_calculation": {
+      "state": "UNCHANGED"
+    },
+    "production_main": {
+      "state": "UNTOUCHED"
+    }
+  },
+  "reconciliation_verdict": "NO_UNRESOLVED_CONTRADICTION_OR_UNAUTHORIZED_STATUS_UPGRADE",
+  "next_gate": "PASS 4G — Mandatory Full PASS Package / Final PASS 4 Sealing"
+}

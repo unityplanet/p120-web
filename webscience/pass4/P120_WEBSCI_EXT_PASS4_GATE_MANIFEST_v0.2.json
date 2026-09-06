@@ -1,0 +1,36 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-GATE-MANIFEST",
+  "version": "v0.2",
+  "date": "2026-09-06",
+  "status": "CONTROLLED_GATE_PACKAGE",
+  "gate": "Baseline & Authority Reconciliation Gate",
+  "production_baseline": "67d2ae422e422be20eae6bb086c51adf7de173bb",
+  "working_branch": "web-science-ext-pass4-reconciled",
+  "files": [
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_baseline_authority_reconciliation_v0.2.json","role":"machine-readable gate authority and check record"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_source_status_reconciliation_v0.2.json","role":"current-baseline source/status and precedence reconciliation"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_content_model_v0.2.json","role":"active PASS 4 scientific content/evidence data contract"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_GATE_REPORT_v0.2.md","role":"human-readable gate report"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_DECISION_RECORD_v0.2.md","role":"controlled gate decision record"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_GATE_MANIFEST_v0.2.json","role":"gate package manifest"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_source_status_reconciliation_v0.1.json","role":"retained historical PASS 4 source/status lineage"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_eligibility_v0.1.json","role":"retained publication eligibility lineage pending module-by-module next-stage update"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_content_model_v0.1.json","role":"superseded content-model lineage retained for traceability"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_module_content_v0.1.json","role":"public-safe Extended/Outcomes content corpus for continued reconciliation"},
+    {"path":"webscience/pass4/P120_WEBSCI_EXT_PASS4_cross_layer_public_questions_v0.1.json","role":"public-safe cross-layer research-question corpus for future EXT-SYS adjudication"},
+    {"path":"webscience/pass4/README.md","role":"working PASS 4 status and sequence"}
+  ],
+  "no_change": {
+    "measurement": true,
+    "scoring": true,
+    "thresholds": true,
+    "respondent_sessions": true,
+    "persistence": true,
+    "report_calculation": true,
+    "production_science_runtime": true,
+    "production_science_visual_design": true
+  },
+  "next_gate": "Deep Source & Evidence Extraction / Scientific Library Reconciliation / Evidence Binding",
+  "pass4_status": "OPEN"
+}

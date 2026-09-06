@@ -1,0 +1,60 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-SRC",
+  "pass": "WEB-SCIENCE EXT PASS 4",
+  "version": "v0.1",
+  "date": "2026-09-04",
+  "status": "SOURCE_AND_STATUS_RECONCILIATION__CONTROLLED_DRAFT",
+  "repository_baseline": {
+    "repository": "unityplanet/p120-web",
+    "branch": "main",
+    "commit_sha": "309cf17897d545d26d8cf7111b97d13141352fcd"
+  },
+  "scope": "Scientific Base content activation only. No measurement, scoring, questionnaire, respondent-session or report-calculation mutation.",
+  "governing_positioning": {
+    "external_science": "Published literature, empirical studies, established constructs and measurement precedents support the scientific foundation and adjacent mechanisms.",
+    "internal_methodological_evidence": "P-120 separately records internal construct-boundary, ownership, redundancy, item-level, information-gain, scope/exposure and cross-module verification of its own architecture.",
+    "validation_boundary": "Internal scientific-methodological/computational/cross-module verification is not empirical psychometric validation on respondent samples.",
+    "system_principle": "Independent layers remain separate; cross-layer synthesis is join-after-measurement and does not create an Extended Total."
+  },
+  "authorities": [
+    {"authority_id":"WEBSCI-1","document":"WEB-SCIENCE EXT PASS 1","version":"v0.1","role":"Scientific Base information architecture / publication governance","state":"CONTROLLED"},
+    {"authority_id":"WEBSCI-2","document":"WEB-SCIENCE EXT PASS 2","version":"v0.2","role":"Source-reconciled registry / publication-gate model","state":"CONTROLLED"},
+    {"authority_id":"EXTSYS-1","document":"EXT-SYS PASS 1","version":"v0.1","role":"Global construct coverage and ownership","state":"CONTROLLED"},
+    {"authority_id":"EXTSYS-2","document":"EXT-SYS PASS 2","version":"v0.2","role":"Pairwise redundancy / discriminant red-team / wording firewalls","state":"CONTROLLED"},
+    {"authority_id":"EXTSYS-3","document":"EXT-SYS PASS 3","version":"v0.3","role":"Missing-domain / information-gain / scope-exposure / kill-merge governance","state":"CONTROLLED"},
+    {"authority_id":"EXTSYS-4","document":"EXT-SYS PASS 4","version":"v0.4","role":"Pre-live item-level reconciliation and field co-validation architecture","state":"DESK_RECONCILIATION_PASS__HUMAN_COVALIDATION_HOLD"},
+    {"authority_id":"RPE-10","document":"RPE-MOD PASS 10","version":"v1.1","role":"Final optional-module placement and zero-redundancy ownership decision","state":"PROGRAMME_COMPLETE__FIELDING_HOLD"}
+  ],
+  "modules": [
+    {"module_id":"SAT-24","family":"CORE","authority":"current frozen SAT/SOMA technical authority","development_state":"FROZEN_FOR_PILOT","empirical_state":"PILOT_NOT_YET_EXTERNAL_VALIDATION","public_current":"published","pass4_rule":"PRESERVE_CURRENT_CORE"},
+    {"module_id":"P-72","family":"CORE","authority":"P-72 v4.0 measurement/technical authority","development_state":"FROZEN_SOURCE","empirical_state":"RESEARCH_CANDIDATE","public_current":"published","pass4_rule":"PRESERVE_CURRENT_CORE"},
+    {"module_id":"P-72D","family":"CORE","authority":"current frozen P-72D scoring/technical authority","development_state":"FROZEN_FOR_PILOT","empirical_state":"RESEARCH_CANDIDATE","public_current":"published","pass4_rule":"PRESERVE_CURRENT_CORE"},
+    {"module_id":"AO-12","family":"CORE","authority":"AO-12 Technical Key v1.1","development_state":"FROZEN_FOR_PILOT","empirical_state":"RESEARCH_CANDIDATE","public_current":"published","pass4_rule":"PRESERVE_CURRENT_CORE"},
+    {"module_id":"SOMA-24","family":"CORE","authority":"current frozen SAT/SOMA technical authority","development_state":"FROZEN_FOR_PILOT","empirical_state":"RESEARCH_CANDIDATE","public_current":"published","pass4_rule":"PRESERVE_CURRENT_CORE"},
+    {"module_id":"COM-12","family":"EXTENDED","authority":"COM-12 v0.7 exact candidate registry + v0.8 field execution/adjudication protocol","development_state":"FIELD_EXECUTION_READY","empirical_state":"COGNITIVE_FIELD_EVIDENCE_PENDING","public_current":"summary_only","pass4_rule":"ACTIVATE_DEVELOPMENT_RECORD_WITH_CLAIM_CEILING"},
+    {"module_id":"MOT-12","family":"EXTENDED","authority":"MOT-12 v0.5 Content Validity / Expert Review / Cognitive Pre-Pilot Architecture","development_state":"PASS_TO_EXECUTION__24_ITEM_COGNITIVE_CANDIDATE","empirical_state":"EXPERT_AND_COGNITIVE_EVIDENCE_PENDING","public_current":"summary_only","pass4_rule":"ACTIVATE_DEVELOPMENT_RECORD_WITH_CLAIM_CEILING"},
+    {"module_id":"SELF-12","family":"EXTENDED","authority":"SELF-12 PASS 7 v0.7 execution package; PASS 5 exact 21-item candidate; PASS 6 architecture","development_state":"FIELD_EXECUTION_OPEN__21_ITEM_COGNITIVE_CANDIDATE","empirical_state":"EXPERT_AND_COGNITIVE_EVIDENCE_PENDING","public_current":"summary_only","pass4_rule":"ACTIVATE_DEVELOPMENT_RECORD_WITH_CLAIM_CEILING"},
+    {"module_id":"RPE-MOD","family":"EXTENDED","authority":"RPE-MOD PASS 10 v1.1","development_state":"OPTIONAL_EXTENDED__ARCHITECTURE_PROGRAMME_COMPLETE__FIELDING_HOLD","empirical_state":"NOT_PSYCHOMETRICALLY_VALIDATED","public_current":"summary_only","pass4_rule":"ACTIVATE_ARCHITECTURE_SUMMARY_ONLY__SUPPRESS_HIGH_RISK_AND_RESEARCH_ONLY_DETAIL"},
+    {"module_id":"LIFE-12/18","family":"OUTCOMES","authority":"LIFE PASS 5 exact 24 temporal candidates + PASS 6 v0.6 field protocol","development_state":"FIELD_EXECUTION_READY__TEMPORAL_CANDIDATE","empirical_state":"COGNITIVE_FIELD_EVIDENCE_PENDING","public_current":"summary_only","pass4_rule":"ACTIVATE_OUTCOME_ARCHITECTURE_WITHOUT_CAUSAL_LANGUAGE"}
+  ],
+  "cross_layer": {
+    "authority": "EXT-SYS PASS 1-4",
+    "current_state": "RESEARCH_ONLY_UNBOUND",
+    "desk_level_result": "Ten major layers remain distinguishable under current ownership/firewall architecture; no desk-stage major-module merge is authorized.",
+    "human_evidence_gate": "EXT-SYS PASS 5 cannot close without evidence-bearing human co-validation data; no synthetic substitution.",
+    "public_rule": "May describe the architecture, tested distinctions and planned co-validation questions; may not claim empirical cross-layer discriminant or incremental validity.",
+    "prohibited": ["P-120 Extended Total","Agency Total","Repair Total","Validation Total","Embodiment Total","Wellness Total","one-person compatibility percentage"]
+  },
+  "source_reconciliation_state": {
+    "complete_for_stage_1": true,
+    "requires_stage_2_deep_extraction": [
+      "module-level literature/source registers for COM-12",
+      "module-level literature/source registers for MOT-12",
+      "module-level literature/source registers for SELF-12",
+      "module-level literature/source registers for LIFE-12/18",
+      "RPE-MOD source/evidence register and integration companions",
+      "EXT-SYS PASS4 machine ledgers for collision groups, contrasts and validation plan"
+    ]
+  }
+}

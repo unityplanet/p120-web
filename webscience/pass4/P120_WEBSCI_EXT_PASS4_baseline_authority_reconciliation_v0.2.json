@@ -1,0 +1,123 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-GATE",
+  "pass": "WEB-SCIENCE EXT PASS 4",
+  "gate": "Baseline & Authority Reconciliation Gate",
+  "version": "v0.2",
+  "date": "2026-09-06",
+  "status": "PASS__BASELINE_AND_AUTHORITY_RECONCILED",
+  "scope": "Re-establish PASS 4 on the current production repository baseline, preserve the accepted Scientific Base macro-architecture, reconcile the scientific/publication authority stack, and authorize the next content-population stage without production rendering changes.",
+  "production_baseline": {
+    "repository": "unityplanet/p120-web",
+    "branch": "main",
+    "commit_sha": "67d2ae422e422be20eae6bb086c51adf7de173bb",
+    "tree_sha": "776b308c22c16caf2a4c9484a96b44783548b9db",
+    "pages_deployment": "SUCCESS",
+    "pages_run_id": 33985398217
+  },
+  "work_branch": {
+    "branch": "web-science-ext-pass4-reconciled",
+    "base_commit": "67d2ae422e422be20eae6bb086c51adf7de173bb",
+    "migration_commit": "0703398c594268dfc7e51dbab86078fadf3b7bec",
+    "rule": "Fresh branch from current main. The stale PASS 4 branch is retained as historical lineage and is not rebased into production."
+  },
+  "historical_pass4_lineage": {
+    "branch": "web-science-ext-pass4-content-activation",
+    "merge_base": "309cf17897d545d26d8cf7111b97d13141352fcd",
+    "reason_not_continued_directly": "Repository main advanced materially after the original PASS 4 start. Continuing the old branch directly would create avoidable baseline/reconciliation risk.",
+    "recovered_public_safe_files": [
+      "P120_WEBSCI_EXT_PASS4_source_status_reconciliation_v0.1.json",
+      "P120_WEBSCI_EXT_PASS4_publication_eligibility_v0.1.json",
+      "P120_WEBSCI_EXT_PASS4_content_model_v0.1.json",
+      "P120_WEBSCI_EXT_PASS4_module_content_v0.1.json",
+      "P120_WEBSCI_EXT_PASS4_cross_layer_public_questions_v0.1.json",
+      "README.md"
+    ],
+    "recovery_method": "Exact latest file blobs were re-materialized onto the fresh current-main branch. No stale production files were copied."
+  },
+  "macro_architecture_decision": {
+    "verdict": "PRESERVE",
+    "stable_shell": true,
+    "atlas": true,
+    "bases": ["CORE", "EXTENDED", "OUTCOMES", "METHODS", "LIBRARY"],
+    "dyadic": "HIDDEN_UNTIL_SEPARATE_PUBLIC_GATE",
+    "new_runtime_required": false,
+    "new_design_system_required": false,
+    "production_registry_mutation_at_this_gate": false,
+    "production_renderer_mutation_at_this_gate": false
+  },
+  "authority_precedence": [
+    {
+      "rank": 1,
+      "class": "SCIENTIFIC_MEASUREMENT_AUTHORITIES",
+      "rule": "Frozen/controlled module, construct, scoring, validation, safety and privacy authorities govern scientific substance and cannot be altered by WEB-SCIENCE."
+    },
+    {
+      "rank": 2,
+      "class": "EXT_SYS_CROSS_MODULE_AUTHORITIES",
+      "rule": "EXT-SYS ownership, redundancy, discriminant and information-gain authorities govern cross-module distinctions and research-only bridge eligibility."
+    },
+    {
+      "rank": 3,
+      "class": "WEB_SCIENCE_ARCHITECTURE",
+      "rule": "WEB-SCIENCE PASS 1/2 and the production registry govern information architecture, publication states, routing and renderer boundaries; they do not create scientific status."
+    },
+    {
+      "rank": 4,
+      "class": "SCIENTIFIC_POSITIONING",
+      "rule": "The governing Scientific Base positioning may explain P-120 as an authorial integration research system grounded in external science and internally verified architecture, but it may not upgrade empirical or psychometric status."
+    },
+    {
+      "rank": 5,
+      "class": "TERMINOLOGY_AND_PUBLICATION_GOVERNANCE",
+      "rule": "Terminology, documentation and publication authorities control wording, localization, traceability and presentation; they remain subordinate to scientific/measurement authority."
+    }
+  ],
+  "governing_scientific_positioning": {
+    "external_scientific_foundation": "Published scientific literature, empirical studies, existing research constructs and measurement precedents are the external evidence foundation.",
+    "p120_internal_architecture": "P-120 separately records its own construct selection, construct-boundary, ownership, redundancy, item-level, information-gain, scope/exposure, computational-contract and cross-module verification work.",
+    "integration_principle": "Independent psychological processes remain independently measured and are joined only after measurement when an authorized cross-layer interpretation exists.",
+    "validation_boundary": "Internal scientific-methodological, computational and cross-module verification is evidence about development and architecture; it is not empirical psychometric validation on respondent samples.",
+    "extended_rule": "A new module is retained only when it addresses an independent measurement question and has a plausible path to incremental information beyond neighboring layers.",
+    "dyadic_rule": "Profile A and Profile B remain independently measured before a separate dyadic layer; no universal compatibility percentage is authorized without its own empirically supported dyadic model."
+  },
+  "evidence_state_ladder": [
+    "EXTERNAL_SCIENTIFIC_FOUNDATION",
+    "INTERNAL_ARCHITECTURE_VERIFICATION",
+    "HUMAN_COGNITIVE_OR_CROSSCHECK_EVIDENCE",
+    "PSYCHOMETRIC_VALIDATION",
+    "EXTERNAL_REPLICATION"
+  ],
+  "cross_layer_firewall": {
+    "default_state": "RESEARCH_ONLY_UNBOUND",
+    "join_after_measurement": true,
+    "crosscheck_result_does_not_equal_validation": true,
+    "required_public_fields": [
+      "source_dimensions",
+      "independence_requirement",
+      "crosscheck_state",
+      "human_evidence_state",
+      "replication_or_adjudication_state",
+      "incremental_information",
+      "alternative_explanations",
+      "claim_level",
+      "allowed_wording",
+      "prohibited_inference",
+      "release_state",
+      "falsifier_or_revision_condition"
+    ]
+  },
+  "gate_checks": [
+    {"id": "G1", "check": "Current production main established", "result": "PASS"},
+    {"id": "G2", "check": "Latest Pages deployment for current main", "result": "PASS"},
+    {"id": "G3", "check": "Fresh PASS 4 branch created directly from current main", "result": "PASS"},
+    {"id": "G4", "check": "Historical PASS 4 public-safe corpus recovered without stale production files", "result": "PASS"},
+    {"id": "G5", "check": "Scientific Base macro-architecture remains compatible with new positioning", "result": "PASS"},
+    {"id": "G6", "check": "Authority precedence reconciled", "result": "PASS"},
+    {"id": "G7", "check": "Content schema requires only minor v0.2 expansion, not redesign", "result": "PASS"},
+    {"id": "G8", "check": "Measurement/scoring/respondent-session/report calculation mutation", "result": "NONE"}
+  ],
+  "authorized_next_stage": "Deep Source & Evidence Extraction / Scientific Library Reconciliation / Evidence Binding",
+  "production_release": "NOT_AUTHORIZED_BY_THIS_GATE",
+  "pass4_closure": "OPEN"
+}

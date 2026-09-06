@@ -1,0 +1,74 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4E-MANIFEST",
+  "version": "v0.9",
+  "date": "2026-09-06",
+  "status": "PASS4E_CLOSED_CONTROLLED",
+  "branch": "web-science-ext-pass4e-browser-responsive-typography-qa",
+  "baseline_commit": "89683b678b76dde7df1cdeccc05d6e8541573b5b",
+  "production_main_mutated": false,
+  "production_merge": "NOT_PERFORMED",
+  "scientific_content_mutated": false,
+  "measurement_mutated": false,
+  "scoring_mutated": false,
+  "thresholds_mutated": false,
+  "responsive_matrix_states": 70,
+  "diagnostic_blockers_corrected": 5,
+  "post_gate_manual_visual_findings_corrected": 1,
+  "manual_visual_spotcheck_reconciled": true,
+  "mobile_subnav_label_collision_corrected": true,
+  "mobile_subnav_label_containment_asserted": true,
+  "package_ledger_self_reference_prevented": true,
+  "package_post_build_verification_required": true,
+  "typography_conformance_established": true,
+  "global70_narrow_view_containment_established": true,
+  "presentation_correction_layer": "p120-webscience-pass4e-visual-v0.9.css",
+  "diagnostic_provenance": {
+    "run_id": 34021476116,
+    "artifact_id": 9985649056,
+    "artifact_sha256": "1ed9c04b407f82f5a1b6a63ccac5645e5f97511e821104664a59259c82484f9d"
+  },
+  "files": [
+    {
+      "path": "p120-webscience-pass4c-library-v0.7.js",
+      "sha256": "c8dd6b1c88706a2bb0c879099f5db0f87b2401b11fb5ca493037480781833425"
+    },
+    {
+      "path": "p120-webscience-pass4e-visual-v0.9.css",
+      "sha256": "d2fac104c534f0ea90e77d207887557afa8abd2ce246ac4f85c7f8ddbad48aeb"
+    },
+    {
+      "path": "qa/webscience_pass4e_visual_probe_v0.9.mjs",
+      "sha256": "6e6fa8027994224e2f4da9c23a745491a67de5ae771f7503683f7b7ade2ef7c2"
+    },
+    {
+      "path": "qa/webscience_pass4e_browser_typography_gate_v0.9.mjs",
+      "sha256": "cccfb7ffb4d42ffbb9cd73b9899a093869c9b60c8c5f5dad74fae3832c265ce6"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DIAGNOSTIC_FINDINGS_v0.9.json",
+      "sha256": "8627d2b4f0599bf64d1236399f688f71efe24b1af800ab6d5f1fda2c86ff984c"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_BROWSER_TYPOGRAPHY_QA_RESULT_v0.9.json",
+      "sha256": "eac1902626694eda49a4893e7f8d5229534a4aad10f809e9226abc810bec4de0"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_QA_SUMMARY_v0.9.json",
+      "sha256": "51534bf027858e7cd88b4ddf75b8dbf7c5ec3ac48ede5217dd08b4e877fe8f24"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_REPORT_v0.9.md",
+      "sha256": "d178c29a9a9e9df60939e3da04b893cb9de881896a7067a119fbd9e1005c6c24"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DECISION_v0.9.md",
+      "sha256": "bf65d30a2de6c8efd945184e6e2b98722f5fd43826521c991a0b08f8c03de0e4"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DELTA_v0.9.md",
+      "sha256": "aae02542f821b09dfa38d19cf3fdc86e92d0e3bc9b0d7440daba17e63f08db99"
+    }
+  ],
+  "next_gate": "PASS 4F — Closure Reconciliation"
+}

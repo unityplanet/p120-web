@@ -1,0 +1,57 @@
+{
+  "standard": "P120",
+  "schema_id": "P120-WEBSCI-GLOBAL-LIBRARY-PROJECTION-001",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4A-LIBRARY",
+  "version": "v0.5",
+  "date": "2026-09-06",
+  "status": "CONTROLLED_GLOBAL_LIBRARY_PROJECTION__PASS4A",
+  "production_state": "NOT_ACTIVATED",
+  "contract": {
+    "core_reference_count": 45,
+    "core_rule": "PRESERVE_EXISTING_CORE_REFERENCE_ARRAY",
+    "extension_reference_count": 25,
+    "global_reference_count": 70,
+    "extension_range": "REF-046..REF-070",
+    "renderer_rule": "The 25-reference extension is a separate global-library layer and must not replace or renumber the Core 45-reference regression fixture.",
+    "count_is_not_validity_metric": true,
+    "deduplication_gate_before_activation": true
+  },
+  "claim_boundary": {
+    "ru": "Расширение библиографии отражает более широкое научное покрытие углублённых исследований, исходов и методов и не является количественным доказательством валидности P-120.",
+    "en": "The expanded bibliography reflects broader scientific coverage of Extended Research, Outcomes and Methods and is not a count-based proof of P-120 validity."
+  },
+  "references": [
+    {"id":"REF-046","modules":["COM-12"],"role":"META_ANALYTIC_COMMUNICATION_CONTEXT","citation":"Mallory, A. B. (2022). Dimensions of couples' sexual communication, relationship satisfaction, and sexual satisfaction: A meta-analysis. Journal of Family Psychology, 36(3), 358–371.","doi":"10.1037/fam0000946"},
+    {"id":"REF-047","modules":["COM-12"],"role":"META_ANALYTIC_COMMUNICATION_FUNCTION_CONTEXT","citation":"Mallory, A. B., Stanton, A. M., & Handy, A. B. (2019). Couples' sexual communication and dimensions of sexual function: A meta-analysis. The Journal of Sex Research, 56(7), 882–898.","doi":"10.1080/00224499.2019.1568375"},
+    {"id":"REF-048","modules":["COM-12"],"role":"SEXUAL_COMMUNICATION_MEASUREMENT_PRECEDENT","citation":"Moazami, S., Ashley, M., Czechowski, K., Courtice, E. L., & Shaughnessy, K. (2023). The Sexual Communication Scale (SeCS). The Journal of Sex Research, 60(1), 71–90.","doi":"10.1080/00224499.2022.2129558"},
+    {"id":"REF-049","modules":["COM-12","SELF-12"],"role":"SEXUAL_ASSERTIVENESS_BOUNDARY_COMPARATOR","citation":"Morokoff, P. J., Quina, K., Harlow, L. L., Whitmire, L., Grimley, D. M., Gibson, P. R., & Burkholder, G. J. (1997). Sexual Assertiveness Scale (SAS) for women: Development and validation. Journal of Personality and Social Psychology, 73(4), 790–804.","doi":"10.1037/0022-3514.73.4.790"},
+    {"id":"REF-050","modules":["MOT-12"],"role":"SEXUAL_MOTIVE_TAXONOMY_PRECEDENT","citation":"Meston, C. M., & Buss, D. M. (2007). Why humans have sex. Archives of Sexual Behavior, 36(4), 477–507.","doi":"10.1007/s10508-007-9175-2"},
+    {"id":"REF-051","modules":["MOT-12","LIFE-12/18"],"role":"APPROACH_AVOIDANCE_MOTIVE_CONTEXT","citation":"Impett, E. A., Peplau, L. A., & Gable, S. L. (2005). Approach and avoidance sexual motives: Implications for personal and interpersonal well-being. Personal Relationships, 12(4), 465–482.","doi":"10.1111/j.1475-6811.2005.00126.x"},
+    {"id":"REF-052","modules":["MOT-12","P-72D"],"role":"APPROACH_GOALS_DESIRE_MAINTENANCE_CONTEXT","citation":"Impett, E. A., Strachman, A., Finkel, E. J., & Gable, S. L. (2008). Maintaining sexual desire in intimate relationships: The importance of approach goals. Journal of Personality and Social Psychology, 94(5), 808–823.","doi":"10.1037/0022-3514.94.5.808"},
+    {"id":"REF-053","modules":["MOT-12"],"role":"SEXUAL_COMMUNAL_MOTIVATION_REVIEW","citation":"Muise, A., & Impett, E. A. (2016). Applying theories of communal motivation to sexuality. Social and Personality Psychology Compass, 10(8), 455–467.","doi":"10.1111/spc3.12261"},
+    {"id":"REF-054","modules":["SELF-12"],"role":"SEXUAL_SELF_SCHEMA_PRECEDENT","citation":"Andersen, B. L., & Cyranowski, J. M. (1994). Women's sexual self-schema. Journal of Personality and Social Psychology, 67(6), 1079–1100.","doi":"10.1037/0022-3514.67.6.1079"},
+    {"id":"REF-055","modules":["SELF-12","MOT-12","COM-12"],"role":"MULTIDIMENSIONAL_SEXUAL_SELF_MEASUREMENT_PRECEDENT","citation":"Snell, W. E., Jr., Fisher, T. D., & Walters, A. S. (1993). The Multidimensional Sexuality Questionnaire: An objective self-report measure of psychological tendencies associated with human sexuality. Sexual Abuse: A Journal of Research and Treatment, 6(1), 27–55.","doi":"10.1177/107906329300600102"},
+    {"id":"REF-056","modules":["SELF-12"],"role":"SEXUAL_SUBJECTIVITY_MEASUREMENT_PRECEDENT","citation":"Horne, S., & Zimmer-Gembeck, M. J. (2006). The Female Sexual Subjectivity Inventory: Development and validation of a multidimensional inventory for late adolescents and emerging adults. Psychology of Women Quarterly, 30(2), 125–138.","doi":"10.1111/j.1471-6402.2006.00276.x"},
+    {"id":"REF-057","modules":["SELF-12"],"role":"SEXUAL_SELF_CONCEPT_MEASUREMENT_PRECEDENT","citation":"Vickberg, S. M. J., & Deaux, K. (2005). Measuring the dimensions of women's sexuality: The Women's Sexual Self-Concept Scale. Sex Roles, 53, 361–369.","doi":"10.1007/s11199-005-6759-y"},
+    {"id":"REF-058","modules":["SELF-12","SOMA-24"],"role":"SEXUAL_SELF_CONSCIOUSNESS_COMPARATOR","citation":"van Lankveld, J. J. D. M., Geijen, W. E. H., & Sykora, H. (2008). The sexual self-consciousness scale: Psychometric properties. Archives of Sexual Behavior, 37(6), 925–933.","doi":"10.1007/s10508-007-9253-5"},
+    {"id":"REF-059","modules":["SELF-12","METHODS"],"role":"SEXUAL_SELF_CONCEPT_METHOD_REVIEW","citation":"Ashley, M., Drouin, S., & Shaughnessy, K. (2024). Measuring sexual self-concept: A methodological review. Psychology & Sexuality, 15(2), 254–277.","doi":"10.1080/19419899.2023.2246494"},
+    {"id":"REF-060","modules":["SELF-12","METHODS"],"role":"SEXUAL_SELF_CONCEPT_VALIDITY_INVARIANCE_PRECEDENT","citation":"Ferrer-Urbina, R., Sepúlveda-Páez, G. L., Henríquez, D.-T., et al. (2019). Development and validity evidence of the multidimensional scale of sexual self-concept in a Spanish-speaking context. Psicologia: Reflexão e Crítica, 32, 22.","doi":"10.1186/s41155-019-0136-1"},
+    {"id":"REF-061","modules":["LIFE-12/18"],"role":"DAILY_SEXUALITY_AFFECT_MEANING_CONTEXT","citation":"Kashdan, T. B., Goodman, F. R., Stiksma, M., Milius, C. R., & McKnight, P. E. (2018). Sexuality leads to boosts in mood and meaning in life with no evidence for the reverse direction: A daily diary investigation. Emotion, 18(4), 563–576.","doi":"10.1037/emo0000324"},
+    {"id":"REF-062","modules":["LIFE-12/18"],"role":"SEXUAL_ACTIVITY_SLEEP_DIARY_CONTEXT","citation":"Oesterling, C. F., Borg, C., Juhola, E., & Lancel, M. (2023). The influence of sexual activity on sleep: A diary study. Journal of Sleep Research, 32(4), e13814.","doi":"10.1111/jsr.13814"},
+    {"id":"REF-063","modules":["LIFE-12/18"],"role":"SEXUAL_ACTIVITY_OBJECTIVE_SLEEP_PILOT_CONTEXT","citation":"Lastella, M., Miller, D. J., Montero, A., Sprajcer, M., Ferguson, S. A., Browne, M., & Vincent, G. E. (2025). Sleep on it: A pilot study exploring the impact of sexual activity on sleep outcomes in cohabiting couples. Sleep Health, 11(2), 198–205.","doi":"10.1016/j.sleh.2024.11.004"},
+    {"id":"REF-064","modules":["LIFE-12/18"],"role":"SUBJECTIVE_VITALITY_MEASUREMENT_PRECEDENT","citation":"Ryan, R. M., & Frederick, C. (1997). On energy, personality, and health: Subjective vitality as a dynamic reflection of well-being. Journal of Personality, 65(3), 529–565.","doi":"10.1111/j.1467-6494.1997.tb00326.x"},
+    {"id":"REF-065","modules":["LIFE-12/18"],"role":"POSITIVE_NEGATIVE_AFFECT_MEASUREMENT_PRECEDENT","citation":"Watson, D., Clark, L. A., & Tellegen, A. (1988). Development and validation of brief measures of positive and negative affect: The PANAS scales. Journal of Personality and Social Psychology, 54(6), 1063–1070.","doi":"10.1037/0022-3514.54.6.1063"},
+    {"id":"REF-066","modules":["LIFE-12/18"],"role":"SLEEP_QUALITY_EXTERNAL_COMPARATOR","citation":"Buysse, D. J., Reynolds, C. F., III, Monk, T. H., Berman, S. R., & Kupfer, D. J. (1989). The Pittsburgh Sleep Quality Index: A new instrument for psychiatric practice and research. Psychiatry Research, 28(2), 193–213.","doi":"10.1016/0165-1781(89)90047-4"},
+    {"id":"REF-067","modules":["LIFE-12/18"],"role":"WORK_ENGAGEMENT_EXTERNAL_COMPARATOR","citation":"Schaufeli, W. B., Bakker, A. B., & Salanova, M. (2006). The measurement of work engagement with a short questionnaire: A cross-national study. Educational and Psychological Measurement, 66(4), 701–716.","doi":"10.1177/0013164405282471"},
+    {"id":"REF-068","modules":["LIFE-12/18"],"role":"MEANING_IN_LIFE_EXTERNAL_COMPARATOR","citation":"Steger, M. F., Frazier, P., Oishi, S., & Kaler, M. (2006). The Meaning in Life Questionnaire: Assessing the presence of and search for meaning in life. Journal of Counseling Psychology, 53(1), 80–93.","doi":"10.1037/0022-0167.53.1.80"},
+    {"id":"REF-069","modules":["METHODS","EXT-SYS"],"role":"INCREMENTAL_VALIDITY_METHODS","citation":"Hunsley, J., & Meyer, G. J. (2003). The incremental validity of psychological testing and assessment: Conceptual, methodological, and statistical issues. Psychological Assessment, 15(4), 446–455.","doi":"10.1037/1040-3590.15.4.446"},
+    {"id":"REF-070","modules":["METHODS","EXT-SYS"],"role":"INCREMENTAL_VALIDITY_TEST_CONSTRUCTION","citation":"Smith, G. T., Fischer, S., & Fister, S. M. (2003). Incremental validity principles in test construction. Psychological Assessment, 15(4), 467–477.","doi":"10.1037/1040-3590.15.4.467"}
+  ],
+  "deduplication": {
+    "extension_reference_ids_unique": true,
+    "extension_doi_values_unique": true,
+    "against_core_45": "NO_KNOWN_DUPLICATE_DOI_IN_SELECTED_EXTENSION",
+    "final_gate": "RE_RUN_BEFORE_RENDERER_ACTIVATION"
+  },
+  "pass4a_verdict": "PASS__CORE45_GLOBAL70_LIBRARY_PROJECTION_ESTABLISHED"
+}

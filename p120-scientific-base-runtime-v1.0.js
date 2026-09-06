@@ -298,3 +298,19 @@
   const boot=()=>{startLanguageReconciliation();start();};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
+
+/* WEB-SCIENCE EXT PASS 4B — controlled publication-renderer loader.
+   Existing Scientific Base v1.0 logic above remains the Core runtime authority. */
+(()=>{
+  'use strict';
+  const dedicated=/(?:^|\/)(?:en\/)?science\/?(?:index\.html)?$/i.test(location.pathname);
+  if(!dedicated)return;
+  if(document.querySelector('[data-p120-webscience-pass4b-loader]'))return;
+  const owner=document.currentScript;
+  const ownerUrl=owner?.src||new URL('p120-scientific-base-runtime-v1.0.js',location.href).href;
+  const script=document.createElement('script');
+  script.src=new URL('p120-webscience-pass4b-renderer-v0.6.js?v=websci4b06',ownerUrl).href;
+  script.async=false;
+  script.dataset.p120WebsciencePass4bLoader='v0.6';
+  document.head.appendChild(script);
+})();

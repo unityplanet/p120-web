@@ -1,0 +1,124 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-SOURCE-EXTRACT",
+  "version": "v0.3",
+  "date": "2026-09-06",
+  "status": "DEEP_SOURCE_EXTRACTION_RECONCILED",
+  "scope": "Public-safe extraction of scientific roles, evidence states, source authority and publication boundaries for WEB-SCIENCE EXT PASS 4. No item banks, scoring keys, thresholds or restricted adjudication records are published here.",
+  "evidence_boundary": "External publications support adjacent mechanisms, constructs, comparators and measurement precedents. Internal P-120 passes document architecture development and methodological verification. Neither class by itself constitutes empirical psychometric validation of the integrated P-120 system.",
+  "source_classes": [
+    {
+      "class_id": "EXT_PUBLIC_SCIENCE",
+      "label": "External scientific foundation",
+      "use": "Peer-reviewed literature and methodological standards used as adjacent mechanism, comparator, measurement-precedent or methods evidence.",
+      "claim_ceiling": "ADJACENT_OR_METHOD_SUPPORT_NOT_DIRECT_P120_VALIDATION"
+    },
+    {
+      "class_id": "INT_MEASUREMENT_AUTHORITY",
+      "label": "P-120 measurement/module authority",
+      "use": "Controlled module-specific decisions on construct territory, candidate architecture, development state and validation gates.",
+      "claim_ceiling": "CURRENT_CONTROLLED_DEVELOPMENT_STATE"
+    },
+    {
+      "class_id": "INT_SYSTEM_GOVERNANCE",
+      "label": "P-120 cross-system methodological authority",
+      "use": "Ownership, redundancy, information-gain, scope/exposure and cross-module firewall governance.",
+      "claim_ceiling": "INTERNAL_ARCHITECTURE_VERIFICATION"
+    },
+    {
+      "class_id": "WEB_PUBLICATION_AUTHORITY",
+      "label": "WEB-SCIENCE publication architecture",
+      "use": "Controls public projection, visibility and claim ceilings; cannot create scientific status.",
+      "claim_ceiling": "PRESENTATION_ONLY"
+    }
+  ],
+  "modules": [
+    {
+      "module_id": "COM-12",
+      "scientific_role": "Erotic Communication Architecture",
+      "measurement_question": "How does a person express, receive, clarify, negotiate and repair sexually or erotically meaningful communication?",
+      "candidate_architecture": ["COM-E", "COM-R", "COM-N", "COM-P"],
+      "development_record": ["32-item initial pool", "24-item Cognitive Candidate", "expert/content-validity architecture", "controlled C1/C2/C3 field package", "v0.8 evidence-adjudication protocol"],
+      "current_state": "FIELD_EXECUTION_READY__FIELD_EVIDENCE_PENDING",
+      "empirical_state": "COGNITIVE_FIELD_NOT_DECLARED_COMPLETE",
+      "psychometric_state": "NOT_VALIDATED",
+      "internal_authorities": ["COM v0.7 exact field implementation", "COM v0.8 field execution/evidence adjudication", "EXT-SYS ownership/firewall authorities"],
+      "external_anchor_status": "PARTIAL_CURRENT_45_LIBRARY_COVERAGE",
+      "publication_ceiling": "SUMMARY_ONLY__CANDIDATE_DOMAINS_NOT_CONFIRMED_FACTORS"
+    },
+    {
+      "module_id": "MOT-12",
+      "scientific_role": "Sexual Motivation Architecture",
+      "measurement_question": "Why, or for what psychological outcome, does a person choose sexually or erotically significant intimacy?",
+      "candidate_architecture": ["M-H", "M-C", "M-P", "M-K", "M-A", "M-O", "M-V", "M0 auxiliary"],
+      "development_record": ["construct-boundary audit", "evidence/red-team audit", "36-item development pool", "24-item Cognitive Candidate", "expert/CVI/cognitive pre-pilot architecture"],
+      "current_state": "PASS_TO_EXECUTION__24_ITEM_COGNITIVE_CANDIDATE",
+      "empirical_state": "EXPERT_AND_COGNITIVE_EVIDENCE_PENDING",
+      "psychometric_state": "NOT_VALIDATED",
+      "internal_authorities": ["MOT v0.4 exact 24-item cognitive candidate", "MOT v0.5 expert/CVI/cognitive architecture", "EXT-SYS ownership/firewall authorities"],
+      "external_anchor_status": "PARTIAL_CURRENT_45_LIBRARY_COVERAGE",
+      "publication_ceiling": "SUMMARY_ONLY__NO_MOT_TOTAL__FACTOR_MODEL_OPEN"
+    },
+    {
+      "module_id": "SELF-12",
+      "scientific_role": "Sexual Self-Relation Architecture",
+      "measurement_question": "How does a person experience, evaluate and author themselves as a sexual subject?",
+      "candidate_architecture": ["SRG", "DPL", "SAA", "SSC", "SSH", "PSD LIMITED", "SBA LIMITED"],
+      "development_record": ["12-territory evidence landscape", "construct pruning and ownership adjudication", "5 CORE + 2 LIMITED candidate architecture", "29-item desk bank", "21-item Cognitive Candidate + 8-item reserve", "PASS 6 expert/CVI/cognitive architecture"],
+      "current_state": "COGNITIVE_PREPILOT__EXECUTION_ARCHITECTURE_CONTROLLED",
+      "empirical_state": "EVIDENCE_PENDING_AT_CURRENT_RECONCILED_SOURCE_CEILING",
+      "psychometric_state": "NOT_VALIDATED",
+      "internal_authorities": ["SELF PASS 5 exact 21-item cognitive candidate", "SELF PASS 6 expert/CVI/cognitive architecture", "SELF PASS 7 lineage reference", "EXT-SYS ownership/firewall authorities"],
+      "external_anchor_status": "INSUFFICIENT_CURRENT_45_LIBRARY_COVERAGE_FOR_FULL_SELF_ARCHITECTURE",
+      "publication_ceiling": "SUMMARY_ONLY__NO_SELF_TOTAL__FACTOR_STRUCTURE_OPEN"
+    },
+    {
+      "module_id": "LIFE-12/18",
+      "scientific_role": "Intimacy-Life Integration / Spillover Architecture",
+      "measurement_question": "What broader affective, energetic, cognitive, restorative, engagement or meaning-related states are observed around and after intimacy?",
+      "candidate_architecture": ["PAU", "NAL", "SV", "SLP", "WSE", "MLS", "CCO LIMITED/AUXILIARY", "GLS EXTERNAL ANCHOR"],
+      "development_record": ["12-target evidence landscape", "outcome pruning/ownership adjudication", "6 CORE + auxiliary architecture", "temporal-mode architecture", "24 temporal cognitive candidates", "field protocol"],
+      "current_state": "FIELD_EXECUTION_READY__TEMPORAL_CANDIDATE",
+      "empirical_state": "COGNITIVE_FIELD_EVIDENCE_PENDING",
+      "psychometric_state": "NOT_VALIDATED",
+      "internal_authorities": ["LIFE PASS 5 exact temporal cognitive candidate", "LIFE PASS 6 field protocol", "EXT-SYS ownership/firewall authorities"],
+      "external_anchor_status": "PARTIAL_CURRENT_45_LIBRARY_COVERAGE_WITH_MAJOR_DOMAIN_GAPS",
+      "publication_ceiling": "SUMMARY_ONLY__NO_LIFE_TOTAL__NO_CAUSAL_LANGUAGE"
+    },
+    {
+      "module_id": "RPE-MOD",
+      "scientific_role": "Specialized Preference / Reward Architecture",
+      "measurement_question": "How are specialized psychophysical preference/reward coordinates organized when additional depth is required?",
+      "candidate_architecture": "CONTROLLED_INTERNAL__DETAILED_FAMILIES_NOT_PUBLICLY_ACTIVATED_IN_PASS4",
+      "development_record": ["controlled adaptive/routing architecture", "PASS 9/10 integration and placement decisions"],
+      "current_state": "OPTIONAL_EXTENDED__FIELDING_HOLD",
+      "empirical_state": "PREPILOT_PUBLICATION_RESTRICTED",
+      "psychometric_state": "NOT_VALIDATED",
+      "internal_authorities": ["RPE PASS 9", "RPE PASS 10 v1.1", "EXT-SYS ownership/firewall authorities"],
+      "external_anchor_status": "CONTEXT_ONLY_BINDINGS_ALLOWED__PUBLIC_DETAIL_SUPPRESSED",
+      "publication_ceiling": "EXISTING_MINIMAL_ROLE_STATUS_BOUNDARY_ONLY"
+    }
+  ],
+  "core_policy": {
+    "module_ids": ["SAT-24", "P-72", "P-72D", "AO-12", "SOMA-24"],
+    "action": "PRESERVE_CURRENT_CORE_LIBRARY_AND_PUBLIC_EVIDENCE",
+    "reference_count": 45,
+    "reason": "PASS 4 binds Extended/Outcomes and system-level evidence to the existing library without silently rewriting the Core evidence corpus."
+  },
+  "cross_system_policy": {
+    "authority_family": "EXT-SYS",
+    "desk_evidence": "May support claims about internal ownership/redundancy/information-gain governance and planned discrimination questions.",
+    "human_evidence": "Must remain separately represented and cannot be inferred from desk reconciliation.",
+    "psychometric_rule": "Cross-check or desk-stage discrimination does not equal discriminant or incremental validity.",
+    "public_ceiling": "RESEARCH_ONLY_SUMMARY"
+  },
+  "no_change_declaration": {
+    "measurement": "NONE",
+    "scoring": "NONE",
+    "thresholds": "NONE",
+    "questionnaire": "NONE",
+    "respondent_session": "NONE",
+    "report_calculation": "NONE",
+    "production_runtime": "NONE"
+  }
+}

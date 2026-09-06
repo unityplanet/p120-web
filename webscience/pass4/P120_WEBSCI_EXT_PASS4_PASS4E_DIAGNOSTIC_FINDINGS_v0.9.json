@@ -1,0 +1,73 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4E-DIAGNOSTIC-FINDINGS",
+  "version": "v0.9",
+  "date": "2026-09-06",
+  "baseline_commit": "89683b678b76dde7df1cdeccc05d6e8541573b5b",
+  "probe_commit": "456eb442526f424511097f2985a856d7fcbb148f",
+  "github_actions_run_id": 34021476116,
+  "github_artifact_id": 9985649056,
+  "github_artifact_name": "P120_WEBSCI_EXT_PASS4E_v0.9_DIAGNOSTIC_PROBE",
+  "github_artifact_sha256": "1ed9c04b407f82f5a1b6a63ccac5645e5f97511e821104664a59259c82484f9d",
+  "matrix": {
+    "locales": 2,
+    "viewport_classes": 7,
+    "science_bases": 5,
+    "rendered_states": 70,
+    "viewports": ["320x800", "390x844", "768x1024", "1024x900", "1440x1000", "1920x1080", "2560x1440"]
+  },
+  "raw_probe_summary": {
+    "document_overflow_runs": 0,
+    "viewport_spill_count": 607,
+    "intrinsic_overflow_count": 11,
+    "small_touch_count": 1582,
+    "plex_synthetic_weight_risk_count": 13426,
+    "prohibited_computed_family_count": 0,
+    "low_leading_count": 0,
+    "tiny_narrative_count": 1474,
+    "sticky_overlap_runs": 13,
+    "runtime_error_runs": 0,
+    "font_check_failures": 20
+  },
+  "triage": {
+    "stable_non_blockers": [
+      "zero document-level horizontal-overflow runs",
+      "zero runtime-error runs",
+      "zero prohibited computed-family findings",
+      "zero low-leading findings",
+      "most viewport-spill findings originate from intentional horizontally scrollable subnavigation or off-screen table descendants",
+      "font-check failures include unused/lazy canonical families and are not interpreted as missing active typography"
+    ],
+    "confirmed_blockers": [
+      {
+        "id": "4E-B01",
+        "finding": "Global-70 long evidence-role metadata chips exceed narrow 320px content width",
+        "example": "Роль в доказательной базе: MULTIDIMENSIONAL_SEXUAL_SELF_MEASUREMENT_PRECEDENT"
+      },
+      {
+        "id": "4E-B02",
+        "finding": "Russian Science H2 min-content clipping at 320px",
+        "examples": [
+          "Пять слоёв остаются самостоятельными.",
+          "Инварианты интерпретации.",
+          "Научная основа и собственная измерительная архитектура P-120"
+        ]
+      },
+      {
+        "id": "4E-B03",
+        "finding": "Science functional IBM Plex Sans styles request 750–900 while controlled web font request exposes real weights only through 700",
+        "classification": "synthetic/faux-weight risk"
+      },
+      {
+        "id": "4E-B04",
+        "finding": "Science subnavigation, Global-70 filters and DOI controls fall below 44px mobile/tablet touch-target floor"
+      },
+      {
+        "id": "4E-B05",
+        "finding": "Selected reader-facing Core Science prose computes to 11px on narrow phones"
+      }
+    ]
+  },
+  "correction_authority": "PRESENTATION_ONLY",
+  "scientific_content_change_authorized": false
+}

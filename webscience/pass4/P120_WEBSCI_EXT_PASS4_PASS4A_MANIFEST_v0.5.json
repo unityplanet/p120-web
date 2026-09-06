@@ -1,0 +1,42 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4A-MANIFEST",
+  "version": "v0.5",
+  "date": "2026-09-06",
+  "status": "PASS4A_CLOSED_CONTROLLED",
+  "branch": "web-science-ext-pass4-publication-projection",
+  "baseline_commit": "5295b50d1082e83e6e4e36f26286cdc2ccaca841",
+  "production_main_mutated": false,
+  "production_activation": "NOT_ACTIVATED",
+  "files": [
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json",
+      "sha256": "2621ae1317b0161f3c3a819f79b2b874dfd9ba6e0c32e2d7ecb580841114758d"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json",
+      "sha256": "a32623e1b058d3658ae0f3afbb1e6fdc4b3503a6132634ecc1868b6e335d146a"
+    },
+    {
+      "path": "qa/webscience_pass4a_projection_gate_v0.5.mjs",
+      "sha256": "d08876031c438bc1778feab1864bbc58fe22c3080dcaf2b8a1509531ee3d35e9"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_REPORT_v0.5.md",
+      "sha256": "e8b5b39586ba5e996d7ccb5f08ba3877df4008738d835360ecd604d9b919e7a7"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_DECISION_v0.5.md",
+      "sha256": "c27bf7d3dddb9bb993205c25a27bd025ecc79d24ad33b886ff4d3ab260afef3f"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_QA_RESULT_v0.5.json",
+      "sha256": "07f4fbc8ef0d3d1ad7dd77371aecee1e51c7029fc46c760ddf4c715c9c6c299d"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_QA_SUMMARY_v0.5.json",
+      "sha256": "7361a4bfa4409453c5accda05af5ed7d449a550749817702b589cb4b8082480c"
+    }
+  ],
+  "next_gate": "PASS 4B \u2014 Renderer Activation"
+}

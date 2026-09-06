@@ -1,0 +1,1273 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4F-RECONCILIATION-QA",
+  "version": "v1.0",
+  "date": "2026-09-06",
+  "status": "PASS",
+  "scope": "CLOSURE_RECONCILIATION_ONLY",
+  "pass4e_authority": "cd71bf494f72090e0a81cfd3702fd6049ab89bb0",
+  "checks_total": 119,
+  "checks_passed": 119,
+  "checks_failed": 0,
+  "checks": [
+    {
+      "id": "PASS4A: manifest present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_MANIFEST_v0.5.json"
+    },
+    {
+      "id": "PASS4A: QA summary present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_QA_SUMMARY_v0.5.json"
+    },
+    {
+      "id": "PASS4A: manifest status",
+      "pass": true,
+      "detail": {
+        "actual": "PASS4A_CLOSED_CONTROLLED",
+        "expected": "PASS4A_CLOSED_CONTROLLED"
+      }
+    },
+    {
+      "id": "PASS4A: baseline authority",
+      "pass": true,
+      "detail": {
+        "actual": "5295b50d1082e83e6e4e36f26286cdc2ccaca841",
+        "expected": "5295b50d1082e83e6e4e36f26286cdc2ccaca841"
+      }
+    },
+    {
+      "id": "PASS4A: production main not mutated",
+      "pass": true,
+      "detail": {
+        "actual": false
+      }
+    },
+    {
+      "id": "PASS4A: production activation not production",
+      "pass": true,
+      "detail": "NOT_ACTIVATED"
+    },
+    {
+      "id": "PASS4A: QA status",
+      "pass": true,
+      "detail": "PASS"
+    },
+    {
+      "id": "PASS4A: QA checks_total",
+      "pass": true,
+      "detail": {
+        "actual": 2970,
+        "expected": 2970
+      }
+    },
+    {
+      "id": "PASS4A: QA checks_passed",
+      "pass": true,
+      "detail": {
+        "actual": 2970,
+        "expected": 2970
+      }
+    },
+    {
+      "id": "PASS4A: QA checks_failed",
+      "pass": true,
+      "detail": {
+        "actual": 0,
+        "expected": 0
+      }
+    },
+    {
+      "id": "PASS4A: next-gate chain",
+      "pass": true,
+      "detail": {
+        "actual": "PASS 4B — Renderer Activation",
+        "expected": "PASS 4B — Renderer Activation"
+      }
+    },
+    {
+      "id": "PASS4B: manifest present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_MANIFEST_v0.6.json"
+    },
+    {
+      "id": "PASS4B: QA summary present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_QA_SUMMARY_v0.6.json"
+    },
+    {
+      "id": "PASS4B: manifest status",
+      "pass": true,
+      "detail": {
+        "actual": "PASS4B_CLOSED_CONTROLLED",
+        "expected": "PASS4B_CLOSED_CONTROLLED"
+      }
+    },
+    {
+      "id": "PASS4B: baseline authority",
+      "pass": true,
+      "detail": {
+        "actual": "2759e288fec90064858fb99b137c07e6505f6257",
+        "expected": "2759e288fec90064858fb99b137c07e6505f6257"
+      }
+    },
+    {
+      "id": "PASS4B: production main not mutated",
+      "pass": true,
+      "detail": {
+        "actual": false
+      }
+    },
+    {
+      "id": "PASS4B: production merge not performed",
+      "pass": true,
+      "detail": "NOT_PERFORMED"
+    },
+    {
+      "id": "PASS4B: QA status",
+      "pass": true,
+      "detail": "PASS"
+    },
+    {
+      "id": "PASS4B: QA checks_total",
+      "pass": true,
+      "detail": {
+        "actual": 198,
+        "expected": 198
+      }
+    },
+    {
+      "id": "PASS4B: QA checks_passed",
+      "pass": true,
+      "detail": {
+        "actual": 198,
+        "expected": 198
+      }
+    },
+    {
+      "id": "PASS4B: QA checks_failed",
+      "pass": true,
+      "detail": {
+        "actual": 0,
+        "expected": 0
+      }
+    },
+    {
+      "id": "PASS4B: next-gate chain",
+      "pass": true,
+      "detail": {
+        "actual": "PASS 4C — Core-45 / Global-70 Library Integration",
+        "expected": "PASS 4C — Core-45 / Global-70 Library Integration"
+      }
+    },
+    {
+      "id": "PASS4C: manifest present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_MANIFEST_v0.7.json"
+    },
+    {
+      "id": "PASS4C: QA summary present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_SUMMARY_v0.7.json"
+    },
+    {
+      "id": "PASS4C: manifest status",
+      "pass": true,
+      "detail": {
+        "actual": "PASS4C_CLOSED_CONTROLLED",
+        "expected": "PASS4C_CLOSED_CONTROLLED"
+      }
+    },
+    {
+      "id": "PASS4C: baseline authority",
+      "pass": true,
+      "detail": {
+        "actual": "9d07a3a047ce4b9a61b6f307e3f791fcdfabaff4",
+        "expected": "9d07a3a047ce4b9a61b6f307e3f791fcdfabaff4"
+      }
+    },
+    {
+      "id": "PASS4C: production main not mutated",
+      "pass": true,
+      "detail": {
+        "actual": false
+      }
+    },
+    {
+      "id": "PASS4C: production merge not performed",
+      "pass": true,
+      "detail": "NOT_PERFORMED"
+    },
+    {
+      "id": "PASS4C: QA status",
+      "pass": true,
+      "detail": "PASS"
+    },
+    {
+      "id": "PASS4C: QA checks_total",
+      "pass": true,
+      "detail": {
+        "actual": 88,
+        "expected": 88
+      }
+    },
+    {
+      "id": "PASS4C: QA checks_passed",
+      "pass": true,
+      "detail": {
+        "actual": 88,
+        "expected": 88
+      }
+    },
+    {
+      "id": "PASS4C: QA checks_failed",
+      "pass": true,
+      "detail": {
+        "actual": 0,
+        "expected": 0
+      }
+    },
+    {
+      "id": "PASS4C: next-gate chain",
+      "pass": true,
+      "detail": {
+        "actual": "PASS 4D — Claim-Boundary & RU/EN Parity QA",
+        "expected": "PASS 4D — Claim-Boundary & RU/EN Parity QA"
+      }
+    },
+    {
+      "id": "PASS4D: manifest present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_MANIFEST_v0.8.json"
+    },
+    {
+      "id": "PASS4D: QA summary present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_QA_SUMMARY_v0.8.json"
+    },
+    {
+      "id": "PASS4D: manifest status",
+      "pass": true,
+      "detail": {
+        "actual": "PASS4D_CLOSED_CONTROLLED",
+        "expected": "PASS4D_CLOSED_CONTROLLED"
+      }
+    },
+    {
+      "id": "PASS4D: baseline authority",
+      "pass": true,
+      "detail": {
+        "actual": "211c0f4f0d2601c46bc2d4d283ade84aee474c47",
+        "expected": "211c0f4f0d2601c46bc2d4d283ade84aee474c47"
+      }
+    },
+    {
+      "id": "PASS4D: production main not mutated",
+      "pass": true,
+      "detail": {
+        "actual": false
+      }
+    },
+    {
+      "id": "PASS4D: production merge not performed",
+      "pass": true,
+      "detail": "NOT_PERFORMED"
+    },
+    {
+      "id": "PASS4D: QA status",
+      "pass": true,
+      "detail": "PASS"
+    },
+    {
+      "id": "PASS4D: QA static_checks_total",
+      "pass": true,
+      "detail": {
+        "actual": 448,
+        "expected": 448
+      }
+    },
+    {
+      "id": "PASS4D: QA static_checks_passed",
+      "pass": true,
+      "detail": {
+        "actual": 448,
+        "expected": 448
+      }
+    },
+    {
+      "id": "PASS4D: QA static_checks_failed",
+      "pass": true,
+      "detail": {
+        "actual": 0,
+        "expected": 0
+      }
+    },
+    {
+      "id": "PASS4D: QA browser_checks_total",
+      "pass": true,
+      "detail": {
+        "actual": 448,
+        "expected": 448
+      }
+    },
+    {
+      "id": "PASS4D: QA browser_checks_passed",
+      "pass": true,
+      "detail": {
+        "actual": 448,
+        "expected": 448
+      }
+    },
+    {
+      "id": "PASS4D: QA browser_checks_failed",
+      "pass": true,
+      "detail": {
+        "actual": 0,
+        "expected": 0
+      }
+    },
+    {
+      "id": "PASS4D: next-gate chain",
+      "pass": true,
+      "detail": {
+        "actual": "PASS 4E — Browser / Responsive / Typography Science QA",
+        "expected": "PASS 4E — Browser / Responsive / Typography Science QA"
+      }
+    },
+    {
+      "id": "PASS4E: manifest present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_MANIFEST_v0.9.json"
+    },
+    {
+      "id": "PASS4E: QA summary present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_QA_SUMMARY_v0.9.json"
+    },
+    {
+      "id": "PASS4E: manifest status",
+      "pass": true,
+      "detail": {
+        "actual": "PASS4E_CLOSED_CONTROLLED",
+        "expected": "PASS4E_CLOSED_CONTROLLED"
+      }
+    },
+    {
+      "id": "PASS4E: baseline authority",
+      "pass": true,
+      "detail": {
+        "actual": "89683b678b76dde7df1cdeccc05d6e8541573b5b",
+        "expected": "89683b678b76dde7df1cdeccc05d6e8541573b5b"
+      }
+    },
+    {
+      "id": "PASS4E: production main not mutated",
+      "pass": true,
+      "detail": {
+        "actual": false
+      }
+    },
+    {
+      "id": "PASS4E: production merge not performed",
+      "pass": true,
+      "detail": "NOT_PERFORMED"
+    },
+    {
+      "id": "PASS4E: QA status",
+      "pass": true,
+      "detail": "PASS"
+    },
+    {
+      "id": "PASS4E: QA browser_typography_checks_total",
+      "pass": true,
+      "detail": {
+        "actual": 952,
+        "expected": 952
+      }
+    },
+    {
+      "id": "PASS4E: QA browser_typography_checks_passed",
+      "pass": true,
+      "detail": {
+        "actual": 952,
+        "expected": 952
+      }
+    },
+    {
+      "id": "PASS4E: QA browser_typography_checks_failed",
+      "pass": true,
+      "detail": {
+        "actual": 0,
+        "expected": 0
+      }
+    },
+    {
+      "id": "PASS4E: next-gate chain",
+      "pass": true,
+      "detail": {
+        "actual": "PASS 4F — Closure Reconciliation",
+        "expected": "PASS 4F — Closure Reconciliation"
+      }
+    },
+    {
+      "id": "lineage: PASS4A post-package → PASS4B closure",
+      "pass": true,
+      "detail": {
+        "base": "2759e288fec90064858fb99b137c07e6505f6257",
+        "head": "9d07a3a047ce4b9a61b6f307e3f791fcdfabaff4",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "lineage: PASS4B → PASS4C",
+      "pass": true,
+      "detail": {
+        "base": "9d07a3a047ce4b9a61b6f307e3f791fcdfabaff4",
+        "head": "211c0f4f0d2601c46bc2d4d283ade84aee474c47",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "lineage: PASS4C → PASS4D",
+      "pass": true,
+      "detail": {
+        "base": "211c0f4f0d2601c46bc2d4d283ade84aee474c47",
+        "head": "89683b678b76dde7df1cdeccc05d6e8541573b5b",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "lineage: PASS4D → PASS4E",
+      "pass": true,
+      "detail": {
+        "base": "89683b678b76dde7df1cdeccc05d6e8541573b5b",
+        "head": "cd71bf494f72090e0a81cfd3702fd6049ab89bb0",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "PASS4F: protected PASS4E authority unchanged",
+      "pass": true,
+      "detail": {
+        "protected_count": 13
+      }
+    },
+    {
+      "id": "current authority present: webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json",
+      "pass": true
+    },
+    {
+      "id": "current authority hash: webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json",
+      "pass": true,
+      "detail": {
+        "actual": "2621ae1317b0161f3c3a819f79b2b874dfd9ba6e0c32e2d7ecb580841114758d",
+        "expected": "2621ae1317b0161f3c3a819f79b2b874dfd9ba6e0c32e2d7ecb580841114758d"
+      }
+    },
+    {
+      "id": "current authority present: webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json",
+      "pass": true
+    },
+    {
+      "id": "current authority hash: webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json",
+      "pass": true,
+      "detail": {
+        "actual": "a32623e1b058d3658ae0f3afbb1e6fdc4b3503a6132634ecc1868b6e335d146a",
+        "expected": "a32623e1b058d3658ae0f3afbb1e6fdc4b3503a6132634ecc1868b6e335d146a"
+      }
+    },
+    {
+      "id": "current authority present: webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json",
+      "pass": true
+    },
+    {
+      "id": "current authority hash: webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json",
+      "pass": true,
+      "detail": {
+        "actual": "af1fede5aeb36f2e4dc11fb55ad0f31fe5a74e2bd59fa9a0bb1aa7d405e8bdf8",
+        "expected": "af1fede5aeb36f2e4dc11fb55ad0f31fe5a74e2bd59fa9a0bb1aa7d405e8bdf8"
+      }
+    },
+    {
+      "id": "current authority present: p120-webscience-pass4b-renderer-v0.6.js",
+      "pass": true
+    },
+    {
+      "id": "current authority hash: p120-webscience-pass4b-renderer-v0.6.js",
+      "pass": true,
+      "detail": {
+        "actual": "3a97e8838c73c56913b2cda03a5ea12afc579b1b085440b946ef800f2adbcc7b",
+        "expected": "3a97e8838c73c56913b2cda03a5ea12afc579b1b085440b946ef800f2adbcc7b"
+      }
+    },
+    {
+      "id": "current authority present: p120-webscience-pass4c-library-v0.7.js",
+      "pass": true
+    },
+    {
+      "id": "current authority hash: p120-webscience-pass4c-library-v0.7.js",
+      "pass": true,
+      "detail": {
+        "actual": "c8dd6b1c88706a2bb0c879099f5db0f87b2401b11fb5ca493037480781833425",
+        "expected": "c8dd6b1c88706a2bb0c879099f5db0f87b2401b11fb5ca493037480781833425"
+      }
+    },
+    {
+      "id": "current authority present: p120-webscience-pass4e-visual-v0.9.css",
+      "pass": true
+    },
+    {
+      "id": "current authority hash: p120-webscience-pass4e-visual-v0.9.css",
+      "pass": true,
+      "detail": {
+        "actual": "d2fac104c534f0ea90e77d207887557afa8abd2ce246ac4f85c7f8ddbad48aeb",
+        "expected": "d2fac104c534f0ea90e77d207887557afa8abd2ce246ac4f85c7f8ddbad48aeb"
+      }
+    },
+    {
+      "id": "PASS4A: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "2621ae1317b0161f3c3a819f79b2b874dfd9ba6e0c32e2d7ecb580841114758d",
+        "current": "2621ae1317b0161f3c3a819f79b2b874dfd9ba6e0c32e2d7ecb580841114758d"
+      }
+    },
+    {
+      "id": "PASS4A: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "a32623e1b058d3658ae0f3afbb1e6fdc4b3503a6132634ecc1868b6e335d146a",
+        "current": "a32623e1b058d3658ae0f3afbb1e6fdc4b3503a6132634ecc1868b6e335d146a"
+      }
+    },
+    {
+      "id": "PASS4A: historical hash disposition qa/webscience_pass4a_projection_gate_v0.5.mjs",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "d08876031c438bc1778feab1864bbc58fe22c3080dcaf2b8a1509531ee3d35e9",
+        "current": "d08876031c438bc1778feab1864bbc58fe22c3080dcaf2b8a1509531ee3d35e9"
+      }
+    },
+    {
+      "id": "PASS4A: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_REPORT_v0.5.md",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "e8b5b39586ba5e996d7ccb5f08ba3877df4008738d835360ecd604d9b919e7a7",
+        "current": "e8b5b39586ba5e996d7ccb5f08ba3877df4008738d835360ecd604d9b919e7a7"
+      }
+    },
+    {
+      "id": "PASS4A: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_DECISION_v0.5.md",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "c27bf7d3dddb9bb993205c25a27bd025ecc79d24ad33b886ff4d3ab260afef3f",
+        "current": "c27bf7d3dddb9bb993205c25a27bd025ecc79d24ad33b886ff4d3ab260afef3f"
+      }
+    },
+    {
+      "id": "PASS4A: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_QA_RESULT_v0.5.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "07f4fbc8ef0d3d1ad7dd77371aecee1e51c7029fc46c760ddf4c715c9c6c299d",
+        "current": "07f4fbc8ef0d3d1ad7dd77371aecee1e51c7029fc46c760ddf4c715c9c6c299d"
+      }
+    },
+    {
+      "id": "PASS4A: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_QA_SUMMARY_v0.5.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "7361a4bfa4409453c5accda05af5ed7d449a550749817702b589cb4b8082480c",
+        "current": "7361a4bfa4409453c5accda05af5ed7d449a550749817702b589cb4b8082480c"
+      }
+    },
+    {
+      "id": "PASS4B: historical hash disposition p120-scientific-base-runtime-v1.0.js",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "d25a030b36adcfabd6015455b93ef322e9dab83e4c87cfa66251e487e1d6d9d1",
+        "current": "d25a030b36adcfabd6015455b93ef322e9dab83e4c87cfa66251e487e1d6d9d1"
+      }
+    },
+    {
+      "id": "PASS4B: historical hash disposition p120-webscience-pass4b-renderer-v0.6.js",
+      "pass": true,
+      "detail": {
+        "state": "AUTHORIZED_SUPERSESSION",
+        "historical": "ca421ebc2d97dd782e9589b3b7d3e51f491f4ee995ff54c1b047163d28458940",
+        "current": "3a97e8838c73c56913b2cda03a5ea12afc579b1b085440b946ef800f2adbcc7b"
+      }
+    },
+    {
+      "id": "PASS4B: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "2621ae1317b0161f3c3a819f79b2b874dfd9ba6e0c32e2d7ecb580841114758d",
+        "current": "2621ae1317b0161f3c3a819f79b2b874dfd9ba6e0c32e2d7ecb580841114758d"
+      }
+    },
+    {
+      "id": "PASS4B: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "a32623e1b058d3658ae0f3afbb1e6fdc4b3503a6132634ecc1868b6e335d146a",
+        "current": "a32623e1b058d3658ae0f3afbb1e6fdc4b3503a6132634ecc1868b6e335d146a"
+      }
+    },
+    {
+      "id": "PASS4B: historical hash disposition qa/webscience_pass4b_renderer_gate_v0.6.mjs",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "26b006bbf6bfcae7e9477c43e04cfcf5949e5859cd12234cb5aafd7febaaee90",
+        "current": "26b006bbf6bfcae7e9477c43e04cfcf5949e5859cd12234cb5aafd7febaaee90"
+      }
+    },
+    {
+      "id": "PASS4B: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_QA_RESULT_v0.6.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "cf40d67ac50624fd0456d78f92df77be3df06c018f48531269dfda9a9f26f383",
+        "current": "cf40d67ac50624fd0456d78f92df77be3df06c018f48531269dfda9a9f26f383"
+      }
+    },
+    {
+      "id": "PASS4B: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_QA_SUMMARY_v0.6.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "1f3432b318cb6a0e0f379dd7efa2462215b8c22cf9171433f248d042fb20e0ec",
+        "current": "1f3432b318cb6a0e0f379dd7efa2462215b8c22cf9171433f248d042fb20e0ec"
+      }
+    },
+    {
+      "id": "PASS4B: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_REPORT_v0.6.md",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "42beaf88e38c907acc5d33fe61d941435a1be9a167b322e6b25b6c1c25f52911",
+        "current": "42beaf88e38c907acc5d33fe61d941435a1be9a167b322e6b25b6c1c25f52911"
+      }
+    },
+    {
+      "id": "PASS4B: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_DECISION_v0.6.md",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "dd6c4ab145dc72565b5fb344438f54cfd7de2744985429bb59e85c733447894e",
+        "current": "dd6c4ab145dc72565b5fb344438f54cfd7de2744985429bb59e85c733447894e"
+      }
+    },
+    {
+      "id": "PASS4C: historical hash disposition p120-webscience-pass4b-renderer-v0.6.js",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "3a97e8838c73c56913b2cda03a5ea12afc579b1b085440b946ef800f2adbcc7b",
+        "current": "3a97e8838c73c56913b2cda03a5ea12afc579b1b085440b946ef800f2adbcc7b"
+      }
+    },
+    {
+      "id": "PASS4C: historical hash disposition p120-webscience-pass4c-library-v0.7.js",
+      "pass": true,
+      "detail": {
+        "state": "AUTHORIZED_SUPERSESSION",
+        "historical": "902a124ac0f41b7de5a5f33b67780cb232350d836aaa5d1a918f4f81439e2a4d",
+        "current": "c8dd6b1c88706a2bb0c879099f5db0f87b2401b11fb5ca493037480781833425"
+      }
+    },
+    {
+      "id": "PASS4C: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "af1fede5aeb36f2e4dc11fb55ad0f31fe5a74e2bd59fa9a0bb1aa7d405e8bdf8",
+        "current": "af1fede5aeb36f2e4dc11fb55ad0f31fe5a74e2bd59fa9a0bb1aa7d405e8bdf8"
+      }
+    },
+    {
+      "id": "PASS4C: historical hash disposition qa/webscience_pass4c_materialize_global_library_v0.7.mjs",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "c3df2acf060443f4c18927e1807a0f2d6cbc7777f02241ca7bba5eb0266f8f29",
+        "current": "c3df2acf060443f4c18927e1807a0f2d6cbc7777f02241ca7bba5eb0266f8f29"
+      }
+    },
+    {
+      "id": "PASS4C: historical hash disposition qa/webscience_pass4c_core45_probe_v0.7.mjs",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "4f3841e1a2537f19d2dce2060dd32a92e910cc0611083eb6c23e0aaeb0521c2a",
+        "current": "4f3841e1a2537f19d2dce2060dd32a92e910cc0611083eb6c23e0aaeb0521c2a"
+      }
+    },
+    {
+      "id": "PASS4C: historical hash disposition qa/webscience_pass4c_library_gate_v0.7.mjs",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "3b10007500c8c8cbc71ce4c19e3c5fa7bbc95e5100adf00f0f425404f504f2cd",
+        "current": "3b10007500c8c8cbc71ce4c19e3c5fa7bbc95e5100adf00f0f425404f504f2cd"
+      }
+    },
+    {
+      "id": "PASS4C: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_RESULT_v0.7.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "6a98d66a7f1db4758ee4dadf339926351e1eac0756dc7ec2a4a5e778d1ec55f8",
+        "current": "6a98d66a7f1db4758ee4dadf339926351e1eac0756dc7ec2a4a5e778d1ec55f8"
+      }
+    },
+    {
+      "id": "PASS4C: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_SUMMARY_v0.7.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "66ad98a996c516ccacb5367a981198cc4651edc78e14131f32a7e97a1bde241a",
+        "current": "66ad98a996c516ccacb5367a981198cc4651edc78e14131f32a7e97a1bde241a"
+      }
+    },
+    {
+      "id": "PASS4C: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_REPORT_v0.7.md",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "9b428e90335804d3adc537388c4b7a4a93f68990823046876cc48c9aa3c626e2",
+        "current": "9b428e90335804d3adc537388c4b7a4a93f68990823046876cc48c9aa3c626e2"
+      }
+    },
+    {
+      "id": "PASS4C: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_DECISION_v0.7.md",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "a896e47ed82b99277994fc0652e5f6e54265db3fb7b7912f9588cf6162279bbe",
+        "current": "a896e47ed82b99277994fc0652e5f6e54265db3fb7b7912f9588cf6162279bbe"
+      }
+    },
+    {
+      "id": "PASS4D: historical hash disposition qa/webscience_pass4d_claim_boundary_static_gate_v0.8.mjs",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "c9675ea97dee40e4f8124994df6c744d0c7174e2d1aecbe52261fc9958d58a90",
+        "current": "c9675ea97dee40e4f8124994df6c744d0c7174e2d1aecbe52261fc9958d58a90"
+      }
+    },
+    {
+      "id": "PASS4D: historical hash disposition qa/webscience_pass4d_claim_boundary_browser_gate_v0.8.mjs",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "c1332f760a4c67600474c98a2092e36b5427ef0e0f9097ea6e56c5293c66d4e9",
+        "current": "c1332f760a4c67600474c98a2092e36b5427ef0e0f9097ea6e56c5293c66d4e9"
+      }
+    },
+    {
+      "id": "PASS4D: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_STATIC_QA_RESULT_v0.8.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "c8315dc436072c2afe137945a81cc55661d64967ffb34c55bf1450ff04062052",
+        "current": "c8315dc436072c2afe137945a81cc55661d64967ffb34c55bf1450ff04062052"
+      }
+    },
+    {
+      "id": "PASS4D: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_BROWSER_QA_RESULT_v0.8.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "c5d0abc9b5ae6fd2a0f79f0d51b353ca31f4f80891ad8d94f6d6f85b65352f4b",
+        "current": "c5d0abc9b5ae6fd2a0f79f0d51b353ca31f4f80891ad8d94f6d6f85b65352f4b"
+      }
+    },
+    {
+      "id": "PASS4D: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_CLAIM_MATRIX_v0.8.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "93bd3ec6114bfa6958b72e37505137fe47039c8c5adb39ac0484d3d63f02de33",
+        "current": "93bd3ec6114bfa6958b72e37505137fe47039c8c5adb39ac0484d3d63f02de33"
+      }
+    },
+    {
+      "id": "PASS4D: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_QA_SUMMARY_v0.8.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "4cc11fd7987747f0fbd3bea743884aec9f7e07f297d7f172164c8f07a2fede85",
+        "current": "4cc11fd7987747f0fbd3bea743884aec9f7e07f297d7f172164c8f07a2fede85"
+      }
+    },
+    {
+      "id": "PASS4D: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_REPORT_v0.8.md",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "62b0a7b9f3ff82f687fc9b4a76511dba24a92c9d1369c23df74c8f3b5bdbc6a6",
+        "current": "62b0a7b9f3ff82f687fc9b4a76511dba24a92c9d1369c23df74c8f3b5bdbc6a6"
+      }
+    },
+    {
+      "id": "PASS4D: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_DECISION_v0.8.md",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "6255e85abe5699e726b1e98497585f3ccfe644e52e0842f8f6c28e7ff3ccca27",
+        "current": "6255e85abe5699e726b1e98497585f3ccfe644e52e0842f8f6c28e7ff3ccca27"
+      }
+    },
+    {
+      "id": "PASS4E: historical hash disposition p120-webscience-pass4c-library-v0.7.js",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "c8dd6b1c88706a2bb0c879099f5db0f87b2401b11fb5ca493037480781833425",
+        "current": "c8dd6b1c88706a2bb0c879099f5db0f87b2401b11fb5ca493037480781833425"
+      }
+    },
+    {
+      "id": "PASS4E: historical hash disposition p120-webscience-pass4e-visual-v0.9.css",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "d2fac104c534f0ea90e77d207887557afa8abd2ce246ac4f85c7f8ddbad48aeb",
+        "current": "d2fac104c534f0ea90e77d207887557afa8abd2ce246ac4f85c7f8ddbad48aeb"
+      }
+    },
+    {
+      "id": "PASS4E: historical hash disposition qa/webscience_pass4e_visual_probe_v0.9.mjs",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "6e6fa8027994224e2f4da9c23a745491a67de5ae771f7503683f7b7ade2ef7c2",
+        "current": "6e6fa8027994224e2f4da9c23a745491a67de5ae771f7503683f7b7ade2ef7c2"
+      }
+    },
+    {
+      "id": "PASS4E: historical hash disposition qa/webscience_pass4e_browser_typography_gate_v0.9.mjs",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "cccfb7ffb4d42ffbb9cd73b9899a093869c9b60c8c5f5dad74fae3832c265ce6",
+        "current": "cccfb7ffb4d42ffbb9cd73b9899a093869c9b60c8c5f5dad74fae3832c265ce6"
+      }
+    },
+    {
+      "id": "PASS4E: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DIAGNOSTIC_FINDINGS_v0.9.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "8627d2b4f0599bf64d1236399f688f71efe24b1af800ab6d5f1fda2c86ff984c",
+        "current": "8627d2b4f0599bf64d1236399f688f71efe24b1af800ab6d5f1fda2c86ff984c"
+      }
+    },
+    {
+      "id": "PASS4E: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_BROWSER_TYPOGRAPHY_QA_RESULT_v0.9.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "eac1902626694eda49a4893e7f8d5229534a4aad10f809e9226abc810bec4de0",
+        "current": "eac1902626694eda49a4893e7f8d5229534a4aad10f809e9226abc810bec4de0"
+      }
+    },
+    {
+      "id": "PASS4E: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_QA_SUMMARY_v0.9.json",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "51534bf027858e7cd88b4ddf75b8dbf7c5ec3ac48ede5217dd08b4e877fe8f24",
+        "current": "51534bf027858e7cd88b4ddf75b8dbf7c5ec3ac48ede5217dd08b4e877fe8f24"
+      }
+    },
+    {
+      "id": "PASS4E: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_REPORT_v0.9.md",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "d178c29a9a9e9df60939e3da04b893cb9de881896a7067a119fbd9e1005c6c24",
+        "current": "d178c29a9a9e9df60939e3da04b893cb9de881896a7067a119fbd9e1005c6c24"
+      }
+    },
+    {
+      "id": "PASS4E: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DECISION_v0.9.md",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "bf65d30a2de6c8efd945184e6e2b98722f5fd43826521c991a0b08f8c03de0e4",
+        "current": "bf65d30a2de6c8efd945184e6e2b98722f5fd43826521c991a0b08f8c03de0e4"
+      }
+    },
+    {
+      "id": "PASS4E: historical hash disposition webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DELTA_v0.9.md",
+      "pass": true,
+      "detail": {
+        "state": "UNCHANGED_CURRENT",
+        "historical": "aae02542f821b09dfa38d19cf3fdc86e92d0e3bc9b0d7440daba17e63f08db99",
+        "current": "aae02542f821b09dfa38d19cf3fdc86e92d0e3bc9b0d7440daba17e63f08db99"
+      }
+    }
+  ],
+  "failures": [],
+  "historical_hash_disposition": [
+    {
+      "stage": "PASS4A",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "2621ae1317b0161f3c3a819f79b2b874dfd9ba6e0c32e2d7ecb580841114758d",
+      "current_sha256": "2621ae1317b0161f3c3a819f79b2b874dfd9ba6e0c32e2d7ecb580841114758d"
+    },
+    {
+      "stage": "PASS4A",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "a32623e1b058d3658ae0f3afbb1e6fdc4b3503a6132634ecc1868b6e335d146a",
+      "current_sha256": "a32623e1b058d3658ae0f3afbb1e6fdc4b3503a6132634ecc1868b6e335d146a"
+    },
+    {
+      "stage": "PASS4A",
+      "path": "qa/webscience_pass4a_projection_gate_v0.5.mjs",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "d08876031c438bc1778feab1864bbc58fe22c3080dcaf2b8a1509531ee3d35e9",
+      "current_sha256": "d08876031c438bc1778feab1864bbc58fe22c3080dcaf2b8a1509531ee3d35e9"
+    },
+    {
+      "stage": "PASS4A",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_REPORT_v0.5.md",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "e8b5b39586ba5e996d7ccb5f08ba3877df4008738d835360ecd604d9b919e7a7",
+      "current_sha256": "e8b5b39586ba5e996d7ccb5f08ba3877df4008738d835360ecd604d9b919e7a7"
+    },
+    {
+      "stage": "PASS4A",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_DECISION_v0.5.md",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "c27bf7d3dddb9bb993205c25a27bd025ecc79d24ad33b886ff4d3ab260afef3f",
+      "current_sha256": "c27bf7d3dddb9bb993205c25a27bd025ecc79d24ad33b886ff4d3ab260afef3f"
+    },
+    {
+      "stage": "PASS4A",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_QA_RESULT_v0.5.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "07f4fbc8ef0d3d1ad7dd77371aecee1e51c7029fc46c760ddf4c715c9c6c299d",
+      "current_sha256": "07f4fbc8ef0d3d1ad7dd77371aecee1e51c7029fc46c760ddf4c715c9c6c299d"
+    },
+    {
+      "stage": "PASS4A",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_QA_SUMMARY_v0.5.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "7361a4bfa4409453c5accda05af5ed7d449a550749817702b589cb4b8082480c",
+      "current_sha256": "7361a4bfa4409453c5accda05af5ed7d449a550749817702b589cb4b8082480c"
+    },
+    {
+      "stage": "PASS4B",
+      "path": "p120-scientific-base-runtime-v1.0.js",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "d25a030b36adcfabd6015455b93ef322e9dab83e4c87cfa66251e487e1d6d9d1",
+      "current_sha256": "d25a030b36adcfabd6015455b93ef322e9dab83e4c87cfa66251e487e1d6d9d1"
+    },
+    {
+      "stage": "PASS4B",
+      "path": "p120-webscience-pass4b-renderer-v0.6.js",
+      "state": "AUTHORIZED_SUPERSESSION",
+      "historical_sha256": "ca421ebc2d97dd782e9589b3b7d3e51f491f4ee995ff54c1b047163d28458940",
+      "current_sha256": "3a97e8838c73c56913b2cda03a5ea12afc579b1b085440b946ef800f2adbcc7b"
+    },
+    {
+      "stage": "PASS4B",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "2621ae1317b0161f3c3a819f79b2b874dfd9ba6e0c32e2d7ecb580841114758d",
+      "current_sha256": "2621ae1317b0161f3c3a819f79b2b874dfd9ba6e0c32e2d7ecb580841114758d"
+    },
+    {
+      "stage": "PASS4B",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "a32623e1b058d3658ae0f3afbb1e6fdc4b3503a6132634ecc1868b6e335d146a",
+      "current_sha256": "a32623e1b058d3658ae0f3afbb1e6fdc4b3503a6132634ecc1868b6e335d146a"
+    },
+    {
+      "stage": "PASS4B",
+      "path": "qa/webscience_pass4b_renderer_gate_v0.6.mjs",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "26b006bbf6bfcae7e9477c43e04cfcf5949e5859cd12234cb5aafd7febaaee90",
+      "current_sha256": "26b006bbf6bfcae7e9477c43e04cfcf5949e5859cd12234cb5aafd7febaaee90"
+    },
+    {
+      "stage": "PASS4B",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_QA_RESULT_v0.6.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "cf40d67ac50624fd0456d78f92df77be3df06c018f48531269dfda9a9f26f383",
+      "current_sha256": "cf40d67ac50624fd0456d78f92df77be3df06c018f48531269dfda9a9f26f383"
+    },
+    {
+      "stage": "PASS4B",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_QA_SUMMARY_v0.6.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "1f3432b318cb6a0e0f379dd7efa2462215b8c22cf9171433f248d042fb20e0ec",
+      "current_sha256": "1f3432b318cb6a0e0f379dd7efa2462215b8c22cf9171433f248d042fb20e0ec"
+    },
+    {
+      "stage": "PASS4B",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_REPORT_v0.6.md",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "42beaf88e38c907acc5d33fe61d941435a1be9a167b322e6b25b6c1c25f52911",
+      "current_sha256": "42beaf88e38c907acc5d33fe61d941435a1be9a167b322e6b25b6c1c25f52911"
+    },
+    {
+      "stage": "PASS4B",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_DECISION_v0.6.md",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "dd6c4ab145dc72565b5fb344438f54cfd7de2744985429bb59e85c733447894e",
+      "current_sha256": "dd6c4ab145dc72565b5fb344438f54cfd7de2744985429bb59e85c733447894e"
+    },
+    {
+      "stage": "PASS4C",
+      "path": "p120-webscience-pass4b-renderer-v0.6.js",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "3a97e8838c73c56913b2cda03a5ea12afc579b1b085440b946ef800f2adbcc7b",
+      "current_sha256": "3a97e8838c73c56913b2cda03a5ea12afc579b1b085440b946ef800f2adbcc7b"
+    },
+    {
+      "stage": "PASS4C",
+      "path": "p120-webscience-pass4c-library-v0.7.js",
+      "state": "AUTHORIZED_SUPERSESSION",
+      "historical_sha256": "902a124ac0f41b7de5a5f33b67780cb232350d836aaa5d1a918f4f81439e2a4d",
+      "current_sha256": "c8dd6b1c88706a2bb0c879099f5db0f87b2401b11fb5ca493037480781833425"
+    },
+    {
+      "stage": "PASS4C",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "af1fede5aeb36f2e4dc11fb55ad0f31fe5a74e2bd59fa9a0bb1aa7d405e8bdf8",
+      "current_sha256": "af1fede5aeb36f2e4dc11fb55ad0f31fe5a74e2bd59fa9a0bb1aa7d405e8bdf8"
+    },
+    {
+      "stage": "PASS4C",
+      "path": "qa/webscience_pass4c_materialize_global_library_v0.7.mjs",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "c3df2acf060443f4c18927e1807a0f2d6cbc7777f02241ca7bba5eb0266f8f29",
+      "current_sha256": "c3df2acf060443f4c18927e1807a0f2d6cbc7777f02241ca7bba5eb0266f8f29"
+    },
+    {
+      "stage": "PASS4C",
+      "path": "qa/webscience_pass4c_core45_probe_v0.7.mjs",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "4f3841e1a2537f19d2dce2060dd32a92e910cc0611083eb6c23e0aaeb0521c2a",
+      "current_sha256": "4f3841e1a2537f19d2dce2060dd32a92e910cc0611083eb6c23e0aaeb0521c2a"
+    },
+    {
+      "stage": "PASS4C",
+      "path": "qa/webscience_pass4c_library_gate_v0.7.mjs",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "3b10007500c8c8cbc71ce4c19e3c5fa7bbc95e5100adf00f0f425404f504f2cd",
+      "current_sha256": "3b10007500c8c8cbc71ce4c19e3c5fa7bbc95e5100adf00f0f425404f504f2cd"
+    },
+    {
+      "stage": "PASS4C",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_RESULT_v0.7.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "6a98d66a7f1db4758ee4dadf339926351e1eac0756dc7ec2a4a5e778d1ec55f8",
+      "current_sha256": "6a98d66a7f1db4758ee4dadf339926351e1eac0756dc7ec2a4a5e778d1ec55f8"
+    },
+    {
+      "stage": "PASS4C",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_SUMMARY_v0.7.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "66ad98a996c516ccacb5367a981198cc4651edc78e14131f32a7e97a1bde241a",
+      "current_sha256": "66ad98a996c516ccacb5367a981198cc4651edc78e14131f32a7e97a1bde241a"
+    },
+    {
+      "stage": "PASS4C",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_REPORT_v0.7.md",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "9b428e90335804d3adc537388c4b7a4a93f68990823046876cc48c9aa3c626e2",
+      "current_sha256": "9b428e90335804d3adc537388c4b7a4a93f68990823046876cc48c9aa3c626e2"
+    },
+    {
+      "stage": "PASS4C",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_DECISION_v0.7.md",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "a896e47ed82b99277994fc0652e5f6e54265db3fb7b7912f9588cf6162279bbe",
+      "current_sha256": "a896e47ed82b99277994fc0652e5f6e54265db3fb7b7912f9588cf6162279bbe"
+    },
+    {
+      "stage": "PASS4D",
+      "path": "qa/webscience_pass4d_claim_boundary_static_gate_v0.8.mjs",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "c9675ea97dee40e4f8124994df6c744d0c7174e2d1aecbe52261fc9958d58a90",
+      "current_sha256": "c9675ea97dee40e4f8124994df6c744d0c7174e2d1aecbe52261fc9958d58a90"
+    },
+    {
+      "stage": "PASS4D",
+      "path": "qa/webscience_pass4d_claim_boundary_browser_gate_v0.8.mjs",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "c1332f760a4c67600474c98a2092e36b5427ef0e0f9097ea6e56c5293c66d4e9",
+      "current_sha256": "c1332f760a4c67600474c98a2092e36b5427ef0e0f9097ea6e56c5293c66d4e9"
+    },
+    {
+      "stage": "PASS4D",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_STATIC_QA_RESULT_v0.8.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "c8315dc436072c2afe137945a81cc55661d64967ffb34c55bf1450ff04062052",
+      "current_sha256": "c8315dc436072c2afe137945a81cc55661d64967ffb34c55bf1450ff04062052"
+    },
+    {
+      "stage": "PASS4D",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_BROWSER_QA_RESULT_v0.8.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "c5d0abc9b5ae6fd2a0f79f0d51b353ca31f4f80891ad8d94f6d6f85b65352f4b",
+      "current_sha256": "c5d0abc9b5ae6fd2a0f79f0d51b353ca31f4f80891ad8d94f6d6f85b65352f4b"
+    },
+    {
+      "stage": "PASS4D",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_CLAIM_MATRIX_v0.8.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "93bd3ec6114bfa6958b72e37505137fe47039c8c5adb39ac0484d3d63f02de33",
+      "current_sha256": "93bd3ec6114bfa6958b72e37505137fe47039c8c5adb39ac0484d3d63f02de33"
+    },
+    {
+      "stage": "PASS4D",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_QA_SUMMARY_v0.8.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "4cc11fd7987747f0fbd3bea743884aec9f7e07f297d7f172164c8f07a2fede85",
+      "current_sha256": "4cc11fd7987747f0fbd3bea743884aec9f7e07f297d7f172164c8f07a2fede85"
+    },
+    {
+      "stage": "PASS4D",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_REPORT_v0.8.md",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "62b0a7b9f3ff82f687fc9b4a76511dba24a92c9d1369c23df74c8f3b5bdbc6a6",
+      "current_sha256": "62b0a7b9f3ff82f687fc9b4a76511dba24a92c9d1369c23df74c8f3b5bdbc6a6"
+    },
+    {
+      "stage": "PASS4D",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_DECISION_v0.8.md",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "6255e85abe5699e726b1e98497585f3ccfe644e52e0842f8f6c28e7ff3ccca27",
+      "current_sha256": "6255e85abe5699e726b1e98497585f3ccfe644e52e0842f8f6c28e7ff3ccca27"
+    },
+    {
+      "stage": "PASS4E",
+      "path": "p120-webscience-pass4c-library-v0.7.js",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "c8dd6b1c88706a2bb0c879099f5db0f87b2401b11fb5ca493037480781833425",
+      "current_sha256": "c8dd6b1c88706a2bb0c879099f5db0f87b2401b11fb5ca493037480781833425"
+    },
+    {
+      "stage": "PASS4E",
+      "path": "p120-webscience-pass4e-visual-v0.9.css",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "d2fac104c534f0ea90e77d207887557afa8abd2ce246ac4f85c7f8ddbad48aeb",
+      "current_sha256": "d2fac104c534f0ea90e77d207887557afa8abd2ce246ac4f85c7f8ddbad48aeb"
+    },
+    {
+      "stage": "PASS4E",
+      "path": "qa/webscience_pass4e_visual_probe_v0.9.mjs",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "6e6fa8027994224e2f4da9c23a745491a67de5ae771f7503683f7b7ade2ef7c2",
+      "current_sha256": "6e6fa8027994224e2f4da9c23a745491a67de5ae771f7503683f7b7ade2ef7c2"
+    },
+    {
+      "stage": "PASS4E",
+      "path": "qa/webscience_pass4e_browser_typography_gate_v0.9.mjs",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "cccfb7ffb4d42ffbb9cd73b9899a093869c9b60c8c5f5dad74fae3832c265ce6",
+      "current_sha256": "cccfb7ffb4d42ffbb9cd73b9899a093869c9b60c8c5f5dad74fae3832c265ce6"
+    },
+    {
+      "stage": "PASS4E",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DIAGNOSTIC_FINDINGS_v0.9.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "8627d2b4f0599bf64d1236399f688f71efe24b1af800ab6d5f1fda2c86ff984c",
+      "current_sha256": "8627d2b4f0599bf64d1236399f688f71efe24b1af800ab6d5f1fda2c86ff984c"
+    },
+    {
+      "stage": "PASS4E",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_BROWSER_TYPOGRAPHY_QA_RESULT_v0.9.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "eac1902626694eda49a4893e7f8d5229534a4aad10f809e9226abc810bec4de0",
+      "current_sha256": "eac1902626694eda49a4893e7f8d5229534a4aad10f809e9226abc810bec4de0"
+    },
+    {
+      "stage": "PASS4E",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_QA_SUMMARY_v0.9.json",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "51534bf027858e7cd88b4ddf75b8dbf7c5ec3ac48ede5217dd08b4e877fe8f24",
+      "current_sha256": "51534bf027858e7cd88b4ddf75b8dbf7c5ec3ac48ede5217dd08b4e877fe8f24"
+    },
+    {
+      "stage": "PASS4E",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_REPORT_v0.9.md",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "d178c29a9a9e9df60939e3da04b893cb9de881896a7067a119fbd9e1005c6c24",
+      "current_sha256": "d178c29a9a9e9df60939e3da04b893cb9de881896a7067a119fbd9e1005c6c24"
+    },
+    {
+      "stage": "PASS4E",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DECISION_v0.9.md",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "bf65d30a2de6c8efd945184e6e2b98722f5fd43826521c991a0b08f8c03de0e4",
+      "current_sha256": "bf65d30a2de6c8efd945184e6e2b98722f5fd43826521c991a0b08f8c03de0e4"
+    },
+    {
+      "stage": "PASS4E",
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DELTA_v0.9.md",
+      "state": "UNCHANGED_CURRENT",
+      "historical_sha256": "aae02542f821b09dfa38d19cf3fdc86e92d0e3bc9b0d7440daba17e63f08db99",
+      "current_sha256": "aae02542f821b09dfa38d19cf3fdc86e92d0e3bc9b0d7440daba17e63f08db99"
+    }
+  ],
+  "current_public_ceiling": {
+    "evidence_ladder": [
+      "E0",
+      "E1",
+      "E2",
+      "E3",
+      "E4"
+    ],
+    "E1_is_empirical_psychometric_validation": false,
+    "core_reference_count": 45,
+    "extension_reference_count": 25,
+    "global_reference_count": 70,
+    "reference_count_is_validity_metric": false,
+    "public_modules": [
+      "COM-12",
+      "MOT-12",
+      "SELF-12",
+      "RPE-MOD",
+      "LIFE-12/18"
+    ],
+    "module_publication_mode": "summary_only",
+    "RPE_detailed_publication": "SUPPRESSED",
+    "DYADIC": "HIDDEN",
+    "extended_super_score_authorized": false,
+    "validated_cross_layer_synergy_authorized": false,
+    "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+    "empirical_incremental_validity": "NOT_ESTABLISHED",
+    "causal_effects_authorized": false,
+    "next_gate": "PASS 4G — Mandatory Full PASS Package / Final PASS 4 Sealing"
+  },
+  "scientific_content_mutated": false,
+  "measurement_mutated": false,
+  "scoring_mutated": false,
+  "thresholds_mutated": false,
+  "renderer_mutated": false,
+  "presentation_mutated": false,
+  "production_merge": "NOT_PERFORMED",
+  "parent_pass4_status": "OPEN_PENDING_PASS4G"
+}

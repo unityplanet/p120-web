@@ -1,0 +1,1019 @@
+{
+  "document_id": "P120-WEBSCI-EXT-004-PASS4C-QA",
+  "version": "v0.7",
+  "date": "2026-09-06",
+  "status": "PASS",
+  "checks_total": 88,
+  "checks_passed": 88,
+  "checks_failed": 0,
+  "checks": [
+    {
+      "name": "ru-desktop Core remains 45",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "ru-desktop Global is 70",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "ru-desktop partition 45+25",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "ru-desktop PASS4B preserved",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "ru-desktop old Core bibliography de-duplicated in library view",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "ru-desktop protected registry boundaries",
+      "pass": true,
+      "detail": {
+        "measurement": false,
+        "scoring": false,
+        "session": "PROHIBITED"
+      }
+    },
+    {
+      "name": "ru-desktop storage isolation",
+      "pass": true,
+      "detail": [
+        "LOCAL",
+        "SESSION"
+      ]
+    },
+    {
+      "name": "ru-desktop horizontal overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0
+      }
+    },
+    {
+      "name": "ru-desktop filter CORE45",
+      "pass": true,
+      "detail": {
+        "n": 45,
+        "expected": 45
+      }
+    },
+    {
+      "name": "ru-desktop filter PASS4_EXTENSION",
+      "pass": true,
+      "detail": {
+        "n": 25,
+        "expected": 25
+      }
+    },
+    {
+      "name": "ru-desktop filter COM-12",
+      "pass": true,
+      "detail": {
+        "n": 5,
+        "expected": 5
+      }
+    },
+    {
+      "name": "ru-desktop filter MOT-12",
+      "pass": true,
+      "detail": {
+        "n": 5,
+        "expected": 5
+      }
+    },
+    {
+      "name": "ru-desktop filter SELF-12",
+      "pass": true,
+      "detail": {
+        "n": 8,
+        "expected": 8
+      }
+    },
+    {
+      "name": "ru-desktop filter LIFE-12/18",
+      "pass": true,
+      "detail": {
+        "n": 9,
+        "expected": 9
+      }
+    },
+    {
+      "name": "ru-desktop filter METHODS",
+      "pass": true,
+      "detail": {
+        "n": 4,
+        "expected": 4
+      }
+    },
+    {
+      "name": "ru-desktop filter EXT-SYS",
+      "pass": true,
+      "detail": {
+        "n": 2,
+        "expected": 2
+      }
+    },
+    {
+      "name": "ru-desktop text search",
+      "pass": true,
+      "detail": {
+        "count": 2
+      }
+    },
+    {
+      "name": "ru-desktop no inferred Core role labels",
+      "pass": true,
+      "detail": {
+        "coreRoleLeak": false
+      }
+    },
+    {
+      "name": "ru-desktop extension bindings rendered",
+      "pass": true,
+      "detail": {
+        "extBound": true
+      }
+    },
+    {
+      "name": "ru-desktop REF deep link",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "ru-desktop leaving library restores Core bibliography",
+      "pass": true,
+      "detail": {
+        "oldCoreHidden": false,
+        "modules": 4,
+        "pass4c": true
+      }
+    },
+    {
+      "name": "ru-desktop non-library PASS4B surface preserved",
+      "pass": true,
+      "detail": {
+        "oldCoreHidden": false,
+        "modules": 4,
+        "pass4c": true
+      }
+    },
+    {
+      "name": "ru-mobile Core remains 45",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "ru-mobile Global is 70",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "ru-mobile partition 45+25",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "ru-mobile PASS4B preserved",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "ru-mobile old Core bibliography de-duplicated in library view",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "ru-mobile protected registry boundaries",
+      "pass": true,
+      "detail": {
+        "measurement": false,
+        "scoring": false,
+        "session": "PROHIBITED"
+      }
+    },
+    {
+      "name": "ru-mobile storage isolation",
+      "pass": true,
+      "detail": [
+        "LOCAL",
+        "SESSION"
+      ]
+    },
+    {
+      "name": "ru-mobile horizontal overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0
+      }
+    },
+    {
+      "name": "ru-mobile filter CORE45",
+      "pass": true,
+      "detail": {
+        "n": 45,
+        "expected": 45
+      }
+    },
+    {
+      "name": "ru-mobile filter PASS4_EXTENSION",
+      "pass": true,
+      "detail": {
+        "n": 25,
+        "expected": 25
+      }
+    },
+    {
+      "name": "ru-mobile filter COM-12",
+      "pass": true,
+      "detail": {
+        "n": 5,
+        "expected": 5
+      }
+    },
+    {
+      "name": "ru-mobile filter MOT-12",
+      "pass": true,
+      "detail": {
+        "n": 5,
+        "expected": 5
+      }
+    },
+    {
+      "name": "ru-mobile filter SELF-12",
+      "pass": true,
+      "detail": {
+        "n": 8,
+        "expected": 8
+      }
+    },
+    {
+      "name": "ru-mobile filter LIFE-12/18",
+      "pass": true,
+      "detail": {
+        "n": 9,
+        "expected": 9
+      }
+    },
+    {
+      "name": "ru-mobile filter METHODS",
+      "pass": true,
+      "detail": {
+        "n": 4,
+        "expected": 4
+      }
+    },
+    {
+      "name": "ru-mobile filter EXT-SYS",
+      "pass": true,
+      "detail": {
+        "n": 2,
+        "expected": 2
+      }
+    },
+    {
+      "name": "ru-mobile text search",
+      "pass": true,
+      "detail": {
+        "count": 2
+      }
+    },
+    {
+      "name": "ru-mobile no inferred Core role labels",
+      "pass": true,
+      "detail": {
+        "coreRoleLeak": false
+      }
+    },
+    {
+      "name": "ru-mobile extension bindings rendered",
+      "pass": true,
+      "detail": {
+        "extBound": true
+      }
+    },
+    {
+      "name": "ru-mobile REF deep link",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "ru-mobile leaving library restores Core bibliography",
+      "pass": true,
+      "detail": {
+        "oldCoreHidden": false,
+        "modules": 4,
+        "pass4c": true
+      }
+    },
+    {
+      "name": "ru-mobile non-library PASS4B surface preserved",
+      "pass": true,
+      "detail": {
+        "oldCoreHidden": false,
+        "modules": 4,
+        "pass4c": true
+      }
+    },
+    {
+      "name": "en-desktop Core remains 45",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-desktop Global is 70",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-desktop partition 45+25",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-desktop PASS4B preserved",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-desktop old Core bibliography de-duplicated in library view",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-desktop protected registry boundaries",
+      "pass": true,
+      "detail": {
+        "measurement": false,
+        "scoring": false,
+        "session": "PROHIBITED"
+      }
+    },
+    {
+      "name": "en-desktop storage isolation",
+      "pass": true,
+      "detail": [
+        "LOCAL",
+        "SESSION"
+      ]
+    },
+    {
+      "name": "en-desktop horizontal overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-desktop filter CORE45",
+      "pass": true,
+      "detail": {
+        "n": 45,
+        "expected": 45
+      }
+    },
+    {
+      "name": "en-desktop filter PASS4_EXTENSION",
+      "pass": true,
+      "detail": {
+        "n": 25,
+        "expected": 25
+      }
+    },
+    {
+      "name": "en-desktop filter COM-12",
+      "pass": true,
+      "detail": {
+        "n": 5,
+        "expected": 5
+      }
+    },
+    {
+      "name": "en-desktop filter MOT-12",
+      "pass": true,
+      "detail": {
+        "n": 5,
+        "expected": 5
+      }
+    },
+    {
+      "name": "en-desktop filter SELF-12",
+      "pass": true,
+      "detail": {
+        "n": 8,
+        "expected": 8
+      }
+    },
+    {
+      "name": "en-desktop filter LIFE-12/18",
+      "pass": true,
+      "detail": {
+        "n": 9,
+        "expected": 9
+      }
+    },
+    {
+      "name": "en-desktop filter METHODS",
+      "pass": true,
+      "detail": {
+        "n": 4,
+        "expected": 4
+      }
+    },
+    {
+      "name": "en-desktop filter EXT-SYS",
+      "pass": true,
+      "detail": {
+        "n": 2,
+        "expected": 2
+      }
+    },
+    {
+      "name": "en-desktop text search",
+      "pass": true,
+      "detail": {
+        "count": 2
+      }
+    },
+    {
+      "name": "en-desktop no inferred Core role labels",
+      "pass": true,
+      "detail": {
+        "coreRoleLeak": false
+      }
+    },
+    {
+      "name": "en-desktop extension bindings rendered",
+      "pass": true,
+      "detail": {
+        "extBound": true
+      }
+    },
+    {
+      "name": "en-desktop REF deep link",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-desktop leaving library restores Core bibliography",
+      "pass": true,
+      "detail": {
+        "oldCoreHidden": false,
+        "modules": 4,
+        "pass4c": true
+      }
+    },
+    {
+      "name": "en-desktop non-library PASS4B surface preserved",
+      "pass": true,
+      "detail": {
+        "oldCoreHidden": false,
+        "modules": 4,
+        "pass4c": true
+      }
+    },
+    {
+      "name": "en-mobile Core remains 45",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-mobile Global is 70",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-mobile partition 45+25",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-mobile PASS4B preserved",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-mobile old Core bibliography de-duplicated in library view",
+      "pass": true,
+      "detail": {
+        "core": 45,
+        "global": 70,
+        "pass4b": true,
+        "base": "LIBRARY",
+        "registry": {
+          "measurement": false,
+          "scoring": false,
+          "session": "PROHIBITED"
+        },
+        "domAll": 70,
+        "domCore": 45,
+        "domExt": 25,
+        "oldCoreHidden": true,
+        "storage": [
+          "LOCAL",
+          "SESSION"
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-mobile protected registry boundaries",
+      "pass": true,
+      "detail": {
+        "measurement": false,
+        "scoring": false,
+        "session": "PROHIBITED"
+      }
+    },
+    {
+      "name": "en-mobile storage isolation",
+      "pass": true,
+      "detail": [
+        "LOCAL",
+        "SESSION"
+      ]
+    },
+    {
+      "name": "en-mobile horizontal overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-mobile filter CORE45",
+      "pass": true,
+      "detail": {
+        "n": 45,
+        "expected": 45
+      }
+    },
+    {
+      "name": "en-mobile filter PASS4_EXTENSION",
+      "pass": true,
+      "detail": {
+        "n": 25,
+        "expected": 25
+      }
+    },
+    {
+      "name": "en-mobile filter COM-12",
+      "pass": true,
+      "detail": {
+        "n": 5,
+        "expected": 5
+      }
+    },
+    {
+      "name": "en-mobile filter MOT-12",
+      "pass": true,
+      "detail": {
+        "n": 5,
+        "expected": 5
+      }
+    },
+    {
+      "name": "en-mobile filter SELF-12",
+      "pass": true,
+      "detail": {
+        "n": 8,
+        "expected": 8
+      }
+    },
+    {
+      "name": "en-mobile filter LIFE-12/18",
+      "pass": true,
+      "detail": {
+        "n": 9,
+        "expected": 9
+      }
+    },
+    {
+      "name": "en-mobile filter METHODS",
+      "pass": true,
+      "detail": {
+        "n": 4,
+        "expected": 4
+      }
+    },
+    {
+      "name": "en-mobile filter EXT-SYS",
+      "pass": true,
+      "detail": {
+        "n": 2,
+        "expected": 2
+      }
+    },
+    {
+      "name": "en-mobile text search",
+      "pass": true,
+      "detail": {
+        "count": 2
+      }
+    },
+    {
+      "name": "en-mobile no inferred Core role labels",
+      "pass": true,
+      "detail": {
+        "coreRoleLeak": false
+      }
+    },
+    {
+      "name": "en-mobile extension bindings rendered",
+      "pass": true,
+      "detail": {
+        "extBound": true
+      }
+    },
+    {
+      "name": "en-mobile REF deep link",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "en-mobile leaving library restores Core bibliography",
+      "pass": true,
+      "detail": {
+        "oldCoreHidden": false,
+        "modules": 4,
+        "pass4c": true
+      }
+    },
+    {
+      "name": "en-mobile non-library PASS4B surface preserved",
+      "pass": true,
+      "detail": {
+        "oldCoreHidden": false,
+        "modules": 4,
+        "pass4c": true
+      }
+    }
+  ]
+}

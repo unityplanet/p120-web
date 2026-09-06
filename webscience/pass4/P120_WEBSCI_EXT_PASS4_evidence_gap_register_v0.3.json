@@ -1,0 +1,69 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-GAPS",
+  "version": "v0.3",
+  "date": "2026-09-06",
+  "status": "CONTROLLED_EVIDENCE_GAP_REGISTER",
+  "rule": "A missing or incompletely recovered source ledger is recorded as a gap. It must not be silently filled from memory, adjacent literature, or a different module's evidence base.",
+  "gaps": [
+    {
+      "gap_id": "GAP-SELF-EXT-01",
+      "area": "SELF-12 external scientific foundation",
+      "severity": "MATERIAL_FOR_FULL_PUBLIC_EVIDENCE_PROFILE",
+      "current_evidence": "The current 45-reference public library contains a useful sexual-autonomy anchor (REF-040) and shared methods sources, but does not adequately represent the full external evidence landscape for SRG, DPL, SSC, SSH, PSD and SBA.",
+      "required_source": "Authoritative SELF PASS 1 external literature/evidence ledger and any later controlled source updates.",
+      "current_action": "Keep SELF public evidence summary at a conservative candidate/internal-verification level; do not fabricate 3-6 external anchors.",
+      "blocks": "FULL_SELF_EXTERNAL_EVIDENCE_PROFILE",
+      "does_not_block": "PASS4 internal architecture/status binding or later retrieval of exact sources"
+    },
+    {
+      "gap_id": "GAP-LIFE-EXT-01",
+      "area": "LIFE-12/18 external scientific foundation",
+      "severity": "MATERIAL_FOR_FULL_PUBLIC_EVIDENCE_PROFILE",
+      "current_evidence": "REF-029, REF-020 and REF-008 provide adjacent temporal/outcome context, but the current 45-reference library is not a complete external basis for vitality, sleep, work/study engagement, meaning and cognitive carryover as separate LIFE territories.",
+      "required_source": "Authoritative LIFE PASS 1 external evidence landscape/source register and later controlled source updates.",
+      "current_action": "Publish only selected adjacent anchors with an explicit non-causal and incomplete-coverage label.",
+      "blocks": "FULL_LIFE_EXTERNAL_EVIDENCE_PROFILE",
+      "does_not_block": "LIFE role, internal architecture history, temporal firewall and non-causal publication rules"
+    },
+    {
+      "gap_id": "GAP-EXTSYS-MACHINE-01",
+      "area": "EXT-SYS detailed machine ledgers",
+      "severity": "MATERIAL_FOR_DETAILED_CROSS_LAYER_ADJUDICATION",
+      "current_evidence": "Controlled sources establish EXT-SYS ownership/redundancy/information-gain governance and current research-only cross-layer status, but the exact latest machine ledgers for all collision groups, contrasts and validation-plan records are not present in the current PASS 4 extraction set.",
+      "required_source": "Exact latest EXT-SYS machine-readable collision/contrast/bridge/validation ledgers.",
+      "current_action": "Bind EXT-SYS at authority-family/methodological-safeguard level; do not reconstruct exact counts or record IDs from memory.",
+      "blocks": "DETAILED_CROSS_LAYER_RECORD_POPULATION",
+      "does_not_block": "Public METHODS statement that ownership/redundancy/information-gain governance exists and remains research-only pending human evidence"
+    },
+    {
+      "gap_id": "GAP-RPE-PUBLIC-01",
+      "area": "RPE-MOD public scientific detail",
+      "severity": "GOVERNANCE_RESTRICTION_NOT_SOURCE_FAILURE",
+      "current_evidence": "RPE PASS 9/10 and Founder Alpha governance support an optional specialized role, routing/safety boundaries and fielding hold.",
+      "required_source": "Separate explicit publication authority permitting detailed pre-pilot RPE scientific content, if later approved.",
+      "current_action": "Suppress detailed construct-family evidence and retain minimal already-authorized role/status/boundary summary.",
+      "blocks": "DETAILED_RPE_PUBLIC_ACTIVATION",
+      "does_not_block": "Internal evidence binding and minimal public status"
+    },
+    {
+      "gap_id": "GAP-HUMAN-01",
+      "area": "Human/cognitive/cross-module evidence",
+      "severity": "SCIENTIFIC_STAGE_BOUNDARY",
+      "current_evidence": "Development and evidence-gathering architectures are documented. Where actual observations are not supplied by the controlling workstream, PASS 4 does not infer their completion.",
+      "required_source": "Evidence-bearing expert, cognitive field, pilot or EXT-SYS co-validation records from the relevant controlled workstream.",
+      "current_action": "Represent E2 evidence only where actually supplied and adjudicated; otherwise label pending.",
+      "blocks": "ANY_UPGRADE_TO_HUMAN_EVIDENCE_OR_PSYCHOMETRIC_CLAIM",
+      "does_not_block": "E0/E1 publication-safe architecture documentation"
+    }
+  ],
+  "non_gaps": [
+    "The 45-reference Core/public library remains intact and deduplicated.",
+    "COM has sufficient current-library anchors for a conservative adjacent-evidence profile.",
+    "MOT has sufficient current-library anchors for a conservative adjacent-evidence profile.",
+    "Shared METHODS has strong current-library anchors.",
+    "The Scientific Base macro-architecture does not require redesign because of these gaps."
+  ],
+  "gate_rule": "The Evidence Binding gate may PASS with declared gaps because the objective is correct reconciliation and binding, not fabrication of a complete literature review where authoritative module source ledgers are absent.",
+  "verdict": "OPEN_GAPS_DECLARED__NO_SILENT_SUBSTITUTION"
+}

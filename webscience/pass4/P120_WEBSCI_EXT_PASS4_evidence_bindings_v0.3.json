@@ -1,0 +1,195 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-BINDINGS",
+  "version": "v0.3",
+  "date": "2026-09-06",
+  "status": "EVIDENCE_BINDINGS_RECONCILED",
+  "binding_rule": "Every public scientific statement must remain traceable to a source authority and an evidence role. External literature can support adjacent mechanisms, comparators and methods; internal authorities can support P-120 development-state and architecture-process claims. Neither may be promoted to a stronger evidence class than the source supports.",
+  "claim_level_rule": {
+    "E0": "External scientific foundation / adjacent science or methodological precedent",
+    "E1": "P-120 internal architecture verification / controlled methodological record",
+    "E2": "Human, cognitive or cross-check evidence actually collected and adjudicated",
+    "E3": "Psychometric validation on respondent samples",
+    "E4": "External replication"
+  },
+  "bindings": [
+    {
+      "binding_id": "B-COM-01",
+      "module_id": "COM-12",
+      "claim": "COM-12 is designed as a distinct communication-process layer rather than a measure of motivation, attachment, sexual self-worth or preference content.",
+      "evidence_level": "E1",
+      "internal_sources": ["COM v0.8", "EXT-SYS ownership/firewall authorities"],
+      "external_sources": ["REF-025", "REF-017", "REF-013"],
+      "external_role": "ADJACENT_COMMUNICATION_AND_SCRIPT_FLEXIBILITY_CONTEXT",
+      "allowed_wording": "Candidate communication architecture with controlled ownership boundaries.",
+      "prohibited_inference": "The four COM domains are validated factors or establish communication competence in a clinical/diagnostic sense."
+    },
+    {
+      "binding_id": "B-COM-02",
+      "module_id": "COM-12",
+      "claim": "COM development has progressed from a 32-item pool to a 24-item Cognitive Candidate with a controlled C1/C2/C3 field and evidence-adjudication protocol.",
+      "evidence_level": "E1",
+      "internal_sources": ["COM v0.3-v0.8", "COM v0.7 exact field implementation", "COM v0.8 evidence adjudication"],
+      "external_sources": ["REF-006", "REF-033"],
+      "external_role": "METHODS_CONTEXT",
+      "allowed_wording": "Field execution ready; field evidence pending.",
+      "prohibited_inference": "C1/C2/C3 have been completed or COM has passed psychometric validation."
+    },
+    {
+      "binding_id": "B-COM-03",
+      "module_id": "COM-12",
+      "claim": "Communication around autonomy and boundaries is kept distinct from internal sexual authorship/autonomy.",
+      "evidence_level": "E1",
+      "internal_sources": ["COM-N vs SELF-SAA firewall", "EXT-SYS ownership authority"],
+      "external_sources": ["REF-040"],
+      "external_role": "BOUNDARY_COMPARATOR",
+      "allowed_wording": "P-120 explicitly tests the distinction between internal authorship and interpersonal negotiation.",
+      "prohibited_inference": "Sexual autonomy support literature validates COM-N or SELF-SAA as P-120 factors."
+    },
+    {
+      "binding_id": "B-MOT-01",
+      "module_id": "MOT-12",
+      "claim": "MOT-12 asks why intimacy is chosen and keeps motivation distinct from desire strength, erotic activation and behavior.",
+      "evidence_level": "E1",
+      "internal_sources": ["MOT v0.1-v0.5", "EXT-SYS ownership/firewall authorities"],
+      "external_sources": ["REF-031", "REF-024", "REF-026", "REF-043"],
+      "external_role": "ADJACENT_MOTIVATION_AND_DESIRE_BOUNDARY",
+      "allowed_wording": "Candidate motivation architecture informed by adjacent motivation/desire research.",
+      "prohibited_inference": "MOT family structure is confirmed or desire is measured inside MOT."
+    },
+    {
+      "binding_id": "B-MOT-02",
+      "module_id": "MOT-12",
+      "claim": "Partner-responsive/communal and autonomy/control-related motive territories are plausible research targets but remain candidate territories.",
+      "evidence_level": "E0_E1",
+      "internal_sources": ["MOT candidate architecture"],
+      "external_sources": ["REF-003", "REF-031", "REF-040"],
+      "external_role": "ADJACENT_MECHANISM",
+      "allowed_wording": "Established adjacent research provides precedents for studying partner-responsive and autonomy-related motivational processes.",
+      "prohibited_inference": "External sources directly validate MOT-C/MOT-P/MOT-V or any MOT total."
+    },
+    {
+      "binding_id": "B-MOT-03",
+      "module_id": "MOT-12",
+      "claim": "The 24-item Cognitive Candidate and expert/CVI/cognitive architecture are development evidence, not psychometric evidence.",
+      "evidence_level": "E1",
+      "internal_sources": ["MOT v0.4 exact 24-item candidate", "MOT v0.5 expert/CVI/cognitive architecture"],
+      "external_sources": ["REF-006", "REF-033"],
+      "external_role": "METHODS_CONTEXT",
+      "allowed_wording": "Pass to execution / evidence pending.",
+      "prohibited_inference": "Content validity, factor structure, reliability or norms have already been demonstrated."
+    },
+    {
+      "binding_id": "B-SELF-01",
+      "module_id": "SELF-12",
+      "claim": "SELF-12 is a candidate sexual self-relation architecture with five CORE and two LIMITED territories, kept separate from general self-esteem, communication, attachment, motivation, embodied awareness and preferences.",
+      "evidence_level": "E1",
+      "internal_sources": ["SELF PASS 1-6", "EXT-SYS ownership/firewall authorities"],
+      "external_sources": [],
+      "external_role": "FULL_EXTERNAL_LEDGER_NOT_YET_BOUND",
+      "allowed_wording": "Internally adjudicated candidate architecture; external evidence coverage is being reconciled.",
+      "prohibited_inference": "The seven territories are validated factors or constitute a SELF Total."
+    },
+    {
+      "binding_id": "B-SELF-02",
+      "module_id": "SELF-12",
+      "claim": "Sexual agency/autonomy is treated as an internal authorship territory and is tested against neighboring communication and temporal-activation owners.",
+      "evidence_level": "E0_E1",
+      "internal_sources": ["SELF-SAA firewall", "EXT-SYS ownership authority"],
+      "external_sources": ["REF-040"],
+      "external_role": "ADJACENT_AUTONOMY_CONTEXT",
+      "allowed_wording": "Sexual autonomy research provides an adjacent scientific anchor for the candidate SAA territory.",
+      "prohibited_inference": "REF-040 establishes the full SELF architecture or validates SAA scoring."
+    },
+    {
+      "binding_id": "B-SELF-03",
+      "module_id": "SELF-12",
+      "claim": "SELF PASS 6 freezes evidence-gathering architecture, not factor structure or final item selection.",
+      "evidence_level": "E1",
+      "internal_sources": ["SELF PASS 6 v0.6"],
+      "external_sources": ["REF-006", "REF-033"],
+      "external_role": "METHODS_CONTEXT",
+      "allowed_wording": "Expert/CVI/cognitive architecture controlled and ready; evidence state remains separately tracked.",
+      "prohibited_inference": "Expert/CVI/cognitive results exist unless separately supplied and adjudicated."
+    },
+    {
+      "binding_id": "B-LIFE-01",
+      "module_id": "LIFE-12/18",
+      "claim": "LIFE is a downstream outcome/spillover layer rather than a psychosexual trait layer and does not encode causal attribution.",
+      "evidence_level": "E1",
+      "internal_sources": ["LIFE PASS 1-6", "EXT-SYS ownership/firewall authorities"],
+      "external_sources": ["REF-029", "REF-020", "REF-008"],
+      "external_role": "OUTCOME_CONTEXT",
+      "allowed_wording": "Candidate outcome/spillover architecture; temporal association/covariation language only.",
+      "prohibited_inference": "Intimacy causes changes in mood, vitality, sleep, work/study engagement or meaning."
+    },
+    {
+      "binding_id": "B-LIFE-02",
+      "module_id": "LIFE-12/18",
+      "claim": "LIFE preserves separate outcome territories and temporal modes and prohibits a LIFE Total.",
+      "evidence_level": "E1",
+      "internal_sources": ["LIFE PASS 2-6", "EXT-SYS PASS 3 information-gain adjudication"],
+      "external_sources": ["REF-029"],
+      "external_role": "TEMPORAL_OUTCOME_CONTEXT",
+      "allowed_wording": "Six CORE candidate outcomes plus limited/auxiliary CCO; GLS treated as an external anchor in the current architecture.",
+      "prohibited_inference": "Six confirmed factors, a global wellness/sexual-energy score, or interchangeable temporal modes."
+    },
+    {
+      "binding_id": "B-LIFE-03",
+      "module_id": "LIFE-12/18",
+      "claim": "The current 45-reference public library does not fully cover the independent external evidence landscape for vitality, sleep, work/study engagement, meaning and cognitive carryover.",
+      "evidence_level": "E0_GAP",
+      "internal_sources": ["WEB-SCIENCE PASS 4 library reconciliation"],
+      "external_sources": ["REF-029", "REF-020", "REF-008"],
+      "external_role": "PARTIAL_ONLY",
+      "allowed_wording": "Selected adjacent anchors are available; module-specific source reconciliation remains required for full external coverage.",
+      "prohibited_inference": "The current 45-reference Core/public library is a complete LIFE literature review."
+    },
+    {
+      "binding_id": "B-RPE-01",
+      "module_id": "RPE-MOD",
+      "claim": "RPE-MOD remains an optional specialized Extended layer under fielding hold and a stricter pre-pilot publication boundary.",
+      "evidence_level": "E1",
+      "internal_sources": ["RPE PASS 9", "RPE PASS 10 v1.1", "Founder Alpha RPE boundary"],
+      "external_sources": ["REF-024", "REF-022", "REF-019", "REF-045"],
+      "external_role": "INTERNAL_CONTEXT_ONLY_FOR_PASS4",
+      "allowed_wording": "Minimal role/status/boundary summary only.",
+      "prohibited_inference": "Detailed construct-family publication, public scoring, norms, archetypes or participant recommendations."
+    },
+    {
+      "binding_id": "B-METHODS-01",
+      "module_id": "METHODS",
+      "claim": "P-120 uses explicit scale-development, measurement, invariance and model-testing principles as methodological references.",
+      "evidence_level": "E0",
+      "internal_sources": ["WEB-SCIENCE PASS 1/2", "module validation architectures"],
+      "external_sources": ["REF-001", "REF-006", "REF-033", "REF-009", "REF-041"],
+      "external_role": "METHODS",
+      "allowed_wording": "Methodological precedents inform the validation programme.",
+      "prohibited_inference": "Following methodological standards itself proves validity."
+    },
+    {
+      "binding_id": "B-EXTSYS-01",
+      "module_id": "METHODS",
+      "claim": "EXT-SYS ownership, redundancy and information-gain audits are methodological safeguards against uncontrolled module expansion.",
+      "evidence_level": "E1",
+      "internal_sources": ["EXT-SYS PASS 1-4"],
+      "external_sources": ["REF-001", "REF-006"],
+      "external_role": "METHODS_CONTEXT",
+      "allowed_wording": "The system uses explicit ownership, redundancy and incremental-information gates during development.",
+      "prohibited_inference": "Desk-stage red-team PASS demonstrates empirical discriminant or incremental validity."
+    },
+    {
+      "binding_id": "B-DYADIC-01",
+      "module_id": "DYADIC",
+      "claim": "Dyadic methodology is a separate future/publication-gated layer and is not inferred from one-person profiles.",
+      "evidence_level": "E0_E1",
+      "internal_sources": ["WEB-SCIENCE hidden DYADIC reservation"],
+      "external_sources": ["REF-023"],
+      "external_role": "DYADIC_METHOD_CONTEXT",
+      "allowed_wording": "Reserved methodological context only; public DYADIC remains hidden.",
+      "prohibited_inference": "Current individual P-120 data establish couple compatibility."
+    }
+  ],
+  "binding_verdict": "PASS_WITH_DECLARED_EXTERNAL_COVERAGE_GAPS",
+  "production_projection": "NOT_YET_ACTIVATED"
+}

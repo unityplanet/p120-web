@@ -1,0 +1,58 @@
+name: P120 WEB-SCIENCE PASS 4A Package
+# controlled package build v0.5
+
+on:
+  push:
+    branches:
+      - 'web-science-ext-pass4-publication-projection'
+    paths:
+      - '.github/workflows/p120-webscience-pass4a-package.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package-pass4a:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify sealed PASS 4A data contracts
+        run: node qa/webscience_pass4a_projection_gate_v0.5.mjs
+      - name: Build full PASS 4A release package
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='P120_WEBSCI_EXT_PASS4A_v0.5_PASS_PACKAGE'
+          mkdir -p "$ROOT/webscience/pass4" "$ROOT/qa" "$ROOT/RELEASE_CONTROL"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json "$ROOT/webscience/pass4/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json "$ROOT/webscience/pass4/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_REPORT_v0.5.md "$ROOT/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_DECISION_v0.5.md "$ROOT/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_QA_RESULT_v0.5.json "$ROOT/RELEASE_CONTROL/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_QA_SUMMARY_v0.5.json "$ROOT/RELEASE_CONTROL/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_MANIFEST_v0.5.json "$ROOT/RELEASE_CONTROL/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_SHA256SUMS_v0.5.txt "$ROOT/RELEASE_CONTROL/"
+          cp qa/webscience_pass4a_projection_gate_v0.5.mjs "$ROOT/qa/"
+          cp webscience/pass4/README.md "$ROOT/PASS4_WORKSTREAM_README.md"
+          printf '%s\n' \
+            'Repository: unityplanet/p120-web' \
+            'Branch: web-science-ext-pass4-publication-projection' \
+            'Baseline: 5295b50d1082e83e6e4e36f26286cdc2ccaca841' \
+            "Package commit: $(git rev-parse HEAD)" \
+            'Production activation: NOT_ACTIVATED' \
+            'Production main mutation: NONE' \
+            'Next gate: PASS 4B — Renderer Activation' > "$ROOT/RELEASE_CONTROL/REPOSITORY_PROVENANCE.txt"
+          find "$ROOT" -type f -print0 | sort -z | xargs -0 sha256sum > "$ROOT/RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt"
+          zip -qr "${ROOT}.zip" "$ROOT"
+          sha256sum "${ROOT}.zip" > "${ROOT}.zip.sha256"
+          cat "${ROOT}.zip.sha256"
+      - name: Upload sealed PASS 4A package
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_EXT_PASS4A_v0.5_PASS_PACKAGE
+          path: |
+            P120_WEBSCI_EXT_PASS4A_v0.5_PASS_PACKAGE.zip
+            P120_WEBSCI_EXT_PASS4A_v0.5_PASS_PACKAGE.zip.sha256
+          retention-days: 30

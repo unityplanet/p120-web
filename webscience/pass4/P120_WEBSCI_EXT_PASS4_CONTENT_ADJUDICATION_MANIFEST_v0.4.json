@@ -1,0 +1,36 @@
+{
+  "standard":"P120",
+  "document_id":"P120-WEBSCI-EXT-004-CONTENT-GATE-MANIFEST",
+  "version":"v0.4",
+  "date":"2026-09-06",
+  "status":"CONTROLLED_GATE_MANIFEST",
+  "repository":"unityplanet/p120-web",
+  "branch":"web-science-ext-pass4-reconciled",
+  "production_baseline":"67d2ae422e422be20eae6bb086c51adf7de173bb",
+  "inputs":[
+    "P120_WEBSCI_EXT_PASS4_content_model_v0.2.json",
+    "P120_WEBSCI_EXT_PASS4_evidence_bindings_v0.3.json",
+    "P120_WEBSCI_EXT_PASS4_module_content_v0.1.json",
+    "P120_WEBSCI_EXT_PASS4_cross_layer_public_questions_v0.1.json",
+    "P120_WEBSCI_EXT_PASS4_scientific_library_reconciliation_v0.3.json",
+    "COM/MOT/SELF/LIFE/RPE controlled module authorities",
+    "EXT-SYS PASS 1-4",
+    "P-120 vNext Cross-Layer Validation Matrix v1.0",
+    "public external literature verified by DOI/publisher/PubMed sources"
+  ],
+  "outputs":[
+    "P120_WEBSCI_EXT_PASS4_literature_expansion_v0.4.json",
+    "P120_WEBSCI_EXT_PASS4_final_module_content_v0.4.json",
+    "P120_WEBSCI_EXT_PASS4_cross_layer_adjudication_v0.4.json",
+    "P120_WEBSCI_EXT_PASS4_evidence_bindings_v0.4.json",
+    "P120_WEBSCI_EXT_PASS4_CONTENT_ADJUDICATION_REPORT_v0.4.md",
+    "P120_WEBSCI_EXT_PASS4_CONTENT_ADJUDICATION_DECISION_v0.4.md",
+    "P120_WEBSCI_EXT_PASS4_CONTENT_ADJUDICATION_MANIFEST_v0.4.json"
+  ],
+  "reference_counts":{"core_fixture":45,"pass4_additions":25,"candidate_global":70},
+  "scientific_no_change":{"measurement":true,"scoring":true,"thresholds":true,"questionnaire":true,"core_source_scores":true,"psychometric_status":true},
+  "software_no_change":{"production_runtime":true,"production_html_css_js":true,"persistence":true,"sessions":true,"report_calculation":true},
+  "claim_holds":["empirical cross-layer discriminant validity","empirical incremental validity","validated system synergy","RPE detailed publication","dyadic public activation"],
+  "next_gate":"WEB-SCIENCE EXT PASS 4 — RU/EN Publication Projection, Renderer Activation & Science QA Preparation",
+  "overall_pass4_state":"OPEN / CONTINUE"
+}

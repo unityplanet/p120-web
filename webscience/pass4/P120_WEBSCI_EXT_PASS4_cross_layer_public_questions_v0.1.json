@@ -1,0 +1,128 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-CROSSLAYER-PUBLIC",
+  "version": "v0.1",
+  "date": "2026-09-04",
+  "status": "PUBLIC_SAFE_RESEARCH_QUESTION_PROJECTION__CONTROLLED_DRAFT__NOT_PRODUCTION",
+  "authority": "EXT-SYS PASS 1-4 public-safe projection",
+  "scientific_boundary": "EXT-SYS PASS 4 established desk-level ownership separation and a human co-validation architecture. It did not demonstrate empirical cross-layer discriminant or incremental validity. All questions below remain research questions until evidence-bearing EXT-SYS PASS 5 adjudication.",
+  "system_result": {
+    "desk_state": "Ten major measurement layers remain distinguishable under current ownership and respondent-operation rules; no desk-stage major-module merge is authorized.",
+    "field_state": "Human co-validation execution remains evidence-gated; no synthetic substitution is permitted.",
+    "synthesis_rule": "Join after independent measurement; keep source measurements visible; no weighted cross-layer composite."
+  },
+  "questions": [
+    {
+      "id":"CLQ-01",
+      "theme_ru":"Активация и мотивация",
+      "theme_en":"Activation and motivation",
+      "question_ru":"Может ли один и тот же уровень эротической активации сопровождаться разными причинами выбора близости — и наоборот?",
+      "question_en":"Can the same level of erotic activation coexist with different reasons for choosing intimacy — and vice versa?",
+      "layers":["P-72","P-72D","MOT-12"],
+      "current_interpretation":"Architecture predicts dissociation between WHAT activates, HOW activation changes over time, and WHY intimacy is chosen.",
+      "empirical_state":"PENDING_HUMAN_COVALIDATION"
+    },
+    {
+      "id":"CLQ-02",
+      "theme_ru":"Авторство выбора и коммуникация",
+      "theme_en":"Choice authorship and communication",
+      "question_ru":"Может ли человек ощущать собственный выбор как внутренне свой, но испытывать трудности с его сообщением и согласованием с другим человеком?",
+      "question_en":"Can a person experience a choice as internally their own while still having difficulty communicating and negotiating it with another person?",
+      "layers":["SELF-12","COM-12"],
+      "current_interpretation":"SELF-SAA and COM-N are intentionally separate ownership territories: internal authorship versus interpersonal negotiation behavior.",
+      "empirical_state":"PENDING_HUMAN_COVALIDATION"
+    },
+    {
+      "id":"CLQ-03",
+      "theme_ru":"Инициатива, агентность и мотив",
+      "theme_en":"Initiative, agency and motive",
+      "question_ru":"Может ли уровень эротической инициативы отличаться от субъективного чувства авторства выбора и от причины, по которой человек соглашается на близость?",
+      "question_en":"Can erotic initiative differ from subjective authorship of choice and from the reason a person agrees to intimacy?",
+      "layers":["P-72D","SELF-12","MOT-12"],
+      "current_interpretation":"Initiative/durability dynamics, internal authorship and motive are separate operations; an Agency Total is therefore prohibited.",
+      "empirical_state":"PENDING_HUMAN_COVALIDATION"
+    },
+    {
+      "id":"CLQ-04",
+      "theme_ru":"Восстановление после напряжения",
+      "theme_en":"Recovery after disruption",
+      "question_ru":"Чем отличается восстановление эротического вовлечения от восстановления разговора — и от более длительного когнитивного carryover после события?",
+      "question_en":"How does restoration of erotic engagement differ from restoration of communication and from longer downstream cognitive carryover after an event?",
+      "layers":["P-72D","COM-12","LIFE-12/18"],
+      "current_interpretation":"Erotic recovery, conversational repair and downstream cognition have distinct target objects despite overlapping time windows.",
+      "empirical_state":"PENDING_HUMAN_COVALIDATION"
+    },
+    {
+      "id":"CLQ-05",
+      "theme_ru":"Привязанность и коммуникация",
+      "theme_en":"Attachment and communication",
+      "question_ru":"Насколько communication patterns добавляют самостоятельную информацию после того, как известен attachment/security context?",
+      "question_en":"How much independent information do communication patterns add after attachment/security context is known?",
+      "layers":["AO-12","COM-12"],
+      "current_interpretation":"Attachment is context/regulation; communication is an interpersonal process. Correlation does not authorize construct collapse.",
+      "empirical_state":"PENDING_HUMAN_COVALIDATION"
+    },
+    {
+      "id":"CLQ-06",
+      "theme_ru":"Самоотношение и поиск подтверждения",
+      "theme_en":"Self-relation and validation seeking",
+      "question_ru":"Отличается ли устойчивое ощущение собственной желанности от выбора близости ради получения или восстановления подтверждения этой желанности?",
+      "question_en":"Is standing appraisal of one's desirability distinct from choosing intimacy to obtain or restore validation of that desirability?",
+      "layers":["SELF-12","MOT-12","AO-12"],
+      "current_interpretation":"Baseline self-appraisal, validation-seeking motive and attachment reassurance are separated; MOT validation content remains a challenge territory.",
+      "empirical_state":"PENDING_HUMAN_COVALIDATION"
+    },
+    {
+      "id":"CLQ-07",
+      "theme_ru":"Телесный отклик и self-consciousness",
+      "theme_en":"Embodied response and self-consciousness",
+      "question_ru":"Может ли высокая чувствительность к собственным телесным сигналам сосуществовать с выраженным evaluative self-focus или sexual self-consciousness?",
+      "question_en":"Can high sensitivity to one's embodied signals coexist with strong evaluative self-focus or sexual self-consciousness?",
+      "layers":["SOMA-24","SELF-12","P-72"],
+      "current_interpretation":"Own-body processing, stimulus-linked activation/simulation and evaluative self-focus are separate respondent operations.",
+      "empirical_state":"PENDING_HUMAN_COVALIDATION"
+    },
+    {
+      "id":"CLQ-08",
+      "theme_ru":"Мотив и downstream outcome",
+      "theme_en":"Motive and downstream outcome",
+      "question_ru":"Отличается ли причина использовать близость для изменения состояния от фактически наблюдаемого эмоционального или когнитивного состояния после неё?",
+      "question_en":"Is choosing intimacy to regulate a state distinct from the emotional or cognitive state actually observed afterward?",
+      "layers":["MOT-12","LIFE-12/18"],
+      "current_interpretation":"Antecedent motive and downstream outcome are explicitly separated; LIFE does not ask respondents to infer causality.",
+      "empirical_state":"PENDING_HUMAN_COVALIDATION"
+    },
+    {
+      "id":"CLQ-09",
+      "theme_ru":"Эротическая динамика и более широкая жизнь",
+      "theme_en":"Erotic dynamics and broader life functioning",
+      "question_ru":"Какие связи существуют между post-event изменениями эротической/relational системы и более широкими состояниями сна, vitality, affect, engagement и meaning?",
+      "question_en":"How are post-event erotic/relational changes associated with broader sleep, vitality, affect, engagement and meaning states?",
+      "layers":["P-72D","LIFE-12/18"],
+      "current_interpretation":"Shared timing does not imply a shared construct; future analysis may test association without causal attribution or target collapse.",
+      "empirical_state":"PENDING_HUMAN_COVALIDATION"
+    },
+    {
+      "id":"CLQ-10",
+      "theme_ru":"Предпочтение и другие слои",
+      "theme_en":"Preference and other layers",
+      "question_ru":"Как специфические preference/reward coordinates соотносятся с активацией, embodied response, коммуникацией и outcomes после того, как каждый источник измерен независимо?",
+      "question_en":"How do specific preference/reward coordinates relate to activation, embodied response, communication and outcomes after each source has been measured independently?",
+      "layers":["RPE-MOD","P-72","SOMA-24","COM-12","LIFE-12/18"],
+      "current_interpretation":"Preference is not activation, bodily response, communication capacity or benefit. RPE detail remains publication-gated; only the join-after-measurement principle is public at this stage.",
+      "empirical_state":"PENDING_HUMAN_COVALIDATION",
+      "publication_note":"Do not expose detailed RPE construct content until a separate RPE publication authority permits it."
+    }
+  ],
+  "prohibited_public_inference": [
+    "validated cross-layer synergy",
+    "causal influence between modules",
+    "P-120 Extended Total",
+    "Agency Total",
+    "Repair Total",
+    "Validation Total",
+    "Embodiment Total",
+    "Wellness Total",
+    "one-person compatibility percentage"
+  ]
+}

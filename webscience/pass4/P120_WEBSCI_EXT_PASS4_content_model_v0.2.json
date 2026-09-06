@@ -1,0 +1,160 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-CONTENT",
+  "version": "v0.2",
+  "date": "2026-09-06",
+  "status": "SCIENTIFIC_CONTENT_MODEL__CONTROLLED_DRAFT__AUTHORITY_RECONCILED",
+  "supersedes_for_active_work": "P120_WEBSCI_EXT_PASS4_content_model_v0.1.json",
+  "design_rule": "Preserve the existing Scientific Base visual grammar and Atlas architecture. PASS 4 adds/reconciles scientific content and evidence objects; it does not create a new design system.",
+  "authority_rule": "Every public claim must resolve to a source authority, evidence state and publication ceiling. WEB-SCIENCE may project authorized scientific content but may not manufacture, strengthen or psychometrically validate a claim.",
+  "scientific_positioning_object": {
+    "fields": [
+      "positioning_id",
+      "title_ru",
+      "title_en",
+      "external_scientific_foundation_ru",
+      "external_scientific_foundation_en",
+      "p120_integration_architecture_ru",
+      "p120_integration_architecture_en",
+      "internal_verification_boundary_ru",
+      "internal_verification_boundary_en",
+      "psychometric_validation_boundary_ru",
+      "psychometric_validation_boundary_en",
+      "claim_ceiling",
+      "source_bindings"
+    ],
+    "rule": "System-level positioning is stored once and reused by public surfaces; module cards do not independently rewrite the scientific status of P-120."
+  },
+  "module_content_object_schema": {
+    "module_id": "string",
+    "base_id": "CORE|EXTENDED|OUTCOMES|METHODS|LIBRARY",
+    "measurement_question": {"ru": "string", "en": "string"},
+    "scientific_role": {"ru": "string", "en": "string"},
+    "construct_architecture": [{"code": "string", "label_ru": "string", "label_en": "string", "state": "CORE|LIMITED|CHALLENGE|AUXILIARY|RESEARCH_ONLY|CANDIDATE"}],
+    "does_not_measure": ["string"],
+    "development_history": [{"stage": "string", "verdict": "string", "public_note_ru": "string", "public_note_en": "string"}],
+    "internal_verification": [{"type": "BOUNDARY|REDUNDANCY|ITEM_AUDIT|OWNERSHIP|INFORMATION_GAIN|SCOPE_EXPOSURE|COGNITIVE_ARCHITECTURE|SAFETY_PRIVACY|COMPUTATIONAL_CONTRACT", "state": "PASS|CONTROLLED|PENDING|HOLD|RESEARCH_ONLY", "claim": "string", "source_binding_ids": ["string"]}],
+    "ownership_boundaries": [{"neighbor": "module_or_construct", "distinction_ru": "string", "distinction_en": "string", "evidence_state": "CONCEPTUAL|COGNITIVE_PLANNED|HUMAN_OBSERVED|EMPIRICAL_PENDING|PSYCHOMETRICALLY_TESTED"}],
+    "current_evidence_state": {
+      "external_foundation": "string",
+      "internal_architecture": "string",
+      "human_cognitive_or_crosscheck": "string",
+      "psychometric": "string",
+      "external_replication": "string"
+    },
+    "next_gate": "string",
+    "limitations": [{"ru": "string", "en": "string"}],
+    "source_bindings": [{"source_id": "string", "authority": "string", "role": "string", "authority_class": "string"}],
+    "claim_bindings": ["claim_id"],
+    "publication": {"visibility": "published|summary_only|roadmap|hidden", "claim_ceiling": "string", "suppressed_fields": ["string"]}
+  },
+  "evidence_state_ladder": [
+    {
+      "level": "E0",
+      "state": "EXTERNAL_SCIENTIFIC_FOUNDATION",
+      "meaning": "Published literature, empirical findings, established constructs, theoretical models and measurement precedents relevant to the measurement territory.",
+      "does_not_mean": "Validation of the integrated P-120 architecture."
+    },
+    {
+      "level": "E1",
+      "state": "INTERNAL_ARCHITECTURE_VERIFICATION",
+      "meaning": "P-120 construct-boundary, redundancy, ownership, item-level, information-gain, scope/exposure, safety/privacy, computational-contract and cross-module verification work.",
+      "does_not_mean": "Reliability, factor validity, norms or population generalizability."
+    },
+    {
+      "level": "E2",
+      "state": "HUMAN_COGNITIVE_OR_CROSSCHECK_EVIDENCE",
+      "meaning": "Evidence-bearing human comprehension/discrimination/field observations or controlled cross-check observations used to adjudicate development hypotheses.",
+      "does_not_mean": "Completed psychometric validation or external replication."
+    },
+    {
+      "level": "E3",
+      "state": "PSYCHOMETRIC_VALIDATION",
+      "meaning": "Quantitative respondent-sample evidence addressing reliability, factor structure, discriminant/incremental validity, stability, invariance or other explicitly tested psychometric properties.",
+      "does_not_mean": "Independent external replication unless separately established."
+    },
+    {
+      "level": "E4",
+      "state": "EXTERNAL_REPLICATION",
+      "meaning": "Independent or externally reproduced evidence under a separately defined replication authority.",
+      "does_not_mean": "A default state of any current module."
+    }
+  ],
+  "claim_object_schema": {
+    "claim_id": "string",
+    "claim_class": "DESCRIPTIVE|WITHIN_MODULE|CROSS_LAYER|METHODOLOGICAL|VALIDATION|LIMITATION",
+    "text_ru": "string",
+    "text_en": "string",
+    "module_ids": ["string"],
+    "construct_codes": ["string"],
+    "evidence_state": "E0|E1|E2|E3|E4",
+    "source_binding_ids": ["string"],
+    "development_gate": "string",
+    "publication_ceiling": "string",
+    "allowed_wording": ["string"],
+    "prohibited_inferences": ["string"],
+    "release_state": "published|summary_only|research_only|hidden"
+  },
+  "source_binding_schema": {
+    "binding_id": "string",
+    "source_id": "string",
+    "source_type": "EXTERNAL_LITERATURE|MODULE_AUTHORITY|EXT_SYS_AUTHORITY|WEB_SCIENCE_AUTHORITY|GOVERNING_POSITIONING|TERMINOLOGY_PUBLICATION_AUTHORITY",
+    "authority": "string",
+    "citation": "string|null",
+    "doi": "string|null",
+    "module_ids": ["string"],
+    "construct_codes": ["string"],
+    "claim_ids": ["string"],
+    "evidence_role": "FOUNDATION|BOUNDARY|OWNERSHIP|REDUNDANCY|INFORMATION_GAIN|COGNITIVE|CROSSCHECK|PSYCHOMETRIC|LIMITATION|PUBLICATION_RULE",
+    "evidence_state": "E0|E1|E2|E3|E4",
+    "development_gate": "string",
+    "public_safe": true
+  },
+  "cross_layer_record_schema": {
+    "bridge_id": "string",
+    "source_dimensions": ["string"],
+    "source_modules": ["string"],
+    "independence_requirement": "string",
+    "distinction": {"ru": "string", "en": "string"},
+    "ownership_rule": "string",
+    "expected_pattern": "string|null",
+    "observed_pattern": "string|null",
+    "crosscheck_state": "NOT_TESTED|DESK_ONLY|OBSERVED_ONCE|REPEATED_OBSERVATION|ADJUDICATED|REJECTED",
+    "human_evidence_state": "NONE|PLANNED|COGNITIVE_OBSERVED|FIELD_OBSERVED|PSYCHOMETRICALLY_TESTED",
+    "replication_or_adjudication_state": "NONE|PENDING|INTERNAL_ADJUDICATION|EXTERNAL_REPLICATION_PENDING|EXTERNALLY_REPLICATED",
+    "incremental_information": {"ru": "string|null", "en": "string|null"},
+    "alternative_explanations": [{"ru": "string", "en": "string"}],
+    "claim_level": "DESCRIPTIVE|RESEARCH_ONLY_CROSS_LAYER|AUTHORIZED_CROSS_LAYER|VALIDATED",
+    "allowed_wording": [{"ru": "string", "en": "string"}],
+    "prohibited_inferences": ["string"],
+    "release_state": "research_only|summary_only|published|hidden",
+    "falsifier_or_revision_condition": {"ru": "string", "en": "string"},
+    "source_binding_ids": ["string"]
+  },
+  "cross_layer_default_rules": {
+    "default_claim_level": "RESEARCH_ONLY_CROSS_LAYER",
+    "default_release_state": "research_only",
+    "join_after_measurement": true,
+    "preserve_source_dimensions": true,
+    "crosscheck_result_does_not_equal_psychometric_validation": true,
+    "no_composite_total": true,
+    "no_one_person_compatibility_claim": true,
+    "no_causal_inference_without_specific_evidence": true
+  },
+  "library_binding_fields": [
+    "binding_id",
+    "reference_id",
+    "citation",
+    "doi",
+    "source_type",
+    "evidence_state",
+    "module_ids",
+    "construct_codes",
+    "claim_ids",
+    "evidence_role",
+    "development_gate",
+    "publication_ceiling"
+  ],
+  "rendering_rule": "Renderer consumes only public-safe projections. Exact item wording, scoring keys, thresholds, restricted adjudication records, sensitive high-risk operational detail and private validation notes remain outside the public payload.",
+  "runtime_rule": "This schema expansion does not itself authorize changes to the production registry or renderer. Runtime activation occurs only after source/evidence binding, RU/EN parity and Science QA gates pass."
+}

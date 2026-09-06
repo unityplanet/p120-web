@@ -1,0 +1,71 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4F-AUTHORITY-CHAIN",
+  "version": "v1.0",
+  "date": "2026-09-06",
+  "authority_model": "FORWARD_ONLY_WITH_EXPLICIT_RUNTIME_SUPERSESSION",
+  "parent_workstream": "WEB-SCIENCE EXT PASS 4",
+  "stages": [
+    {
+      "stage": "PASS 4A",
+      "version": "v0.5",
+      "baseline": "5295b50d1082e83e6e4e36f26286cdc2ccaca841",
+      "closure_commit": "a775606fcbe061f27184c1800cc5f5bf15f84679",
+      "post_package_head": "2759e288fec90064858fb99b137c07e6505f6257",
+      "authority": "RU_EN_PUBLICATION_PROJECTION"
+    },
+    {
+      "stage": "PASS 4B",
+      "version": "v0.6",
+      "baseline": "2759e288fec90064858fb99b137c07e6505f6257",
+      "closure_commit": "9d07a3a047ce4b9a61b6f307e3f791fcdfabaff4",
+      "authority": "CONTROLLED_RENDERER_ACTIVATION"
+    },
+    {
+      "stage": "PASS 4C",
+      "version": "v0.7",
+      "baseline": "9d07a3a047ce4b9a61b6f307e3f791fcdfabaff4",
+      "closure_commit": "211c0f4f0d2601c46bc2d4d283ade84aee474c47",
+      "authority": "CORE45_GLOBAL70_LIBRARY_INTEGRATION"
+    },
+    {
+      "stage": "PASS 4D",
+      "version": "v0.8",
+      "baseline": "211c0f4f0d2601c46bc2d4d283ade84aee474c47",
+      "closure_commit": "89683b678b76dde7df1cdeccc05d6e8541573b5b",
+      "authority": "CLAIM_BOUNDARY_AND_RU_EN_PARITY_QA"
+    },
+    {
+      "stage": "PASS 4E",
+      "version": "v0.9",
+      "baseline": "89683b678b76dde7df1cdeccc05d6e8541573b5b",
+      "closure_commit": "cd71bf494f72090e0a81cfd3702fd6049ab89bb0",
+      "authority": "BROWSER_RESPONSIVE_TYPOGRAPHY_QA"
+    },
+    {
+      "stage": "PASS 4F",
+      "version": "v1.0",
+      "baseline": "cd71bf494f72090e0a81cfd3702fd6049ab89bb0",
+      "closure_commit": "TO_BE_BOUND_BY_CLOSURE_COMMIT",
+      "authority": "CLOSURE_RECONCILIATION"
+    }
+  ],
+  "historical_manifest_rule": "Pass-local hashes remain historical evidence; a later authorized runtime delta does not retroactively rewrite an earlier manifest.",
+  "authorized_supersessions": [
+    {
+      "path": "p120-webscience-pass4b-renderer-v0.6.js",
+      "from_stage": "PASS 4B",
+      "to_stage": "PASS 4C",
+      "reason": "controlled PASS 4C additive integration loader"
+    },
+    {
+      "path": "p120-webscience-pass4c-library-v0.7.js",
+      "from_stage": "PASS 4C",
+      "to_stage": "PASS 4E",
+      "reason": "controlled PASS 4E additive presentation stylesheet loader"
+    }
+  ],
+  "production_main": "UNTOUCHED_BY_PASS4A_TO_PASS4F",
+  "production_merge": "NOT_PERFORMED",
+  "next_gate": "PASS 4G — Mandatory Full PASS Package / Final PASS 4 Sealing"
+}
