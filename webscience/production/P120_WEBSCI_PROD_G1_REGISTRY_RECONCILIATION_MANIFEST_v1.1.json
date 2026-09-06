@@ -3,7 +3,7 @@
   "document_id": "P120-WEBSCI-PROD-G1-REGISTRY-RECONCILIATION-MANIFEST",
   "version": "v1.1",
   "date": "2026-09-06",
-  "status": "REGISTRY_RECONCILIATION_CANDIDATE",
+  "status": "REGISTRY_RECONCILIATION_PASS_CANDIDATE",
   "baseline_main": "0c9a7bdc7470dcc9eb1223ebfc15bb5bcc6f94b4",
   "sealed_science_authority": "d095cae40b33da2118e5090be2a2c837205d8b64",
   "parent_prod_g1_status": "CLOSED_CONTROLLED_SEALED_ACTIVE_IN_PRODUCTION",
@@ -35,12 +35,44 @@
     "runtime": false,
     "route_html": false
   },
+  "premerge_evidence": {
+    "branch_head": "b5f7a5398be7a3646d5601d6ae862c30de49d0bf",
+    "workflow_run": 34037519283,
+    "workflow_conclusion": "success",
+    "registry_reconciliation": {
+      "checks_total": 62,
+      "checks_passed": 62,
+      "checks_failed": 0
+    },
+    "prod_g1_boundary_regression": {
+      "checks_total": 31,
+      "checks_passed": 31,
+      "checks_failed": 0
+    },
+    "pass4a_projection_regression": {
+      "checks_total": 2970,
+      "checks_passed": 2970,
+      "checks_failed": 0
+    },
+    "read_only_clean_repo_check": "PASS",
+    "qa_artifact_id": 9990632746,
+    "qa_artifact_digest": "sha256:e83bed9377a083095040b8943bd138e8aef12782f98d05e88304e7c82602de23",
+    "unresolved_delta_count": 0
+  },
+  "diagnostic_history": {
+    "initial_failure_disposition": "SUPERSEDED_DIAGNOSTIC_ONLY",
+    "finding": "Transcription error in newly authored package copy of frozen v1.0 registry SHA; protected historical file itself remained unchanged.",
+    "scientific_or_runtime_drift_found": false
+  },
   "closure_requirements": {
     "dedicated_qa_pass": true,
     "prod_g1_boundary_regression_pass": true,
     "pass4a_projection_regression_pass": true,
     "current_main_recheck_before_merge": true,
+    "pr_level_governance_pass": true,
+    "postmerge_registry_qa_pass": true,
+    "final_package_verification_required_for_seal": true,
     "unresolved_delta_count_required": 0
   },
-  "closure_status": "HOLD_PENDING_EXECUTABLE_QA"
+  "closure_status": "READY_FOR_CONTROLLED_PR_MERGE"
 }
