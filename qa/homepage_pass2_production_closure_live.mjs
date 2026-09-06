@@ -16,7 +16,9 @@ const add=(id,pass,detail={})=>{checks.push({id,pass:Boolean(pass),...detail});i
 const THEME_KEY='p120_web_theme_v16';
 const routes=[
   {
-    id:'ru',path:'/',title:'P-120 — Исследовательская архитектура',
+    // Empty relative path intentionally preserves the GitHub Pages project prefix.
+    // A leading slash would resolve to the account root rather than /p120-web/.
+    id:'ru',path:'',title:'P-120 — Исследовательская архитектура',
     display:'Не один тест. Не один итоговый балл.',
     body:'взрослого эротического, телесного и реляционного опыта',
     cta:'Что такое P-120',about:'/p120-web/about/'
@@ -56,6 +58,7 @@ try{
       const inner=(await panel.innerText()).trim();
 
       add(`${prefix} / HTTP 2xx`,!!response&&response.status()>=200&&response.status()<300,{status:response?.status(),url});
+      add(`${prefix} / project-prefix route`,new URL(url).pathname.startsWith('/p120-web/'),{pathname:new URL(url).pathname});
       add(`${prefix} / one controlled compression owner`,await page.locator('[data-p120-homepage-pass2="1.0"]').count()===1,{count:await page.locator('[data-p120-homepage-pass2="1.0"]').count()});
       add(`${prefix} / exact display copy`,(await panel.locator('.p120-homepage-pass2__display').innerText()).trim()===route.display);
       add(`${prefix} / human-domain copy`,inner.includes(route.body));
