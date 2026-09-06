@@ -152,7 +152,7 @@
       <div class="p120-system-pass4-boundary"><strong>${c.boundaryTitle}</strong>${c.boundary}</div>
       <a class="p120-system-pass4-more" href="${c.href}">${c.link} →</a>`;
     ritual.insertAdjacentElement('afterend',section);
-    document.documentElement.dataset.p120SystemFunctionalDerivative='pass4-v1.0';
+    document.documentElement.dataset.p120SystemFunctionalDerivativeActive='pass4-v1.0';
     return true;
   }
 
