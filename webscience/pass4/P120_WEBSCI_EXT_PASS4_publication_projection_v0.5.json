@@ -1,0 +1,233 @@
+{
+  "standard": "P120",
+  "schema_id": "P120-WEBSCI-PUBLICATION-PROJECTION-001",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4A-PROJECTION",
+  "version": "v0.5",
+  "date": "2026-09-06",
+  "status": "CONTROLLED_PUBLICATION_DATA_PROJECTION__PASS4A",
+  "production_state": "NOT_ACTIVATED",
+  "source_authority_version": "PASS4 v0.4",
+  "target_routes": ["/science/", "/en/science/"],
+  "projection_rules": {
+    "renderer_consumes_public_safe_fields_only": true,
+    "source_scientific_objects_remain_upstream": true,
+    "ru_en_semantic_parity_required": true,
+    "core_scientific_content_preserved": true,
+    "measurement_mutation_allowed": false,
+    "scoring_mutation_allowed": false,
+    "threshold_mutation_allowed": false,
+    "session_storage_access": "PROHIBITED",
+    "normative_or_diagnostic_claims_allowed": false,
+    "join_after_independent_measurement": true,
+    "extended_total_allowed": false,
+    "dyadic_public_activation": false,
+    "rpe_detailed_public_activation": false
+  },
+  "system_positioning": {
+    "title": {
+      "ru": "Научная основа и собственная измерительная архитектура P-120",
+      "en": "Scientific foundation and P-120's own measurement architecture"
+    },
+    "external_scientific_foundation": {
+      "ru": "Опубликованная научная литература, эмпирические исследования, существующие исследовательские конструкты, теоретические модели и измерительные прецеденты образуют внешнюю научную основу P-120.",
+      "en": "Published scientific literature, empirical studies, existing research constructs, theoretical models and measurement precedents form the external scientific foundation of P-120."
+    },
+    "integration_architecture": {
+      "ru": "P-120 использует собственную интеграционную архитектуру: соседние процессы разграничиваются и измеряются независимо, после чего их результаты могут совместно рассматриваться без сведения к единому суммарному показателю.",
+      "en": "P-120 uses its own integrative architecture: neighboring processes are separated and measured independently, after which their results may be read jointly without collapsing them into a single total."
+    },
+    "internal_verification_boundary": {
+      "ru": "Внутренняя научно-методологическая, вычислительная и межмодульная проверка архитектуры является отдельным классом доказательств и не равна эмпирической психометрической валидации на выборках респондентов.",
+      "en": "Internal scientific-methodological, computational and cross-module verification of the architecture is a separate evidence class and is not equivalent to empirical psychometric validation in respondent samples."
+    },
+    "module_admission_principle": {
+      "ru": "Новый модуль сохраняется только тогда, когда он отвечает на самостоятельный измерительный вопрос и имеет защищаемый путь к дополнительной информации сверх соседних слоёв.",
+      "en": "A new module is retained only when it addresses an independent measurement question and has a defensible path to incremental information beyond neighboring layers."
+    }
+  },
+  "evidence_ladder": [
+    {
+      "level": "E0",
+      "state": "EXTERNAL_SCIENTIFIC_FOUNDATION",
+      "label": {"ru": "Внешняя научная основа", "en": "External scientific foundation"},
+      "meaning": {"ru": "Опубликованные исследования, модели, конструкты и измерительные прецеденты, относящиеся к измеряемой территории.", "en": "Published research, models, constructs and measurement precedents relevant to the measurement territory."},
+      "does_not_mean": {"ru": "Валидацию интегрированной архитектуры P-120.", "en": "Validation of the integrated P-120 architecture."}
+    },
+    {
+      "level": "E1",
+      "state": "INTERNAL_ARCHITECTURE_VERIFICATION",
+      "label": {"ru": "Внутренняя проверка архитектуры", "en": "Internal architecture verification"},
+      "meaning": {"ru": "Проверки границ конструктов, владения измерительной территорией, избыточности, элементов, информационного прироста, scope/exposure, безопасности, вычислительных контрактов и межмодульной непротиворечивости.", "en": "Construct-boundary, ownership, redundancy, item-level, information-gain, scope/exposure, safety, computational-contract and cross-module verification."},
+      "does_not_mean": {"ru": "Надёжность, факторную валидность, нормы или популяционную обобщаемость.", "en": "Reliability, factor validity, norms or population generalizability."}
+    },
+    {
+      "level": "E2",
+      "state": "HUMAN_COGNITIVE_OR_CROSSCHECK_EVIDENCE",
+      "label": {"ru": "Человеческие когнитивные и cross-check наблюдения", "en": "Human cognitive or cross-check evidence"},
+      "meaning": {"ru": "Фактические наблюдения понимания, различения или прохождения, используемые для проверки гипотез разработки.", "en": "Evidence-bearing comprehension, discrimination or field observations used to adjudicate development hypotheses."},
+      "does_not_mean": {"ru": "Завершённую психометрическую валидацию или внешнюю репликацию.", "en": "Completed psychometric validation or external replication."}
+    },
+    {
+      "level": "E3",
+      "state": "PSYCHOMETRIC_VALIDATION",
+      "label": {"ru": "Психометрическая валидация", "en": "Psychometric validation"},
+      "meaning": {"ru": "Количественные данные выборок респондентов о надёжности, факторной структуре, discriminant/incremental validity, стабильности, инвариантности и иных явно проверяемых свойствах.", "en": "Quantitative respondent-sample evidence addressing reliability, factor structure, discriminant/incremental validity, stability, invariance or other explicitly tested properties."},
+      "does_not_mean": {"ru": "Независимую внешнюю репликацию, если она отдельно не установлена.", "en": "Independent external replication unless separately established."}
+    },
+    {
+      "level": "E4",
+      "state": "EXTERNAL_REPLICATION",
+      "label": {"ru": "Внешняя репликация", "en": "External replication"},
+      "meaning": {"ru": "Независимо воспроизведённые результаты под отдельной репликационной authority.", "en": "Independently reproduced evidence under a separately defined replication authority."},
+      "does_not_mean": {"ru": "Текущее состояние какого-либо модуля по умолчанию.", "en": "A default state of any current module."}
+    }
+  ],
+  "bases": [
+    {"base_id": "CORE", "visibility": "published", "label": {"ru": "Основной P-120", "en": "P-120 Core"}, "projection_rule": "PRESERVE_EXISTING_CORE"},
+    {"base_id": "EXTENDED", "visibility": "published", "label": {"ru": "Углублённые исследования", "en": "Extended Research"}, "module_ids": ["COM-12", "MOT-12", "SELF-12", "RPE-MOD"]},
+    {"base_id": "OUTCOMES", "visibility": "summary_only", "label": {"ru": "Исходы и влияние на жизнь", "en": "Outcomes & Life Spillover"}, "module_ids": ["LIFE-12/18"]},
+    {"base_id": "METHODS", "visibility": "published", "label": {"ru": "Методы и валидация", "en": "Methods & Validation"}},
+    {"base_id": "LIBRARY", "visibility": "published", "label": {"ru": "Научная библиотека", "en": "Scientific Library"}},
+    {"base_id": "DYADIC", "visibility": "hidden", "label": {"ru": "Диадические исследования", "en": "Dyadic Research"}, "projection_rule": "NO_PUBLIC_RENDERING_UNTIL_SEPARATE_GATE"}
+  ],
+  "modules": [
+    {
+      "module_id": "COM-12",
+      "base_id": "EXTENDED",
+      "visibility": "summary_only",
+      "public_science_label": {"ru": "Дополнительный исследовательский модуль", "en": "Supplemental Research Module"},
+      "name": {"ru": "Эротическая коммуникация", "en": "Erotic Communication Architecture"},
+      "research_question": {"ru": "Как человек выражает, получает, уточняет, согласовывает и восстанавливает сексуально или эротически значимую коммуникацию?", "en": "How does a person express, receive, clarify, negotiate and repair sexually or erotically meaningful communication?"},
+      "role": {"ru": "Отдельный процессуальный слой межличностной эротической коммуникации. Он не подменяет мотивацию, привязанность, внутреннее авторство выбора, содержание предпочтений или последующие исходы.", "en": "A distinct interpersonal erotic-communication process layer. It does not substitute for motivation, attachment, internal authorship of choice, preference content or downstream outcomes."},
+      "candidate_architecture": [
+        {"code": "COM-E", "label": {"ru": "Выразительная ясность и раскрытие", "en": "Expressive Clarity & Disclosure"}, "state": "CANDIDATE"},
+        {"code": "COM-R", "label": {"ru": "Восприимчивое слушание и уточнение", "en": "Receptive Listening & Clarification"}, "state": "CANDIDATE"},
+        {"code": "COM-N", "label": {"ru": "Согласование различий и границ", "en": "Difference & Boundary Negotiation"}, "state": "CANDIDATE"},
+        {"code": "COM-P", "label": {"ru": "Восстановление и возвращение к коммуникации", "en": "Repair & Re-engagement"}, "state": "CANDIDATE"}
+      ],
+      "development_summary": {"ru": "Пул из 32 элементов сокращён до 24-element Cognitive Candidate; item-level red-team, ownership firewalls и протокол C1/C2/C3 подготовлены на уровне архитектуры. Фактические field-наблюдения остаются обязательными до freeze adjudication.", "en": "A 32-item development pool was reduced to a 24-item Cognitive Candidate; item-level red-team, ownership firewalls and the C1/C2/C3 protocol are controlled at architecture level. Actual field observations remain required before freeze adjudication."},
+      "evidence_state": {"E0": "BOUND", "E1": "CONTROLLED", "E2": "PENDING", "E3": "NOT_ESTABLISHED", "E4": "NOT_ESTABLISHED"},
+      "selected_reference_ids": ["REF-046", "REF-047", "REF-048", "REF-049", "REF-025"],
+      "publication_ceiling": {"ru": "Допустимы кандидатная архитектура, история разработки, методы внутренней проверки, выбранные научные источники и текущий field-gate. Не допускаются подтверждённая факторная структура, общий COM-показатель, production scoring, нормы, диагностика или классификация валидности согласия.", "en": "Candidate architecture, development history, verification methods, selected evidence anchors and the current field gate may be shown. Confirmed factor structure, a COM Total, production scoring, norms, diagnosis or consent-validity classification are not authorized."}
+    },
+    {
+      "module_id": "MOT-12",
+      "base_id": "EXTENDED",
+      "visibility": "summary_only",
+      "public_science_label": {"ru": "Дополнительный исследовательский модуль", "en": "Supplemental Research Module"},
+      "name": {"ru": "Сексуальная мотивация", "en": "Sexual Motivation Architecture"},
+      "research_question": {"ru": "Почему — ради какого ожидаемого психологического результата — человек выбирает сексуально или эротически значимую близость?", "en": "Why — for what anticipated psychological result — does a person choose sexual or erotically significant intimacy?"},
+      "role": {"ru": "Слой причин выбора близости, отделённый от силы желания, триггеров активации, поведения, коммуникационной способности, самоотношения и последующих состояний.", "en": "A layer of reasons for choosing intimacy, separated from desire strength, activation triggers, behavior, communication ability, self-relation and downstream states."},
+      "candidate_architecture": [
+        {"code": "M-H", "label": {"ru": "Гедоническая / усилительная мотивация", "en": "Hedonic / Enhancement"}, "state": "CANDIDATE"},
+        {"code": "M-C", "label": {"ru": "Связь / близость", "en": "Connection / Intimacy"}, "state": "CANDIDATE"},
+        {"code": "M-P", "label": {"ru": "Отклик на партнёра / communal motive", "en": "Partner-Responsive / Communal"}, "state": "CANDIDATE"},
+        {"code": "M-K", "label": {"ru": "Coping / регуляция аффекта", "en": "Coping / Affect Regulation"}, "state": "CANDIDATE"},
+        {"code": "M-A", "label": {"ru": "Избегание / защита отношений", "en": "Avoidance / Relationship Protection"}, "state": "CANDIDATE"},
+        {"code": "M-O", "label": {"ru": "Обязанность / следование внешним ожиданиям", "en": "Obligation / Controlled Compliance"}, "state": "CANDIDATE_HIGH_OVERLAP"},
+        {"code": "M-V", "label": {"ru": "Подтверждение желанности / зависимая самоценность", "en": "Validation / Contingent Self-Worth"}, "state": "CHALLENGE_CONDITIONAL"},
+        {"code": "M0", "label": {"ru": "Низкая доступность мотива / automaticity", "en": "Low Motive Access / Automaticity"}, "state": "AUXILIARY"}
+      ],
+      "development_summary": {"ru": "После evidence/boundary audit сформирован 36-item controlled pool, затем 24-item Cognitive Candidate и 12-item traceable reserve. Экспертная, CVI- и когнитивная программа готовы к исполнению; M-V остаётся challenge territory.", "en": "After evidence/boundary audit, a 36-item controlled pool was reduced to a 24-item Cognitive Candidate plus a 12-item traceable reserve. Expert, CVI and cognitive programmes are ready for execution; M-V remains a challenge territory."},
+      "evidence_state": {"E0": "BOUND", "E1": "CONTROLLED", "E2": "PENDING", "E3": "NOT_ESTABLISHED", "E4": "NOT_ESTABLISHED"},
+      "selected_reference_ids": ["REF-050", "REF-051", "REF-052", "REF-053", "REF-003", "REF-040"],
+      "publication_ceiling": {"ru": "Допустимы только кандидатные мотивационные территории и история разработки. Не допускаются MOT Total, деление мотивов на здоровые/нездоровые, подтверждённая факторная модель, production scoring или заявление о психометрической валидности.", "en": "Candidate motive territories and development evidence only. No MOT Total, healthy/unhealthy motive classification, confirmed factor model, production scoring or psychometric-validity claim."}
+    },
+    {
+      "module_id": "SELF-12",
+      "base_id": "EXTENDED",
+      "visibility": "summary_only",
+      "public_science_label": {"ru": "Дополнительный исследовательский модуль", "en": "Supplemental Research Module"},
+      "name": {"ru": "Отношение к себе как к сексуальному субъекту", "en": "Sexual Self-Relation Architecture"},
+      "research_question": {"ru": "Как человек переживает, оценивает и авторизует себя как сексуального субъекта?", "en": "How does a person experience, evaluate and author themselves as a sexual subject?"},
+      "role": {"ru": "Слой сексуального самоотношения, не сводимый к общей самооценке, образу тела, коммуникации, мотивации, привязанности, телесной чувствительности или предпочтениям.", "en": "A sexual self-relation layer that is not reducible to general self-esteem, body image, communication, motivation, attachment, embodied sensitivity or preferences."},
+      "candidate_architecture": [
+        {"code": "SRG", "label": {"ru": "Сексуальное самоотношение / принятие", "en": "Sexual Self-Regard / Acceptance"}, "state": "CORE_CANDIDATE"},
+        {"code": "DPL", "label": {"ru": "Легитимность желания и удовольствия", "en": "Desire & Pleasure Legitimacy"}, "state": "CORE_CANDIDATE"},
+        {"code": "SAA", "label": {"ru": "Сексуальная агентность / автономия", "en": "Sexual Agency / Autonomy"}, "state": "CORE_CANDIDATE"},
+        {"code": "SSC", "label": {"ru": "Оценочная сосредоточенность на себе в сексуальном контексте", "en": "Sexual Self-Consciousness"}, "state": "CORE_CANDIDATE"},
+        {"code": "SSH", "label": {"ru": "Сексуальный стыд", "en": "Sexual Shame"}, "state": "CORE_CANDIDATE"},
+        {"code": "PSD", "label": {"ru": "Воспринимаемая сексуальная желанность", "en": "Perceived Sexual Desirability"}, "state": "LIMITED"},
+        {"code": "SBA", "label": {"ru": "Оценка собственного тела в сексуальном контексте", "en": "Sexual Body Appraisal"}, "state": "LIMITED"}
+      ],
+      "development_summary": {"ru": "Широкий landscape из 12 территорий сокращён после pruning/ownership adjudication до 5 CORE + 2 LIMITED кандидатной архитектуры и 21-item Cognitive Candidate. Экспертная/CVI/когнитивная программа остаётся evidence-gated.", "en": "A broad 12-territory landscape was pruned and ownership-adjudicated into a 5 CORE + 2 LIMITED candidate architecture and a 21-item Cognitive Candidate. Expert/CVI/cognitive execution remains evidence-gated."},
+      "evidence_state": {"E0": "BOUND", "E1": "CONTROLLED", "E2": "PENDING", "E3": "NOT_ESTABLISHED", "E4": "NOT_ESTABLISHED"},
+      "selected_reference_ids": ["REF-054", "REF-055", "REF-056", "REF-057", "REF-058", "REF-059", "REF-060"],
+      "publication_ceiling": {"ru": "Допустимы 5 CORE + 2 LIMITED кандидатной архитектуры, история разработки, границы и выбранные научные источники. Не допускаются SELF Total, подтверждённая семифакторная модель, нормы или интерпретация участника.", "en": "The 5 CORE + 2 LIMITED candidate architecture, development record, boundaries and selected evidence anchors may be shown. No SELF Total, confirmed seven-factor model, norms or participant interpretation."}
+    },
+    {
+      "module_id": "RPE-MOD",
+      "base_id": "EXTENDED",
+      "visibility": "summary_only",
+      "public_science_label": {"ru": "Дополнительный исследовательский модуль", "en": "Supplemental Research Module"},
+      "name": {"ru": "Специализированные координаты предпочтений и вознаграждения", "en": "Specialized Preference / Reward Architecture"},
+      "research_question": {"ru": "Могут ли специфические координаты предпочтений и вознаграждения добавлять информацию, не дублируя активацию, телесный отклик, коммуникацию, самоотношение или исходы?", "en": "Can specific preference/reward coordinates add information without duplicating activation, embodied response, communication, self-relation or outcomes?"},
+      "role": {"ru": "Опциональный специализированный слой предпочтений и reward architecture под отдельным safety/privacy и publication governance.", "en": "An optional specialized preference/reward layer under separate safety/privacy and publication governance."},
+      "candidate_architecture": [],
+      "development_summary": {"ru": "На текущем этапе публично разрешены только минимальная роль, статус, границы, fielding hold и принцип независимого измерения с последующим совместным чтением.", "en": "At the current stage only the minimal role, status, boundaries, fielding hold and independent-measurement/later-join principle are public."},
+      "evidence_state": {"E0": "NOT_PROJECTED", "E1": "CONTROLLED", "E2": "NOT_ESTABLISHED_FOR_PUBLIC_CLAIMS", "E3": "NOT_ESTABLISHED", "E4": "NOT_ESTABLISHED"},
+      "selected_reference_ids": [],
+      "publication_ceiling": {"ru": "Только существующее минимальное публичное резюме роли, статуса и границ. Детальные семейства конструктов, операционные детали повышенного риска, scoring, нормы, archetypes и respondent-facing interpretation остаются скрыты до отдельного разрешения на публикацию RPE.", "en": "Existing minimal role/status/boundary summary only. Detailed construct families, high-risk operational detail, scoring, norms, archetypes and respondent-facing interpretation remain suppressed until a separate RPE publication authority exists."}
+    },
+    {
+      "module_id": "LIFE-12/18",
+      "base_id": "OUTCOMES",
+      "visibility": "summary_only",
+      "public_science_label": {"ru": "Кандидатный outcome-слой", "en": "Candidate Outcome Layer"},
+      "name": {"ru": "Интеграция близости с остальной жизнью", "en": "Intimacy-Life Integration / Relationship-to-Life Spillover"},
+      "research_question": {"ru": "Какие более широкие аффективные, энергетические, когнитивные, восстановительные, вовлекающие или смысловые состояния наблюдаются вокруг и после близости?", "en": "What broader affective, energetic, cognitive, restorative, engagement or meaning-related states are observed around and after intimacy?"},
+      "role": {"ru": "Отдельный слой исходов и переноса в другие сферы жизни. LIFE измеряет наблюдаемые последующие состояния, а не психосексуальную черту и не причинный эффект близости.", "en": "A separate outcome/spillover layer. LIFE measures observed downstream states, not a psychosexual trait and not a causal effect of intimacy."},
+      "candidate_architecture": [
+        {"code": "PAU", "label": {"ru": "Положительный аффективный подъём", "en": "Positive Affective Uplift"}, "state": "CORE_CANDIDATE"},
+        {"code": "NAL", "label": {"ru": "Негативная аффективная нагрузка", "en": "Negative Affective Load"}, "state": "CORE_CANDIDATE"},
+        {"code": "SV", "label": {"ru": "Субъективная жизненная энергия", "en": "Subjective Vitality"}, "state": "CORE_CANDIDATE"},
+        {"code": "SLP", "label": {"ru": "Качество и начало сна", "en": "Sleep Quality / Initiation"}, "state": "CORE_CANDIDATE"},
+        {"code": "WSE", "label": {"ru": "Вовлечённость в работу / учёбу", "en": "Work / Study Engagement"}, "state": "CORE_CANDIDATE"},
+        {"code": "MLS", "label": {"ru": "Смысл / жизненная значимость", "en": "Meaning / Life Significance"}, "state": "CORE_CANDIDATE"},
+        {"code": "CCO", "label": {"ru": "Когнитивный перенос после события", "en": "Cognitive Carryover"}, "state": "LIMITED_AUXILIARY"},
+        {"code": "GLS", "label": {"ru": "Глобальная удовлетворённость жизнью", "en": "Global Life Satisfaction"}, "state": "EXTERNALIZED_ANCHOR"}
+      ],
+      "development_summary": {"ru": "12-target outcome landscape сокращён до 8 respondent-facing территорий и 6 CORE + CCO limited/auxiliary с GLS как внешним anchor. Временные режимы T0/T1, recent-pattern и global/external-anchor не взаимозаменяемы; LIFE-18 остаётся предпочтительной глубиной разработки.", "en": "A 12-target outcome landscape was reduced to 8 respondent-facing territories and 6 CORE + CCO limited/auxiliary, with GLS externalized. Event/daily T0/T1, recent-pattern and global/external-anchor modes are not interchangeable; LIFE-18 remains the preferred developmental depth."},
+      "evidence_state": {"E0": "BOUND", "E1": "CONTROLLED", "E2": "PENDING", "E3": "NOT_ESTABLISHED", "E4": "NOT_ESTABLISHED"},
+      "selected_reference_ids": ["REF-061", "REF-062", "REF-063", "REF-064", "REF-065", "REF-066", "REF-067", "REF-068"],
+      "publication_ceiling": {"ru": "Допустимы кандидатная архитектура исходов и внешние сопоставительные инструменты только с языком ковариации и временной ассоциации. Не допускаются LIFE Total, причинная атрибуция, обещания продуктивности или здоровья и подтверждённая факторная модель.", "en": "Candidate outcome architecture and external comparators with covariation/temporal-association wording only. No LIFE Total, causal attribution, productivity or health-outcome promise, or confirmed factor model."}
+    }
+  ],
+  "cross_layer": {
+    "visibility": "research_only_summary",
+    "synthesis_rule": "JOIN_AFTER_INDEPENDENT_MEASUREMENT__PRESERVE_SOURCE_COORDINATES__NO_EXTENDED_SUPERSCORE",
+    "empirical_state": {
+      "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+      "empirical_incremental_validity": "NOT_ESTABLISHED",
+      "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+      "causal_cross_layer_effects": "NOT_AUTHORIZED"
+    },
+    "system_statement": {
+      "ru": "P-120 не объединяет слои в единый суммарный показатель. Система заранее разделяет соседние процессы и формулирует проверяемые межслойные вопросы: добавляет ли совместное чтение независимых координат информацию сверх каждого слоя по отдельности. На текущем этапе это исследовательская программа, а не доказанная межмодульная валидность.",
+      "en": "P-120 does not collapse its layers into a single total. It separates neighboring processes in advance and formulates testable cross-layer questions: does joint reading of independent coordinates add information beyond each layer alone? At the current stage this is a research programme, not demonstrated cross-module validity."
+    },
+    "questions": [
+      {"id": "CLQ-01", "theme": {"ru": "Активация и мотивация", "en": "Activation and motivation"}, "question": {"ru": "Могут ли активация, её временная устойчивость и причины выбора близости расходиться?", "en": "Can activation level, temporal durability and reasons for choosing intimacy dissociate?"}, "layers": ["P-72", "P-72D", "MOT-12"], "empirical_state": "PENDING_HUMAN_COVALIDATION"},
+      {"id": "CLQ-02", "theme": {"ru": "Авторство выбора и коммуникация", "en": "Choice authorship and communication"}, "question": {"ru": "Может ли внутреннее авторство сексуального выбора отличаться от способности сообщать и согласовывать этот выбор?", "en": "Can internal authorship of a sexual choice differ from the ability to communicate and negotiate that choice?"}, "layers": ["SELF-12", "COM-12"], "empirical_state": "PENDING_HUMAN_COVALIDATION"},
+      {"id": "CLQ-03", "theme": {"ru": "Инициатива, агентность и мотив", "en": "Initiative, agency and motive"}, "question": {"ru": "Могут ли эротическая инициатива, внутреннее авторство и мотив различаться у одного человека?", "en": "Can erotic initiative, internal authorship and motive differ within the same person?"}, "layers": ["P-72D", "SELF-12", "MOT-12"], "empirical_state": "PENDING_HUMAN_COVALIDATION"},
+      {"id": "CLQ-04", "theme": {"ru": "Восстановление после напряжения", "en": "Recovery after disruption"}, "question": {"ru": "Различимы ли эротическое повторное вовлечение, восстановление коммуникации и последующий когнитивный перенос при пересекающихся временных окнах?", "en": "Are erotic re-engagement, communication repair and downstream cognitive carryover distinguishable despite overlapping time windows?"}, "layers": ["P-72D", "COM-12", "LIFE-12/18"], "empirical_state": "PENDING_HUMAN_COVALIDATION"},
+      {"id": "CLQ-05", "theme": {"ru": "Привязанность и коммуникация", "en": "Attachment and communication"}, "question": {"ru": "Добавляет ли эротическая коммуникация информацию после того, как известен контекст привязанности и безопасности?", "en": "Does sexual/erotic communication add information after attachment/security context is known?"}, "layers": ["AO-12", "COM-12"], "empirical_state": "PENDING_HUMAN_COVALIDATION"},
+      {"id": "CLQ-06", "theme": {"ru": "Самоотношение и поиск подтверждения", "en": "Self-relation and validation seeking"}, "question": {"ru": "Отличается ли устойчивое сексуальное самоотношение от выбора близости ради подтверждения и от успокоения системы привязанности?", "en": "Is standing sexual self-appraisal distinguishable from choosing intimacy for validation and from attachment reassurance?"}, "layers": ["SELF-12", "MOT-12", "AO-12"], "empirical_state": "PENDING_HUMAN_COVALIDATION"},
+      {"id": "CLQ-07", "theme": {"ru": "Телесный отклик и self-consciousness", "en": "Embodied response and self-consciousness"}, "question": {"ru": "Может ли высокая чувствительность к телесным сигналам сосуществовать с выраженной оценочной сосредоточенностью на себе?", "en": "Can embodied signal sensitivity coexist with strong evaluative sexual self-focus?"}, "layers": ["SOMA-24", "SELF-12", "P-72"], "empirical_state": "PENDING_HUMAN_COVALIDATION"},
+      {"id": "CLQ-08", "theme": {"ru": "Мотив и последующий исход", "en": "Motive and downstream outcome"}, "question": {"ru": "Отличается ли выбор близости ради регуляции состояния от состояния, которое затем фактически наблюдается?", "en": "Is choosing intimacy to regulate a state distinct from the downstream state later observed?"}, "layers": ["MOT-12", "LIFE-12/18"], "empirical_state": "PENDING_HUMAN_COVALIDATION"},
+      {"id": "CLQ-09", "theme": {"ru": "Эротическая динамика и более широкая жизнь", "en": "Erotic dynamics and broader life functioning"}, "question": {"ru": "Как post-event изменения эротической и relational системы связаны с аффектом, жизненной энергией, сном, вовлечённостью и смыслом?", "en": "How are post-event erotic/relational changes associated with broader affect, vitality, sleep, engagement and meaning states?"}, "layers": ["P-72D", "LIFE-12/18"], "empirical_state": "PENDING_HUMAN_COVALIDATION"},
+      {"id": "CLQ-10", "theme": {"ru": "Предпочтение и другие слои", "en": "Preference and other layers"}, "question": {"ru": "Добавляют ли специфические координаты предпочтений и вознаграждения информацию после независимого измерения активации, телесного отклика, коммуникации и исходов?", "en": "Do preference/reward coordinates add information after activation, embodied response, communication and outcomes are measured independently?"}, "layers": ["RPE-MOD", "P-72", "SOMA-24", "COM-12", "LIFE-12/18"], "empirical_state": "PENDING_HUMAN_COVALIDATION", "publication_rule": "RPE_DETAIL_SUPPRESSED"}
+    ],
+    "prohibited_public_inferences": ["validated cross-layer synergy", "causal influence between modules", "P-120 Extended Total", "Agency Total", "Repair Total", "Validation Total", "Embodiment Total", "Wellness Total", "one-person compatibility percentage"]
+  },
+  "library_contract": {
+    "core_reference_count": 45,
+    "core_rule": "PRESERVE_EXISTING_CORE_REFERENCE_ARRAY",
+    "pass4_extension_reference_count": 25,
+    "candidate_global_reference_count": 70,
+    "extension_range": "REF-046..REF-070",
+    "count_is_not_validity_metric": true
+  },
+  "pass4a_verdict": "PASS__RU_EN_PUBLICATION_DATA_PROJECTION_ESTABLISHED",
+  "next_gate": "WEB-SCIENCE EXT PASS 4B — Renderer Activation"
+}
