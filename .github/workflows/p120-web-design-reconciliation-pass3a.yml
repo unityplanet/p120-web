@@ -1,0 +1,42 @@
+name: P120 Web Design Reconciliation PASS 3A
+
+on:
+  push:
+    branches:
+      - work/web-design-reconciliation-pass3a
+  pull_request:
+    paths:
+      - 'p120-brand-system-v1.0.css'
+      - 'p120-visual-grammar-v1.0.css'
+      - 'p120-instrument-shell-v1.0.css'
+      - 'qa/web_design_reconciliation_pass3a_gate.mjs'
+      - '.github/workflows/p120-web-design-reconciliation-pass3a.yml'
+      - 'P120_WEB_DESIGN_RECONCILIATION_PASS3A_*.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pass3a-contract:
+    name: PASS 3A shell / grammar / preservation gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Node version
+        run: node --version
+
+      - name: Run PASS 3A gate
+        run: node qa/web_design_reconciliation_pass3a_gate.mjs
+
+      - name: Upload PASS 3A evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEB_DESIGN_PASS3A_QA
+          path: qa-evidence-web-design-pass3a/
+          retention-days: 30
