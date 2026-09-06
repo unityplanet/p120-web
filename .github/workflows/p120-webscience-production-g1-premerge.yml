@@ -47,6 +47,8 @@ jobs:
         run: |
           set -euo pipefail
           ACT_HEAD="$GITHUB_SHA"
+          git config user.name 'P120 Production Gate'
+          git config user.email '57597994+unityplanet@users.noreply.github.com'
           git switch -C prod-candidate origin/main
           git merge --no-ff --no-commit "$ACT_HEAD"
           echo "candidate based on $(git rev-parse origin/main) with activation head $ACT_HEAD"
