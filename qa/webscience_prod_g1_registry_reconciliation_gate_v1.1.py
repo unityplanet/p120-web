@@ -5,7 +5,7 @@ BASE='0c9a7bdc7470dcc9eb1223ebfc15bb5bcc6f94b4'
 SEALED='d095cae40b33da2118e5090be2a2c837205d8b64'
 OLD_REG=Path('P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json')
 NEW_REG=Path('P120_WEBSCI_PRODUCTION_registry_v1.1_2026-09-06.json')
-OLD_REG_SHA='38b706b38fa10d0e7c4db46bd03c4eb870a643829bfa146114c780e44c188e51a'
+OLD_REG_SHA='38b706b38f8f19f60c5917874b8371661340bb0cf30059fe9a7de98d16251f5e'
 PASS4_MANIFEST=Path('webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_MANIFEST_v1.1.json')
 PASS4_PROJECTION=Path('webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json')
 GLOBAL70=Path('webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json')
@@ -30,12 +30,10 @@ ck('historical executable registry exists',OLD_REG.exists())
 ck('historical executable registry SHA256 frozen',OLD_REG.exists() and sha(OLD_REG)==OLD_REG_SHA,sha(OLD_REG) if OLD_REG.exists() else None)
 ck('new governance registry exists',NEW_REG.exists())
 
-# No pre-existing scientific/runtime/public-route file may change in this reconciliation.
 for p in [OLD_REG,RUNTIME,RU,EN,PASS4_MANIFEST,PASS4_PROJECTION,GLOBAL70]:
     diff=git('diff','--quiet',BASE,'HEAD','--',str(p)).returncode
     ck(f'protected pre-existing file unchanged / {p}',diff==0)
 
-# Scope firewall: only additive governance registry package + its QA/workflow may differ from BASE.
 changed=[x for x in git('diff','--name-only',BASE,'HEAD').stdout.splitlines() if x]
 allowed={
  'P120_WEBSCI_PRODUCTION_registry_v1.1_2026-09-06.json',
