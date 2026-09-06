@@ -1,0 +1,55 @@
+{
+  "schema": "p120.homepage.implementation_pass2.source_authority_gate.v1",
+  "document_id": "P120-WEB-HOME-IMP2-SOURCE-001",
+  "version": "1.0",
+  "date": "2026-09-06",
+  "target_surface": "Homepage/Main",
+  "inheritance_mode": "CONTROLLED_COMPRESSION",
+  "source_authority": {
+    "document_id": "P120-ARCH-SYS-001",
+    "version": "v1.0",
+    "pass10_status": "PASS / CLOSED / CONTROLLED / SEALED",
+    "freeze_decision": "FREEZE APPROVED",
+    "authority_state": "FROZEN / CANONICAL SYSTEM AUTHORITY / EFFECTIVE",
+    "package_sha256": "7e389b53a4575df2f3214a3050d029134562d9e9a19514230ecdc51822a22dcd",
+    "controlled_files": 63
+  },
+  "derivative_authority": {
+    "pass8_terminology": "BOUND",
+    "pass9_derivative_mapping": "BOUND",
+    "about_production_baseline": "8437e51b7b862851180e69c4b20ac2741e3bc01e",
+    "about_role": "FULLER PUBLIC ARCHITECTURE DERIVATIVE / ONWARD DESTINATION"
+  },
+  "mandatory_concepts": [
+    "P-120 is a research architecture, not merely one test",
+    "P-120 is multidimensional and not one final score",
+    "adult erotic, embodied and relational experience",
+    "Research Candidate",
+    "explicit onward route to About P-120"
+  ],
+  "permitted_compression": [
+    "measurement",
+    "computation",
+    "interpretation",
+    "validation"
+  ],
+  "prohibited_transfer": [
+    "detailed Core-120 operational identity",
+    "second-order research architecture",
+    "detailed self-governing architecture",
+    "Founder-governed computational research environment",
+    "fixed productivity multiplier",
+    "full validation stack",
+    "universal compatibility percentage",
+    "diagnosis claim",
+    "causal certainty",
+    "scientific evidence authority transfer"
+  ],
+  "surface_authority": {
+    "public_narrative": true,
+    "scientific_evidence_authority": false,
+    "measurement_authority": false,
+    "scoring_authority": false,
+    "governance_authority": false
+  }
+}
