@@ -16,6 +16,16 @@ function ck(id,pass,detail={}){const r={id,pass:Boolean(pass),...detail};checks.
 async function waitBase(page){
   await page.waitForFunction(()=>document.documentElement.dataset.p120ScientificBaseStatus==='pass'&&window.P120ScientificBase?.status?.pass===true,null,{timeout:20000});
 }
+async function waitPass4E(page){
+  await page.waitForFunction(()=>
+    window.P120ScientificBase?.status?.pass===true&&
+    window.P120SciencePublicationRenderer?.status?.pass===true&&
+    window.P120ScienceGlobalLibrary?.status?.pass===true&&
+    document.documentElement.dataset.p120WebsciencePass4eStatus==='pass'&&
+    Boolean(document.querySelector('link[data-p120-webscience-pass4e-loader="v0.9"]')),
+    null,{timeout:20000});
+  await page.evaluate(()=>document.fonts.ready);
+}
 async function selectBase(page,id){
   await page.evaluate(id=>window.P120ScientificBase.setBase(id),id);
   await page.waitForFunction(id=>window.P120ScientificBase?.activeBaseId===id,id,{timeout:10000});
@@ -39,10 +49,15 @@ try{
     const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:45000}).catch(()=>null);
     const tag=`${c.locale}-${c.width}`;
     ck(`${tag}: live document HTTP success`,!!response&&response.status()>=200&&response.status()<400,{status:response?.status()??null,url});
-    let ready=true;
-    try{await waitBase(page);}catch(e){ready=false;}
+    let ready=true;let pass4eReady=true;
+    try{await waitBase(page);}catch{ready=false;}
+    try{await waitPass4E(page);}catch{pass4eReady=false;}
     const snap=await page.evaluate(()=>({
       baseStatus:window.P120ScientificBase?.status||null,
+      pass4bStatus:window.P120SciencePublicationRenderer?.status||null,
+      pass4cStatus:window.P120ScienceGlobalLibrary?.status||null,
+      pass4eStatus:document.documentElement.dataset.p120WebsciencePass4eStatus||null,
+      pass4eLink:document.querySelector('link[data-p120-webscience-pass4e-loader="v0.9"]')?.href||null,
       activeBase:window.P120ScientificBase?.activeBaseId||null,
       registry:window.P120ScientificBase?.registry||null,
       coreRefs:window.P120_SCIENCE?.references?.length??null,
@@ -52,6 +67,7 @@ try{
       storage:[localStorage.getItem('__p120_live_local'),sessionStorage.getItem('__p120_live_session')]
     }));
     ck(`${tag}: Scientific Base ready`,ready&&snap.baseStatus?.pass===true,{status:snap.baseStatus});
+    ck(`${tag}: PASS4B/4C/4E readiness chain`,pass4eReady&&snap.pass4bStatus?.pass===true&&snap.pass4cStatus?.pass===true&&snap.pass4eStatus==='pass',{pass4b:snap.pass4bStatus,pass4c:snap.pass4cStatus,pass4e:snap.pass4eStatus,link:snap.pass4eLink});
     ck(`${tag}: Core default active`,snap.activeBase==='CORE',{activeBase:snap.activeBase});
     ck(`${tag}: Core45 retained`,snap.coreRefs===45,{coreRefs:snap.coreRefs});
     ck(`${tag}: registry measurement/scoring/session boundaries`,snap.registry?.measurement_mutation_allowed===false&&snap.registry?.scoring_mutation_allowed===false&&snap.registry?.session_storage_access==='PROHIBITED',{registry:snap.registry});
@@ -62,12 +78,12 @@ try{
     ck(`${tag}: Scientific Base runtime loaded`,snap.scripts.some(u=>u.includes('/p120-web/p120-scientific-base-runtime-v1.0.js')));
     ck(`${tag}: PASS4B renderer loaded`,snap.scripts.some(u=>u.includes('/p120-web/p120-webscience-pass4b-renderer-v0.6.js')));
     ck(`${tag}: PASS4C library runtime loaded`,snap.scripts.some(u=>u.includes('/p120-web/p120-webscience-pass4c-library-v0.7.js')));
-    ck(`${tag}: PASS4E visual CSS loaded`,snap.styles.some(u=>u.includes('/p120-web/p120-webscience-pass4e-visual-v0.9.css')));
+    ck(`${tag}: PASS4E visual CSS loaded`,snap.pass4eLink?.includes('/p120-web/p120-webscience-pass4e-visual-v0.9.css')&&snap.styles.some(u=>u.includes('/p120-web/p120-webscience-pass4e-visual-v0.9.css')),{pass4eLink:snap.pass4eLink});
     ck(`${tag}: no page errors`,errors.length===0,{errors});
     ck(`${tag}: no failed project requests`,failedRequests.filter(x=>x.url.includes('/p120-web/')).length===0,{failedRequests});
     ck(`${tag}: all project responses successful`,responses.filter(x=>x.status>=400).length===0,{bad:responses.filter(x=>x.status>=400)});
 
-    if(ready){
+    if(ready&&pass4eReady){
       const dyadic=await page.locator('[data-p120-science-base="DYADIC"], [data-p120-science-module="DYADIC"]').count();
       ck(`${tag}: DYADIC control/module absent`,dyadic===0,{dyadic});
 
@@ -126,14 +142,13 @@ try{
     await ctx.close();
   }
 
-  // Live deep-link contract on both locales.
   for(const locale of ['RU','EN']){
     const route=locale==='RU'?'science/':'en/science/';
     const ctx=await browser.newContext({viewport:{width:1440,height:1000}});
     const page=await ctx.newPage();
     const response=await page.goto(`${BASE}${route}?science=extended&module=COM-12`,{waitUntil:'domcontentloaded',timeout:45000}).catch(()=>null);
     ck(`${locale} deep-link: HTTP success`,!!response&&response.status()<400,{status:response?.status()??null});
-    let ready=true;try{await waitBase(page);}catch{ready=false;}
+    let ready=true;try{await waitPass4E(page);}catch{ready=false;}
     const state=await page.evaluate(()=>({base:window.P120ScientificBase?.activeBaseId,module:window.P120ScientificBase?.activeModuleId}));
     ck(`${locale} deep-link: runtime ready`,ready);
     ck(`${locale} deep-link: EXTENDED selected`,state.base==='EXTENDED',{state});
@@ -143,7 +158,7 @@ try{
   }
 }finally{await browser.close();}
 
-const result={document_id:'P120-WEBSCI-PROD-G1-LIVE-SMOKE',version:'v1.0',date:'2026-09-06',production_base:BASE,status:failures.length?'FAIL':'PASS',checks_total:checks.length,checks_passed:checks.length-failures.length,checks_failed:failures.length,qa_semantics:'SEALED SCIENTIFIC BASE / PASS4C SELECTOR-AND-STATE CONTRACTS; NO WHOLE-PAGE KEYWORD HEURISTICS',checks,failures};
+const result={document_id:'P120-WEBSCI-PROD-G1-LIVE-SMOKE',version:'v1.0',date:'2026-09-06',production_base:BASE,status:failures.length?'FAIL':'PASS',checks_total:checks.length,checks_passed:checks.length-failures.length,checks_failed:failures.length,qa_semantics:'SEALED SCIENTIFIC BASE / PASS4C / PASS4E READY-STATE CONTRACTS; NO WHOLE-PAGE KEYWORD HEURISTICS',checks,failures};
 fs.writeFileSync(path.join(OUT,'P120_WEBSCI_PROD_G1_LIVE_SMOKE_v1.0.json'),JSON.stringify(result,null,2)+'\n');
 console.log(JSON.stringify({status:result.status,checks_total:result.checks_total,checks_passed:result.checks_passed,checks_failed:result.checks_failed},null,2));
 if(failures.length)process.exit(1);
