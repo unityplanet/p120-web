@@ -1,0 +1,335 @@
+name: P120 WEB-SCIENCE PASS 4B Renderer Activation Seal
+
+on:
+  push:
+    branches:
+      - 'web-science-ext-pass4b-renderer-activation'
+    paths:
+      - '.github/workflows/p120-webscience-pass4b-seal.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seal-pass4b:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Activate exact additive PASS 4B loader and verify protected scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+
+          BASE='2759e288fec90064858fb99b137c07e6505f6257'
+          runtime_path=Path('p120-scientific-base-runtime-v1.0.js')
+          bootstrap=r"""
+
+          /* WEB-SCIENCE EXT PASS 4B — controlled publication-renderer loader.
+             Existing Scientific Base v1.0 logic above remains the Core runtime authority. */
+          (()=>{
+            'use strict';
+            const dedicated=/(?:^|\/)(?:en\/)?science\/?(?:index\.html)?$/i.test(location.pathname);
+            if(!dedicated)return;
+            if(document.querySelector('[data-p120-webscience-pass4b-loader]'))return;
+            const owner=document.currentScript;
+            const ownerUrl=owner?.src||new URL('p120-scientific-base-runtime-v1.0.js',location.href).href;
+            const script=document.createElement('script');
+            script.src=new URL('p120-webscience-pass4b-renderer-v0.6.js?v=websci4b06',ownerUrl).href;
+            script.async=false;
+            script.dataset.p120WebsciencePass4bLoader='v0.6';
+            document.head.appendChild(script);
+          })();
+          """
+          baseline=subprocess.check_output(['git','show',f'{BASE}:p120-scientific-base-runtime-v1.0.js'],text=True)
+          current=runtime_path.read_text(encoding='utf-8')
+          expected=baseline.rstrip()+bootstrap
+          if current==baseline:
+              runtime_path.write_text(expected,encoding='utf-8')
+              current=expected
+          if current!=expected:
+              raise SystemExit('Shared Scientific Base runtime diverged outside the exact PASS 4B additive loader')
+
+          protected=[
+            'science/index.html','en/science/index.html',
+            'index.html','en/index.html','system/index.html','en/system/index.html',
+            'p120-session-contract-v1.0.js','p120-submission-intake-v1.0.js',
+            'manual-report-handoff-v1.0.js','p120-en-science-localization-runtime-v1.0.js',
+            'P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json',
+            'webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json',
+            'webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json'
+          ]
+          drift=[]
+          for path in protected:
+              now=Path(path).read_text(encoding='utf-8')
+              before=subprocess.check_output(['git','show',f'{BASE}:{path}'],text=True)
+              if now!=before: drift.append(path)
+          if drift:
+              raise SystemExit('PASS 4B protected-contract drift: '+', '.join(drift))
+
+          renderer=Path('p120-webscience-pass4b-renderer-v0.6.js').read_text(encoding='utf-8')
+          for token in ('localStorage','sessionStorage','P120_SESSION_KEY','indexedDB','window.P120_INSTRUMENT'):
+              if token in renderer:
+                  raise SystemExit(f'PASS 4B renderer contains prohibited runtime token: {token}')
+          required=(
+              'P120-WEBSCI-PUBLICATION-PROJECTION-001',
+              'P120-WEBSCI-GLOBAL-LIBRARY-PROJECTION-001',
+              'data-p120-rpe-detail="suppressed"',
+              'research_only_summary',
+              'NOT_ESTABLISHED',
+              'NOT_AUTHORIZED',
+              'data-p120-global-reference'
+          )
+          for token in required:
+              if token not in renderer:
+                  raise SystemExit(f'PASS 4B renderer contract missing token: {token}')
+
+          print('PASS 4B protected scope: PASS')
+          print('Shared runtime delta: exact additive loader only')
+          print('Production main: untouched')
+          PY
+
+      - name: Verify PASS 4A data authority remains sealed
+        run: node qa/webscience_pass4a_projection_gate_v0.5.mjs
+
+      - name: Verify PASS 4B JavaScript syntax and isolation
+        shell: bash
+        run: |
+          node --check p120-scientific-base-runtime-v1.0.js
+          node --check p120-webscience-pass4b-renderer-v0.6.js
+          node --check qa/webscience_pass4b_renderer_gate_v0.6.mjs
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start local P-120 site
+        run: |
+          python3 -m http.server 4179 --bind 127.0.0.1 >/tmp/p120-webscience-pass4b-http.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:4179/science/ >/dev/null
+          curl -fsS http://127.0.0.1:4179/en/science/ >/dev/null
+
+      - name: Run independent RU/EN PASS 4B browser gate
+        run: node qa/webscience_pass4b_renderer_gate_v0.6.mjs
+
+      - name: Build controlled PASS 4B closure records
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, hashlib, textwrap
+
+          qa_path=Path('qa-evidence-webscience-pass4b/P120_WEBSCI_EXT_PASS4_PASS4B_QA_RESULT_v0.6.json')
+          qa=json.loads(qa_path.read_text(encoding='utf-8'))
+          if qa.get('status')!='PASS' or qa.get('checks_failed')!=0:
+              raise SystemExit('PASS 4B closure refused: QA is not PASS')
+
+          out=Path('webscience/pass4')
+          (out/'P120_WEBSCI_EXT_PASS4_PASS4B_QA_RESULT_v0.6.json').write_text(
+              json.dumps(qa,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          summary={
+            'document_id':'P120-WEBSCI-EXT-004-PASS4B-QA-SUMMARY',
+            'version':'v0.6',
+            'date':'2026-09-06',
+            'status':'PASS',
+            'checks_total':qa['checks_total'],
+            'checks_passed':qa['checks_passed'],
+            'checks_failed':0,
+            'gate':'PASS 4B — Renderer Activation',
+            'activation_scope':'CONTROLLED_BRANCH_PRE_PRODUCTION',
+            'global_library_rendering':'SEPARATE_EXTENSION_LAYER_ACTIVE__FULL_INTEGRATION_DEFERRED_TO_PASS_4C',
+            'next_gate':'PASS 4C — Core-45 / Global-70 Library Integration'
+          }
+          (out/'P120_WEBSCI_EXT_PASS4_PASS4B_QA_SUMMARY_v0.6.json').write_text(
+              json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          report=textwrap.dedent(f"""# P-120 WEB-SCIENCE EXT PASS 4B — Renderer Activation
+          
+          **Document ID:** P120-WEBSCI-EXT-004-PASS4B-REPORT  
+          **Version:** v0.6  
+          **Date:** 2026-09-06  
+          **Status:** PASS / CLOSED / CONTROLLED  
+          **Parent PASS:** WEB-SCIENCE EXT PASS 4 remains OPEN.
+          
+          ## Scope
+          PASS 4B activates the sealed PASS 4A RU/EN public-safe publication projection in the dedicated Scientific Base renderer on the controlled pre-production branch. It does not merge to production main and does not modify questionnaire content, measurement, scoring, thresholds, respondent sessions, persistence or report calculations.
+          
+          ## Renderer architecture
+          - Existing `p120-scientific-base-runtime-v1.0.js` Core logic is preserved byte-for-byte relative to the PASS 4A baseline and receives one exact additive loader only.
+          - New `p120-webscience-pass4b-renderer-v0.6.js` consumes the PASS 4A publication projection and Global Library projection.
+          - Fail-closed validation prevents activation if schema, visibility, E3/E4, RPE, DYADIC, cross-layer or Core45/Global70 contracts drift.
+          - RU and EN use the same projection identity and renderer logic.
+          
+          ## Activated surfaces
+          - Global scientific positioning.
+          - EXTENDED: COM-12, MOT-12, SELF-12 and minimal RPE-MOD projection.
+          - OUTCOMES: LIFE-12/18 projection.
+          - METHODS: E0-E4 evidence ladder and ten research-only cross-layer questions.
+          - LIBRARY: separate 25-reference extension layer is rendered while the Core 45-reference fixture remains intact.
+          
+          ## PASS 4C boundary
+          PASS 4B proves that the renderer can display the separate extension layer without rewriting Core. PASS 4C remains necessary to perform the full Core-45 / Global-70 library integration contract: unified library navigation, deduplication/reconciliation against Core identity, reference-role binding and final integrated-library QA.
+          
+          ## Scientific boundaries retained
+          COM-12, MOT-12, SELF-12, RPE-MOD and LIFE-12/18 remain `summary_only`. RPE detailed constructs and its detailed public reference payload remain suppressed. DYADIC remains hidden. E3 psychometric validation and E4 replication are not established. Cross-layer discriminant validity and incremental validity are not established; validated synergy and causal cross-layer effects remain unauthorized. No Extended super-score is created.
+          
+          ## QA
+          Independent RU/EN desktop/mobile browser gate: **{qa['checks_passed']}/{qa['checks_total']} PASS; failed = 0**.
+          
+          ## No-change declaration
+          Measurement = NONE · Scoring = NONE · Thresholds = NONE · Respondent sessions = NONE · Persistence = NONE · Report calculations = NONE · Production main = NONE · Scientific status upgrade = NONE.
+          
+          ## Verdict
+          **PASS / CONTROLLED RU-EN SCIENTIFIC RENDERER ACTIVATED / CLAIM BOUNDARIES PRESERVED / READY FOR PASS 4C.**
+          
+          Next authorized gate: **WEB-SCIENCE EXT PASS 4C — Core-45 / Global-70 Library Integration**.
+          """)
+          (out/'P120_WEBSCI_EXT_PASS4_PASS4B_REPORT_v0.6.md').write_text(report,encoding='utf-8')
+
+          decision=textwrap.dedent("""# P-120 WEB-SCIENCE EXT PASS 4B — Decision Record
+          
+          **Decision:** CLOSE PASS 4B / ADVANCE TO PASS 4C  
+          **Version:** v0.6  
+          **Date:** 2026-09-06
+          
+          The PASS 4A public-safe scientific projection is now executable in the controlled RU/EN Scientific Base renderer. Activation is additive and fail-closed. Core scientific content remains intact; respondent and scoring runtimes are untouched.
+          
+          RPE remains minimal and publication-gated. DYADIC remains hidden. Cross-layer content remains research-only. The 25-reference library extension is rendered as a separate layer without modifying the Core-45 fixture; unified Global-70 library integration remains the next gate.
+          
+          **Verdict:** PASS / RENDERER ACTIVATION ESTABLISHED.
+          """)
+          (out/'P120_WEBSCI_EXT_PASS4_PASS4B_DECISION_v0.6.md').write_text(decision,encoding='utf-8')
+
+          files=[
+            'p120-scientific-base-runtime-v1.0.js',
+            'p120-webscience-pass4b-renderer-v0.6.js',
+            'webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json',
+            'webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json',
+            'qa/webscience_pass4b_renderer_gate_v0.6.mjs',
+            'webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_QA_RESULT_v0.6.json',
+            'webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_QA_SUMMARY_v0.6.json',
+            'webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_REPORT_v0.6.md',
+            'webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_DECISION_v0.6.md'
+          ]
+          entries=[]
+          for f in files:
+              data=Path(f).read_bytes()
+              entries.append({'path':f,'sha256':hashlib.sha256(data).hexdigest()})
+
+          manifest={
+            'standard':'P120',
+            'document_id':'P120-WEBSCI-EXT-004-PASS4B-MANIFEST',
+            'version':'v0.6',
+            'date':'2026-09-06',
+            'status':'PASS4B_CLOSED_CONTROLLED',
+            'branch':'web-science-ext-pass4b-renderer-activation',
+            'baseline_commit':'2759e288fec90064858fb99b137c07e6505f6257',
+            'production_main_mutated':False,
+            'production_merge':'NOT_PERFORMED',
+            'renderer_activation':'CONTROLLED_BRANCH_PRE_PRODUCTION',
+            'global_library_extension_rendered_separately':True,
+            'full_global_library_integration':'DEFERRED_TO_PASS_4C',
+            'files':entries,
+            'next_gate':'PASS 4C — Core-45 / Global-70 Library Integration'
+          }
+          (out/'P120_WEBSCI_EXT_PASS4_PASS4B_MANIFEST_v0.6.json').write_text(
+              json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          (out/'P120_WEBSCI_EXT_PASS4_PASS4B_SHA256SUMS_v0.6.txt').write_text(
+              '\n'.join(f"{e['sha256']}  {e['path']}" for e in entries)+'\n',encoding='utf-8')
+
+          readme=out/'README.md'
+          text=readme.read_text(encoding='utf-8')
+          marker='## PASS 4B — Renderer Activation closure'
+          if marker not in text:
+              text=text.rstrip()+textwrap.dedent(f"""
+          
+          {marker}
+          
+          **Status:** PASS / CLOSED / CONTROLLED / v0.6  
+          **Renderer:** activated on `web-science-ext-pass4b-renderer-activation` only.  
+          **QA:** {qa['checks_passed']}/{qa['checks_total']} PASS; failed = 0.  
+          **Production main:** untouched.  
+          **Global Library:** 25-reference extension renders separately; unified Core-45 / Global-70 integration remains PASS 4C.
+          
+          **Next gate:** WEB-SCIENCE EXT PASS 4C — Core-45 / Global-70 Library Integration.
+          """)
+              readme.write_text(text,encoding='utf-8')
+          print(json.dumps(summary,ensure_ascii=False))
+          PY
+
+      - name: Commit controlled PASS 4B closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "P120 Research System"
+          git config user.email "57597994+unityplanet@users.noreply.github.com"
+          git add \
+            p120-scientific-base-runtime-v1.0.js \
+            p120-webscience-pass4b-renderer-v0.6.js \
+            qa/webscience_pass4b_renderer_gate_v0.6.mjs \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_QA_RESULT_v0.6.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_QA_SUMMARY_v0.6.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_REPORT_v0.6.md \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_DECISION_v0.6.md \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_MANIFEST_v0.6.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_SHA256SUMS_v0.6.txt \
+            webscience/pass4/README.md
+          git commit -m "WEB-SCIENCE PASS 4B: close controlled renderer activation"
+          git push origin HEAD:web-science-ext-pass4b-renderer-activation
+
+      - name: Build sealed PASS 4B package
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='P120_WEBSCI_EXT_PASS4B_v0.6_PASS_PACKAGE'
+          mkdir -p "$ROOT/webscience/pass4" "$ROOT/qa" "$ROOT/runtime" "$ROOT/RELEASE_CONTROL" "$ROOT/qa-evidence"
+          cp p120-scientific-base-runtime-v1.0.js "$ROOT/runtime/"
+          cp p120-webscience-pass4b-renderer-v0.6.js "$ROOT/runtime/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json "$ROOT/webscience/pass4/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json "$ROOT/webscience/pass4/"
+          cp qa/webscience_pass4b_renderer_gate_v0.6.mjs "$ROOT/qa/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_REPORT_v0.6.md "$ROOT/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_DECISION_v0.6.md "$ROOT/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_QA_RESULT_v0.6.json "$ROOT/RELEASE_CONTROL/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_QA_SUMMARY_v0.6.json "$ROOT/RELEASE_CONTROL/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_MANIFEST_v0.6.json "$ROOT/RELEASE_CONTROL/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_SHA256SUMS_v0.6.txt "$ROOT/RELEASE_CONTROL/"
+          cp webscience/pass4/README.md "$ROOT/PASS4_WORKSTREAM_README.md"
+          cp -r qa-evidence-webscience-pass4b/screenshots "$ROOT/qa-evidence/"
+          printf '%s\n' \
+            'Repository: unityplanet/p120-web' \
+            'Branch: web-science-ext-pass4b-renderer-activation' \
+            'PASS 4A parent head: 2759e288fec90064858fb99b137c07e6505f6257' \
+            "PASS 4B closure commit: $(git rev-parse HEAD)" \
+            'Production main mutation: NONE' \
+            'Production merge: NOT_PERFORMED' \
+            'Global Library extension: rendered as separate 25-reference layer' \
+            'Full Core-45 / Global-70 integration: DEFERRED_TO_PASS_4C' \
+            'Next gate: PASS 4C — Core-45 / Global-70 Library Integration' > "$ROOT/RELEASE_CONTROL/REPOSITORY_PROVENANCE.txt"
+          find "$ROOT" -type f -print0 | sort -z | xargs -0 sha256sum > "$ROOT/RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt"
+          zip -qr "${ROOT}.zip" "$ROOT"
+          sha256sum "${ROOT}.zip" > "${ROOT}.zip.sha256"
+          cat "${ROOT}.zip.sha256"
+
+      - name: Upload PASS 4B package and QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_EXT_PASS4B_v0.6_PASS_PACKAGE
+          path: |
+            P120_WEBSCI_EXT_PASS4B_v0.6_PASS_PACKAGE.zip
+            P120_WEBSCI_EXT_PASS4B_v0.6_PASS_PACKAGE.zip.sha256
+            qa-evidence-webscience-pass4b/
+          retention-days: 30
