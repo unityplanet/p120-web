@@ -1,0 +1,123 @@
+name: P120 Homepage Implementation PASS 2 QA
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'homepage/**'
+      - 'mobile-session-resume-v1.0.js'
+      - 'qa/homepage_pass2_*'
+      - '.github/workflows/p120-homepage-pass2-qa.yml'
+      - 'P120_HOMEPAGE_IMPLEMENTATION_PASS2_*'
+  push:
+    branches: [main]
+    paths:
+      - 'homepage/**'
+      - 'mobile-session-resume-v1.0.js'
+      - 'qa/homepage_pass2_*'
+      - '.github/workflows/p120-homepage-pass2-qa.yml'
+      - 'P120_HOMEPAGE_IMPLEMENTATION_PASS2_*'
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    name: Source authority + derivative + render + cross-regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: JavaScript syntax preflight
+        run: |
+          node --check homepage/homepage-architecture-pass2.js
+          node --check mobile-session-resume-v1.0.js
+          node --check qa/homepage_pass2_source_authority_gate.mjs
+          node --check qa/homepage_pass2_static.mjs
+          node --check qa/homepage_pass2_render.mjs
+
+      - name: Frozen source-authority gate
+        run: node qa/homepage_pass2_source_authority_gate.mjs
+
+      - name: Controlled-compression static gate
+        run: node qa/homepage_pass2_static.mjs
+
+      - name: Existing build/static conformance
+        run: python3 qa/check_build.py
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start local root and GitHub-Pages-prefix sites
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/p120-home-pass2-root.log 2>&1 &
+          python3 -m http.server 4174 --bind 127.0.0.1 --directory .. >/tmp/p120-home-pass2-prefix.log 2>&1 &
+          sleep 2
+
+      - name: Homepage PASS 2 responsive/render regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/homepage_pass2_render.mjs
+
+      - name: PASS 5.3 post-PASS3 visual/session reconciliation
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173
+        run: node qa/pass53_postpass3_visual_reconciliation.mjs
+
+      - name: PASS 5.3 current About-route topology reconciliation
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173
+        run: node qa/pass53_brand_unification_about_reconciled.mjs
+
+      - name: Main quick locale/theme regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/main_quick_locale_theme_patch3_pass2_reconciled.mjs
+
+      - name: Mobile quick chapter regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/mobile_quick_chapter_navigation_pass2.mjs
+
+      - name: Mobile session resume regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/mobile_session_resume_patch2_pass2.mjs
+
+      - name: Global header code integrity
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173
+        run: node qa/global_header_code_integrity_pass2.mjs
+
+      - name: Global header hardening
+        env:
+          P120_QA_BASE: http://127.0.0.1:4173
+        run: node qa/global_header_code_hardening_pass21.mjs
+
+      - name: Footer presentation regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/footer_link_presentation_correction_pass1.mjs
+
+      - name: Upload Homepage PASS 2 QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_HOMEPAGE_IMPLEMENTATION_PASS2_QA
+          path: |
+            qa-evidence-homepage-pass2
+            qa-artifacts/pass53-postpass3
+            qa-artifacts/pass53-about-reconciled
+            qa-artifacts/main-quick-locale-theme-patch3-pass2-reconciled
+            qa-artifacts/mobile-quick-chapters-pass2
+            qa-artifacts/mobile-session-resume-patch2-pass2
+            qa-artifacts/header-code-pass2
+            qa-artifacts/header-code-pass21
+            qa-artifacts/footer-link-correction-pass1
+          retention-days: 30
