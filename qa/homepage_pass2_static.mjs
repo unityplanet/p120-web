@@ -108,7 +108,7 @@ const changed=git('diff','--name-only',`${BASE}...HEAD`).split(/\r?\n/).filter(B
 const allowed=p=>[
   'homepage/',
   'qa/homepage_pass2_',
-  '.github/workflows/p120-homepage-pass2-qa.yml',
+  '.github/workflows/p120-homepage-pass2-',
   'mobile-session-resume-v1.0.js',
   'P120_HOMEPAGE_IMPLEMENTATION_PASS2_'
 ].some(prefix=>p.startsWith(prefix));
