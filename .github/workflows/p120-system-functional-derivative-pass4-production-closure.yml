@@ -1,0 +1,120 @@
+name: P120 System PASS 4 Final Production Closure QA
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'qa/system_functional_derivative_pass4_production_closure_live.mjs'
+      - '.github/workflows/p120-system-functional-derivative-pass4-production-closure.yml'
+
+permissions:
+  contents: read
+  deployments: read
+
+jobs:
+  final-production-closure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      P120_PRODUCTION_BASE: https://unityplanet.github.io/p120-web/
+      P120_EXPECTED_PRODUCTION_SHA: 43c224e081a478ec78a9ed850da7e6cfb865f4f7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify QA branch is based on exact production application SHA
+        run: |
+          set -euo pipefail
+          git merge-base --is-ancestor "$P120_EXPECTED_PRODUCTION_SHA" HEAD
+          test "$(git rev-parse main 2>/dev/null || git rev-parse origin/main)" = "$P120_EXPECTED_PRODUCTION_SHA"
+
+      - name: Syntax preflight
+        run: |
+          node --check p120-system-route-guard-v1.0.js
+          node --check qa/system_functional_derivative_pass4_static.mjs
+          node --check qa/system_functional_derivative_pass4_render.mjs
+          node --check qa/system_functional_derivative_pass4_production_closure_live.mjs
+
+      - name: Post-merge static authority and runtime firewall
+        run: node qa/system_functional_derivative_pass4_static.mjs
+
+      - name: Existing static build conformance
+        run: python3 qa/check_build.py
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start local P-120 sites
+        run: |
+          python3 -m http.server 4178 --bind 127.0.0.1 >/tmp/p120-system-pass4-close-root.log 2>&1 &
+          python3 -m http.server 4174 --bind 127.0.0.1 --directory .. >/tmp/p120-system-pass4-close-prefix.log 2>&1 &
+          sleep 2
+
+      - name: Inherited PASS 3 respondent-session and measurement contract
+        run: node qa/pass3_session_contract_gate_v1.mjs
+
+      - name: Post-merge RU/EN responsive regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/system_functional_derivative_pass4_render.mjs
+
+      - name: Global header hardening regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4178
+        run: node qa/global_header_code_hardening_pass21.mjs
+
+      - name: Verify GitHub Pages deployment lineage and success
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p qa-artifacts/system-pass4-production-closure-live
+          python3 - <<'PY'
+          import json, os, time, urllib.request
+          expected=os.environ['P120_EXPECTED_PRODUCTION_SHA']
+          repo=os.environ['GITHUB_REPOSITORY']
+          token=os.environ['GH_TOKEN']
+          base=f'https://api.github.com/repos/{repo}'
+          headers={'Authorization':f'Bearer {token}','Accept':'application/vnd.github+json','User-Agent':'p120-system-pass4-production-closure'}
+          def get(url):
+              req=urllib.request.Request(url,headers=headers)
+              with urllib.request.urlopen(req,timeout=30) as r:return json.load(r)
+          rows=[];matching=[];successful=[];observed=[]
+          for attempt in range(48):
+              rows=get(f'{base}/deployments?environment=github-pages&per_page=30')
+              observed=[x.get('sha') for x in rows]
+              matching=[x for x in rows if x.get('sha')==expected]
+              successful=[]
+              for dep in matching:
+                  statuses=get(f"{base}/deployments/{dep['id']}/statuses?per_page=20")
+                  if any(s.get('state')=='success' for s in statuses):
+                      successful.append({'deployment_id':dep['id'],'statuses':statuses})
+              with open('qa-artifacts/system-pass4-production-closure-live/deployments.json','w',encoding='utf-8') as f:json.dump(rows,f,indent=2)
+              if successful:break
+              print(f'Waiting for successful Pages deployment {expected}; attempt {attempt+1}/48; observed={observed[:6]}')
+              time.sleep(5)
+          if not matching:raise SystemExit(f'Expected GitHub Pages deployment SHA not found: {expected}; observed={observed[:12]}')
+          if not successful:raise SystemExit(f'GitHub Pages deployment found but no success status for SHA: {expected}')
+          record={'expected_sha':expected,'matching_deployment_ids':[x.get('id') for x in matching],'successful_deployments':successful,'verdict':'PASS'}
+          with open('qa-artifacts/system-pass4-production-closure-live/deployment-lineage.json','w',encoding='utf-8') as f:json.dump(record,f,indent=2)
+          print('PASS: successful deployment lineage contains',expected)
+          PY
+
+      - name: Live RU/EN System PASS 4 production regression
+        run: node qa/system_functional_derivative_pass4_production_closure_live.mjs
+
+      - name: Upload final production closure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_SYSTEM_PASS4_FINAL_PRODUCTION_CLOSURE_QA
+          path: |
+            qa-artifacts/system-pass4-production-closure-live
+            qa-evidence-system-pass4
+            qa-evidence-pass3-session-contract-v1
+            qa-artifacts/header-code-pass21
+          retention-days: 30
