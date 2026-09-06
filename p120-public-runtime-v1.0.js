@@ -459,6 +459,7 @@
     creator:'From the Creator', creatorNote:'The personal context behind P-120',
     deeper:'Go deeper', deeperNote:'Extended Research Set · optional research',
     together:'Together?', togetherNote:'Dyadic research layer',
+    decisionResearch:'Decision research', decisionResearchNote:'Human-governed cognitive analysis research',
     coming:'Coming', language:'Language'
   } : {
     trigger:'Исследовать', panel:'Исследовать P-120', map:'Карта проекта',
@@ -467,6 +468,7 @@
     creator:'От создателя', creatorNote:'Личный контекст появления P-120',
     deeper:'Хотите глубже?', deeperNote:'Extended Research Set · дополнительные исследования',
     together:'Мы вместе?', togetherNote:'Dyadic research layer · исследование пары',
+    decisionResearch:'Исследование решений', decisionResearchNote:'Проект управляемого когнитивного анализа',
     coming:'Готовится', language:'Language'
   };
 
@@ -476,7 +478,8 @@
     why:{status:'active',href:'why-p120/'},
     creator:{status:'active',href:'creator/'},
     deeper:{status:'active',target:'extended-research-set'},
-    together:{status:'reserved',route:'together'}
+    together:{status:'reserved',route:'together'},
+    decisionResearch:{status:'active',href:'research/how-we-decide/'}
   };
 
   let timer=0;
@@ -539,7 +542,7 @@
     const wrap=document.createElement('div');
     wrap.className='ecosystem-nav-v2';
     wrap.dataset.navigationArchitecture='v2';
-    wrap.innerHTML=`<button type="button" class="navlink ecosystem-trigger" aria-haspopup="true" aria-expanded="false">${copy.trigger}</button><div class="ecosystem-panel-v2" role="navigation" aria-label="${copy.panel}"><div class="ecosystem-panel-head"><strong>${copy.panel}</strong><span>${copy.map}</span></div><div class="ecosystem-grid-v2"><section class="ecosystem-column-v2"><div class="ecosystem-column-label">${copy.story}</div>${itemMarkup('why',copy.why,copy.whyNote)}${itemMarkup('creator',copy.creator,copy.creatorNote)}</section><section class="ecosystem-column-v2"><div class="ecosystem-column-label">${copy.next}</div>${itemMarkup('deeper',copy.deeper,copy.deeperNote)}${itemMarkup('together',copy.together,copy.togetherNote)}</section></div></div>`;
+    wrap.innerHTML=`<button type="button" class="navlink ecosystem-trigger" aria-haspopup="true" aria-expanded="false">${copy.trigger}</button><div class="ecosystem-panel-v2" role="navigation" aria-label="${copy.panel}"><div class="ecosystem-panel-head"><strong>${copy.panel}</strong><span>${copy.map}</span></div><div class="ecosystem-grid-v2"><section class="ecosystem-column-v2"><div class="ecosystem-column-label">${copy.story}</div>${itemMarkup('why',copy.why,copy.whyNote)}${itemMarkup('creator',copy.creator,copy.creatorNote)}</section><section class="ecosystem-column-v2"><div class="ecosystem-column-label">${copy.next}</div>${itemMarkup('deeper',copy.deeper,copy.deeperNote)}${itemMarkup('together',copy.together,copy.togetherNote)}${itemMarkup('decisionResearch',copy.decisionResearch,copy.decisionResearchNote)}</section></div></div>`;
     const trigger=wrap.querySelector('.ecosystem-trigger');
     trigger.addEventListener('click',e=>{
       e.stopPropagation();
@@ -614,7 +617,7 @@
       let story=body.querySelector('[data-ecosystem-mobile-group="story"]');
       if(!story) story=makeMobileGroup('story',copy.story,[['why',copy.why,copy.whyNote],['creator',copy.creator,copy.creatorNote]]);
       let next=body.querySelector('[data-ecosystem-mobile-group="next"]');
-      if(!next) next=makeMobileGroup('next',copy.next,[['deeper',copy.deeper,copy.deeperNote],['together',copy.together,copy.togetherNote]]);
+      if(!next) next=makeMobileGroup('next',copy.next,[['deeper',copy.deeper,copy.deeperNote],['together',copy.together,copy.togetherNote],['decisionResearch',copy.decisionResearch,copy.decisionResearchNote]]);
 
       const chapter=body.querySelector('[data-p120-chapter-mobile]');
       const language=body.querySelector('.p120-language-mobile-group');

@@ -18,6 +18,7 @@
     exploreTitle:'Explore P-120', map:'Project map', story:'Story of P-120', next:'Next',
     whyNote:'Origin of the name and the idea', creator:'From the Creator', creatorNote:'The personal context behind P-120',
     deeper:'Go deeper', deeperNote:'Extended Research Set · optional research', together:'Together?', togetherNote:'Dyadic research layer · relationship research',
+    decisionResearch:'Decision research', decisionResearchNote:'Human-governed cognitive analysis research',
     contact:'Contact', contactNote:'Write to P-120',
     language:'Language', theme:'Theme', light:'Light', graphite:'Graphite', museum:'Museum',
     brand:'P-120 — Research Architecture'
@@ -27,6 +28,7 @@
     exploreTitle:'Исследовать P-120', map:'Карта проекта', story:'История P-120', next:'Дальше',
     whyNote:'Происхождение названия и самой идеи', creator:'От создателя', creatorNote:'Личный контекст появления P-120',
     deeper:'Хотите глубже?', deeperNote:'Система углублённых исследований', together:'Мы вместе?', togetherNote:'Исследование пары',
+    decisionResearch:'Исследование решений', decisionResearchNote:'Проект управляемого когнитивного анализа',
     contact:'Контакты', contactNote:'Связаться с P-120',
     language:'Язык', theme:'Тема', light:'Светлая', graphite:'Графит', museum:'Музейная',
     brand:'P-120 — Исследовательская архитектура'
@@ -55,6 +57,7 @@
 
   function kind(){
     const p=location.pathname.toLowerCase();
+    if(p.includes('/research/how-we-decide/')) return 'research/how-we-decide';
     for(const k of ['intellectual-property','privacy','terms','about','why-p120','creator','extended','together','science','contact']){
       if(p.includes(`/${k}/`)) return k;
     }
@@ -124,7 +127,7 @@
 
   function megaMarkup(){
     const current=(k)=>pageKind===k?' aria-current="page"':'';
-    return `<details class="p120-brand53-mega"><summary>${copy.explore}</summary><div class="p120-brand53-mega-panel" role="navigation" aria-label="${copy.exploreTitle}"><div class="p120-brand53-mega-head"><strong>${copy.exploreTitle}</strong><span>${copy.map}</span></div><div class="p120-brand53-mega-grid"><section class="p120-brand53-mega-column"><div class="p120-brand53-mega-label">${copy.story}</div><a class="p120-brand53-mega-card" href="${routeFor('why-p120')}"${current('why-p120')}><strong>${copy.why}</strong><small>${copy.whyNote}</small></a><a class="p120-brand53-mega-card" href="${routeFor('creator')}"${current('creator')}><strong>${copy.creator}</strong><small>${copy.creatorNote}</small></a></section><section class="p120-brand53-mega-column"><div class="p120-brand53-mega-label">${copy.next}</div><a class="p120-brand53-mega-card" href="${routeFor('extended')}"${current('extended')}><strong>${copy.deeper}</strong><small>${copy.deeperNote}</small></a><a class="p120-brand53-mega-card" href="${routeFor('together')}"${current('together')}><strong>${copy.together}</strong><small>${copy.togetherNote}</small></a></section></div></div></details>`;
+    return `<details class="p120-brand53-mega"><summary>${copy.explore}</summary><div class="p120-brand53-mega-panel" role="navigation" aria-label="${copy.exploreTitle}"><div class="p120-brand53-mega-head"><strong>${copy.exploreTitle}</strong><span>${copy.map}</span></div><div class="p120-brand53-mega-grid"><section class="p120-brand53-mega-column"><div class="p120-brand53-mega-label">${copy.story}</div><a class="p120-brand53-mega-card" href="${routeFor('why-p120')}"${current('why-p120')}><strong>${copy.why}</strong><small>${copy.whyNote}</small></a><a class="p120-brand53-mega-card" href="${routeFor('creator')}"${current('creator')}><strong>${copy.creator}</strong><small>${copy.creatorNote}</small></a></section><section class="p120-brand53-mega-column"><div class="p120-brand53-mega-label">${copy.next}</div><a class="p120-brand53-mega-card" href="${routeFor('extended')}"${current('extended')}><strong>${copy.deeper}</strong><small>${copy.deeperNote}</small></a><a class="p120-brand53-mega-card" href="${routeFor('together')}"${current('together')}><strong>${copy.together}</strong><small>${copy.togetherNote}</small></a><a class="p120-brand53-mega-card" href="${routeFor('research/how-we-decide')}"${current('research/how-we-decide')}><strong>${copy.decisionResearch}</strong><small>${copy.decisionResearchNote}</small></a></section></div></div></details>`;
   }
 
   function staticNavMarkup(){
@@ -406,7 +409,7 @@
       const chapters=document.createElement('nav');
       chapters.className='p120-site-footer__chapters';
       chapters.setAttribute('aria-label',isEn?'P-120 chapters':'Разделы P-120');
-      chapters.innerHTML=`<a href="${routeFor('why-p120')}">${copy.why}</a><a href="${routeFor('creator')}">${copy.creator}</a><a href="${routeFor('extended')}">${copy.deeper}</a><a href="${routeFor('together')}">${copy.together}</a><a href="${routeFor('science')}">${copy.science}</a>`;
+      chapters.innerHTML=`<a href="${routeFor('why-p120')}">${copy.why}</a><a href="${routeFor('creator')}">${copy.creator}</a><a href="${routeFor('extended')}">${copy.deeper}</a><a href="${routeFor('together')}">${copy.together}</a><a href="${routeFor('research/how-we-decide')}">${copy.decisionResearch}</a><a href="${routeFor('science')}">${copy.science}</a>`;
 
       const legal=document.createElement('section');
       legal.className='p120-site-footer__legal';
