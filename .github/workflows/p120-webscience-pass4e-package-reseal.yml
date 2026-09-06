@@ -1,0 +1,181 @@
+name: P120 WEB-SCIENCE PASS 4E Package Reseal Audit
+
+on:
+  push:
+    branches:
+      - 'web-science-ext-pass4e-browser-responsive-typography-qa'
+    paths:
+      - '.github/workflows/p120-webscience-pass4e-package-reseal.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reseal-pass4e-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout exact PASS 4E closure authority
+        uses: actions/checkout@v4
+        with:
+          ref: '0044bc01ab9155a82205e44b1012c72a42eaf285'
+          fetch-depth: 0
+
+      - name: Verify exact closure authority and records
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = '0044bc01ab9155a82205e44b1012c72a42eaf285'
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('webscience/pass4')
+          summary=json.loads((root/'P120_WEBSCI_EXT_PASS4_PASS4E_QA_SUMMARY_v0.9.json').read_text())
+          manifest=json.loads((root/'P120_WEBSCI_EXT_PASS4_PASS4E_MANIFEST_v0.9.json').read_text())
+          result=json.loads((root/'P120_WEBSCI_EXT_PASS4_PASS4E_BROWSER_TYPOGRAPHY_QA_RESULT_v0.9.json').read_text())
+          assert summary['status']=='PASS'
+          assert summary['browser_typography_checks_total']==882
+          assert summary['browser_typography_checks_passed']==882
+          assert summary['browser_typography_checks_failed']==0
+          assert result['status']=='PASS' and result['checks_total']==882 and result['checks_failed']==0
+          assert manifest['status']=='PASS4E_CLOSED_CONTROLLED'
+          assert manifest['production_main_mutated'] is False
+          assert manifest['production_merge']=='NOT_PERFORMED'
+          assert manifest['scientific_content_mutated'] is False
+          assert manifest['measurement_mutated'] is False
+          assert manifest['scoring_mutated'] is False
+          assert manifest['thresholds_mutated'] is False
+          print('PASS 4E closure authority: PASS')
+          PY
+
+      - name: Verify manifest-listed repository hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          m=json.loads(Path('webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_MANIFEST_v0.9.json').read_text())
+          for item in m['files']:
+              p=Path(item['path'])
+              actual=hashlib.sha256(p.read_bytes()).hexdigest()
+              if actual!=item['sha256']:
+                  raise SystemExit(f"manifest hash mismatch: {p}: {actual} != {item['sha256']}")
+          print(f"manifest-listed hashes: {len(m['files'])}/{len(m['files'])} PASS")
+          PY
+
+      - name: Re-run PASS 4A scientific projection gate
+        run: node qa/webscience_pass4a_projection_gate_v0.5.mjs
+
+      - name: Re-run PASS 4D static claim-boundary parity gate
+        run: node qa/webscience_pass4d_claim_boundary_static_gate_v0.8.mjs
+
+      - name: Re-materialize Global-70 reproducibility
+        shell: bash
+        run: |
+          set -euo pipefail
+          node qa/webscience_pass4c_materialize_global_library_v0.7.mjs
+          git diff --exit-code -- webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start local P-120 site
+        run: |
+          python3 -m http.server 4179 --bind 127.0.0.1 >/tmp/p120-pass4e-reseal-http.log 2>&1 &
+          sleep 2
+          curl -fsS 'http://127.0.0.1:4179/science/' >/dev/null
+          curl -fsS 'http://127.0.0.1:4179/en/science/' >/dev/null
+
+      - name: Re-run PASS 4C Global-70 browser regression
+        run: node qa/webscience_pass4c_library_gate_v0.7.mjs
+
+      - name: Re-run PASS 4D rendered claim-boundary parity regression
+        run: node qa/webscience_pass4d_claim_boundary_browser_gate_v0.8.mjs
+
+      - name: Re-run PASS 4E browser responsive typography gate
+        run: node qa/webscience_pass4e_browser_typography_gate_v0.9.mjs
+
+      - name: Verify regenerated PASS 4E evidence remains exact-PASS
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          p='qa-evidence-webscience-pass4e/P120_WEBSCI_EXT_PASS4_PASS4E_BROWSER_TYPOGRAPHY_QA_RESULT_v0.9.json'
+          d=json.load(open(p))
+          assert d['status']=='PASS' and d['checks_total']==882 and d['checks_passed']==882 and d['checks_failed']==0
+          print('regenerated PASS 4E evidence: 882/882 PASS')
+          PY
+
+      - name: Build corrected sealed PASS 4E package
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='P120_WEBSCI_EXT_PASS4E_v0.9_PASS_PACKAGE'
+          rm -rf "$ROOT" "${ROOT}.zip" "${ROOT}.zip.sha256"
+          mkdir -p "$ROOT/qa" "$ROOT/RELEASE_CONTROL" "$ROOT/qa-evidence/screenshots" "$ROOT/SOURCE_AUTHORITY" "$ROOT/PRESENTATION"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_REPORT_v0.9.md "$ROOT/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DECISION_v0.9.md "$ROOT/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DELTA_v0.9.md "$ROOT/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DIAGNOSTIC_FINDINGS_v0.9.json "$ROOT/RELEASE_CONTROL/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_BROWSER_TYPOGRAPHY_QA_RESULT_v0.9.json "$ROOT/RELEASE_CONTROL/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_QA_SUMMARY_v0.9.json "$ROOT/RELEASE_CONTROL/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_MANIFEST_v0.9.json "$ROOT/RELEASE_CONTROL/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_SHA256SUMS_v0.9.txt "$ROOT/RELEASE_CONTROL/"
+          cp qa/webscience_pass4e_visual_probe_v0.9.mjs qa/webscience_pass4e_browser_typography_gate_v0.9.mjs "$ROOT/qa/"
+          cp qa-evidence-webscience-pass4e/P120_WEBSCI_EXT_PASS4_PASS4E_BROWSER_TYPOGRAPHY_QA_RESULT_v0.9.json "$ROOT/qa-evidence/"
+          cp qa-evidence-webscience-pass4e/screenshots/* "$ROOT/qa-evidence/screenshots/"
+          cp p120-webscience-pass4e-visual-v0.9.css p120-webscience-pass4c-library-v0.7.js "$ROOT/PRESENTATION/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json "$ROOT/SOURCE_AUTHORITY/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json "$ROOT/SOURCE_AUTHORITY/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json "$ROOT/SOURCE_AUTHORITY/"
+          cp webscience/pass4/README.md "$ROOT/PASS4_WORKSTREAM_README.md"
+          printf '%s\n' \
+            'Repository: unityplanet/p120-web' \
+            'Branch: web-science-ext-pass4e-browser-responsive-typography-qa' \
+            'PASS 4D baseline: 89683b678b76dde7df1cdeccc05d6e8541573b5b' \
+            'PASS 4E closure commit: 0044bc01ab9155a82205e44b1012c72a42eaf285' \
+            'Production merge: NOT PERFORMED' \
+            > "$ROOT/RELEASE_CONTROL/REPOSITORY_PROVENANCE.txt"
+          printf '%s\n' \
+            'P-120 PASS 4E post-build package seal audit' \
+            'Reason: original package ledger self-referenced PACKAGE_CONTENT_SHA256SUMS.txt during creation.' \
+            'Correction: the ledger itself is excluded from its own checksum set.' \
+            'Source authority: exact closure commit 0044bc01ab9155a82205e44b1012c72a42eaf285.' \
+            'Scientific/content delta: NONE.' \
+            'QA rerun: PASS 4A, PASS 4C, PASS 4D static/browser, PASS 4E browser/typography.' \
+            > "$ROOT/RELEASE_CONTROL/PACKAGE_SEAL_AUDIT.txt"
+          (cd "$ROOT" && find . -type f ! -path './RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt' -print0 | sort -z | xargs -0 sha256sum > RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt)
+          (cd "$ROOT" && sha256sum -c RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt)
+          zip -qr "${ROOT}.zip" "$ROOT"
+          sha256sum "${ROOT}.zip" > "${ROOT}.zip.sha256"
+
+      - name: Independent post-build seal verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='P120_WEBSCI_EXT_PASS4E_v0.9_PASS_PACKAGE'
+          unzip -t "${ROOT}.zip" >/dev/null
+          ACTUAL=$(sha256sum "${ROOT}.zip" | awk '{print $1}')
+          EXPECTED=$(awk '{print $1}' "${ROOT}.zip.sha256")
+          test "$ACTUAL" = "$EXPECTED"
+          rm -rf /tmp/p120-pass4e-seal-verify
+          mkdir -p /tmp/p120-pass4e-seal-verify
+          unzip -q "${ROOT}.zip" -d /tmp/p120-pass4e-seal-verify
+          (cd "/tmp/p120-pass4e-seal-verify/${ROOT}" && sha256sum -c RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt)
+          echo "sealed package sha256: $ACTUAL"
+
+      - name: Upload corrected PASS 4E sealed package
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_EXT_PASS4E_v0.9_PASS_PACKAGE_RESEALED
+          path: |
+            P120_WEBSCI_EXT_PASS4E_v0.9_PASS_PACKAGE.zip
+            P120_WEBSCI_EXT_PASS4E_v0.9_PASS_PACKAGE.zip.sha256
+            qa-evidence-webscience-pass4e/
+          if-no-files-found: error
