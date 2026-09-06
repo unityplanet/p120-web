@@ -138,8 +138,17 @@
     drawList(panel);applyDeepLink(panel,true);
   }
 
-  function restoreCoreRefs(){if(window.P120ScientificBase?.activeBaseId!=='LIBRARY')document.getElementById('science-refs')?.classList.remove('p120-pass4c-core-native-hidden');}
-  function schedule(){requestAnimationFrame(()=>requestAnimationFrame(()=>{restoreCoreRefs();renderLibrary();}));}
+  function setCoreNativeVisibility(baseId=window.P120ScientificBase?.activeBaseId){
+    const core=document.getElementById('science-refs');
+    if(!core)return;
+    core.classList.toggle('p120-pass4c-core-native-hidden',baseId==='LIBRARY');
+  }
+  function schedule(){requestAnimationFrame(()=>requestAnimationFrame(()=>{setCoreNativeVisibility();renderLibrary();}));}
+  function handleBaseChange(event){
+    const next=event?.detail?.baseId||window.P120ScientificBase?.activeBaseId||'CORE';
+    setCoreNativeVisibility(next);
+    schedule();
+  }
   function expose(){window.P120ScienceGlobalLibrary=Object.freeze({version:VERSION,get status(){return Object.freeze({phase:state.phase,pass:state.pass,errors:[...state.errors],filter:state.filter,query:state.query});},get library(){return state.library;},render:schedule});}
   async function wait(attempt=0){if(window.P120SciencePublicationRenderer?.status?.pass===true&&window.P120ScientificBase?.status?.pass===true)return true;if(attempt>=180)return false;await new Promise(r=>setTimeout(r,35));return wait(attempt+1);}
   async function start(){
@@ -148,7 +157,7 @@
       const r=await fetch(dataUrl,{cache:'no-store',credentials:'same-origin'});if(!r.ok)throw new Error(`integrated library HTTP ${r.status}`);
       state.library=await r.json();validate(state.library);if(state.errors.length)throw new Error(state.errors.join('; '));
       ensureStyle();state.phase='ready';state.pass=true;expose();schedule();
-      addEventListener('p120:scientific-base-change',schedule);addEventListener('popstate',schedule);
+      addEventListener('p120:scientific-base-change',handleBaseChange);addEventListener('popstate',schedule);
       document.documentElement.dataset.p120WebsciencePass4c='library-v0.7';document.documentElement.dataset.p120WebsciencePass4cStatus='pass';
       dispatchEvent(new CustomEvent('p120:webscience-pass4c-ready',{detail:{pass:true,version:VERSION}}));
     }catch(error){if(!state.errors.length)fail(error?.message||String(error));state.phase='failed';state.pass=false;expose();document.documentElement.dataset.p120WebsciencePass4cStatus='fail';console.error('[P120 WEB-SCIENCE PASS 4C]',error);}
