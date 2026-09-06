@@ -76,7 +76,7 @@ for(const spec of specs){
       correctionHref:correction?.href||null,
       brandHref:brand?.href||null,
       chapters:{display:cs.display,gridTemplateColumns:cs.gridTemplateColumns,columnGap:cs.columnGap,rowGap:cs.rowGap},
-      links:links.map(a=>{const s=getComputedStyle(a);const r=a.getBoundingClientRect();return {text:a.textContent.trim(),decoration:s.textDecorationLine,fontSize:s.fontSize,x:Math.round(r.x),y:Math.round(r.y),w:Math.round(r.width)};}),
+      links:links.map(a=>{const s=getComputedStyle(a);const r=a.getBoundingClientRect();return {text:a.textContent.trim(),href:a.href,decoration:s.textDecorationLine,fontSize:s.fontSize,x:Math.round(r.x),y:Math.round(r.y),w:Math.round(r.width)};}),
       legalLinks:legalLinks.map(a=>({text:a.textContent.trim(),decoration:getComputedStyle(a).textDecorationLine}))
     };
   });
@@ -85,7 +85,8 @@ for(const spec of specs){
   if(!data.correctionHref) fail('footer correction stylesheet not present at runtime',spec.route);
   if(!data.brandHref) fail('canonical brand stylesheet not present at runtime',spec.route);
   if(data.chapters.display!=='grid') fail('mobile footer chapter navigation is not grid',`${spec.route}: ${JSON.stringify(data.chapters)}`);
-  if(data.links.length!==5) fail('unexpected footer chapter link count',`${spec.route}: ${data.links.length}`);
+  if(data.links.length!==6) fail('unexpected footer chapter link count',`${spec.route}: ${data.links.length}`);
+  if(!data.links.some(x=>new URL(x.href).pathname.includes('/research/how-we-decide/'))) fail('HG-CGA research chapter missing from unified footer',spec.route);
   if(data.links.some(x=>x.decoration!=='none')) fail('footer chapter link fell back to default underline',`${spec.route}: ${JSON.stringify(data.links)}`);
   if(data.legalLinks.some(x=>x.decoration!=='none')) fail('legal footer link uses browser text underline instead of controlled border treatment',`${spec.route}: ${JSON.stringify(data.legalLinks)}`);
   if(errors.length) fail('runtime console/page errors',`${spec.route}: ${errors.join(' | ')}`);
@@ -100,14 +101,15 @@ const report={
   document:'P-120 WEB — FOOTER LINK PRESENTATION CORRECTION / PASS 1',
   classification:'BASE-AWARE ASSET RESOLUTION + MOBILE FOOTER REGRESSION QA',
   projectPrefix:PROJECT_PREFIX,
+  controlledChapterCount:6,
   source,runtime,failures,
   status:failures.length?'FAIL':'PASS'
 };
 fs.writeFileSync(path.join(OUT,'report.json'),JSON.stringify(report,null,2));
-fs.writeFileSync(path.join(OUT,'REPORT.md'),`# P-120 WEB — FOOTER LINK PRESENTATION CORRECTION / PASS 1\n\nSTATUS: ${report.status}\n\nBASE-AWARE ROUTES: ${source.length}\nRUNTIME MOBILE CASES: ${runtime.length}\nFAILURES: ${failures.length}\n`);
+fs.writeFileSync(path.join(OUT,'REPORT.md'),`# P-120 WEB — FOOTER LINK PRESENTATION CORRECTION / PASS 1\n\nSTATUS: ${report.status}\n\nBASE-AWARE ROUTES: ${source.length}\nRUNTIME MOBILE CASES: ${runtime.length}\nCONTROLLED CHAPTER LINKS: 6\nFAILURES: ${failures.length}\n`);
 
 if(failures.length){
   console.error(JSON.stringify(failures,null,2));
   process.exit(1);
 }
-console.log(`FOOTER LINK PRESENTATION CORRECTION / PASS 1 — PASS (${source.length} base-aware routes; ${runtime.length} mobile runtime cases)`);
+console.log(`FOOTER LINK PRESENTATION CORRECTION / PASS 1 — PASS (${source.length} base-aware routes; ${runtime.length} mobile runtime cases; 6 controlled chapter links)`);
