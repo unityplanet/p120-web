@@ -1,0 +1,58 @@
+name: P120 WEB-SCIENCE PASS 4E Diagnostic Probe
+
+on:
+  push:
+    branches:
+      - 'web-science-ext-pass4e-browser-responsive-typography-qa'
+    paths:
+      - 'qa/webscience_pass4e_visual_probe_v0.9.mjs'
+      - '.github/workflows/p120-webscience-pass4e-probe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe-pass4e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify PASS 4D baseline is untouched
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE='89683b678b76dde7df1cdeccc05d6e8541573b5b'
+          git diff --quiet "$BASE" HEAD -- \
+            science/index.html en/science/index.html \
+            p120-scientific-base-runtime-v1.0.js \
+            p120-webscience-pass4b-renderer-v0.6.js \
+            p120-webscience-pass4c-library-v0.7.js \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json \
+            webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json \
+            P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json \
+            p120-session-contract-v1.0.js p120-submission-intake-v1.0.js manual-report-handoff-v1.0.js
+      - name: Verify probe syntax
+        run: node --check qa/webscience_pass4e_visual_probe_v0.9.mjs
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local P-120 site
+        run: |
+          python3 -m http.server 4179 --bind 127.0.0.1 >/tmp/p120-pass4e-probe-http.log 2>&1 &
+          sleep 2
+          curl -fsS 'http://127.0.0.1:4179/science/' >/dev/null
+          curl -fsS 'http://127.0.0.1:4179/en/science/' >/dev/null
+      - name: Run PASS 4E diagnostic probe
+        run: node qa/webscience_pass4e_visual_probe_v0.9.mjs
+      - name: Upload diagnostic evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_EXT_PASS4E_v0.9_DIAGNOSTIC_PROBE
+          path: qa-evidence-webscience-pass4e-probe/
+          if-no-files-found: error
