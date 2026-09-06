@@ -5,6 +5,7 @@ on:
     branches:
       - 'work/p120-scientific-base-production-migration'
       - 'work/p120-pass4a-science-qa-reconciliation'
+      - 'web-science-prod-g1-scientific-base-baseline-reconcile'
       - 'main'
     paths:
       - 'science/index.html'
@@ -15,6 +16,8 @@ on:
       - 'P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json'
       - 'qa/scientific_base_production_gate_v1.mjs'
       - 'qa/science_language_switch_gate_v1.mjs'
+      - 'qa/webscience_prod_g1_scientific_base_baseline_reconciliation_v1.0.py'
+      - 'webscience/production/**'
       - '.github/workflows/p120-scientific-base-production-gate.yml'
   workflow_dispatch:
 
@@ -30,32 +33,52 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Verify accepted Science baseline and protected scientific boundary
+      - name: Verify reconciled Science baselines and protected scientific boundary
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          import subprocess, json
+          import subprocess, json, hashlib
 
-          # Accepted baseline after Scientific Base language-switch reconciliation.
-          BASE='6ef15f83ab1d7db132151b0d2216ba788f65ec71'
-          locked=[
+          # Legacy Science-route/language/registry authority remains frozen here.
+          LEGACY='6ef15f83ab1d7db132151b0d2216ba788f65ec71'
+          # Runtime authority was explicitly superseded only by sealed WEB-SCIENCE EXT PASS 4.
+          SEALED='d095cae40b33da2118e5090be2a2c837205d8b64'
+
+          legacy_locked=[
               'science/index.html',
               'en/science/index.html',
               'language-switch-v1.0.js',
-              'p120-scientific-base-runtime-v1.0.js',
               'P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json',
           ]
-          for path in locked:
-              current=Path(path).read_text(encoding='utf-8')
-              baseline=subprocess.check_output(['git','show',f'{BASE}:{path}'],text=True)
+          for path in legacy_locked:
+              current=Path(path).read_bytes()
+              baseline=subprocess.check_output(['git','show',f'{LEGACY}:{path}'])
               if current!=baseline:
-                  raise SystemExit(f'{path}: diverged from accepted Science baseline {BASE}; explicit baseline reconciliation required')
-              print(path,'accepted-baseline: PASS')
+                  raise SystemExit(f'{path}: diverged from retained Scientific Base baseline {LEGACY}')
+              print(path,'legacy-baseline retained: PASS')
 
-          runtime=Path('p120-scientific-base-runtime-v1.0.js').read_text(encoding='utf-8')
+          runtime_path='p120-scientific-base-runtime-v1.0.js'
+          runtime=Path(runtime_path).read_bytes()
+          sealed=subprocess.check_output(['git','show',f'{SEALED}:{runtime_path}'])
+          legacy=subprocess.check_output(['git','show',f'{LEGACY}:{runtime_path}'])
+          if runtime!=sealed:
+              raise SystemExit(f'{runtime_path}: diverged from sealed PASS 4 runtime authority {SEALED}')
+          legacy_core=legacy.rstrip(b'\n')
+          marker=b'\n\n/* WEB-SCIENCE EXT PASS 4B — controlled publication-renderer loader.'
+          if not sealed.startswith(legacy_core+marker):
+              raise SystemExit('Scientific Base legacy Core prefix not preserved by sealed PASS 4 runtime')
+          suffix=sealed[len(legacy_core):]
+          for token in (b'data-p120-webscience-pass4b-loader',b'p120-webscience-pass4b-renderer-v0.6.js?v=websci4b06'):
+              if token not in suffix:
+                  raise SystemExit(f'Authorized PASS 4B loader contract missing: {token!r}')
+          if any(token in suffix for token in (b'localStorage',b'sessionStorage',b'P120_SESSION_KEY')):
+              raise SystemExit('Authorized PASS 4B loader introduced prohibited storage/session access')
+          print(runtime_path,'sealed-PASS4-baseline: PASS',hashlib.sha256(runtime).hexdigest())
+
+          text=runtime.decode('utf-8')
           for token in ('localStorage','sessionStorage','P120_SESSION_KEY'):
-              if token in runtime:
+              if token in text:
                   raise SystemExit(f'Scientific Base runtime contains prohibited storage/session token: {token}')
           required_runtime=(
               'reconcileLanguageSwitch',
@@ -63,7 +86,7 @@ jobs:
               "tools.querySelector('.p120-language-switch')",
           )
           for token in required_runtime:
-              if token not in runtime:
+              if token not in text:
                   raise SystemExit(f'Scientific Base language reconciliation contract missing: {token}')
 
           language=Path('language-switch-v1.0.js').read_text(encoding='utf-8')
@@ -79,8 +102,18 @@ jobs:
           dyadic=next((b for b in registry.get('bases',[]) if b.get('base_id')=='DYADIC'),None)
           if not dyadic or dyadic.get('public_visibility')!='hidden': raise SystemExit('DYADIC publication boundary broken')
           if any(m.get('is_total_allowed') is not False for m in registry.get('modules',[])): raise SystemExit('module total prohibition broken')
+
+          final=json.loads(Path('webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_MANIFEST_v1.1.json').read_text(encoding='utf-8'))
+          if final.get('status')!='WEBSCI_EXT_PASS4_CLOSED_CONTROLLED_SEALED': raise SystemExit('sealed PASS 4 authority status mismatch')
+          if final.get('unresolved_delta_count')!=0: raise SystemExit('sealed PASS 4 unresolved delta detected')
+          if final.get('public_ceiling_unchanged') is not True: raise SystemExit('sealed PASS 4 public ceiling mismatch')
           print('Scientific/measurement/scoring/session boundary: PASS')
           PY
+
+      - name: Run explicit PROD-G1 Scientific Base baseline reconciliation QA
+        run: |
+          python3 -m py_compile qa/webscience_prod_g1_scientific_base_baseline_reconciliation_v1.0.py
+          python3 qa/webscience_prod_g1_scientific_base_baseline_reconciliation_v1.0.py
 
       - name: Install Playwright Chromium
         run: |
@@ -104,5 +137,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: P120_SCIENTIFIC_BASE_PRODUCTION_QA
-          path: qa-evidence-science-production-v1/
-          retention-days: 30
+          path: |
+            qa-evidence-science-production-v1/
+            qa-evidence-webscience-prod-g1-baseline-reconcile/
+          retention-days: 90
+          if-no-files-found: error
