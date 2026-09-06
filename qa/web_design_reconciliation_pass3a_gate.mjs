@@ -70,7 +70,8 @@ const allowed=new Set([
   '.github/workflows/p120-web-design-reconciliation-pass3a.yml',
   'P120_WEB_DESIGN_RECONCILIATION_PASS3A_IMPLEMENTATION.md',
   'P120_WEB_DESIGN_RECONCILIATION_PASS3A_CLOSURE.md',
-  'P120_WEB_DESIGN_RECONCILIATION_PASS3A_RECONCILIATION_DELTA.md'
+  'P120_WEB_DESIGN_RECONCILIATION_PASS3A_RECONCILIATION_DELTA.md',
+  'P120_WEB_DESIGN_RECONCILIATION_PASS3A_RECONCILIATION_DELTA_CLOSURE.md'
 ]);
 check('CHANGESET_SCOPE',changed.every(p=>allowed.has(p)),`Changed paths relative to current HG-CGA production baseline: ${changed.join(', ')}`);
 
