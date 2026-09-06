@@ -1,0 +1,228 @@
+name: P120 WEB-SCIENCE PASS 4C Global Library Integration Seal
+
+on:
+  push:
+    branches:
+      - 'web-science-ext-pass4c-global-library-integration'
+    paths:
+      - '.github/workflows/p120-webscience-pass4c-seal.yml'
+      - 'p120-webscience-pass4c-library-v0.7.js'
+      - 'qa/webscience_pass4c_materialize_global_library_v0.7.mjs'
+      - 'qa/webscience_pass4c_library_gate_v0.7.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seal-pass4c:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify PASS 4B baseline and protected scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE='9d07a3a047ce4b9a61b6f307e3f791fcdfabaff4'
+          git diff --quiet "$BASE" HEAD -- science/index.html en/science/index.html p120-scientific-base-runtime-v1.0.js P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json p120-session-contract-v1.0.js p120-submission-intake-v1.0.js manual-report-handoff-v1.0.js || { echo 'Protected scope drift'; exit 1; }
+          git diff --quiet "$BASE" HEAD -- p120-webscience-pass4b-renderer-v0.6.js || { echo 'PASS 4B renderer changed before controlled loader activation'; exit 1; }
+          echo 'PASS 4B baseline protected: PASS'
+
+      - name: Materialize Core-45 / Global-70 integration contract
+        run: node qa/webscience_pass4c_materialize_global_library_v0.7.mjs
+
+      - name: Activate exact additive PASS 4C loader
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('p120-webscience-pass4b-renderer-v0.6.js')
+          s=p.read_text(encoding='utf-8')
+          token='data-p120-webscience-pass4c-loader'
+          if token in s:
+              raise SystemExit('PASS 4C loader already present before activation')
+          loader=r'''
+
+/* WEB-SCIENCE EXT PASS 4C — controlled Global-70 library loader.
+   PASS 4B renderer above remains unchanged except for this exact additive loader. */
+(()=>{
+  'use strict';
+  const dedicated=/(?:^|\/)(?:en\/)?science\/?(?:index\.html)?$/i.test(location.pathname);
+  if(!dedicated)return;
+  if(document.querySelector('[data-p120-webscience-pass4c-loader]'))return;
+  const owner=document.currentScript;
+  const ownerUrl=owner?.src||new URL('p120-webscience-pass4b-renderer-v0.6.js',location.href).href;
+  const script=document.createElement('script');
+  script.src=new URL('p120-webscience-pass4c-library-v0.7.js?v=websci4c07',ownerUrl).href;
+  script.async=false;
+  script.dataset.p120WebsciencePass4cLoader='v0.7';
+  document.head.appendChild(script);
+})();
+'''
+          p.write_text(s+loader,encoding='utf-8')
+          PY
+          BASE='9d07a3a047ce4b9a61b6f307e3f791fcdfabaff4'
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+          base='9d07a3a047ce4b9a61b6f307e3f791fcdfabaff4'
+          current=Path('p120-webscience-pass4b-renderer-v0.6.js').read_text(encoding='utf-8')
+          original=subprocess.check_output(['git','show',f'{base}:p120-webscience-pass4b-renderer-v0.6.js'],text=True)
+          marker='\n\n/* WEB-SCIENCE EXT PASS 4C — controlled Global-70 library loader.'
+          assert current.startswith(original+marker), 'PASS 4B renderer changed outside additive loader'
+          assert current.count('data-p120-webscience-pass4c-loader')==1
+          print('Exact additive PASS 4C loader: PASS')
+          PY
+
+      - name: Verify data authority and JavaScript isolation
+        run: |
+          node qa/webscience_pass4a_projection_gate_v0.5.mjs
+          node --check p120-webscience-pass4b-renderer-v0.6.js
+          node --check p120-webscience-pass4c-library-v0.7.js
+          node --check qa/webscience_pass4c_materialize_global_library_v0.7.mjs
+          node --check qa/webscience_pass4c_library_gate_v0.7.mjs
+          ! grep -En 'localStorage\.(setItem|removeItem|clear)|sessionStorage\.(setItem|removeItem|clear)|P120_INSTRUMENT|score|threshold' p120-webscience-pass4c-library-v0.7.js
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start local P-120 site
+        run: |
+          python3 -m http.server 4179 --bind 127.0.0.1 >/tmp/p120-pass4c-http.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:4179/science/?science=library >/dev/null
+          curl -fsS http://127.0.0.1:4179/en/science/?science=library >/dev/null
+
+      - name: Re-probe Core-45 identity
+        run: node qa/webscience_pass4c_core45_probe_v0.7.mjs
+
+      - name: Run independent RU/EN Global-70 browser gate
+        run: node qa/webscience_pass4c_library_gate_v0.7.mjs
+
+      - name: Build controlled PASS 4C closure records
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp qa-evidence-webscience-pass4c/P120_WEBSCI_EXT_PASS4_PASS4C_QA_RESULT_v0.7.json webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_RESULT_v0.7.json
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          qa=json.loads(Path('webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_RESULT_v0.7.json').read_text())
+          summary={
+            'document_id':'P120-WEBSCI-EXT-004-PASS4C-QA-SUMMARY','version':'v0.7','date':'2026-09-06','status':'PASS',
+            'materialization_gate':'PASS','core45_probe':'PASS','checks_total':qa['checks_total'],'checks_passed':qa['checks_passed'],'checks_failed':qa['checks_failed'],
+            'gate':'PASS 4C — Core-45 / Global-70 Library Integration','production_merge':'NOT_PERFORMED',
+            'next_gate':'PASS 4D — Claim-Boundary & RU/EN Parity QA'
+          }
+          Path('webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_SUMMARY_v0.7.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
+          report='''# P-120 WEB-SCIENCE EXT PASS 4C — Core-45 / Global-70 Library Integration
+
+**Document ID:** P120-WEBSCI-EXT-004-PASS4C-REPORT  
+**Version:** v0.7  
+**Date:** 2026-09-06  
+**Status:** PASS / CLOSED / CONTROLLED  
+**Parent PASS:** WEB-SCIENCE EXT PASS 4 remains OPEN.
+
+## Scope
+PASS 4C integrates the frozen Core-45 bibliography and the controlled REF-046..REF-070 extension into one navigable Global-70 scientific-library layer on the controlled pre-production branch. Production main is not merged.
+
+## Identity contract
+The frozen Core source object contains citation and DOI fields only; it contains no native REF IDs, module bindings or per-reference evidence roles. PASS 4C therefore assigns REF-001..REF-045 strictly by frozen Core array order while preserving citation/DOI identity. No Core module or evidence-role metadata is inferred. REF-046..REF-070 retain their controlled PASS 4 module and role bindings.
+
+## Integration result
+- Core: 45 source-native references, unchanged.
+- PASS 4 extension: 25 controlled references.
+- Global library: 70 continuous identities, REF-001..REF-070.
+- DOI and normalized-citation deduplication: PASS across the integrated corpus.
+- Unified navigation: all/Core/extension filters, source-authorized module filters, text search and `?ref=REF-xxx` deep linking.
+- Existing Core bibliography is hidden only while the integrated Library view is active, preventing duplicate rendering; it is restored outside Library.
+
+## Scientific boundary
+Reference count is coverage metadata, not a validity metric. Core role bindings are not invented where the frozen source does not contain them. PASS 4 scientific status and claim ceilings are unchanged.
+
+## QA
+Materialization gate: PASS. Core-45 runtime re-probe: PASS. Independent RU/EN desktop/mobile browser gate: **%d/%d PASS; failed = %d**.
+
+## No-change declaration
+Measurement = NONE · Scoring = NONE · Thresholds = NONE · Respondent sessions = NONE · Persistence = NONE · Report calculations = NONE · Production main = NONE · Scientific status upgrade = NONE.
+
+## Verdict
+**PASS / CORE-45 IDENTITY PRESERVED / GLOBAL-70 LIBRARY INTEGRATED / DEDUPLICATION AND NAVIGATION ESTABLISHED.**
+
+Next authorized gate: **WEB-SCIENCE EXT PASS 4D — Claim-Boundary & RU/EN Parity QA**.
+'''%(qa['checks_passed'],qa['checks_total'],qa['checks_failed'])
+          Path('webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_REPORT_v0.7.md').write_text(report)
+          decision='''# P-120 WEB-SCIENCE EXT PASS 4C — Decision Record
+
+**Decision:** PASS / CLOSED / CONTROLLED  
+**Version:** v0.7  
+
+1. Preserve the frozen Core 45-reference array as the source authority.
+2. Assign REF-001..REF-045 by frozen Core array order without altering source citation/DOI identity.
+3. Do not infer Core per-reference module or evidence-role bindings absent from the source object.
+4. Preserve controlled PASS 4 bindings for REF-046..REF-070.
+5. Authorize the integrated Global-70 navigation layer on the controlled branch only.
+6. Do not merge to production main in PASS 4C.
+7. Advance to PASS 4D — Claim-Boundary & RU/EN Parity QA.
+'''
+          Path('webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_DECISION_v0.7.md').write_text(decision)
+          files=['p120-webscience-pass4b-renderer-v0.6.js','p120-webscience-pass4c-library-v0.7.js','webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json','qa/webscience_pass4c_materialize_global_library_v0.7.mjs','qa/webscience_pass4c_core45_probe_v0.7.mjs','qa/webscience_pass4c_library_gate_v0.7.mjs','webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_RESULT_v0.7.json','webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_SUMMARY_v0.7.json','webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_REPORT_v0.7.md','webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_DECISION_v0.7.md']
+          manifest={'standard':'P120','document_id':'P120-WEBSCI-EXT-004-PASS4C-MANIFEST','version':'v0.7','date':'2026-09-06','status':'PASS4C_CLOSED_CONTROLLED','branch':'web-science-ext-pass4c-global-library-integration','baseline_commit':'9d07a3a047ce4b9a61b6f307e3f791fcdfabaff4','production_main_mutated':False,'production_merge':'NOT_PERFORMED','core45_mutated':False,'global70_integrated':True,'files':[],'next_gate':'PASS 4D — Claim-Boundary & RU/EN Parity QA'}
+          for f in files:
+            b=Path(f).read_bytes();manifest['files'].append({'path':f,'sha256':hashlib.sha256(b).hexdigest()})
+          Path('webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_MANIFEST_v0.7.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+          sums=''.join(f"{x['sha256']}  {x['path']}\n" for x in manifest['files'])
+          Path('webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_SHA256SUMS_v0.7.txt').write_text(sums)
+          PY
+          cat >> webscience/pass4/README.md <<'EOF'
+
+## PASS 4C closure — 2026-09-06
+`PASS / CLOSED / CONTROLLED / v0.7` — Core-45 identity is preserved and integrated with REF-046..REF-070 into a deduplicated, navigable Global-70 library. Core per-reference roles were not inferred because the frozen source contains citation/DOI identity only. Production main remains untouched. Next active stage: **PASS 4D — Claim-Boundary & RU/EN Parity QA**.
+EOF
+
+      - name: Commit controlled PASS 4C closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'P120 Research System'
+          git config user.email '57597994+unityplanet@users.noreply.github.com'
+          git add p120-webscience-pass4b-renderer-v0.6.js p120-webscience-pass4c-library-v0.7.js qa/webscience_pass4c_* webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_* webscience/pass4/README.md
+          git commit -m 'WEB-SCIENCE PASS 4C: close Core-45 Global-70 library integration'
+          git push origin HEAD:web-science-ext-pass4c-global-library-integration
+
+      - name: Build sealed PASS 4C package
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='P120_WEBSCI_EXT_PASS4C_v0.7_PASS_PACKAGE'
+          mkdir -p "$ROOT/webscience/pass4" "$ROOT/qa" "$ROOT/RELEASE_CONTROL" "$ROOT/qa-evidence"
+          cp p120-webscience-pass4b-renderer-v0.6.js p120-webscience-pass4c-library-v0.7.js "$ROOT/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json "$ROOT/webscience/pass4/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_REPORT_v0.7.md "$ROOT/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_DECISION_v0.7.md "$ROOT/"
+          cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_RESULT_v0.7.json webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_SUMMARY_v0.7.json webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_MANIFEST_v0.7.json webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_SHA256SUMS_v0.7.txt "$ROOT/RELEASE_CONTROL/"
+          cp qa/webscience_pass4c_materialize_global_library_v0.7.mjs qa/webscience_pass4c_core45_probe_v0.7.mjs qa/webscience_pass4c_library_gate_v0.7.mjs "$ROOT/qa/"
+          cp -r qa-evidence-webscience-pass4c/* "$ROOT/qa-evidence/"
+          cp qa-evidence-pass4c/P120_WEBSCI_PASS4C_CORE45_PROBE_v0.7.json "$ROOT/qa-evidence/"
+          cp webscience/pass4/README.md "$ROOT/PASS4_WORKSTREAM_README.md"
+          printf '%s\n' 'Repository: unityplanet/p120-web' 'Branch: web-science-ext-pass4c-global-library-integration' 'Baseline: 9d07a3a047ce4b9a61b6f307e3f791fcdfabaff4' "Package commit: $(git rev-parse HEAD)" 'Production merge: NOT_PERFORMED' 'Next gate: PASS 4D — Claim-Boundary & RU/EN Parity QA' > "$ROOT/RELEASE_CONTROL/REPOSITORY_PROVENANCE.txt"
+          find "$ROOT" -type f -print0 | sort -z | xargs -0 sha256sum > "$ROOT/RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt"
+          zip -qr "${ROOT}.zip" "$ROOT"
+          sha256sum "${ROOT}.zip" > "${ROOT}.zip.sha256"
+          cat "${ROOT}.zip.sha256"
+
+      - name: Upload PASS 4C package and QA evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_EXT_PASS4C_v0.7_PASS_PACKAGE
+          path: |
+            P120_WEBSCI_EXT_PASS4C_v0.7_PASS_PACKAGE.zip
+            P120_WEBSCI_EXT_PASS4C_v0.7_PASS_PACKAGE.zip.sha256
+          retention-days: 30
