@@ -5,6 +5,7 @@ on:
     paths:
       - 'p120-brand-system-v1.0.js'
       - 'qa/pass53_postpass3_visual_reconciliation.mjs'
+      - 'qa/pass53_brand_unification_about_reconciled.mjs'
       - '.github/workflows/qa-web-explore-pass53.yml'
   push:
     branches: [main]
@@ -23,6 +24,7 @@ on:
       - 'p120-legal-runtime-v1.0.js'
       - 'qa/pass53_brand_unification.mjs'
       - 'qa/pass53_postpass3_visual_reconciliation.mjs'
+      - 'qa/pass53_brand_unification_about_reconciled.mjs'
       - 'qa/global_header_brand_lockup_cleaning_pass1.mjs'
       - '.github/workflows/qa-web-explore-pass53.yml'
       - 'P120_WEB_PASS5.3_BRAND_UNIFICATION_IMPLEMENTATION.md'
@@ -51,12 +53,14 @@ jobs:
           test -f extended-chapter-navigation-reconciliation-v1.0.js
           test -f science-navigation-reconciliation-v1.0.js
           test -f qa/pass53_postpass3_visual_reconciliation.mjs
+          test -f qa/pass53_brand_unification_about_reconciled.mjs
           test -f qa/global_header_brand_lockup_cleaning_pass1.mjs
           node --check chapter-navigation-v1.0.js
           node --check extended-research-navigation-v1.0.js
           node --check extended-chapter-navigation-reconciliation-v1.0.js
           node --check science-navigation-reconciliation-v1.0.js
           node --check qa/pass53_postpass3_visual_reconciliation.mjs
+          node --check qa/pass53_brand_unification_about_reconciled.mjs
           node --check qa/global_header_brand_lockup_cleaning_pass1.mjs
           grep -q "P120_BRAND_SYSTEM" founder-route-v1.1.js
           grep -q "P120_PASS532" founder-route-v1.1.js
@@ -124,8 +128,8 @@ jobs:
           sleep 2
       - name: Run PASS 5.3 post-PASS3 visual/session reconciliation QA
         run: node qa/pass53_postpass3_visual_reconciliation.mjs
-      - name: Run PASS 5.3 visual functional accessibility QA
-        run: node qa/pass53_brand_unification.mjs
+      - name: Run PASS 5.3 historical suite with About-route authority reconciliation
+        run: node qa/pass53_brand_unification_about_reconciled.mjs
       - name: Upload controlled QA evidence
         uses: actions/upload-artifact@v4
         if: always()
@@ -134,4 +138,5 @@ jobs:
           path: |
             qa-artifacts/pass53
             qa-artifacts/pass53-postpass3
+            qa-artifacts/pass53-about-reconciliation
           retention-days: 30
