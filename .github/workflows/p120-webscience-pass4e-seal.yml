@@ -25,24 +25,25 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Verify PASS 4D protected scientific baseline
+      - name: Verify protected scientific baseline and existing PASS 4E loader authority
         shell: bash
         run: |
           set -euo pipefail
-          BASE='89683b678b76dde7df1cdeccc05d6e8541573b5b'
-          git diff --quiet "$BASE" HEAD -- \
+          BASE4D='89683b678b76dde7df1cdeccc05d6e8541573b5b'
+          PRIOR4E='0044bc01ab9155a82205e44b1012c72a42eaf285'
+          git diff --quiet "$BASE4D" HEAD -- \
             science/index.html en/science/index.html \
             p120-scientific-base-runtime-v1.0.js \
             p120-webscience-pass4b-renderer-v0.6.js \
-            p120-webscience-pass4c-library-v0.7.js \
             webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json \
             webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json \
             webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json \
             P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json \
             p120-session-contract-v1.0.js p120-submission-intake-v1.0.js manual-report-handoff-v1.0.js
-          echo 'PASS 4D protected scientific/runtime baseline: PASS'
+          git diff --quiet "$PRIOR4E" HEAD -- p120-webscience-pass4c-library-v0.7.js
+          echo 'protected scientific baseline + existing PASS 4E loader authority: PASS'
 
-      - name: Apply exact additive PASS 4E stylesheet loader
+      - name: Apply or verify exact additive PASS 4E stylesheet loader
         run: python3 .github/scripts/p120_webscience_pass4e_apply.py
 
       - name: Verify PASS 4E presentation-only scope
@@ -111,7 +112,7 @@ jobs:
           git config user.name 'P120 Research System'
           git config user.email '57597994+unityplanet@users.noreply.github.com'
           git add p120-webscience-pass4c-library-v0.7.js webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_* webscience/pass4/README.md
-          git commit -m 'WEB-SCIENCE PASS 4E: close browser responsive typography QA'
+          git commit -m 'WEB-SCIENCE PASS 4E: close final browser responsive typography QA'
           git push origin HEAD:web-science-ext-pass4e-browser-responsive-typography-qa
 
       - name: Build sealed PASS 4E package
@@ -119,7 +120,8 @@ jobs:
         run: |
           set -euo pipefail
           ROOT='P120_WEBSCI_EXT_PASS4E_v0.9_PASS_PACKAGE'
-          mkdir -p "$ROOT/webscience/pass4" "$ROOT/qa" "$ROOT/RELEASE_CONTROL" "$ROOT/qa-evidence/screenshots" "$ROOT/SOURCE_AUTHORITY" "$ROOT/PRESENTATION"
+          rm -rf "$ROOT" "${ROOT}.zip" "${ROOT}.zip.sha256"
+          mkdir -p "$ROOT/qa" "$ROOT/RELEASE_CONTROL" "$ROOT/qa-evidence/screenshots" "$ROOT/SOURCE_AUTHORITY" "$ROOT/PRESENTATION"
           cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_REPORT_v0.9.md "$ROOT/"
           cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DECISION_v0.9.md "$ROOT/"
           cp webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DELTA_v0.9.md "$ROOT/"
@@ -140,17 +142,39 @@ jobs:
             'Repository: unityplanet/p120-web' \
             'Branch: web-science-ext-pass4e-browser-responsive-typography-qa' \
             'Baseline PASS 4D: 89683b678b76dde7df1cdeccc05d6e8541573b5b' \
-            "Closure commit: $(git rev-parse HEAD)" \
+            "Final PASS 4E closure commit: $(git rev-parse HEAD)" \
             'Production merge: NOT PERFORMED' \
             > "$ROOT/RELEASE_CONTROL/REPOSITORY_PROVENANCE.txt"
-          (cd "$ROOT" && find . -type f -print0 | sort -z | xargs -0 sha256sum > RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt)
+          printf '%s\n' \
+            'P-120 PASS 4E package seal control' \
+            'PACKAGE_CONTENT_SHA256SUMS.txt is intentionally excluded from its own checksum set.' \
+            'The completed ledger is independently verified before artifact upload.' \
+            'Scientific/content delta from package sealing: NONE.' \
+            > "$ROOT/RELEASE_CONTROL/PACKAGE_SEAL_AUDIT.txt"
+          (cd "$ROOT" && find . -type f ! -path './RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt' -print0 | sort -z | xargs -0 sha256sum > RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt)
+          (cd "$ROOT" && sha256sum -c RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt)
           zip -qr "${ROOT}.zip" "$ROOT"
           sha256sum "${ROOT}.zip" > "${ROOT}.zip.sha256"
+
+      - name: Independent post-build package verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='P120_WEBSCI_EXT_PASS4E_v0.9_PASS_PACKAGE'
+          unzip -t "${ROOT}.zip" >/dev/null
+          ACTUAL=$(sha256sum "${ROOT}.zip" | awk '{print $1}')
+          EXPECTED=$(awk '{print $1}' "${ROOT}.zip.sha256")
+          test "$ACTUAL" = "$EXPECTED"
+          rm -rf /tmp/p120-pass4e-final-verify
+          mkdir -p /tmp/p120-pass4e-final-verify
+          unzip -q "${ROOT}.zip" -d /tmp/p120-pass4e-final-verify
+          (cd "/tmp/p120-pass4e-final-verify/${ROOT}" && sha256sum -c RELEASE_CONTROL/PACKAGE_CONTENT_SHA256SUMS.txt)
+          echo "final sealed package sha256: $ACTUAL"
 
       - name: Upload PASS 4E package and QA evidence
         uses: actions/upload-artifact@v4
         with:
-          name: P120_WEBSCI_EXT_PASS4E_v0.9_PASS_PACKAGE
+          name: P120_WEBSCI_EXT_PASS4E_v0.9_PASS_PACKAGE_FINAL
           path: |
             P120_WEBSCI_EXT_PASS4E_v0.9_PASS_PACKAGE.zip
             P120_WEBSCI_EXT_PASS4E_v0.9_PASS_PACKAGE.zip.sha256
