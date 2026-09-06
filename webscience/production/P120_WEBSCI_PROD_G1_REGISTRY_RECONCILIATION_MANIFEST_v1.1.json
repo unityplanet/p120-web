@@ -1,0 +1,46 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-PROD-G1-REGISTRY-RECONCILIATION-MANIFEST",
+  "version": "v1.1",
+  "date": "2026-09-06",
+  "status": "REGISTRY_RECONCILIATION_CANDIDATE",
+  "baseline_main": "0c9a7bdc7470dcc9eb1223ebfc15bb5bcc6f94b4",
+  "sealed_science_authority": "d095cae40b33da2118e5090be2a2c837205d8b64",
+  "parent_prod_g1_status": "CLOSED_CONTROLLED_SEALED_ACTIVE_IN_PRODUCTION",
+  "scope": "ADDITIVE PRODUCTION-GOVERNANCE REGISTRY RECONCILIATION ONLY",
+  "files": [
+    "P120_WEBSCI_PRODUCTION_registry_v1.1_2026-09-06.json",
+    "qa/webscience_prod_g1_registry_reconciliation_gate_v1.1.py",
+    "webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_RECONCILIATION_REPORT_v1.1.md",
+    "webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_RECONCILIATION_DECISION_v1.1.md",
+    "webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_RECONCILIATION_MANIFEST_v1.1.json",
+    ".github/workflows/p120-webscience-prod-g1-registry-reconciliation-v1.1.yml"
+  ],
+  "protected_authority": {
+    "historical_executable_registry": "P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json",
+    "historical_executable_registry_sha256": "38b706b38fa10d0e7c4db46bd03c4eb870a643829bfa146114c780e44c188e51a",
+    "runtime": "p120-scientific-base-runtime-v1.0.js",
+    "science_routes": ["science/index.html", "en/science/index.html"],
+    "pass4_manifest": "webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_MANIFEST_v1.1.json"
+  },
+  "mutation_authority": {
+    "scientific_content": false,
+    "measurement": false,
+    "scoring": false,
+    "thresholds": false,
+    "respondent_state": false,
+    "persistence": false,
+    "report_calculation": false,
+    "supabase": false,
+    "runtime": false,
+    "route_html": false
+  },
+  "closure_requirements": {
+    "dedicated_qa_pass": true,
+    "prod_g1_boundary_regression_pass": true,
+    "pass4a_projection_regression_pass": true,
+    "current_main_recheck_before_merge": true,
+    "unresolved_delta_count_required": 0
+  },
+  "closure_status": "HOLD_PENDING_EXECUTABLE_QA"
+}
