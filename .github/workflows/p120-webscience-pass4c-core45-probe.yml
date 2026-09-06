@@ -1,0 +1,38 @@
+name: P120 WEB-SCIENCE PASS 4C Core-45 Probe
+
+on:
+  push:
+    branches:
+      - 'web-science-ext-pass4c-global-library-integration'
+    paths:
+      - 'qa/webscience_pass4c_core45_probe_v0.7.mjs'
+      - '.github/workflows/p120-webscience-pass4c-core45-probe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe-core45:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local P-120 site
+        run: |
+          python3 -m http.server 4179 --bind 127.0.0.1 >/tmp/p120-pass4c-http.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:4179/science/ >/dev/null
+      - name: Extract Core-45 identity objects
+        run: node qa/webscience_pass4c_core45_probe_v0.7.mjs
+      - name: Upload Core-45 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_PASS4C_CORE45_PROBE
+          path: qa-evidence-pass4c/
+          retention-days: 30
