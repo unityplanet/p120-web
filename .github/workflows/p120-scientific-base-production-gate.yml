@@ -40,9 +40,7 @@ jobs:
           from pathlib import Path
           import subprocess, json, hashlib
 
-          # Legacy Science-route/language/registry authority remains frozen here.
           LEGACY='6ef15f83ab1d7db132151b0d2216ba788f65ec71'
-          # Runtime authority was explicitly superseded only by sealed WEB-SCIENCE EXT PASS 4.
           SEALED='d095cae40b33da2118e5090be2a2c837205d8b64'
 
           legacy_locked=[
@@ -65,7 +63,7 @@ jobs:
           if runtime!=sealed:
               raise SystemExit(f'{runtime_path}: diverged from sealed PASS 4 runtime authority {SEALED}')
           legacy_core=legacy.rstrip(b'\n')
-          marker=b'\n\n/* WEB-SCIENCE EXT PASS 4B — controlled publication-renderer loader.'
+          marker='\n\n/* WEB-SCIENCE EXT PASS 4B — controlled publication-renderer loader.'.encode('utf-8')
           if not sealed.startswith(legacy_core+marker):
               raise SystemExit('Scientific Base legacy Core prefix not preserved by sealed PASS 4 runtime')
           suffix=sealed[len(legacy_core):]
