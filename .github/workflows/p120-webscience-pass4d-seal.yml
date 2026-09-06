@@ -44,7 +44,13 @@ jobs:
         run: node qa/webscience_pass4a_projection_gate_v0.5.mjs
 
       - name: Run PASS 4D static claim-boundary and bilingual gate
-        run: node qa/webscience_pass4d_claim_boundary_static_gate_v0.8.mjs
+        shell: bash
+        run: |
+          set -euo pipefail
+          node qa/webscience_pass4d_claim_boundary_static_gate_v0.8.mjs || {
+            jq '.failures' qa-evidence-webscience-pass4d/P120_WEBSCI_EXT_PASS4_PASS4D_STATIC_QA_RESULT_v0.8.json
+            exit 1
+          }
 
       - name: Re-materialize and verify Global-70 reproducibility
         shell: bash
