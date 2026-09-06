@@ -1,0 +1,56 @@
+name: P120 WEB-SCIENCE PROD-G1.1 Registry Reconciliation
+
+on:
+  push:
+    branches:
+      - 'web-science-prod-g1-registry-reconciliation'
+      - 'main'
+    paths:
+      - 'P120_WEBSCI_PRODUCTION_registry_v1.1_2026-09-06.json'
+      - 'qa/webscience_prod_g1_registry_reconciliation_gate_v1.1.py'
+      - 'webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_RECONCILIATION_*'
+      - '.github/workflows/p120-webscience-prod-g1-registry-reconciliation-v1.1.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'P120_WEBSCI_PRODUCTION_registry_v1.1_2026-09-06.json'
+      - 'qa/webscience_prod_g1_registry_reconciliation_gate_v1.1.py'
+      - 'webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_RECONCILIATION_*'
+      - '.github/workflows/p120-webscience-prod-g1-registry-reconciliation-v1.1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  registry-reconciliation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run PROD-G1.1 registry reconciliation gate
+        run: python3 qa/webscience_prod_g1_registry_reconciliation_gate_v1.1.py
+
+      - name: Re-run PROD-G1 production boundary gate
+        run: python3 qa/webscience_prod_g1_postmerge_gate_v1.0.py
+
+      - name: Re-run PASS4A publication projection gate
+        run: node qa/webscience_pass4a_projection_gate_v0.5.mjs
+
+      - name: Require clean repository after read-only QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --exit-code -- . ':!qa-evidence-webscience-prod-g1-registry'
+
+      - name: Upload controlled registry QA evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_WEBSCI_PROD_G1_REGISTRY_RECONCILIATION_v1.1_QA
+          path: qa-evidence-webscience-prod-g1-registry/
+          if-no-files-found: error
+          retention-days: 90
