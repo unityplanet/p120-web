@@ -43,12 +43,12 @@ try{
     check(`${c.id}: route HTTP OK`,!!resp&&resp.ok(),{status:resp?.status(),url});
     await page.waitForSelector('.luxury-preflight .preflight-main',{timeout:15000});
     check(`${c.id}: canonical System preflight rendered`,true);
-    await page.waitForSelector('[data-p120-system-functional-derivative="pass4-v1.0"]',{timeout:15000});
+    await page.waitForSelector('section[data-p120-system-functional-derivative="pass4-v1.0"]',{timeout:15000});
     await page.evaluate(theme=>{document.body.dataset.theme=theme},c.theme);
     await page.waitForTimeout(120);
 
     const data=await page.evaluate(()=>{
-      const block=document.querySelector('[data-p120-system-functional-derivative="pass4-v1.0"]');
+      const block=document.querySelector('section[data-p120-system-functional-derivative="pass4-v1.0"]');
       const ritual=document.querySelector('.luxury-ritual-grid');
       const title=block?.querySelector('h3')?.textContent?.trim()||'';
       const labels=[...block?.querySelectorAll('.flow-step strong')||[]].map(x=>x.textContent.trim());
@@ -63,7 +63,7 @@ try{
       window.P120SystemFunctionalDerivative?.render();
       const storageAfter={};
       for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);storageAfter[k]=localStorage.getItem(k)}
-      const count=document.querySelectorAll('[data-p120-system-functional-derivative="pass4-v1.0"]').length;
+      const count=document.querySelectorAll('section[data-p120-system-functional-derivative="pass4-v1.0"]').length;
       const rect=block?.getBoundingClientRect();
       const css=block?getComputedStyle(block):null;
       const bodyWidth=document.documentElement.scrollWidth;
@@ -83,7 +83,7 @@ try{
         color:css?.color||'',
         overflow:bodyWidth>viewportWidth+1,
         locale:document.documentElement.lang,
-        dataset:document.documentElement.dataset.p120SystemFunctionalDerivative||null,
+        dataset:document.documentElement.dataset.p120SystemFunctionalDerivativeActive||null,
         interactiveCount:block?.querySelectorAll('button,input,select,textarea').length||0
       };
     });
