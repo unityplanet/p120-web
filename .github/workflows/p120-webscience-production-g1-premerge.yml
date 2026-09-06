@@ -6,7 +6,10 @@ on:
       - 'web-science-production-activation-gate1'
     paths:
       - 'qa/webscience_prod_g1_candidate_gate_v1.0.py'
+      - 'qa/webscience_prod_g1_reconciliation_gate_v1.0.py'
+      - 'qa/webscience_prod_g1_postmerge_gate_v1.0.py'
       - '.github/workflows/p120-webscience-production-g1-premerge.yml'
+      - '.github/workflows/p120-webscience-production-g1-postmerge.yml'
   workflow_dispatch:
 
 permissions:
@@ -55,10 +58,13 @@ jobs:
           git diff --cached --name-only origin/main > /tmp/p120-prod-g1-changed.txt
           cat /tmp/p120-prod-g1-changed.txt
 
-      - name: Run production candidate boundary gate
+      - name: Run production candidate boundary and sealed reconciliation gates
         run: |
           python3 -m py_compile qa/webscience_prod_g1_candidate_gate_v1.0.py
+          python3 -m py_compile qa/webscience_prod_g1_reconciliation_gate_v1.0.py
+          python3 -m py_compile qa/webscience_prod_g1_postmerge_gate_v1.0.py
           python3 qa/webscience_prod_g1_candidate_gate_v1.0.py
+          python3 qa/webscience_prod_g1_reconciliation_gate_v1.0.py
 
       - name: Re-run PASS 4A publication projection gate
         run: node qa/webscience_pass4a_projection_gate_v0.5.mjs
@@ -100,11 +106,8 @@ jobs:
       - name: Re-run PASS 4E responsive typography regression
         run: node qa/webscience_pass4e_browser_typography_gate_v0.9.mjs
 
-      - name: Re-run PASS 4F authority reconciliation
-        run: python3 qa/webscience_pass4f_closure_reconciliation_gate_v1.0.py
-
-      - name: Re-run PASS 4G final seal invariants
-        run: python3 qa/webscience_pass4g_final_seal_gate_v1.1.py
+      - name: Reconcile immutable sealed PASS 4 after browser regressions
+        run: python3 qa/webscience_prod_g1_reconciliation_gate_v1.0.py
 
       - name: Re-run production candidate boundary gate after regressions
         run: python3 qa/webscience_prod_g1_candidate_gate_v1.0.py
@@ -127,7 +130,5 @@ jobs:
             qa-evidence-webscience-pass4c/
             qa-evidence-webscience-pass4d/
             qa-evidence-webscience-pass4e/
-            qa-evidence-webscience-pass4f/
-            qa-evidence-webscience-pass4g/
           if-no-files-found: error
           retention-days: 90
