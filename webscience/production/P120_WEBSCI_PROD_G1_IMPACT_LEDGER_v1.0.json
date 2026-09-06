@@ -1,0 +1,57 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-PROD-G1-IMPACT-LEDGER",
+  "version": "v1.0",
+  "date": "2026-09-06",
+  "status": "PRE_MERGE_CANDIDATE",
+  "production_main_baseline": "9bd3c1366f69f02617612169ffbd69ebcf8f5100",
+  "candidate_head_before_pr": "837cff2c3a3c5348cdcf81410bd71b4bde3dc928",
+  "candidate_delta": {
+    "science_pages_changed": 0,
+    "science_runtime_assets_changed": 0,
+    "respondent_or_session_contracts_changed": 0,
+    "scoring_or_threshold_files_changed": 0,
+    "report_calculation_files_changed": 0,
+    "supabase_files_changed": 0,
+    "ci_governance_files_modified": 2,
+    "historical_writer_workflows_retired": 7,
+    "governance_or_reconciliation_records_added": 3,
+    "qa_scripts_added": 1
+  },
+  "retired_executable_writers": [
+    ".github/workflows/p120-webscience-pass4a-seal.yml",
+    ".github/workflows/p120-webscience-pass4b-seal.yml",
+    ".github/workflows/p120-webscience-pass4c-seal.yml",
+    ".github/workflows/p120-webscience-pass4d-seal.yml",
+    ".github/workflows/p120-webscience-pass4e-seal.yml",
+    ".github/workflows/p120-webscience-pass4f-seal.yml",
+    ".github/workflows/p120-webscience-pass4g-final-seal.yml"
+  ],
+  "authority_effect": {
+    "scientific_authority_changed": false,
+    "pass4_seal_reopened": false,
+    "core45_extension25_global70_changed": false,
+    "production_runtime_authority_changed": false,
+    "deployment_path_semantics_reconciled": true,
+    "actions_write_allowlist_expanded": false,
+    "actions_executable_write_surface_reduced": true
+  },
+  "known_evidence": {
+    "deployment_path_reconciliation_run": 34027483670,
+    "deployment_path_invariant_checks": "39/39 PASS",
+    "deployment_path_browser_checks": "82/82 PASS",
+    "deployment_path_artifact": 9987532063,
+    "deployment_path_artifact_digest": "sha256:35a661bd8a30a69a218f021dae0105ffed6e98aa26a1afc46b58e95437580a49",
+    "actions_governance_failure_run_being_reconciled": 34027356934
+  },
+  "required_next_evidence": [
+    "Actions Governance QA PASS on PR head",
+    "final PR diff confirms no product/science/runtime drift",
+    "controlled merge to main",
+    "Actions Governance QA PASS on merged main",
+    "Scientific Base Production QA PASS on merged main",
+    "PROD-G1 post-merge verification PASS on merged main",
+    "live RU and EN Science smoke PASS",
+    "final PROD-G1 sealed package verification"
+  ]
+}
