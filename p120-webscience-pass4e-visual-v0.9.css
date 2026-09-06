@@ -63,6 +63,9 @@
 }
 .science-page .p120-pass4c-citation{overflow-wrap:anywhere}
 
+/* Desktop scholarly subnavigation still retains a measurable interaction floor. */
+.science-page .science-subnav a{min-height:24px}
+
 /* Touch target conformance for mobile/tablet. Desktop keeps compact scholarly navigation. */
 @media(max-width:1023px){
   .science-page .science-subnav a{
