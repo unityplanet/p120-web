@@ -1,0 +1,572 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4G-FINAL-SEAL-QA",
+  "version": "v1.1",
+  "date": "2026-09-06",
+  "status": "PASS",
+  "scope": "MANDATORY_FULL_PASS_PACKAGE_AND_FINAL_PARENT_SEAL",
+  "baseline_pass4f_closure": "1155a78646a314e3693aa7b247e667b86507a1d4",
+  "checks_total": 95,
+  "checks_passed": 95,
+  "checks_failed": 0,
+  "recorded_upstream_gate_assertions": 5223,
+  "checks": [
+    {
+      "id": "4G-001 protected PASS4F final authority unchanged",
+      "pass": true,
+      "detail": {
+        "protected_count": 13
+      }
+    },
+    {
+      "id": "4G-002 PASS4F closure is ancestor of PASS4G branch",
+      "pass": true
+    },
+    {
+      "id": "PASS4A manifest present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_MANIFEST_v0.5.json"
+    },
+    {
+      "id": "PASS4A QA summary present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4A_QA_SUMMARY_v0.5.json"
+    },
+    {
+      "id": "PASS4A manifest version",
+      "pass": true,
+      "detail": {
+        "actual": "v0.5",
+        "expected": "v0.5"
+      }
+    },
+    {
+      "id": "PASS4A manifest status",
+      "pass": true,
+      "detail": {
+        "actual": "PASS4A_CLOSED_CONTROLLED",
+        "expected": "PASS4A_CLOSED_CONTROLLED"
+      }
+    },
+    {
+      "id": "PASS4A QA status PASS",
+      "pass": true,
+      "detail": "PASS"
+    },
+    {
+      "id": "PASS4A production main not mutated",
+      "pass": true,
+      "detail": false
+    },
+    {
+      "id": "PASS4A recorded QA cardinality",
+      "pass": true,
+      "detail": {
+        "passed": 2970,
+        "expected": 2970,
+        "failed": 0
+      }
+    },
+    {
+      "id": "PASS4B manifest present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_MANIFEST_v0.6.json"
+    },
+    {
+      "id": "PASS4B QA summary present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_QA_SUMMARY_v0.6.json"
+    },
+    {
+      "id": "PASS4B manifest version",
+      "pass": true,
+      "detail": {
+        "actual": "v0.6",
+        "expected": "v0.6"
+      }
+    },
+    {
+      "id": "PASS4B manifest status",
+      "pass": true,
+      "detail": {
+        "actual": "PASS4B_CLOSED_CONTROLLED",
+        "expected": "PASS4B_CLOSED_CONTROLLED"
+      }
+    },
+    {
+      "id": "PASS4B QA status PASS",
+      "pass": true,
+      "detail": "PASS"
+    },
+    {
+      "id": "PASS4B production main not mutated",
+      "pass": true,
+      "detail": false
+    },
+    {
+      "id": "PASS4B production merge not performed",
+      "pass": true,
+      "detail": "NOT_PERFORMED"
+    },
+    {
+      "id": "PASS4B recorded QA cardinality",
+      "pass": true,
+      "detail": {
+        "passed": 198,
+        "expected": 198,
+        "failed": 0
+      }
+    },
+    {
+      "id": "PASS4C manifest present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_MANIFEST_v0.7.json"
+    },
+    {
+      "id": "PASS4C QA summary present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4C_QA_SUMMARY_v0.7.json"
+    },
+    {
+      "id": "PASS4C manifest version",
+      "pass": true,
+      "detail": {
+        "actual": "v0.7",
+        "expected": "v0.7"
+      }
+    },
+    {
+      "id": "PASS4C manifest status",
+      "pass": true,
+      "detail": {
+        "actual": "PASS4C_CLOSED_CONTROLLED",
+        "expected": "PASS4C_CLOSED_CONTROLLED"
+      }
+    },
+    {
+      "id": "PASS4C QA status PASS",
+      "pass": true,
+      "detail": "PASS"
+    },
+    {
+      "id": "PASS4C production main not mutated",
+      "pass": true,
+      "detail": false
+    },
+    {
+      "id": "PASS4C production merge not performed",
+      "pass": true,
+      "detail": "NOT_PERFORMED"
+    },
+    {
+      "id": "PASS4C recorded QA cardinality",
+      "pass": true,
+      "detail": {
+        "passed": 88,
+        "expected": 88,
+        "failed": 0
+      }
+    },
+    {
+      "id": "PASS4D manifest present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_MANIFEST_v0.8.json"
+    },
+    {
+      "id": "PASS4D QA summary present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4D_QA_SUMMARY_v0.8.json"
+    },
+    {
+      "id": "PASS4D manifest version",
+      "pass": true,
+      "detail": {
+        "actual": "v0.8",
+        "expected": "v0.8"
+      }
+    },
+    {
+      "id": "PASS4D manifest status",
+      "pass": true,
+      "detail": {
+        "actual": "PASS4D_CLOSED_CONTROLLED",
+        "expected": "PASS4D_CLOSED_CONTROLLED"
+      }
+    },
+    {
+      "id": "PASS4D QA status PASS",
+      "pass": true,
+      "detail": "PASS"
+    },
+    {
+      "id": "PASS4D production main not mutated",
+      "pass": true,
+      "detail": false
+    },
+    {
+      "id": "PASS4D production merge not performed",
+      "pass": true,
+      "detail": "NOT_PERFORMED"
+    },
+    {
+      "id": "PASS4D recorded QA cardinality",
+      "pass": true,
+      "detail": {
+        "passed": 896,
+        "expected": 896,
+        "failed": 0
+      }
+    },
+    {
+      "id": "PASS4E manifest present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_MANIFEST_v0.9.json"
+    },
+    {
+      "id": "PASS4E QA summary present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_QA_SUMMARY_v0.9.json"
+    },
+    {
+      "id": "PASS4E manifest version",
+      "pass": true,
+      "detail": {
+        "actual": "v0.9",
+        "expected": "v0.9"
+      }
+    },
+    {
+      "id": "PASS4E manifest status",
+      "pass": true,
+      "detail": {
+        "actual": "PASS4E_CLOSED_CONTROLLED",
+        "expected": "PASS4E_CLOSED_CONTROLLED"
+      }
+    },
+    {
+      "id": "PASS4E QA status PASS",
+      "pass": true,
+      "detail": "PASS"
+    },
+    {
+      "id": "PASS4E production main not mutated",
+      "pass": true,
+      "detail": false
+    },
+    {
+      "id": "PASS4E production merge not performed",
+      "pass": true,
+      "detail": "NOT_PERFORMED"
+    },
+    {
+      "id": "PASS4E recorded QA cardinality",
+      "pass": true,
+      "detail": {
+        "passed": 952,
+        "expected": 952,
+        "failed": 0
+      }
+    },
+    {
+      "id": "PASS4F manifest present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_MANIFEST_v1.0.json"
+    },
+    {
+      "id": "PASS4F QA summary present",
+      "pass": true,
+      "detail": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_QA_SUMMARY_v1.0.json"
+    },
+    {
+      "id": "PASS4F manifest version",
+      "pass": true,
+      "detail": {
+        "actual": "v1.0",
+        "expected": "v1.0"
+      }
+    },
+    {
+      "id": "PASS4F manifest status",
+      "pass": true,
+      "detail": {
+        "actual": "PASS4F_CLOSED_CONTROLLED",
+        "expected": "PASS4F_CLOSED_CONTROLLED"
+      }
+    },
+    {
+      "id": "PASS4F QA status PASS",
+      "pass": true,
+      "detail": "PASS"
+    },
+    {
+      "id": "PASS4F production main not mutated",
+      "pass": true,
+      "detail": false
+    },
+    {
+      "id": "PASS4F production merge not performed",
+      "pass": true,
+      "detail": "NOT_PERFORMED"
+    },
+    {
+      "id": "PASS4F recorded QA cardinality",
+      "pass": true,
+      "detail": {
+        "passed": 119,
+        "expected": 119,
+        "failed": 0
+      }
+    },
+    {
+      "id": "4G recorded upstream gate assertions total",
+      "pass": true,
+      "detail": {
+        "recorded_total": 5223,
+        "note": "heterogeneous gate assertions; aggregation is inventory only"
+      }
+    },
+    {
+      "id": "PASS4F authority chain reconciled",
+      "pass": true
+    },
+    {
+      "id": "PASS4F historical hashes reconciled",
+      "pass": true
+    },
+    {
+      "id": "PASS4F authorized supersession count exact",
+      "pass": true,
+      "detail": 2
+    },
+    {
+      "id": "PASS4F unresolved delta count zero",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "id": "PASS4F public ceiling unchanged",
+      "pass": true
+    },
+    {
+      "id": "PASS4F parent awaited PASS4G",
+      "pass": true,
+      "detail": "OPEN_PENDING_PASS4G"
+    },
+    {
+      "id": "PASS4F next gate is PASS4G",
+      "pass": true
+    },
+    {
+      "id": "PASS4F reconciliation QA 119/119",
+      "pass": true
+    },
+    {
+      "id": "publication projection frozen SHA",
+      "pass": true
+    },
+    {
+      "id": "library projection frozen SHA",
+      "pass": true
+    },
+    {
+      "id": "Global70 final SHA",
+      "pass": true
+    },
+    {
+      "id": "current PASS4B renderer SHA",
+      "pass": true
+    },
+    {
+      "id": "current PASS4C library runtime SHA",
+      "pass": true
+    },
+    {
+      "id": "current PASS4E visual SHA",
+      "pass": true
+    },
+    {
+      "id": "Global70 reference inventory is 70",
+      "pass": true,
+      "detail": {
+        "count": 70
+      }
+    },
+    {
+      "id": "Global70 IDs continuous REF-001..070",
+      "pass": true,
+      "detail": {
+        "first": [
+          "REF-001",
+          "REF-002",
+          "REF-003"
+        ],
+        "last": [
+          "REF-068",
+          "REF-069",
+          "REF-070"
+        ]
+      }
+    },
+    {
+      "id": "Global70 Core partition 45",
+      "pass": true,
+      "detail": 45
+    },
+    {
+      "id": "Global70 Extension partition 25",
+      "pass": true,
+      "detail": 25
+    },
+    {
+      "id": "E1 remains non-empirical-validation",
+      "pass": true
+    },
+    {
+      "id": "library contract remains 45/25/70",
+      "pass": true
+    },
+    {
+      "id": "reference count remains non-validity metric",
+      "pass": true
+    },
+    {
+      "id": "module publication remains summary_only",
+      "pass": true
+    },
+    {
+      "id": "RPE detail remains suppressed",
+      "pass": true
+    },
+    {
+      "id": "DYADIC remains hidden",
+      "pass": true
+    },
+    {
+      "id": "cross-layer discriminant validity not established",
+      "pass": true
+    },
+    {
+      "id": "cross-layer incremental validity not established",
+      "pass": true
+    },
+    {
+      "id": "validated synergy not authorized",
+      "pass": true
+    },
+    {
+      "id": "causal effects not authorized",
+      "pass": true
+    },
+    {
+      "id": "production renderer remains pre-production",
+      "pass": true
+    },
+    {
+      "id": "PASS4F file present: qa/webscience_pass4f_closure_reconciliation_gate_v1.0.py",
+      "pass": true
+    },
+    {
+      "id": "PASS4F file hash: qa/webscience_pass4f_closure_reconciliation_gate_v1.0.py",
+      "pass": true,
+      "detail": {
+        "actual": "f3175f66923f528c9294e0ad05dd760118fb90931781793415b7f8ddf3c9425f",
+        "expected": "f3175f66923f528c9294e0ad05dd760118fb90931781793415b7f8ddf3c9425f"
+      }
+    },
+    {
+      "id": "PASS4F file present: webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_RECONCILIATION_QA_RESULT_v1.0.json",
+      "pass": true
+    },
+    {
+      "id": "PASS4F file hash: webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_RECONCILIATION_QA_RESULT_v1.0.json",
+      "pass": true,
+      "detail": {
+        "actual": "8d27eb1552ab94d6ad8f2cb4eb958f603dacc15da4c6272afdb81e3234626496",
+        "expected": "8d27eb1552ab94d6ad8f2cb4eb958f603dacc15da4c6272afdb81e3234626496"
+      }
+    },
+    {
+      "id": "PASS4F file present: webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_QA_SUMMARY_v1.0.json",
+      "pass": true
+    },
+    {
+      "id": "PASS4F file hash: webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_QA_SUMMARY_v1.0.json",
+      "pass": true,
+      "detail": {
+        "actual": "6980389b974e19739d05df04f583d58437cd68387cd409c895e2684ad43d8085",
+        "expected": "6980389b974e19739d05df04f583d58437cd68387cd409c895e2684ad43d8085"
+      }
+    },
+    {
+      "id": "PASS4F file present: webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_AUTHORITY_CHAIN_v1.0.json",
+      "pass": true
+    },
+    {
+      "id": "PASS4F file hash: webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_AUTHORITY_CHAIN_v1.0.json",
+      "pass": true,
+      "detail": {
+        "actual": "cb4df7e5a65b22c686c150e6f87b3eb9d264ae44823faf28ab23663f35180112",
+        "expected": "cb4df7e5a65b22c686c150e6f87b3eb9d264ae44823faf28ab23663f35180112"
+      }
+    },
+    {
+      "id": "PASS4F file present: webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_RECONCILIATION_MATRIX_v1.0.json",
+      "pass": true
+    },
+    {
+      "id": "PASS4F file hash: webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_RECONCILIATION_MATRIX_v1.0.json",
+      "pass": true,
+      "detail": {
+        "actual": "e95a7409286af5e41b7bdb5375bc08f35e5558c91cf4baf1ef5f61c9973d03d0",
+        "expected": "e95a7409286af5e41b7bdb5375bc08f35e5558c91cf4baf1ef5f61c9973d03d0"
+      }
+    },
+    {
+      "id": "PASS4F file present: webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_DELTA_LEDGER_v1.0.json",
+      "pass": true
+    },
+    {
+      "id": "PASS4F file hash: webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_DELTA_LEDGER_v1.0.json",
+      "pass": true,
+      "detail": {
+        "actual": "2138fdfbf32a1ba9d1f41ca1dad25d1855bba37c26626c3130efc5bdd051683d",
+        "expected": "2138fdfbf32a1ba9d1f41ca1dad25d1855bba37c26626c3130efc5bdd051683d"
+      }
+    },
+    {
+      "id": "PASS4F file present: webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_REPORT_v1.0.md",
+      "pass": true
+    },
+    {
+      "id": "PASS4F file hash: webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_REPORT_v1.0.md",
+      "pass": true,
+      "detail": {
+        "actual": "a07001906c2690e32e2dc61bf7c501d183ccd56da689b7cfbd35a35bd5f2eb86",
+        "expected": "a07001906c2690e32e2dc61bf7c501d183ccd56da689b7cfbd35a35bd5f2eb86"
+      }
+    },
+    {
+      "id": "PASS4F file present: webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_DECISION_v1.0.md",
+      "pass": true
+    },
+    {
+      "id": "PASS4F file hash: webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4F_DECISION_v1.0.md",
+      "pass": true,
+      "detail": {
+        "actual": "66abbe02203915033e0c6d594768177fa260d127f93a96a16004d4c659047048",
+        "expected": "66abbe02203915033e0c6d594768177fa260d127f93a96a16004d4c659047048"
+      }
+    }
+  ],
+  "failures": [],
+  "scientific_content_mutated": false,
+  "references_mutated": false,
+  "measurement_mutated": false,
+  "scoring_mutated": false,
+  "thresholds_mutated": false,
+  "renderer_mutated": false,
+  "presentation_mutated": false,
+  "production_merge": "NOT_PERFORMED",
+  "final_parent_status_if_sealed": "CLOSED_CONTROLLED_SEALED",
+  "production_activation_disposition": "SEPARATE_CONTROLLED_GATE_REQUIRED"
+}

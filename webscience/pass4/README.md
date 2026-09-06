@@ -172,3 +172,7 @@ The next stage projects v0.4 content into the existing Scientific Base presentat
 
 ## PASS 4F closure — 2026-09-06
 `PASS / CLOSED / CONTROLLED / v1.0` — PASS 4A–4E authority chain, historical/current SHA dispositions, final public claim ceiling and no-change boundaries reconciled with zero unresolved delta. Parent WEB-SCIENCE EXT PASS 4 remains **OPEN**. Next and only authorized stage: **PASS 4G — Mandatory Full PASS Package / Final PASS 4 Sealing**.
+
+
+## PASS 4G final sealing — 2026-09-06
+`PASS / CLOSED / CONTROLLED / SEALED / v1.1` — mandatory full PASS corpus reconciled, reproduced and sealed. Scientific/public ceiling remains unchanged. Production merge/activation is not authorized by this seal and requires a separate controlled production gate.
