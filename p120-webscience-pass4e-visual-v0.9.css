@@ -1,0 +1,117 @@
+/* P-120 WEB-SCIENCE EXT PASS 4E — Browser / Responsive / Typography corrections v0.9
+   Scope: dedicated Scientific Base presentation only.
+   No scientific content, measurement, scoring, thresholds, persistence or report logic. */
+
+/* Real loaded IBM Plex Sans weights only: Bunny source provides 300/400/500/600/700. */
+.science-page :is(
+  .eyebrow,
+  .science-status-label,
+  .science-subnav a,
+  .science-code,
+  .science-details summary,
+  .evidence-pill,
+  .evidence-head>span,
+  .hypothesis>span,
+  .validation-criterion,
+  .ethics-item>span,
+  .reference-search span,
+  .ref-num,
+  .doi-link,
+  .internal-list span,
+  .p120-pass4b-label,
+  .p120-pass4c-filter
+){font-weight:600!important}
+.science-page .btn{font-weight:700!important}
+
+/* Technical identifiers: canonical technical family. */
+.science-page :is(
+  .science-code,
+  .ref-num,
+  .hypothesis>span,
+  .ethics-item>span,
+  .internal-list span,
+  .p120-pass4b-reference-id,
+  .p120-pass4b-evidence code
+){font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace!important}
+
+/* Grid/min-content containment. */
+.science-page :is(
+  .section-split-head,
+  .section-split-head>*,
+  #p120-science-atlas,
+  #p120-science-active-base,
+  .p120-pass4b-positioning-grid,
+  .p120-pass4b-positioning-card,
+  .p120-pass4b-module-grid,
+  .p120-pass4b-module,
+  .p120-pass4c-controls,
+  .p120-pass4c-filters,
+  .p120-pass4c-list,
+  .p120-pass4c-ref,
+  .p120-pass4c-meta
+){min-width:0}
+.science-page :is(.science-section h2,#p120-science-atlas h2,#p120-science-active-base h2){overflow-wrap:break-word;word-break:normal}
+
+/* Global-70 metadata may contain long canonical underscore-delimited role identifiers. */
+.science-page .p120-pass4c-chip{
+  min-width:0;
+  max-width:100%;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+  line-height:1.35;
+}
+.science-page .p120-pass4c-citation{overflow-wrap:anywhere}
+
+/* Touch target conformance for mobile/tablet. Desktop keeps compact scholarly navigation. */
+@media(max-width:1023px){
+  .science-page .science-subnav a{
+    min-height:44px;
+    min-width:44px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .science-page .p120-pass4c-filter{min-height:44px;min-width:44px}
+  .science-page :is(.ref-item .doi-link,.p120-pass4c-ref .doi-link){
+    min-height:44px;
+    min-width:44px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:8px 10px;
+  }
+}
+
+/* Narrow-phone title fit: preserve hierarchy while eliminating min-content clipping. */
+@media(max-width:360px){
+  .science-page :is(.science-section h2,#p120-science-atlas h2,#p120-science-active-base h2){
+    font-size:clamp(29px,9.35vw,32px)!important;
+    line-height:1.08;
+    letter-spacing:-.025em;
+  }
+}
+
+/* Reader-facing Science prose may not fall below 12px on narrow phones. */
+@media(max-width:520px){
+  .science-page :is(
+    .plain-layer p,
+    .practical-card p,
+    .life-card p,
+    .construct-card p,
+    .construct-boundary,
+    .boundary-pair p,
+    .validation-copy p,
+    .hypothesis p,
+    .science-callout p,
+    .ref-item,
+    .internal-list p,
+    .p120-pass4b-module p,
+    .p120-pass4b-positioning-card p,
+    .p120-pass4c-citation
+  ){
+    font-size:max(12px,1em);
+    line-height:1.5;
+  }
+  .science-page{padding-bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+}
