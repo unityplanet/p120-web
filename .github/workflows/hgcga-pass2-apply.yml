@@ -38,8 +38,8 @@ jobs:
               'p120-brand-system-v1.0.js': ['decisionResearch', 'Исследование решений', 'Decision research'],
               'navigation-architecture-v2.js': ['decisionResearch', "href:'research/how-we-decide/'"],
               'p120-public-runtime-v1.0.js': ['decisionResearch', "href:'research/how-we-decide/'"],
-              'research/how-we-decide/index.html': ['Эмпирическая эффективность системы не установлена.', 'HUMAN-GOVERNED'],
-              'en/research/how-we-decide/index.html': ['The empirical effectiveness of the system has not been established.', 'HUMAN-GOVERNED'],
+              'research/how-we-decide/index.html': ['Эмпирическая эффективность системы не установлена.', 'ЧЕЛОВЕЧЕСКОЕ СУЖДЕНИЕ'],
+              'en/research/how-we-decide/index.html': ['The empirical effectiveness of the system has not been established.', 'HUMAN JUDGMENT'],
           }
           failed=[]
           for path, needles in checks.items():
