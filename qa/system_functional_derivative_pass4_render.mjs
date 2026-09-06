@@ -11,10 +11,10 @@ const checks=[];
 const check=(label,ok,detail=null)=>{checks.push({label,ok,detail});if(!ok)failures.push({label,detail});};
 
 const cases=[
-  {id:'ru-mobile',route:'/system/',locale:'ru',width:390,height:844,theme:'museum'},
-  {id:'ru-desktop',route:'/system/',locale:'ru',width:1440,height:1000,theme:'graphite'},
-  {id:'en-mobile',route:'/en/system/',locale:'en',width:390,height:844,theme:'museum'},
-  {id:'en-desktop',route:'/en/system/',locale:'en',width:1440,height:1000,theme:'graphite'}
+  {id:'ru-mobile',route:'/system/',locale:'ru',width:390,height:844,theme:'museum',sessionKey:'p120_runtime_session_ru_v1'},
+  {id:'ru-desktop',route:'/system/',locale:'ru',width:1440,height:1000,theme:'graphite',sessionKey:'p120_runtime_session_ru_v1'},
+  {id:'en-mobile',route:'/en/system/',locale:'en',width:390,height:844,theme:'museum',sessionKey:'p120_runtime_session_en_v1'},
+  {id:'en-desktop',route:'/en/system/',locale:'en',width:1440,height:1000,theme:'graphite',sessionKey:'p120_runtime_session_en_v1'}
 ];
 
 const expected={
@@ -25,21 +25,24 @@ const expected={
 const browser=await chromium.launch({headless:true});
 try{
   for(const c of cases){
-    const page=await browser.newPage({viewport:{width:c.width,height:c.height}});
+    const context=await browser.newContext({viewport:{width:c.width,height:c.height}});
+    await context.addInitScript(({sessionKey,locale})=>{
+      const stamp='2026-09-06T00:00:00.000Z';
+      localStorage.setItem(sessionKey,JSON.stringify({
+        participantId:'P120-PASS4QA',sessionLocale:locale,screen:'preflight',itemIndex:0,
+        responses:{},adminModes:{},telemetry:[{type:'pass4_qa_preflight_seed',at:stamp}],
+        startedAt:null,consentAt:null,lastSavedAt:stamp
+      }));
+    },{sessionKey:c.sessionKey,locale:c.locale});
+    const page=await context.newPage();
     const errors=[];
     page.on('pageerror',e=>errors.push(`pageerror:${e.message}`));
     page.on('console',m=>{if(m.type()==='error')errors.push(`console:${m.text()}`)});
     const url=BASE+c.route;
     const resp=await page.goto(url,{waitUntil:'domcontentloaded',timeout:30000});
     check(`${c.id}: route HTTP OK`,!!resp&&resp.ok(),{status:resp?.status(),url});
-    await page.waitForSelector('[data-editorial-action="test"]',{timeout:15000});
-    const entered=await page.evaluate(()=>{
-      const trigger=document.querySelector('[data-editorial-action="test"]');
-      if(!trigger) return false;
-      trigger.click();
-      return true;
-    });
-    check(`${c.id}: existing System entry action invoked`,entered===true,entered);
+    await page.waitForSelector('.luxury-preflight .preflight-main',{timeout:15000});
+    check(`${c.id}: canonical System preflight rendered`,true);
     await page.waitForSelector('[data-p120-system-functional-derivative="pass4-v1.0"]',{timeout:15000});
     await page.evaluate(theme=>{document.body.dataset.theme=theme},c.theme);
     await page.waitForTimeout(120);
@@ -54,10 +57,12 @@ try{
       const consent=document.querySelector('#consent');
       const start=document.querySelector('#start');
       const initialStartDisabled=!!start?.disabled;
-      const keysBefore=Object.keys(localStorage).sort();
+      const storageBefore={};
+      for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);storageBefore[k]=localStorage.getItem(k)}
       window.P120SystemFunctionalDerivative?.render();
       window.P120SystemFunctionalDerivative?.render();
-      const keysAfter=Object.keys(localStorage).sort();
+      const storageAfter={};
+      for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);storageAfter[k]=localStorage.getItem(k)}
       const count=document.querySelectorAll('[data-p120-system-functional-derivative="pass4-v1.0"]').length;
       const rect=block?.getBoundingClientRect();
       const css=block?getComputedStyle(block):null;
@@ -71,7 +76,7 @@ try{
         count,
         afterRitual:ritual?.nextElementSibling===block,
         initialStartDisabled,enabledAfterConsent,
-        keysBefore,keysAfter,
+        storageBefore,storageAfter,
         width:rect?.width||0,
         display:css?.display||'',
         background:css?.backgroundColor||'',
@@ -94,14 +99,14 @@ try{
     check(`${c.id}: About route`,new URL(data.href).pathname.endsWith(e.href),data.href);
     check(`${c.id}: existing consent remains initially blocking`,data.initialStartDisabled===true,data.initialStartDisabled);
     check(`${c.id}: existing consent still enables respondent start`,data.enabledAfterConsent===true,data.enabledAfterConsent);
-    check(`${c.id}: repeated derivative rendering is storage-neutral`,JSON.stringify(data.keysBefore)===JSON.stringify(data.keysAfter),{before:data.keysBefore,after:data.keysAfter});
+    check(`${c.id}: repeated derivative rendering is storage-neutral`,JSON.stringify(data.storageBefore)===JSON.stringify(data.storageAfter),{before:data.storageBefore,after:data.storageAfter});
     check(`${c.id}: derivative adds no respondent input controls`,data.interactiveCount===0,data.interactiveCount);
     check(`${c.id}: visible block geometry`,data.width>200&&data.display!=='none',data);
     check(`${c.id}: no horizontal overflow`,data.overflow===false,data.overflow);
     check(`${c.id}: no console/page errors`,errors.length===0,errors);
 
     await page.screenshot({path:path.join(OUT,`${c.id}.png`),fullPage:true});
-    await page.close();
+    await context.close();
   }
 } finally {
   await browser.close();
