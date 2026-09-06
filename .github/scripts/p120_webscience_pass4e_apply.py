@@ -41,5 +41,5 @@ else:
     actual=hashlib.sha256(raw).hexdigest()
     if actual != EXPECTED:
         raise SystemExit(f'PASS 4C authority hash mismatch before PASS 4E loader: {actual}')
-    TARGET.write_text(text.rstrip()+BLOCK+'\n',encoding='utf-8')
+    TARGET.write_text(text.rstrip()+BLOCK.rstrip()+'\n',encoding='utf-8')
     print('PASS 4E exact additive visual loader applied')
