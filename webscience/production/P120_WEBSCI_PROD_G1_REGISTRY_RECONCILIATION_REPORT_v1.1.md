@@ -50,13 +50,31 @@ This subpass is additive governance only. It does **not** mutate:
 - respondent wording/session state;
 - persistence, report calculation or Supabase.
 
-## 6. Gate criterion
+## 6. Executable pre-merge evidence
 
-`PROD-G1.1` may close only if executable QA proves:
+Final corrected branch run `34037519283` on head `b5f7a5398be7a3646d5601d6ae862c30de49d0bf` completed **SUCCESS**.
 
-1. exact ancestry from controlled `main 0c9a7bdc…` and sealed PASS 4 authority;
-2. historical executable registry SHA remains exact;
-3. all protected pre-existing Science/runtime files remain unchanged;
-4. v1.1 binds the exact production and evidence ceilings;
-5. delta scope is limited to this registry-reconciliation package;
-6. unresolved registry-status delta is zero.
+- PROD-G1.1 registry reconciliation gate: **62/62 PASS**, failed `0`;
+- inherited PROD-G1 production-boundary regression: **31/31 PASS**, failed `0`;
+- PASS4A publication-projection regression: **2970/2970 PASS**, failed `0`;
+- read-only repository cleanliness check: **PASS**;
+- QA artifact: `9990632746`;
+- QA artifact digest: `sha256:e83bed9377a083095040b8943bd138e8aef12782f98d05e88304e7c82602de23`.
+
+The first diagnostic runs are not closure evidence. They identified a transcription error in the newly authored package's copy of the historical registry SHA. The protected historical file itself never changed. The final gate binds its actual frozen SHA-256:
+
+`38b706b38f8f19f60c5917874b8371661340bb0cf30059fe9a7de98d16251f5e`
+
+No scientific/runtime drift was found.
+
+## 7. Gate disposition
+
+All pre-merge executable criteria are satisfied and unresolved technical registry delta is `0` on the candidate branch. The subpass is **READY FOR CONTROLLED PR MERGE**, not yet closed at production level.
+
+Closure still requires:
+
+1. current `main` recheck immediately before PR/merge;
+2. PR-level reconciliation and governance QA;
+3. controlled merge into actual `main`;
+4. post-merge registry QA on the resulting production HEAD;
+5. final production closure record / package verification before any `CLOSED / CONTROLLED / SEALED` declaration.
