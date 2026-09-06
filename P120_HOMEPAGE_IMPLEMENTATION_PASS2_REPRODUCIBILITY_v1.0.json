@@ -1,0 +1,65 @@
+{
+  "schema": "p120.homepage.implementation_pass2.reproducibility.v1",
+  "document_id": "P120-WEB-HOME-IMP2-REPRO-001",
+  "version": "1.0",
+  "date": "2026-09-06",
+  "repository": "unityplanet/p120-web",
+  "entry_baseline": "8437e51b7b862851180e69c4b20ac2741e3bc01e",
+  "validated_implementation_head": "482b5a245cc66ebb3d18ad07fb07568ab5c74399",
+  "environment": {
+    "runner": "ubuntu-latest",
+    "observed_os": "Ubuntu 24.04.4 LTS",
+    "playwright": "1.55.0",
+    "node": "GitHub Actions current Node runtime; QA scripts executed with node",
+    "python": "python3 static server / build checker"
+  },
+  "commands": [
+    "node --check homepage/homepage-architecture-pass2.js",
+    "node --check mobile-session-resume-v1.0.js",
+    "node qa/homepage_pass2_source_authority_gate.mjs",
+    "node qa/homepage_pass2_static.mjs",
+    "python3 qa/check_build.py",
+    "python3 -m http.server 4173 --bind 127.0.0.1",
+    "python3 -m http.server 4174 --bind 127.0.0.1 --directory ..",
+    "P120_QA_BASE=http://127.0.0.1:4174/p120-web node qa/homepage_pass2_render.mjs",
+    "P120_QA_BASE=http://127.0.0.1:4173 node qa/pass53_postpass3_visual_reconciliation.mjs",
+    "P120_QA_BASE=http://127.0.0.1:4173 node qa/pass53_brand_unification_about_reconciled.mjs",
+    "P120_QA_BASE=http://127.0.0.1:4174/p120-web node qa/main_quick_locale_theme_patch3_pass2_reconciled.mjs",
+    "P120_QA_BASE=http://127.0.0.1:4174/p120-web node qa/mobile_quick_chapter_navigation_pass2.mjs",
+    "P120_QA_BASE=http://127.0.0.1:4174/p120-web node qa/mobile_session_resume_patch2_pass2.mjs",
+    "P120_QA_BASE=http://127.0.0.1:4173 node qa/global_header_code_integrity_pass2.mjs",
+    "P120_QA_BASE=http://127.0.0.1:4173 node qa/global_header_code_hardening_pass21.mjs",
+    "P120_QA_BASE=http://127.0.0.1:4174/p120-web node qa/footer_link_presentation_correction_pass1.mjs"
+  ],
+  "homepage_render_matrix": [
+    "RU 390x844 Museum",
+    "RU 768x1024 Ivory",
+    "RU 1440x1000 Graphite",
+    "RU 2560x1440 Museum",
+    "EN 390x844 Museum",
+    "EN 768x1024 Ivory",
+    "EN 1440x1000 Graphite",
+    "EN 2560x1440 Museum"
+  ],
+  "expected_results": {
+    "source_authority": "19/19 PASS",
+    "static": "91/91 PASS",
+    "homepage_render": "172/172 PASS",
+    "pass53_postpass3": "144/144 PASS",
+    "about_topology_reconciliation": "77/77 PASS",
+    "main_quick_theme": "191/191 PASS",
+    "mobile_quick_chapter": "24 mobile cases + 2 desktop preservation cases / 0 failures",
+    "mobile_session_resume": "363/363 PASS",
+    "global_header_integrity": "PASS_WITH_HARDENING_NOTES / 0 blockers",
+    "global_header_hardening": "PASS / 0 failures",
+    "footer": "PASS",
+    "workflow": "success"
+  },
+  "evidence": {
+    "workflow_run_id": 34023617103,
+    "actions_governance_run_id": 34023617124,
+    "artifact_id": 9986426081,
+    "artifact_name": "P120_HOMEPAGE_IMPLEMENTATION_PASS2_QA",
+    "artifact_sha256": "2133f330cdd0ce1857e98bf03ec7cd18449d7ef08bf115b79e907bbe86f95ef2"
+  }
+}
