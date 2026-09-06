@@ -1,0 +1,59 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-PROD-G1-REGISTRY-FINAL-SEAL-MANIFEST",
+  "version": "v1.1",
+  "date": "2026-09-06",
+  "status": "FINAL_SEAL_CANDIDATE",
+  "registry_activation_head": "cf11a176bb0db87aec046d5694c302285b275f90",
+  "sealed_science_authority": "d095cae40b33da2118e5090be2a2c837205d8b64",
+  "parent_prod_g1_status": "CLOSED_CONTROLLED_SEALED_ACTIVE_IN_PRODUCTION",
+  "child_gate": "WEB-SCIENCE PROD-G1.1 — Production Registry Reconciliation",
+  "child_gate_target_status": "CLOSED_CONTROLLED_SEALED",
+  "closure_authority_head": "BOUND_AT_SEAL_RUNTIME",
+  "scope": "CLOSURE RECORDS / QA / PACKAGE CONTROL ONLY",
+  "closure_source_files": [
+    "webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_FINAL_EVIDENCE_v1.1.json",
+    "webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_FINAL_EXACT_DELTA_v1.1.json",
+    "webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_FINAL_RECONCILIATION_v1.1.md",
+    "webscience/production/P120_WEBSCI_PROD_G1_REGISTRY_FINAL_SEAL_MANIFEST_v1.1.json",
+    "qa/webscience_prod_g1_registry_final_seal_gate_v1.1.py",
+    ".github/scripts/p120_webscience_prod_g1_registry_final_closure.py",
+    ".github/workflows/p120-webscience-prod-g1-registry-final-seal-v1.1.yml"
+  ],
+  "protected_files": [
+    "P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json",
+    "P120_WEBSCI_PRODUCTION_registry_v1.1_2026-09-06.json",
+    "p120-scientific-base-runtime-v1.0.js",
+    "science/index.html",
+    "en/science/index.html",
+    "webscience/pass4/P120_WEBSCI_EXT_PASS4_FINAL_MANIFEST_v1.1.json",
+    "webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json",
+    "webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_integrated_v0.7.json"
+  ],
+  "protected_executable_registry_sha256": "38b706b38f8f19f60c5917874b8371661340bb0cf30059fe9a7de98d16251f5e",
+  "public_ceiling_unchanged": true,
+  "global_library_contract": {"core": 45, "extension": 25, "global": 70},
+  "mutation_authority": {
+    "scientific_content": false,
+    "runtime": false,
+    "science_routes": false,
+    "measurement": false,
+    "scoring": false,
+    "thresholds": false,
+    "respondent_state": false,
+    "persistence": false,
+    "report_calculation": false,
+    "supabase": false
+  },
+  "seal_requirements": {
+    "activation_postmerge_evidence_complete": true,
+    "closure_scope_gate_pass": true,
+    "prod_g1_boundary_regression_pass": true,
+    "pass4a_projection_regression_pass": true,
+    "package_internal_checksum_pass": true,
+    "independent_postbuild_verification_pass": true,
+    "premerge_seal_required": true,
+    "postmerge_seal_on_actual_main_required": true,
+    "unresolved_delta_count_required": 0
+  }
+}
