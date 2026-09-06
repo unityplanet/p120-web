@@ -148,3 +148,13 @@ No P-120 Extended Total, MOT Total, SELF Total, LIFE Total, generic Agency/Repai
 **WEB-SCIENCE EXT PASS 4B — Renderer Activation.**
 
 The next stage projects v0.4 content into the existing Scientific Base presentation layer, implements the Core-45 / Global-70 literature contract, preserves current Core and route regressions, and prepares bilingual browser/claim-boundary/local typography QA before any production merge.
+
+## PASS 4B — Renderer Activation closure
+
+**Status:** PASS / CLOSED / CONTROLLED / v0.6  
+**Renderer:** activated on `web-science-ext-pass4b-renderer-activation` only.  
+**QA:** 198/198 PASS; failed = 0.  
+**Production main:** untouched.  
+**Global Library:** 25-reference extension renders separately; unified Core-45 / Global-70 integration remains PASS 4C.
+
+**Next gate:** WEB-SCIENCE EXT PASS 4C — Core-45 / Global-70 Library Integration.

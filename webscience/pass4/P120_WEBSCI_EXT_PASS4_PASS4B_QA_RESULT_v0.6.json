@@ -1,0 +1,2326 @@
+{
+  "document_id": "P120-WEBSCI-EXT-004-PASS4B-QA",
+  "version": "v0.6",
+  "date": "2026-09-06",
+  "gate": "WEB-SCIENCE EXT PASS 4B — Renderer Activation",
+  "status": "PASS",
+  "checks_total": 198,
+  "checks_passed": 198,
+  "checks_failed": 0,
+  "failures": [],
+  "checks": [
+    {
+      "id": "RU desktop: PASS 4B renderer ready",
+      "pass": true
+    },
+    {
+      "id": "RU desktop: base runtime remains PASS",
+      "pass": true,
+      "base": {
+        "phase": "ready",
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "activeBaseId": "CORE",
+        "activeModuleId": null
+      }
+    },
+    {
+      "id": "RU desktop: projection schema",
+      "pass": true,
+      "schema": "P120-WEBSCI-PUBLICATION-PROJECTION-001"
+    },
+    {
+      "id": "RU desktop: library schema",
+      "pass": true,
+      "schema": "P120-WEBSCI-GLOBAL-LIBRARY-PROJECTION-001"
+    },
+    {
+      "id": "RU desktop: measurement mutation prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "RU desktop: scoring mutation prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "RU desktop: threshold mutation prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "RU desktop: session storage access prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "RU desktop: Core reference fixture remains 45",
+      "pass": true,
+      "refs": 45
+    },
+    {
+      "id": "RU desktop: Core anchors retained",
+      "pass": true,
+      "anchors": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": "RU desktop: additive system positioning rendered",
+      "pass": true
+    },
+    {
+      "id": "RU desktop: Global extension not injected into Core bibliography",
+      "pass": true,
+      "count": 0
+    },
+    {
+      "id": "RU desktop: no non-Core active panel in Core",
+      "pass": true,
+      "activePanel": false
+    },
+    {
+      "id": "RU desktop: Extended renders four projected modules",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "RU desktop: Extended module identity",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "RU desktop: Extended remains summary_only",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "RU desktop: RPE detail suppression marker",
+      "pass": true,
+      "rpe": {
+        "id": "RPE-MOD",
+        "visibility": "summary_only",
+        "constructs": 0,
+        "refs": 0,
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "id": "RU desktop: RPE construct detail absent",
+      "pass": true,
+      "rpe": {
+        "id": "RPE-MOD",
+        "visibility": "summary_only",
+        "constructs": 0,
+        "refs": 0,
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "id": "RU desktop: RPE reference detail absent",
+      "pass": true,
+      "rpe": {
+        "id": "RPE-MOD",
+        "visibility": "summary_only",
+        "constructs": 0,
+        "refs": 0,
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "id": "RU desktop: non-RPE Extended constructs rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "RU desktop: non-RPE Extended evidence refs rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "RU desktop: DYADIC remains absent",
+      "pass": true,
+      "dyadic": 0
+    },
+    {
+      "id": "RU desktop: Outcomes renders LIFE only",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Кандидатный слой исходов\n      Интеграция близости с остальной жизнью\n      Какие более широкие аффективные, энергетические, когнитивные, восстановительные, вовлекающие или смысловые состояния наблюдаются вокруг и после близости?\n      Отдельный слой исходов и переноса в другие сферы жизни. LIFE измеряет наблюдаемые последующие состояния, а не психосексуальную черту и не причинный эффект близости.\n      PAUПоложительный аффективный подъёмCORE_CANDIDATENALНегативная аффективная нагрузкаCORE_CANDIDATESVСубъективная жизненная энергияCORE_CANDIDATESLPКачество и начало снаCORE_CANDIDATEWSEВовлечённость в работу / учёбуCORE_CANDIDATEMLSСмысл / жизненная значимостьCORE_CANDIDATECCOКогнитивный перенос после событияLIMITED_AUXILIARYGLSГлобальная удовлетворённость жизньюEXTERNALIZED_ANCHOR\n      Состояние разработкиПервичная карта из 12 целевых исходов сокращена до 8 территорий, доступных респонденту, и до 6 CORE + CCO в ограниченной/вспомогательной роли; GLS вынесен во внешний сопоставительный показатель. Временные режимы T0/T1, недавнего паттерна и глобального внешнего сопоставления не взаимозаменяемы; LIFE-18 остаётся предпочтительной глубиной разработки.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Публикационный пределДопустимы кандидатная архитектура исходов и внешние сопоставительные инструменты только с языком ковариации и временной ассоциации. Не допускаются LIFE Total, причинная атрибуция, обещания продуктивности или здоровья и подтверждённая факторная модель.\n    "
+        }
+      ]
+    },
+    {
+      "id": "RU desktop: LIFE remains summary_only",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Кандидатный слой исходов\n      Интеграция близости с остальной жизнью\n      Какие более широкие аффективные, энергетические, когнитивные, восстановительные, вовлекающие или смысловые состояния наблюдаются вокруг и после близости?\n      Отдельный слой исходов и переноса в другие сферы жизни. LIFE измеряет наблюдаемые последующие состояния, а не психосексуальную черту и не причинный эффект близости.\n      PAUПоложительный аффективный подъёмCORE_CANDIDATENALНегативная аффективная нагрузкаCORE_CANDIDATESVСубъективная жизненная энергияCORE_CANDIDATESLPКачество и начало снаCORE_CANDIDATEWSEВовлечённость в работу / учёбуCORE_CANDIDATEMLSСмысл / жизненная значимостьCORE_CANDIDATECCOКогнитивный перенос после событияLIMITED_AUXILIARYGLSГлобальная удовлетворённость жизньюEXTERNALIZED_ANCHOR\n      Состояние разработкиПервичная карта из 12 целевых исходов сокращена до 8 территорий, доступных респонденту, и до 6 CORE + CCO в ограниченной/вспомогательной роли; GLS вынесен во внешний сопоставительный показатель. Временные режимы T0/T1, недавнего паттерна и глобального внешнего сопоставления не взаимозаменяемы; LIFE-18 остаётся предпочтительной глубиной разработки.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Публикационный пределДопустимы кандидатная архитектура исходов и внешние сопоставительные инструменты только с языком ковариации и временной ассоциации. Не допускаются LIFE Total, причинная атрибуция, обещания продуктивности или здоровья и подтверждённая факторная модель.\n    "
+        }
+      ]
+    },
+    {
+      "id": "RU desktop: LIFE candidate architecture rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Кандидатный слой исходов\n      Интеграция близости с остальной жизнью\n      Какие более широкие аффективные, энергетические, когнитивные, восстановительные, вовлекающие или смысловые состояния наблюдаются вокруг и после близости?\n      Отдельный слой исходов и переноса в другие сферы жизни. LIFE измеряет наблюдаемые последующие состояния, а не психосексуальную черту и не причинный эффект близости.\n      PAUПоложительный аффективный подъёмCORE_CANDIDATENALНегативная аффективная нагрузкаCORE_CANDIDATESVСубъективная жизненная энергияCORE_CANDIDATESLPКачество и начало снаCORE_CANDIDATEWSEВовлечённость в работу / учёбуCORE_CANDIDATEMLSСмысл / жизненная значимостьCORE_CANDIDATECCOКогнитивный перенос после событияLIMITED_AUXILIARYGLSГлобальная удовлетворённость жизньюEXTERNALIZED_ANCHOR\n      Состояние разработкиПервичная карта из 12 целевых исходов сокращена до 8 территорий, доступных респонденту, и до 6 CORE + CCO в ограниченной/вспомогательной роли; GLS вынесен во внешний сопоставительный показатель. Временные режимы T0/T1, недавнего паттерна и глобального внешнего сопоставления не взаимозаменяемы; LIFE-18 остаётся предпочтительной глубиной разработки.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Публикационный пределДопустимы кандидатная архитектура исходов и внешние сопоставительные инструменты только с языком ковариации и временной ассоциации. Не допускаются LIFE Total, причинная атрибуция, обещания продуктивности или здоровья и подтверждённая факторная модель.\n    "
+        }
+      ]
+    },
+    {
+      "id": "RU desktop: LIFE selected refs rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Кандидатный слой исходов\n      Интеграция близости с остальной жизнью\n      Какие более широкие аффективные, энергетические, когнитивные, восстановительные, вовлекающие или смысловые состояния наблюдаются вокруг и после близости?\n      Отдельный слой исходов и переноса в другие сферы жизни. LIFE измеряет наблюдаемые последующие состояния, а не психосексуальную черту и не причинный эффект близости.\n      PAUПоложительный аффективный подъёмCORE_CANDIDATENALНегативная аффективная нагрузкаCORE_CANDIDATESVСубъективная жизненная энергияCORE_CANDIDATESLPКачество и начало снаCORE_CANDIDATEWSEВовлечённость в работу / учёбуCORE_CANDIDATEMLSСмысл / жизненная значимостьCORE_CANDIDATECCOКогнитивный перенос после событияLIMITED_AUXILIARYGLSГлобальная удовлетворённость жизньюEXTERNALIZED_ANCHOR\n      Состояние разработкиПервичная карта из 12 целевых исходов сокращена до 8 территорий, доступных респонденту, и до 6 CORE + CCO в ограниченной/вспомогательной роли; GLS вынесен во внешний сопоставительный показатель. Временные режимы T0/T1, недавнего паттерна и глобального внешнего сопоставления не взаимозаменяемы; LIFE-18 остаётся предпочтительной глубиной разработки.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Публикационный пределДопустимы кандидатная архитектура исходов и внешние сопоставительные инструменты только с языком ковариации и временной ассоциации. Не допускаются LIFE Total, причинная атрибуция, обещания продуктивности или здоровья и подтверждённая факторная модель.\n    "
+        }
+      ]
+    },
+    {
+      "id": "RU desktop: E0-E4 ladder rendered",
+      "pass": true,
+      "ladder": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ]
+    },
+    {
+      "id": "RU desktop: ten cross-layer research questions rendered",
+      "pass": true,
+      "questions": [
+        "CLQ-01",
+        "CLQ-02",
+        "CLQ-03",
+        "CLQ-04",
+        "CLQ-05",
+        "CLQ-06",
+        "CLQ-07",
+        "CLQ-08",
+        "CLQ-09",
+        "CLQ-10"
+      ]
+    },
+    {
+      "id": "RU desktop: CLQ identity preserved",
+      "pass": true,
+      "questions": [
+        "CLQ-01",
+        "CLQ-02",
+        "CLQ-03",
+        "CLQ-04",
+        "CLQ-05",
+        "CLQ-06",
+        "CLQ-07",
+        "CLQ-08",
+        "CLQ-09",
+        "CLQ-10"
+      ]
+    },
+    {
+      "id": "RU desktop: cross-layer discriminant validity withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "RU desktop: cross-layer incremental validity withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "RU desktop: validated synergy withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "RU desktop: causal effects withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "RU desktop: Core bibliography fixture still 45",
+      "pass": true,
+      "coreRefs": 45
+    },
+    {
+      "id": "RU desktop: 25-reference extension rendered",
+      "pass": true,
+      "count": 25
+    },
+    {
+      "id": "RU desktop: REF-046..070 identity rendered",
+      "pass": true,
+      "first": "REF-046",
+      "last": "REF-070"
+    },
+    {
+      "id": "RU desktop: 25 DOI links rendered",
+      "pass": true,
+      "count": 25
+    },
+    {
+      "id": "RU desktop: DOI links unique",
+      "pass": true,
+      "unique": 25
+    },
+    {
+      "id": "RU desktop: Core45/Extension25/Global70 counters rendered",
+      "pass": true,
+      "stats": [
+        "45",
+        "25",
+        "70"
+      ]
+    },
+    {
+      "id": "RU desktop: preserved Core bibliography anchor remains",
+      "pass": true
+    },
+    {
+      "id": "RU desktop: PASS 4B RU positioning contains Cyrillic",
+      "pass": true,
+      "sample": "\n      НАУЧНОЕ ПОЗИЦИОНИРОВАНИЕ\n      Научная основа и собственная измерительная архитектура P-120\n      \n        Внешня"
+    },
+    {
+      "id": "RU desktop: legacy respondent source unchanged",
+      "pass": true,
+      "actual": "{\"sentinel\":\"legacy-preserve\",\"responses\":{\"SAT01\":\"4\"}}"
+    },
+    {
+      "id": "RU desktop: RU respondent session unchanged",
+      "pass": true,
+      "actual": "{\"sentinel\":\"ru-session-preserve\",\"responses\":{\"SAT02\":\"5\"}}"
+    },
+    {
+      "id": "RU desktop: EN respondent session unchanged",
+      "pass": true,
+      "actual": "{\"sentinel\":\"en-session-preserve\",\"responses\":{\"SAT02\":\"2\"}}"
+    },
+    {
+      "id": "RU desktop: sessionStorage sentinel unchanged",
+      "pass": true,
+      "actual": "pass4b-session-sentinel"
+    },
+    {
+      "id": "RU desktop: no horizontal overflow",
+      "pass": true,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "overflow": 0
+    },
+    {
+      "id": "RU desktop: no runtime/page errors",
+      "pass": true,
+      "errors": [],
+      "ignored": 0
+    },
+    {
+      "id": "RU mobile: PASS 4B renderer ready",
+      "pass": true
+    },
+    {
+      "id": "RU mobile: base runtime remains PASS",
+      "pass": true,
+      "base": {
+        "phase": "ready",
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "activeBaseId": "CORE",
+        "activeModuleId": null
+      }
+    },
+    {
+      "id": "RU mobile: projection schema",
+      "pass": true,
+      "schema": "P120-WEBSCI-PUBLICATION-PROJECTION-001"
+    },
+    {
+      "id": "RU mobile: library schema",
+      "pass": true,
+      "schema": "P120-WEBSCI-GLOBAL-LIBRARY-PROJECTION-001"
+    },
+    {
+      "id": "RU mobile: measurement mutation prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "RU mobile: scoring mutation prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "RU mobile: threshold mutation prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "RU mobile: session storage access prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "RU mobile: Core reference fixture remains 45",
+      "pass": true,
+      "refs": 45
+    },
+    {
+      "id": "RU mobile: Core anchors retained",
+      "pass": true,
+      "anchors": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": "RU mobile: additive system positioning rendered",
+      "pass": true
+    },
+    {
+      "id": "RU mobile: Global extension not injected into Core bibliography",
+      "pass": true,
+      "count": 0
+    },
+    {
+      "id": "RU mobile: no non-Core active panel in Core",
+      "pass": true,
+      "activePanel": false
+    },
+    {
+      "id": "RU mobile: Extended renders four projected modules",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "RU mobile: Extended module identity",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "RU mobile: Extended remains summary_only",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "RU mobile: RPE detail suppression marker",
+      "pass": true,
+      "rpe": {
+        "id": "RPE-MOD",
+        "visibility": "summary_only",
+        "constructs": 0,
+        "refs": 0,
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "id": "RU mobile: RPE construct detail absent",
+      "pass": true,
+      "rpe": {
+        "id": "RPE-MOD",
+        "visibility": "summary_only",
+        "constructs": 0,
+        "refs": 0,
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "id": "RU mobile: RPE reference detail absent",
+      "pass": true,
+      "rpe": {
+        "id": "RPE-MOD",
+        "visibility": "summary_only",
+        "constructs": 0,
+        "refs": 0,
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "id": "RU mobile: non-RPE Extended constructs rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "RU mobile: non-RPE Extended evidence refs rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "RU mobile: DYADIC remains absent",
+      "pass": true,
+      "dyadic": 0
+    },
+    {
+      "id": "RU mobile: Outcomes renders LIFE only",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Кандидатный слой исходов\n      Интеграция близости с остальной жизнью\n      Какие более широкие аффективные, энергетические, когнитивные, восстановительные, вовлекающие или смысловые состояния наблюдаются вокруг и после близости?\n      Отдельный слой исходов и переноса в другие сферы жизни. LIFE измеряет наблюдаемые последующие состояния, а не психосексуальную черту и не причинный эффект близости.\n      PAUПоложительный аффективный подъёмCORE_CANDIDATENALНегативная аффективная нагрузкаCORE_CANDIDATESVСубъективная жизненная энергияCORE_CANDIDATESLPКачество и начало снаCORE_CANDIDATEWSEВовлечённость в работу / учёбуCORE_CANDIDATEMLSСмысл / жизненная значимостьCORE_CANDIDATECCOКогнитивный перенос после событияLIMITED_AUXILIARYGLSГлобальная удовлетворённость жизньюEXTERNALIZED_ANCHOR\n      Состояние разработкиПервичная карта из 12 целевых исходов сокращена до 8 территорий, доступных респонденту, и до 6 CORE + CCO в ограниченной/вспомогательной роли; GLS вынесен во внешний сопоставительный показатель. Временные режимы T0/T1, недавнего паттерна и глобального внешнего сопоставления не взаимозаменяемы; LIFE-18 остаётся предпочтительной глубиной разработки.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Публикационный пределДопустимы кандидатная архитектура исходов и внешние сопоставительные инструменты только с языком ковариации и временной ассоциации. Не допускаются LIFE Total, причинная атрибуция, обещания продуктивности или здоровья и подтверждённая факторная модель.\n    "
+        }
+      ]
+    },
+    {
+      "id": "RU mobile: LIFE remains summary_only",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Кандидатный слой исходов\n      Интеграция близости с остальной жизнью\n      Какие более широкие аффективные, энергетические, когнитивные, восстановительные, вовлекающие или смысловые состояния наблюдаются вокруг и после близости?\n      Отдельный слой исходов и переноса в другие сферы жизни. LIFE измеряет наблюдаемые последующие состояния, а не психосексуальную черту и не причинный эффект близости.\n      PAUПоложительный аффективный подъёмCORE_CANDIDATENALНегативная аффективная нагрузкаCORE_CANDIDATESVСубъективная жизненная энергияCORE_CANDIDATESLPКачество и начало снаCORE_CANDIDATEWSEВовлечённость в работу / учёбуCORE_CANDIDATEMLSСмысл / жизненная значимостьCORE_CANDIDATECCOКогнитивный перенос после событияLIMITED_AUXILIARYGLSГлобальная удовлетворённость жизньюEXTERNALIZED_ANCHOR\n      Состояние разработкиПервичная карта из 12 целевых исходов сокращена до 8 территорий, доступных респонденту, и до 6 CORE + CCO в ограниченной/вспомогательной роли; GLS вынесен во внешний сопоставительный показатель. Временные режимы T0/T1, недавнего паттерна и глобального внешнего сопоставления не взаимозаменяемы; LIFE-18 остаётся предпочтительной глубиной разработки.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Публикационный пределДопустимы кандидатная архитектура исходов и внешние сопоставительные инструменты только с языком ковариации и временной ассоциации. Не допускаются LIFE Total, причинная атрибуция, обещания продуктивности или здоровья и подтверждённая факторная модель.\n    "
+        }
+      ]
+    },
+    {
+      "id": "RU mobile: LIFE candidate architecture rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Кандидатный слой исходов\n      Интеграция близости с остальной жизнью\n      Какие более широкие аффективные, энергетические, когнитивные, восстановительные, вовлекающие или смысловые состояния наблюдаются вокруг и после близости?\n      Отдельный слой исходов и переноса в другие сферы жизни. LIFE измеряет наблюдаемые последующие состояния, а не психосексуальную черту и не причинный эффект близости.\n      PAUПоложительный аффективный подъёмCORE_CANDIDATENALНегативная аффективная нагрузкаCORE_CANDIDATESVСубъективная жизненная энергияCORE_CANDIDATESLPКачество и начало снаCORE_CANDIDATEWSEВовлечённость в работу / учёбуCORE_CANDIDATEMLSСмысл / жизненная значимостьCORE_CANDIDATECCOКогнитивный перенос после событияLIMITED_AUXILIARYGLSГлобальная удовлетворённость жизньюEXTERNALIZED_ANCHOR\n      Состояние разработкиПервичная карта из 12 целевых исходов сокращена до 8 территорий, доступных респонденту, и до 6 CORE + CCO в ограниченной/вспомогательной роли; GLS вынесен во внешний сопоставительный показатель. Временные режимы T0/T1, недавнего паттерна и глобального внешнего сопоставления не взаимозаменяемы; LIFE-18 остаётся предпочтительной глубиной разработки.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Публикационный пределДопустимы кандидатная архитектура исходов и внешние сопоставительные инструменты только с языком ковариации и временной ассоциации. Не допускаются LIFE Total, причинная атрибуция, обещания продуктивности или здоровья и подтверждённая факторная модель.\n    "
+        }
+      ]
+    },
+    {
+      "id": "RU mobile: LIFE selected refs rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Кандидатный слой исходов\n      Интеграция близости с остальной жизнью\n      Какие более широкие аффективные, энергетические, когнитивные, восстановительные, вовлекающие или смысловые состояния наблюдаются вокруг и после близости?\n      Отдельный слой исходов и переноса в другие сферы жизни. LIFE измеряет наблюдаемые последующие состояния, а не психосексуальную черту и не причинный эффект близости.\n      PAUПоложительный аффективный подъёмCORE_CANDIDATENALНегативная аффективная нагрузкаCORE_CANDIDATESVСубъективная жизненная энергияCORE_CANDIDATESLPКачество и начало снаCORE_CANDIDATEWSEВовлечённость в работу / учёбуCORE_CANDIDATEMLSСмысл / жизненная значимостьCORE_CANDIDATECCOКогнитивный перенос после событияLIMITED_AUXILIARYGLSГлобальная удовлетворённость жизньюEXTERNALIZED_ANCHOR\n      Состояние разработкиПервичная карта из 12 целевых исходов сокращена до 8 территорий, доступных респонденту, и до 6 CORE + CCO в ограниченной/вспомогательной роли; GLS вынесен во внешний сопоставительный показатель. Временные режимы T0/T1, недавнего паттерна и глобального внешнего сопоставления не взаимозаменяемы; LIFE-18 остаётся предпочтительной глубиной разработки.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Публикационный пределДопустимы кандидатная архитектура исходов и внешние сопоставительные инструменты только с языком ковариации и временной ассоциации. Не допускаются LIFE Total, причинная атрибуция, обещания продуктивности или здоровья и подтверждённая факторная модель.\n    "
+        }
+      ]
+    },
+    {
+      "id": "RU mobile: E0-E4 ladder rendered",
+      "pass": true,
+      "ladder": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ]
+    },
+    {
+      "id": "RU mobile: ten cross-layer research questions rendered",
+      "pass": true,
+      "questions": [
+        "CLQ-01",
+        "CLQ-02",
+        "CLQ-03",
+        "CLQ-04",
+        "CLQ-05",
+        "CLQ-06",
+        "CLQ-07",
+        "CLQ-08",
+        "CLQ-09",
+        "CLQ-10"
+      ]
+    },
+    {
+      "id": "RU mobile: CLQ identity preserved",
+      "pass": true,
+      "questions": [
+        "CLQ-01",
+        "CLQ-02",
+        "CLQ-03",
+        "CLQ-04",
+        "CLQ-05",
+        "CLQ-06",
+        "CLQ-07",
+        "CLQ-08",
+        "CLQ-09",
+        "CLQ-10"
+      ]
+    },
+    {
+      "id": "RU mobile: cross-layer discriminant validity withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "RU mobile: cross-layer incremental validity withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "RU mobile: validated synergy withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "RU mobile: causal effects withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "RU mobile: Core bibliography fixture still 45",
+      "pass": true,
+      "coreRefs": 45
+    },
+    {
+      "id": "RU mobile: 25-reference extension rendered",
+      "pass": true,
+      "count": 25
+    },
+    {
+      "id": "RU mobile: REF-046..070 identity rendered",
+      "pass": true,
+      "first": "REF-046",
+      "last": "REF-070"
+    },
+    {
+      "id": "RU mobile: 25 DOI links rendered",
+      "pass": true,
+      "count": 25
+    },
+    {
+      "id": "RU mobile: DOI links unique",
+      "pass": true,
+      "unique": 25
+    },
+    {
+      "id": "RU mobile: Core45/Extension25/Global70 counters rendered",
+      "pass": true,
+      "stats": [
+        "45",
+        "25",
+        "70"
+      ]
+    },
+    {
+      "id": "RU mobile: preserved Core bibliography anchor remains",
+      "pass": true
+    },
+    {
+      "id": "RU mobile: PASS 4B RU positioning contains Cyrillic",
+      "pass": true,
+      "sample": "\n      НАУЧНОЕ ПОЗИЦИОНИРОВАНИЕ\n      Научная основа и собственная измерительная архитектура P-120\n      \n        Внешня"
+    },
+    {
+      "id": "RU mobile: legacy respondent source unchanged",
+      "pass": true,
+      "actual": "{\"sentinel\":\"legacy-preserve\",\"responses\":{\"SAT01\":\"4\"}}"
+    },
+    {
+      "id": "RU mobile: RU respondent session unchanged",
+      "pass": true,
+      "actual": "{\"sentinel\":\"ru-session-preserve\",\"responses\":{\"SAT02\":\"5\"}}"
+    },
+    {
+      "id": "RU mobile: EN respondent session unchanged",
+      "pass": true,
+      "actual": "{\"sentinel\":\"en-session-preserve\",\"responses\":{\"SAT02\":\"2\"}}"
+    },
+    {
+      "id": "RU mobile: sessionStorage sentinel unchanged",
+      "pass": true,
+      "actual": "pass4b-session-sentinel"
+    },
+    {
+      "id": "RU mobile: no horizontal overflow",
+      "pass": true,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "overflow": 0
+    },
+    {
+      "id": "RU mobile: no runtime/page errors",
+      "pass": true,
+      "errors": [],
+      "ignored": 0
+    },
+    {
+      "id": "RU deep-link: PASS 4B renderer ready",
+      "pass": true
+    },
+    {
+      "id": "RU deep-link: Extended selected",
+      "pass": true,
+      "x": {
+        "base": "EXTENDED",
+        "module": "COM-12",
+        "active": "true"
+      }
+    },
+    {
+      "id": "RU deep-link: COM-12 selected",
+      "pass": true,
+      "x": {
+        "base": "EXTENDED",
+        "module": "COM-12",
+        "active": "true"
+      }
+    },
+    {
+      "id": "RU deep-link: COM-12 active marker preserved",
+      "pass": true,
+      "x": {
+        "base": "EXTENDED",
+        "module": "COM-12",
+        "active": "true"
+      }
+    },
+    {
+      "id": "RU deep-link: no runtime errors",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "EN desktop: PASS 4B renderer ready",
+      "pass": true
+    },
+    {
+      "id": "EN desktop: base runtime remains PASS",
+      "pass": true,
+      "base": {
+        "phase": "ready",
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "activeBaseId": "CORE",
+        "activeModuleId": null
+      }
+    },
+    {
+      "id": "EN desktop: projection schema",
+      "pass": true,
+      "schema": "P120-WEBSCI-PUBLICATION-PROJECTION-001"
+    },
+    {
+      "id": "EN desktop: library schema",
+      "pass": true,
+      "schema": "P120-WEBSCI-GLOBAL-LIBRARY-PROJECTION-001"
+    },
+    {
+      "id": "EN desktop: measurement mutation prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "EN desktop: scoring mutation prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "EN desktop: threshold mutation prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "EN desktop: session storage access prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "EN desktop: Core reference fixture remains 45",
+      "pass": true,
+      "refs": 45
+    },
+    {
+      "id": "EN desktop: Core anchors retained",
+      "pass": true,
+      "anchors": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": "EN desktop: additive system positioning rendered",
+      "pass": true
+    },
+    {
+      "id": "EN desktop: Global extension not injected into Core bibliography",
+      "pass": true,
+      "count": 0
+    },
+    {
+      "id": "EN desktop: no non-Core active panel in Core",
+      "pass": true,
+      "activePanel": false
+    },
+    {
+      "id": "EN desktop: Extended renders four projected modules",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "EN desktop: Extended module identity",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "EN desktop: Extended remains summary_only",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "EN desktop: RPE detail suppression marker",
+      "pass": true,
+      "rpe": {
+        "id": "RPE-MOD",
+        "visibility": "summary_only",
+        "constructs": 0,
+        "refs": 0,
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "id": "EN desktop: RPE construct detail absent",
+      "pass": true,
+      "rpe": {
+        "id": "RPE-MOD",
+        "visibility": "summary_only",
+        "constructs": 0,
+        "refs": 0,
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "id": "EN desktop: RPE reference detail absent",
+      "pass": true,
+      "rpe": {
+        "id": "RPE-MOD",
+        "visibility": "summary_only",
+        "constructs": 0,
+        "refs": 0,
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "id": "EN desktop: non-RPE Extended constructs rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "EN desktop: non-RPE Extended evidence refs rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "EN desktop: DYADIC remains absent",
+      "pass": true,
+      "dyadic": 0
+    },
+    {
+      "id": "EN desktop: Outcomes renders LIFE only",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Candidate Outcome Layer\n      Intimacy-Life Integration / Relationship-to-Life Spillover\n      What broader affective, energetic, cognitive, restorative, engagement or meaning-related states are observed around and after intimacy?\n      A separate outcome/spillover layer. LIFE measures observed downstream states, not a psychosexual trait and not a causal effect of intimacy.\n      PAUPositive Affective UpliftCORE_CANDIDATENALNegative Affective LoadCORE_CANDIDATESVSubjective VitalityCORE_CANDIDATESLPSleep Quality / InitiationCORE_CANDIDATEWSEWork / Study EngagementCORE_CANDIDATEMLSMeaning / Life SignificanceCORE_CANDIDATECCOCognitive CarryoverLIMITED_AUXILIARYGLSGlobal Life SatisfactionEXTERNALIZED_ANCHOR\n      Development stateA 12-target outcome landscape was reduced to 8 respondent-facing territories and 6 CORE + CCO limited/auxiliary, with GLS externalized. Event/daily T0/T1, recent-pattern and global/external-anchor modes are not interchangeable; LIFE-18 remains the preferred developmental depth.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Publication ceilingCandidate outcome architecture and external comparators with covariation/temporal-association wording only. No LIFE Total, causal attribution, productivity or health-outcome promise, or confirmed factor model.\n    "
+        }
+      ]
+    },
+    {
+      "id": "EN desktop: LIFE remains summary_only",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Candidate Outcome Layer\n      Intimacy-Life Integration / Relationship-to-Life Spillover\n      What broader affective, energetic, cognitive, restorative, engagement or meaning-related states are observed around and after intimacy?\n      A separate outcome/spillover layer. LIFE measures observed downstream states, not a psychosexual trait and not a causal effect of intimacy.\n      PAUPositive Affective UpliftCORE_CANDIDATENALNegative Affective LoadCORE_CANDIDATESVSubjective VitalityCORE_CANDIDATESLPSleep Quality / InitiationCORE_CANDIDATEWSEWork / Study EngagementCORE_CANDIDATEMLSMeaning / Life SignificanceCORE_CANDIDATECCOCognitive CarryoverLIMITED_AUXILIARYGLSGlobal Life SatisfactionEXTERNALIZED_ANCHOR\n      Development stateA 12-target outcome landscape was reduced to 8 respondent-facing territories and 6 CORE + CCO limited/auxiliary, with GLS externalized. Event/daily T0/T1, recent-pattern and global/external-anchor modes are not interchangeable; LIFE-18 remains the preferred developmental depth.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Publication ceilingCandidate outcome architecture and external comparators with covariation/temporal-association wording only. No LIFE Total, causal attribution, productivity or health-outcome promise, or confirmed factor model.\n    "
+        }
+      ]
+    },
+    {
+      "id": "EN desktop: LIFE candidate architecture rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Candidate Outcome Layer\n      Intimacy-Life Integration / Relationship-to-Life Spillover\n      What broader affective, energetic, cognitive, restorative, engagement or meaning-related states are observed around and after intimacy?\n      A separate outcome/spillover layer. LIFE measures observed downstream states, not a psychosexual trait and not a causal effect of intimacy.\n      PAUPositive Affective UpliftCORE_CANDIDATENALNegative Affective LoadCORE_CANDIDATESVSubjective VitalityCORE_CANDIDATESLPSleep Quality / InitiationCORE_CANDIDATEWSEWork / Study EngagementCORE_CANDIDATEMLSMeaning / Life SignificanceCORE_CANDIDATECCOCognitive CarryoverLIMITED_AUXILIARYGLSGlobal Life SatisfactionEXTERNALIZED_ANCHOR\n      Development stateA 12-target outcome landscape was reduced to 8 respondent-facing territories and 6 CORE + CCO limited/auxiliary, with GLS externalized. Event/daily T0/T1, recent-pattern and global/external-anchor modes are not interchangeable; LIFE-18 remains the preferred developmental depth.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Publication ceilingCandidate outcome architecture and external comparators with covariation/temporal-association wording only. No LIFE Total, causal attribution, productivity or health-outcome promise, or confirmed factor model.\n    "
+        }
+      ]
+    },
+    {
+      "id": "EN desktop: LIFE selected refs rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Candidate Outcome Layer\n      Intimacy-Life Integration / Relationship-to-Life Spillover\n      What broader affective, energetic, cognitive, restorative, engagement or meaning-related states are observed around and after intimacy?\n      A separate outcome/spillover layer. LIFE measures observed downstream states, not a psychosexual trait and not a causal effect of intimacy.\n      PAUPositive Affective UpliftCORE_CANDIDATENALNegative Affective LoadCORE_CANDIDATESVSubjective VitalityCORE_CANDIDATESLPSleep Quality / InitiationCORE_CANDIDATEWSEWork / Study EngagementCORE_CANDIDATEMLSMeaning / Life SignificanceCORE_CANDIDATECCOCognitive CarryoverLIMITED_AUXILIARYGLSGlobal Life SatisfactionEXTERNALIZED_ANCHOR\n      Development stateA 12-target outcome landscape was reduced to 8 respondent-facing territories and 6 CORE + CCO limited/auxiliary, with GLS externalized. Event/daily T0/T1, recent-pattern and global/external-anchor modes are not interchangeable; LIFE-18 remains the preferred developmental depth.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Publication ceilingCandidate outcome architecture and external comparators with covariation/temporal-association wording only. No LIFE Total, causal attribution, productivity or health-outcome promise, or confirmed factor model.\n    "
+        }
+      ]
+    },
+    {
+      "id": "EN desktop: E0-E4 ladder rendered",
+      "pass": true,
+      "ladder": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ]
+    },
+    {
+      "id": "EN desktop: ten cross-layer research questions rendered",
+      "pass": true,
+      "questions": [
+        "CLQ-01",
+        "CLQ-02",
+        "CLQ-03",
+        "CLQ-04",
+        "CLQ-05",
+        "CLQ-06",
+        "CLQ-07",
+        "CLQ-08",
+        "CLQ-09",
+        "CLQ-10"
+      ]
+    },
+    {
+      "id": "EN desktop: CLQ identity preserved",
+      "pass": true,
+      "questions": [
+        "CLQ-01",
+        "CLQ-02",
+        "CLQ-03",
+        "CLQ-04",
+        "CLQ-05",
+        "CLQ-06",
+        "CLQ-07",
+        "CLQ-08",
+        "CLQ-09",
+        "CLQ-10"
+      ]
+    },
+    {
+      "id": "EN desktop: cross-layer discriminant validity withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "EN desktop: cross-layer incremental validity withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "EN desktop: validated synergy withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "EN desktop: causal effects withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "EN desktop: Core bibliography fixture still 45",
+      "pass": true,
+      "coreRefs": 45
+    },
+    {
+      "id": "EN desktop: 25-reference extension rendered",
+      "pass": true,
+      "count": 25
+    },
+    {
+      "id": "EN desktop: REF-046..070 identity rendered",
+      "pass": true,
+      "first": "REF-046",
+      "last": "REF-070"
+    },
+    {
+      "id": "EN desktop: 25 DOI links rendered",
+      "pass": true,
+      "count": 25
+    },
+    {
+      "id": "EN desktop: DOI links unique",
+      "pass": true,
+      "unique": 25
+    },
+    {
+      "id": "EN desktop: Core45/Extension25/Global70 counters rendered",
+      "pass": true,
+      "stats": [
+        "45",
+        "25",
+        "70"
+      ]
+    },
+    {
+      "id": "EN desktop: preserved Core bibliography anchor remains",
+      "pass": true
+    },
+    {
+      "id": "EN desktop: PASS 4B EN surface contains no Cyrillic",
+      "pass": true,
+      "samples": []
+    },
+    {
+      "id": "EN desktop: legacy respondent source unchanged",
+      "pass": true,
+      "actual": "{\"sentinel\":\"legacy-preserve\",\"responses\":{\"SAT01\":\"4\"}}"
+    },
+    {
+      "id": "EN desktop: RU respondent session unchanged",
+      "pass": true,
+      "actual": "{\"sentinel\":\"ru-session-preserve\",\"responses\":{\"SAT02\":\"5\"}}"
+    },
+    {
+      "id": "EN desktop: EN respondent session unchanged",
+      "pass": true,
+      "actual": "{\"sentinel\":\"en-session-preserve\",\"responses\":{\"SAT02\":\"2\"}}"
+    },
+    {
+      "id": "EN desktop: sessionStorage sentinel unchanged",
+      "pass": true,
+      "actual": "pass4b-session-sentinel"
+    },
+    {
+      "id": "EN desktop: no horizontal overflow",
+      "pass": true,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "overflow": 0
+    },
+    {
+      "id": "EN desktop: no runtime/page errors",
+      "pass": true,
+      "errors": [],
+      "ignored": 0
+    },
+    {
+      "id": "EN mobile: PASS 4B renderer ready",
+      "pass": true
+    },
+    {
+      "id": "EN mobile: base runtime remains PASS",
+      "pass": true,
+      "base": {
+        "phase": "ready",
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "activeBaseId": "CORE",
+        "activeModuleId": null
+      }
+    },
+    {
+      "id": "EN mobile: projection schema",
+      "pass": true,
+      "schema": "P120-WEBSCI-PUBLICATION-PROJECTION-001"
+    },
+    {
+      "id": "EN mobile: library schema",
+      "pass": true,
+      "schema": "P120-WEBSCI-GLOBAL-LIBRARY-PROJECTION-001"
+    },
+    {
+      "id": "EN mobile: measurement mutation prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "EN mobile: scoring mutation prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "EN mobile: threshold mutation prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "EN mobile: session storage access prohibited",
+      "pass": true,
+      "rules": {
+        "renderer_consumes_public_safe_fields_only": true,
+        "source_scientific_objects_remain_upstream": true,
+        "ru_en_semantic_parity_required": true,
+        "core_scientific_content_preserved": true,
+        "measurement_mutation_allowed": false,
+        "scoring_mutation_allowed": false,
+        "threshold_mutation_allowed": false,
+        "session_storage_access": "PROHIBITED",
+        "normative_or_diagnostic_claims_allowed": false,
+        "join_after_independent_measurement": true,
+        "extended_total_allowed": false,
+        "dyadic_public_activation": false,
+        "rpe_detailed_public_activation": false
+      }
+    },
+    {
+      "id": "EN mobile: Core reference fixture remains 45",
+      "pass": true,
+      "refs": 45
+    },
+    {
+      "id": "EN mobile: Core anchors retained",
+      "pass": true,
+      "anchors": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": "EN mobile: additive system positioning rendered",
+      "pass": true
+    },
+    {
+      "id": "EN mobile: Global extension not injected into Core bibliography",
+      "pass": true,
+      "count": 0
+    },
+    {
+      "id": "EN mobile: no non-Core active panel in Core",
+      "pass": true,
+      "activePanel": false
+    },
+    {
+      "id": "EN mobile: Extended renders four projected modules",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "EN mobile: Extended module identity",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "EN mobile: Extended remains summary_only",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "EN mobile: RPE detail suppression marker",
+      "pass": true,
+      "rpe": {
+        "id": "RPE-MOD",
+        "visibility": "summary_only",
+        "constructs": 0,
+        "refs": 0,
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "id": "EN mobile: RPE construct detail absent",
+      "pass": true,
+      "rpe": {
+        "id": "RPE-MOD",
+        "visibility": "summary_only",
+        "constructs": 0,
+        "refs": 0,
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "id": "EN mobile: RPE reference detail absent",
+      "pass": true,
+      "rpe": {
+        "id": "RPE-MOD",
+        "visibility": "summary_only",
+        "constructs": 0,
+        "refs": 0,
+        "rpe": "suppressed"
+      }
+    },
+    {
+      "id": "EN mobile: non-RPE Extended constructs rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "EN mobile: non-RPE Extended evidence refs rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "COM-12",
+          "visibility": "summary_only",
+          "constructs": 4,
+          "refs": 5,
+          "rpe": null
+        },
+        {
+          "id": "MOT-12",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 6,
+          "rpe": null
+        },
+        {
+          "id": "SELF-12",
+          "visibility": "summary_only",
+          "constructs": 7,
+          "refs": 7,
+          "rpe": null
+        },
+        {
+          "id": "RPE-MOD",
+          "visibility": "summary_only",
+          "constructs": 0,
+          "refs": 0,
+          "rpe": "suppressed"
+        }
+      ]
+    },
+    {
+      "id": "EN mobile: DYADIC remains absent",
+      "pass": true,
+      "dyadic": 0
+    },
+    {
+      "id": "EN mobile: Outcomes renders LIFE only",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Candidate Outcome Layer\n      Intimacy-Life Integration / Relationship-to-Life Spillover\n      What broader affective, energetic, cognitive, restorative, engagement or meaning-related states are observed around and after intimacy?\n      A separate outcome/spillover layer. LIFE measures observed downstream states, not a psychosexual trait and not a causal effect of intimacy.\n      PAUPositive Affective UpliftCORE_CANDIDATENALNegative Affective LoadCORE_CANDIDATESVSubjective VitalityCORE_CANDIDATESLPSleep Quality / InitiationCORE_CANDIDATEWSEWork / Study EngagementCORE_CANDIDATEMLSMeaning / Life SignificanceCORE_CANDIDATECCOCognitive CarryoverLIMITED_AUXILIARYGLSGlobal Life SatisfactionEXTERNALIZED_ANCHOR\n      Development stateA 12-target outcome landscape was reduced to 8 respondent-facing territories and 6 CORE + CCO limited/auxiliary, with GLS externalized. Event/daily T0/T1, recent-pattern and global/external-anchor modes are not interchangeable; LIFE-18 remains the preferred developmental depth.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Publication ceilingCandidate outcome architecture and external comparators with covariation/temporal-association wording only. No LIFE Total, causal attribution, productivity or health-outcome promise, or confirmed factor model.\n    "
+        }
+      ]
+    },
+    {
+      "id": "EN mobile: LIFE remains summary_only",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Candidate Outcome Layer\n      Intimacy-Life Integration / Relationship-to-Life Spillover\n      What broader affective, energetic, cognitive, restorative, engagement or meaning-related states are observed around and after intimacy?\n      A separate outcome/spillover layer. LIFE measures observed downstream states, not a psychosexual trait and not a causal effect of intimacy.\n      PAUPositive Affective UpliftCORE_CANDIDATENALNegative Affective LoadCORE_CANDIDATESVSubjective VitalityCORE_CANDIDATESLPSleep Quality / InitiationCORE_CANDIDATEWSEWork / Study EngagementCORE_CANDIDATEMLSMeaning / Life SignificanceCORE_CANDIDATECCOCognitive CarryoverLIMITED_AUXILIARYGLSGlobal Life SatisfactionEXTERNALIZED_ANCHOR\n      Development stateA 12-target outcome landscape was reduced to 8 respondent-facing territories and 6 CORE + CCO limited/auxiliary, with GLS externalized. Event/daily T0/T1, recent-pattern and global/external-anchor modes are not interchangeable; LIFE-18 remains the preferred developmental depth.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Publication ceilingCandidate outcome architecture and external comparators with covariation/temporal-association wording only. No LIFE Total, causal attribution, productivity or health-outcome promise, or confirmed factor model.\n    "
+        }
+      ]
+    },
+    {
+      "id": "EN mobile: LIFE candidate architecture rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Candidate Outcome Layer\n      Intimacy-Life Integration / Relationship-to-Life Spillover\n      What broader affective, energetic, cognitive, restorative, engagement or meaning-related states are observed around and after intimacy?\n      A separate outcome/spillover layer. LIFE measures observed downstream states, not a psychosexual trait and not a causal effect of intimacy.\n      PAUPositive Affective UpliftCORE_CANDIDATENALNegative Affective LoadCORE_CANDIDATESVSubjective VitalityCORE_CANDIDATESLPSleep Quality / InitiationCORE_CANDIDATEWSEWork / Study EngagementCORE_CANDIDATEMLSMeaning / Life SignificanceCORE_CANDIDATECCOCognitive CarryoverLIMITED_AUXILIARYGLSGlobal Life SatisfactionEXTERNALIZED_ANCHOR\n      Development stateA 12-target outcome landscape was reduced to 8 respondent-facing territories and 6 CORE + CCO limited/auxiliary, with GLS externalized. Event/daily T0/T1, recent-pattern and global/external-anchor modes are not interchangeable; LIFE-18 remains the preferred developmental depth.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Publication ceilingCandidate outcome architecture and external comparators with covariation/temporal-association wording only. No LIFE Total, causal attribution, productivity or health-outcome promise, or confirmed factor model.\n    "
+        }
+      ]
+    },
+    {
+      "id": "EN mobile: LIFE selected refs rendered",
+      "pass": true,
+      "cards": [
+        {
+          "id": "LIFE-12/18",
+          "visibility": "summary_only",
+          "constructs": 8,
+          "refs": 8,
+          "text": "\n      LIFE-12/18 · Candidate Outcome Layer\n      Intimacy-Life Integration / Relationship-to-Life Spillover\n      What broader affective, energetic, cognitive, restorative, engagement or meaning-related states are observed around and after intimacy?\n      A separate outcome/spillover layer. LIFE measures observed downstream states, not a psychosexual trait and not a causal effect of intimacy.\n      PAUPositive Affective UpliftCORE_CANDIDATENALNegative Affective LoadCORE_CANDIDATESVSubjective VitalityCORE_CANDIDATESLPSleep Quality / InitiationCORE_CANDIDATEWSEWork / Study EngagementCORE_CANDIDATEMLSMeaning / Life SignificanceCORE_CANDIDATECCOCognitive CarryoverLIMITED_AUXILIARYGLSGlobal Life SatisfactionEXTERNALIZED_ANCHOR\n      Development stateA 12-target outcome landscape was reduced to 8 respondent-facing territories and 6 CORE + CCO limited/auxiliary, with GLS externalized. Event/daily T0/T1, recent-pattern and global/external-anchor modes are not interchangeable; LIFE-18 remains the preferred developmental depth.\n      E0 BOUNDE1 CONTROLLEDE2 PENDINGE3 NOT_ESTABLISHEDE4 NOT_ESTABLISHED\n      REF-061REF-062REF-063REF-064REF-065REF-066REF-067REF-068\n      Publication ceilingCandidate outcome architecture and external comparators with covariation/temporal-association wording only. No LIFE Total, causal attribution, productivity or health-outcome promise, or confirmed factor model.\n    "
+        }
+      ]
+    },
+    {
+      "id": "EN mobile: E0-E4 ladder rendered",
+      "pass": true,
+      "ladder": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ]
+    },
+    {
+      "id": "EN mobile: ten cross-layer research questions rendered",
+      "pass": true,
+      "questions": [
+        "CLQ-01",
+        "CLQ-02",
+        "CLQ-03",
+        "CLQ-04",
+        "CLQ-05",
+        "CLQ-06",
+        "CLQ-07",
+        "CLQ-08",
+        "CLQ-09",
+        "CLQ-10"
+      ]
+    },
+    {
+      "id": "EN mobile: CLQ identity preserved",
+      "pass": true,
+      "questions": [
+        "CLQ-01",
+        "CLQ-02",
+        "CLQ-03",
+        "CLQ-04",
+        "CLQ-05",
+        "CLQ-06",
+        "CLQ-07",
+        "CLQ-08",
+        "CLQ-09",
+        "CLQ-10"
+      ]
+    },
+    {
+      "id": "EN mobile: cross-layer discriminant validity withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "EN mobile: cross-layer incremental validity withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "EN mobile: validated synergy withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "EN mobile: causal effects withheld",
+      "pass": true,
+      "state": {
+        "empirical_cross_layer_discriminant_validity": "NOT_ESTABLISHED",
+        "empirical_incremental_validity": "NOT_ESTABLISHED",
+        "validated_cross_layer_synergy": "NOT_AUTHORIZED",
+        "causal_cross_layer_effects": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "EN mobile: Core bibliography fixture still 45",
+      "pass": true,
+      "coreRefs": 45
+    },
+    {
+      "id": "EN mobile: 25-reference extension rendered",
+      "pass": true,
+      "count": 25
+    },
+    {
+      "id": "EN mobile: REF-046..070 identity rendered",
+      "pass": true,
+      "first": "REF-046",
+      "last": "REF-070"
+    },
+    {
+      "id": "EN mobile: 25 DOI links rendered",
+      "pass": true,
+      "count": 25
+    },
+    {
+      "id": "EN mobile: DOI links unique",
+      "pass": true,
+      "unique": 25
+    },
+    {
+      "id": "EN mobile: Core45/Extension25/Global70 counters rendered",
+      "pass": true,
+      "stats": [
+        "45",
+        "25",
+        "70"
+      ]
+    },
+    {
+      "id": "EN mobile: preserved Core bibliography anchor remains",
+      "pass": true
+    },
+    {
+      "id": "EN mobile: PASS 4B EN surface contains no Cyrillic",
+      "pass": true,
+      "samples": []
+    },
+    {
+      "id": "EN mobile: legacy respondent source unchanged",
+      "pass": true,
+      "actual": "{\"sentinel\":\"legacy-preserve\",\"responses\":{\"SAT01\":\"4\"}}"
+    },
+    {
+      "id": "EN mobile: RU respondent session unchanged",
+      "pass": true,
+      "actual": "{\"sentinel\":\"ru-session-preserve\",\"responses\":{\"SAT02\":\"5\"}}"
+    },
+    {
+      "id": "EN mobile: EN respondent session unchanged",
+      "pass": true,
+      "actual": "{\"sentinel\":\"en-session-preserve\",\"responses\":{\"SAT02\":\"2\"}}"
+    },
+    {
+      "id": "EN mobile: sessionStorage sentinel unchanged",
+      "pass": true,
+      "actual": "pass4b-session-sentinel"
+    },
+    {
+      "id": "EN mobile: no horizontal overflow",
+      "pass": true,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "overflow": 0
+    },
+    {
+      "id": "EN mobile: no runtime/page errors",
+      "pass": true,
+      "errors": [],
+      "ignored": 0
+    },
+    {
+      "id": "EN deep-link: PASS 4B renderer ready",
+      "pass": true
+    },
+    {
+      "id": "EN deep-link: Extended selected",
+      "pass": true,
+      "x": {
+        "base": "EXTENDED",
+        "module": "COM-12",
+        "active": "true"
+      }
+    },
+    {
+      "id": "EN deep-link: COM-12 selected",
+      "pass": true,
+      "x": {
+        "base": "EXTENDED",
+        "module": "COM-12",
+        "active": "true"
+      }
+    },
+    {
+      "id": "EN deep-link: COM-12 active marker preserved",
+      "pass": true,
+      "x": {
+        "base": "EXTENDED",
+        "module": "COM-12",
+        "active": "true"
+      }
+    },
+    {
+      "id": "EN deep-link: no runtime errors",
+      "pass": true,
+      "errors": []
+    }
+  ],
+  "evidence": {
+    "routes": [
+      "/science/",
+      "/en/science/"
+    ],
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 1000
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    "baseStates": [
+      "CORE",
+      "EXTENDED",
+      "OUTCOMES",
+      "METHODS",
+      "LIBRARY"
+    ],
+    "screenshots": "screenshots/"
+  },
+  "next_gate": "PASS 4C — Core-45 / Global-70 Library Integration"
+}

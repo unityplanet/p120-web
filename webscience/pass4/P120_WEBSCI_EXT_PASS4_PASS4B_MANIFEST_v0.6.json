@@ -1,0 +1,53 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-EXT-004-PASS4B-MANIFEST",
+  "version": "v0.6",
+  "date": "2026-09-06",
+  "status": "PASS4B_CLOSED_CONTROLLED",
+  "branch": "web-science-ext-pass4b-renderer-activation",
+  "baseline_commit": "2759e288fec90064858fb99b137c07e6505f6257",
+  "production_main_mutated": false,
+  "production_merge": "NOT_PERFORMED",
+  "renderer_activation": "CONTROLLED_BRANCH_PRE_PRODUCTION",
+  "global_library_extension_rendered_separately": true,
+  "full_global_library_integration": "DEFERRED_TO_PASS_4C",
+  "files": [
+    {
+      "path": "p120-scientific-base-runtime-v1.0.js",
+      "sha256": "d25a030b36adcfabd6015455b93ef322e9dab83e4c87cfa66251e487e1d6d9d1"
+    },
+    {
+      "path": "p120-webscience-pass4b-renderer-v0.6.js",
+      "sha256": "ca421ebc2d97dd782e9589b3b7d3e51f491f4ee995ff54c1b047163d28458940"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_publication_projection_v0.5.json",
+      "sha256": "2621ae1317b0161f3c3a819f79b2b874dfd9ba6e0c32e2d7ecb580841114758d"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_global_library_projection_v0.5.json",
+      "sha256": "a32623e1b058d3658ae0f3afbb1e6fdc4b3503a6132634ecc1868b6e335d146a"
+    },
+    {
+      "path": "qa/webscience_pass4b_renderer_gate_v0.6.mjs",
+      "sha256": "26b006bbf6bfcae7e9477c43e04cfcf5949e5859cd12234cb5aafd7febaaee90"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_QA_RESULT_v0.6.json",
+      "sha256": "cf40d67ac50624fd0456d78f92df77be3df06c018f48531269dfda9a9f26f383"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_QA_SUMMARY_v0.6.json",
+      "sha256": "1f3432b318cb6a0e0f379dd7efa2462215b8c22cf9171433f248d042fb20e0ec"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_REPORT_v0.6.md",
+      "sha256": "42beaf88e38c907acc5d33fe61d941435a1be9a167b322e6b25b6c1c25f52911"
+    },
+    {
+      "path": "webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4B_DECISION_v0.6.md",
+      "sha256": "dd6c4ab145dc72565b5fb344438f54cfd7de2744985429bb59e85c733447894e"
+    }
+  ],
+  "next_gate": "PASS 4C — Core-45 / Global-70 Library Integration"
+}
