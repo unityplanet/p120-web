@@ -40,19 +40,37 @@
   --p120-vg-ease:cubic-bezier(.2,.7,.2,1);
 }
 
-/* PASS 3A contract markers are intentionally non-visual. They allow family
-   styles to inherit from one semantic vocabulary without page-local palettes. */
+/* PASS 3A contract markers are intentionally non-visual. Existing Brand 5.3
+   already exposes html[data-p120-page-kind]; the grammar maps that stable marker
+   to the new family contract without requiring route HTML rewrites. */
 [data-p120-shell="public"],
-html.p120-brand53-ready body:not([data-p120-page="system"]){
-  --p120-shell-kind:public;
-}
-[data-p120-family="editorial"]{--p120-family-kind:editorial}
-[data-p120-family="narrative"]{--p120-family-kind:narrative}
-[data-p120-family="science"]{--p120-family-kind:science}
-[data-p120-family="system"]{--p120-family-kind:system}
-[data-p120-family="utility"]{--p120-family-kind:utility}
-[data-p120-family="explore"]{--p120-family-kind:explore}
-[data-p120-family="dyadic"]{--p120-family-kind:dyadic}
+html.p120-brand53-ready body:not([data-p120-page="system"]){--p120-shell-kind:public}
+
+[data-p120-family="editorial"],
+html[data-p120-page-kind="main"],
+html[data-p120-page-kind="about"],
+html[data-p120-page-kind="why-p120"]{--p120-family-kind:editorial}
+
+[data-p120-family="narrative"],
+html[data-p120-page-kind="creator"]{--p120-family-kind:narrative}
+
+[data-p120-family="science"],
+html[data-p120-page-kind="science"]{--p120-family-kind:science}
+
+[data-p120-family="utility"],
+html[data-p120-page-kind="privacy"],
+html[data-p120-page-kind="terms"],
+html[data-p120-page-kind="intellectual-property"],
+html[data-p120-page-kind="contact"]{--p120-family-kind:utility}
+
+[data-p120-family="explore"],
+html[data-p120-page-kind="extended"]{--p120-family-kind:explore}
+
+[data-p120-family="dyadic"],
+html[data-p120-page-kind="together"]{--p120-family-kind:dyadic}
+
+[data-p120-family="system"],
+body[data-p120-page="system"]{--p120-family-kind:system}
 
 /* Shared semantic primitives. Adoption is opt-in: existing pages are not
    restyled merely by loading this sheet. */
