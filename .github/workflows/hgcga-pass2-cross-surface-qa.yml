@@ -47,10 +47,11 @@ jobs:
             check(errors.length===0,`${label} ${path} no JS/page errors${errors.length?` :: ${errors.join(' | ')}`:''}`);
 
             const isMain=path==='/'||path==='/en/';
+            const isScience=path.endsWith('/science/');
             const isResearch=path.endsWith('/research/how-we-decide/');
-            if(isMain){
+            if(isMain || isScience){
               const decision=page.locator('[data-ecosystem-route="decisionResearch"]');
-              check(await decision.count()===1,`${label} ${path} decision research exists in desktop ecosystem DOM`);
+              check(await decision.count()===1,`${label} ${path} decision research exists in ecosystem DOM`);
               check((await decision.getAttribute('aria-disabled'))!=='true',`${label} ${path} decision research active`);
               const mobileDecision=page.locator('[data-ecosystem-mobile="decisionResearch"]');
               check(await mobileDecision.count()===1,`${label} ${path} decision research exists in mobile ecosystem DOM`);
