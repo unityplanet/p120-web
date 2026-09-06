@@ -1,0 +1,109 @@
+{
+  "schema_id": "P120-WEBSCI-PRODUCTION-REGISTRY",
+  "schema_version": "1.1",
+  "document_id": "P120-WEBSCI-PROD-REG-002",
+  "status": "ACTIVE_CONTROLLED_PRODUCTION_REGISTRY",
+  "effective_date": "2026-09-06",
+  "authority": "P-120 Research System / WEB-SCIENCE controlled production governance",
+  "governing_scope": "PRODUCTION STATE / GOVERNANCE ONLY; NO SCIENTIFIC, MEASUREMENT, SCORING OR RUNTIME AUTHORITY UPGRADE",
+  "controlled_main": {
+    "repository": "unityplanet/p120-web",
+    "branch": "main",
+    "commit_sha": "0c9a7bdc7470dcc9eb1223ebfc15bb5bcc6f94b4",
+    "production_content_head": "69aa0142c3b6b3dc70c89c2200888d69777909fd",
+    "routes": ["/science/", "/en/science/"]
+  },
+  "source_lineage": {
+    "historical_executable_registry": "P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json",
+    "historical_executable_registry_sha256": "38b706b38f8f19f60c5917874b8371661340bb0cf30059fe9a7de98d16251f5e",
+    "sealed_science_authority_commit": "d095cae40b33da2118e5090be2a2c837205d8b64",
+    "prod_g1_final_production_head": "0c9a7bdc7470dcc9eb1223ebfc15bb5bcc6f94b4",
+    "rule": "The v1.0 registry remains the frozen executable registry consumed by the sealed Scientific Base runtime. v1.1 reconciles governance and production-state metadata only."
+  },
+  "runtime_binding": {
+    "runtime_file": "p120-scientific-base-runtime-v1.0.js",
+    "executable_registry_file": "P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json",
+    "executable_registry_disposition": "FROZEN_EXECUTION_CONTRACT / PRESERVED",
+    "governance_registry_file": "P120_WEBSCI_PRODUCTION_registry_v1.1_2026-09-06.json",
+    "runtime_mutated_by_registry_reconciliation": false,
+    "route_html_mutated_by_registry_reconciliation": false,
+    "science_presentation_mutated_by_registry_reconciliation": false
+  },
+  "prod_g1": {
+    "status": "CLOSED_CONTROLLED_SEALED_ACTIVE_IN_PRODUCTION",
+    "final_merge_commit": "0c9a7bdc7470dcc9eb1223ebfc15bb5bcc6f94b4",
+    "postmerge_final_seal": {
+      "run_id": 34035455628,
+      "conclusion": "success",
+      "artifact_id": 9990068437,
+      "artifact_digest": "sha256:ee7b678a6321663aea699c2cad2673f2a5f416ac557c266f6ea9cdb5e008fb6a"
+    },
+    "postmerge_production_verification": {
+      "run_id": 34035455422,
+      "conclusion": "success"
+    },
+    "actions_governance": {
+      "run_id": 34035455436,
+      "conclusion": "success"
+    },
+    "pages_deployment": {
+      "run_id": 34035454899,
+      "conclusion": "success"
+    },
+    "live_science_checks": {
+      "passed": 140,
+      "failed": 0
+    },
+    "unresolved_delta_count": 0
+  },
+  "scientific_authority": {
+    "pass4_status": "CLOSED_CONTROLLED_SEALED",
+    "public_ceiling_unchanged": true,
+    "evidence_ladder": {
+      "E0": "EXTERNAL SCIENTIFIC FOUNDATION",
+      "E1": "INTERNAL ARCHITECTURE VERIFICATION / NOT EMPIRICAL VALIDATION",
+      "E2": "PENDING HUMAN / COGNITIVE / CROSS-CHECK EVIDENCE",
+      "E3": "NOT ESTABLISHED PSYCHOMETRIC VALIDATION",
+      "E4": "NOT ESTABLISHED EXTERNAL REPLICATION"
+    },
+    "global_library_contract": {
+      "core": 45,
+      "extension": 25,
+      "global": 70
+    }
+  },
+  "public_projection": {
+    "CORE": "published",
+    "COM-12": "summary_only",
+    "MOT-12": "summary_only",
+    "SELF-12": "summary_only",
+    "RPE-MOD": "summary_only / detailed structure suppressed",
+    "LIFE-12/18": "summary_only",
+    "DYADIC": "hidden",
+    "cross_layer": "research questions + ownership distinctions + validation plan only",
+    "global_library": "Core45 + Extension25 = Global70",
+    "extended_total": "NOT AUTHORIZED",
+    "causal_effects": "NOT AUTHORIZED",
+    "validated_synergy": "NOT AUTHORIZED"
+  },
+  "mutation_flags": {
+    "scientific_content_mutated": false,
+    "measurement_mutated": false,
+    "scoring_mutated": false,
+    "thresholds_mutated": false,
+    "respondent_wording_mutated": false,
+    "respondent_session_mutated": false,
+    "persistence_mutated": false,
+    "report_calculation_mutated": false,
+    "supabase_mutated": false,
+    "runtime_mutated": false,
+    "route_html_mutated": false
+  },
+  "disposition": {
+    "v1_0_registry": "HISTORICAL + CURRENT EXECUTABLE INPUT / NOT MUTATED",
+    "v1_1_registry": "CURRENT PRODUCTION GOVERNANCE REGISTRY",
+    "status_drift": "RECONCILED",
+    "scientific_authority_reopened": false
+  },
+  "next_action": "FURTHER WEB-SCIENCE IMPLEMENTATION MAY PROCEED FROM CONTROLLED MAIN ONLY THROUGH A NEW EXPLICIT GOVERNED GATE."
+}
