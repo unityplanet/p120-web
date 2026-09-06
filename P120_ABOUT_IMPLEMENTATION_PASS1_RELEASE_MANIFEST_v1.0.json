@@ -2,33 +2,35 @@
   "schema": "p120.about.implementation_pass1.release_manifest.v1",
   "document_id": "P120-WEB-ABOUT-IMP1-MANIFEST-001",
   "version": "1.0",
-  "date": "2026-09-05",
-  "status": "CLOSED_GREEN_CONTROLLED_CANDIDATE_RELEASE_HELD",
-  "release_authorized": false,
+  "date": "2026-09-06",
+  "status": "CLOSED_GREEN_RELEASE_PROMOTION_AUTHORIZED",
+  "release_authorized": true,
   "production_deployed": false,
   "repository": "unityplanet/p120-web",
   "branch": "feat/about-p120-pass1",
   "pull_request": {
     "number": 18,
     "title": "IMPLEMENTATION PASS 1 — About P-120 controlled derivative",
-    "state_at_closure": "open",
-    "draft_at_closure": true,
-    "merged_at_closure": false
+    "state": "open",
+    "draft": true,
+    "merged": false
   },
   "authority_dependency": {
     "id": "P120-ARCH-SYS-001-PASS10",
     "name": "Architecture / About the System final master reconciliation / authority freeze",
     "required_before_merge": true,
-    "status_in_this_package": "PENDING_EXTERNAL_GATE"
+    "status": "SATISFIED",
+    "pass10_status": "PASS / CLOSED / CONTROLLED / SEALED",
+    "freeze_decision": "FREEZE APPROVED",
+    "authority_state": "FROZEN / CANONICAL SYSTEM AUTHORITY / EFFECTIVE",
+    "package_sha256": "7e389b53a4575df2f3214a3050d029134562d9e9a19514230ecdc51822a22dcd",
+    "controlled_files": 63
   },
   "baseline": {
     "base_sha": "67d2ae422e422be20eae6bb086c51adf7de173bb",
-    "validated_implementation_head": "35f64ce45e948340fa2aace14137b2ef13536860",
-    "commits_ahead": 12,
-    "commits_behind": 0,
-    "implementation_changed_files": 8,
-    "implementation_additions": 740,
-    "implementation_deletions": 4
+    "technical_implementation_head": "35f64ce45e948340fa2aace14137b2ef13536860",
+    "release_gate_validated_head": "001d7e2e27a2a97ade7550748b812666bafc2f0f",
+    "governance_only_updates_after_release_gate": true
   },
   "public_routes": [
     "/about/",
@@ -74,6 +76,16 @@
       "path": "qa/about_pass1_static.mjs",
       "status": "ADDED",
       "change_class": "QA"
+    },
+    {
+      "path": "qa/about_pass1_source_authority_gate.json",
+      "status": "ADDED",
+      "change_class": "SOURCE_AUTHORITY_BINDING"
+    },
+    {
+      "path": "qa/about_pass1_source_authority_gate.mjs",
+      "status": "ADDED",
+      "change_class": "SOURCE_AUTHORITY_QA"
     }
   ],
   "closure_package_files": [
@@ -89,47 +101,23 @@
   "qa": {
     "dedicated_workflow": {
       "name": "P120 About P-120 Implementation PASS 1 QA",
-      "run_id": 33992013876,
-      "run_number": 4,
-      "conclusion": "success"
-    },
-    "actions_governance": {
-      "name": "P120 Actions Governance QA",
-      "run_id": 33992013878,
-      "run_number": 11,
+      "run_id": 34020768075,
+      "run_number": 17,
       "conclusion": "success"
     },
     "checks": {
-      "syntax_preflight": "PASS",
-      "derivative_conformance": {
-        "passed": 164,
-        "total": 164,
-        "failures": 0
-      },
-      "responsive_render": {
-        "passed": 84,
-        "total": 84,
-        "failures": 0
-      },
-      "shared_header_code_integrity": {
-        "status": "PASS_WITH_HARDENING_NOTES",
-        "blocking_findings": 0,
-        "runtime_cases": 16
-      },
-      "shared_header_hardening": {
-        "status": "PASS",
-        "source_routes": 20,
-        "route_viewport_cases": 40,
-        "saved_session_idempotency_cases": 1,
-        "failures": 0
-      }
+      "pass10_source_authority_gate": "PASS",
+      "derivative_conformance": "PASS",
+      "responsive_render": "PASS",
+      "shared_header_code_integrity": "PASS / 0 blocking findings",
+      "shared_header_hardening": "PASS / 0 failures",
+      "actions_governance": "PASS"
     },
     "artifact": {
-      "id": 9976935681,
+      "id": 9985428175,
       "name": "P120_ABOUT_IMPLEMENTATION_PASS1_QA",
-      "size_bytes": 12878784,
-      "file_count": 54,
-      "digest": "sha256:a7e7d70aae8c63582c86417972d97ccf86381b697c8228ba48a31e61a725e327",
+      "size_bytes": 13010860,
+      "digest": "sha256:c76468e8358cf6ea6d5903e244d1e65082c5340ff38ff0694f4701c114180561",
       "retention_days": 30
     }
   },
@@ -157,8 +145,9 @@
   },
   "final_disposition": {
     "technical_pass": "CLOSED_GREEN",
-    "derivative": "CONTROLLED_CANDIDATE",
-    "merge": "NOT_AUTHORIZED_PENDING_PASS10",
-    "production": "UNCHANGED"
+    "source_authority": "PASS10_FROZEN_BOUND",
+    "derivative": "RELEASE_PROMOTION_AUTHORIZED",
+    "merge": "AUTHORIZED",
+    "production": "PENDING_MERGE_DEPLOYMENT_POST_MERGE_REGRESSION"
   }
 }
