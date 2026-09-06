@@ -59,21 +59,30 @@ try{
       add(`${prefix} / requested theme preserved`,theme===vp.theme,{theme,expected:vp.theme});
 
       const contrast=await panel.evaluate(el=>{
-        const rgb=s=>{const m=String(s).match(/rgba?\((\d+(?:\.\d+)?)[, ]+\s*(\d+(?:\.\d+)?)[, ]+\s*(\d+(?:\.\d+)?)/);return m?[+m[1],+m[2],+m[3]]:null};
-        const lum=c=>{const f=v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4};return .2126*f(c[0])+.7152*f(c[1])+.0722*f(c[2])};
+        const rgb=s=>{
+          const value=String(s||'').trim();
+          let m=value.match(/rgba?\(\s*(-?\d+(?:\.\d+)?)\s*[, ]+\s*(-?\d+(?:\.\d+)?)\s*[, ]+\s*(-?\d+(?:\.\d+)?)/i);
+          if(m)return [+m[1],+m[2],+m[3]];
+          m=value.match(/color\(\s*srgb\s+(-?\d*\.?\d+)\s+(-?\d*\.?\d+)\s+(-?\d*\.?\d+)(?:\s*\/\s*-?\d*\.?\d+)?\s*\)/i);
+          if(m)return [+m[1]*255,+m[2]*255,+m[3]*255];
+          return null;
+        };
+        const lum=c=>{const f=v=>{v=Math.max(0,Math.min(255,v))/255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4};return .2126*f(c[0])+.7152*f(c[1])+.0722*f(c[2])};
         const ratio=(a,b)=>{const x=lum(a),y=lum(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
         const blend=(fg,bg,a)=>fg.map((v,i)=>v*a+bg[i]*(1-a));
         const p=getComputedStyle(el), d=getComputedStyle(el.querySelector('.p120-homepage-pass2__display')), b=getComputedStyle(el.querySelector('.p120-homepage-pass2__body'));
         const bg=rgb(p.backgroundColor), dc=rgb(d.color), bc=rgb(b.color);
-        if(!bg||!dc||!bc)return {background:p.backgroundColor,display:d.color,body:b.color,displayRatio:0,bodyRatio:0};
+        if(!bg||!dc||!bc)return {background:p.backgroundColor,display:d.color,body:b.color,displayRatio:0,bodyRatio:0,parser:'UNRESOLVED'};
         const bodyOpacity=Math.max(0,Math.min(1,Number.parseFloat(b.opacity)||1));
         return {
           background:p.backgroundColor,display:d.color,body:b.color,bodyOpacity,
           displayRatio:ratio(dc,bg),
           bodyRatio:ratio(blend(bc,bg,bodyOpacity),bg),
-          backgroundLuminance:lum(bg),displayLuminance:lum(dc)
+          backgroundLuminance:lum(bg),displayLuminance:lum(dc),
+          parser:'RESOLVED'
         };
       });
+      add(`${prefix} / contrast colors parsed`,contrast.parser==='RESOLVED',contrast);
       add(`${prefix} / architecture headline contrast >= 4.5`,contrast.displayRatio>=4.5,contrast);
       add(`${prefix} / architecture body effective contrast >= 4.5`,contrast.bodyRatio>=4.5,contrast);
       if(vp.theme==='graphite'){
