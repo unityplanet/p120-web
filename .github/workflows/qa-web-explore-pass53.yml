@@ -1,6 +1,10 @@
 name: WEB-EXPLORE PASS 5.3 Brand Unification QA
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'p120-brand-system-v1.0.js'
+      - '.github/workflows/qa-web-explore-pass53.yml'
   push:
     branches: [main]
     paths:
@@ -68,7 +72,10 @@ jobs:
           grep -q "p120_web_theme_v16" p120-brand-system-v1.0.js
           grep -q "ИССЛЕДОВАТЕЛЬСКАЯ АРХИТЕКТУРА" p120-brand-system-v1.0.js
           grep -q "RESEARCH ARCHITECTURE" p120-brand-system-v1.0.js
-          grep -q "p120_web_prototype_v01" p120-brand-system-v1.0.js
+          # Runtime Reconciliation PASS 3 superseded the historical shared respondent
+          # key in shared navigation code. Assert the current locale-isolated authority.
+          grep -q "p120_runtime_session_ru_v1" p120-brand-system-v1.0.js
+          grep -q "p120_runtime_session_en_v1" p120-brand-system-v1.0.js
           ! grep -Eq '@media\(max-width:480px\)[[:space:]]*\{[[:space:]]*html\.p120-brand53-ready \.brand-mark\{display:none\}' p120-brand-system-v1.0.css
           # Frozen Why P-120 body sources are deliberately outside the mutation set.
           git diff HEAD^ --name-only 2>/dev/null | grep -Eq '^(why-p120/index\.html|why-p120/why-p120\.css|why-p120/why-p120\.js)$' && {
