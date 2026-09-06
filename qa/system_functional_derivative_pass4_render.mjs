@@ -32,8 +32,14 @@ try{
     const url=BASE+c.route;
     const resp=await page.goto(url,{waitUntil:'domcontentloaded',timeout:30000});
     check(`${c.id}: route HTTP OK`,!!resp&&resp.ok(),{status:resp?.status(),url});
-    await page.waitForFunction(()=>typeof window.openPreflight==='function',{timeout:15000});
-    await page.evaluate(()=>window.openPreflight());
+    await page.waitForSelector('[data-editorial-action="test"]',{timeout:15000});
+    const entered=await page.evaluate(()=>{
+      const trigger=document.querySelector('[data-editorial-action="test"]');
+      if(!trigger) return false;
+      trigger.click();
+      return true;
+    });
+    check(`${c.id}: existing System entry action invoked`,entered===true,entered);
     await page.waitForSelector('[data-p120-system-functional-derivative="pass4-v1.0"]',{timeout:15000});
     await page.evaluate(theme=>{document.body.dataset.theme=theme},c.theme);
     await page.waitForTimeout(120);
