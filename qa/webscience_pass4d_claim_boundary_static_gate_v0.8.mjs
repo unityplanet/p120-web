@@ -92,7 +92,7 @@ claim('CB-08','COM ceiling rejects factor confirmation, total, production scorin
 
 const mot=mod('MOT-12');
 claim('CB-09','MOT ceiling rejects total and healthy/unhealthy motive classification',
-  has(mot?.publication_ceiling?.ru,'MOT Total')&&has(mot?.publication_ceiling?.ru,'здоров')&&has(mot?.publication_ceiling?.en,'MOT Total')&&has(mot?.publication_ceiling?.en,'healthy/unhealthy'),
+  has(mot?.publication_ceiling?.ru,'общий показатель MOT')&&has(mot?.publication_ceiling?.ru,'здоров')&&has(mot?.publication_ceiling?.en,'MOT Total')&&has(mot?.publication_ceiling?.en,'healthy/unhealthy'),
   'modules[MOT-12].publication_ceiling');
 
 const self=mod('SELF-12');
