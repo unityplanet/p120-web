@@ -1,0 +1,46 @@
+name: HG-CGA PASS2 static-surface apply
+
+on:
+  push:
+    branches:
+      - feat/hgcga-web-implementation-pass2
+    paths:
+      - .github/workflows/hgcga-pass2-static-apply.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/hgcga-web-implementation-pass2
+          fetch-depth: 0
+      - name: Apply static-surface reconciliation
+        run: python tools/hgcga_pass2_static_surface_patch.py
+      - name: Verify research discovery on controlled surfaces
+        shell: python
+        run: |
+          from pathlib import Path
+          files=['about/index.html','why-p120/index.html','creator/index.html','extended/index.html','together/index.html','science/index.html','contact/index.html','en/about/index.html','en/why-p120/index.html','en/creator/index.html','en/extended/index.html','en/together/index.html','en/science/index.html','en/contact/index.html']
+          bad=[]
+          for f in files:
+              t=Path(f).read_text(encoding='utf-8')
+              if 'research/how-we-decide/' not in t:
+                  bad.append(f)
+          if bad:
+              raise SystemExit('missing research discovery: '+', '.join(bad))
+          print('static-surface research discovery: PASS')
+      - name: Commit controlled static-surface navigation delta
+        run: |
+          if git diff --quiet; then
+            echo 'No static-surface delta.'
+            exit 0
+          fi
+          git config user.name 'p120-governance-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add about why-p120 creator extended together science contact en/about en/why-p120 en/creator en/extended en/together en/science en/contact
+          git commit -m 'Wire HG-CGA research into global static navigation [skip ci]'
+          git push origin HEAD:feat/hgcga-web-implementation-pass2
