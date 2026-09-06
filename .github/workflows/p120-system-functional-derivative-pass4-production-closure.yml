@@ -26,8 +26,10 @@ jobs:
       - name: Verify QA branch is based on exact production application SHA
         run: |
           set -euo pipefail
+          actual_main="$(git rev-parse origin/main)"
+          echo "origin/main=$actual_main expected=$P120_EXPECTED_PRODUCTION_SHA"
+          test "$actual_main" = "$P120_EXPECTED_PRODUCTION_SHA"
           git merge-base --is-ancestor "$P120_EXPECTED_PRODUCTION_SHA" HEAD
-          test "$(git rev-parse main 2>/dev/null || git rev-parse origin/main)" = "$P120_EXPECTED_PRODUCTION_SHA"
 
       - name: Syntax preflight
         run: |
