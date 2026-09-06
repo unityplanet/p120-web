@@ -125,8 +125,8 @@ Hunsley & Meyer (2003) and Smith, Fischer & Fister (2003) are added as explicit 
 6. Evidence / Claim Binding — **PASS / CLOSED / v0.4**
 7. Extended / Outcomes Final Content Population — **PASS / CLOSED / v0.4**
 8. Cross-Layer Evidence Adjudication — **PASS / CLOSED WITH EMPIRICAL HOLD / v0.4**
-9. RU/EN Publication Projection — **NEXT ACTIVE STAGE**
-10. Renderer activation / Science QA preparation — **NEXT ACTIVE STAGE**
+9. RU/EN Publication Projection — **PASS / CLOSED / v0.5**
+10. Renderer activation — **NEXT ACTIVE STAGE / PASS 4B**
 11. Full RU/EN browser / claim-boundary / typography-local QA — **NOT STARTED**
 12. Controlled production gate — **NOT STARTED / MAIN UNTOUCHED**
 13. Mandatory full PASS package — **REQUIRED BEFORE PASS 4 FINAL CLOSURE**
@@ -145,6 +145,6 @@ No P-120 Extended Total, MOT Total, SELF Total, LIFE Total, generic Agency/Repai
 
 ## Next exact work
 
-**WEB-SCIENCE EXT PASS 4 — RU/EN Publication Projection, Renderer Activation & Science QA Preparation.**
+**WEB-SCIENCE EXT PASS 4B — Renderer Activation.**
 
 The next stage projects v0.4 content into the existing Scientific Base presentation layer, implements the Core-45 / Global-70 literature contract, preserves current Core and route regressions, and prepares bilingual browser/claim-boundary/local typography QA before any production merge.
