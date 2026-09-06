@@ -105,5 +105,5 @@ result={
 out=Path('qa-evidence-webscience-prod-g1-registry')
 out.mkdir(exist_ok=True)
 (out/'P120_WEBSCI_PROD_G1_REGISTRY_RECONCILIATION_QA_v1.1.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
-print(json.dumps({k:result[k] for k in ['status','checks_total','checks_passed','checks_failed','changed_files']},indent=2))
+print(json.dumps({k:result[k] for k in ['status','checks_total','checks_passed','checks_failed','changed_files','failures']},indent=2,ensure_ascii=False))
 if failures: sys.exit(1)
