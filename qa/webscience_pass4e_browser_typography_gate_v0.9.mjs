@@ -79,8 +79,8 @@ async function inspect(page){
       .filter(isVisible).map(el=>({text:(el.textContent||'').trim().slice(0,80),family:getComputedStyle(el).fontFamily}));
     const technicalWrong=technical.filter(x=>!/IBM Plex Mono/i.test(x.family));
     const criticalH2=[...document.querySelectorAll('.science-page .science-section h2,.science-page #p120-science-atlas h2,.science-page #p120-science-active-base h2')]
-      .filter(isVisible).map(el=>({text:(el.textContent||'').trim().slice(0,120),sw:el.scrollWidth,cw:el.clientWidth,sh:el.scrollHeight,ch:el.clientHeight,font:getComputedStyle(el).fontSize}));
-    const h2Overflow=criticalH2.filter(x=>x.sw>x.cw+2||x.sh>x.ch+3);
+      .filter(isVisible).map(el=>{const s=getComputedStyle(el);return {text:(el.textContent||'').trim().slice(0,120),sw:el.scrollWidth,cw:el.clientWidth,sh:el.scrollHeight,ch:el.clientHeight,font:s.fontSize,overflowX:s.overflowX,overflowY:s.overflowY};});
+    const h2Overflow=criticalH2.filter(x=>x.sw>x.cw+2||(['hidden','clip'].includes(x.overflowY)&&x.sh>x.ch+3));
     const chips=[...document.querySelectorAll('.science-page .p120-pass4c-chip')].filter(isVisible).map(el=>{const r=el.getBoundingClientRect(),p=el.parentElement?.getBoundingClientRect();return {text:(el.textContent||'').trim(),left:r.left,right:r.right,width:r.width,sw:el.scrollWidth,cw:el.clientWidth,parentLeft:p?.left,parentRight:p?.right};});
     const chipOverflow=chips.filter(x=>x.left<-1||x.right>vw+1||x.sw>x.cw+2||(x.parentLeft!=null&&(x.left<x.parentLeft-1||x.right>x.parentRight+1)));
     const targets=[...document.querySelectorAll('.science-page .science-subnav a,.science-page .p120-pass4c-filter,.science-page .ref-item .doi-link,.science-page .p120-pass4c-ref .doi-link')]
@@ -115,10 +115,13 @@ async function verifyBottomReachability(page,label){
     const nav=document.querySelector('.mobile-bottom-nav');
     const s=nav?getComputedStyle(nav):null;
     if(!nav||s.display==='none')return {applicable:false};
-    window.scrollTo(0,document.documentElement.scrollHeight);return {applicable:true};
+    document.documentElement.style.scrollBehavior='auto';
+    document.body.style.scrollBehavior='auto';
+    window.scrollTo({top:document.documentElement.scrollHeight,left:0,behavior:'auto'});
+    return {applicable:true};
   });
   if(!x.applicable){check(`${label}: mobile bottom navigation reachability n/a`,true);return;}
-  await sleep(80);
+  await sleep(40);
   const y=await page.evaluate(()=>{
     const nav=document.querySelector('.mobile-bottom-nav')?.getBoundingClientRect();
     const visibleSections=[...document.querySelectorAll('.science-page section,.science-page #p120-science-active-base')].filter(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect();return s.display!=='none'&&r.height>0;});
