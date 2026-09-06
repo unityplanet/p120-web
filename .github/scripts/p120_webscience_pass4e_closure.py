@@ -13,12 +13,17 @@ if qa.get('status')!='PASS' or qa.get('checks_failed')!=0:
     raise SystemExit('PASS 4E browser/typography evidence is not fully PASS')
 (W/Q.name).write_bytes(Q.read_bytes())
 
+diagnostic=json.loads((W/'P120_WEBSCI_EXT_PASS4_PASS4E_DIAGNOSTIC_FINDINGS_v0.9.json').read_text())
+if len(diagnostic.get('triage',{}).get('confirmed_blockers',[]))!=5:
+    raise SystemExit('PASS 4E diagnostic blocker binding mismatch')
+
 summary={
   'document_id':'P120-WEBSCI-EXT-004-PASS4E-QA-SUMMARY','version':V,'date':DATE,'status':'PASS',
   'matrix_state_count':2*7*5,
   'locales':['RU','EN'],
   'viewports':['320x800','390x844','768x1024','1024x900','1440x1000','1920x1080','2560x1440'],
   'bases':['CORE','EXTENDED','OUTCOMES','METHODS','LIBRARY'],
+  'diagnostic_blocker_count':5,
   'browser_typography_checks_total':qa['checks_total'],'browser_typography_checks_passed':qa['checks_passed'],'browser_typography_checks_failed':qa['checks_failed'],
   'upstream_regressions':{'PASS4A_projection':'2970/2970 PASS','PASS4C_global70':'88/88 PASS','PASS4D_static':'448/448 PASS','PASS4D_browser':'448/448 PASS'},
   'scope':'BROWSER_RESPONSIVE_TYPOGRAPHY_SCIENCE_QA',
@@ -39,11 +44,14 @@ report=f'''# P-120 WEB-SCIENCE EXT PASS 4E — Browser / Responsive / Typography
 PASS 4E is the production-grade visual QA gate for the controlled Science stack established in PASS 4A–4D. It tests dedicated RU/EN Science surfaces across Core, Extended, Outcomes, Methods and the integrated Global-70 Library. It does not alter scientific claims, evidence states, measurement, scoring, thresholds, respondent data, persistence or report calculations.
 
 ## Diagnostic phase
-The pre-correction diagnostic probe executed **70 rendered states**: 2 languages × 7 viewport classes × 5 active Science bases. It established that page-level responsive containment was already stable (zero document-level horizontal overflow and zero runtime-error runs), while identifying four presentation defects requiring bounded correction:
+The pre-correction diagnostic probe executed **70 rendered states**: 2 languages × 7 viewport classes × 5 active Science bases. It established that page-level responsive containment was already stable (zero document-level horizontal overflow and zero runtime-error runs), while identifying **five** presentation blockers requiring bounded correction:
 1. long Global-70 evidence-role metadata chips could exceed the 320px content width;
 2. several Russian H2 headings exhibited narrow-phone min-content clipping;
 3. functional Science labels requested IBM Plex Sans weights 750–900 although the controlled web font request provides real weights only through 700;
-4. selected mobile/tablet Science controls were below the 44px touch-target floor and selected reader-facing Core prose remained at 11px.
+4. selected mobile/tablet Science controls were below the 44px touch-target floor;
+5. selected reader-facing Core prose remained at 11px on narrow phones.
+
+The diagnostic evidence is bound to GitHub Actions run `{diagnostic['github_actions_run_id']}`, artifact `{diagnostic['github_artifact_id']}`, digest `{diagnostic['github_artifact_sha256']}`.
 
 ## Controlled presentation correction
 PASS 4E adds `p120-webscience-pass4e-visual-v0.9.css` through an exact additive loader after the sealed PASS 4C library runtime. The stylesheet is scoped to `.science-page` and performs presentation-only corrections:
@@ -98,7 +106,7 @@ delta='''# P-120 WEB-SCIENCE EXT PASS 4E — Controlled Delta / Changelog
 - `p120-webscience-pass4e-visual-v0.9.css` — dedicated Science responsive/typography correction layer.
 - exact additive PASS 4E stylesheet loader appended after the sealed PASS 4C library runtime.
 - 70-state browser / responsive / typography QA gate.
-- diagnostic 70-state visual probe and representative screenshot evidence.
+- diagnostic 70-state visual probe and controlled diagnostic provenance record.
 
 ## Corrected
 - 320px Global-70 long evidence-role chip containment.
@@ -119,6 +127,7 @@ files=[
  'p120-webscience-pass4e-visual-v0.9.css',
  'qa/webscience_pass4e_visual_probe_v0.9.mjs',
  'qa/webscience_pass4e_browser_typography_gate_v0.9.mjs',
+ 'webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_DIAGNOSTIC_FINDINGS_v0.9.json',
  'webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_BROWSER_TYPOGRAPHY_QA_RESULT_v0.9.json',
  'webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_QA_SUMMARY_v0.9.json',
  'webscience/pass4/P120_WEBSCI_EXT_PASS4_PASS4E_REPORT_v0.9.md',
@@ -131,8 +140,10 @@ manifest={
  'status':'PASS4E_CLOSED_CONTROLLED','branch':BRANCH,'baseline_commit':BASE,
  'production_main_mutated':False,'production_merge':'NOT_PERFORMED','scientific_content_mutated':False,
  'measurement_mutated':False,'scoring_mutated':False,'thresholds_mutated':False,
- 'responsive_matrix_states':70,'typography_conformance_established':True,'global70_narrow_view_containment_established':True,
+ 'responsive_matrix_states':70,'diagnostic_blockers_corrected':5,
+ 'typography_conformance_established':True,'global70_narrow_view_containment_established':True,
  'presentation_correction_layer':'p120-webscience-pass4e-visual-v0.9.css',
+ 'diagnostic_provenance':{'run_id':diagnostic['github_actions_run_id'],'artifact_id':diagnostic['github_artifact_id'],'artifact_sha256':diagnostic['github_artifact_sha256']},
  'files':[{'path':p,'sha256':sha(p)} for p in files],
  'next_gate':'PASS 4F — Closure Reconciliation'
 }
