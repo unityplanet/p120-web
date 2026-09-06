@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - work/web-design-reconciliation-pass3a
+      - work/web-design-pass3a-reconciliation-delta
   pull_request:
     paths:
       - 'p120-brand-system-v1.0.css'
