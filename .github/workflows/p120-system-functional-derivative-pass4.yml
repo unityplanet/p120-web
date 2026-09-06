@@ -1,0 +1,80 @@
+name: P120 System Functional Derivative PASS 4 QA
+
+on:
+  push:
+    branches:
+      - 'feat/system-functional-derivative-pass4'
+    paths:
+      - 'p120-system-route-guard-v1.0.js'
+      - 'qa/system_functional_derivative_pass4_static.mjs'
+      - 'qa/system_functional_derivative_pass4_render.mjs'
+      - 'P120_SYSTEM_IMPLEMENTATION_PASS4_*'
+      - '.github/workflows/p120-system-functional-derivative-pass4.yml'
+  pull_request:
+    paths:
+      - 'p120-system-route-guard-v1.0.js'
+      - 'qa/system_functional_derivative_pass4_static.mjs'
+      - 'qa/system_functional_derivative_pass4_render.mjs'
+      - 'P120_SYSTEM_IMPLEMENTATION_PASS4_*'
+      - '.github/workflows/p120-system-functional-derivative-pass4.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  system-functional-derivative-pass4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Syntax preflight
+        run: |
+          node --check p120-system-route-guard-v1.0.js
+          node --check qa/system_functional_derivative_pass4_static.mjs
+          node --check qa/system_functional_derivative_pass4_render.mjs
+
+      - name: PASS 4 static authority and runtime firewall
+        run: node qa/system_functional_derivative_pass4_static.mjs
+
+      - name: Existing static build conformance
+        run: python3 qa/check_build.py
+
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+
+      - name: Start local P-120 sites
+        run: |
+          python3 -m http.server 4178 --bind 127.0.0.1 >/tmp/p120-system-pass4-root.log 2>&1 &
+          python3 -m http.server 4174 --bind 127.0.0.1 --directory .. >/tmp/p120-system-pass4-prefix.log 2>&1 &
+          sleep 2
+
+      - name: Inherited PASS 3 respondent-session and measurement contract
+        run: node qa/pass3_session_contract_gate_v1.mjs
+
+      - name: PASS 4 RU/EN responsive functional-derivative render
+        env:
+          P120_QA_BASE: http://127.0.0.1:4174/p120-web
+        run: node qa/system_functional_derivative_pass4_render.mjs
+
+      - name: Global header hardening regression
+        env:
+          P120_QA_BASE: http://127.0.0.1:4178
+        run: node qa/global_header_code_hardening_pass21.mjs
+
+      - name: Upload PASS 4 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P120_SYSTEM_FUNCTIONAL_DERIVATIVE_PASS4_QA
+          path: |
+            qa-evidence-system-pass4
+            qa-evidence-pass3-session-contract-v1
+            qa-artifacts/header-code-pass21
+          retention-days: 30
