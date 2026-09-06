@@ -1,0 +1,56 @@
+{
+  "standard": "P120",
+  "document_id": "P120-WEBSCI-PROD-G1-SCIENTIFIC-BASE-BASELINE-RECONCILIATION",
+  "version": "v1.0",
+  "date": "2026-09-06",
+  "status": "PASS_BASELINE_RECONCILED_CONTROLLED",
+  "gate": "WEB-SCIENCE PRODUCTION ACTIVATION GATE 1",
+  "scope": "SCIENTIFIC_BASE_PRODUCTION_BASELINE_RECONCILIATION_ONLY",
+  "legacy_scientific_base_baseline": "6ef15f83ab1d7db132151b0d2216ba788f65ec71",
+  "sealed_pass4_authority": "d095cae40b33da2118e5090be2a2c837205d8b64",
+  "production_activation_merge": "2c1f6ad9844d948c0e16e2f016ce8eeba339ef02",
+  "reconciliation_evidence_head": "5c642e68118fad553cfde47420ae0f4d4a425f05",
+  "workflow": {
+    "run_id": 34027046342,
+    "job_id": 101469763201,
+    "conclusion": "success"
+  },
+  "qa": {
+    "baseline_reconciliation": "36/36 PASS",
+    "scientific_base_browser": "269/269 PASS",
+    "language_switch": "PASS"
+  },
+  "artifact": {
+    "id": 9987412336,
+    "name": "P120_SCIENTIFIC_BASE_PRODUCTION_QA",
+    "digest": "sha256:e8b962039ed7608c0122cdc0459a63d5427a951fbc8ff393073821364c9eef09",
+    "file_count": 23,
+    "size_bytes": 51425589
+  },
+  "baseline_disposition": {
+    "science/index.html": "LEGACY_BASELINE_RETAINED_EXACT",
+    "en/science/index.html": "LEGACY_BASELINE_RETAINED_EXACT",
+    "language-switch-v1.0.js": "LEGACY_BASELINE_RETAINED_EXACT",
+    "P120_WEBSCI_PRODUCTION_registry_v1.0_2026-09-02.json": "LEGACY_BASELINE_RETAINED_EXACT",
+    "p120-scientific-base-runtime-v1.0.js": "SUPERSEDED_BY_EXACT_SEALED_PASS4_RUNTIME_WITH_COMPLETE_LEGACY_CORE_PREFIX_PRESERVED"
+  },
+  "runtime_sha256": {
+    "legacy": "2eaa1c89a2b3d98f676724e542aba4aaea69732e351d1306b2d300a88007fd26",
+    "sealed": "d25a030b36adcfabd6015455b93ef322e9dab83e4c87cfa66251e487e1d6d9d1",
+    "activation": "d25a030b36adcfabd6015455b93ef322e9dab83e4c87cfa66251e487e1d6d9d1",
+    "reconciliation_head": "d25a030b36adcfabd6015455b93ef322e9dab83e4c87cfa66251e487e1d6d9d1"
+  },
+  "authorized_runtime_delta": {
+    "type": "ADDITIVE_PASS4B_PUBLICATION_RENDERER_LOADER_ONLY",
+    "legacy_core_prefix_preserved": true,
+    "science_route_scoped": true,
+    "storage_or_session_access_added": false,
+    "measurement_mutation": false,
+    "scoring_mutation": false,
+    "threshold_mutation": false
+  },
+  "scientific_status_upgrade": false,
+  "public_ceiling_changed": false,
+  "production_activation_gate_status": "OPEN_PENDING_BASELINE_RECONCILIATION_MERGE_AND_FINAL_CLOSURE",
+  "decision": "ACCEPT_SPLIT_BASELINE_AUTHORITY_WITH_NO_RETROACTIVE_REWRITE_OF_LEGACY_RECORDS"
+}
